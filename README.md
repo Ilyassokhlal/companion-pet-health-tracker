@@ -289,22 +289,35 @@ excellent score for "my cat's kidney problem" and is entirely wrong.
 its own `Article - Section` heading, so citations read `Canine distemper - Prevention`
 rather than a bare filename, and the heading words contribute to the embedding.
 
-**Retrieval** — top `MAX_RESULTS` chunks by cosine distance, anything above
-`CONFIDENCE_THRESHOLD` discarded. Measured on this corpus:
+**Retrieval** — two queries, because scope-checking and chunk-selection want different things.
+
+The pet's **name is swapped for its species** in both. This matters more than it sounds:
+`"why is Flash coughing?"` scores **1.302** and gets refused, because the embedding model
+reads "Flash" as camera flash or lightning. As `"why is Dog coughing?"` it scores **0.537**.
+
+The **gate query** stops there and decides whether the question is in scope at all:
 
 | Query type | Best distance |
 |---|---|
-| Real pet questions | 0.49 – 0.88 |
-| Off-topic questions | 1.47 – 1.77 |
+| Real pet questions | 0.45 – 0.99 |
+| Off-topic questions | 1.47 – 1.74 |
 
-The 1.2 threshold sits in that gap, so "how do I fix my car engine" is refused before
+The 1.2 threshold sits in that gap, so "how do I renew my passport" is refused before
 reaching the model.
 
-**Query rewriting** — the pet's name is swapped for its species before querying Chroma.
-This matters more than it sounds: `"why is flash coughing weirdly?"` scores **1.302** and
-gets refused, because the embedding model reads "Flash" as camera flash or lightning. The
-same question as `"why is Dog coughing weirdly? Dog"` scores **0.582**. The original
-wording still goes to the LLM; only the retrieval query is rewritten.
+The **retrieval query** additionally appends the species, which is what keeps dog and cat
+material apart. For a cat, `"What should I feed my pet?"` retrieves `dog_food.txt` without
+it and `cat_food.txt` with it — the difference between correct advice and confidently wrong
+advice.
+
+That suffix can't be used for the gate, though. One domain word pulls *any* question toward
+a corpus that is entirely about dogs and cats: "What is the capital of France?" drops from
+**1.471** to **1.038**, under the threshold, and would be answered. Real questions barely
+move, since they're already close. Splitting the two queries keeps the species targeting
+without eroding the guardrail, at the cost of one extra ChromaDB lookup — single-digit
+milliseconds against a 16-second answer.
+
+The original question wording always goes to the LLM; only the retrieval queries are rewritten.
 
 **Guardrails**
 1. A system prompt that separates CONTEXT (general veterinary material) from PET (this

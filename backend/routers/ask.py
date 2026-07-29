@@ -24,10 +24,14 @@ def ingest_corpus(current_user: User = Depends(get_current_user)):
     """Ingest the reference corpus into ChromaDB."""
     return rag.ingest()
 
+def _gate_query(question: str, pet) -> str:
+    """Query used to decide whether the question is in scope at all."""
+    return re.sub(re.escape(pet.name), pet.species, question, flags=re.IGNORECASE)
+
+
 def _retrieval_query(question: str, pet) -> str:
-    """Swap the pet's name for its species — the embedding model doesn't know individual pet names."""
-    query = re.sub(re.escape(pet.name), pet.species, question, flags=re.IGNORECASE)
-    return f"{query} {pet.species}"
+    """Query used to pick chunks — the species suffix keeps dog and cat material apart."""
+    return f"{_gate_query(question, pet)} {pet.species}"
 
 def _format_pet_context(pet, records) -> str:
     """Format the pet's details and health history for the prompt."""
@@ -91,8 +95,9 @@ def ask(
     # Format the pet context
     pet_context = _format_pet_context(pet, records)
 
-    # Retrieve relevant chunks from ChromaDB
-    chunks = rag.retrieve(_retrieval_query(question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD)
+    # Determine if the question is in scope and retrieve relevant chunks from ChromaDB
+    in_scope = rag.retrieve(_gate_query(question, pet), 1, settings.CONFIDENCE_THRESHOLD)
+    chunks = rag.retrieve(_retrieval_query(question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
 
     if not chunks:
         return JSONResponse(
