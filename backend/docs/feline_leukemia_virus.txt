@@ -1,0 +1,95 @@
+Feline leukemia virus
+Feline leukemia virus (FeLV) is a retrovirus that infects cats. FeLV can be transmitted by infected cats via the transfer of saliva or nasal secretions. If the animal's immune system fails to neutralize the virus, it may become severely weakened by it, potentially leading to lethal disease. Because FeLV is cat-to-cat contagious, FeLV+ cats should only live with other FeLV+ cats.
+
+Feline leukemia virus
+FeLV is categorized into four subgroups, A, B, C and T. An infected cat has a combination of FeLV-A and one or more of the other subgroups. Symptoms, prognosis and treatment are all affected by subgroup.
+
+Feline leukemia virus
+The signs and symptoms of infection with feline leukemia virus are quite varied and include loss of appetite, poor coat condition, anisocoria (uneven pupils), infections of the skin, bladder, and respiratory tract, oral disease, seizures, lymphadenopathy (swollen lymph nodes), skin lesions, fatigue, fever, weight loss, stomatitis, gingivitis, litter box avoidance, pancytopenia, recurring bacterial and viral illnesses, anemia, diarrhea and jaundice.
+
+Feline leukemia virus
+The disease has a wide range of effects. The cat can fight off the infection and become totally immune, can become a healthy carrier that never gets sick itself but can infect other cats, or a mid-level case in which the cat has a compromised immune system. Nevertheless, the development of lymphomas is considered the final stage of the disease. Although it is thought that virus protein has to be present to induce lymphomas in cats, newer evidence shows that a high percentage of FeLV-Antigen negative lymphomas contain FeLV-DNA, indicating a "hit-and-run" mechanism of virus-induced tumor development.
+
+Feline leukemia virus
+Stage One: The virus enters the cat, usually through the pharynx where it infects the epithelial cells and infects the tonsilar B-lymphocytes and macrophages.  These white blood cells then filter down to the lymph nodes and begin to replicate.
+
+Feline leukemia virus
+Stage Three: The lymphoid system (which produces antibodies to attack infected and cancerous cells) becomes infected, with further distribution throughout the body.
+
+Feline leukemia virus
+Stage Five: The bone marrow becomes infected. At this point, the virus will stay with the cat for the rest of its life.  In this phase, the virus replicates and is released four to seven days later in infected neutrophils, and sometimes lymphocytes, monocytes, and eosinophils (all white blood cells formed in the bone marrow).
+
+Feline leukemia virus
+Stage Six: The cat's body is overwhelmed by infection and mucosal and glandular epithelial cells (tissue that forms a thin protective layer on exposed bodily surfaces and forms the lining of internal cavities, ducts, and organs) become infected.  The virus replicates in epithelial tissues including salivary glands, oropharynx, stomach, esophagus, intestines, trachea, nasopharynx, renal tubules, bladder, pancreas, alveolar ducts, and sebaceous ducts from the muzzle.
+
+Feline leukemia virus - Transmission
+Cats infected with FeLV can serve as sources of infection of FeLV-A. Cats can pass the virus between themselves through saliva and close contact, by biting another cat, and (rarely) through a litter box or food dish used by an infected cat.
+
+Feline leukemia virus - Transmission
+Once a cat has been infected with FeLV-A, additional mutated forms of the original FeLV-A virus may arise, as may FeLV subgroups B, C and T.
+
+Feline leukemia virus - Transmission
+In addition to domestic cats, some other members of Felidae are now threatened by FeLV (e.g. lynx and Florida panther). Overwhelming epidemiologic evidence suggests FeLV is not transmissible to either humans or dogs.
+
+Feline leukemia virus - Transmission
+Approximately 0.5% of pet cats are persistently infected with FeLV, but many more pet cats (>35%) have specific IgG antibodies which indicate prior exposure and subsequent development of immunity instead of infection. FeLV is highly infectious.
+
+Feline leukemia virus - Transmission
+Infection is far higher in city cats, stray or owned, than in rural cats: this is entirely due to the amount of contact the cats have with each other.
+
+Feline leukemia virus - Transmission
+Testing for FeLV is possible with ELISA tests that look for viral antigens, free particles found in the bloodstream. These ELISA tests use blood samples most often, but can also use saliva or eye secretions. The sample is added to a container or dish that contains the antibodies to the viral antigens. If the antigens are present in the sample, the antibodies will bind to them and an indicator on the test will change color. These give a definitive diagnosis, but it cannot differentiate between acute or persistent infections. Therefore, it is recommended that the cat be retested in three to four months after the positive result to determine if the virus has been cleared from the body.
+
+Feline leukemia virus - Transmission
+Diagnosis can also be made by reference lab testing, using an immunofluorescence (IFA) test. The IFA test uses a blood sample and will detect the virus once it is in the bone marrow by detecting the virus's presence in white blood cells. IFA testing will not give positive results for transient, primary infections – the infection must be persistent to get a positive result on this test. Other than ELISA and IFA testing, routine laboratory blood work may show changes that indicate infection but cannot be used as a definitive diagnosis. There may be blood cell count changes like leukopenia, decreased Packed Cell Volume (PCV) and Total Protein (TP) levels due to anemia, hemoconcentration and hypoglycemia due to vomiting and diarrhea, electrolyte imbalance caused by dehydration and anorexia, and recurrent urinary tract infections.
+
+Feline leukemia virus - Transmission
+Cats diagnosed as persistently infected by ELISA testing may die within a few months or may remain asymptomatic for longer; median survival time after diagnosis is 2.5 years.
+
+Feline leukemia virus - Transmission
+FeLV-A is responsible for the immunosuppression characteristic of the disease. The vast majority of cats with FeLV have FeLV-A. An exception was reported in 2013.
+
+Feline leukemia virus - Transmission
+FeLV-B causes an additional increase in the incidence of tumors and other abnormal tissue growths. About half of FeLV infected cats have FeLV-B. It forms by recombination of FeLV-A and cat endogenous FeLV (enFeLV).
+
+Feline leukemia virus - Transmission
+The fatal diseases are leukemias, lymphomas, and non-regenerative anemias. Although there is no known cure for the virus infection, in 2006 the United States Department of Agriculture approved Lymphocyte T-Cell Immunomodulator as a treatment aid for FeLV (see Treatment).
+
+Feline leukemia virus - Transmission
+In Canada, one feline infected with progressive Feline Leukemia Virus Type C and its Immune-Mediated Hemolytic Anemia complication has been successfully managed so far for over 6 months with the use of high-dose corticosteroids, broad-spectrum antibiotics to treat opportunistic and comorbid infections, antiviral medications, and immunomodulators such as cyclosporine after requiring multiple packed red blood cell transfusions to raise a critically low blood cell count.
+
+Feline leukemia virus - Transmission
+Three types of vaccines for FeLV are available: an adjuvanted killed virus noninfectious vaccine, an adjuvanted subunit vaccine, and a nonadjuvanted canarypox virus-vectored recombinant infectious vaccine (ATCvet code QI066AA01 and various combination vaccines), though no currently available vaccine offers 100% protection from the virus. Vaccination is recommended for high-risk cats: those that have access to the outdoors, feral cats, cats that do not have the virus but live with an infected cat, multicat households, and cats with an unknown status, such as cats in catteries and shelters.
+
+Feline leukemia virus - Transmission
+Serious side effects have also been reported as a result of FeLV vaccination;  in particular, a small percentage of cats who received the adjuvanted killed virus vaccine developed vaccine-associated sarcomas, an aggressive tumour, at the injection site. The development of sarcomas with the use of the old FeLV and other vaccines may be due to the inflammation caused by aluminium adjuvants in the vaccines.
+
+Feline leukemia virus - Transmission
+Merial produces a recombinant vaccine consisting of canarypox virus carrying FeLV gag and env genes (sold as PUREVAX FeLV in the US and Eurifel FeLV in Europe). This is thought to be safer than the old vaccine as it does not require an adjuvant to be effective. Although this is a live virus, it originates from a bird host and so does not replicate in mammals.
+
+Feline leukemia virus - Transmission
+Feline leukemia virus (FeLV) is an RNA virus in the Retroviridae family. The virus comprises 5' and 3' LTRs and three genes: Gag (structural), Pol (enzymes) and Env (envelope and transmembrane); the total genome is about 9,600 base pairs.
+
+Feline leukemia virus - Treatment
+In 2006, the United States Department of Agriculture issued a conditional license for a new treatment aid termed Lymphocyte T-Cell Immunomodulator (LTCI). Lymphocyte T-Cell Immunomodulator is manufactured and distributed exclusively by T-Cyte Therapeutics, Inc.
+
+Feline leukemia virus - Treatment
+Lymphocyte T-Cell Immunomodulator is intended as an aid in the treatment of cats infected with feline leukemia virus (FeLV) and/or feline immunodeficiency virus (FIV), and the associated symptoms of lymphocytopenia, opportunistic infection, anemia, granulocytopenia, or thrombocytopenia. The absence of any observed adverse events in several animal species suggests that the product has a very low toxicity profile.
+
+Feline leukemia virus - Treatment
+Lymphocyte T-Cell Immunomodulator is a potent regulator of CD-4 lymphocyte production and function. It has been shown to increase lymphocyte numbers and Interleukin 2 production in animals.
+
+Feline leukemia virus - Treatment
+Lymphocyte T-Cell Immunomodulator is a single chain polypeptide.  It is a strongly cationic glycoprotein, and is purified with cation exchange resin.  Purification of protein from bovine-derived stromal cell supernatants produces a substantially homogeneous factor, free of extraneous materials.  The bovine protein is homologous with other mammalian species and is a homogeneous 50 kDa glycoprotein with an isoelectric point of 6.5.  The protein is prepared in a lyophilized 1 microgram dose.  Reconstitution in sterile diluent produces a solution for subcutaneous injection.
+
+Feline leukemia virus - Treatment
+Interferon-ω (omega) is sold in Europe at least under the name Virbagen Omega  and manufactured by Virbac. When used in treatment of cats infected with FeLV in non-terminal clinical stages (over the age of 9 weeks) there have been substantial improvements in mortality rates; in non-anemic cats, mortality rate of 50% was reduced by approximately  20% following treatment.
+
+Feline leukemia virus - Treatment
+FeLV was first described in cats in 1964. The disease was originally associated with leukemia; however, it was later realized that the initial signs are generally anemia and immunosuppression. The first diagnostic test became available in 1973, which led to a "test and elimination" regime, dramatically reducing the number of infected cats in the general population. The first vaccine became available in 1986.
+
+Feline leukemia virus - Treatment
+FeLV and feline immunodeficiency virus (FIV) are sometimes mistaken for one another, though the viruses differ in many ways. Although they are both in the same retroviral subfamily (Orthoretrovirinae), they are classified in different genera (FeLV is a gamma-retrovirus and FIV is a lentivirus like HIV-1). Their shapes are quite different: FeLV is more circular while FIV is elongated.  The two viruses are also quite different genetically, and their protein coats differ in size and composition.  Although many of the diseases caused by FeLV and FIV are similar, the specific ways in which they are caused also differ. Also, while the feline leukemia virus may cause symptomatic illness in an infected cat, an FIV infected cat can remain completely asymptomatic its entire lifetime.
+
+Feline leukemia virus - Treatment
+B. Zharkoy, A. Zolototrubov, D. Fedosov. "Intensity of free radical processes in limphocytes at BLV and FeLV". Journal of Animal Science. XLII,5/2005, p. 272–276.

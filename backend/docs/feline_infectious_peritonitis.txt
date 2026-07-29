@@ -1,0 +1,107 @@
+Feline infectious peritonitis
+Feline infectious peritonitis (FIP) is a common and aberrant immune response in cats to infection with feline coronavirus (FCoV).
+
+Feline infectious peritonitis
+Feline infectious peritonitis is a viral and fatal immune disease caused by the mutated FCoV. FCoV is a common virus found in most cats, however only few (less than 10%) develop FIP from mutation of the coronavirus. When a cat develops FIP, they can develop either a wet or dry form of the virus, both resulting in eventual mortality.
+
+Feline infectious peritonitis
+FCoV is a virus of the gastrointestinal tract. Most infections are either asymptomatic or cause diarrhea, especially in kittens, as maternally derived antibody wanes at between 5 and 7 weeks of age. The virus is a mutation of feline enteric coronavirus (FECV). From the gut, the virus very briefly undergoes a systemic phase, before returning to the gut where it is shed in the feces.
+
+Feline infectious peritonitis
+The pathogenesis of FIP is complex. There is a general consensus that FIPVs arise from mutations enabling them to enter or replicate more successfully in monocytes (a type of white blood cell). Many aspects of virus–host interactions affecting the disease remain uncertain, however, such as the factors that influence disease form (wet or dry), outcome (death or resistance), and host susceptibility.
+
+Feline infectious peritonitis
+Scientists have yet to explain why only few cats will develop the disease, while there has been research on if the disease has a genetic linkage that increases a cat's risk of developing FIP from FCoV.
+
+Feline infectious peritonitis
+There is a lack of evidence that FIP as such is transmissible from cat to cat, although it may explain rare mini-outbreaks of FIP. The virus, FCoV, is transmissible from cat to cat.
+
+Feline infectious peritonitis
+Although the virus is spread via FCoV, only a small precent of cats will develop FIP . It is more common in cats under two years of age, with a small number of geriatric cats also developing the disease.  Scientists have begun looking into the genetic linkage that could be causing FCoV to mutate into FIP. Age has been looked at when considering genetics as the immune system matures with age of cats.
+
+Feline infectious peritonitis
+A study on 59 FIP infected cats found that, unlike FCoV, feces from FIP infected cats were not infectious to laboratory cats via oronasal route. FCoV is common in places where large groups of cats are housed together indoors (such as breeding catteries, animal shelters, etc.). The virus is shed in feces, and cats become infected by ingesting or inhaling the virus, usually by sharing cat litter trays, or by the use of contaminated litter scoops or brushes transmitting infected microscopic cat litter particles to uninfected kittens and cats. FCoV can also be transmitted through different bodily fluids. The virus is easily spread through direct contact between cats. The most common form of spreading is through saliva, as most multiple cat homes share food and water dishes. Another major form of spreading is grooming or fighting. When an infected cat grooms a healthy cat, it leaves its contaminated saliva on the fur. Later, when the healthy cat goes to groom themself, it ingests the contaminated saliva and then becomes infected.
+
+Feline infectious peritonitis
+Two of FIP have been identified and examined based on how they cause the virus to mutate.  Factors also examined have been host genetics, environmental causes, and breed.  Another area scientists are examining are spike genes and NSPs.
+
+Feline infectious peritonitis - Clinical signs
+There are two main forms of FIP: effusive (wet) and non-effusive (dry). While both types are fatal, the effusive form is more common (60–70% of all cases) and progresses more rapidly than the non-effusive form.
+
+Feline infectious peritonitis - Clinical signs
+The hallmark clinical sign of effusive FIP is the accumulation of fluid within the abdomen or chest, which can cause breathing difficulties. Other symptoms include lack of appetite, fever, weight loss, jaundice, and diarrhea.
+
+Feline infectious peritonitis - Clinical signs
+In this stage of the disease, fluid forms and accumulates in areas of the body. It is more commonly seen in the lungs and abdomen. When fluid accumulates in the chest, cats experience difficulty breathing as more pressure is applied around the lungs. Fluid can also fill in the abdomen, resulting in a distended or swollen belly. To drain this fluid, a vet will use a needle and sedate the feline as removal of the fluid can alleviate discomfort and difficulty breathing. However, this is only a temporary fix as the cavities will eventually refill with fluid as the disease progresses.
+
+Feline infectious peritonitis - Clinical signs
+Dry FIP will also present with lack of appetite, fever, jaundice, diarrhea, and weight loss, but there will not be an accumulation of fluid. Typically a cat with dry FIP will show ocular or neurological signs. For example, the cat may develop difficulty in standing up or walking, becoming functionally paralyzed over time. Loss of vision is another possible outcome of the disease.
+
+Feline infectious peritonitis - Clinical signs
+In this stage, fluid accumulates little to none when compared to the "wet" form of the disease. Instead, inflammation occurs in the dry form and can include multiple organs and areas of the body such as: the brain, liver, eyes, and intestines. This causes many varying clinical symptoms. This stage also affects the nervous system, causing neurological symptoms. Treatment of these symptoms may vary and are more focused on treating the disease overall as once the disease progresses, it is almost always fatal.
+
+Feline infectious peritonitis - Diagnosis
+Measure the albumin to globulin ratio in the effusion: if it is over 0.8, FIP is ruled out; if it is less than 0.4, FIP is a possible—but not certain—diagnosis.
+
+Feline infectious peritonitis - Diagnosis
+Examine the cells in the effusion: if they are predominantly lymphocytes (a type of white blood cell), then FIP is excluded as a diagnosis.
+
+Feline infectious peritonitis - Diagnosis
+History: the cat had an opportunity to become infected with FCoV, such as originating in a breeding or rescue cattery, or the recent introduction of a purebred kitten or cat into the household.
+
+Feline infectious peritonitis - Diagnosis
+Clinical signs: the cat has become anorexic or is eating less than usual; has lost weight or failed to gain weight; has a fever of unknown origin; intra-ocular signs; jaundice.
+
+Feline infectious peritonitis - Diagnosis
+Serology: the cat has a high antibody titre to FCoV: this parameter should be used with caution, because of the high prevalence of FCoV in breeding and rescue catteries.
+
+Feline infectious peritonitis - Diagnosis
+Non-effusive FIP can be ruled out as a diagnosis if the cat is seronegative, provided the antibody test has excellent sensitivity. In a study that compared various commercially available in-house FCoV antibody tests, the FCoV Immunocomb (Biogal) was 100% sensitive; the Speed F-Corona rapid immunochromatographic (RIM) test (Virbac) was 92.4% sensitive and the FASTest feline infectious peritonitis (MegaCor Diagnostik) RIM test was 84.6% sensitive.
+
+Feline infectious peritonitis - Diagnosis
+Diagnosing FIP with the tools available leads accurate results which are essential when it comes to treating and remission of FIP.
+
+Feline infectious peritonitis - Treatment
+Because FIP is an immune-mediated disease, treatment falls into two categories: direct action against the virus itself and modulation of the immune response.
+
+Feline infectious peritonitis - GS-441524 and remdesivir
+An experimental drug called GS-441524 was used in a field experiment of 31 cats. After 25 days, five cats had died, eight had been cured and subsequently relapsed, and 18 had been cured without any subsequent relapses. The eight who relapsed were treated again, some with higher doses. Of these eight, one died and seven were cured, meaning that 25 of the 31 cats were ultimately cured of FIP. This study is considered very promising.
+
+Feline infectious peritonitis - GS-441524 and remdesivir
+In naturally infected cats, a recovery rate of over 80% has been observed with GS-441524 treatment in several studies and in treatment programs in countries where the drug is legalised.
+
+Feline infectious peritonitis - GS-441524 and remdesivir
+In several countries oral GS-441524 tablets (and its injectable prodrug remdesivir) became legally available to vets for the treatment of FIP in cats, for example in Australia, the Netherlands,, the United Kingdom (since August 2021), and the United States (2024).
+
+Feline infectious peritonitis - GC376
+An experimental antiviral drug called GC376 was used in a field trial of 20 cats: seven cats went into remission, and 13 cats responded initially but relapsed and were euthanized. This drug is not yet (as of 2017) commercially available.
+
+Feline infectious peritonitis - Molnupiravir
+Facing a high-fatality FCoV-23 outbreak on the island nation of Cyprus, on 8 August 2023 the government released 80,000 anti-COVID molnupiravir pills from its national COVID-19 stockpile, in a bid to solve the feline coronavirus crisis in a more cost-effective manner.
+
+Feline infectious peritonitis - Molnupiravir
+Immunostimulants are drugs that make the immune system more active against the virus. The most common drugs of this class for treating FIP are either recombinant feline interferon omega (Virbagen Omega, Virbac) or human
+
+Feline infectious peritonitis - Molnupiravir
+interferon alfa-2b. Since the human version ends up being targeted by the immune system for being a foreign antigen, the feline version feline interferon is more effective.
+
+Feline infectious peritonitis - Molnupiravir
+An experimental polyprenyl immunostimulant (PI) is manufactured by Sass and Sass and tested by Dr. Al Legendre, who described survival over 1 year in three cats diagnosed with FIP and treated with the medicine. In a subsequent field study of 60 cats with non-effusive FIP treated with PI, 52 cats (87%) died before 200 days, but eight cats survived over 200 days from the start of PI treatment for and four of those survived beyond 300 days.
+
+Feline infectious peritonitis - Molnupiravir
+Immunosuppressive drugs dampen the immune system, helping to reduce inflammation. The go-to immunosuppressive drug in FIP is prednisolone, a corticosteroid. There are no placebo-controlled trials showing prednisolone to be better than other anti-inflammatories.
+
+Feline infectious peritonitis - Molnupiravir
+Stopping the spread of FIP can be difficult, especially with only one known FDA approved treatment available in the United States. Because of this, it is important to be proactive and try to prevent FIP before the disease can begin its destructive turmoil. Preventing FIP also differs depending on the facility or environment of the cat.
+
+Feline infectious peritonitis - Molnupiravir
+In shelters and areas with high numbers of cats in confinement, prevention is essential as it only takes one cat to start a chain-reaction and spread of FIP. Prevention includes: antibody testing, environmental enrichment to decrease stress, multiple litter boxes that are cleaned regularly to prevent the spread in fecal matter.
+
+Feline infectious peritonitis - Molnupiravir
+Disinfection is also a key factor in stopping the spread of FIP. FCoV particles can be disinfected with products such as diluted bleach, UV light, and heat.
+
+Feline infectious peritonitis - Molnupiravir
+There is no effective vaccine against FIPV. DNA vaccination with plasmids encoding FIPV proteins failed to produce immunity. Rather, it was observed that antibodies to the FIPV spike protein exacerbate the disease.
+
+Feline infectious peritonitis - Molnupiravir
+A 2018 film titled Aeris, by Paul Castro Jr. and Aly Miller, and starring Frank Deal, Arabella Oz and Betsy Aidem, is about a kitten born with FIP that is purchased from a pet store and the owners' twelve days with it. The film received an award at the 2018 Garden State Film Festival in the Narrative Short category and was a Gold Kahuna winner at the 2018 Honolulu Film Awards.

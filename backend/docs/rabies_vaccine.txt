@@ -1,0 +1,41 @@
+Rabies vaccine - Medical uses
+If a dog, cat or ferret is still alive and healthy (as certified by a professional) after 10 days from the exposure, then it could not have been infectious at the time of the exposure. However, in countries where rabies is common, the possibility of keeping the animal under observation should not lead to delay in the beginning of the treatment, because human rabies symptoms can occur as early as 7 days, and once symptoms have started the treatment is no longer effective. Instead, post-exposure prophylaxis should be started immediately after exposure, and it can subsequently be discontinued after 10 days, with the existing treatment functioning as PrEP for future exposure.
+
+Rabies vaccine - Veterinary use
+Animals, not humans, serve as reservoir species for rabies and are responsible for passing the virus to humans in the overwhelming majority of cases. Therefore to eliminate rabies in an area is to eliminate rabies from the local animal populations, both wild and domestic. Pre-exposure immunization has been used on domesticated and wild populations. In many jurisdictions, domestic dogs, cats, ferrets, and rabbits are required to be vaccinated.
+
+Rabies vaccine - Veterinary use
+Live rabies virus from attenuated strains. Attenuated means strains that have developed mutations that cause them to be weaker and do not cause disease.
+
+Rabies vaccine - Veterinary use
+In this kind of vaccine, a suitably weak non-rabies virus is genetically modified to produce the antigenic "shell" of the rabies virus such as the rabies glycoprotein. As a result, the virions it makes after entering a cell would also have the shell of the rabies virus, allowing the immune system to learn about the antigen. It does not cause rabies because it does not have any other gene from rabies, but it may still be transmissible among animals depending on the design (replication-competence).
+
+Rabies vaccine - Veterinary use
+Only the first two types are approved for pets and are eligible for a vaccination certificate. The last is generally only available to government agencies for use on wildlife.
+
+Rabies vaccine - Veterinary use
+In 1979, the Van Houweling Research Laboratory of the Silliman University Medical Center in Dumaguete in the Philippines developed and produced a dog vaccine that gave a three-year immunity from rabies. The development of the vaccine resulted in the elimination of rabies in many parts of the Visayas and Mindanao Islands. The successful program in the Philippines was later used as a model by other countries, such as Ecuador and the Mexican state of Yucatán, in their fight against rabies conducted in collaboration with the World Health Organization.
+
+Rabies vaccine - Veterinary use
+In Tunisia, a rabies control program was initiated to give dog owners free of charge vaccination to promote mass vaccination which was sponsored by their government. The vaccine is known as Rabisin (Mérial), which is a cell based rabies vaccine only used countrywide. Vaccinations are often administered when owners take in their dogs for check-ups and visits at the vet.
+
+Rabies vaccine - Veterinary use
+Oral rabies vaccines (see below for details) have been trialled on feral/stray dogs in some areas with high rabies incidence, as it could potentially be more efficient than catching and injecting them. However these have not been deployed for dogs at large scale yet.
+
+Rabies vaccine - Veterinary use
+Wildlife species, primarily bats, raccoons, skunks, and foxes, act as reservoir species for different variants of the rabies virus in distinct geographic regions of the United States. This results in the general occurrence of rabies as well as outbreaks in animal populations.  Approximately 90% of all reported rabies cases in the US are from wildlife.
+
+Rabies vaccine - Veterinary use
+Injections are too laborious for reaching enough animals to reach herd immunity, so oral rabies vaccines (ORVs) are used instead. ORVs are incorporated into food baits and scattered across the landscape for them to be eaten. When an animal bites into the bait, the packets burst and the vaccine is administered. Current research suggests that if adequate amounts of the vaccine is ingested, immunity to the virus should last for upwards of one year.  By immunizing wild or stray animals, ORV programs work to create a buffer zone between the rabies virus and potential contact with humans, pets, or livestock. Landscape features such as large bodies of water and mountains are often used to enhance the effectiveness of the buffer. The effectiveness of ORV campaigns in specific areas is determined through trap-and-release methods. Titer tests are performed on the blood drawn from the sample animals in order to measure rabies antibody levels in the blood.  Baits are usually distributed by aircraft to more efficiently cover large, rural regions.  In order to place baits more precisely and to minimize human and pet contact with baits, they are distributed by hand in suburban or urban regions. The standard bait distribution density is 75 baits/km2 in rural areas and 150 baits/km2 in urban and developed areas.
+
+Rabies vaccine - Veterinary use
+ORV programs were initiated in Europe in the 1980s, Canada in 1985, and in the United States in 1990. ORV is a preventive measure to eliminate rabies in wild animal vectors of disease, mainly foxes, raccoons, raccoon dogs, coyotes and jackals, but also can be used for dogs in developing countries.  Implementation of ORV programs in the United States has led to the elimination of the coyote rabies virus variant in 2003 and gray fox variant during 2013. Furthermore, ORV has been successful in preventing the westward expansion of the raccoon rabies enzootic front beyond Alabama.
+
+Rabies vaccine - Veterinary use
+The idea of wildlife vaccination was conceived during the 1960s, and modified-live rabies viruses were used for the experimental oral vaccination of carnivores by the 1970s. Development of an oral immunization for wildlife began in the United States with laboratory trials using the live, attenuated Evelyn-Rokitnicki-Abelseth (ERA) vaccine, derived from the Street Alabama Dufferin (SAD) strain. The first ORV field trial using the live attenuated vaccine to immunize foxes occurred in Switzerland during 1978. Modified live virus vaccines may use strains such as SAG2 and SAD B19..
+
+Rabies vaccine - Veterinary use
+RABORAL V-RG (Boehringer Ingelheim, Duluth, GA, USA) is a vaccinia virus (originally a smallpox vaccine) modified to express rabies glycoprotein. V-RG has been proven safe in over 60 animal species including cats and dogs. It is only approved for wildlife and sold to federal agencies. V-RG has been the only ORV licensed in the US for rabies virus management since 1997. V-RG baits consist of a small packet containing the oral vaccine which is then either coated in a fishmeal paste or encased in a fishmeal-polymer block.
+
+Rabies vaccine - Veterinary use
+ONRAB "Ultralite" (Artemis Technologies Inc., Guelph, Ontario, Canada) is an experimental adenovirus vaccine. ONRAB baits have been distributed by the United States Department of Agriculture (USDA) in select areas of the eastern United States under an experimental permit to target raccoons since 2011.  ONRAB "Ultralite" baits consist of a blister pack with a coating matrix of vanilla flavor, green food coloring, vegetable oil and hydrogenated vegetable fat.

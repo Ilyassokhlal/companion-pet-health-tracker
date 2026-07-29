@@ -1,0 +1,215 @@
+Dog health
+Dog health is viewed holistically; it encompasses many different aspects, including disease processes, genetics, and nutritional health, for example. Infectious diseases that affect dogs are important not only from a veterinary standpoint, but also because of the risk to public health; an example of this is rabies. Genetic disorders also affect dogs, often due to selective breeding to produce individual dog breeds. Due to the popularity of both commercial and homemade dog foods, nutrition is also a heavily studied subject.
+
+Dog health - Diseases
+Some diseases and other health problems are common to both humans and dogs; others are unique to dogs and other animals.  Dogs are susceptible to various diseases; similarly to humans, they can have diabetes, epilepsy, cancer, or arthritis.
+
+Dog health - Diseases
+An infectious disease is caused by the presence of organisms such as viruses, bacteria, fungi, or parasites (either animalian or protozoan).  Most of these diseases are spread directly from dog to dog, while others require a vector such as a tick or mosquito. Certain infectious diseases are a concern from a public health standpoint because they are zoonoses (transmittable to humans)
+
+Dog health - Bacterial diseases
+Bacterial diseases in dogs are usually not contagious from dog to dog; instead they are usually the result of wound colonization, opportunistic infections secondary to decreased resistance (often the result of viral infections), or secondary to other conditions (pyoderma secondary to skin allergies or pyometra secondary to cystic endometrial hyperplasia).  These examples are not considered infectious diseases because they do not satisfy Koch's postulates – for example Staphylococcus intermedius, a commonly isolated bacteria from skin infections in dogs, would not cause pyoderma when introduced to a healthy dog.  In all likelihood that type of bacteria is already present on the skin of a healthy dog.
+
+Dog health - Bacterial diseases
+There are some bacteria that are contagious from dog to dog.  The most notable of these are Bordetella bronchiseptica, one of the causes of kennel cough, Leptospira sp, which cause leptospirosis, and Brucella canis, cause of brucellosis in dogs.  There are also common tick-borne bacterial diseases, including Lyme disease, ehrlichiosis, and Rocky Mountain spotted fever.
+
+Dog health - Bacterial diseases
+Leptospirosis is a zoonotic disease caused by bacteria of the genus Leptospira. Humans and dogs become infected through contact with water, food, or soil containing urine from infected animals. This may happen by swallowing contaminated food or water or through skin contact, especially with mucosal surfaces, such as the eyes or nose, or with broken skin. In dogs, transmission most commonly occurs by drinking puddle, pond, or ditch water contaminated by urine from infected wildlife such as squirrels or raccoons.  The liver and kidney are most commonly damaged by leptospirosis. Vasculitis can occur, causing edema and potentially disseminated intravascular coagulation (DIC). Myocarditis, pericarditis, meningitis, and uveitis are also possible sequelae.
+
+Dog health - Bacterial diseases
+Brucellosis in dogs is caused by Brucella canis.  It is a sexually transmitted disease, but can also be spread through contact with aborted fetuses.  The most common sign is abortion during the last trimester or stillbirth.  Other symptoms include inflammation of the intervertebral disc and eye (uveitis), and inflammation of the testicle (orchitis) and prostate (prostatitis) in males.
+
+Dog health - Bacterial diseases
+Tick-borne diseases are common in dogs.  Lyme disease, or borreliosis, is caused by Borrelia burgdorferi and spread by Ixodes pacificus on the West coast of the United States and by I. scapularis (deer tick) in the rest of the U.S.  Signs and symptoms include fever, joint swelling and pain, lameness, and swelling of the lymph nodes.  It has been diagnosed in dogs in all 48 states of the continental U.S.  Ehrlichia canis, which causes canine ehrlichiosis, and Rickettsia rickettsii, which causes Rocky Mountain spotted fever, are both spread by the American dog tick, Dermacentor variabilis, and the brown dog tick, Rhipicephalus sanguineous.
+
+Dog health - Bacterial diseases
+One of the most common fungal diseases in dogs is ringworm, or dermatophytosis, an infection of the skin, hair, or nails.  There are three fungal species that cause ringworm in dogs.  About 70 percent of infections are caused by Microsporum canis, 20 percent by M. gypseum, and 10 percent by Trichophyton mentagrophytes.  Signs include hair loss and scaling of the skin.  Treatment for localized ringworm is not always necessary as the disease is self-limiting, but the clinical course can be shortened by using topical miconazole or clotrimazole.  Generalized infections, most commonly seen in immunocompromised dogs, can be treated with oral antifungal drugs such as griseofulvin or itraconazole.  Infection can spread to humans.
+
+Dog health - Bacterial diseases
+There are several fungal diseases that are systemic in nature, meaning they are affecting multiple body systems. Blastomycosis, caused by Blastomyces species including Blastomyces dermatitidis, is a fungal disease that affects both dogs and humans. It is transmitted through the inhalation of fungal spores. It is found mainly in the United States in the Mississippi River and Great Lakes areas.  It has also been reported in four Canadian provinces; Saskatchewan, Manitoba, Ontario and Quebec. Signs include weight loss, cough, fever, enlarged lymph nodes, draining skin lesions, eye inflammation with discharge, blindness, and lameness.  Because dogs are ten times more likely to become infected from the environment than humans, they are considered to be sentinels for the disease.  Treatment requires a minimum 60–90-day course of oral antifungal medication or in severe cases intravenous antifungal injections.
+
+Dog health - Bacterial diseases
+Histoplasmosis, caused by Histoplasma capsulatum, is a disease with a worldwide distribution.  In the United States it is mainly found in the Mississippi and Ohio River areas, most commonly in bird and bat feces.  Signs include weight loss, cough, fever, enlarged lymph nodes, and gastrointestinal symptoms. Coccidioidomycosis, caused by Coccidioides immitis, is found in arid and semi-arid regions of Central and South America, Mexico, and southwestern United States.  Signs include weight loss, fever, cough, enlarged lymph nodes, and lameness.
+
+Dog health - Bacterial diseases
+Veterinary parasitology studies both external and internal parasites in animals. External parasites, such as fleas, mites, ticks and mosquitoes can cause skin irritation and are often carriers of other diseases or of internal parasites.
+
+Dog health - Bacterial diseases
+Fleas and ticks of various species can be acquired and brought home by a dog, where they can multiply and attack humans (and vice versa). These two parasites are particularly important to note, now that tick-borne Lyme disease has become endemic throughout a large area, in addition to other similar diseases such as Rocky Mountain spotted fever. Although dogs do not seem to be as susceptible to such diseases as humans, similar rickettsial diseases have been spread by dogs to humans through such mechanisms as a dog killing an infected rabbit, then shaking itself off in the house near enough to its owners to fatally infect most of the family.
+
+Dog health - Bacterial diseases
+Lice infestations (pediculosis) cause intense pruritus, scratching, and hair loss. The two species of chewing lice that affect dogs are Trichodectes canis and Heterodoxus spiniger. The dog sucking louse is Linognathus setosus.
+
+Dog health - Internal parasites
+Parasites, particularly intestinal worms such as hookworms, tapeworms and roundworms, can be transmitted in a dog's feces. Some tapeworms have fleas as intermediate hosts: the worm egg must be consumed by a flea to hatch, then the infected flea must be ingested (usually by the dog while grooming itself, but occasionally by a human through various means) for the adult worm to establish itself in the intestines. The worm's eggs then pass in the feces, and the cycle begins again. Intestinal worms cause varying degrees of discomfort.
+
+Dog health - Internal parasites
+Heartworm is a dog parasitoid.  It is hard to eliminate and can be fatal; prevention, however, is easily achieved using medication. As the name suggests, an infected mosquito injects a larva into the dog's skin, where it migrates to the circulatory system and takes up residence in the pulmonary arteries and heart, growing and reproducing to an alarming degree. The effects on the dog are quite predictable: cardiac failure leading to death. Treatment of an infected dog is difficult, involving an attempt to poison the healthy worm with arsenic compounds without killing the weakened dog, and may not succeed. Prevention is recommended via the use of heartworm prophylactics, which contain a compound that kills the larvae immediately upon infection without harming the dog.  Often they are combined with other parasite preventives.
+
+Dog health - Internal parasites
+Hydatidosis is caused by the cestode Echinococcus. It is observed in dogs, wild canids, foxes, etc. Due to its importance as a zoonosis, prevention and treatment is crucial. Preventing hydatidosis is an easier task than treatment. Anthelmintics such as praziquantel may help prevent this condition. Prohibition of the feeding of uncooked offals may be the best prophylactic measure against these tapeworms.
+
+Dog health - Genetic diseases
+Genetic conditions are a problem in some dogs, particularly purebreds. For this reason many of the national kennel clubs require that dogs with certain genetic illnesses or who are deemed to be carriers cannot be registered. Some of the most common conditions include hip dysplasia seen in large breed dogs; von Willebrand disease a disease that affects platelets that is inherited in Doberman Pinschers; entropion a curling in of the eyelid seen in Shar Peis and many other breeds; progressive retinal atrophy inherited in many breeds; deafness and epilepsy known to be inherited in Belgian Shepherd Dogs, German Shepherd Dogs, Cocker Spaniels, and St. Bernards.
+
+Dog health - Genetic diseases
+Subaortic stenosis, or SAS, is a genetic ailment that causes a narrowing of the passage of blood between the heart and the aorta. This leads to heart problems and sometimes sudden death. It affects larger breeds such as the Newfoundland dog and the Golden Retriever. In some dogs, such as collies, the blue merle or harlequin coloring is actually the heterozygote of a partially recessive gene preventing proper development of the nervous system; therefore, if two such dogs are mated, on the average one quarter of the puppies will have severe genetic defects in their nervous systems and sensory organs ranging from deafness to fatal flaws.
+
+Dog health - Skin diseases
+Skin diseases are very common in dogs. Atopy, a chronic allergic condition, is thought to affect up to 10 percent of dogs. Other skin diseases related to allergies include hot spots and pyoderma, both characterized by secondary bacterial infections, food allergy, ear infections, and flea allergy dermatitis. Canine follicular dysplasia is an inherited disorder of the hair follicles resulting in alopecia (baldness). Mange is an infectious skin disease caused by mites. Endocrine diseases such as hypothyroidism and Cushing's syndrome can also manifest as skin problems like alopecia or recurring bacterial infections. Another class of integumentary malady is hygromas, a swelling typically on or near the elbow joint. Nutrition may also play a role in skin disease, as deficiencies in certain nutrients may result in scaling, redness, oiling, balding, and/or itching of the skin.(See dog skin disorders for specific nutrients that impacts skin)
+
+Dog health - Skin diseases
+Physical elements of certain dog breeds also affect susceptibility of individuals to skin problems, such as wrinkled skin or excessive skin folds. For instance, skin-fold dermatitis is a skin infection more prevalent in breeds such as the bulldog, cocker spaniel, and English Springer spaniel.
+
+Dog health - Skin diseases
+Orthopedic diseases in dogs can be developmental, hereditary, traumatic, or degenerative.  Because of the active nature of dogs, injuries happen frequently.  One of the most common of these is an anterior cruciate ligament injury, a condition which often requires surgery. Bone fractures are a frequent occurrence in outdoor dogs due to trauma from being hit by cars. Degenerative joint disease is common in older dogs and is one of the most likely reasons for prescription of non-steroidal anti-inflammatory drugs.
+
+Dog health - Skin diseases
+Hereditary orthopedic diseases are mainly found in purebred dogs. Hip dysplasia is a common problem that primarily affects larger breeds. Hip dysplasia is a defect in the shape of the hip joint which can, depending on the degree of hip luxation, be quite painful to the dog as it ages. Over time it often causes arthritis in the hips. Dysplasia can also occur in the elbow joint. Luxating patellas can be a problem for smaller breeds. It can cause lameness and pain in the hind legs.
+
+Dog health - Skin diseases
+Developmental orthopedic diseases include panosteitis and hypertrophic osteodystrophy.  Panosteitis occurs in large and giant breed dogs usually between the age of five and fourteen months and manifests as fever, pain, and shifting leg lameness.  Hypertrophic osteodystrophy is also seen in young large and giant breed dogs and is characterized by pain, lameness, fever, and swelling of the long bone metaphysis.
+
+Dog health - Tumors and cancer
+Both benign and malignant tumors are seen in dogs.  Common benign tumors include lipomas, non-viral papillomas, sebaceous gland adenoma, and perianal gland adenomas.
+
+Dog health - Tumors and cancer
+Frequently seen cancers include lymphoma, melanoma, mast cell tumors (which are considered to be potentially malignant, even though they may have benign behavior), and osteosarcoma (bone cancer).
+
+Dog health - Tumors and cancer
+Certain breeds are more likely to develop particular tumors, larger ones especially.  The Golden Retriever is especially susceptible to lymphoma, with a lifetime risk of 1 in 8. Boxers and pugs are prone to multiple mast cell tumors. Scottish terriers have eighteen times the risk of mixed breed dogs to develop transitional cell carcinoma, a type of urinary bladder cancer.
+
+Dog health - Tumors and cancer
+Due to the indiscriminate nature of a dog's appetite, gastrointestinal upset is a frequent occurrence in dogs.  The most common symptoms are anorexia, vomiting, and diarrhea.  Foreign body ingestion can lead to acute obstruction of the gastrointestinal tract, a very dangerous condition. Acute pancreatitis can also result from dietary indiscretion.
+
+Dog health - Bloat and gastric torsion
+Gastric dilatation volvulus, or gastric torsion and bloat, primarily affects breeds with deep, narrow chests, such as Great Danes, St. Bernards, German Shepherds, Standard Poodles and Irish Setters.  The stomach twists on its supporting ligaments, sealing off the exits, and the contents begin to generate gas pressure which is very painful and rapidly causes shock and necrosis of large areas of stomach tissue.  It can be fatal within a few hours.  Dogs who have experienced bloat are very susceptible to recurrences. Treatment involves stabilization and abdominal surgery to tack the dog's stomach down to prevent recurrence (gastropexy).
+
+Dog health - Eye diseases
+Eye diseases are common in dogs. Cataracts, canine glaucoma, and entropion are seen in dogs.  Canine-specific eye diseases include progressive retinal atrophy, Collie eye anomaly, sudden acquired retinal degeneration, and cherry eye.  Injury to the eye can result in corneal ulcers.
+
+Dog health - Eye diseases
+The frequency of bilateral glaucoma with a genetic base in purebred dogs is higher than in any species except humans. Cataracts in dogs either have a genetic base or can also be caused by diabetes. Nuclear sclerosis resembles a cataract but is actually a normal age-related change.
+
+Dog health - Eye diseases
+Signs of vestibular disease include head tilt, circling, nystagmus (an abnormal movement of the eyes), and difficulty or inability to stand. These clinical signs are similar to those seen in humans experiencing vertigo.  Vestibular disease may have many causes. Elderly dogs are susceptible to an idiopathic (meaning due to unknown causes) form of vestibular disease commonly called "old dog vestibular disease" or idiopathic peripheral vestibular disease. The signs may improve rapidly or take a few days. Less commonly, vestibular signs can also be caused by inner ear disease, a brain tumor, a stroke, or other causes. The major risk with idiopathic peripheral vestibular disease is that the dog is often unable to eat, drink, or go outside to urinate or defecate.  These cases must receive supportive therapy of intravenous fluids and nutrition; a light sedative is sometimes administered, as the dog may be very stressed by the experience.
+
+Dog health - Eye diseases
+Older, small breeds of dogs are prone to congestive heart failure due to degeneration of the mitral valve. This condition is known to be inherited in Cavalier King Charles Spaniels.  Degenerative valve disease is the most common form of heart disease in dogs. Mitral regurgitation leads to turbulent blood flow and increased pressure in the left atrium. This causes increased pressure in the pulmonary blood vessels and pulmonary edema (a build-up of fluid in the lungs).  Decreased output of blood by the left ventricle causes the body to compensate by increasing sympathetic tone and activating the renin–angiotensin–aldosterone system (RAAS).  Increased sympathetic tone leads to increased peripheral vascular resistance and increased heart rate and contractility of the heart muscle.  Chronic elevation of sympathetic tone damages the heart muscle.  Activation of the RAAS results in increased retention of water and sodium by the kidneys, blood vessel constriction, and other effects that result in increased blood volume.  It also results in an increase in diastolic pressure and leads to pulmonary edema. Treatment for congestive heart failure has historically focussed on two types of drugs that address these concerns: diuretics (especially furosemide), which decrease blood volume, and ACE inhibitors, which interrupt the RAAS. Recently, pimobendan – which increases the force with which the heart muscle contracts, and is also a vasodilator – is being more widely used in the treatment of congestive heart failure caused by valvular disease. A major veterinary study, called the QUEST study (QUality of life and Extension of Survival Time), published in September 2008 found that dogs with congestive heart failure receiving pimobendan plus furosemide had significantly better survival outcomes than those receiving benazepril (an ACE inhibitor) plus furosemide. However, ACE inhibitors and pimobendan have different mechanisms of action, and many veterinary cardiologists recommend they be used concurrently. Within the past decade, a new surgical technique has been developed for mitral valve repair that replaces or strengthens the mitral valve chords with polytetrafluoroethylene (PTFE) prostheses and tightens the mitral valve ring to reduce or eliminate regurgitation.
+
+Dog health - Eye diseases
+Cardiomyopathy, or disease of the heart muscle, is also seen in dogs and is associated with large breeds (the exception being Cocker Spaniels, a medium-sized breed). Dilated cardiomyopathy is seen in Great Danes, Irish Wolfhounds, St. Bernards, Dobermanns, Boxers, and other large breeds.  Dobermanns, in addition to heart muscle failure, are prone to ventricular arrhythmias.  Boxer dogs are predisposed to a unique cardiomyopathy with clinical and histological changes analogous to human arrhythmogenic right ventricular cardiomyopathy (ARVC). The disease has been termed "Boxer cardiomyopathy" or "Boxer ARVC", and is characterized by development of ventricular tachyarrhythmias. Affected dogs are at risk of syncope and sudden cardiac death. Myocardial failure and congestive heart failure are rare manifestations of this disease.
+
+Dog health - Eye diseases
+In 2018, the U.S. Food and Drug Administration (FDA) issued a report citing a possible link between certain diets and canine dilated cardiomyopathy (DCM) in dog breeds without the genetic predisposition. Researchers at University of California, Davis School of Veterinary Medicine announced the results of their own study in early 2019, confirming the connection and identifying a particular concentration found among Golden Retrievers. Diet-related DCM is associated with grain-free and/or legume-rich diets, as well as "boutique" dog foods containing exotic ingredients (such as bison or kangaroo meat). In the treatment of dietary DCM, food change and taurine supplementation is typically indicated, in addition to traditional medical treatments as needed.
+
+Dog health - Eye diseases
+Other diseases affecting dogs include endocrine diseases, immune-mediated diseases, and reproductive diseases. Diabetes mellitus, Cushing's syndrome, Addison's disease, and hypothyroidism are the most common endocrine diseases. Immune-mediated hemolytic anemia is a devastating disease that causes severe anemia in dogs through red blood cell destruction by the immune system.  It has been associated with vaccinations and certain drugs, although many cases are idiopathic.  A similar but less severe immune disease is immune-mediated thrombocytopenia, characterized by destruction of platelets by the immune system.  Clinical signs include bruising and petechiae (pinpoint bruising, often seen in the mouth).  Common reproductive diseases include pyometra (distension of the uterus with pus), mammary tumors, and benign prostatic hyperplasia.
+
+Dog health - Eye diseases
+Some common sources of toxins that pets encounter include some plants, human medications and cosmetics, cleaning products, and even some foods.
+
+Dog health - Eye diseases
+Cocoa within chocolate contains theobromine, a chemical stimulant that, together with caffeine and theophylline, belongs to the group of methylxanthine alkaloids. Dogs are unable to metabolize theobromine effectively. If they eat chocolate, the theobromine can remain in their bloodstreams for days, and dogs may experience fast heart rate, severe diarrhea, epileptic seizures, heart attacks, internal bleeding, and eventually death. One ounce (oz) of milk chocolate contains 44 - 55 milligrams (mg) of theobromine, and baker's chocolate contains 393 mg of theobromine. The lethal dose for 50% of dogs (LD50) is 100 – 200 mg per kilogram (kg) of body weight, yet some dogs will exhibit signs of toxicosis after ingesting as little as 20 mg per kg. In case of accidental intake of chocolate, especially involving a smaller dog, contact a veterinarian or animal poison control immediately; it is commonly recommended to induce vomiting within two hours of ingestion. Treatment protocol also includes intravenous fluid therapy and/or administration of activated charcoal. Large breeds are less susceptible to chocolate poisoning, but can still die after eating four ounces of chocolate.
+
+Dog health - Grapes and raisins
+Grapes and raisins can cause acute kidney failure in dogs The exact mechanism is unknown, nor is there any means to determine the susceptibility of an individual dog. While as little as one raisin can be toxic to a susceptible 10 pounds (4.5 kg) dog, some other dogs have eaten as much as a pound of grapes or raisins at a time without ill effects. The affected dog usually vomits a few hours after consumption and begins showing signs of kidney failure three to five days later.  A mycotoxin is suspected to be involved, but one has not been found in grapes or raisins ingested by affected dogs. Salicylate, tartaric acid, or potassium bitartrate have also been implicated. The reason some dogs develop kidney failure following ingestion of grapes and raisins is not known. The most common pathological finding is proximal renal tubular necrosis.
+
+Dog health - Grapes and raisins
+Onions cause hemolytic anemia in dogs and cats. Allyl propyl disulfide has been reported as being considered to be the main cause of onion poisoning in dogs.  Alkyl thiosulfate and N-propyl disulfide have also been implicated. Thiosulfate levels are not affected by cooking or processing. Occasional exposure to small amounts is usually not a problem, but continuous exposure to even small amounts can be a serious threat.
+
+Dog health - Grapes and raisins
+Plants in the genus Allium (onions, scallions, garlic, leek, chives, etc.) in general contain varying levels of organosulfoxides compounds including the two mentioned above. These chemicals are responsible for their signature spicyness, but also causes oxidative damage to red blood cells of dogs and cats. Poisoning have been reported from many such plants, with symptoms ranging from diarrhea and vomiting to pale gums and hemolysis.
+
+Dog health - Grapes and raisins
+Nutmeg is highly neurotoxic to dogs and causes seizures, tremors, and nervous system disorders which can be fatal.  Nutmeg's rich, spicy scent is attractive to dogs which can result in a dog ingesting a lethal amount of this spice. Eggnog and other food preparations which contain nutmeg should not be given to dogs.
+
+Dog health - Grapes and raisins
+Macadamia nuts can cause non-fatal stiffness, tremors, hyperthermia, and abdominal pain. The exact mechanism is not known. Most dogs recover with supportive care when the source of exposure is removed.
+
+Dog health - Grapes and raisins
+Hops, a plant used in making beer, can cause malignant hyperthermia in dogs, usually with fatal results. Certain breeds, such as Greyhounds, seem particularly sensitive to hop toxicity, but hops should be kept away from all dogs. Even small amounts of hops can trigger a potentially deadly reaction, even if the hops are "spent" after use in brewing. The precise causative chemical is unknown: for now it is presumed that one of the chemicals in hops acts as a uncoupling agent in dogs.
+
+Dog health - Grapes and raisins
+Ingestion of yeast, for example in uncooked bread dough, can cause intestinal obstruction. The yeast can also cause fermentation internally, resulting in ethanol (alcohol) poisoning.
+
+Dog health - Grapes and raisins
+Xylitol is a sugar substitute used in chewing gum, chewable vitamins, candy, toothpaste, and other products.  Although a small preliminary study indicated xylitol may be safe for dogs, other studies show significant toxicity. There have been cases of foods, candies and gums containing xylitol causing toxic or even fatal liver damage in dogs. Ingestion may cause hypoglycemia.
+
+Dog health - Grapes and raisins
+Avocado leaves, bark, skin, and pit are known to be harmful to a wide range of animals, including dogs and cats. Death can occur from a sufficiently high dose.  The flesh of the fruit is not generally considered toxic to the two animals.
+
+Dog health - Grapes and raisins
+Toilet cleaners and urinal deodorizer blocks are toxic. Dogs may attempt to drink from toilet bowls; if chemical cleaners are present, this can pose a significant poisoning risk.
+
+Dog health - Grapes and raisins
+Toxic in humans, dogs, and cats alike. Extremely dangerous to dogs (and children) due to its sweet taste. The antifreeze itself is not toxic, but is metabolized via the liver to the toxins glycolate and oxalate, which cause intoxication and vomiting, metabolic acidosis, and finally acute kidney failure leading to seizures and death. By the time clinical signs are observed, the kidneys are usually too damaged for the dog to survive, so acting quickly is important. Immediate treatments include inducing vomiting by using apomorphine or dilute hydrogen peroxide solution (if this can be done shortly after ingestion), but these merely reduce the amount absorbed – immediate veterinary treatment is still usually imperative due to the high toxicity of the compound. Medical treatments may include fomepizole (preferred treatment) which competes favorably with the toxin in the body, ethanol which competes favorably in the liver long enough to allow excretion to take place, activated charcoal to further reduce uptake of undigested product, and hemodialysis to remove toxins from the blood. Dogs should not be allowed access to any place in which an antifreeze leak or spill has happened until the spill is completely cleaned out.  Some brands of antifreeze contain propylene glycol instead of ethylene glycol for lower toxicity. Others are marketed as being less attractive to animals.
+
+Dog health - Grapes and raisins
+Isopropanol, methanol (common in household products), and ethanol (common in alcoholic beverages and rotten fruits) are all toxic to dogs. Isopropanol found in rubbing alcohol has twice the toxicity of ethanol; however, methanol found in windshield washer fluid does not have the same retinal and neuronal toxicity on dogs as it does to humans and primates due to the differences in the way its metabolite formic acid is processed.
+
+Dog health - Grapes and raisins
+The effect of ethanol on dogs and cats is similar to its effect on humans, also causing intoxication. Death is unlikely given supportive care (only one death is known). Ethanol is also an antidote for ethylene glycol poisoning.
+
+Dog health - Grapes and raisins
+Rodenticide is commonly found in the house or garage. This anticoagulant class of poison works by depleting stores of Vitamin K in the body; without these stores, blood cannot clot properly. Clinical signs of poisoning include depression, weakness, difficulty breathing, bruising, and bleeding from any part of the body.  These clinical signs often take 3 to 4 days to appear.  A blood test will confirm that the blood is not clotting properly.  If the poison has only recently been ingested (within 2 to 3 hours), the dog should be given apomorphine or hydrogen peroxide to induce vomiting. Activated charcoal can be given to absorb any remaining poison in the gastrointestinal tract.  Then the dog is given Vitamin K supplementation for 3 to 4 weeks, depending on the type of poison.  At the end of treatment, the clotting times should be tested again.  The prognosis is good in these cases.  However, if the dog is already showing signs of poisoning, it is too late to try to remove the poison from the body.  A whole blood transfusion or plasma is given to treat the anemia and to try to control bleeding.  Vitamin K is also given.  The prognosis is poor in these cases.
+
+Dog health - Grapes and raisins
+Mouse and rat poisons containing cholecalciferol cause hypercalcemia and hyperphosphatemia in dogs.  Clinical signs include depression, loss of appetite, vomiting blood, weakness, and shock.  Treatment is as above for recent exposure.  When hypercalcemia occurs (which can take 1 to 2 weeks), treatment is with intravenous fluids (saline), diuretics, corticosteroids, and calcitonin.  Long term prognosis is good once the dog is stabilized.
+
+Dog health - Grapes and raisins
+Ingestion can cause anxiety, muscle twitching, seizures, rapid heart rate, dilated pupils, hypersalivation, vomiting, diarrhea, and high fever due to the metaldehyde present. Treatment involves gastric lavage, intravenous fluid administration, and/or administration of activated charcoal.
+
+Dog health - Grapes and raisins
+Poisoning with pain medications is common. Aspirin, paracetamol/acetaminophen (Tylenol), ibuprofen (Advil), and naproxen (Aleve) can all cause severe clinical signs in dogs, including vomiting blood, diarrhea, and abdominal pain. Specifically, aspirin can cause metabolic acidosis and bleeding disorders, acetaminophen can cause liver disease at high doses (the toxic dose is 150 mg per kilogram of body weight), ibuprofen can cause kidney disease, and naproxen can cause ulcers in the stomach, which can perforate. Treatment depends on the clinical signs and often involves inducing vomiting, gastric lavage, intravenous fluid diuresis, and supportive care. The antidote for acetaminophen toxicity is N-acetylcysteine.
+
+Dog health - Public health risks
+Most diseases that affect dogs or humans are not transferable between the two species.  Diseases that can be transmitted from animals to humans are termed zoonoses.  A well-known zoonosis is rabies, a viral infection transmitted through a bite.  A common bacterial zoonosis is leptospirosis, transmitted through urine.  Some of the most important zoonoses are parasitic.  Zoonotic intestinal parasites transmitted through contact with feces include Toxocara canis (the canine roundworm), which causes toxocariasis, visceral larva migrans, and ocular larva migrans, and hookworms, which can cause cutaneous larva migrans.  Zoonotic skin parasites include scabies, caused by the mite Sarcoptes scabiei.  The most common zoonotic fungal disease is ringworm, caused in this case by Microsporum canis.
+
+Dog health - Vaccinations
+Vaccinations are an important preventive animal health measure. The specific vaccinations recommended for dogs varies depending on geographic location, environment, travel history, and the activities the animal frequently engages in. In the United States, regardless of any of these factors, it is usually highly recommended that dogs be vaccinated against rabies, canine parvovirus, canine distemper, and infectious canine hepatitis (using canine adenovirus type 2 to avoid reaction).  The decision on whether to vaccinate against other diseases, including leptospirosis, Lyme disease, Bordetella bronchiseptica, parainfluenza virus, and canine coronavirus, should be made between an owner and a veterinarian, taking into account factors specific to the dog.
+
+Dog health - Dentistry
+Dental disease is one of the most common diseases in dogs.  Accumulation of plaque, and subsequently tartar, leads to gingivitis, and then periodontitis (gum disease).  Periodontitis leads to loss of the bony attachment of the teeth, and tooth loss.  Preventive measures include tooth brushing, providing an appropriate diet (avoiding tinned and other soft foods, and providing dental chew treats), and dental scaling and polishing. Cavities are uncommon in dogs.
+
+Dog health - Heartworm, flea or tick preventives
+Once-a-month topical products and oral medications are the most commonly used products to kill and prevent heartworm infection and flea or tick infestations.
+
+Dog health - Nutrition and obesity
+Feeding table scraps to a dog is generally not recommended, at least in excess. Just as in humans, a dog's diet must consist of the appropriate mix of nutrients, carbohydrates, and proteins to give them the minerals and vitamins that they need. Dogs get ample correct nutrition from their natural, normal diet; wild and feral dogs can usually get all the nutrients needed from a diet of whole prey and raw meat. In addition, a human diet is not ideal for a dog: the concept of a "balanced" diet for a facultative carnivore like a dog is not the same as in an omnivorous human. Dogs will usually eat all the scraps and treats they are fed: usually too much food. While not all human delicacies are acutely toxic to dogs (see above), many have the same chronically unfortunate results as they do for humans.
+
+Dog health - Nutrition and obesity
+Obesity is an increasingly common problem in dogs in Western countries. As with humans, obesity can cause numerous health problems in dogs (although dogs are much less susceptible to the common cardiac and arterial consequences of obesity than humans are). According to a study published in the Journal of Veterinary Internal Medicine, the prevalence of obesity in dogs is between 22 and 40 percent.
+
+Dog health - Nutrition and obesity
+Dog treats are often given to pets as a reward or just to let them chew on a bone, which works their jaw muscles and helps keep their teeth clean. Although dog treats carry high benefits for dogs' teeth, they can also be a source of problems like obesity when given excessively, especially human table scraps.
+
+Dog health - Nutrition and obesity
+The type of food given directly affects the tendency of a dog to become overweight. Table scraps, treats, and even premium high-energy dog foods can contribute to obesity. Therefore, it is highly important to closely monitor the quantity of treats that a dog gets especially when the dog's activity is diminished. Dog treats are more likely to be linked to obesity in old dogs, since in their old age they are less likely to be active and exercising. Active dogs require and use more calories.
+
+Dog health - Coprophagia
+Some dogs may attempt to consume feces. Some consume their own or other dogs' feces; others seem to prefer cat feces (which, due to the feline digestive system, are high in protein and consumed by many animals in the wild.) This can be harmful if the feces has any pathogens or parasites or contain excreted drugs.
+
+Dog health - Coprophagia
+It is not yet clear whether or not vitamins and supplements should be administered in dogs—opinions among veterinarians vary widely. While some think that vitamins and supplements are necessary and can improve the health of a dog, others believe that they are unnecessary and may harm the dog. According to the U.S. Food and Drug Administration (FDA), dogs receive a complete and balanced diet from the commercially processed dog food alone. Pet owners who give their dogs homemade diets may incorporate extra vitamins and supplements.
+
+Dog health - Coprophagia
+Between approximately 10 and 30 percent of dogs in the United States receive nutritional supplements. A survey of U.S. pet owners in 2006 found that the most commonly used supplements were multivitamins and chondroprotective agents.
+
+Dog health - Coprophagia
+Overdoses of vitamins can be harmful in dogs. As an example, calcium in excess can cause bone problems, especially in the large-breed dogs. Over-supplementation of vitamins A and D can cause vitamin toxicity in dogs. Excess vitamin A can cause dehydration, joint pain and can also harm the blood vessels, while too much vitamin D can cause muscular atrophy, loss of appetite and many other health-related problems.
+
+Dog health - Spaying and neutering
+Spaying (females) and neutering (males) refers to the sterilization of animals, usually by removal of the male's testicles or the female's ovaries and uterus, to eliminate the ability to procreate and reduce sex drive. Neutering has also been known to reduce aggression in male dogs, but has been shown to occasionally increase aggression in female dogs.
+
+Dog health - Spaying and neutering
+Animal control agencies in the United States and the ASPCA advise that dogs not intended for further breeding should be spayed or neutered so that they do not have undesired puppies.
+
+Dog health - Spaying and neutering
+Because of the overpopulation of dogs in some countries, puppies born to strays or as the result of accidental breedings often end up being killed in animal shelters. Spaying and neutering can also decrease the risk of hormone-driven diseases such as mammary cancer, as well as undesired hormone-driven behaviors.  However, certain medical problems are more likely after surgery, such as urinary incontinence in females and prostate cancer in males. The hormonal changes involved with sterilization are likely to somewhat change the animal's personality, however, and some object to spaying and neutering as the sterilization could be carried out without the excision of organs.
+
+Dog health - Spaying and neutering
+It is not essential for a female dog to either experience a heat cycle or have puppies before spaying, and likewise, a male dog does not need the experience of mating before neutering.
+
+Dog health - Spaying and neutering
+Female cats and dogs are seven times more likely to develop mammary tumors if they are not spayed before their first heat cycle. The high dietary estrogen content of the average commercial pet food may be contributing factors in the development of mammary cancer, especially when these exogenous sources are added to those normal estrogens produced by the body. Dog food containing soybeans or soybean fractions have been found to contain phytoestrogens in levels that could have biological effects when ingested longterm.
