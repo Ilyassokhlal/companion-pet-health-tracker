@@ -20,7 +20,7 @@ class Settings:
     APP_NAME: str = "Companion API"
     DEBUG: bool = os.environ.get("DEBUG", "false").lower() == "true"
     DOCS_DIRECTORY: str = os.environ.get("DOCS_DIRECTORY", "./docs")
-    SECRET_KEY: str = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
+    SECRET_KEY: str = os.environ.get("SECRET_KEY", "")
 
     # Database
     DATABASE_URL: str = os.environ.get("DATABASE_URL", "sqlite:///./companion.db")
@@ -41,3 +41,9 @@ if settings.DEBUG:
     print(f"  Threshold: {settings.CONFIDENCE_THRESHOLD}")
     print(f"  Debug: {settings.DEBUG}")
 
+if not settings.SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY is not set. Generate one with:\n"
+        '  python -c "import secrets; print(secrets.token_hex(32))"\n'
+        "then add it to your .env file."
+    )

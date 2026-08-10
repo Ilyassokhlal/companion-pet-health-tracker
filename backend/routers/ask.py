@@ -15,8 +15,19 @@ from utils.messages import save_message
 from routers.records import _get_owned_pet
 import rag
 import re
+from urllib.parse import quote
 
 router = APIRouter(tags=["Ask"])
+
+# Helper functions for the /ask endpoint in order to turn citations into links that direct to the source.
+def _wiki_link(heading: str) -> str:
+    """Turn 'Article - Section' into a markdown link to that Wikipedia section."""
+    article, _, section = heading.partition(" - ")
+    url = "https://en.wikipedia.org/wiki/" + quote(article.replace(" ", "_"))
+    if section:
+        url += "#" + quote(section.replace(" ", "_"))
+    return f"[{heading}]({url})"
+
 
 # Router for ask-related endpoints
 @router.post("/ingest")
@@ -57,14 +68,14 @@ def _format_pet_context(pet, records) -> str:
 
 def _build_messages(question: str, chunks, pet_context: str) -> list[dict]:
     """Assemble the RAG prompt: rules, retrieved context, the pet's own record, the question."""
-    context_text = "\n\n".join(f"[{c.source}]\n{c.text}" for c in chunks)
+    context_text = "\n\n".join(c.text for c in chunks)
     return [
         {"role": "system", "content": rag.SYSTEM_PROMPT},
         {
             "role": "user",
             "content": (
-                f"CONTEXT:\n{context_text}\n\n"
-                f"PET:\n{pet_context}\n\n"
+                f"VETERINARY REFERENCE:\n{context_text}\n\n"
+                f"PET RECORDS:\n{pet_context}\n\n"
                 f"QUESTION:\n{question}"
             ),
         },
@@ -118,7 +129,7 @@ def ask(
     def stream_response():
         """Stream the LLM's response token by token, yielding JSON lines. The answer is saved on completion or disconnection."""
         parts = []
-        sources = sorted({chunk.source for chunk in chunks})
+        sources = sorted({_wiki_link(chunk.text.split("\n", 1)[0].strip()) for chunk in chunks})
         try:
             for token in rag.generate(messages):
                 parts.append(token)
