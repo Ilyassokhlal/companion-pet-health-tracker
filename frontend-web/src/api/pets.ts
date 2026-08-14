@@ -47,3 +47,8 @@ export async function uploadPhoto(petId: number, file: File): Promise<Pet> {
     body: formData,
   });
 }
+
+// Deletes a pet's photo by its ID. Returns the updated pet without the photo filename if successful.
+export async function deletePhoto(petId: number): Promise<Pet> {
+  return apiFetch<Pet>(`/pets/${petId}/photo`, { method: "DELETE" });
+}

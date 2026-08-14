@@ -108,3 +108,18 @@ def upload_photo(pet_id: int, file: UploadFile = File(...),
     db.refresh(pet)
     return pet
 
+@router.delete("/{pet_id}/photo", response_model=PetResponse)
+def delete_photo(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    pet = db.query(Pet).filter(Pet.id == pet_id, Pet.user_id == current_user.id).first()
+    if not pet:
+        raise NotFoundException("Pet", pet_id)
+    if not pet.photo_filename:
+        raise BadRequestException("This pet has no photo.")
+    try:
+        os.remove(os.path.join(settings.PHOTO_DIR, pet.photo_filename))
+    except FileNotFoundError:
+        pass  # If the file doesn't exist, we can ignore it
+    pet.photo_filename = None
+    db.commit()
+    db.refresh(pet)
+    return pet

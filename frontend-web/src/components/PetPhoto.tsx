@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadPhoto } from "../api/pets";
+import { uploadPhoto, deletePhoto } from "../api/pets";
 import type { Pet } from "../types";
 import { usePets } from "../context/PetContext";
 
@@ -18,6 +18,20 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
     setUploading(true);
     try {
       await uploadPhoto(pet.id, file);
+      await refresh();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Handle the removal of the pet's photo. It calls the deletePhoto API function and refreshes the pet list. It also manages the uploading state and error messages.
+  const handleRemove = async () => {
+    setUploading(true);
+    setError("");
+    try {
+      await deletePhoto(pet.id);
       await refresh();
     } catch (err) {
       setError((err as Error).message);
@@ -47,6 +61,12 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             disabled={uploading}
             className="mt-2"
         />
+
+        {pet.photo_filename && (
+            <button onClick={handleRemove} disabled={uploading} className="text-sm text-danger hover:underline mt-2">
+                Remove photo
+            </button>
+        )}
         {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
     </div>
   );
