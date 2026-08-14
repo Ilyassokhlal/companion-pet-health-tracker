@@ -40,4 +40,5 @@ so each paragraph is preceded by its article and section heading.
 | `rabies_vaccine.txt` | [Rabies vaccine](https://en.wikipedia.org/wiki/Rabies_vaccine) |
 | `toxocara_canis.txt` | [Toxocara canis](https://en.wikipedia.org/wiki/Toxocara_canis) |
 | `vaccination_of_dogs.txt` | [Vaccination of dogs](https://en.wikipedia.org/wiki/Vaccination_of_dogs) |
+| `veterinary_dentistry.txt` | [Veterinary dentistry](https://en.wikipedia.org/wiki/Veterinary_dentistry) |
 | `veterinary_medicine.txt` | [Veterinary medicine](https://en.wikipedia.org/wiki/Veterinary_medicine) |
