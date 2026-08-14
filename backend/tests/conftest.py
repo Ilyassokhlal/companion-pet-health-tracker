@@ -8,7 +8,6 @@ _TMP = tempfile.mkdtemp(prefix="companion_tests_")
 # Set environment variables for testing
 os.environ["DATABASE_URL"] = f"sqlite:///{_TMP}/test.db"
 os.environ["CHROMA_PATH"] = f"{_TMP}/chroma"
-os.environ["ACTIVITY_LOG"] = f"{_TMP}/activity.log"
 os.environ["SECRET_KEY"] = "test-secret"
 
 

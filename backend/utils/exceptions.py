@@ -33,3 +33,18 @@ class ForbiddenException(AppException):
     """The user does not have permission to access this resource (403)"""
     def __init__(self, detail: str = "You do not have permission to access this resource"):
         super().__init__(detail=detail, status_code=403)
+
+class UnauthorizedException(AppException):
+    """Authentication failed or missing (401)"""
+    def __init__(self, detail: str = "Not authenticated"):
+        super().__init__(detail=detail, status_code=401)
+
+class ServiceUnavailableException(AppException):
+    """An upstream dependency is unreachable (503)"""
+    def __init__(self, detail: str = "Service temporarily unavailable"):
+        super().__init__(detail=detail, status_code=503)
+
+class InternalException(AppException):
+    """An unexpected server-side failure (500)"""
+    def __init__(self, detail: str = "Internal server error"):
+        super().__init__(detail=detail, status_code=500)

@@ -1,18 +1,43 @@
+from datetime import date
+
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
-from database import Base, engine
-from models.models import User, Pet, HealthRecord  # noqa: F401 - registers tables on Base.metadata
 from utils.limiter import limiter
 from utils.exceptions import AppException
+from utils.reminders import send_due_reminders
 from routers import auth, pets, records, ask, messages
 
 from contextlib import asynccontextmanager
+from config import settings
 import rag
+
+from apscheduler.schedulers.background import BackgroundScheduler
+from database import SessionLocal
+
+
+import os
+
+# Scheduler for sending reminders
+def _run_reminders():
+    """Entry point for the scheduled job — opens its own session."""
+    db = SessionLocal()
+    try:
+        today = date.today()
+        emails_sent = send_due_reminders(db, today)
+        if emails_sent > 0:
+            print(f"Sent {emails_sent} reminder emails.")
+    except Exception as e:
+        print(f"Error sending reminders: {e}")
+    finally:
+        db.close()
+
 
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
@@ -24,19 +49,31 @@ async def lifespan(app: FastAPI):
             print(f"Ingested {result['chunks']} chunks from {result['documents']} documents.")
     except Exception as e:
         print(f"Startup ingest error: {e}")
+    scheduler = BackgroundScheduler(timezone=settings.TIMEZONE)
+    scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
+    scheduler.start()
     yield
-
-
-# Initializing the database
-Base.metadata.create_all(bind=engine)
+    scheduler.shutdown()
 
 # Initializing the FastAPI app
 app = FastAPI(
     title="Companion API",
     description="API for managing users, their pets, and their pets' health records",
-    version="1.0.0",
+    version="2.0.0",
     lifespan=lifespan
 )
+
+# Allow the React dev server (and later the deployed frontends) to call this API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in settings.CORS_ORIGINS.split(",")],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Setting up the directory for storing pet photos and mounting it as a static files endpoint
+os.makedirs(settings.PHOTO_DIR, exist_ok=True)
+app.mount("/photos", StaticFiles(directory=settings.PHOTO_DIR), name="photos")
 
 # Setting up rate limiting
 app.state.limiter = limiter

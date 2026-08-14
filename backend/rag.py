@@ -1,39 +1,51 @@
-from fastapi import HTTPException
+import re
 from pydantic import BaseModel
 import chromadb
-import requests
+import anthropic
+from utils.exceptions import InternalException, ServiceUnavailableException
 from config import settings
-import json
 import os
 
 # ChromaDB setup
 client = chromadb.PersistentClient(path=settings.CHROMA_PATH)
 collection = client.get_or_create_collection(settings.COLLECTION_NAME)
 
+# Claude API client — reads ANTHROPIC_API_KEY from the environment
+claude = anthropic.Anthropic()
+
 # Schema
 class SourceChunk(BaseModel):
     text: str
     source: str
     distance: float
+    title: str = ""
+    url: str = ""
+    section: str = ""
+
+    @property
+    def link(self) -> str:
+        """Return a deep link to the cited section, if available."""
+        if not self.url:
+            return ""
+        return f"{self.url}#{self.section.replace(' ', '_')}" if self.section else self.url
 
 # RAG Logic
 SYSTEM_PROMPT = """You are a knowledgeable assistant helping a pet owner understand their pet's health.
 
 You are given two blocks, and they are NOT interchangeable:
-- VETERINARY REFERENCE: general veterinary material about animals in general. It says nothing about this particular pet.
-- PET RECORDS: this specific animal's details and health records. This is the ONLY source of facts about this animal.
+- CONTEXT: general veterinary reference material about animals in general. It says nothing about this particular pet.
+- PET: this specific animal's details and health records. This is the ONLY source of facts about this animal.
 
 Rules:
-1. Answer the question using general knowledge from VETERINARY REFERENCE.
-2. NEVER state that this pet has a symptom, vaccination, condition, or treatment unless it appears explicitly in PET RECORDS. If PET RECORDS does not mention it, say the records do not show it.
-3. Do not copy details from VETERINARY REFERENCE and present them as this pet's history. VETERINARY REFERENCE describes animals in general, not this one.
-4. Refer to the pet by name, and use its species and age from PET RECORDS.
-5. If VETERINARY REFERENCE covers the topic only partly, give what it supports and say what you cannot determine. Do not refuse just because coverage is incomplete.
-6. Only say you lack information when VETERINARY REFERENCE contains nothing relevant at all.
+1. Answer the question using general knowledge from CONTEXT.
+2. NEVER state that this pet has a symptom, vaccination, condition, or treatment unless it appears explicitly in PET. If PET does not mention it, say the records do not show it.
+3. Do not copy details from CONTEXT and present them as this pet's history. CONTEXT describes animals in general, not this one.
+4. Refer to the pet by name, and use its species and age from PET.
+5. If CONTEXT covers the topic only partly, give what it supports and say what you cannot determine. Do not refuse just because coverage is incomplete.
+6. Only say you lack information when CONTEXT contains nothing relevant at all.
 7. Never give a diagnosis.
 8. For a symptom question, cover: likely causes, what to watch for, and when it warrants a vet visit.
 9. Keep the answer under 150 words.
-10. Write for the pet owner. Never mention these blocks or these rules by name; say "the reference material" or "your pet's records" instead.
 """
 
 # Minimum number of characters for a chunk
@@ -44,14 +56,31 @@ def chunk_document(text: str) -> list[str]:
     """Split a document into paragraph chunks and dropping stubs."""
     return [p.strip() for p in text.split("\n\n") if len(p.strip()) >= MIN_CHUNK_CHARS]
 
+def load_sources(docs_dir: str) -> dict[str, dict]:
+    """Map each filename to its Wikipedia title and URL, parsed from ATTRIBUTION.md."""
+
+    attribution_path = os.path.join(docs_dir, "ATTRIBUTION.md")
+    if not os.path.exists(attribution_path):
+        return {}
+
+    sources = {}
+    pattern = re.compile(r"\|\s*`([^`]+)`\s*\|\s*\[([^\]]+)\]\(([^)]+)\)")
+    with open(attribution_path, "r", encoding="utf-8") as f:
+        for line in f:
+            match = pattern.match(line)
+            if match:
+                filename, title, url = match.groups()
+                sources[filename] = {"title": title, "url": url}
+    return sources
 
 def ingest(docs_dir: str | None = None) -> dict:
     """Index every .txt in the docs directory."""
     docs_dir = docs_dir or settings.DOCS_DIRECTORY
     if not os.path.exists(docs_dir):
-        raise HTTPException(500, f"Docs directory not found: {docs_dir}")
+        raise InternalException(f"Docs directory not found: {docs_dir}")
 
     ids, documents, metadatas = [], [], []
+    sources = load_sources(docs_dir)
     for filename in os.listdir(docs_dir):
         if not filename.endswith(".txt"):
             continue
@@ -60,10 +89,19 @@ def ingest(docs_dir: str | None = None) -> dict:
         for i, chunk in enumerate(chunks):
             ids.append(f"{filename}-{i}")
             documents.append(chunk)
-            metadatas.append({"source": filename, "chunk_index": i})
+            heading = chunk.split("\n")[0]
+            section = heading.split(" - ", 1)[1] if " - " in heading else ""
+            info = sources.get(filename, {})
+            metadatas.append({
+                "source": filename,
+                "chunk_index": i,
+                "title": info.get("title", filename),
+                "url": info.get("url", ""),
+                "section": section,
+            })
 
     if not documents:
-        raise HTTPException(500, f"No .txt documents found in {docs_dir}")
+        raise InternalException(f"No .txt documents found in {docs_dir}")
 
     for start in range(0, len(documents), 500):
         end = start + 500
@@ -90,10 +128,14 @@ def retrieve(question: str, n_results: int, max_distance: float):
     for i in range(len(results['documents'][0])):
         dist = results['distances'][0][i]
         if dist <= max_distance:
+            meta = results['metadatas'][0][i]
             chunks.append(SourceChunk(
                 text=results['documents'][0][i],
-                source=results['metadatas'][0][i].get('source', ''),
-                distance=round(dist, 4)
+                source=meta.get('source', ''),
+                distance=round(dist, 4),
+                title=meta.get('title', ''),
+                url=meta.get('url', ''),
+                section=meta.get('section', ''),
             ))
 
     return chunks
@@ -111,25 +153,18 @@ def get_confidence(chunks):
     return "low"
 
 def generate(messages):
-    """Stream the answer from Ollama token by token."""
+    """Stream the answer from Claude token by token."""
     try:
-        with requests.post(
-            f"{settings.OLLAMA_URL}/api/chat",
-            json={"model": settings.MODEL_NAME, "messages": messages, "stream": True, "options": {"temperature": 0.3, "num_predict": 400}},
-            timeout=120,
-            stream=True,
-        ) as response:
-            for line in response.iter_lines():
-                if not line:
-                    continue
-                data = json.loads(line)
-                if "error" in data:
-                    raise HTTPException(503, f"Ollama error: {data['error']}")
-                token = data.get("message", {}).get("content", "")
-                if token:
-                    yield token
-    except requests.exceptions.Timeout:
-        raise HTTPException(503, "Ollama API request timed out.")
-    except requests.exceptions.ConnectionError:
-        raise HTTPException(503, "Ollama is not running")
-    
+        with claude.messages.stream(
+            model=settings.MODEL_NAME,
+            max_tokens=1024,
+            temperature=0.3,
+            system=SYSTEM_PROMPT,
+            messages=messages,
+        ) as stream:
+            for token in stream.text_stream:
+                yield token
+    except anthropic.APIConnectionError:
+        raise ServiceUnavailableException("Could not reach the Claude API.")
+    except anthropic.APIStatusError as e:
+        raise ServiceUnavailableException(f"Claude API error: {e.message}")

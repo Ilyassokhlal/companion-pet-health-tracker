@@ -13,3 +13,10 @@ bcrypt==4.0.1
 cryptography==49.0.0
 email-validator==2.3.0
 slowapi==0.1.10
+alembic==1.19.0
+psycopg[binary]==3.3.4
+anthropic==0.121.0
+resend==2.35.0
+APScheduler==3.11.3
+tzdata==2026.1
+fpdf2==2.8.8

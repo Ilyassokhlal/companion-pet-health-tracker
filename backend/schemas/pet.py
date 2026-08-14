@@ -59,6 +59,7 @@ class PetResponse(BaseModel):
     breed: str | None = None
     birth_date: date | None = None
     weight: float | None = None
+    photo_filename: str | None = None
     created_at: datetime
 
     model_config = ConfigDict(

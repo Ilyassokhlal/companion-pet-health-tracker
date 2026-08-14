@@ -1,6 +1,6 @@
 import json
 from datetime import date
-from fastapi import APIRouter, Depends, Request, BackgroundTasks
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.orm import Session
 from config import settings
@@ -9,25 +9,13 @@ from models.models import User, HealthRecord
 from schemas.ask import AskRequest
 from utils.security import get_current_user
 from utils.limiter import limiter
-from utils.activity import log_activity
 from utils.exceptions import BadRequestException
 from utils.messages import save_message
 from routers.records import _get_owned_pet
 import rag
 import re
-from urllib.parse import quote
 
 router = APIRouter(tags=["Ask"])
-
-# Helper functions for the /ask endpoint in order to turn citations into links that direct to the source.
-def _wiki_link(heading: str) -> str:
-    """Turn 'Article - Section' into a markdown link to that Wikipedia section."""
-    article, _, section = heading.partition(" - ")
-    url = "https://en.wikipedia.org/wiki/" + quote(article.replace(" ", "_"))
-    if section:
-        url += "#" + quote(section.replace(" ", "_"))
-    return f"[{heading}]({url})"
-
 
 # Router for ask-related endpoints
 @router.post("/ingest")
@@ -67,15 +55,14 @@ def _format_pet_context(pet, records) -> str:
 
 
 def _build_messages(question: str, chunks, pet_context: str) -> list[dict]:
-    """Assemble the RAG prompt: rules, retrieved context, the pet's own record, the question."""
-    context_text = "\n\n".join(c.text for c in chunks)
+    """Assemble the RAG prompt: retrieved context, the pet's own record, the question."""
+    context_text = "\n\n".join(f"[{c.source}]\n{c.text}" for c in chunks)
     return [
-        {"role": "system", "content": rag.SYSTEM_PROMPT},
         {
             "role": "user",
             "content": (
-                f"VETERINARY REFERENCE:\n{context_text}\n\n"
-                f"PET RECORDS:\n{pet_context}\n\n"
+                f"CONTEXT:\n{context_text}\n\n"
+                f"PET:\n{pet_context}\n\n"
                 f"QUESTION:\n{question}"
             ),
         },
@@ -88,7 +75,6 @@ def _build_messages(question: str, chunks, pet_context: str) -> list[dict]:
 def ask(
     request: Request,
     payload: AskRequest,
-    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -129,7 +115,13 @@ def ask(
     def stream_response():
         """Stream the LLM's response token by token, yielding JSON lines. The answer is saved on completion or disconnection."""
         parts = []
-        sources = sorted({_wiki_link(chunk.text.split("\n", 1)[0].strip()) for chunk in chunks})
+        seen, sources = set(), []
+        for chunk in chunks:
+            key = (chunk.title, chunk.section)
+            if key in seen:
+                continue
+            seen.add(key)
+            sources.append({"title": chunk.title, "section": chunk.section, "url": chunk.link})
         try:
             for token in rag.generate(messages):
                 parts.append(token)
@@ -142,7 +134,5 @@ def ask(
         finally:
             if parts:
                 save_message(pet.id, "assistant", "".join(parts), sources)
-
-    background_tasks.add_task(log_activity, current_user.id, "ask", detail=question[:200], pet_id=pet.id)
 
     return StreamingResponse(stream_response(), media_type="application/x-ndjson")

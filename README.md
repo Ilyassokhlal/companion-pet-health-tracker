@@ -69,7 +69,7 @@ docker compose up --build
 - API docs — http://localhost:8000/docs
 
 **First boot takes 3–5 minutes.** It downloads the model (~1.3 GB), fetches the embedding
-model, and indexes 1000 corpus chunks. The backend reports `starting` during this, which is
+model, and indexes 946 corpus chunks. The backend reports `starting` during this, which is
 expected — the healthcheck has a 120-second grace period. Later boots skip all of it
 because the volume persists both.
 
@@ -109,7 +109,7 @@ curl -X POST http://localhost:8000/ingest -H "Authorization: Bearer <your-token>
 ```
 
 Grab a token from `/docs` → `POST /auth/login` → *Try it out*. Re-indexing is safe to
-repeat: chunk IDs are `filename-index`, so it overwrites rather than duplicating.
+repeat: chunk IDs are `filename:index`, so it overwrites rather than duplicating.
 
 ---
 
@@ -279,7 +279,7 @@ and never calls the LLM:
 
 ## RAG pipeline
 
-**Corpus** — 35 plain-text documents, 1,000 chunks, roughly 160 pages, covering vaccination
+**Corpus** — 34 plain-text documents, 946 chunks, roughly 160 pages, covering vaccination
 schedules, parasites, dental care, nutrition, life stages, common canine and feline
 conditions, and emergency care. **Dogs and cats only**; human-medicine material was
 filtered out deliberately, since a passage about human nephrology retrieves with an
@@ -320,8 +320,8 @@ milliseconds against a 16-second answer.
 The original question wording always goes to the LLM; only the retrieval queries are rewritten.
 
 **Guardrails**
-1. A system prompt that separates VETERINARY REFERENCE (general material) from PET RECORDS
-   (this animal's own records) and forbids diagnosis.
+1. A system prompt that separates CONTEXT (general veterinary material) from PET (this
+   animal's records) and forbids diagnosis.
 2. The confidence threshold above — out-of-scope questions never reach the model.
 3. A non-optional disclaimer rendered by the UI on every answer, rather than requested
    from the model, so it cannot be omitted or reworded.
@@ -384,8 +384,8 @@ as causes:
 
 | Attempted fix | Still hallucinated |
 |---|---|
-| Prompt rewritten to separate reference material from pet records | Yes |
-| Explicit "never state unless it appears in PET RECORDS" rule | Yes |
+| Prompt rewritten to separate CONTEXT from PET | Yes |
+| Explicit "never state unless it appears in PET" rule | Yes |
 | Temperature lowered to 0.3 | Yes |
 | Realistic records instead of sparse ones | Yes |
 

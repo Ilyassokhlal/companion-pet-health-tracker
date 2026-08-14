@@ -1,15 +1,27 @@
 services:
+  db:
+    image: postgres:17
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     env_file: .env
     depends_on:
-      ollama-init:
-        condition: service_completed_successfully
+      db:
+        condition: service_healthy
     volumes:
       - app_data:/data
-      - ./logs:/logs
+      - ./backend:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -26,28 +38,7 @@ services:
     depends_on:
       - backend
 
-  ollama:
-    image: ollama/ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 5s
-      timeout: 5s
-      retries: 12
-
-  ollama-init:
-    image: ollama/ollama
-    depends_on:
-      ollama:
-        condition: service_healthy
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
-    entrypoint: ["/bin/sh", "-c", "ollama pull ${MODEL_NAME}"]
-    restart: "no"
-
 volumes:
   app_data:
-  ollama_data:
+  db_data:
+  

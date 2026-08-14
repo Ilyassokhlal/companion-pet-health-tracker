@@ -3,7 +3,7 @@ from database import SessionLocal
 from models.models import ChatMessage
 
 
-def save_message(pet_id: int, role: str, content: str, sources: list[str] | None = None) -> None:
+def save_message(pet_id: int, role: str, content: str, sources: list[dict] | None = None) -> None:
     """Persist one chat message. Opens its own session — it may be called from inside a stream generator."""
     db = SessionLocal()
     try:

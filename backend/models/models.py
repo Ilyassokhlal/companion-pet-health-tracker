@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import enum
-from sqlalchemy import String, Integer, Float, Date, DateTime, Text, ForeignKey, Enum
+from sqlalchemy import String, Integer, Float, Date, DateTime, Text, ForeignKey, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
@@ -21,16 +21,14 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(50), nullable=False)
     email: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    email_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    reminders_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
+    timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
         back_populates="owner",
-        cascade="all, delete-orphan",
-    )
-
-    activity_logs: Mapped[list["ActivityLog"]] = relationship(
-        back_populates="user",
         cascade="all, delete-orphan",
     )
 
@@ -45,6 +43,7 @@ class Pet(Base):
     breed: Mapped[str | None] = mapped_column(String(50), nullable=True)
     birth_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     weight: Mapped[float | None] = mapped_column(Float, nullable=True)
+    photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to user
@@ -57,7 +56,6 @@ class Pet(Base):
         back_populates="pet",
         cascade="all, delete-orphan",
     )
-    activity_logs: Mapped[list["ActivityLog"]] = relationship(back_populates="pet")
 
 
 # HealthRecord model
@@ -71,25 +69,11 @@ class HealthRecord(Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     date: Mapped[date] = mapped_column(Date, nullable=False)
     next_due_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    reminder_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to pet
     pet: Mapped["Pet"] = relationship(back_populates="records")
-
-
-# ActivityLog model
-class ActivityLog(Base):
-    __tablename__ = "activity_logs"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="SET NULL"), nullable=True, index=True)
-    action: Mapped[str] = mapped_column(String(100), nullable=False)
-    detail: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-
-    user: Mapped["User"] = relationship(back_populates="activity_logs")
-    pet: Mapped["Pet"] = relationship(back_populates="activity_logs")
 
 
 # ChatMessage model

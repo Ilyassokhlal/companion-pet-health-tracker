@@ -1,13 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request, BackgroundTasks
+from fastapi import APIRouter, Depends, status, Request, BackgroundTasks
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from datetime import timedelta
 
+from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
 from database import get_db
 from models.models import User
-from schemas.user import RegisterRequest, LoginRequest, TokenResponse, UserResponse
-from utils.security import hash_password, verify_password, create_access_token, get_current_user
+from schemas.user import ChangeEmailRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
+from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
+from utils.mailer import send_verification_email, send_reset_email
 from utils.limiter import limiter
-from utils.activity import log_activity
+from config import settings
 
 
 # Router for authentication-related endpoints
@@ -18,7 +21,7 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED,
     responses={
         422: {"description": "Validation Error"},
-        409: {"description": "Email or Username already registered"},
+        409: {"description": "Email already registered"},
         429: {"description": "Too many requests"},
     },
     summary="Create a new user account and return an access token",
@@ -35,7 +38,8 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
     user = User(
         username=payload.username,
         email=payload.email,
-        hashed_password=hash_password(payload.password)
+        hashed_password=hash_password(payload.password),
+        timezone=payload.timezone or settings.TIMEZONE,
     )
 
     db.add(user)
@@ -43,14 +47,15 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(
-            status_code=409, detail="Email or Username already registered"
-        )
+        raise DuplicateException("User", "email", payload.email)
     db.refresh(user)
 
-    token = create_access_token(data={"sub": str(user.id)})
+    # Create an access token for the newly registered user
+    token = create_access_token(data={"sub": str(user.id), "fp": password_fingerprint(user.hashed_password)})
 
-    background_tasks.add_task(log_activity, user.id, "register")
+    # Send a verification email in the background
+    verify_token = create_purpose_token(user.id, "verify", timedelta(hours=24))
+    background_tasks.add_task(send_verification_email, user.email, verify_token)
 
     return{
         "access_token": token,
@@ -67,7 +72,7 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
     summary="Login using email and password and return an access token",
 )
 @limiter.limit("10/minute")
-def login(request: Request, credentials: LoginRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def login(request: Request, credentials: LoginRequest, db: Session = Depends(get_db)):
     """
     Login using email and password and return an access token.
 
@@ -78,22 +83,110 @@ def login(request: Request, credentials: LoginRequest, background_tasks: Backgro
     user = db.query(User).filter(User.email == credentials.email).first()
 
     if not user or not verify_password(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password"
-        )
+        raise UnauthorizedException("Invalid email or password")
     
-    token = create_access_token(data={"sub": str(user.id)})
-
-    background_tasks.add_task(log_activity, user.id, "login")
+    token = create_access_token(data={"sub": str(user.id), "fp": password_fingerprint(user.hashed_password)})
 
     return {
         "access_token": token,
         "token_type": "bearer"
     }
 
+@router.post("/verify-email", response_model=UserResponse)
+@limiter.limit("10/minute")
+def verify_email(request: Request, payload: VerifyRequest, db: Session = Depends(get_db)):
+    """Mark an email as verified from a signed link."""
+    user_id = int(decode_purpose_token(payload.token, "verify")["sub"])
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise NotFoundException("User", user_id)
+    if user.email_verified:
+        return user  # Already verified
+    user.email_verified = True
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.post("/resend-verification", status_code=204)
+@limiter.limit("3/hour")
+def resend_verification(request: Request, background_tasks: BackgroundTasks, current_user: User = Depends(get_current_user)):
+    """Send a fresh verification email to the signed-in user."""
+    if current_user.email_verified:
+        raise BadRequestException("Email already verified")
+    verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
+    background_tasks.add_task(send_verification_email, current_user.email, verify_token)
+    return
 
 @router.get("/me", response_model=UserResponse)
 def me(current_user: User = Depends(get_current_user)):
     """Return the signed-in user."""
+    return current_user
+
+@router.post("/forgot-password", status_code=204)
+@limiter.limit("3/hour")
+def forgot_password(request: Request, payload: ForgotPasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    """Email a reset link. Always returns 204, whether or not the address is registered."""
+    user = db.query(User).filter(User.email == payload.email).first()
+    if user:
+        fp = password_fingerprint(user.hashed_password)
+        token = create_purpose_token(user.id, "reset", timedelta(minutes=15), {"fp": fp})
+        background_tasks.add_task(send_reset_email, user.email, token)
+    return
+
+
+@router.post("/reset-password", status_code=204)
+@limiter.limit("10/hour")
+def reset_password(request: Request, payload: ResetPasswordRequest, db: Session = Depends(get_db)):
+    """Set a new password from a signed reset link."""
+    claims = decode_purpose_token(payload.token, "reset")
+    user_id = int(claims["sub"])
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise NotFoundException("User", user_id)
+    if claims.get("fp") != password_fingerprint(user.hashed_password):
+        raise BadRequestException("This link has already been used.")
+    user.hashed_password = hash_password(payload.new_password)
+    db.commit()
+    db.refresh(user)
+    return
+
+@router.post("/change-email", response_model=UserResponse)
+@limiter.limit("5/hour")
+def change_email(request: Request, payload: ChangeEmailRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Change the signed-in user's email and re-trigger verification."""
+    if not verify_password(payload.password, current_user.hashed_password):
+        raise UnauthorizedException("Incorrect password.")
+    if payload.email == current_user.email:
+        raise BadRequestException("The new email cannot be the same as the current email.")
+    current_user.email = payload.email
+    current_user.email_verified = False
+    try:
+        db.commit()
+        db.refresh(current_user)
+    except IntegrityError:
+        db.rollback()
+        raise DuplicateException("User", "email", payload.email)
+    verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
+    background_tasks.add_task(send_verification_email, current_user.email, verify_token)
+    return current_user
+
+@router.delete("/me", status_code=204)
+@limiter.limit("5/hour")
+def delete_account(request: Request, payload: DeleteAccountRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Permanently delete the signed-in user and everything they own."""
+    if not verify_password(payload.password, current_user.hashed_password):
+        raise UnauthorizedException("Incorrect password.")
+    db.delete(current_user)
+    db.commit()
+    return
+
+@router.patch("/me", response_model=UserResponse)
+def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db),
+              current_user: User = Depends(get_current_user)):
+    """Update the user's email preferences."""
+    for key, value in payload.model_dump(exclude_unset=True).items():
+        setattr(current_user, key, value)
+    db.commit()
+    db.refresh(current_user)
     return current_user
