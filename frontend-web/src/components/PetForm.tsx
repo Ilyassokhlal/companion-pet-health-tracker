@@ -2,6 +2,8 @@ import { useState } from "react";
 import { usePets } from "../context/PetContext";
 import { createPet, updatePet } from "../api/pets";
 import type { Pet } from "../types";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
 
 // Props for the PetForm component, which can optionally take a pet object for editing and a callback function to be called when the form submission is done.
@@ -50,15 +52,14 @@ export default function PetForm({ pet, onDone }: Props) {
   };
   // Renders a form for adding or editing a pet. It includes fields for name, species, breed, birth date, and weight. The form handles submission by calling the appropriate API function to create or update the pet, and it manages loading and error states.
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded">
+        <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-surface border border-border rounded-xl shadow-soft mt-6">
             <div>
                 <label className="block mb-1">Name</label>
-                <input
+                <Input
                     type="text"
                     value={name}
                     onChange={e => setName(e.target.value)}
                     required
-                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
             <div>
@@ -66,7 +67,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 <select
                     value={species}
                     onChange={e => setSpecies(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
                 >
                     <option value="Dog">Dog</option>
                     <option value="Cat">Cat</option>
@@ -74,48 +75,37 @@ export default function PetForm({ pet, onDone }: Props) {
             </div>
             <div>
                 <label className="block mb-1">Breed</label>
-                <input
+                <Input
                     type="text"
                     value={breed}
                     onChange={e => setBreed(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
             <div>
                 <label className="block mb-1">Birth Date</label>
-                <input
+                <Input
                     type="date"
                     value={birthDate}
                     onChange={e => setBirthDate(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
             <div>
                 <label className="block mb-1">Weight (kg)</label>
-                <input
+                <Input
                     type="number"
                     step="0.1"
                     value={weight}
                     onChange={e => setWeight(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
-            {error && <p className="text-red-600 text-sm">{error}</p>}
+            {error && <p className="text-danger text-sm">{error}</p>}
             <div className="flex space-x-2">
-                <button
-                    type="submit"
-                    disabled={submitting}
-                    className="p-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
-                >
+                <Button type="submit" disabled={submitting}>
                     {submitting ? "Saving..." : "Save"}
-                </button>
-                <button
-                    type="button"
-                    onClick={onDone}
-                    className="p-2 bg-gray-300 text-black rounded"
-                >
+                </Button>
+                <Button type="button" variant="secondary" onClick={onDone}>
                     Cancel
-                </button>
+                </Button>
             </div>
         </form>
     );

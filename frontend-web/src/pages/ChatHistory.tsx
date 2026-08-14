@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
 import { listMessages, deleteMessage, clearMessages } from "../api/chat";
 import type { ChatMessage } from "../types";
+import Button from "../components/ui/Button";
 
 // The ChatHistory component displays the chat history of the current pet. It uses the usePets hook to access the current pet and fetches its chat messages using the listMessages API function. The component allows deleting individual messages and clearing all messages. If there is no current pet, it prompts the user to add a pet first.
 export default function ChatHistory() {
@@ -49,46 +50,46 @@ export default function ChatHistory() {
     return <div className="p-8">Loading…</div>;
   }
   if (messages.length === 0) {
-    return <div className="p-8">No conversations yet.</div>;
+    return <div className="p-8 text-muted">No conversations yet.</div>;
   }
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Chat History</h1>
-      <button
-        onClick={handleClear}
-        className="mb-4 px-4 py-2 bg-red-500 text-white rounded"
-      >
+      <Button variant="danger" onClick={handleClear} className="mb-4">
         Clear All
-      </button>
+      </Button>
       <div className="space-y-4">
         {messages.map((m) => (
-          <div key={m.id} className="border p-4 rounded">
+          <div key={m.id} className="bg-surface border border-border rounded-xl p-5 shadow-soft">
             <div className="flex justify-between items-center mb-2">
-              <span className="font-semibold">{m.role}</span>
+              <span className="text-xs uppercase tracking-wide text-muted">{m.role === "assistant" ? "Companion" : "You"}</span>
               <button
                 onClick={() => handleDelete(m.id)}
-                className="text-red-500 hover:underline"
+                className="text-sm text-danger hover:underline"
               >
                 Delete
               </button>
             </div>
             {m.role === "assistant" ? (
-              <ReactMarkdown>{m.content}</ReactMarkdown>
+              <div className="prose-invert space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_h2]:font-semibold [&_h3]:font-semibold">
+                <ReactMarkdown>{m.content}</ReactMarkdown>
+              </div>
             ) : (
-              <p>{m.content}</p>
+              <p className="text-muted">{m.content}</p>
             )}
             {m.sources && m.sources.length > 0 && (
               <div className="mt-2">
-                <h4 className="font-semibold">Sources:</h4>
-                <ul className="list-disc list-inside">
+                <h4 className="text-sm font-semibold text-muted">Sources</h4>
+                <ul className="list-disc list-inside text-sm">
                   {m.sources.map((s, index) => (
                     <li key={index}>
                       <a
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="text-primary hover:underline"
                       >
-                        {s.title} - {s.section}
+                        {s.title} — {s.section}
                       </a>
                     </li>
                   ))}

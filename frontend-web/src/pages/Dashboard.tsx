@@ -5,6 +5,7 @@ import type { HealthRecord } from "../types";
 import PetForm from "../components/PetForm";
 import { deletePet } from "../api/pets";
 import PetPhoto from "../components/PetPhoto";
+import Button from "../components/ui/Button";
 
 // Formats the age of a pet based on its birth date. If the birth date is null, it returns "Unknown". If the pet is less than 12 months old, it returns the age in months. If the pet is 12 months or older, it returns the age in years.
 function formatAge(birthDate: string | null): string {
@@ -56,9 +57,9 @@ export default function Dashboard() {
         ) : (
           <>
             <p>You haven't added a pet yet.</p>
-            <button onClick={() => setShowForm("add")} className="mt-4 p-2 bg-blue-500 text-white rounded">
+            <Button onClick={() => setShowForm("add")} className="mt-4">
               Add Pet
-            </button>
+            </Button>
           </>
         )}
       </div>
@@ -76,20 +77,22 @@ export default function Dashboard() {
       <div className="flex items-center gap-4">
         <PetPhoto pet={currentPet} />
         <h1 className="text-2xl font-bold">{currentPet.name}</h1>
-        <button onClick={() => setShowForm("edit")} className="text-sm text-blue-600 hover:underline">Edit</button>
-                <button onClick={handleDelete} className="text-sm text-red-600 hover:underline">Delete</button>
+        <button onClick={() => setShowForm("edit")} className="text-sm text-primary hover:underline">Edit</button>
+        <button onClick={handleDelete} className="text-sm text-danger hover:underline">Delete</button>
       </div>
-      <p>Species: {currentPet.species}</p>
-      <p>Breed: {currentPet.breed ?? "Not set"}</p>
-      <p>Age: {formatAge(currentPet.birth_date)}</p>
-            <p>Weight: {currentPet.weight !== null ? `${currentPet.weight} kg` : "Not set"}</p>
-      <section className="mt-6">
-        <h2 className="text-lg font-semibold">Due</h2>
+      <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
+        <div><dt className="text-sm text-muted">Breed</dt><dd>{currentPet.breed ?? "Not set"}</dd></div>
+        <div><dt className="text-sm text-muted">Age</dt><dd>{formatAge(currentPet.birth_date)}</dd></div>
+        <div><dt className="text-sm text-muted">Weight</dt><dd>{currentPet.weight !== null ? `${currentPet.weight} kg` : "Not set"}</dd></div>
+      </dl>
+      <section className="mt-8 bg-surface border border-border rounded-xl p-6 shadow-soft">
+        <h2 className="text-lg font-semibold mb-3">Due</h2>
         {overdue.length === 0 && upcoming.length === 0 && (
-          <p className="text-gray-500">Nothing due.</p>
+          <p className="text-muted">Nothing due.</p>
         )}
         {overdue.map(r => (
-          <p key={r.id} className="text-red-500">
+          <p key={r.id} className="text-danger">
             Overdue: {r.title} — {r.next_due_date}
           </p>
         ))}

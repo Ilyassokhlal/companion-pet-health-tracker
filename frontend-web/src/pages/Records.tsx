@@ -4,6 +4,7 @@ import RecordForm from "../components/RecordForm";
 import { usePets } from "../context/PetContext";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
+import Button from "../components/ui/Button";
 
 // The Records component displays the health records of the current pet. It uses the usePets hook to access the current pet and fetches its health records using the listRecords API function. The component allows filtering of records by type and displays the count of each record type. If there is no current pet, it prompts the user to add a pet first.
 export default function Records() {
@@ -44,7 +45,7 @@ export default function Records() {
     <div className="p-8">
       <div className="flex gap-2 mb-4">
         <button
-          className={`px-4 py-2 rounded ${filter === "All" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+          className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === "All" ? "bg-primary text-white" : "bg-surface border border-border text-muted hover:text-fg"}`}
           onClick={() => setFilter("All")}
         >
           All ({records.length})
@@ -52,22 +53,18 @@ export default function Records() {
         {RECORD_TYPES.map(type => (
           <button
             key={type}
-            className={`px-4 py-2 rounded ${filter === type ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+            className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === type ? "bg-primary text-white" : "bg-surface border border-border text-muted hover:text-fg"}`}
             onClick={() => setFilter(type)}
           >
             {type} ({records.filter(r => r.record_type === type).length})
           </button>
         ))}
       </div>
-      <button onClick={() => setEditing("new")} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-        Add record
-      </button>
-      <button onClick={() => downloadExport(currentPet.id, "csv")} className="mb-4 ml-2 px-4 py-2 bg-gray-200 rounded">
-        Export CSV
-      </button>
-      <button onClick={() => downloadExport(currentPet.id, "pdf")} className="mb-4 ml-2 px-4 py-2 bg-gray-200 rounded">
-        Export PDF
-      </button>
+      <div className="flex gap-2 mb-6">
+        <Button onClick={() => setEditing("new")}>Add record</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "csv")}>Export CSV</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")}>Export PDF</Button>
+      </div>
       {editing && (
         <RecordForm
           key={editing === "new" ? "new" : editing.id}
@@ -79,20 +76,22 @@ export default function Records() {
           }}
         />
       )}
-      {loading && <p>Loading…</p>}
+      {loading && <p className="text-muted">Loading…</p>}
       {!loading && filteredRecords.length === 0 && (
-        <p className="text-gray-500">No records yet.</p>
+        <p className="text-muted">No records yet.</p>
       )}
       {[...filteredRecords].sort((a, b) => b.date.localeCompare(a.date)).map(r => (
-        <div key={r.id} className="border p-4 mb-2 rounded">
-          <h3 className="font-bold">{r.title}</h3>
-          <p>Type: {r.record_type}</p>
-          <p>Date: {r.date}</p>
-          {r.description && <p>Description: {r.description}</p>}
-          {r.next_due_date && <p>Next Due Date: {r.next_due_date}</p>}
+        <div key={r.id} className="bg-surface border border-border rounded-xl p-5 mb-3 shadow-soft">
+          <div className="flex items-baseline justify-between gap-3">
+            <h3 className="font-semibold">{r.title}</h3>
+            <span className="text-sm text-muted shrink-0">{r.date}</span>
+          </div>
+          <p className="text-sm text-primary mt-1">{r.record_type}</p>
+          {r.description && <p className="text-muted mt-2">{r.description}</p>}
+          {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
           <div className="flex gap-2 mt-2">
-            <button onClick={() => setEditing(r)} className="px-4 py-2 bg-yellow-500 text-white rounded">Edit</button>
-            <button onClick={() => handleDelete(r)} className="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
+            <Button variant="secondary" onClick={() => setEditing(r)} className="px-3 py-1 text-sm">Edit</Button>
+            <Button variant="danger" onClick={() => handleDelete(r)} className="px-3 py-1 text-sm">Delete</Button>
           </div>
         </div>
       ))}

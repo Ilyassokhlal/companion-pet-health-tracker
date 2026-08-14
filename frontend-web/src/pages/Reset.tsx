@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { resetPassword } from "../api/auth";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
 export default function Reset() {
   // const [params] = useSearchParams(); const token = params.get("token");
@@ -15,12 +17,12 @@ export default function Reset() {
   // if (!token) -> render "That link is missing its token." with a Link to /forgot
   if (!token) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 bg-white rounded shadow">
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="w-full max-w-md p-8 bg-surface border border-border rounded-xl shadow-soft">
             <h1 className="text-2xl font-bold mb-6">Reset Password</h1>
-            <p className="text-red-600 mb-4">That link is missing its token.</p>
+            <p className="text-danger mb-4">That link is missing its token.</p>
             <p className="mt-4">
-              <Link to="/forgot" className="text-blue-500">
+              <Link to="/forgot" className="text-primary hover:underline">
                 Request a new reset link
                 </Link>
             </p>
@@ -51,46 +53,40 @@ export default function Reset() {
   }
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-full max-w-md p-8 bg-surface border border-border rounded-xl shadow-soft">
         <h1 className="text-2xl font-bold mb-6">Reset Password</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-muted mb-2">
               New Password
             </label>
-            <input
+            <Input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
               required
-              className="w-full px-3 py-2 border rounded"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="confirm" className="block text-gray-700 mb-2">
+            <label htmlFor="confirm" className="block text-muted mb-2">
               Confirm Password
             </label>
-            <input
+            <Input
               type="password"
               id="confirm"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
               autoComplete="new-password"
               required
-              className="w-full px-3 py-2 border rounded"
             />
           </div>
-          {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:opacity-50"
-          >
+          {error && <p className="text-danger text-sm mb-4">{error}</p>}
+          <Button type="submit" disabled={submitting} className="w-full">
             {submitting ? "Resetting..." : "Reset Password"}
-          </button>
+          </Button>
         </form>
       </div>
     </div>
