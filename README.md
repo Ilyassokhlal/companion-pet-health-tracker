@@ -1,5 +1,7 @@
 # 🐾 Companion — AI-Powered Pet Health Tracker
 
+> **v2 is in progress.** The sections below describe v1 — the stack, architecture and route list have all changed. For a version where this README is accurate, see the [`v1.0-capstone`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v1.0-capstone) tag.
+
 A multi-user pet health record system. Owners log vaccinations, vet visits, medications,
 weight and symptoms, then ask an AI assistant questions about their pet's care — answered
 from a curated veterinary reference corpus and grounded in that pet's own history.
