@@ -10,10 +10,12 @@ import Settings from "./pages/Settings";
 import Verify from "./pages/Verify";
 import Reset from "./pages/Reset";
 import Forgot from "./pages/Forgot";
+import Landing from "./pages/Landing";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/verify" element={<Verify />} />
@@ -22,7 +24,7 @@ export default function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/records" element={<Records />} />
           <Route path="/chat" element={<ChatHistory />} />
           <Route path="/settings" element={<Settings />} />

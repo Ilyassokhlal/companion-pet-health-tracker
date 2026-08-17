@@ -8,7 +8,7 @@ export default function Settings() {
     if (!user)
       return null;
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <h1 className="text-2xl font-bold mb-4">Settings</h1>
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Account</h2>

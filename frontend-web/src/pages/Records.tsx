@@ -42,8 +42,8 @@ export default function Records() {
   const filteredRecords = filter === "All" ? records : records.filter(r => r.record_type === filter);
 
   return (
-    <div className="p-8">
-      <div className="flex gap-2 mb-4">
+      <div className="p-4 sm:p-8">
+      <div className="flex flex-wrap gap-2 mb-4">
         <button
           className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === "All" ? "bg-primary text-white" : "bg-surface border border-border text-muted hover:text-fg"}`}
           onClick={() => setFilter("All")}

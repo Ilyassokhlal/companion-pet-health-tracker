@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import Button from "./ui/Button";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 // Navigation items for the header, each with a path and label.
 const navItems = [
-  { to: "/", label: "Dashboard" },
+  { to: "/dashboard", label: "Dashboard" },
   { to: "/records", label: "Records" },
   { to: "/chat", label: "Chat history" },
   { to: "/settings", label: "Settings" },
@@ -15,13 +17,14 @@ const navItems = [
 export default function Header() {
     const { user, logout } = useAuth();
     const { pets, currentPet, setCurrentPet } = usePets();
+    const [menuOpen, setMenuOpen] = useState(false);
     return (
-        <header className="flex items-center justify-between px-6 py-4 bg-surface border-b border-border">
+        <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
             <div className="flex items-center space-x-4">
-                <NavLink to="/" className="text-2xl font-bold">
+                <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold whitespace-nowrap">
                     🐾 Companion
                 </NavLink>
-                <nav className="space-x-4">
+                <nav className="hidden md:flex space-x-4">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.to}
@@ -49,11 +52,36 @@ export default function Header() {
                         ))}
                     </select>
                 )}
-                <span className="text-muted">{user?.username}</span>
-                <Button variant="secondary" onClick={logout} className="px-3 py-1">
+                <span className="hidden sm:inline text-muted">{user?.username}</span>
+                <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden sm:block">
                     Logout
                 </Button>
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="md:hidden text-muted hover:text-fg"
+                    aria-label="Menu"
+                >
+                    {menuOpen ? <X size={22} /> : <Menu size={22} />}
+                </button>
             </div>
+
+            {menuOpen && (
+                <nav className="md:hidden absolute top-full left-0 right-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
+                    {navItems.map((item) => (
+                        <NavLink
+                            key={item.to}
+                            to={item.to}
+                            onClick={() => setMenuOpen(false)}
+                            className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted"}
+                        >
+                            {item.label}
+                        </NavLink>
+                    ))}
+                    <button onClick={logout} className="text-left text-danger">
+                        Log out
+                    </button>
+                </nav>
+            )}
         </header>
     );
 }

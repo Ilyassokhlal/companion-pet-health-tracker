@@ -51,7 +51,7 @@ export default function Dashboard() {
   }
   if (!currentPet) {
     return (
-      <div className="p-8">
+    <div className="p-4 sm:p-8">
         {showForm === "add" ? (
           <PetForm onDone={() => setShowForm(null)} />
         ) : (
@@ -73,7 +73,7 @@ export default function Dashboard() {
   const upcoming = dueRecords.filter(r => r.next_due_date! >= todayStr);
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <div className="flex items-center gap-4">
         <PetPhoto pet={currentPet} />
         <h1 className="text-2xl font-bold">{currentPet.name}</h1>

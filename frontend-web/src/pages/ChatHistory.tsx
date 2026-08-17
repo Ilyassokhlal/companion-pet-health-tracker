@@ -53,7 +53,7 @@ export default function ChatHistory() {
     return <div className="p-8 text-muted">No conversations yet.</div>;
   }
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <h1 className="text-2xl font-bold mb-4">Chat History</h1>
       <Button variant="danger" onClick={handleClear} className="mb-4">
         Clear All
