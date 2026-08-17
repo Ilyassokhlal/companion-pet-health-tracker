@@ -7,6 +7,7 @@ import { deletePet } from "../api/pets";
 import { Pencil, Trash2 } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
+import ConfirmDialog from "../components/ui/ConfirmDialog";
 
 // Formats the age of a pet based on its birth date. If the birth date is null, it returns "Unknown". If the pet is less than 12 months old, it returns the age in months. If the pet is 12 months or older, it returns the age in years.
 function formatAge(birthDate: string | null): string {
@@ -29,6 +30,7 @@ export default function Dashboard() {
   const { currentPet, loading, refresh } = usePets();
   const [showForm, setShowForm] = useState<"add" | "edit" | null>(null);
   const [records, setRecords] = useState<HealthRecord[]>([]);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   useEffect(() => {
     if (!currentPet) {
@@ -41,7 +43,7 @@ export default function Dashboard() {
   // Handles the deletion of the current pet. It prompts the user for confirmation before proceeding with the deletion. If confirmed, it calls the deletePet API function, removes the current pet ID from local storage, and refreshes the pet list.
   async function handleDelete() {
     if (!currentPet) return;
-    if (!confirm(`Delete ${currentPet.name}? Their records and chat history go too. This cannot be undone.`)) return;
+    setConfirmingDelete(false);
     await deletePet(currentPet.id);
     localStorage.removeItem("currentPetId");
     await refresh();
@@ -79,7 +81,7 @@ export default function Dashboard() {
         <PetPhoto pet={currentPet} />
         <h1 className="text-2xl font-bold">{currentPet.name}</h1>
         <button onClick={() => setShowForm("edit")} className="flex items-center gap-1 text-sm text-primary hover:underline"><Pencil size={14} />Edit</button>
-        <button onClick={handleDelete} className="flex items-center gap-1 text-sm text-danger hover:underline"><Trash2 size={14} />Delete</button>
+        <button onClick={() => setConfirmingDelete(true)} className="flex items-center gap-1 text-sm text-danger hover:underline"><Trash2 size={14} />Delete</button>
       </div>
       <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
@@ -106,6 +108,13 @@ export default function Dashboard() {
       {showForm === "edit" && (
         <PetForm key={currentPet.id} pet={currentPet} onDone={() => setShowForm(null)} />
       )}
+      <ConfirmDialog
+        open={confirmingDelete}
+        title={`Delete ${currentPet.name}?`}
+        message="Their health records, photos and chat history are deleted too. This cannot be undone."
+        onConfirm={handleDelete}
+        onCancel={() => setConfirmingDelete(false)}
+      />
     </div>
   );
 }

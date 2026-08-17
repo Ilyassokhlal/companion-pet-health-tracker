@@ -5,11 +5,14 @@ import { listMessages, deleteMessage, clearMessages } from "../api/chat";
 import type { ChatMessage } from "../types";
 import Button from "../components/ui/Button";
 import { Trash2 } from "lucide-react";
+import ConfirmDialog from "../components/ui/ConfirmDialog";
 
 // The ChatHistory component displays the chat history of the current pet. It uses the usePets hook to access the current pet and fetches its chat messages using the listMessages API function. The component allows deleting individual messages and clearing all messages. If there is no current pet, it prompts the user to add a pet first.
 export default function ChatHistory() {
   const { currentPet } = usePets();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [pendingDelete, setPendingDelete] = useState<number | null>(null);
+  const [confirmingClear, setConfirmingClear] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Load messages for the current pet
@@ -28,15 +31,16 @@ export default function ChatHistory() {
     load();
   }, [load]);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this message?")) return;
-    await deleteMessage(id);
+  const handleDelete = async () => {
+    if (pendingDelete === null) return;
+    await deleteMessage(pendingDelete);
+    setPendingDelete(null);
     load();
   };
 
   const handleClear = async () => {
     if (!currentPet) return;
-    if (!confirm("Are you sure you want to clear all messages?")) return;
+    setConfirmingClear(false);
     await clearMessages(currentPet.id);
     load();
   };
@@ -56,7 +60,7 @@ export default function ChatHistory() {
   return (
     <div className="p-4 sm:p-8">
       <h1 className="text-2xl font-bold mb-4">Chat History</h1>
-      <Button variant="danger" onClick={handleClear} className="mb-4 flex items-center gap-1.5">
+      <Button variant="danger" onClick={() => setConfirmingClear(true)} className="mb-4 flex items-center gap-1.5">
         <Trash2 size={16} />Clear all
       </Button>
       <div className="space-y-4">
@@ -65,7 +69,7 @@ export default function ChatHistory() {
             <div className="flex justify-between items-center mb-2">
               <span className="text-xs uppercase tracking-wide text-muted">{m.role === "assistant" ? "Companion" : "You"}</span>
               <button
-                onClick={() => handleDelete(m.id)}
+                onClick={() => setPendingDelete(m.id)}
                 className="text-muted hover:text-danger transition"
                 aria-label="Delete message"
               >
@@ -101,6 +105,21 @@ export default function ChatHistory() {
           </div>
         ))}
       </div>
+      <ConfirmDialog
+        open={pendingDelete !== null}
+        title="Delete message"
+        message="This message will be permanently removed from the conversation."
+        onConfirm={handleDelete}
+        onCancel={() => setPendingDelete(null)}
+      />
+      <ConfirmDialog
+        open={confirmingClear}
+        title="Clear conversation"
+        message={`Every message for ${currentPet.name} will be permanently removed.`}
+        confirmLabel="Clear all"
+        onConfirm={handleClear}
+        onCancel={() => setConfirmingClear(false)}
+      />
     </div>
   );
 }

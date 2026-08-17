@@ -6,6 +6,8 @@ import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
 import { Plus, Download, Pencil, Trash2 } from "lucide-react";
 import Button from "../components/ui/Button";
+import ConfirmDialog from "../components/ui/ConfirmDialog";
+
 
 // The Records component displays the health records of the current pet. It uses the usePets hook to access the current pet and fetches its health records using the listRecords API function. The component allows filtering of records by type and displays the count of each record type. If there is no current pet, it prompts the user to add a pet first.
 export default function Records() {
@@ -14,6 +16,7 @@ export default function Records() {
   const [filter, setFilter] = useState<RecordType | "All">("All");
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<HealthRecord | "new" | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<HealthRecord | null>(null);
 
   const load = useCallback(() => {
     if (!currentPet) {
@@ -30,9 +33,10 @@ export default function Records() {
     load();
   }, [load]);
 
-  async function handleDelete(record: HealthRecord) {
-    if (!confirm(`Delete "${record.title}"?`)) return;
-    await deleteRecord(record.id);
+  async function handleDelete() {
+    if (!pendingDelete) return;
+    await deleteRecord(pendingDelete.id);
+    setPendingDelete(null);
     load();
   }
 
@@ -92,10 +96,17 @@ export default function Records() {
           {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
           <div className="flex gap-2 mt-2">
             <Button variant="secondary" onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />Edit</Button>
-            <Button variant="danger" onClick={() => handleDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />Delete</Button>
+            <Button variant="danger" onClick={() => setPendingDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />Delete</Button>
           </div>
         </div>
       ))}
+      <ConfirmDialog
+        open={!!pendingDelete}
+        title="Delete record"
+        message={`"${pendingDelete?.title}" will be permanently removed.`}
+        onConfirm={handleDelete}
+        onCancel={() => setPendingDelete(null)}
+      />
     </div>
   );
 }
