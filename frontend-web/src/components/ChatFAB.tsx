@@ -3,6 +3,8 @@ import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
 import { askStream } from "../api/chat";
 import type { Citation } from "../types";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 interface Turn {
   role: "user" | "assistant";
@@ -62,17 +64,17 @@ export default function ChatFAB() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-blue-600 text-white text-2xl shadow-lg"
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary-hover text-white text-2xl shadow-glow transition-transform hover:scale-105 active:scale-95"
         >
           💬
         </button>
       )}
       {open && (
-        <div className="fixed bottom-6 right-6 w-96 max-w-[calc(100vw-3rem)] h-[32rem] max-h-[calc(100vh-3rem)] bg-white border rounded-lg shadow-xl flex flex-col">
+        <div className="fixed bottom-6 right-6 w-96 max-w-[calc(100vw-3rem)] h-[32rem] max-h-[calc(100vh-3rem)] bg-surface border border-border rounded-2xl shadow-soft flex flex-col overflow-hidden">
 
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center justify-between p-4 border-b border-border">
             <h2 className="text-lg font-semibold">Ask about {currentPet.name}</h2>
-            <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-gray-700">
+            <button onClick={() => setOpen(false)} className="text-muted hover:text-fg transition">
               ✕
             </button>
           </div>
@@ -80,23 +82,25 @@ export default function ChatFAB() {
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {turns.map((t, idx) => (
               <div key={idx} className={`flex ${t.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[70%] p-2 rounded-lg ${t.role === "user" ? "bg-blue-100 text-right" : "bg-gray-100 text-left"}`}>
+                <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${t.role === "user" ? "bg-primary text-white" : "bg-ink border border-border text-fg"}`}>
                   {t.role === "user" ? (
                     <span>{t.content}</span>
                   ) : (
                     <>
                       {t.content ? (
-                        <ReactMarkdown>{t.content}</ReactMarkdown>
+                        <div className="[&_ul]:list-disc [&_ul]:pl-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
+                          <ReactMarkdown>{t.content}</ReactMarkdown>
+                        </div>
                       ) : (
-                        <span className="text-gray-400">🤔 Thinking…</span>
+                        <span className="text-muted">🤔 Thinking…</span>
                       )}
                       {t.sources && t.sources.length > 0 && (
-                        <div className="mt-2 text-sm text-gray-500">
+                        <div className="mt-2 text-sm text-muted">
                           Sources:{" "}
                           {t.sources.map((s, i) => (
                             <span key={i}>
                               {i > 0 && ", "}
-                              <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline">
+                              <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                                 {s.title}
                               </a>
                             </span>
@@ -110,17 +114,17 @@ export default function ChatFAB() {
             ))}
           </div>
 
-          <form onSubmit={handleAsk} className="flex p-4 border-t">
-            <input
+          <form onSubmit={handleAsk} className="flex p-4 border-t border-border">
+            <Input
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              className="flex-1 border rounded-lg p-2 mr-2"
+              className="flex-1 mr-2"
               placeholder="Ask a question..."
             />
-            <button type="submit" disabled={streaming} className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+            <Button type="submit" disabled={streaming}>
               Send
-            </button>
+            </Button>
           </form>
         </div>
       )}

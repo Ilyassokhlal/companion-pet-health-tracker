@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { deleteAccount } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 // DeleteAccountForm component allows the user to delete their account. It requires the user to confirm their action by entering their current password. Upon successful submission, it deletes the user's account and logs them out.
 export default function DeleteAccountForm() {
@@ -30,44 +32,41 @@ export default function DeleteAccountForm() {
     
     // Render the delete account form with a confirmation step, input field for the current password, and submission handling with feedback messages.
     return (
-        <section className="max-w-md mx-auto p-4 bg-white shadow rounded">
-            <h2 className="text-2xl font-bold mb-4">Delete Account</h2>
+        <section className="max-w-md p-6 bg-surface border border-danger/30 rounded-xl shadow-soft mb-6">
+            <h2 className="text-lg font-semibold mb-4">Delete Account</h2>
             {!confirming ? (
                 <div>
-                    <p className="mb-4 text-gray-700">
-                        Deleting your account is permanent and cannot be undone. All your data will be lost.
+                    <p className="mb-4 text-muted">
+                        Deleting your account is permanent. Your pets, health records, photos and chat history all go with it.
                     </p>
-                    <button
-                        onClick={() => setConfirming(true)}
-                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-                    >
+                    <Button variant="danger" onClick={() => setConfirming(true)}>
                         Delete Account
-                    </button>
+                    </Button>
                 </div>
             ) : (
                 <form onSubmit={handleDelete}>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-gray-700 mb-2">
+                        <label htmlFor="password" className="block text-sm text-muted mb-2">
                             Confirm Password
                         </label>
-                        <input
+                        <Input
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="current-password"
                             required
-                            className="w-full px-3 py-2 border rounded"
                         />
                     </div>
-                    {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50"
-                    >
-                        {submitting ? "Deleting..." : "Delete Account"}
-                    </button>
+                    {error && <p className="text-danger text-sm mb-4">{error}</p>}
+                    <div className="flex gap-2">
+                        <Button type="submit" variant="danger" disabled={submitting}>
+                            {submitting ? "Deleting..." : "Permanently delete"}
+                        </Button>
+                        <Button type="button" variant="secondary" onClick={() => setConfirming(false)}>
+                            Cancel
+                        </Button>
+                    </div>
                 </form>
             )}
         </section>

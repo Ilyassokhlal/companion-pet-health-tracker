@@ -47,10 +47,10 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             <img
                 src={`${import.meta.env.VITE_API_URL}/photos/${pet.photo_filename}`}
                 alt={pet.name}
-                className="w-32 h-32 rounded-full object-cover"
+                className="w-32 h-32 rounded-full object-cover ring-1 ring-border"
             />
         ) : (
-            <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center text-4xl text-white">
+            <div className="w-32 h-32 rounded-full bg-surface border border-border flex items-center justify-center text-4xl text-muted">
                 {pet.name.charAt(0).toUpperCase()}
             </div>
         )}
@@ -59,15 +59,14 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             accept="image/jpeg,image/png,image/webp"
             onChange={handleChange}
             disabled={uploading}
-            className="mt-2"
+            className="mt-3 text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white file:cursor-pointer hover:file:bg-primary-hover"
         />
-
         {pet.photo_filename && (
-            <button onClick={handleRemove} disabled={uploading} className="text-sm text-danger hover:underline mt-2">
+            <button onClick={handleRemove} disabled={uploading} className="text-sm text-danger hover:underline mt-2 disabled:opacity-50">
                 Remove photo
             </button>
         )}
-        {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+        {error && <p className="text-danger text-sm mt-2">{error}</p>}
     </div>
   );
 }

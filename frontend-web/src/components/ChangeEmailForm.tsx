@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { changeEmail } from "../api/auth";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 
 // ChangeEmailForm component allows the user to change their email address. It requires the user to input their new email and current password for verification. Upon successful submission, it updates the user's email and prompts them to check their new email for a verification link.
@@ -30,45 +32,39 @@ export default function ChangeEmailForm() {
     }
     // Render the change email form with input fields for the new email and current password, along with submission handling and feedback messages.
     return (
-        <section className="max-w-md mx-auto p-4 bg-white shadow rounded">
-            <h2 className="text-2xl font-bold mb-4">Change Email</h2>
+        <section className="max-w-md p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
+            <h2 className="text-lg font-semibold mb-4">Change Email</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm text-muted mb-2">
                         New Email
                     </label>
-                    <input
+                    <Input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="w-full px-3 py-2 border rounded"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-gray-700 mb-2">
+                    <label htmlFor="password" className="block text-sm text-muted mb-2">
                         Current Password
                     </label>
-                    <input
+                    <Input
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                         required
-                        className="w-full px-3 py-2 border rounded"
                     />
                 </div>
-                {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-                {message && <p className="text-green-600 text-sm mb-4">{message}</p>}
-                <button
-                    type="submit"
-                    disabled={submitting}
-                    className={`w-full py-2 px-4 bg-blue-500 text-white rounded ${submitting ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
-                >
+                {error && <p className="text-danger text-sm mb-4">{error}</p>}
+                {message && <p className="text-primary text-sm mb-4">{message}</p>}
+                <Button type="submit" disabled={submitting} className="w-full">
                     {submitting ? "Submitting..." : "Change Email"}
-                </button>
+                </Button>
             </form>
         </section>
     );

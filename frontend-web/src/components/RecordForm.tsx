@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createRecord, updateRecord } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 interface Props {
   petId: number;
@@ -45,15 +47,14 @@ export default function RecordForm({ petId, record, onDone }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-danger text-sm">{error}</p>}
       <div>
         <label className="block">Title</label>
-        <input
+        <Input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="border p-2 w-full"
         />
       </div>
       <div>
@@ -61,7 +62,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         <select
           value={recordType}
           onChange={(e) => setRecordType(e.target.value as RecordType)}
-          className="border p-2 w-full"
+          className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
         >
           {RECORD_TYPES.map((type) => (
             <option key={type} value={type}>
@@ -72,12 +73,11 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       </div>
       <div>
         <label className="block">Date</label>
-        <input
+        <Input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
-          className="border p-2 w-full"
         />
       </div>
       <div>
@@ -85,33 +85,25 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 w-full"
+          rows={3}
+          className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg placeholder:text-muted transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
       </div>
       <div>
         <label className="block">Next Due Date</label>
-        <input
+        <Input
           type="date"
           value={nextDueDate}
           onChange={(e) => setNextDueDate(e.target.value)}
-          className="border p-2 w-full"
         />
       </div>
       <div className="flex gap-2">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          onClick={() => onDone(false)}
-          className="px-4 py-2 bg-gray-500 text-white rounded"
-        >
+        <Button type="submit" disabled={submitting}>
+          {submitting ? "Saving..." : "Save"}
+        </Button>
+        <Button type="button" variant="secondary" onClick={() => onDone(false)}>
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   );
