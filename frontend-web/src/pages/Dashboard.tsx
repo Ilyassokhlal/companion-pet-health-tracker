@@ -4,6 +4,7 @@ import { listRecords } from "../api/records";
 import type { HealthRecord } from "../types";
 import PetForm from "../components/PetForm";
 import { deletePet } from "../api/pets";
+import { Pencil, Trash2 } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 
@@ -77,8 +78,8 @@ export default function Dashboard() {
       <div className="flex items-center gap-4">
         <PetPhoto pet={currentPet} />
         <h1 className="text-2xl font-bold">{currentPet.name}</h1>
-        <button onClick={() => setShowForm("edit")} className="text-sm text-primary hover:underline">Edit</button>
-        <button onClick={handleDelete} className="text-sm text-danger hover:underline">Delete</button>
+        <button onClick={() => setShowForm("edit")} className="flex items-center gap-1 text-sm text-primary hover:underline"><Pencil size={14} />Edit</button>
+        <button onClick={handleDelete} className="flex items-center gap-1 text-sm text-danger hover:underline"><Trash2 size={14} />Delete</button>
       </div>
       <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>

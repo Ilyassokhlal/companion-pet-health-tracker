@@ -3,14 +3,14 @@ import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, MessageSquare, Settings as SettingsIcon, PawPrint } from "lucide-react";
 
 // Navigation items for the header, each with a path and label.
 const navItems = [
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/records", label: "Records" },
-  { to: "/chat", label: "Chat history" },
-  { to: "/settings", label: "Settings" },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/records", label: "Records", icon: FileText },
+  { to: "/chat", label: "Chat history", icon: MessageSquare },
+  { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
@@ -22,7 +22,7 @@ export default function Header() {
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
             <div className="flex items-center space-x-4">
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold whitespace-nowrap">
-                    🐾 Companion
+                    <PawPrint size={22} className="inline mr-2 -mt-1" /> Companion
                 </NavLink>
                 <nav className="hidden md:flex space-x-4">
                     {navItems.map((item) => (
@@ -32,7 +32,7 @@ export default function Header() {
                             end={item.to === "/"}
                             className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}
                         >
-                            {item.label}
+                            <span className="flex items-center gap-1.5"><item.icon size={16} />{item.label}</span>
                         </NavLink>
                     ))}
                 </nav>
@@ -74,7 +74,7 @@ export default function Header() {
                             onClick={() => setMenuOpen(false)}
                             className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted"}
                         >
-                            {item.label}
+                            <span className="flex items-center gap-2"><item.icon size={16} />{item.label}</span>
                         </NavLink>
                     ))}
                     <button onClick={logout} className="text-left text-danger">

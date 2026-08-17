@@ -4,6 +4,7 @@ import { usePets } from "../context/PetContext";
 import { listMessages, deleteMessage, clearMessages } from "../api/chat";
 import type { ChatMessage } from "../types";
 import Button from "../components/ui/Button";
+import { Trash2 } from "lucide-react";
 
 // The ChatHistory component displays the chat history of the current pet. It uses the usePets hook to access the current pet and fetches its chat messages using the listMessages API function. The component allows deleting individual messages and clearing all messages. If there is no current pet, it prompts the user to add a pet first.
 export default function ChatHistory() {
@@ -55,8 +56,8 @@ export default function ChatHistory() {
   return (
     <div className="p-4 sm:p-8">
       <h1 className="text-2xl font-bold mb-4">Chat History</h1>
-      <Button variant="danger" onClick={handleClear} className="mb-4">
-        Clear All
+      <Button variant="danger" onClick={handleClear} className="mb-4 flex items-center gap-1.5">
+        <Trash2 size={16} />Clear all
       </Button>
       <div className="space-y-4">
         {messages.map((m) => (
@@ -65,9 +66,10 @@ export default function ChatHistory() {
               <span className="text-xs uppercase tracking-wide text-muted">{m.role === "assistant" ? "Companion" : "You"}</span>
               <button
                 onClick={() => handleDelete(m.id)}
-                className="text-sm text-danger hover:underline"
+                className="text-muted hover:text-danger transition"
+                aria-label="Delete message"
               >
-                Delete
+                <Trash2 size={14} />
               </button>
             </div>
             {m.role === "assistant" ? (

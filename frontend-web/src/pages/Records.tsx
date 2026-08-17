@@ -4,6 +4,7 @@ import RecordForm from "../components/RecordForm";
 import { usePets } from "../context/PetContext";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
+import { Plus, Download, Pencil, Trash2 } from "lucide-react";
 import Button from "../components/ui/Button";
 
 // The Records component displays the health records of the current pet. It uses the usePets hook to access the current pet and fetches its health records using the listRecords API function. The component allows filtering of records by type and displays the count of each record type. If there is no current pet, it prompts the user to add a pet first.
@@ -61,9 +62,9 @@ export default function Records() {
         ))}
       </div>
       <div className="flex gap-2 mb-6">
-        <Button onClick={() => setEditing("new")}>Add record</Button>
-        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "csv")}>Export CSV</Button>
-        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")}>Export PDF</Button>
+        <Button onClick={() => setEditing("new")} className="flex items-center gap-1.5"><Plus size={16} />Add record</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "csv")} className="flex items-center gap-1.5"><Download size={16} />CSV</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")} className="flex items-center gap-1.5"><Download size={16} />PDF</Button>
       </div>
       {editing && (
         <RecordForm
@@ -90,8 +91,8 @@ export default function Records() {
           {r.description && <p className="text-muted mt-2">{r.description}</p>}
           {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
           <div className="flex gap-2 mt-2">
-            <Button variant="secondary" onClick={() => setEditing(r)} className="px-3 py-1 text-sm">Edit</Button>
-            <Button variant="danger" onClick={() => handleDelete(r)} className="px-3 py-1 text-sm">Delete</Button>
+            <Button variant="secondary" onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />Edit</Button>
+            <Button variant="danger" onClick={() => handleDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />Delete</Button>
           </div>
         </div>
       ))}

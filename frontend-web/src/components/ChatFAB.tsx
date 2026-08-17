@@ -5,6 +5,7 @@ import { askStream } from "../api/chat";
 import type { Citation } from "../types";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
+import { MessageCircle, X, Send } from "lucide-react";
 
 interface Turn {
   role: "user" | "assistant";
@@ -66,7 +67,7 @@ export default function ChatFAB() {
           onClick={() => setOpen(true)}
           className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary-hover text-white text-2xl shadow-glow transition-transform hover:scale-105 active:scale-95"
         >
-          💬
+          <MessageCircle size={24} className="mx-auto" />
         </button>
       )}
       {open && (
@@ -75,7 +76,7 @@ export default function ChatFAB() {
           <div className="flex items-center justify-between p-4 border-b border-border">
             <h2 className="text-lg font-semibold">Ask about {currentPet.name}</h2>
             <button onClick={() => setOpen(false)} className="text-muted hover:text-fg transition">
-              ✕
+              <X size={20} />
             </button>
           </div>
 
@@ -122,8 +123,8 @@ export default function ChatFAB() {
               className="flex-1 mr-2"
               placeholder="Ask a question..."
             />
-            <Button type="submit" disabled={streaming}>
-              Send
+            <Button type="submit" disabled={streaming} aria-label="Send">
+              <Send size={16} />
             </Button>
           </form>
         </div>
