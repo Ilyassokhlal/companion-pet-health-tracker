@@ -1,295 +1,266 @@
 # 🐾 Companion — AI-Powered Pet Health Tracker
 
-> **v2 is in progress.** The sections below describe v1 — the stack, architecture and route list have all changed. For a version where this README is accurate, see the [`v1.0-capstone`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v1.0-capstone) tag.
+> **v2.** The Module 9 capstone that this project grew out of is preserved at the
+> [`v1.0-capstone`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v1.0-capstone)
+> tag, along with the README that describes it.
 
 A multi-user pet health record system. Owners log vaccinations, vet visits, medications,
-weight and symptoms, then ask an AI assistant questions about their pet's care — answered
-from a curated veterinary reference corpus and grounded in that pet's own history.
+weight and symptoms, attach photos to any record, and ask an AI assistant questions about
+their pet's care — answered from a curated veterinary reference corpus and grounded in that
+pet's own history. Due dates turn into email reminders that arrive at 8am in each owner's
+own timezone.
 
-Module 9 Capstone.
+---
+
+## Screenshots
+
+**Dashboard**
+
+![Dashboard](screenshots/V2/Dashboard.png)
+
+**Records**
+
+![Records](screenshots/V2/Records.png)
+
+**Chat, answering from the corpus with sources**
+
+![Chat with sources](screenshots/V2/Chat%20%28sourced%20responses%29.png)
+
+**Chat overlays any page**
+
+![Chat overlay](screenshots/V2/Chat%20Overlay%20%28over%20the%20page%29.png)
+
+**Photo gallery, tagged with the record it belongs to**
+
+![Photos](screenshots/V2/Photos.png)
+
+![Tagged photo](screenshots/V2/Photo%20%28tagged%29.png)
+
+**Settings**
+
+![Settings](screenshots/V2/Settings.png)
+
+**Interactive API documentation**
+
+![Swagger docs](screenshots/Swagger.png)
 
 ---
 
 ## Architecture
 
-![Architecture diagram](architecture.png)
+Three Compose services on one internal network. Only the frontend (5173) and the API (8000)
+are published; Postgres is reachable from the host on 5432 for development convenience.
 
-Four Compose services on a single internal Docker network. Only Streamlit (8501) and
-FastAPI (8000) are published to the host.
-
-| Component | Role |
+| Service | Role |
 |---|---|
-| Streamlit | UI — auth, pet management, record timeline, chat |
-| FastAPI | REST API, JWT auth, business logic, RAG orchestration |
-| SQLite | Relational store: users, pets, health records, activity log, chat history |
-| ChromaDB | Vector store for the pet-care corpus (`all-MiniLM-L6-v2` embeddings) |
-| Ollama | LLM inference (`llama3.2:1b` by default) |
-| ollama-init | One-shot service that pulls the model, then exits |
+| `frontend` | React SPA, built with Vite and served as static files by Caddy |
+| `backend` | FastAPI — REST API, JWT auth, RAG orchestration, reminder scheduler |
+| `db` | PostgreSQL 17 — users, pets, records, photos, chat history |
 
-Embeddings come from ChromaDB's default embedding function, not Ollama. Ollama handles
-generation only.
+ChromaDB runs in-process inside the backend, and its index lives on the shared `app_data`
+volume alongside uploaded photos. Answer generation calls the Claude API; email goes through
+Resend. Neither runs locally.
+
+**Volumes** — `db_data` holds the database, `app_data` holds `/data/chroma` and `/data/photos`.
 
 ---
 
 ## Tech stack
 
-| Layer | Technology |
+| Layer | Choice |
 |---|---|
-| API | FastAPI, Uvicorn |
-| Validation | Pydantic v2 |
-| ORM / database | SQLAlchemy 2.0, SQLite |
-| Auth | JWT (python-jose), bcrypt via passlib, OAuth2 bearer |
-| Rate limiting | slowapi |
-| Vector store | ChromaDB with `all-MiniLM-L6-v2` embeddings |
-| LLM | Ollama running `llama3.2:1b` |
-| Frontend | Streamlit |
-| Orchestration | Docker Compose |
-| Testing | pytest, FastAPI TestClient |
-| CI | GitHub Actions — pytest, ruff, Docker build |
+| Frontend | React + TypeScript, Vite, Tailwind CSS v4, React Router, lucide-react |
+| Web server | Caddy |
+| API | FastAPI, Pydantic v2, SQLAlchemy 2, Alembic |
+| Database | PostgreSQL 17 |
+| Vector store | ChromaDB (`all-MiniLM-L6-v2` embeddings) |
+| LLM | Claude Haiku 4.5 via the Anthropic API |
+| Email | Resend |
+| Scheduling | APScheduler |
+| Export | `fpdf2` for PDF, `csv` for CSV |
+| Tests | pytest against a real PostgreSQL database |
 
 ---
 
 ## Prerequisites
 
-- **Docker Desktop** 4.x or newer, running. Everything else — Ollama, the model, ChromaDB —
-  runs in containers; nothing needs installing on the host.
-- **~4 GB free disk** for the model, images and vector store.
-- **Python 3.11+** only if you want to run the test suite outside Docker. The containers
-  use 3.11.
+- Docker and Docker Compose
+- An [Anthropic API key](https://console.anthropic.com)
+- A [Resend](https://resend.com) API key and a verified sending domain
+
+Email is optional for local development — the app runs without it, but verification,
+password reset and reminders will silently do nothing.
 
 ---
 
 ## Quick start
 
 ```bash
+git clone https://github.com/Ilyassokhlal/companion-pet-health-tracker.git
+cd companion-pet-health-tracker
 cp .env.example .env
-python -c "import secrets; print(secrets.token_hex(32))"   # paste into SECRET_KEY
+```
+
+Fill in `.env`: at minimum `SECRET_KEY`, `POSTGRES_PASSWORD`, a matching password inside
+`DATABASE_URL`, and `ANTHROPIC_API_KEY`.
+
+```bash
 docker compose up --build
 ```
 
-- Frontend — http://localhost:8501
-- API docs — http://localhost:8000/docs
+Then open **http://localhost:5173**.
 
-**First boot takes 3–5 minutes.** It downloads the model (~1.3 GB), fetches the embedding
-model, and indexes 946 corpus chunks. The backend reports `starting` during this, which is
-expected — the healthcheck has a 120-second grace period. Later boots skip all of it
-because the volume persists both.
-
----
-
-## Usage
-
-**1. Create an account.** Register with a username, email and password (8+ characters).
-You're signed in immediately.
-
-**2. Add a pet.** Click **➕ Add pet** beside the selector. Name and species are required;
-breed, birth date and weight are optional. Species is limited to Dog and Cat because the
-corpus covers only those.
-
-**3. Log health records.** On the **📋 Records** tab, **➕ Add a record** opens a form. Pick
-a type — Vaccination, Vet Visit, Medication, Weight or Symptom — and give it a title and
-date. Set a next due date only if the entry needs a follow-up; leave it blank for one-off
-events like a symptom. Anything due within 30 days appears under **📅 Due soon** in the
-sidebar, overdue items in red.
-
-**4. Ask questions.** Use the chat panel on the right. Questions are answered from the
-veterinary corpus and grounded in that pet's records:
-
-> *Why is Flash coughing?* · *What vaccinations does my kitten need?* ·
-> *What should I feed a senior cat?*
-
-Each answer expands to show which corpus documents it drew on and a confidence level.
-Out-of-scope questions are declined rather than guessed at. Conversations are stored per pet
-and survive refreshes; **🧹 Clear** wipes one, and **✕** on any question removes that
-exchange.
-
-**Ingesting documents.** The corpus in `backend/docs/` is indexed automatically on first
-startup — no action needed. To re-index after changing the files:
-
-```bash
-curl -X POST http://localhost:8000/ingest -H "Authorization: Bearer <your-token>"
-```
-
-Grab a token from `/docs` → `POST /auth/login` → *Try it out*. Re-indexing is safe to
-repeat: chunk IDs are `filename:index`, so it overwrites rather than duplicating.
+First boot takes a few minutes: the backend downloads the embedding model and indexes the
+corpus, and the frontend runs a production build. Database migrations run automatically on
+every backend start.
 
 ---
 
 ## Configuration
 
-All settings come from `.env`. No hosts or secrets are hardcoded.
+All settings live in `.env`. `.env.example` lists every key with a safe default.
 
-| Variable | Default | Purpose |
-|---|---|---|
-| `SECRET_KEY` | — | JWT signing key. **Generate your own.** |
-| `ALGORITHM` | `HS256` | JWT algorithm |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | `30` | Token lifetime |
-| `DATABASE_URL` | `sqlite:////data/companion.db` | Four slashes = absolute path into the volume |
-| `OLLAMA_URL` | `http://ollama:11434` | Docker service name, not localhost |
-| `MODEL_NAME` | `llama3.2:1b` | Generation model — see below |
-| `CHROMA_PATH` | `/data/chroma` | Vector store location |
-| `COLLECTION_NAME` | `documents` | Chroma collection |
-| `MAX_RESULTS` | `5` | Chunks retrieved per question |
-| `CONFIDENCE_THRESHOLD` | `1.2` | Max distance before a question is refused |
-| `DOCS_DIRECTORY` | `./docs` | Corpus location inside the container |
-| `DEBUG` | `false` | Prints resolved config at startup |
-| `API_URL` | `http://backend:8000` | Frontend → backend |
-
-### Choosing a model
-
-`MODEL_NAME` is the only thing that needs changing, and `ollama-init` pulls whatever it's
-set to:
-
-| Model | Size | Prompt eval | Grounding quality |
-|---|---|---|---|
-| `llama3.2:1b` | 1.3 GB | ~6 s | Adequate; see Known limitations |
-| `llama3.2:3b` | 2.0 GB | ~15–20 s | Noticeably better |
-| `llama3.1:8b` | 4.7 GB | slower still | Best of the three |
-
-```bash
-# edit MODEL_NAME in .env, then
-docker compose up -d --force-recreate ollama-init backend
-```
-
-The default is 1b so the whole stack starts quickly on any machine. No code changes.
+| Variable | Purpose |
+|---|---|
+| `SECRET_KEY` | JWT signing key. Change it. |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Session lifetime. Default 10080 (7 days). |
+| `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` | Database container initialisation |
+| `DATABASE_URL` | The app's connection string. Its password must match `POSTGRES_PASSWORD`. |
+| `ANTHROPIC_API_KEY` | Required — the backend fails to start without it |
+| `MODEL_NAME` | Default `claude-haiku-4-5` |
+| `RESEND_API_KEY` / `MAIL_FROM` | Outbound email. `MAIL_FROM` must be on a domain verified with Resend. |
+| `FRONTEND_URL` | Used to build verification and password-reset links |
+| `CORS_ORIGINS` | Comma-separated origins allowed to call the API |
+| `VITE_API_URL` | Baked into the frontend bundle **at build time** — changing it needs a rebuild |
+| `PHOTO_DIR` / `MAX_PHOTO_MB` | Photo storage path and per-file size cap |
+| `REMINDER_HOUR` / `REMINDER_LEAD_DAYS` | When digests go out, and how far ahead they look |
+| `TIMEZONE` | Fallback for users who haven't chosen one |
+| `MAX_RESULTS` / `CONFIDENCE_THRESHOLD` | RAG retrieval. See the threshold note below before changing. |
 
 ---
 
 ## Database schema
 
-Five tables. `users` owns everything; deleting a user cascades to their pets, and deleting
-a pet cascades to its records and chat history.
+Five tables. Every foreign key cascades, so deleting a user removes everything they own.
 
 ```
-users ──1:many──> pets ──1:many──> health_records
-  │                 │
-  │                 └──1:many──> chat_messages
-  └──1:many──> activity_logs
+users ──1:many──> pets ──1:many──> health_records ──1:many──> record_photos
+                    └──1:many──> chat_messages
 ```
 
 ### `users`
-| Field | Type | Constraints |
-|---|---|---|
-| `id` | Integer | PK |
-| `username` | String(50) | not null |
-| `email` | String(100) | unique, not null |
-| `hashed_password` | String(255) | bcrypt |
-| `created_at` | DateTime | defaults to now |
+`id` · `username` · `email` (unique) · `hashed_password` · `email_verified` ·
+`reminders_enabled` · `timezone` · `created_at`
+
+Login is by email; usernames are display-only and need not be unique.
 
 ### `pets`
-| Field | Type | Constraints |
-|---|---|---|
-| `id` | Integer | PK |
-| `user_id` | Integer | FK → `users.id`, cascade delete |
-| `name` | String(50) | not null |
-| `species` | String(50) | not null — Dog or Cat |
-| `breed` | String(50) | nullable |
-| `birth_date` | Date | nullable |
-| `weight` | Float | nullable |
-| `created_at` | DateTime | defaults to now |
+`id` · `user_id` → users · `name` · `species` · `breed` · `birth_date` · `weight` ·
+`photo_filename` · `created_at`
 
 ### `health_records`
-| Field | Type | Constraints |
-|---|---|---|
-| `id` | Integer | PK |
-| `pet_id` | Integer | FK → `pets.id`, cascade delete |
-| `record_type` | Enum | Vaccination, Vet Visit, Medication, Weight, Symptom |
-| `title` | String(100) | not null |
-| `description` | Text | nullable |
-| `date` | Date | not null |
-| `next_due_date` | Date | nullable |
-| `created_at` | DateTime | defaults to now |
+`id` · `pet_id` → pets · `record_type` · `title` · `description` · `date` ·
+`next_due_date` · `reminder_sent_at` · `created_at`
 
-### `activity_logs`
-| Field | Type | Constraints |
-|---|---|---|
-| `id` | Integer | PK |
-| `user_id` | Integer | FK → `users.id`, cascade delete |
-| `pet_id` | Integer | FK → `pets.id`, **set null** on delete |
-| `action` | String(100) | not null |
-| `detail` | String(255) | nullable |
-| `timestamp` | DateTime | defaults to now |
+`record_type` is an enum: Vaccination, Vet Visit, Medication, Weight, Symptom.
+`reminder_sent_at` is the idempotency marker that stops a digest being sent twice.
 
-Written asynchronously via FastAPI `BackgroundTasks`, and mirrored to `logs/activity.log`.
-`pet_id` is deliberately `SET NULL` rather than cascade, so the audit trail survives a pet
-being deleted.
+### `record_photos`
+`id` · `record_id` → health_records · `filename` · `created_at`
+
+Several photos per record — a wound from three angles, or a medication label.
 
 ### `chat_messages`
-| Field | Type | Constraints |
-|---|---|---|
-| `id` | Integer | PK |
-| `pet_id` | Integer | FK → `pets.id`, cascade delete |
-| `role` | String(20) | `user` or `assistant` |
-| `content` | Text | not null |
-| `sources` | Text | JSON array of filenames, nullable |
-| `created_at` | DateTime | defaults to now |
+`id` · `pet_id` → pets · `role` · `content` · `sources` · `created_at`
+
+`sources` is JSON: each citation carries the article title, section and a deep link.
 
 ---
 
 ## API
 
-19 application routes. Auth is a bearer JWT in the `Authorization` header. Every
-authenticated route resolves the user from the token and scopes its query to that user's
-own rows — you cannot read or modify another user's data.
+31 endpoints. Interactive documentation at **http://localhost:8000/docs**.
 
-| Method | Path | Description | Auth |
-|---|---|---|---|
-| `GET` | `/` | API landing message | No |
-| `GET` | `/health` | Health check | No |
-| `POST` | `/auth/register` | Create an account, returns a token | No |
-| `POST` | `/auth/login` | Exchange email + password for a token | No |
-| `GET` | `/auth/me` | Current user | Yes |
-| `GET` | `/pets` | List your pets | Yes |
-| `POST` | `/pets` | Create a pet | Yes |
-| `GET` | `/pets/{pet_id}` | Get one pet | Yes |
-| `PATCH` | `/pets/{pet_id}` | Partial update | Yes |
-| `DELETE` | `/pets/{pet_id}` | Delete pet and everything under it | Yes |
-| `GET` | `/pets/{pet_id}/records` | List health records | Yes |
-| `POST` | `/pets/{pet_id}/records` | Add a health record | Yes |
-| `PATCH` | `/records/{record_id}` | Partial update | Yes |
-| `DELETE` | `/records/{record_id}` | Delete a record | Yes |
-| `POST` | `/ask` | Ask about a pet — streams NDJSON | Yes |
-| `GET` | `/pets/{pet_id}/messages` | Chat history for a pet | Yes |
-| `DELETE` | `/messages/{message_id}` | Delete one message | Yes |
-| `DELETE` | `/pets/{pet_id}/messages` | Clear a conversation | Yes |
-| `POST` | `/ingest` | Re-index the corpus | Yes |
+### Auth
+| Method | Path | Notes |
+|---|---|---|
+| POST | `/auth/register` | Returns a token; sends a verification email |
+| POST | `/auth/login` | Email and password |
+| GET | `/auth/me` | Current user |
+| PATCH | `/auth/me` | Update preferences — reminders, timezone |
+| DELETE | `/auth/me` | Delete the account. Requires the current password. |
+| POST | `/auth/verify-email` | Unauthenticated — the signed token is the proof |
+| POST | `/auth/resend-verification` | Authenticated, rate limited to 3/hour |
+| POST | `/auth/forgot-password` | Always 204, whether or not the address exists |
+| POST | `/auth/reset-password` | Single-use link; consumed once the password changes |
+| POST | `/auth/change-email` | Requires the current password; re-triggers verification |
 
-Updates are `PATCH` only — there is no full-replace `PUT`, so update schemas have
-all-optional fields applied with `exclude_unset=True`.
+### Pets
+| Method | Path |
+|---|---|
+| GET / POST | `/pets` |
+| GET / PATCH / DELETE | `/pets/{pet_id}` |
+| POST / DELETE | `/pets/{pet_id}/photo` |
 
-Registration is rate-limited to 5/min and login to 10/min via slowapi.
+### Records
+| Method | Path |
+|---|---|
+| GET / POST | `/pets/{pet_id}/records` |
+| PATCH / DELETE | `/records/{record_id}` |
+| GET | `/pets/{pet_id}/export?format=csv\|pdf` |
+
+### Photos
+| Method | Path |
+|---|---|
+| POST | `/records/{record_id}/photos` — accepts several files per request |
+| DELETE | `/record-photos/{photo_id}` |
+| GET | `/pets/{pet_id}/photos` — the gallery, joined to each record's title and date |
+
+Image files are served as static assets from `/photos/<filename>`, under unguessable UUID
+names.
+
+### Chat
+| Method | Path |
+|---|---|
+| POST | `/ask` — streams newline-delimited JSON |
+| GET | `/pets/{pet_id}/messages` |
+| DELETE | `/messages/{message_id}` |
+| DELETE | `/pets/{pet_id}/messages` |
+
+### Other
+| Method | Path |
+|---|---|
+| GET | `/health` |
+| POST | `/ingest` — re-index the corpus |
 
 ### `/ask` response format
 
-Streams `application/x-ndjson`, one JSON object per line:
+The endpoint streams `application/x-ndjson`, one JSON object per line:
 
 ```
-{"token": "Kennel"}
-{"token": " cough"}
-...
-{"meta": {"sources": ["kennel_cough.txt"], "confidence": "high", "distances": [0.58]}}
+{"token": "Heartworm "}
+{"token": "prevention "}
+{"meta": {"sources": [{"title": "Dirofilaria immitis", "section": "Treatment and prevention", "url": "https://en.wikipedia.org/wiki/Dirofilaria_immitis#Treatment_and_prevention"}], "confidence": "high"}}
 ```
 
-If retrieval finds nothing above the confidence threshold, it returns plain JSON instead
-and never calls the LLM:
-
-```json
-{"answer": "I don't have information on that...", "sources": [], "confidence": "none"}
-```
+Out-of-scope questions never reach the model and return a plain JSON object instead of a
+stream, so clients must check the response's content type before parsing.
 
 ---
 
 ## RAG pipeline
 
-**Corpus** — 34 plain-text documents, 946 chunks, roughly 160 pages, covering vaccination
+**Corpus** — 35 plain-text documents, 1000 chunks, roughly 170 pages, covering vaccination
 schedules, parasites, dental care, nutrition, life stages, common canine and feline
-conditions, and emergency care. **Dogs and cats only**; human-medicine material was
-filtered out deliberately, since a passage about human nephrology retrieves with an
-excellent score for "my cat's kidney problem" and is entirely wrong.
+conditions, and emergency care. **Dogs and cats only**; human-medicine material was filtered
+out deliberately, since a passage about human nephrology retrieves with an excellent score
+for "my cat's kidney problem" and is entirely wrong.
 
 **Chunking** — one chunk per paragraph, minimum 60 characters. Each chunk is prefixed with
-its own `Article - Section` heading, so citations read `Canine distemper - Prevention`
-rather than a bare filename, and the heading words contribute to the embedding.
+its own `Article - Section` heading, so citations read `Canine distemper - Prevention` rather
+than a bare filename, and the heading words contribute to the embedding. Titles and URLs are
+parsed from `backend/docs/ATTRIBUTION.md` at index time, which is what lets a citation link
+to the exact section of the source article.
 
 **Retrieval** — two queries, because scope-checking and chunk-selection want different things.
 
@@ -308,141 +279,133 @@ The 1.2 threshold sits in that gap, so "how do I renew my passport" is refused b
 reaching the model.
 
 The **retrieval query** additionally appends the species, which is what keeps dog and cat
-material apart. For a cat, `"What should I feed my pet?"` retrieves `dog_food.txt` without
-it and `cat_food.txt` with it — the difference between correct advice and confidently wrong
+material apart. For a cat, `"What should I feed my pet?"` retrieves `dog_food.txt` without it
+and `cat_food.txt` with it — the difference between correct advice and confidently wrong
 advice.
 
-That suffix can't be used for the gate, though. One domain word pulls *any* question toward
-a corpus that is entirely about dogs and cats: "What is the capital of France?" drops from
+That suffix can't be used for the gate, though. One domain word pulls *any* question toward a
+corpus that is entirely about dogs and cats: "What is the capital of France?" drops from
 **1.471** to **1.038**, under the threshold, and would be answered. Real questions barely
 move, since they're already close. Splitting the two queries keeps the species targeting
-without eroding the guardrail, at the cost of one extra ChromaDB lookup — single-digit
-milliseconds against a 16-second answer.
+without eroding the guardrail, at the cost of one extra ChromaDB lookup.
 
-The original question wording always goes to the LLM; only the retrieval queries are rewritten.
+The original question wording always goes to the model; only the retrieval queries are
+rewritten.
 
 **Guardrails**
+
 1. A system prompt that separates CONTEXT (general veterinary material) from PET (this
    animal's records) and forbids diagnosis.
 2. The confidence threshold above — out-of-scope questions never reach the model.
-3. A non-optional disclaimer rendered by the UI on every answer, rather than requested
-   from the model, so it cannot be omitted or reworded.
+3. A non-optional disclaimer rendered by the UI on every answer, rather than requested from
+   the model, so it cannot be omitted or reworded.
+
+---
+
+## Reminders
+
+A record with a `next_due_date` produces one email digest per owner, listing everything due
+within `REMINDER_LEAD_DAYS` — overdue items included.
+
+The scheduler runs **hourly**, not daily. Each run sends only to users for whom it is
+currently `REMINDER_HOUR` in *their* timezone, because a single daily job can only ever be
+8am in one place. Users choose their timezone in Settings; the browser's zone is used as the
+default at registration.
+
+Digests only go to verified addresses with reminders enabled, and `reminder_sent_at` is
+written only after a successful send — so a mail outage retries rather than silently burning
+the reminder.
 
 ---
 
 ## Testing
 
 ```bash
-cd backend
-python -m pytest tests/ -v
+docker compose exec backend python -m pytest tests -v
 ```
 
-13 tests, no Docker or Ollama required — the fixtures point the database, Chroma and the
-activity log at a temporary directory, disable rate limiting, and skip the startup ingest.
-The RAG success-path test indexes two throwaway documents and monkeypatches generation, so
-it exercises retrieval and the streaming response without contacting a model.
+15 tests against a real PostgreSQL database. The suite creates and drops every table per
+test, so it uses a separate `companion_test` database:
 
-Three worth calling out: `test_users_cannot_reach_each_others_pets` proves the JWT is
-load-bearing rather than decorative, `test_ask_returns_answer_with_sources` verifies the
-full RAG path including citations, and `test_ask_declines_when_corpus_is_empty` exercises
-the guardrail as an executable assertion.
+```bash
+docker compose exec db psql -U companion -d postgres -c "CREATE DATABASE companion_test OWNER companion;"
+```
 
-CI runs the suite, `ruff`, and a Docker build on every push.
+Outbound email is stubbed by an autouse fixture, so no test ever calls Resend. The Chroma
+collection is empty during tests, which means `/ask` takes its refusal branch and never calls
+the Claude API — the suite costs nothing to run.
+
+CI runs the same suite against a `postgres:17` service container, plus `ruff` and a Docker
+build, on every push.
 
 ---
 
 ## Project structure
 
 ```
-Companion/
-├── docker-compose.yml
-├── .env / .env.example
-├── architecture.png
-├── backend/
-│   ├── main.py              app, routers, exception handler, startup ingest
-│   ├── config.py            env-backed settings
-│   ├── database.py          engine, session, Base, SQLite FK pragma
-│   ├── rag.py               chunking, ingest, retrieval, generation
-│   ├── models/models.py     5 SQLAlchemy models
-│   ├── schemas/             Pydantic request/response models
-│   ├── routers/             auth, pets, records, ask, messages
-│   ├── utils/               security, limiter, activity, messages, exceptions
-│   ├── docs/                the corpus
-│   └── tests/
-└── frontend/
-    ├── app.py               layout and session
-    ├── api.py               API client, NDJSON streaming
-    └── f_auth_ / f_pets_ / f_records_ / f_chat_
+backend/
+  alembic/            migrations
+  docs/               the corpus, plus ATTRIBUTION.md
+  models/             SQLAlchemy models
+  routers/            auth, pets, records, messages, ask
+  schemas/            Pydantic request and response models
+  tests/
+  utils/              security, mailer, photos, export, reminders, exceptions
+  config.py           settings from environment
+  database.py         engine and session
+  rag.py              chunking, ingest, retrieval, generation
+  main.py             app wiring, CORS, static mount, scheduler
+
+frontend-web/
+  src/
+    api/              one module per resource; all HTTP lives here
+    auth/             AuthContext
+    context/          PetContext — current pet, shared across pages
+    components/       Header, Footer, forms, ChatFAB
+    components/ui/    Button, Input, Section, ConfirmDialog
+    pages/            Landing, Login, Register, Verify, Forgot, Reset,
+                      Dashboard, Records, Photos, ChatHistory, Settings
+  Caddyfile           static serving with SPA fallback
+  Dockerfile          Node build stage, Caddy serving stage
 ```
 
 ---
 
 ## Known limitations
 
-**The 1B model attributes corpus material to the pet.** Asked why a pet is coughing, it may
-report symptoms such as "runny eyes and sneezing" that appear in the retrieved documents
-but not in that animal's records. This was measured, not assumed, and these were ruled out
-as causes:
-
-| Attempted fix | Still hallucinated |
-|---|---|
-| Prompt rewritten to separate CONTEXT from PET | Yes |
-| Explicit "never state unless it appears in PET" rule | Yes |
-| Temperature lowered to 0.3 | Yes |
-| Realistic records instead of sparse ones | Yes |
-
-Holding two context sources apart is a reasoning task, and 1.24 B parameters is not enough
-for it. Setting `MODEL_NAME=llama3.2:3b` is the mitigation; the default stays at 1b so the
-stack starts quickly for evaluation.
-
-**Chat history is per-pet, not per-conversation** — one continuous thread per animal.
-
-**SQLite is single-writer.** Fine for this scale; moving to Postgres is a `DATABASE_URL`
-change and a Compose service, with no code changes.
+- **Sessions are 7-day JWTs in `localStorage`.** There is no refresh-token flow. Changing a
+  password invalidates every existing session, which covers the important case.
+- **The reminder scheduler runs in-process.** Two backend replicas would send two digests;
+  it needs extracting into its own service before scaling out.
+- **Photos are protected by unguessable filenames, not authorisation.** Anyone holding a URL
+  can view that image. Acceptable for pet photos, not for anything sensitive.
+- **PDF export is text-only** and its font is Latin-1, so non-Latin characters degrade to
+  `?`.
+- **The corpus covers dogs and cats only.** Other species are refused by design rather than
+  answered badly.
+- **No pagination.** Records and photos load in full; fine for hundreds, not thousands.
 
 ---
 
 ## Troubleshooting
 
-**`docker compose up` fails to connect to the Docker API** — Docker Desktop isn't running.
+**Backend exits immediately** — check `ANTHROPIC_API_KEY` is set. The Claude client is
+constructed at import time and raises without one.
 
-**Backend shows `unhealthy` on first boot** — expected for the first 1–2 minutes while the
-corpus indexes. It flips to `healthy` once the ingest finishes.
+**`password authentication failed for user "companion"`** — the password inside
+`DATABASE_URL` doesn't match `POSTGRES_PASSWORD`. Note that `POSTGRES_PASSWORD` only takes
+effect when the database volume is first created; changing it later requires
+`docker compose down && docker volume rm companion_db_data`.
 
-**Every question returns "I don't have information on that"** — the corpus didn't index.
-Check `docker compose logs backend` for the ingest line, or re-run it:
-```bash
-curl -X POST http://localhost:8000/ingest -H "Authorization: Bearer <token>"
-```
+**Environment changes seem to be ignored** — `docker compose restart` reuses the existing
+container's environment. Use `docker compose up -d --force-recreate` instead.
 
-**Answers take 15+ seconds** — normal on CPU. Prompt evaluation dominates; a larger
-`MAX_RESULTS` makes it slower.
+**The frontend shows old code** — `VITE_API_URL` and the whole bundle are baked in at build
+time. Rebuild with `docker compose up -d --build frontend`.
 
-**Ollama unreachable** — confirm the service is up with
-`docker compose exec ollama ollama list`. It should show `MODEL_NAME`.
-
-**"Cannot reach the API"** in the frontend — the backend container isn't up. Check
-`docker compose ps`.
-
----
-
-## Screenshots
-
-**Signed in, pet selected**
-
-![Main interface](screenshots/main.png)
-
-**A grounded answer with its sources**
-
-![Chat answer with sources](screenshots/chat.png)
-
-**Records and due-soon tracking**
-
-![Records tab](screenshots/due.png)
-
-**Interactive API documentation**
-
-![Swagger docs](screenshots/swagger.png)
+**No emails arrive** — sends are background tasks that swallow their errors. Check
+`docker compose logs backend` for the real failure, and confirm `MAIL_FROM` is on a domain
+verified with Resend.
 
 ---
 
