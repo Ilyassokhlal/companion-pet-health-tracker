@@ -82,6 +82,19 @@ Resend. Neither runs locally.
 
 ---
 
+## Why the Claude API
+
+Earlier versions ran inference locally with Ollama. This app is deployed with Docker on a VPS,
+and hosting an entire model there would require a lot of VRAM — enough to push the monthly
+server cost past what the project justifies. Moving generation to the Claude API is the
+compromise that made deployment viable.
+
+It is meant to be temporary. Returning to an isolated model is the intended direction, and the
+code is shaped for it: `rag.generate` is a generator that yields text chunks, so switching back
+means rewriting that one function and `MODEL_NAME` — nothing upstream in `ask.py` changes.
+
+---
+
 ## Prerequisites
 
 - Docker and Docker Compose
