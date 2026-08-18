@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, Plus } from "lucide-react";
 
 
 // Navigation items for the header, each with a path and label.
@@ -18,7 +18,8 @@ const navItems = [
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
 export default function Header() {
     const { user, logout } = useAuth();
-    const { pets, currentPet, setCurrentPet } = usePets();
+    const { pets, currentPet, setCurrentPet, setAddPetOpen } = usePets();
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
@@ -41,21 +42,31 @@ export default function Header() {
             </div>
             <div className="flex items-center space-x-4">
                 {pets.length > 0 && (
-                    <select
-                        value={currentPet?.id ?? ""}
-                        onChange={e => {
-                            const pet = pets.find(p => p.id === Number(e.target.value));
-                            if (pet) setCurrentPet(pet);
-                        }}
-                        className="bg-ink text-fg border border-border rounded px-2 py-1"
-                    >
-                        {pets.map(pet => (
-                            <option key={pet.id} value={pet.id}>{pet.name}</option>
-                        ))}
-                    </select>
+                    <div className="flex items-center gap-1">
+                        <select
+                            value={currentPet?.id ?? ""}
+                            onChange={e => {
+                                const pet = pets.find(p => p.id === Number(e.target.value));
+                                if (pet) setCurrentPet(pet);
+                            }}
+                            className="w-40 sm:w-48 bg-ink text-fg border border-border rounded-lg px-3 py-1.5"
+                        >
+                            {pets.map(pet => (
+                                <option key={pet.id} value={pet.id}>{pet.name}</option>
+                            ))}
+                        </select>
+                        <button
+                            onClick={() => { setAddPetOpen(true); navigate("/dashboard"); }}
+                            aria-label="Add pet"
+                            title="Add pet"
+                            className="p-1.5 rounded-lg border border-border text-muted hover:text-fg hover:border-primary transition"
+                        >
+                            <Plus size={18} />
+                        </button>
+                    </div>
                 )}
-                <span className="hidden sm:inline text-muted">{user?.username}</span>
-                <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden sm:block">
+                <span className="hidden md:inline text-muted">{user?.username}</span>
+                <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden md:block">
                     Logout
                 </Button>
                 <button

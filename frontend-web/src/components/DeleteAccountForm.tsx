@@ -32,7 +32,7 @@ export default function DeleteAccountForm() {
     
     // Render the delete account form with a confirmation step, input field for the current password, and submission handling with feedback messages.
     return (
-        <section className="max-w-md p-6 bg-surface border border-danger/30 rounded-xl shadow-soft mb-6">
+        <section className="p-6 bg-surface border border-danger/30 rounded-xl shadow-soft mb-6">
             <h2 className="text-lg font-semibold mb-4">Delete Account</h2>
             {!confirming ? (
                 <div>

@@ -37,29 +37,39 @@ export default function ReminderSettings() {
   }
 
   return (
-    <section>
-      <h2>Reminder Settings</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <label>
+    <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
+      <h2 className="text-lg font-semibold mb-4">Reminders</h2>
+      {error && <p className="text-danger text-sm mb-4">{error}</p>}
+
+      <label className="flex items-center gap-2 mb-4">
         <input
           type="checkbox"
           checked={user?.reminders_enabled ?? false}
           disabled={saving || !user?.email_verified}
           onChange={handleToggle}
+          className="accent-primary"
         />
-        Enable reminders
+        <span>Enable reminders</span>
       </label>
-      <label>
-        Timezone:
-        <select value={user?.timezone ?? ""} onChange={handleZoneChange} disabled={saving}>
+
+      <label className="block">
+        <span className="block text-sm text-muted mb-1">Timezone</span>
+        <select
+          value={user?.timezone ?? ""}
+          onChange={handleZoneChange}
+          disabled={saving}
+          className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
+        >
           {Intl.supportedValuesOf("timeZone").map((tz) => (
-            <option key={tz} value={tz}>
-              {tz}
-            </option>
+            <option key={tz} value={tz}>{tz}</option>
           ))}
         </select>
       </label>
-      {!user?.email_verified && <p>You need to verify your email to enable reminders.</p>}
+
+      <p className="text-sm text-muted mt-3">Reminders arrive at 8am in this timezone.</p>
+      {!user?.email_verified && (
+        <p className="text-sm text-muted mt-2">Verify your email to enable reminders.</p>
+      )}
     </section>
   );
 }

@@ -11,6 +11,8 @@ interface PetState {
   setCurrentPet: (pet: Pet) => void;
   refresh: () => Promise<void>;
   loading: boolean;
+  addPetOpen: boolean;
+  setAddPetOpen: (open: boolean) => void;
 }
 
 // PetProvider component that manages the state of pets and provides it to its children via context.
@@ -19,6 +21,7 @@ export function PetProvider({ children }: { children: ReactNode }) {
     const [pets, setPets] = useState<Pet[]>([]);
     const [currentPet, setCurrentPet] = useState<Pet | null>(null);
     const [loading, setLoading] = useState(true);
+    const [addPetOpen, setAddPetOpen] = useState(false);
 
     const refresh = useCallback(async () => {
         setLoading(true);
@@ -51,7 +54,7 @@ export function PetProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <PetContext.Provider value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading }}>
+        <PetContext.Provider value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading, addPetOpen, setAddPetOpen }}>
             {children}
         </PetContext.Provider>
     );

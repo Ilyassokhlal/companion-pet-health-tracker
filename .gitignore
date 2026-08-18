@@ -30,3 +30,7 @@ Thumbs.db
 .ruff_cache/
 .coverage
 htmlcov/
+
+# Node
+node_modules/
+dist/

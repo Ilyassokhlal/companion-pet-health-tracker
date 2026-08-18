@@ -27,8 +27,8 @@ function formatAge(birthDate: string | null): string {
 
 // The Dashboard component displays the current pet's information. It uses the usePets hook to access the current pet and loading state. If loading is true, it shows a loading message. If there is no current pet, it prompts the user to add a pet. If a current pet exists, it displays the pet's details such as name, species, breed, age, and weight.
 export default function Dashboard() {
-  const { currentPet, loading, refresh } = usePets();
-  const [showForm, setShowForm] = useState<"add" | "edit" | null>(null);
+  const { currentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
+  const [showForm, setShowForm] = useState<"edit" | null>(null);
   const [records, setRecords] = useState<HealthRecord[]>([]);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
@@ -55,12 +55,12 @@ export default function Dashboard() {
   if (!currentPet) {
     return (
     <div className="p-4 sm:p-8">
-        {showForm === "add" ? (
-          <PetForm onDone={() => setShowForm(null)} />
+        {addPetOpen ? (
+          <PetForm onDone={() => setAddPetOpen(false)} />
         ) : (
           <>
-            <p>You haven't added a pet yet.</p>
-            <Button onClick={() => setShowForm("add")} className="mt-4">
+            <p className="text-muted">You haven't added a pet yet.</p>
+            <Button onClick={() => setAddPetOpen(true)} className="mt-4">
               Add Pet
             </Button>
           </>
@@ -107,6 +107,9 @@ export default function Dashboard() {
       </section>
       {showForm === "edit" && (
         <PetForm key={currentPet.id} pet={currentPet} onDone={() => setShowForm(null)} />
+      )}
+      {addPetOpen && (
+        <PetForm key="add" onDone={() => setAddPetOpen(false)} />
       )}
       <ConfirmDialog
         open={confirmingDelete}
