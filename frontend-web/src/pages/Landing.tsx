@@ -1,7 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
-import hero from "../assets/hero.png";
+import logo from "../assets/Logo.png";
 
 
 // This is the landing page for the application. It provides a brief overview of the app's features and allows users to navigate to the registration or login pages. If a user is already authenticated, they are redirected to the dashboard.
@@ -13,7 +13,7 @@ export default function Landing() {
     return (
     <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center p-8">
-            <img src={hero} alt="Hero" className="mx-auto mb-8 w-64 h-64" />
+            <img src={logo} alt="Companion — a dog and a cat" className="mx-auto mb-8 w-72 sm:w-96 h-auto" />
             <h1 className="text-4xl font-bold mb-4">Companion: Your Pet's Health Tracker</h1>
             <p className="text-lg mb-6">Keep track of your pet's health records, set due dates, receive reminders, and get grounded answers to your pet care questions.</p>
             <div className="flex justify-center space-x-4">

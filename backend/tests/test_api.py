@@ -1,8 +1,8 @@
+"""API tests. These never call the Anthropic API — /ask is exercised only on its guardrail
+path, where an empty Chroma collection triggers the refusal branch before any request."""
+
 import rag
 from config import settings
-
-
-"""API tests. These must pass with Ollama switched off, so /ask is only exercised on its guardrail path."""
 
 
 def test_health_check(client):

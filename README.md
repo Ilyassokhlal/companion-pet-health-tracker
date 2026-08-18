@@ -42,7 +42,7 @@ own timezone.
 
 **Interactive API documentation**
 
-![Swagger docs](screenshots/Swagger.png)
+![Swagger docs](screenshots/swagger.png)
 
 ---
 
