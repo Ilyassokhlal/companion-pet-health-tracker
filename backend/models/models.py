@@ -75,6 +75,21 @@ class HealthRecord(Base):
     # Foreign key relationship to pet
     pet: Mapped["Pet"] = relationship(back_populates="records")
 
+    # Relationship to RecordPhoto model
+    photos: Mapped[list["RecordPhoto"]] = relationship(back_populates="record", cascade="all, delete-orphan")
+
+
+# RecordPhoto model
+class RecordPhoto(Base):
+    __tablename__ = "record_photos"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    record_id: Mapped[int] = mapped_column(Integer, ForeignKey("health_records.id", ondelete="CASCADE"), nullable=False, index=True)
+    filename: Mapped[str] = mapped_column(String(255), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    record: Mapped["HealthRecord"] = relationship(back_populates="photos")
+
 
 # ChatMessage model
 class ChatMessage(Base):

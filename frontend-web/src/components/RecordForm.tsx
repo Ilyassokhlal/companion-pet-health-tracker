@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createRecord, updateRecord } from "../api/records";
+import { createRecord, updateRecord, uploadRecordPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
 import Button from "./ui/Button";
@@ -19,6 +19,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
   const [nextDueDate, setNextDueDate] = useState(record?.next_due_date || "");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,10 +33,11 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       next_due_date: nextDueDate || null,
     };
     try {
-      if (record) {
-        await updateRecord(record.id, payload);
-      } else {
-        await createRecord(petId, payload);
+      const saved = record
+        ? await updateRecord(record.id, payload)
+        : await createRecord(petId, payload);
+      if (files.length > 0) {
+        await uploadRecordPhotos(saved.id, files);
       }
       onDone(true);
     } catch (err) {
@@ -96,6 +98,26 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           value={nextDueDate}
           onChange={(e) => setNextDueDate(e.target.value)}
         />
+      </div>
+      <div>
+        <label className="block text-sm text-muted mb-1">Photos (optional)</label>
+        <input
+          type="file"
+          multiple
+          accept="image/jpeg,image/png,image/webp"
+          onChange={(e) => setFiles((prev) => [...prev, ...Array.from(e.target.files ?? [])])}
+          className="text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white file:cursor-pointer hover:file:bg-primary-hover"
+        />
+        {files.length > 0 && (
+          <ul className="mt-2 text-sm text-muted space-y-1">
+            {files.map((f, i) => (
+              <li key={i} className="flex items-center justify-between gap-2">
+                {f.name}
+                <button type="button" onClick={() => setFiles(files.filter((_, j) => j !== i))} className="text-danger hover:brightness-125">remove</button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div className="flex gap-2">
         <Button type="submit" disabled={submitting}>

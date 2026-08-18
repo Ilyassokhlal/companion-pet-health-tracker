@@ -76,3 +76,21 @@ class RecordResponse(BaseModel):
             }
         }
     )
+
+class RecordPhotoResponse(BaseModel):
+    """One photo attached to a health record."""
+    id: int
+    record_id: int
+    filename: str
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class GalleryPhoto(BaseModel):
+    """A photo plus the record it belongs to, for the Photos page."""
+    id: int
+    record_id: int
+    filename: str
+    record_title: str
+    record_date: date_type

@@ -11,6 +11,7 @@ import Verify from "./pages/Verify";
 import Reset from "./pages/Reset";
 import Forgot from "./pages/Forgot";
 import Landing from "./pages/Landing";
+import Photos from "./pages/Photos";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/records" element={<Records />} />
+          <Route path="/photos" element={<Photos />} />
           <Route path="/chat" element={<ChatHistory />} />
           <Route path="/settings" element={<Settings />} />
         </Route>

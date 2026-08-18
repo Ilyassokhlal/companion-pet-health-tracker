@@ -88,3 +88,20 @@ export interface ChatMessage {
   sources: Citation[];
   created_at: string;
 }
+
+// Photo information returned by the API.
+export interface RecordPhoto {
+  id: number;
+  record_id: number;
+  filename: string;
+  created_at: string;
+}
+
+// Photo information for the gallery view returned by the API. This interface is used to represent photos associated with health records in a simplified format for display in a gallery.
+export interface GalleryPhoto {
+  id: number;
+  record_id: number;
+  filename: string;
+  record_title: string;
+  record_date: string;
+}

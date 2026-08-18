@@ -1,6 +1,3 @@
-import os
-from uuid import uuid4
-
 from fastapi import APIRouter, Depends, File, Response, UploadFile
 from sqlalchemy.orm import Session
 
@@ -9,8 +6,7 @@ from models.models import User, Pet
 from schemas.pet import PetCreate, PetUpdate, PetResponse
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
-
-from config import settings
+from utils.photos import save_photo, delete_photo_file
 
 # Router setup
 router = APIRouter(prefix="/pets", tags=["Pets"])
@@ -62,11 +58,10 @@ def delete_pet(pet_id: int, db: Session = Depends(get_db), current_user: User = 
     pet = db.query(Pet).filter(Pet.id == pet_id, Pet.user_id == current_user.id).first()
     if not pet:
         raise NotFoundException("Pet", pet_id)
-    if pet.photo_filename:
-        try:
-            os.remove(os.path.join(settings.PHOTO_DIR, pet.photo_filename))
-        except FileNotFoundError:
-            pass  # If the file doesn't exist, we can ignore it
+    delete_photo_file(pet.photo_filename)
+    for record in pet.records:
+        for photo in record.photos:
+            delete_photo_file(photo.filename)
     db.delete(pet)
     db.commit()
     return Response(status_code=204)
@@ -80,29 +75,9 @@ def upload_photo(pet_id: int, file: UploadFile = File(...),
     if not pet:
         raise NotFoundException("Pet", pet_id)
 
-    # Validate the uploaded file type and size
-    allowed = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}
-
-    if file.content_type not in allowed:
-        raise BadRequestException("Unsupported image type.")  
-
-    # Read the file data and check its size
-    data = file.file.read()
-    if len(data) > settings.MAX_PHOTO_MB * 1024 * 1024:
-        raise BadRequestException("Image too large.")
-    
-    
-    # Generate a unique filename and save the file to disk
-    name = f"{uuid4().hex}{allowed[file.content_type]}"
-    with open(os.path.join(settings.PHOTO_DIR, name), "wb") as f:
-        f.write(data)
-
-    # if pet.photo_filename is not None, delete the old photo file from disk
-    if pet.photo_filename:
-        try:
-            os.remove(os.path.join(settings.PHOTO_DIR, pet.photo_filename))
-        except FileNotFoundError:
-            pass  # If the file doesn't exist, we can ignore it
+    # Validate the uploaded file and save it
+    name = save_photo(file)
+    delete_photo_file(pet.photo_filename)
     pet.photo_filename = name
     db.commit()
     db.refresh(pet)
@@ -115,10 +90,7 @@ def delete_photo(pet_id: int, db: Session = Depends(get_db), current_user: User 
         raise NotFoundException("Pet", pet_id)
     if not pet.photo_filename:
         raise BadRequestException("This pet has no photo.")
-    try:
-        os.remove(os.path.join(settings.PHOTO_DIR, pet.photo_filename))
-    except FileNotFoundError:
-        pass  # If the file doesn't exist, we can ignore it
+    delete_photo_file(pet.photo_filename)
     pet.photo_filename = None
     db.commit()
     db.refresh(pet)

@@ -7,6 +7,16 @@ from alembic import context
 
 import os
 
+if "DATABASE_URL" not in os.environ:
+    # fall back to the project .env, rewriting the container hostname for host access
+    from pathlib import Path
+    env_path = Path(__file__).resolve().parents[2] / ".env"
+    for line in env_path.read_text().splitlines():
+        if line.startswith("DATABASE_URL="):
+            os.environ["DATABASE_URL"] = line.split("=", 1)[1].strip().replace("@db:", "@localhost:")
+            break
+
+
 from database import Base
 import models.models  # noqa: F401 - registers all tables on Base.metadata
 
@@ -14,18 +24,6 @@ import models.models  # noqa: F401 - registers all tables on Base.metadata
 # access to the values within the .ini file in use.
 config = context.config
 
-url = os.environ.get("DATABASE_URL")
-if not url:
-    # fall back to the project .env, rewriting the container hostname for host access
-    from pathlib import Path
-    env_path = Path(__file__).resolve().parents[2] / ".env"
-    for line in env_path.read_text().splitlines():
-        if line.startswith("DATABASE_URL="):
-            url = line.split("=", 1)[1].strip().replace("@db:", "@localhost:")
-            break
-config.set_main_option("sqlalchemy.url", url)
-
-# Pointing to the database URL from environment variables for Alembic migrations
 config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
 
 # Interpret the config file for Python logging.

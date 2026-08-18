@@ -3,12 +3,14 @@ import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, FileText, MessageSquare, Settings as SettingsIcon, PawPrint } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint } from "lucide-react";
+
 
 // Navigation items for the header, each with a path and label.
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/records", label: "Records", icon: FileText },
+  { to: "/photos", label: "Photos", icon: Images },
   { to: "/chat", label: "Chat history", icon: MessageSquare },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];

@@ -1,5 +1,5 @@
 import { apiFetch, BASE_URL, getToken } from "./client";
-import type { HealthRecord } from "../types";
+import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
 export type RecordCreate = Omit<HealthRecord, "id" | "pet_id" | "created_at">;
@@ -51,4 +51,23 @@ export async function downloadExport(petId: number, format: "csv" | "pdf"): Prom
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+// Upload multiple photos for a health record. This function sends a POST request to the API endpoint for the specified record with the provided files, and returns an array of RecordPhoto objects.
+export async function uploadRecordPhotos(recordId: number, files: File[]): Promise<RecordPhoto[]> {
+  const form = new FormData();
+  for (const file of files) {
+    form.append("files", file);
+  }
+  return apiFetch<RecordPhoto[]>(`/records/${recordId}/photos`, { method: "POST", body: form });
+}
+
+  // Delete a photo associated with a health record. This function sends a DELETE request to the API endpoint for the specified photo.
+export async function deleteRecordPhoto(photoId: number): Promise<void> {
+  return apiFetch<void>(`/photos/${photoId}`, { method: "DELETE" });
+}
+
+// List all photos associated with a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of GalleryPhoto objects.
+export async function listPetPhotos(petId: number): Promise<GalleryPhoto[]> {
+  return apiFetch<GalleryPhoto[]>(`/pets/${petId}/photos`);
 }
