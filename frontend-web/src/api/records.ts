@@ -64,7 +64,7 @@ export async function uploadRecordPhotos(recordId: number, files: File[]): Promi
 
   // Delete a photo associated with a health record. This function sends a DELETE request to the API endpoint for the specified photo.
 export async function deleteRecordPhoto(photoId: number): Promise<void> {
-  return apiFetch<void>(`/photos/${photoId}`, { method: "DELETE" });
+  return apiFetch<void>(`/record-photos/${photoId}`, { method: "DELETE" });
 }
 
 // List all photos associated with a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of GalleryPhoto objects.

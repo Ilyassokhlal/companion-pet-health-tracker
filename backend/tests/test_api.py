@@ -1,4 +1,6 @@
 import rag
+from config import settings
+
 
 """API tests. These must pass with Ollama switched off, so /ask is only exercised on its guardrail path."""
 
@@ -27,7 +29,7 @@ def test_duplicate_email_is_rejected(client, auth):
     auth()  # Register the first user
     r = client.post("/auth/register", json={"username": "anotheruser", "email": "testuser@example.com", "password": "password"})
     assert r.status_code == 409
-    assert r.json()["detail"] == "Email or Username already registered"
+    assert r.json()["detail"] == "User with email 'testuser@example.com' already exists"
 
 
 def test_login_with_wrong_password_is_rejected(client, auth):
@@ -121,9 +123,14 @@ def test_record_lifecycle(client, pet):
 
 def test_ask_declines_when_corpus_is_empty(client, pet):
     """When the pet has no records, /ask should return a 400 error indicating that the corpus is empty."""
+    # Ensure the pet has no records
     headers, pet_data = pet
     pet_id = pet_data["id"]
+
+    # Add a record to ensure /ask can proceed
     r = client.post("/ask", json={"pet_id": pet_id, "question": "What should I feed my pet?"}, headers=headers)
+
+    # Check that the response indicates no sources were found
     assert r.status_code == 200
     body = r.json()
     assert body["confidence"] == "none"
@@ -161,13 +168,22 @@ def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
         "drink little water."
     )
 
+    # Ingest the documents into the RAG system
     rag.ingest(str(tmp_path))
 
+    # Mock the RAG generate function to return a fixed response
     monkeypatch.setattr(rag, "generate", lambda messages: iter(["Kennel ", "cough."]))
 
+    # Get headers and pet data from the fixture
     headers, pet_data = pet
+
+    # Extract the pet ID for the request
     pet_id = pet_data["id"]
+
+    # Ask a question using the /ask endpoint
     r = client.post("/ask", json={"pet_id": pet_id, "question": "What should I feed my pet?"}, headers=headers)
+
+    # Check that the response contains the expected tokens and sources
     assert r.status_code == 200
     import json
     lines = r.text.strip().split("\n")
@@ -176,3 +192,60 @@ def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
     assert "meta" in data[-1] and data[-1]["meta"]["sources"]
 
     r.text.strip().split("\n")
+
+def test_record_photos_are_isolated_between_users(client, auth, pet):
+    """User B must not be able to read or delete user A's photos."""
+
+    # Create a record and upload a photo for user A
+    headers_a, pet_a = pet
+
+    # Create a record for user A
+    r = client.post(f"/pets/{pet_a['id']}/records", json={"title": "Vaccination", "record_type": "Vaccination", "date": "2024-01-01"}, headers=headers_a)
+    assert r.status_code == 201
+    record_id = r.json()["id"]
+
+    # Upload a photo for the record
+    r = client.post(f"/records/{record_id}/photos",
+                    files={"files": ("x.jpg", b"fake-bytes", "image/jpeg")},
+                    headers=headers_a)
+    assert r.status_code == 201
+    photo_id = r.json()[0]["id"]
+
+    # Attempt to access the photo as user B
+    headers_b = auth(username="userb", email="userb@example.com")
+    r = client.get(f"/pets/{pet_a['id']}/photos", headers=headers_b)
+    assert r.status_code == 404
+    r = client.delete(f"/record-photos/{photo_id}", headers=headers_b)
+    assert r.status_code == 404
+
+    # Verify that user A can still access the photo
+    r = client.get(f"/pets/{pet_a['id']}/photos", headers=headers_a)
+    assert r.status_code == 200
+    assert len(r.json()) == 1
+
+
+def test_photo_upload_rejects_bad_type_and_oversize(client, pet):
+    """Only jpeg/png/webp under the size cap are accepted."""
+
+    # Get headers and pet data from the fixture
+    headers, pet_data = pet
+
+    # Extract the pet ID for the request
+    pet_id = pet_data["id"]
+
+    # Create a record for the pet
+    r = client.post(f"/pets/{pet_id}/records", json={"title": "Test", "record_type": "Vaccination", "date": "2024-01-01"}, headers=headers)
+
+    # Extract the record ID from the response
+    assert r.status_code == 201
+    record_id = r.json()["id"]
+    r = client.post(f"/records/{record_id}/photos",
+                    files={"files": ("x.txt", b"fake-bytes", "text/plain")},
+                    headers=headers)
+    assert r.status_code == 400
+
+    # Attempt to upload a photo with an invalid file type or an oversized file, expecting a 400 Bad Request response.
+    r = client.post(f"/records/{record_id}/photos",
+                    files={"files": ("x.jpg", b"x" * (settings.MAX_PHOTO_MB * 1024 * 1024 + 1), "image/jpeg")},
+                    headers=headers)
+    assert r.status_code == 400

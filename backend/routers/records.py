@@ -70,7 +70,6 @@ def delete_record(record_id: int, db: Session = Depends(get_db), current_user: U
         raise NotFoundException("Record", record_id)
     for photo in record.photos:
         delete_photo_file(photo.filename)
-    owner_pet_id = record.pet_id
     db.delete(record)
     db.commit()
     return Response(status_code=204)
@@ -114,7 +113,7 @@ def upload_record_photos(record_id: int, files: list[UploadFile] = File(...), db
     return photos
 
 
-@router.delete("/photos/{photo_id}", status_code=204)
+@router.delete("/record-photos/{photo_id}", status_code=204)
 def delete_record_photo(photo_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Remove one photo from a record."""
     photo = (
