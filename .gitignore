@@ -34,3 +34,6 @@ htmlcov/
 # Node
 node_modules/
 dist/
+
+# Local dev compose overrides — Compose auto-loads this by filename, so it must never reach the server or it re-enables --reload and publishes Postgres
+docker-compose.override.yml

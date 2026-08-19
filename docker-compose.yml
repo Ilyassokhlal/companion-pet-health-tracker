@@ -4,42 +4,49 @@ services:
     env_file: .env
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 10
+    restart: unless-stopped
+
   backend:
     build: ./backend
-    ports:
-      - "8000:8000"
     env_file: .env
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - app_data:/data
-      - ./backend:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 120s
+    restart: unless-stopped
 
   frontend:
     build:
       context: ./frontend-web
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+        VITE_API_URL: ${VITE_API_URL:-/api}
     ports:
-      - "5173:80"
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      ACME_EMAIL: ${ACME_EMAIL:-}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   app_data:
   db_data:
-  
+  caddy_data:
+  caddy_config:
