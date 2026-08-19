@@ -1,4 +1,7 @@
 {$SITE_ADDRESS::80} {
+	@www host www.mycompanion.pet
+	redir @www https://mycompanion.pet{uri} permanent
+
 	handle_path /api/* {
 		reverse_proxy backend:8000
 	}
