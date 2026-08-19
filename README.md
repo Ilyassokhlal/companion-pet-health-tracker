@@ -1,5 +1,7 @@
 # 🐾 Companion — AI-Powered Pet Health Tracker
 
+**Live at [mycompanion.pet](https://mycompanion.pet)** — running on a Hetzner VPS behind Caddy with automatic TLS.
+
 > **v2.** The Module 9 capstone that this project grew out of is preserved at the
 > [`v1.0-capstone`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v1.0-capstone)
 > tag, along with the README that describes it.
@@ -48,20 +50,32 @@ own timezone.
 
 ## Architecture
 
-Three Compose services on one internal network. Only the frontend (5173) and the API (8000)
-are published; Postgres is reachable from the host on 5432 for development convenience.
+![Architecture](screenshots/Companion%20V2%20Architecture%20Diagram.png)
+
+Three Compose services on one internal Docker network. In production only 80 and 443 are
+published — Caddy terminates TLS, serves the built React app, and reverse-proxies `/api/*`
+to the backend, so the API and Postgres are unreachable from outside the host.
 
 | Service | Role |
 |---|---|
-| `frontend` | React SPA, built with Vite and served as static files by Caddy |
+| `frontend` | Caddy — TLS, the static React build, and the `/api` reverse proxy |
 | `backend` | FastAPI — REST API, JWT auth, RAG orchestration, reminder scheduler |
 | `db` | PostgreSQL 17 — users, pets, records, photos, chat history |
+
+Because the app and its API share one origin, the browser makes no cross-origin requests
+and CORS does not apply in production.
 
 ChromaDB runs in-process inside the backend, and its index lives on the shared `app_data`
 volume alongside uploaded photos. Answer generation calls the Claude API; email goes through
 Resend. Neither runs locally.
 
-**Volumes** — `db_data` holds the database, `app_data` holds `/data/chroma` and `/data/photos`.
+**Volumes** — `db_data` holds the database, `app_data` holds `/data/chroma` and
+`/data/photos`, and `caddy_data` holds the TLS certificates. That last one is load-bearing:
+without it every restart re-requests a certificate, and Let's Encrypt allows five per domain
+per week.
+
+Local development publishes 5432 and 8000 via `docker-compose.override.yml`, which Compose
+loads automatically by filename and which is deliberately not committed.
 
 ---
 
@@ -121,7 +135,7 @@ Fill in `.env`: at minimum `SECRET_KEY`, `POSTGRES_PASSWORD`, a matching passwor
 docker compose up --build
 ```
 
-Then open **http://localhost:5173**.
+Then open **http://localhost**.
 
 First boot takes a few minutes: the backend downloads the embedding model and indexes the
 corpus, and the frontend runs a production build. Database migrations run automatically on
@@ -192,7 +206,8 @@ Several photos per record — a wound from three angles, or a medication label.
 
 ## API
 
-31 endpoints. Interactive documentation at **http://localhost:8000/docs**.
+31 endpoints. Interactive documentation at **http://localhost/api/docs** locally, or
+**https://mycompanion.pet/api/docs** on the live site.
 
 ### Auth
 | Method | Path | Notes |
