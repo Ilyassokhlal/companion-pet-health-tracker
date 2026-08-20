@@ -4,7 +4,9 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import DateField from "@/components/ui/DateField";
-import { createRecord, updateRecord } from "@/api/records";
+import * as ImagePicker from "expo-image-picker";
+import { createRecord, updateRecord, uploadRecordPhotos } from "@/api/records";
+import type { PhotoUpload } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
 
@@ -22,6 +24,37 @@ export default function RecordForm({ petId, record, onDone }: Props) {
   const [nextDueDate, setNextDueDate] = useState(record?.next_due_date || "");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [files, setFiles] = useState<PhotoUpload[]>([]);
+
+  function addAsset(asset: ImagePicker.ImagePickerAsset) {
+    setFiles((prev) => [
+      ...prev,
+      {
+        uri: asset.uri,
+        name: asset.fileName ?? `photo-${Date.now()}.jpg`,
+        type: asset.mimeType ?? "image/jpeg",
+      },
+    ]);
+  }
+
+  async function takePhoto() {
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permission.granted) {
+      setError("Camera permission is required to take a photo.");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({ quality: 0.7 });
+    if (!result.canceled) result.assets.forEach(addAsset);
+  }
+
+  async function pickPhotos() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsMultipleSelection: true,
+      mediaTypes: ["images"],
+      quality: 0.7,
+    });
+    if (!result.canceled) result.assets.forEach(addAsset);
+  }
 
   async function handleSubmit() {
     setError("");
@@ -34,10 +67,11 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       next_due_date: nextDueDate || null,
     };
     try {
-      if (record) {
-        await updateRecord(record.id, payload);
-      } else {
-        await createRecord(petId, payload);
+      const saved = record
+        ? await updateRecord(record.id, payload)
+        : await createRecord(petId, payload);
+      if (files.length > 0) {
+        await uploadRecordPhotos(saved.id, files);
       }
       onDone(true);
     } catch (err) {
@@ -89,6 +123,34 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       </View>
 
       <DateField label="Next due date" value={nextDueDate} onChange={setNextDueDate} clearable />
+
+      <View>
+        <Text className="mb-1 text-sm text-muted">Photos</Text>
+        <View className="flex-row gap-2">
+          <Pressable
+            onPress={takePhoto}
+            className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
+          >
+            <Text className="text-center text-fg">Take photo</Text>
+          </Pressable>
+          <Pressable
+            onPress={pickPhotos}
+            className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
+          >
+            <Text className="text-center text-fg">Choose</Text>
+          </Pressable>
+        </View>
+        {files.map((f, i) => (
+          <View key={f.uri} className="mt-2 flex-row items-center justify-between">
+            <Text numberOfLines={1} className="flex-1 text-sm text-muted">
+              {f.name}
+            </Text>
+            <Pressable onPress={() => setFiles(files.filter((_, j) => j !== i))}>
+              <Text className="ml-3 text-sm text-danger">remove</Text>
+            </Pressable>
+          </View>
+        ))}
+      </View>
 
       <Button label={record ? "Save" : "Add record"} onPress={handleSubmit} loading={submitting} />
       <Button label="Cancel" variant="secondary" onPress={() => onDone(false)} />

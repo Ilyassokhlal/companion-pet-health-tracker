@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFocusEffect } from "expo-router";
 
 import { usePets } from "@/context/PetContext";
 import { listRecords } from "@/api/records";
@@ -49,13 +50,19 @@ export default function Dashboard() {
   }
   const [records, setRecords] = useState<HealthRecord[]>([]);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!currentPet) {
       setRecords([]);
       return;
     }
     listRecords(currentPet.id).then(setRecords).catch(console.error);
   }, [currentPet]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   function confirmDelete() {
     if (!currentPet) return;

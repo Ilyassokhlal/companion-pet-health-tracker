@@ -32,7 +32,14 @@
         }
       ],
       "expo-secure-store",
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Companion needs access to your photos so you can attach them to your pet's health records.",
+          "cameraPermission": "Companion needs camera access so you can photograph symptoms, medications and vet documents."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

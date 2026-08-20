@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFocusEffect } from "expo-router";
 
 import Button from "@/components/ui/Button";
 import RecordForm from "@/components/RecordForm";
@@ -29,9 +30,11 @@ export default function Records() {
       .finally(() => setLoading(false));
   }, [currentPet]);
 
-  useEffect(() => {
-    load();
-  }, [load]);
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   function confirmDelete(record: HealthRecord) {
     Alert.alert("Delete record", `"${record.title}" will be permanently removed.`, [

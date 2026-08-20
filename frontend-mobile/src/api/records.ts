@@ -1,4 +1,4 @@
-import { apiFetch, BASE_URL, getToken } from "./client";
+import { apiFetch } from "./client";
 import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
@@ -33,31 +33,18 @@ export async function deleteRecord(recordId: number): Promise<void> {
   });
 }
 
-// Download a pet's health records as a CSV or PDF file. This function sends a GET request to the API endpoint for the specified pet and format, and triggers a download of the file in the user's browser.
-export async function downloadExport(petId: number, format: "csv" | "pdf"): Promise<void> {
-  const res = await fetch(`${BASE_URL}/pets/${petId}/export?format=${format}`, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-  if (!res.ok) throw new Error("Failed to download export");
+// A local image to upload. React Native has no File object, so multipart parts are
+// described by uri, name and type instead.
+export type PhotoUpload = { uri: string; name: string; type: string };
 
-  const blob = await res.blob();
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `records.${format}`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// Upload multiple photos for a health record. This function sends a POST request to the API endpoint for the specified record with the provided files, and returns an array of RecordPhoto objects.
-export async function uploadRecordPhotos(recordId: number, files: File[]): Promise<RecordPhoto[]> {
+// Upload multiple photos for a health record. Returns an array of RecordPhoto objects.
+export async function uploadRecordPhotos(
+  recordId: number,
+  files: PhotoUpload[],
+): Promise<RecordPhoto[]> {
   const form = new FormData();
   for (const file of files) {
-    form.append("files", file);
+    form.append("files", file as unknown as Blob);
   }
   return apiFetch<RecordPhoto[]>(`/records/${recordId}/photos`, { method: "POST", body: form });
 }
