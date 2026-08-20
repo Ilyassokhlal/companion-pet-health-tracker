@@ -16,6 +16,20 @@ import { usePets } from "@/context/PetContext";
 import * as WebBrowser from "expo-web-browser";
 import { askStream, listMessages, deleteMessage, clearMessages } from "@/api/chat";
 import type { Citation } from "@/types";
+import Markdown from "react-native-markdown-display";
+
+const markdownStyles = {
+  body: { color: "#ece9f5" },
+  strong: { color: "#ece9f5", fontWeight: "700" as const },
+  em: { color: "#ece9f5" },
+  heading1: { color: "#ece9f5", fontSize: 18, fontWeight: "700" as const, marginBottom: 4 },
+  heading2: { color: "#ece9f5", fontSize: 16, fontWeight: "600" as const, marginBottom: 4 },
+  heading3: { color: "#ece9f5", fontSize: 15, fontWeight: "600" as const, marginBottom: 4 },
+  bullet_list: { marginVertical: 4 },
+  ordered_list: { marginVertical: 4 },
+  link: { color: "#7c3aed" },
+  code_inline: { backgroundColor: "#0b0a0f", color: "#ece9f5" },
+};
 
 interface Turn {
   id?: number;
@@ -177,6 +191,8 @@ export default function Chat() {
           >
             {t.role === "assistant" && !t.content ? (
               <Text className="text-muted">Thinking…</Text>
+            ) : t.role === "assistant" ? (
+              <Markdown style={markdownStyles}>{t.content}</Markdown>
             ) : (
               <Text className="text-fg">{t.content}</Text>
             )}

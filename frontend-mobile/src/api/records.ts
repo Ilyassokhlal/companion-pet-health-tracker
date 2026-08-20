@@ -1,4 +1,7 @@
-import { apiFetch } from "./client";
+import { File, Paths } from "expo-file-system";
+import * as Sharing from "expo-sharing";
+
+import { apiFetch, BASE_URL, getToken } from "./client";
 import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
@@ -57,4 +60,32 @@ export async function deleteRecordPhoto(photoId: number): Promise<void> {
 // List all photos associated with a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of GalleryPhoto objects.
 export async function listPetPhotos(petId: number): Promise<GalleryPhoto[]> {
   return apiFetch<GalleryPhoto[]>(`/pets/${petId}/photos`);
+}
+
+// Download a pet's records and hand the file to another app. On mobile a download is not a download: the file is written to the cache directory and then offered to the share sheet.
+export async function exportRecords(petId: number, format: "csv" | "pdf"): Promise<void> {
+  if (!(await Sharing.isAvailableAsync())) {
+    throw new Error("Sharing is not available on this device.");
+  }
+
+  const token = await getToken();
+  const destination = new File(Paths.cache, `records.${format}`);
+  if (destination.exists) {
+    destination.delete();
+  }
+
+  const task = File.createDownloadTask(
+    `${BASE_URL}/pets/${petId}/export?format=${format}`,
+    destination,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+  const downloaded = await task.downloadAsync();
+  if (!downloaded) {
+    throw new Error("Download failed.");
+  }
+
+  await Sharing.shareAsync(downloaded.uri, {
+    mimeType: format === "csv" ? "text/csv" : "application/pdf",
+    dialogTitle: "Export records",
+  });
 }

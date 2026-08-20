@@ -1,8 +1,7 @@
 import '@/global.css';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
 
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { PetProvider } from '@/context/PetContext';
@@ -38,12 +37,11 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <AuthProvider>
       <PetProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider value={DarkTheme}>
           <RootNavigator />
         </ThemeProvider>
       </PetProvider>

@@ -6,7 +6,7 @@ import { useFocusEffect } from "expo-router";
 import Button from "@/components/ui/Button";
 import RecordForm from "@/components/RecordForm";
 import { usePets } from "@/context/PetContext";
-import { listRecords, deleteRecord } from "@/api/records";
+import { listRecords, deleteRecord, exportRecords } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
 
@@ -50,6 +50,15 @@ export default function Records() {
     ]);
   }
 
+  async function handleExport(format: "csv" | "pdf") {
+    if (!currentPet) return;
+    try {
+      await exportRecords(currentPet.id, format);
+    } catch (err) {
+      Alert.alert("Export failed", (err as Error).message);
+    }
+  }
+
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
@@ -91,8 +100,16 @@ export default function Records() {
         ))}
       </View>
 
-      <View className="mb-6">
+      <View className="mb-6 gap-2">
         <Button label="Add record" onPress={() => setEditing("new")} />
+        <View className="flex-row gap-2">
+          <View className="flex-1">
+            <Button label="Export CSV" variant="secondary" onPress={() => handleExport("csv")} />
+          </View>
+          <View className="flex-1">
+            <Button label="Export PDF" variant="secondary" onPress={() => handleExport("pdf")} />
+          </View>
+        </View>
       </View>
 
       {loading ? <Text className="text-muted">Loading…</Text> : null}
