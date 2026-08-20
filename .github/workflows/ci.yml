@@ -82,3 +82,22 @@ jobs:
       - name: Type check
         working-directory: frontend-mobile
         run: npx tsc --noEmit
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend-web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend-web
+        run: npm ci
+
+      - name: Type check
+        working-directory: frontend-web
+        run: npx tsc -p tsconfig.app.json --noEmit

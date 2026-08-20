@@ -25,7 +25,7 @@ def ingest_corpus(current_user: User = Depends(get_current_user)):
 
 def _gate_query(question: str, pet) -> str:
     """Query used to decide whether the question is in scope at all."""
-    return re.sub(re.escape(pet.name), pet.species, question, flags=re.IGNORECASE)
+    return re.sub(rf"\b{re.escape(pet.name)}\b", pet.species, question, flags=re.IGNORECASE)
 
 
 def _retrieval_query(question: str, pet) -> str:

@@ -249,3 +249,24 @@ def test_photo_upload_rejects_bad_type_and_oversize(client, pet):
                     files={"files": ("x.jpg", b"x" * (settings.MAX_PHOTO_MB * 1024 * 1024 + 1), "image/jpeg")},
                     headers=headers)
     assert r.status_code == 400
+
+
+def test_gate_query_replaces_only_whole_words():
+    """A pet's name must not be substituted inside unrelated words.
+
+    A pet called "Bo" once turned "Bo has a boil on his body" into
+    "Dog has a Dogil on his Dogdy", which then failed the scope gate for
+    reasons invisible to the user.
+    """
+    from types import SimpleNamespace
+
+    from routers.ask import _gate_query
+
+    bo = SimpleNamespace(name="Bo", species="Dog")
+    assert _gate_query("Bo has a boil on his body", bo) == "Dog has a boil on his body"
+
+    sam = SimpleNamespace(name="Sam", species="Dog")
+    assert _gate_query("is the same dose safe for Sam", sam) == "is the same dose safe for Dog"
+
+    cat = SimpleNamespace(name="Cat", species="Cat")
+    assert _gate_query("should I use a catheter", cat) == "should I use a catheter"
