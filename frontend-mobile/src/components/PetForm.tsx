@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateField from "@/components/ui/DateField";
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -20,7 +20,6 @@ export default function PetForm({ pet, onDone }: Props) {
   const [species, setSpecies] = useState(pet?.species ?? "Dog");
   const [breed, setBreed] = useState(pet?.breed ?? "");
   const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
-  const [showPicker, setShowPicker] = useState(false);
   const [weight, setWeight] = useState(pet?.weight?.toString() ?? "");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -80,30 +79,13 @@ export default function PetForm({ pet, onDone }: Props) {
         <Input value={breed} onChangeText={setBreed} placeholder="Optional" />
       </View>
 
-      <View>
-        <Text className="mb-1 text-sm text-muted">Birth date</Text>
-        <Pressable
-          onPress={() => setShowPicker(true)}
-          className="w-full rounded-lg border border-border bg-ink px-4 py-3"
-        >
-          <Text className={birthDate ? "text-fg" : "text-muted"}>
-            {birthDate ? new Date(`${birthDate}T00:00:00`).toLocaleDateString() : "Not set"}
-          </Text>
-        </Pressable>
-        {showPicker ? (
-          <DateTimePicker
-            value={birthDate ? new Date(`${birthDate}T00:00:00`) : new Date()}
-            mode="date"
-            maximumDate={new Date()}
-            onChange={(event, selected) => {
-              setShowPicker(false);
-              if (event.type === "set" && selected) {
-                setBirthDate(selected.toLocaleDateString("en-CA"));
-              }
-            }}
-          />
-        ) : null}
-      </View>
+      <DateField
+        label="Birth date"
+        value={birthDate}
+        onChange={setBirthDate}
+        maximumDate={new Date()}
+        clearable
+      />
 
       <View>
         <Text className="mb-1 text-sm text-muted">Weight (kg)</Text>
