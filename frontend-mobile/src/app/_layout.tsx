@@ -30,6 +30,8 @@ function RootNavigator() {
       <Stack.Protected guard={!user}>
         <Stack.Screen name="(auth)" />
       </Stack.Protected>
+
+      <Stack.Screen name="verify" />
     </Stack>
   );
 }
