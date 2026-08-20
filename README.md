@@ -2,6 +2,12 @@
 
 **Live at [mycompanion.pet](https://mycompanion.pet)** — running on a Hetzner VPS behind Caddy with automatic TLS.
 
+> **v3 is in progress.** A React Native mobile app is being built in `frontend-mobile/`, and this
+> README still describes v2 — the backend, the web frontend and the deployment. Expect the
+> repository to contain more than is documented here, and some details to drift as the mobile
+> client lands. For a tree that matches this document exactly, see the
+> [`v2.0`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v2.0) tag.
+
 > **v2.** The Module 9 capstone that this project grew out of is preserved at the
 > [`v1.0-capstone`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v1.0-capstone)
 > tag, along with the README that describes it.
