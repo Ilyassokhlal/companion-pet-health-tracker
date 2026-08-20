@@ -63,3 +63,22 @@ jobs:
 
       - name: Build images
         run: docker compose build backend frontend
+
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend-mobile/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend-mobile
+        run: npm ci
+
+      - name: Type check
+        working-directory: frontend-mobile
+        run: npx tsc --noEmit
