@@ -1,0 +1,75 @@
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import type { ReactNode } from "react";
+import * as SecureStore from "expo-secure-store";
+
+import type { Pet } from "@/types";
+import { listPets } from "@/api/pets";
+import { useAuth } from "@/auth/AuthContext";
+
+const CURRENT_PET_KEY = "currentPetId";
+
+interface PetState {
+  pets: Pet[];
+  currentPet: Pet | null;
+  setCurrentPet: (pet: Pet) => void;
+  refresh: () => Promise<void>;
+  loading: boolean;
+  addPetOpen: boolean;
+  setAddPetOpen: (open: boolean) => void;
+}
+
+const PetContext = createContext<PetState | undefined>(undefined);
+
+export function PetProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
+  const [pets, setPets] = useState<Pet[]>([]);
+  const [currentPet, setCurrentPet] = useState<Pet | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [addPetOpen, setAddPetOpen] = useState(false);
+
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await listPets();
+      setPets(data);
+      const savedId = Number(await SecureStore.getItemAsync(CURRENT_PET_KEY));
+      const saved = data.find((pet) => pet.id === savedId);
+      setCurrentPet(saved ?? data[0] ?? null);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!user) {
+      setPets([]);
+      setCurrentPet(null);
+      setLoading(false);
+      return;
+    }
+    refresh();
+  }, [user, refresh]);
+
+  async function selectPet(pet: Pet) {
+    setCurrentPet(pet);
+    await SecureStore.setItemAsync(CURRENT_PET_KEY, String(pet.id));
+  }
+
+  return (
+    <PetContext.Provider
+      value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading, addPetOpen, setAddPetOpen }}
+    >
+      {children}
+    </PetContext.Provider>
+  );
+}
+
+export function usePets(): PetState {
+  const context = useContext(PetContext);
+  if (!context) {
+    throw new Error("usePets must be used within a PetProvider");
+  }
+  return context;
+}
