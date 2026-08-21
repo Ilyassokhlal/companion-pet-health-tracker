@@ -23,8 +23,8 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
-            <div className="flex items-center space-x-4">
-                <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold whitespace-nowrap">
+            <div className="flex min-w-0 items-center space-x-2 sm:space-x-4">
+                <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
                     <PawPrint size={22} className="inline mr-2 -mt-1" /> Companion
                 </NavLink>
                 <nav className="hidden md:flex space-x-4">
@@ -40,7 +40,7 @@ export default function Header() {
                     ))}
                 </nav>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex min-w-0 items-center space-x-2 sm:space-x-4">
                 {pets.length > 0 && (
                     <div className="flex items-center gap-1">
                         <select
@@ -49,7 +49,7 @@ export default function Header() {
                                 const pet = pets.find(p => p.id === Number(e.target.value));
                                 if (pet) setCurrentPet(pet);
                             }}
-                            className="w-40 sm:w-48 bg-ink text-fg border border-border rounded-lg px-3 py-1.5"
+                            className="w-28 min-w-0 sm:w-48 bg-ink text-fg border border-border rounded-lg px-3 py-1.5"
                         >
                             {pets.map(pet => (
                                 <option key={pet.id} value={pet.id}>{pet.name}</option>
@@ -59,7 +59,7 @@ export default function Header() {
                             onClick={() => { setAddPetOpen(true); navigate("/dashboard"); }}
                             aria-label="Add pet"
                             title="Add pet"
-                            className="p-1.5 rounded-lg border border-border text-muted hover:text-fg hover:border-primary transition"
+                            className="p-1.5 shrink-0 rounded-lg border border-border text-muted hover:text-fg hover:border-primary transition"
                         >
                             <Plus size={18} />
                         </button>
@@ -71,7 +71,7 @@ export default function Header() {
                 </Button>
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden text-muted hover:text-fg"
+                    className="md:hidden shrink-0 text-muted hover:text-fg"
                     aria-label="Menu"
                 >
                     {menuOpen ? <X size={22} /> : <Menu size={22} />}

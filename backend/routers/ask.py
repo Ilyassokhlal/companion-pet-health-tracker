@@ -97,16 +97,14 @@ def ask(
     chunks = rag.retrieve(_retrieval_query(question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
 
     if not chunks:
+        answer = (
+            "I don't have information on that in my pet care references. "
+            "Disclaimer: This is intended for general information, not veterinary advice or a general use assistant."
+        )
+        save_message(pet.id, "assistant", answer, [])
         return JSONResponse(
             status_code=200,
-            content={
-                "answer": (
-                    "I don't have information on that in my pet care references. "
-                    "This is general information, not veterinary advice — consult your vet."
-                ),
-                "sources": [],
-                "confidence": "none",
-            },
+            content={"answer": answer, "sources": [], "confidence": "none"},
         )
     # Build the messages for the LLM
     messages = _build_messages(question, chunks, pet_context)
