@@ -71,14 +71,14 @@ export default function PetSelector() {
         currentPet && (
           <button
             type="button"
-            className="flex items-center gap-2 w-36 sm:w-48"
+            className="flex items-center gap-2 w-36 sm:w-48 bg-ink text-fg border border-border rounded-lg px-3 py-1.5 hover:border-primary transition"
             aria-haspopup="listbox"
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
             <Avatar pet={currentPet} size={24} />
-            <span className="truncate">{currentPet.name}</span>
-            <ChevronDown size={16} />
+            <span className="truncate min-w-0 flex-1 text-left">{currentPet.name}</span>
+            <ChevronDown size={16} className="shrink-0 text-muted" />
           </button>
         )
       }
