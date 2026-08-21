@@ -83,7 +83,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Description</label>
+        <label className="block">Description (optional)</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -92,7 +92,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Next Due Date</label>
+        <label className="block">Next Due Date (optional)</label>
         <Input
           type="date"
           value={nextDueDate}

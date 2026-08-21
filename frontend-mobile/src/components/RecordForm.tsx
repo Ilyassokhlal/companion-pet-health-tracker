@@ -110,7 +110,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       <DateField label="Date" value={date} onChange={setDate} />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Description</Text>
+        <Text className="mb-1 text-sm text-muted">Description (optional)</Text>
         <TextInput
           value={description}
           onChangeText={setDescription}
@@ -122,10 +122,10 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </View>
 
-      <DateField label="Next due date" value={nextDueDate} onChange={setNextDueDate} clearable />
+      <DateField label="Next due date (optional)" value={nextDueDate} onChange={setNextDueDate} clearable />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Photos</Text>
+        <Text className="mb-1 text-sm text-muted">Photos (optional)</Text>
         <View className="flex-row gap-2">
           <Pressable
             onPress={takePhoto}
