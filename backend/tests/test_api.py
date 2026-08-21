@@ -138,20 +138,24 @@ def test_ask_declines_when_corpus_is_empty(client, pet):
 
 
 def test_chat_history_is_persisted(client, pet):
-    """After asking a question, the chat history should include the user's question and the system's response."""
+    """An out-of-scope reply is stored alongside the user's question."""
     headers, pet_data = pet
     pet_id = pet_data["id"]
-    # Add a record to ensure /ask can proceed
-    client.post(f"/pets/{pet_id}/records", json={"record_type": "vet_visit", "description": "Annual checkup"}, headers=headers)
-    # Ask a question
-    r = client.post("/ask", json={"pet_id": pet_id, "question": "What should I feed my pet?"}, headers=headers)
+
+    r = client.post(
+        "/ask",
+        json={"pet_id": pet_id, "question": "What should I feed my pet?"},
+        headers=headers,
+    )
     assert r.status_code == 200
-    # Check chat history
+    answer = r.json()["answer"]
+
     r = client.get(f"/pets/{pet_id}/messages", headers=headers)
     assert r.status_code == 200
     history = r.json()
-    assert [msg["role"] for msg in history] == ["user"]
+    assert [msg["role"] for msg in history] == ["user", "assistant"]
     assert history[0]["content"] == "What should I feed my pet?"
+    assert history[1]["content"] == answer
 
 def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
     """With a corpus indexed, /ask streams tokens and reports the sources it used."""
