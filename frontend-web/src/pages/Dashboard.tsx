@@ -77,11 +77,19 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-8">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <PetPhoto pet={currentPet} />
         <h1 className="text-2xl font-bold">{currentPet.name}</h1>
-        <button onClick={() => setShowForm("edit")} className="flex items-center gap-1 text-sm text-primary hover:underline"><Pencil size={14} />Edit</button>
-        <button onClick={() => setConfirmingDelete(true)} className="flex items-center gap-1 text-sm text-danger hover:underline"><Trash2 size={14} />Delete</button>
+        <div className="flex gap-2">
+          <Button onClick={() => setShowForm("edit")} className="inline-flex items-center gap-2">
+            <Pencil size={16} />
+            Edit
+          </Button>
+          <Button variant="danger" onClick={() => setConfirmingDelete(true)} className="inline-flex items-center gap-2">
+            <Trash2 size={16} />
+            Delete
+          </Button>
+        </div>
       </div>
       <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
