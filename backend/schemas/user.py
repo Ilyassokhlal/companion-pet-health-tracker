@@ -89,6 +89,14 @@ class ChangeEmailRequest(BaseModel):
     email: EmailStr
     password: str
 
+class ChangePasswordRequest(BaseModel):
+    """Schema for changing a signed-in user's password."""
+    current_password: str
+    new_password: str = Field(
+        min_length=8, max_length=48,
+        description="The new password of the user.",
+        examples=["newpassword123"])
+
 class DeleteAccountRequest(BaseModel):
     """Schema for deleting a user's account."""
     password: str

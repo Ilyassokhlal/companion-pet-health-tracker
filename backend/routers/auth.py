@@ -6,7 +6,7 @@ from datetime import timedelta
 from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
 from database import get_db
 from models.models import User
-from schemas.user import ChangeEmailRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
+from schemas.user import ChangeEmailRequest, ChangePasswordRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
 from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
 from utils.mailer import send_verification_email, send_reset_email, send_email_changed_email, send_password_changed_email
 from utils.limiter import limiter
@@ -182,6 +182,22 @@ def change_email(request: Request, payload: ChangeEmailRequest, background_tasks
     background_tasks.add_task(send_verification_email, payload.email, verify_token)
     background_tasks.add_task(send_email_changed_email, current_user.email, payload.email)
     return current_user
+
+@router.post("/change-password", response_model=TokenResponse)
+@limiter.limit("5/hour")
+def change_password(request: Request, payload: ChangePasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Change the signed-in user's password and hand back a fresh token."""
+    if not verify_password(payload.current_password, current_user.hashed_password):
+        raise UnauthorizedException("Incorrect password.")
+    if payload.new_password == payload.current_password:
+        raise BadRequestException("The new password cannot be the same as the current password.")
+    current_user.hashed_password = hash_password(payload.new_password)
+    db.commit()
+    db.refresh(current_user)
+    background_tasks.add_task(send_password_changed_email, current_user.email)
+    token = create_access_token(data={"sub": str(current_user.id), "fp": password_fingerprint(current_user.hashed_password)})
+    return {"access_token": token, "token_type": "bearer"}
+
 
 @router.delete("/me", status_code=204)
 @limiter.limit("5/hour")

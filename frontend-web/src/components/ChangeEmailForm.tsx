@@ -34,8 +34,7 @@ export default function ChangeEmailForm() {
     }
     // Render the change email form with input fields for the new email and current password, along with submission handling and feedback messages.
     return (
-        <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-            <h2 className="text-lg font-semibold mb-4">Change Email</h2>
+
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm text-muted mb-2">
@@ -68,6 +67,5 @@ export default function ChangeEmailForm() {
                     {submitting ? "Submitting..." : "Change Email"}
                 </Button>
             </form>
-        </section>
     );
 }

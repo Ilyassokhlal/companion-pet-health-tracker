@@ -75,6 +75,18 @@ export async function changeEmail(email: string, password: string): Promise<User
   });
 }
 
+// Changes the signed-in user's password. The API returns a fresh token because the
+// change invalidates every existing one, including this session's.
+export async function changePassword(currentPassword: string, newPassword: string): Promise<TokenResponse> {
+  const data = await apiFetch<TokenResponse>("/auth/change-password", {
+    method: "POST",
+    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+  });
+
+  setToken(data.access_token);
+  return data;
+}
+
 // Deletes the user's account by sending the current password to the API. If successful, it does not return any data.
 export async function deleteAccount(password: string): Promise<void> {
   return apiFetch<void>("/auth/me", {
