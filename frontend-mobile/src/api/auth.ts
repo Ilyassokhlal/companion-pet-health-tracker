@@ -1,5 +1,6 @@
 import { apiFetch, setToken } from "./client";
 import type { TokenResponse, User } from "../types";
+import { withCache } from "@/cache";
 
 // Registers a new user by sending their username, email, and password to the API. If successful, it stores the returned token in secure device storage.
 export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
@@ -89,4 +90,9 @@ export async function updateMe(data: { reminders_enabled?: boolean; timezone?: s
     method: "PATCH",
     body: JSON.stringify(data),
   });
+}
+
+// The signed-in user, falling back to the last cached copy when offline.
+export async function meCached() {
+  return withCache("me", () => me());
 }

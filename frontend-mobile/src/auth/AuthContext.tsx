@@ -1,8 +1,7 @@
-import { Alert } from "react-native";
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { User } from "../types";
-import { me, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
+import { me, meCached, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
 import { getToken, setToken } from "../api/client";
 import { registerForPush, unregisterForPush } from "../notifications";
 import { clearCache } from "@/cache";
@@ -31,9 +30,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function syncPush() {
         try {
             pushToken.current = await registerForPush();
-            Alert.alert("Push", `Token: ${pushToken.current}`);
         } catch (e) {
-            Alert.alert("Push failed", (e as Error).message);
+            console.warn("[push] registration failed:", (e as Error).message);
         }
     }
 
@@ -45,11 +43,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 return;
             }
             try {
-                setUser(await me());
+                const { data } = await meCached();
+                setUser(data);
                 await syncPush();
             } catch {
-                await setToken(null);
-                setUser(null);
+                // apiFetch already clears the token on a 401. Reaching here with the token still present means the network failed, not the session — keeping it, so cached records stay reachable offline.
+                if (!(await getToken())) {
+                    setUser(null);
+                }
             } finally {
                 setLoading(false);
             }
