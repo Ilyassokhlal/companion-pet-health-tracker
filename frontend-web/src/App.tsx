@@ -12,6 +12,8 @@ import Reset from "./pages/Reset";
 import Forgot from "./pages/Forgot";
 import Landing from "./pages/Landing";
 import Photos from "./pages/Photos";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 export default function App() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
       <Route path="/verify" element={<Verify />} />
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/reset" element={<Reset />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
 
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
