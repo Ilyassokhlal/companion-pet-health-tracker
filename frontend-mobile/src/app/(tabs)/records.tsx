@@ -10,6 +10,7 @@ import { usePets } from "@/context/PetContext";
 import { listRecordsCached, deleteRecord, exportRecords } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
+import { formatDate } from "@/dates";
 
 export default function Records() {
   const { currentPet } = usePets();
@@ -131,7 +132,7 @@ export default function Records() {
             <Text numberOfLines={1} className="flex-1 font-semibold text-fg">
               {r.title}
             </Text>
-            <Text className="shrink-0 text-sm text-muted">{r.date}</Text>
+            <Text className="shrink-0 text-sm text-muted">{formatDate(r.date)}</Text>
           </View>
 
           <Text className="mt-1 text-sm text-primary">{r.record_type}</Text>
@@ -139,7 +140,7 @@ export default function Records() {
           {r.description ? <Text className="mt-2 text-muted">{r.description}</Text> : null}
 
           {r.next_due_date ? (
-            <Text className="mt-2 text-sm text-muted">Next due {r.next_due_date}</Text>
+            <Text className="mt-2 text-sm text-muted">Next due {formatDate(r.next_due_date)}</Text>
           ) : null}
 
           <View className="mt-3 flex-row gap-4">

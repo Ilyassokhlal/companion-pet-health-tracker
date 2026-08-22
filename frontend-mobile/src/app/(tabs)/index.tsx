@@ -9,6 +9,7 @@ import { deletePet } from "@/api/pets";
 import type { HealthRecord } from "@/types";
 import PetForm from "@/components/PetForm";
 import Button from "@/components/ui/Button";
+import { formatDate } from "@/dates";
 
 function formatAge(birthDate: string | null): string {
   if (!birthDate) return "Unknown";
@@ -171,12 +172,12 @@ export default function Dashboard() {
         ) : null}
         {overdue.map((r) => (
           <Text key={r.id} className="text-danger">
-            Overdue: {r.title} — {r.next_due_date}
+            Overdue: {r.title} — {formatDate(r.next_due_date!)}
           </Text>
         ))}
         {upcoming.map((r) => (
           <Text key={r.id} className="text-fg">
-            {r.title} — {r.next_due_date}
+            {r.title} — {formatDate(r.next_due_date!)}
           </Text>
         ))}
       </View>
