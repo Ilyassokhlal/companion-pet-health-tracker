@@ -52,7 +52,7 @@ export default function PetForm({ pet, onDone }: Props) {
   };
   // Renders a form for adding or editing a pet. It includes fields for name, species, breed, birth date, and weight. The form handles submission by calling the appropriate API function to create or update the pet, and it manages loading and error states.
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-surface border border-border rounded-xl shadow-soft mt-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
             <div>
                 <label className="block mb-1">Name</label>
                 <Input

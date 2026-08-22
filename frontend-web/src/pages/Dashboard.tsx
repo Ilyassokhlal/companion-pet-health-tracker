@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { listRecords } from "../api/records";
 import type { HealthRecord } from "../types";
 import PetForm from "../components/PetForm";
+import Modal from "../components/ui/Modal";
 import { deletePet } from "../api/pets";
 import { Pencil, Trash2 } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
@@ -55,16 +56,13 @@ export default function Dashboard() {
   if (!currentPet) {
     return (
     <div className="p-4 sm:p-8">
-        {addPetOpen ? (
+        <p className="text-muted">You haven't added a pet yet.</p>
+        <Button onClick={() => setAddPetOpen(true)} className="mt-4">
+          Add Pet
+        </Button>
+        <Modal open={addPetOpen} title="Add pet" onClose={() => setAddPetOpen(false)}>
           <PetForm onDone={() => setAddPetOpen(false)} />
-        ) : (
-          <>
-            <p className="text-muted">You haven't added a pet yet.</p>
-            <Button onClick={() => setAddPetOpen(true)} className="mt-4">
-              Add Pet
-            </Button>
-          </>
-        )}
+        </Modal>
       </div>
     );
   }
@@ -113,12 +111,12 @@ export default function Dashboard() {
           </p>
         ))}
       </section>
-      {showForm === "edit" && (
+      <Modal open={showForm === "edit"} title={`Edit ${currentPet.name}`} onClose={() => setShowForm(null)}>
         <PetForm key={currentPet.id} pet={currentPet} onDone={() => setShowForm(null)} />
-      )}
-      {addPetOpen && (
+      </Modal>
+      <Modal open={addPetOpen} title="Add pet" onClose={() => setAddPetOpen(false)}>
         <PetForm key="add" onDone={() => setAddPetOpen(false)} />
-      )}
+      </Modal>
       <ConfirmDialog
         open={confirmingDelete}
         title={`Delete ${currentPet.name}?`}

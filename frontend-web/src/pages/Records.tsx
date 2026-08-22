@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { listRecords, deleteRecord, downloadExport } from "../api/records";
 import RecordForm from "../components/RecordForm";
+import Modal from "../components/ui/Modal";
 import { usePets } from "../context/PetContext";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
@@ -70,17 +71,23 @@ export default function Records() {
         <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "csv")} className="flex items-center gap-1.5"><Download size={16} />CSV</Button>
         <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")} className="flex items-center gap-1.5"><Download size={16} />PDF</Button>
       </div>
-      {editing && (
-        <RecordForm
-          key={editing === "new" ? "new" : editing.id}
-          petId={currentPet.id}
-          record={editing === "new" ? undefined : editing}
-          onDone={(saved) => {
-            setEditing(null);
-            if (saved) load();
-          }}
-        />
-      )}
+      <Modal
+        open={editing !== null}
+        title={editing === "new" ? "Add record" : "Edit record"}
+        onClose={() => setEditing(null)}
+      >
+        {editing && (
+          <RecordForm
+            key={editing === "new" ? "new" : editing.id}
+            petId={currentPet.id}
+            record={editing === "new" ? undefined : editing}
+            onDone={(saved) => {
+              setEditing(null);
+              if (saved) load();
+            }}
+          />
+        )}
+      </Modal>
       {loading && <p className="text-muted">Loading…</p>}
       {!loading && filteredRecords.length === 0 && (
         <p className="text-muted">No records yet.</p>
