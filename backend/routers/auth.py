@@ -8,7 +8,7 @@ from database import get_db
 from models.models import User
 from schemas.user import ChangeEmailRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
 from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
-from utils.mailer import send_verification_email, send_reset_email
+from utils.mailer import send_verification_email, send_reset_email, send_email_changed_email, send_password_changed_email
 from utils.limiter import limiter
 from config import settings
 
@@ -95,11 +95,23 @@ def login(request: Request, credentials: LoginRequest, db: Session = Depends(get
 @router.post("/verify-email", response_model=UserResponse)
 @limiter.limit("10/minute")
 def verify_email(request: Request, payload: VerifyRequest, db: Session = Depends(get_db)):
-    """Mark an email as verified from a signed link."""
+    """Verify an address. A staged email change is applied here, not when it was requested."""
     user_id = int(decode_purpose_token(payload.token, "verify")["sub"])
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise NotFoundException("User", user_id)
+    if user.pending_email:
+        claimed = user.pending_email
+        user.email = claimed
+        user.pending_email = None
+        user.email_verified = True
+        try:
+            db.commit()
+        except IntegrityError:
+            db.rollback()
+            raise DuplicateException("User", "email", claimed)
+        db.refresh(user)
+        return user
     if user.email_verified:
         return user  # Already verified
     user.email_verified = True
@@ -111,11 +123,12 @@ def verify_email(request: Request, payload: VerifyRequest, db: Session = Depends
 @router.post("/resend-verification", status_code=204)
 @limiter.limit("3/hour")
 def resend_verification(request: Request, background_tasks: BackgroundTasks, current_user: User = Depends(get_current_user)):
-    """Send a fresh verification email to the signed-in user."""
-    if current_user.email_verified:
+    """Send a fresh verification email, to the pending address when a change is staged."""
+    target = current_user.pending_email or current_user.email
+    if not current_user.pending_email and current_user.email_verified:
         raise BadRequestException("Email already verified")
     verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
-    background_tasks.add_task(send_verification_email, current_user.email, verify_token)
+    background_tasks.add_task(send_verification_email, target, verify_token)
     return
 
 @router.get("/me", response_model=UserResponse)
@@ -137,7 +150,7 @@ def forgot_password(request: Request, payload: ForgotPasswordRequest, background
 
 @router.post("/reset-password", status_code=204)
 @limiter.limit("10/hour")
-def reset_password(request: Request, payload: ResetPasswordRequest, db: Session = Depends(get_db)):
+def reset_password(request: Request, payload: ResetPasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     """Set a new password from a signed reset link."""
     claims = decode_purpose_token(payload.token, "reset")
     user_id = int(claims["sub"])
@@ -149,26 +162,25 @@ def reset_password(request: Request, payload: ResetPasswordRequest, db: Session 
     user.hashed_password = hash_password(payload.new_password)
     db.commit()
     db.refresh(user)
+    background_tasks.add_task(send_password_changed_email, user.email)
     return
 
 @router.post("/change-email", response_model=UserResponse)
 @limiter.limit("5/hour")
 def change_email(request: Request, payload: ChangeEmailRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Change the signed-in user's email and re-trigger verification."""
+    """Stage an email change. The address only moves once the new one is verified."""
     if not verify_password(payload.password, current_user.hashed_password):
         raise UnauthorizedException("Incorrect password.")
     if payload.email == current_user.email:
         raise BadRequestException("The new email cannot be the same as the current email.")
-    current_user.email = payload.email
-    current_user.email_verified = False
-    try:
-        db.commit()
-        db.refresh(current_user)
-    except IntegrityError:
-        db.rollback()
+    if db.query(User).filter(User.email == payload.email).first():
         raise DuplicateException("User", "email", payload.email)
+    current_user.pending_email = payload.email
+    db.commit()
+    db.refresh(current_user)
     verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
-    background_tasks.add_task(send_verification_email, current_user.email, verify_token)
+    background_tasks.add_task(send_verification_email, payload.email, verify_token)
+    background_tasks.add_task(send_email_changed_email, current_user.email, payload.email)
     return current_user
 
 @router.delete("/me", status_code=204)

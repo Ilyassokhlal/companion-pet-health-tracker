@@ -7,8 +7,8 @@ import Input from "./ui/Input";
 
 // ChangeEmailForm component allows the user to change their email address. It requires the user to input their new email and current password for verification. Upon successful submission, it updates the user's email and prompts them to check their new email for a verification link.
 export default function ChangeEmailForm() {
-  const { user, refreshUser } = useAuth();
-  const [email, setEmail] = useState(user?.email || "");
+  const { refreshUser } = useAuth();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +23,9 @@ export default function ChangeEmailForm() {
         try {
             await changeEmail(email, password);
             await refreshUser();
-            setMessage("Email changed successfully. Please check your new email for a verification link.");
+            setEmail("");
+            setPassword("");
+            setMessage("Check your new address for a verification link. Your email won't change until you confirm it there.");
         } catch (err) {
             setError((err as Error).message);
         } finally {

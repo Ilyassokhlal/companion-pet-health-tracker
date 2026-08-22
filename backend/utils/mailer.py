@@ -135,3 +135,30 @@ def send_reminder_email(to: str, username: str, items: list[str]) -> bool:
     <p style="margin:0;color:{MUTED};font-size:13px;">Manage your reminders in <a href="{settings.FRONTEND_URL}/settings" style="color:{PRIMARY};text-decoration:none;">Settings</a>.</p>
     """
     return send_email(to, subject, _layout(subject, body))
+
+def send_email_changed_email(to: str, new_email: str) -> bool:
+    """Warn the PREVIOUS address that the account's email was changed.
+
+    Deliberately sent to the old address: if someone changes the email on a
+    hijacked session, this is the only message that still reaches the real owner.
+    """
+    subject = "A change to your Companion email was requested"
+    body = f"""
+    <p style="margin:0 0 14px 0;">Someone requested to change the email address on your Companion account to <strong>{escape(new_email)}</strong>. The change won't take effect until that address is verified.</p>
+    <p style="margin:0 0 14px 0;">If you made this change, no action is needed — this notice is for your records.</p>
+    <p style="margin:0 0 14px 0;">If you did not, someone else may have access to your account. Reset your password now to lock it back down.</p>
+    {_button('Reset your password', f'{settings.FRONTEND_URL}/forgot')}
+    """
+    return send_email(to, subject, _layout(subject, body))
+
+
+def send_password_changed_email(to: str) -> bool:
+    """Confirm to the account holder that their password was changed."""
+    subject = "Your Companion password was changed"
+    body = f"""
+    <p style="margin:0 0 14px 0;">Your Companion password was just changed.</p>
+    <p style="margin:0 0 14px 0;">If this was you, no action is needed.</p>
+    <p style="margin:0 0 14px 0;">If it wasn't, request a reset immediately — that will invalidate the current password.</p>
+    {_button('Reset your password', f'{settings.FRONTEND_URL}/forgot')}
+    """
+    return send_email(to, subject, _layout(subject, body))
