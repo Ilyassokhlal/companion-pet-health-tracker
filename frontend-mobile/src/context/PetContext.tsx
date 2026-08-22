@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import * as SecureStore from "expo-secure-store";
 
 import type { Pet } from "@/types";
-import { listPets } from "@/api/pets";
+import { listPetsCached } from "@/api/pets";
 import { useAuth } from "@/auth/AuthContext";
 
 const CURRENT_PET_KEY = "currentPetId";
@@ -16,6 +16,7 @@ interface PetState {
   loading: boolean;
   addPetOpen: boolean;
   setAddPetOpen: (open: boolean) => void;
+  offlineSince: string | null;
 }
 
 const PetContext = createContext<PetState | undefined>(undefined);
@@ -26,12 +27,14 @@ export function PetProvider({ children }: { children: ReactNode }) {
   const [currentPet, setCurrentPet] = useState<Pet | null>(null);
   const [loading, setLoading] = useState(true);
   const [addPetOpen, setAddPetOpen] = useState(false);
+  const [offlineSince, setOfflineSince] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await listPets();
+      const { data, savedAt } = await listPetsCached();
       setPets(data);
+      setOfflineSince(savedAt);
       const savedId = Number(await SecureStore.getItemAsync(CURRENT_PET_KEY));
       const saved = data.find((pet) => pet.id === savedId);
       setCurrentPet(saved ?? data[0] ?? null);
@@ -46,6 +49,7 @@ export function PetProvider({ children }: { children: ReactNode }) {
     if (!user) {
       setPets([]);
       setCurrentPet(null);
+      setOfflineSince(null);
       setLoading(false);
       return;
     }
@@ -59,7 +63,7 @@ export function PetProvider({ children }: { children: ReactNode }) {
 
   return (
     <PetContext.Provider
-      value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading, addPetOpen, setAddPetOpen }}
+      value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading, addPetOpen, setAddPetOpen, offlineSince }}
     >
       {children}
     </PetContext.Provider>

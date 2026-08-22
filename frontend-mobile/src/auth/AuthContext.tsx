@@ -4,6 +4,7 @@ import type { User } from "../types";
 import { me, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
 import { getToken, setToken } from "../api/client";
 import { registerForPush, unregisterForPush } from "../notifications";
+import { clearCache } from "@/cache";
 
 
 // Defines the shape of the authentication state and actions provided by the AuthContext.
@@ -29,8 +30,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function syncPush() {
         try {
             pushToken.current = await registerForPush();
-        } catch {
-            // ignored on purpose
+            console.log("[push] token:", pushToken.current);
+        } catch (e) {
+            console.log("[push] failed:", e);
         }
     }
 
@@ -75,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             pushToken.current = null;
         }
         await apiLogout();
+        await clearCache();
         setUser(null);
     }
 

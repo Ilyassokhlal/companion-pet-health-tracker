@@ -1,5 +1,6 @@
 import { apiFetch } from "./client";
 import type { Pet } from "../types";
+import { withCache } from "@/cache";
 
 // Defines the types for creating and updating pets. PetCreate omits the id, user_id, and created_at fields from the Pet interface, while PetUpdate allows partial updates to a pet's information.
 export type PetCreate = Omit<Pet, "id" | "user_id" | "created_at" | "photo_filename">;
@@ -8,6 +9,11 @@ export type PetUpdate = Partial<PetCreate>;
 // Fetches a list of pets for the current user. Returns an array of pets.
 export async function listPets(): Promise<Pet[]> {
   return apiFetch<Pet[]>("/pets");
+}
+
+// The user's pets, falling back to the last cached copy when offline.
+export async function listPetsCached() {
+  return withCache("pets", () => listPets());
 }
 
 // Creates a new pet with the provided data. Returns the created pet if successful.

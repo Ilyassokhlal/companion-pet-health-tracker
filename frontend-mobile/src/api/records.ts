@@ -2,6 +2,7 @@ import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
 import { apiFetch, BASE_URL, getToken } from "./client";
+import { withCache } from "../cache";
 import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
@@ -11,6 +12,11 @@ export type RecordUpdate = Partial<RecordCreate>;
 // Fetch all health records for a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of HealthRecord objects.
 export async function listRecords(petId: number): Promise<HealthRecord[]> {
   return apiFetch<HealthRecord[]>(`/pets/${petId}/records`);
+}
+
+// Records for a pet, falling back to the last cached copy when offline.
+export async function listRecordsCached(petId: number) {
+  return withCache(`records:${petId}`, () => listRecords(petId));
 }
 
 // Create a new health record for a specific pet. This function sends a POST request to the API endpoint for the specified pet with the provided data.

@@ -5,8 +5,9 @@ import { useFocusEffect } from "expo-router";
 
 import Button from "@/components/ui/Button";
 import RecordForm from "@/components/RecordForm";
+import OfflineBanner from "@/components/ui/OfflineBanner";
 import { usePets } from "@/context/PetContext";
-import { listRecords, deleteRecord, exportRecords } from "@/api/records";
+import { listRecordsCached, deleteRecord, exportRecords } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
 
@@ -17,15 +18,20 @@ export default function Records() {
   const [filter, setFilter] = useState<RecordType | "All">("All");
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<HealthRecord | "new" | null>(null);
+  const [offlineSince, setOfflineSince] = useState<string | null>(null);
 
   const load = useCallback(() => {
     if (!currentPet) {
       setRecords([]);
+      setOfflineSince(null);
       return;
     }
     setLoading(true);
-    listRecords(currentPet.id)
-      .then(setRecords)
+    listRecordsCached(currentPet.id)
+      .then(({ data, savedAt }) => {
+        setRecords(data);
+        setOfflineSince(savedAt);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [currentPet]);
@@ -76,6 +82,7 @@ export default function Records() {
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
+      <OfflineBanner savedAt={offlineSince} />
       <View className="mb-4 flex-row flex-wrap gap-2">
         <Pressable
           onPress={() => setFilter("All")}
