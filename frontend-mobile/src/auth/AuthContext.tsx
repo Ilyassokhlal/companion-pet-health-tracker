@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { User } from "../types";
@@ -30,9 +31,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function syncPush() {
         try {
             pushToken.current = await registerForPush();
-            console.log("[push] token:", pushToken.current);
+            Alert.alert("Push", `Token: ${pushToken.current}`);
         } catch (e) {
-            console.log("[push] failed:", e);
+            Alert.alert("Push failed", (e as Error).message);
         }
     }
 

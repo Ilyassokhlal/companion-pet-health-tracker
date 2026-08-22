@@ -16,11 +16,9 @@
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
+      "googleServicesFile": "./google-services.json",
       "predictiveBackGestureEnabled": false,
-      "package": "pet.mycompanion",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "package": "pet.mycompanion"
     },
     "plugins": [
       "expo-router",

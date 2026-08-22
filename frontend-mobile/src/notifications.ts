@@ -18,7 +18,7 @@ Notifications.setNotificationHandler({
 // Asks permission, resolves this install's Expo push token, and registers it with the backend.
 // Returns the token so logout can unregister the same one.
 export async function registerForPush(): Promise<string | null> {
-  if (!Device.isDevice) return null;            // simulators cannot receive push notifications
+  if (!Device.isDevice) throw new Error("Not a physical device.");
 
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
@@ -35,10 +35,10 @@ export async function registerForPush(): Promise<string | null> {
     const { status } = await Notifications.requestPermissionsAsync();
     finalStatus = status;
   }
-  if (finalStatus !== "granted") return null;
+  if (finalStatus !== "granted") throw new Error(`Notification permission: ${finalStatus}`);
 
-  const projectId = Constants.expoConfig?.extra?.eas?.projectId;
-  if (!projectId) return null;
+  const projectId =
+    Constants.expoConfig?.extra?.eas?.projectId ?? "5cb22260-f674-45cd-900a-bf61e7b31e1d";
 
   const token = (await Notifications.getExpoPushTokenAsync({ projectId })).data;
   await registerDevice(token, Platform.OS);
