@@ -17,7 +17,10 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "pet.mycompanion"
+      "package": "pet.mycompanion",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -38,11 +41,24 @@
           "cameraPermission": "Companion needs camera access so you can photograph symptoms, medications and vet documents."
         }
       ],
-      "expo-sharing"
+      "expo-sharing",
+      [
+        "expo-notifications",
+        {
+          "color": "#7c3aed"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "5cb22260-f674-45cd-900a-bf61e7b31e1d"
+      }
+    },
+    "owner": "ilias-okhlal"
   }
 }

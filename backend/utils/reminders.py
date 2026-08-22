@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from config import settings
 from utils.mailer import send_reminder_email
 from models.models import HealthRecord, Pet, User
+from utils.push import send_push, prune_tokens
 
 def send_due_reminders(db: Session, today: date) -> int:
     """Email each user a digest of records due soon. Returns the number of emails sent."""
@@ -37,6 +38,7 @@ def send_due_reminders(db: Session, today: date) -> int:
         users_to_records[user.id]["records"].append((record, pet))
 
     emails_sent = 0
+    dead_tokens: list[str] = []
     for user_id, data in users_to_records.items():
         user = data["user"]
         records = data["records"]
@@ -58,5 +60,11 @@ def send_due_reminders(db: Session, today: date) -> int:
             for record, _ in records:
                 record.reminder_sent_at = datetime.now()
 
+        tokens = [device.token for device in user.device_tokens]
+        if tokens:
+            body = items[0] if len(items) == 1 else f"{len(items)} health updates are coming due."
+            dead_tokens.extend(send_push(tokens, "Upcoming pet care", body))
+
     db.commit()
+    prune_tokens(db, dead_tokens)
     return emails_sent

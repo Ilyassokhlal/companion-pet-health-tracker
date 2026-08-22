@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
 import { getToken, setToken } from "../api/client";
+import { registerForPush, unregisterForPush } from "../notifications";
 
 
 // Defines the shape of the authentication state and actions provided by the AuthContext.
@@ -22,6 +23,16 @@ const AuthContext = createContext<AuthState | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+        const pushToken = useRef<string | null>(null);
+
+    // Push is best-effort. It shouldn't block authentication or surface as an error.
+    async function syncPush() {
+        try {
+            pushToken.current = await registerForPush();
+        } catch {
+            // ignored on purpose
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -32,6 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
             try {
                 setUser(await me());
+                await syncPush();
             } catch {
                 await setToken(null);
                 setUser(null);
@@ -44,14 +56,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function login(email: string, password: string) {
         await apiLogin(email, password);
         setUser(await me());
+        await syncPush();
     }
 
     async function register(username: string, email: string, password: string) {
         await apiRegister(username, email, password);
         setUser(await me());
+        await syncPush();
     }
 
     async function logout() {
+        if (pushToken.current) {
+            try {
+                await unregisterForPush(pushToken.current);
+            } catch {
+                // So a failed unregister must not trap the user in the app.
+            }
+            pushToken.current = null;
+        }
         await apiLogout();
         setUser(null);
     }

@@ -105,3 +105,8 @@ class UserUpdateRequest(BaseModel):
     """Schema for updating a user's account settings."""
     reminders_enabled: bool | None = None
     timezone: str | None = None
+
+class DeviceTokenRequest(BaseModel):
+    """Schema for registering a device's Expo push token."""
+    token: str
+    platform: str

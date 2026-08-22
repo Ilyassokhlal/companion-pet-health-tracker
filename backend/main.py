@@ -12,7 +12,7 @@ from slowapi.errors import RateLimitExceeded
 from utils.limiter import limiter
 from utils.exceptions import AppException
 from utils.reminders import send_due_reminders
-from routers import auth, pets, records, ask, messages
+from routers import auth, pets, records, ask, messages, devices
 
 from contextlib import asynccontextmanager
 from config import settings
@@ -92,6 +92,7 @@ app.include_router(pets.router)
 app.include_router(records.router)
 app.include_router(ask.router)
 app.include_router(messages.router)
+app.include_router(devices.router)
 
 # Root endpoint for introduction and redirection to documentation
 @app.get("/", include_in_schema=False)

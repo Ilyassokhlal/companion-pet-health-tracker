@@ -32,6 +32,12 @@ class User(Base):
         back_populates="owner",
         cascade="all, delete-orphan",
     )
+    
+    # Push tokens for this user's installed apps
+    device_tokens: Mapped[list["DeviceToken"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
 
 # Pet model
 class Pet(Base):
@@ -104,3 +110,16 @@ class ChatMessage(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     pet: Mapped["Pet"] = relationship(back_populates="messages")
+
+
+# Device token model — one row per app install that has accepted push notifications.
+class DeviceToken(Base):
+    __tablename__ = "device_tokens"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    token: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    platform: Mapped[str] = mapped_column(String(16), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    user: Mapped["User"] = relationship(back_populates="device_tokens")
