@@ -6,6 +6,7 @@ import { router, useFocusEffect } from "expo-router";
 import { usePets } from "@/context/PetContext";
 import { listPetPhotos, deleteRecordPhoto } from "@/api/records";
 import type { GalleryPhoto } from "@/types";
+import { formatDate } from "@/dates";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
@@ -110,7 +111,7 @@ export default function Photos() {
                 >
                   <Text className="text-primary">{selected.record_title}</Text>
                 </Pressable>
-                <Text className="text-muted">{selected.record_date}</Text>
+                <Text className="text-muted">{formatDate(selected.record_date)}</Text>
               </View>
 
               <View className="mt-6 flex-row justify-between">
