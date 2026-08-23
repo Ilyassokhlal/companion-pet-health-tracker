@@ -10,8 +10,13 @@ import ChangePasswordForm from "@/components/ChangePasswordForm";
 import UserPhoto from "@/components/UserPhoto";
 import ReminderSettings from "@/components/ReminderSettings";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
+import * as WebBrowser from "expo-web-browser";
 
 type Panel = "username" | "email" | "password";
+
+// The legal pages are hosted by the web app. Hardcoded rather than derived from EXPO_PUBLIC_API_URL, which points
+// at localhost in development. These must always resolve to production, since store reviewers fetch them.
+const SITE = "https://mycompanion.pet";
 
 // One row of the account card: a label, its current value, and the button that opens its panel.
 function Row({
@@ -93,6 +98,22 @@ export default function Settings() {
       <ReminderSettings />
 
       <DeleteAccountForm />
+
+      <View className="mb-6 rounded-xl border border-border bg-surface p-5">
+        <Text className="mb-4 text-lg font-semibold text-fg">Legal</Text>
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`)}
+          className="mb-3 active:opacity-70"
+        >
+          <Text className="text-primary">Privacy Policy</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`)}
+          className="active:opacity-70"
+        >
+          <Text className="text-primary">Terms of Service</Text>
+        </Pressable>
+      </View>
 
       <Button label="Log out" variant="secondary" onPress={logout} />
     </ScrollView>
