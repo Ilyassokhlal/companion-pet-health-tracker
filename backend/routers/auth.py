@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Request, BackgroundTasks
+from fastapi import APIRouter, Depends, status, Request, BackgroundTasks, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
@@ -9,6 +9,7 @@ from models.models import User
 from schemas.user import ChangeEmailRequest, ChangePasswordRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
 from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
 from utils.mailer import send_verification_email, send_reset_email, send_email_changed_email, send_password_changed_email
+from utils.photos import save_photo, delete_photo_file
 from utils.limiter import limiter
 from config import settings
 
@@ -206,6 +207,12 @@ def delete_account(request: Request, payload: DeleteAccountRequest, db: Session 
     if not verify_password(payload.password, current_user.hashed_password):
         raise UnauthorizedException("Incorrect password.")
     db.delete(current_user)
+    delete_photo_file(current_user.photo_filename)
+    for pet in current_user.pets:
+        delete_photo_file(pet.photo_filename)
+        for record in pet.records:
+            for photo in record.photos:
+                delete_photo_file(photo.filename)
     db.commit()
     return
 
@@ -215,6 +222,30 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db),
     """Update the user's email preferences."""
     for key, value in payload.model_dump(exclude_unset=True).items():
         setattr(current_user, key, value)
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+
+@router.post("/me/photo", response_model=UserResponse)
+def upload_my_photo(file: UploadFile = File(...), db: Session = Depends(get_db),
+                    current_user: User = Depends(get_current_user)):
+    """Attach or replace the signed-in user's avatar."""
+    name = save_photo(file)
+    delete_photo_file(current_user.photo_filename)
+    current_user.photo_filename = name
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+
+@router.delete("/me/photo", response_model=UserResponse)
+def delete_my_photo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Remove the signed-in user's avatar."""
+    if not current_user.photo_filename:
+        raise BadRequestException("You have no photo.")
+    delete_photo_file(current_user.photo_filename)
+    current_user.photo_filename = None
     db.commit()
     db.refresh(current_user)
     return current_user

@@ -25,6 +25,7 @@ class User(Base):
     pending_email: Mapped[str | None] = mapped_column(String(100), nullable=True)
     reminders_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
     timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
+    photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to pets

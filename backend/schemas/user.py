@@ -36,6 +36,7 @@ class UserResponse(BaseModel):
     email_verified: bool
     timezone: str
     reminders_enabled: bool
+    photo_filename: str | None = None
     created_at: datetime
 
     model_config = ConfigDict(
@@ -48,6 +49,7 @@ class UserResponse(BaseModel):
                 "email_verified": True,
                 "timezone": "America/Los_Angeles",
                 "reminders_enabled": True,
+                "photo_filename": None,
                 "created_at": "2024-06-01T12:00:00"
             }
         }

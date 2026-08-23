@@ -102,3 +102,18 @@ export async function updateMe(data: { reminders_enabled?: boolean; timezone?: s
     body: JSON.stringify(data),
   });
 }
+
+// Uploads an avatar for the signed-in user. Returns the updated user with the new photo filename.
+export async function uploadMyPhoto(file: File): Promise<User> {
+  const formData = new FormData();
+  formData.append("file", file);
+  return apiFetch<User>("/auth/me/photo", {
+    method: "POST",
+    body: formData,
+  });
+}
+
+// Removes the signed-in user's avatar. Returns the updated user without a photo filename.
+export async function deleteMyPhoto(): Promise<User> {
+  return apiFetch<User>("/auth/me/photo", { method: "DELETE" });
+}

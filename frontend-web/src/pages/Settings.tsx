@@ -5,6 +5,7 @@ import ChangePasswordForm from "../components/ChangePasswordForm";
 import ReminderSettings from "../components/ReminderSettings";
 import DeleteAccountForm from "../components/DeleteAccountForm";
 import ChangeUsernameForm from "../components/ChangeUsernameForm";
+import UserPhoto from "../components/UserPhoto";
 import Button from "../components/ui/Button";
 import { Pencil, X } from "lucide-react";
 
@@ -25,6 +26,9 @@ export default function Settings() {
 
       <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
         <h2 className="text-lg font-semibold mb-4">Account</h2>
+        <div className="mb-6">
+          <UserPhoto />
+        </div>
         <dl className="space-y-3 text-sm">
           <div className="flex justify-between gap-4 items-center">
             <dt className="text-muted shrink-0">Username</dt>

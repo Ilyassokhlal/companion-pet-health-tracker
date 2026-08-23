@@ -42,9 +42,17 @@ export default function Header() {
 
             <div className="flex flex-1 min-w-0 items-center justify-end space-x-2 sm:space-x-4">
                 <div className="hidden md:flex min-w-0 items-center gap-2">
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary ring-1 ring-primary/30">
-                        {user?.username?.charAt(0).toUpperCase()}
-                    </div>
+                    {user?.photo_filename ? (
+                        <img
+                            src={`${import.meta.env.VITE_API_URL}/photos/${user.photo_filename}`}
+                            alt={user.username}
+                            className="h-7 w-7 shrink-0 rounded-full object-cover ring-1 ring-border"
+                        />
+                    ) : (
+                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary ring-1 ring-primary/30">
+                            {user?.username?.charAt(0).toUpperCase()}
+                        </div>
+                    )}
                     <span className="truncate text-sm text-fg">{user?.username}</span>
                 </div>
                 <NavLink
