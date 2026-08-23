@@ -4,6 +4,8 @@ import ChangeEmailForm from "../components/ChangeEmailForm";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import ReminderSettings from "../components/ReminderSettings";
 import DeleteAccountForm from "../components/DeleteAccountForm";
+import Button from "../components/ui/Button";
+import { Pencil, X } from "lucide-react";
 
 export default function Settings() {
   const { user } = useAuth();
@@ -29,18 +31,28 @@ export default function Settings() {
             <dt className="text-muted shrink-0">Email</dt>
             <dd className="flex items-center gap-3 min-w-0">
               <span className="truncate">{user.email}</span>
-              <button onClick={() => toggle("email")} className="shrink-0 text-primary hover:underline">
+              <Button
+                variant={editing === "email" ? "secondary" : "primary"}
+                onClick={() => toggle("email")}
+                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
+              >
+                {editing === "email" ? <X size={14} /> : <Pencil size={14} />}
                 {editing === "email" ? "Cancel" : "Update"}
-              </button>
+              </Button>
             </dd>
           </div>
           <div className="flex justify-between gap-4 items-center">
             <dt className="text-muted shrink-0">Password</dt>
             <dd className="flex items-center gap-3">
               <span>••••••••</span>
-              <button onClick={() => toggle("password")} className="shrink-0 text-primary hover:underline">
+              <Button
+                variant={editing === "password" ? "secondary" : "primary"}
+                onClick={() => toggle("password")}
+                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
+              >
+                {editing === "password" ? <X size={14} /> : <Pencil size={14} />}
                 {editing === "password" ? "Cancel" : "Update"}
-              </button>
+              </Button>
             </dd>
           </div>
           <div className="flex justify-between gap-4">

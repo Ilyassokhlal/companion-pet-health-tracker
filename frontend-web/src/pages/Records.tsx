@@ -102,7 +102,7 @@ export default function Records() {
           {r.description && <p className="text-muted mt-2">{r.description}</p>}
           {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
           <div className="flex gap-2 mt-2">
-            <Button variant="secondary" onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />Edit</Button>
+            <Button onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />Edit</Button>
             <Button variant="danger" onClick={() => setPendingDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />Delete</Button>
           </div>
         </div>

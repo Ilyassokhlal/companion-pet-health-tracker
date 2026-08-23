@@ -21,12 +21,12 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
-            <div className="flex min-w-0 items-center space-x-2 sm:space-x-4">
+            <div className="flex flex-1 min-w-0 items-center space-x-2 sm:space-x-4">
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
                     <PawPrint size={22} className="inline mr-2 -mt-1" /> Companion
                 </NavLink>
                 <nav className="hidden md:flex space-x-4">
-                    {navItems.map((item) => (
+                    {navItems.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
@@ -38,9 +38,22 @@ export default function Header() {
                     ))}
                 </nav>
             </div>
-            <div className="flex min-w-0 items-center space-x-2 sm:space-x-4">
-                <PetSelector />
-                <span className="hidden md:inline text-muted">{user?.username}</span>
+            <PetSelector />
+
+            <div className="flex flex-1 min-w-0 items-center justify-end space-x-2 sm:space-x-4">
+                <div className="hidden md:flex min-w-0 items-center gap-2">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary ring-1 ring-primary/30">
+                        {user?.username?.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="truncate text-sm text-fg">{user?.username}</span>
+                </div>
+                <NavLink
+                    to="/settings"
+                    className={({ isActive }) => `hidden md:flex shrink-0 items-center gap-1.5 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
+                >
+                    <SettingsIcon size={16} />
+                    Settings
+                </NavLink>
                 <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden md:block">
                     Logout
                 </Button>

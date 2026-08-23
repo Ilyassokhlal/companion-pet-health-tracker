@@ -71,20 +71,20 @@ export default function PetSelector() {
         currentPet && (
           <button
             type="button"
-            className="flex items-center gap-2 w-36 sm:w-48 bg-ink text-fg border border-border rounded-lg px-3 py-1.5 hover:border-primary transition"
+            className="inline-flex items-center gap-2 min-w-[12rem] max-w-72 sm:max-w-96 bg-ink text-fg border border-border rounded-lg px-3 py-1.5 hover:border-primary transition"
             aria-haspopup="listbox"
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
             <Avatar pet={currentPet} size={24} />
-            <span className="truncate min-w-0 flex-1 text-left">{currentPet.name}</span>
+            <span title={currentPet.name} className="truncate min-w-0 flex-1 text-center">{currentPet.name}</span>
             <ChevronDown size={16} className="shrink-0 text-muted" />
           </button>
         )
       }
 
       {open && (
-        <div className="absolute right-0 mt-2 w-56 z-50 bg-surface border border-border rounded-lg shadow-lg">
+        <div className="absolute left-0 right-0 mt-2 z-50 bg-surface border border-border rounded-lg shadow-lg">
           {pets.map((pet) => (
             <button
               key={pet.id}
@@ -93,11 +93,11 @@ export default function PetSelector() {
               onClick={() => choose(pet)}
             >
               <Avatar pet={pet} size={32} />
-              <div className="flex flex-col text-left">
-                <span>{pet.name}</span>
+              <div className="flex min-w-0 flex-1 flex-col text-center">
+                <span className="truncate" title={pet.name}>{pet.name}</span>
                 <span className="text-xs text-muted">{pet.species}</span>
               </div>
-              {pet.id === currentPet?.id && <Check size={16} />}
+              <span className="w-8 shrink-0">{pet.id === currentPet?.id && <Check size={16} />}</span>
             </button>
           ))}
           <div className="border-t border-border">
