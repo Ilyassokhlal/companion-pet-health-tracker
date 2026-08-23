@@ -154,9 +154,9 @@ export default function Dashboard() {
         <View className="ml-3 shrink-0 flex-row gap-2">
           <Pressable
             onPress={openAdd}
-            className="rounded-full border border-border bg-surface px-3 py-1.5 active:opacity-70"
+            className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-primary">Add</Text>
+            <Text className="text-sm font-medium text-white">Add</Text>
           </Pressable>
           <Pressable
             onPress={openEdit}
@@ -207,15 +207,19 @@ export default function Dashboard() {
         <KeyboardAvoidingView behavior="padding" className="flex-1">
           <ScrollView
             className="flex-1 bg-ink"
-            contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
+            contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: insets.top + 16 }}
             keyboardShouldPersistTaps="handled"
           >
+          <Pressable onPress={closeForm} className="flex-1 justify-center">
+            <Pressable onPress={() => {}}>
             {showForm === "edit" ? (
               <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />
             ) : (
               <PetForm key="add" onDone={closeForm} />
             )}
-          </ScrollView>
+            </Pressable>
+          </Pressable>
+        </ScrollView>
         </KeyboardAvoidingView>
       </Modal>
     </ScrollView>

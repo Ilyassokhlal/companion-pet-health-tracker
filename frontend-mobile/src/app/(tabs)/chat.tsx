@@ -166,7 +166,7 @@ export default function Chat() {
         {turns.length > 0 ? (
           <Pressable
             onPress={confirmClear}
-            className="ml-3 shrink-0 rounded-full border border-border bg-surface px-3 py-1.5 active:opacity-70"
+            className="ml-3 shrink-0 rounded-full border border-danger bg-surface px-3 py-1.5 active:opacity-70"
           >
             <Text className="text-sm font-medium text-danger">Clear</Text>
           </Pressable>

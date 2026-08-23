@@ -145,12 +145,18 @@ export default function Records() {
             <Text className="mt-2 text-sm text-muted">Next due {formatDate(r.next_due_date)}</Text>
           ) : null}
 
-          <View className="mt-3 flex-row gap-4">
-            <Pressable onPress={() => setEditing(r)}>
-              <Text className="text-sm text-primary">Edit</Text>
+          <View className="mt-3 flex-row gap-2">
+            <Pressable
+              onPress={() => setEditing(r)}
+              className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
+            >
+              <Text className="text-sm font-medium text-white">Edit</Text>
             </Pressable>
-            <Pressable onPress={() => confirmDelete(r)}>
-              <Text className="text-sm text-danger">Delete</Text>
+            <Pressable
+              onPress={() => confirmDelete(r)}
+              className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
+            >
+              <Text className="text-sm font-medium text-white">Delete</Text>
             </Pressable>
           </View>
         </View>
@@ -164,9 +170,11 @@ export default function Records() {
         <KeyboardAvoidingView behavior="padding" className="flex-1">
           <ScrollView
             className="flex-1 bg-ink"
-            contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
+            contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: insets.top + 16 }}
             keyboardShouldPersistTaps="handled"
           >
+          <Pressable onPress={() => setEditing(null)} className="flex-1 justify-center">
+            <Pressable onPress={() => {}}>
             {editing ? (
               <RecordForm
                 key={editing === "new" ? "new" : editing.id}
@@ -178,7 +186,9 @@ export default function Records() {
                 }}
               />
             ) : null}
-          </ScrollView>
+            </Pressable>
+          </Pressable>
+        </ScrollView>
         </KeyboardAvoidingView>
       </Modal>
     </ScrollView>

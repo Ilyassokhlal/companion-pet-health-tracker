@@ -111,9 +111,12 @@ export default function Photos() {
       >
         <GestureHandlerRootView style={{ flex: 1 }}>
           <GestureDetector gesture={swipePhoto}>
-            <View className="flex-1 justify-center bg-black/90 p-4">
+            <Pressable
+              onPress={() => setSelected(null)}
+              className="flex-1 justify-center bg-black/90 p-4"
+            >
           {selected ? (
-            <>
+            <Pressable onPress={() => {}}>
               <Image
                 source={{ uri: `${BASE}/photos/${selected.filename}` }}
                 resizeMode="contain"
@@ -140,9 +143,9 @@ export default function Photos() {
                   <Text className="text-muted">Close</Text>
                 </Pressable>
               </View>
-            </>
+            </Pressable>
           ) : null}
-            </View>
+            </Pressable>
           </GestureDetector>
         </GestureHandlerRootView>
       </Modal>

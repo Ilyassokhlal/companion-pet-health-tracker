@@ -19,6 +19,15 @@ type Panel = "username" | "email" | "password";
 // at localhost in development. These must always resolve to production, since store reviewers fetch them.
 const SITE = "https://mycompanion.pet";
 
+// Chrome Custom Tabs renders inside our task but with Chrome's own chrome. Tinting it to the app
+// palette is what makes it read as in-app rather than as a hand-off.
+const BROWSER_OPTIONS = {
+  toolbarColor: "#16131f",
+  controlsColor: "#7c3aed",
+  showTitle: false,
+  enableBarCollapsing: true,
+} as const;
+
 // One row of the account card: a label, its current value, and the button that opens its panel.
 function Row({
   label,
@@ -104,13 +113,13 @@ export default function Settings() {
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
         <Text className="mb-4 text-lg font-semibold text-fg">Legal</Text>
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`)}
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`, BROWSER_OPTIONS)}
           className="mb-3 active:opacity-70"
         >
           <Text className="text-primary">Privacy Policy</Text>
         </Pressable>
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`)}
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`, BROWSER_OPTIONS)}
           className="active:opacity-70"
         >
           <Text className="text-primary">Terms of Service</Text>
