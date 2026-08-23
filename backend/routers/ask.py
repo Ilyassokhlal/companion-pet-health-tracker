@@ -32,12 +32,23 @@ def _retrieval_query(question: str, pet) -> str:
     """Query used to pick chunks — the species suffix keeps dog and cat material apart."""
     return f"{_gate_query(question, pet)} {pet.species}"
 
+def _format_age(birth_date) -> str:
+    """Age in days under a month, months under a year, then years — matching both clients."""
+    today = date.today()
+    months = (today.year - birth_date.year) * 12 + (today.month - birth_date.month)
+    if today.day < birth_date.day:
+        months -= 1
+    if months < 1:
+        days = (today - birth_date).days
+        return f"{days} day" if days == 1 else f"{days} days"
+    if months < 12:
+        return f"{months} month" if months == 1 else f"{months} months"
+    years = months // 12
+    return f"{years} year" if years == 1 else f"{years} years"
+
 def _format_pet_context(pet, records) -> str:
     """Format the pet's details and health history for the prompt."""
-    age = "unknown"
-    if pet.birth_date:
-        today = date.today()
-        age = f"{today.year - pet.birth_date.year - ((today.month, today.day) < (pet.birth_date.month, pet.birth_date.day))} years"
+    age = _format_age(pet.birth_date) if pet.birth_date else "unknown"
 
     lines = [
         f"Pet Name: {pet.name}",

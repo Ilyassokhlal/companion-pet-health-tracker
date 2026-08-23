@@ -10,20 +10,26 @@ import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 
-// Formats the age of a pet based on its birth date. If the birth date is null, it returns "Unknown". If the pet is less than 12 months old, it returns the age in months. If the pet is 12 months or older, it returns the age in years.
+// Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
     if (!birthDate) {
         return "Unknown";
     }
-    const birth = new Date(birthDate);
+    const birth = new Date(`${birthDate}T00:00:00`);
     const now = new Date();
-    const months = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
-    if (months < 12) {
-        return `${months} months`;
-    } else {
-        const years = Math.floor(months / 12);
-        return `${years} years`;
+    let months = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
+    if (now.getDate() < birth.getDate()) {
+        months--;
     }
+    if (months < 1) {
+        const days = Math.floor((now.getTime() - birth.getTime()) / 86400000);
+        return days === 1 ? "1 day" : `${days} days`;
+    }
+    if (months < 12) {
+        return months === 1 ? "1 month" : `${months} months`;
+    }
+    const years = Math.floor(months / 12);
+    return years === 1 ? "1 year" : `${years} years`;
 }
 
 // The Dashboard component displays the current pet's information. It uses the usePets hook to access the current pet and loading state. If loading is true, it shows a loading message. If there is no current pet, it prompts the user to add a pet. If a current pet exists, it displays the pet's details such as name, species, breed, age, and weight.

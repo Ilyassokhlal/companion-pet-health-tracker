@@ -11,14 +11,21 @@ import PetForm from "@/components/PetForm";
 import Button from "@/components/ui/Button";
 import { formatDate } from "@/dates";
 
+// Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
   if (!birthDate) return "Unknown";
-  const birth = new Date(birthDate);
+  const birth = new Date(`${birthDate}T00:00:00`);
   const now = new Date();
-  const months =
+  let months =
     (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
-  if (months < 12) return `${months} months`;
-  return `${Math.floor(months / 12)} years`;
+  if (now.getDate() < birth.getDate()) months--;
+  if (months < 1) {
+    const days = Math.floor((now.getTime() - birth.getTime()) / 86400000);
+    return days === 1 ? "1 day" : `${days} days`;
+  }
+  if (months < 12) return months === 1 ? "1 month" : `${months} months`;
+  const years = Math.floor(months / 12);
+  return years === 1 ? "1 year" : `${years} years`;
 }
 
 function Field({ label, value }: { label: string; value: string }) {
