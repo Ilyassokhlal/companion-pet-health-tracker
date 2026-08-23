@@ -41,7 +41,10 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     const detail = errorData?.detail;
     const message = Array.isArray(detail)
       ? detail.map((d: { msg: string }) => d.msg).join(", ")
-      : detail || `Request failed (${response.status})`;
+      : detail ||
+        (response.status === 429
+          ? "Too many attempts. Wait a while and try again."
+          : `Request failed (${response.status})`);
     throw new Error(message);
   }
   if (response.status === 204) {
