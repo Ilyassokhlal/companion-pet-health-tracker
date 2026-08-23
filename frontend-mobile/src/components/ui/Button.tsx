@@ -5,11 +5,16 @@ type Props = {
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "danger";
 };
 
 export default function Button({ label, onPress, disabled, loading, variant = "primary" }: Props) {
-  const tone = variant === "primary" ? "bg-primary" : "bg-surface border border-border";
+  const tone =
+    variant === "primary"
+      ? "bg-primary"
+      : variant === "danger"
+        ? "bg-danger"
+        : "bg-surface border border-border";
   const dimmed = disabled || loading ? "opacity-50" : "";
 
   return (

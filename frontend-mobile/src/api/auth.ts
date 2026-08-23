@@ -1,6 +1,7 @@
 import { apiFetch, setToken } from "./client";
 import type { TokenResponse, User } from "../types";
 import { withCache } from "@/cache";
+import type { PhotoUpload } from "./records";
 
 // Registers a new user by sending their username, email, and password to the API. If successful, it stores the returned token in secure device storage.
 export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
@@ -85,7 +86,7 @@ export async function deleteAccount(password: string): Promise<void> {
 }
 
 // Updates the user's account settings, such as email preferences, by sending the updated data to the API. If successful, it returns the updated user information.
-export async function updateMe(data: { reminders_enabled?: boolean; timezone?: string }): Promise<User> {
+export async function updateMe(data: { reminders_enabled?: boolean; timezone?: string; username?: string }): Promise<User> {
   return apiFetch<User>("/auth/me", {
     method: "PATCH",
     body: JSON.stringify(data),
@@ -95,4 +96,27 @@ export async function updateMe(data: { reminders_enabled?: boolean; timezone?: s
 // The signed-in user, falling back to the last cached copy when offline.
 export async function meCached() {
   return withCache("me", () => me());
+}
+
+// Changes the signed-in user's password. The API returns a fresh token because the
+// change invalidates every existing one, including this session's.
+export async function changePassword(currentPassword: string, newPassword: string): Promise<TokenResponse> {
+  const data = await apiFetch<TokenResponse>("/auth/change-password", {
+    method: "POST",
+    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+  });
+  await setToken(data.access_token);
+  return data;
+}
+
+// Uploads an avatar for the signed-in user. Returns the updated user.
+export async function uploadMyPhoto(file: PhotoUpload): Promise<User> {
+  const form = new FormData();
+  form.append("file", file as unknown as Blob);
+  return apiFetch<User>("/auth/me/photo", { method: "POST", body: form });
+}
+
+// Removes the signed-in user's avatar. Returns the updated user.
+export async function deleteMyPhoto(): Promise<User> {
+  return apiFetch<User>("/auth/me/photo", { method: "DELETE" });
 }
