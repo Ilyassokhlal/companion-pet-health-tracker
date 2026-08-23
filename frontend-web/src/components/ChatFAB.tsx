@@ -5,7 +5,7 @@ import { askStream } from "../api/chat";
 import type { Citation } from "../types";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Maximize2 } from "lucide-react";
 
 interface Turn {
   role: "user" | "assistant";
@@ -13,9 +13,19 @@ interface Turn {
   sources?: Citation[];
 }
 
+// Desktop panel presets, cycled from the header. Mobile ignores these — the panel is full-screen below sm.
+// Each entry must stay a complete literal class string:
+// Tailwind scans source text, so anything assembled by concatenation is never emitted.
+const SIZES = [
+  "sm:w-80 sm:h-[26rem]",
+  "sm:w-96 sm:h-[32rem]",
+  "sm:w-[34rem] sm:h-[42rem]",
+];
+
 export default function ChatFAB() {
   const { currentPet } = usePets();
   const [open, setOpen] = useState(false);
+  const [size, setSize] = useState(1);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [question, setQuestion] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -71,13 +81,23 @@ export default function ChatFAB() {
         </button>
       )}
       {open && (
-        <div className="fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-96 sm:h-[32rem] sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50">
+        <div className={`fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 ${SIZES[size]} sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50`}>
 
           <div className="flex items-center justify-between p-4 border-b border-border">
             <h2 className="text-lg font-semibold">Ask about {currentPet.name}</h2>
-            <button onClick={() => setOpen(false)} className="text-muted hover:text-fg transition">
-              <X size={20} />
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setSize((size + 1) % SIZES.length)}
+                className="hidden sm:block text-muted hover:text-fg transition"
+                title="Change panel size"
+                aria-label="Change panel size"
+              >
+                <Maximize2 size={16} />
+              </button>
+              <button onClick={() => setOpen(false)} className="text-muted hover:text-fg transition">
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
