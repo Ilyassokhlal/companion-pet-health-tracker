@@ -103,6 +103,7 @@ class DeleteAccountRequest(BaseModel):
 
 class UserUpdateRequest(BaseModel):
     """Schema for updating a user's account settings."""
+    username: str | None = Field(default=None, min_length=1, max_length=36)
     reminders_enabled: bool | None = None
     timezone: str | None = None
 
