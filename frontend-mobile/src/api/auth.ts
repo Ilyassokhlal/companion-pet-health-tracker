@@ -120,3 +120,9 @@ export async function uploadMyPhoto(file: PhotoUpload): Promise<User> {
 export async function deleteMyPhoto(): Promise<User> {
   return apiFetch<User>("/auth/me/photo", { method: "DELETE" });
 }
+
+// The IANA timezone list, served by the backend. Hermes has no Intl.supportedValuesOf,
+// and the server is the only thing that can say which zones it will actually accept.
+export async function listTimezones(): Promise<string[]> {
+  return apiFetch<string[]>("/auth/timezones");
+}

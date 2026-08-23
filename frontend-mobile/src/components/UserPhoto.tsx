@@ -18,7 +18,7 @@ export default function UserPhoto() {
     const file: PhotoUpload = {
       uri: asset.uri,
       name: asset.fileName ?? "photo.jpg",
-      type: asset.type ?? "image/jpeg",
+      type: asset.mimeType ?? "image/jpeg",
     };
     try {
       setBusy(true);

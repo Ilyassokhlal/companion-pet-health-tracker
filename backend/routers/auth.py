@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, Request, BackgroundTasks, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from datetime import timedelta
+from zoneinfo import available_timezones
 
 from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
 from database import get_db
@@ -249,3 +249,9 @@ def delete_my_photo(db: Session = Depends(get_db), current_user: User = Depends(
     db.commit()
     db.refresh(current_user)
     return current_user
+
+
+@router.get("/timezones", response_model=list[str])
+def list_timezones(current_user: User = Depends(get_current_user)):
+    """The IANA zones this server accepts, from the same tzdata the reminder job uses."""
+    return sorted(available_timezones())
