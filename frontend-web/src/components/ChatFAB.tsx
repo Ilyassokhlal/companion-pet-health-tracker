@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
 import { askStream } from "../api/chat";
@@ -35,10 +35,32 @@ export default function ChatFAB() {
   const panelRef = useRef<HTMLDivElement>(null);
   const dragStart = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
 
-  // An offset left over from a desktop drag would shift the full-screen mobile panel.
+  // Hold the panel inside the viewport. The rect already includes the current transform,
+  // so `from` is subtracted back out to recover the untransformed origin.
+  const clamp = (x: number, y: number, from: { x: number; y: number }) => {
+    if (!panelRef.current) return { x, y };
+    const rect = panelRef.current.getBoundingClientRect();
+    const baseLeft = rect.left - from.x;
+    const baseTop = rect.top - from.y;
+    return {
+      x: Math.min(Math.max(x, -baseLeft), window.innerWidth - rect.width - baseLeft),
+      y: Math.min(Math.max(y, -baseTop), window.innerHeight - rect.height - baseTop),
+    };
+  };
+
+  // A bottom-anchored panel grows upward, so enlarging it after a drag can push the
+  // header off the top. Re-clamp once the new size is in the DOM but before paint.
+  useLayoutEffect(() => {
+    setOffset((o) => clamp(o.x, o.y, o));
+  }, [size]);
+
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth < 640) setOffset({ x: 0, y: 0 });
+      if (window.innerWidth < 640) {
+        setOffset({ x: 0, y: 0 });
+      } else {
+        setOffset((o) => clamp(o.x, o.y, o));
+      }
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -53,13 +75,8 @@ export default function ChatFAB() {
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = dragStart.current;
-    if (!d || !panelRef.current) return;
-    const rect = panelRef.current.getBoundingClientRect();
-    const baseLeft = rect.left - offset.x;
-    const baseTop = rect.top - offset.y;
-    const x = Math.min(Math.max(d.ox + e.clientX - d.px, -baseLeft), window.innerWidth - rect.width - baseLeft);
-    const y = Math.min(Math.max(d.oy + e.clientY - d.py, -baseTop), window.innerHeight - rect.height - baseTop);
-    setOffset({ x, y });
+    if (!d) return;
+    setOffset(clamp(d.ox + e.clientX - d.px, d.oy + e.clientY - d.py, offset));
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
