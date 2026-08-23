@@ -9,13 +9,20 @@ import { forgotPassword } from "@/api/auth";
 export default function Forgot() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit() {
+    setError("");
     setSubmitting(true);
-    await forgotPassword(email);
-    setSent(true);
-    setSubmitting(false);
+    try {
+      await forgotPassword(email);
+      setSent(true);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -46,6 +53,7 @@ export default function Forgot() {
                 autoComplete="email"
                 textContentType="emailAddress"
               />
+              {error ? <Text className="text-sm text-danger">{error}</Text> : null}
               <Button label="Send Reset Link" onPress={handleSubmit} loading={submitting} />
             </>
           )}

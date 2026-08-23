@@ -8,14 +8,21 @@ import Input from "../components/ui/Input";
 export default function Forgot() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-    async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
     setSubmitting(true);
-    await forgotPassword(email);
-    setSent(true);
-    setSubmitting(false);
+    try {
+      await forgotPassword(email);
+      setSent(true);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
     return (
@@ -40,6 +47,7 @@ export default function Forgot() {
                 required
               />
             </div>
+            {error && <p className="text-danger text-sm mb-4">{error}</p>}
             <Button type="submit" className="w-full" disabled={submitting}>
               {submitting ? "Sending..." : "Send Reset Link"}
             </Button>
