@@ -2,6 +2,7 @@ import '@/global.css';
 import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { PetProvider } from '@/context/PetContext';
@@ -40,12 +41,14 @@ function RootNavigator() {
 export default function RootLayout() {
 
   return (
-    <AuthProvider>
-      <PetProvider>
-        <ThemeProvider value={DarkTheme}>
-          <RootNavigator />
-        </ThemeProvider>
-      </PetProvider>
-    </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <PetProvider>
+          <ThemeProvider value={DarkTheme}>
+            <RootNavigator />
+          </ThemeProvider>
+        </PetProvider>
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }

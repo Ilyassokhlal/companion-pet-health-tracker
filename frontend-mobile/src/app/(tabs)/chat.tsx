@@ -16,6 +16,7 @@ import * as WebBrowser from "expo-web-browser";
 import { askStream, listMessages, deleteMessage, clearMessages } from "@/api/chat";
 import type { Citation } from "@/types";
 import Markdown from "react-native-markdown-display";
+import SwipeTabs from "@/components/SwipeTabs";
 
 const markdownStyles = {
   body: { color: "#ece9f5" },
@@ -150,6 +151,7 @@ export default function Chat() {
   }
 
   return (
+    <SwipeTabs>
     <KeyboardAvoidingView
       behavior="padding"
       className="flex-1 bg-ink"
@@ -235,5 +237,6 @@ export default function Chat() {
         </Pressable>
       </View>
     </KeyboardAvoidingView>
+    </SwipeTabs>
   );
 }

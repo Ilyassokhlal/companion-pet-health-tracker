@@ -10,6 +10,7 @@ import type { HealthRecord } from "@/types";
 import PetForm from "@/components/PetForm";
 import Button from "@/components/ui/Button";
 import { formatDate } from "@/dates";
+import SwipeTabs from "@/components/SwipeTabs";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
@@ -125,6 +126,7 @@ export default function Dashboard() {
   const upcoming = dueRecords.filter((r) => r.next_due_date! >= todayStr);
 
   return (
+    <SwipeTabs>
     <ScrollView
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
@@ -217,5 +219,6 @@ export default function Dashboard() {
         </KeyboardAvoidingView>
       </Modal>
     </ScrollView>
+  </SwipeTabs>
   );
 }

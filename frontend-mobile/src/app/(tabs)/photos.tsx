@@ -7,6 +7,8 @@ import { usePets } from "@/context/PetContext";
 import { listPetPhotos, deleteRecordPhoto } from "@/api/records";
 import type { GalleryPhoto } from "@/types";
 import { formatDate } from "@/dates";
+import SwipeTabs from "@/components/SwipeTabs";
+import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
@@ -61,7 +63,21 @@ export default function Photos() {
     );
   }
 
+  // Inside the lightbox a horizontal swipe moves between photos. The Modal covers the screen, so the tab swipe underneath is unreachable while it is open.
+  const swipePhoto = Gesture.Pan()
+    .runOnJS(true)
+    .activeOffsetX([-20, 20])
+    .failOffsetY([-20, 20])
+    .onEnd((e) => {
+      if (!selected) return;
+      const i = photos.findIndex((p) => p.id === selected.id);
+      if (i < 0) return;
+      if (e.translationX < -50 && i < photos.length - 1) setSelected(photos[i + 1]);
+      else if (e.translationX > 50 && i > 0) setSelected(photos[i - 1]);
+    });
+  
   return (
+    <SwipeTabs>
     <ScrollView
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
@@ -93,7 +109,9 @@ export default function Photos() {
         transparent
         onRequestClose={() => setSelected(null)}
       >
-        <View className="flex-1 justify-center bg-black/90 p-4">
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <GestureDetector gesture={swipePhoto}>
+            <View className="flex-1 justify-center bg-black/90 p-4">
           {selected ? (
             <>
               <Image
@@ -124,8 +142,11 @@ export default function Photos() {
               </View>
             </>
           ) : null}
-        </View>
+            </View>
+          </GestureDetector>
+        </GestureHandlerRootView>
       </Modal>
     </ScrollView>
+  </SwipeTabs>
   );
 }

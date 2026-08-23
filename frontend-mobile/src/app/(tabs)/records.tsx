@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import SwipeTabs from "@/components/SwipeTabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -79,6 +80,7 @@ export default function Records() {
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
+    <SwipeTabs>
     <ScrollView
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
@@ -180,5 +182,6 @@ export default function Records() {
         </KeyboardAvoidingView>
       </Modal>
     </ScrollView>
+  </SwipeTabs>
   );
 }

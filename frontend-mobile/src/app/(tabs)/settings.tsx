@@ -11,6 +11,7 @@ import UserPhoto from "@/components/UserPhoto";
 import ReminderSettings from "@/components/ReminderSettings";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
 import * as WebBrowser from "expo-web-browser";
+import SwipeTabs from "@/components/SwipeTabs";
 
 type Panel = "username" | "email" | "password";
 
@@ -65,6 +66,7 @@ export default function Settings() {
   const toggle = (panel: Panel) => setEditing(editing === panel ? null : panel);
 
   return (
+    <SwipeTabs>
     <ScrollView
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
@@ -117,5 +119,6 @@ export default function Settings() {
 
       <Button label="Log out" variant="secondary" onPress={logout} />
     </ScrollView>
+    </SwipeTabs>
   );
 }
