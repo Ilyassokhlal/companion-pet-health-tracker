@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, ScrollView, Text, View } from "react-native";
 import { Link } from "expo-router";
 
 import Button from "@/components/ui/Button";
@@ -28,7 +28,7 @@ export default function Register() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior="padding"
       className="flex-1 bg-ink"
     >
       <ScrollView

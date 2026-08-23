@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -202,16 +202,19 @@ export default function Dashboard() {
         animationType="slide"
         onRequestClose={closeForm}
       >
-        <ScrollView
-          className="flex-1 bg-ink"
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
-        >
-          {showForm === "edit" ? (
-            <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />
-          ) : (
-            <PetForm key="add" onDone={closeForm} />
-          )}
-        </ScrollView>
+        <KeyboardAvoidingView behavior="padding" className="flex-1">
+          <ScrollView
+            className="flex-1 bg-ink"
+            contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
+            keyboardShouldPersistTaps="handled"
+          >
+            {showForm === "edit" ? (
+              <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />
+            ) : (
+              <PetForm key="add" onDone={closeForm} />
+            )}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </Modal>
     </ScrollView>
   );
