@@ -26,7 +26,7 @@ export default function Settings() {
 
       <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
         <h2 className="text-lg font-semibold mb-4">Account</h2>
-        <div className="mb-6">
+        <div className="mb-6 flex justify-center">
           <UserPhoto />
         </div>
         <dl className="space-y-3 text-sm">
