@@ -8,7 +8,8 @@
     "scheme": "companion",
     "userInterfaceStyle": "dark",
     "ios": {
-      "bundleIdentifier": "pet.mycompanion"
+      "bundleIdentifier": "pet.mycompanion",
+      "associatedDomains": ["applinks:mycompanion.pet"]
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +19,18 @@
       },
       "googleServicesFile": "./google-services.json",
       "predictiveBackGestureEnabled": false,
-      "package": "pet.mycompanion"
+      "package": "pet.mycompanion",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "category": ["BROWSABLE", "DEFAULT"],
+          "data": [
+            { "scheme": "https", "host": "mycompanion.pet", "pathPrefix": "/verify" },
+            { "scheme": "https", "host": "mycompanion.pet", "pathPrefix": "/reset" }
+          ]
+        }
+      ]
     },
     "plugins": [
       "expo-router",

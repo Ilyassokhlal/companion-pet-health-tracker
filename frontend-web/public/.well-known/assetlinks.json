@@ -1,0 +1,13 @@
+
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pet.mycompanion",
+      "sha256_cert_fingerprints": [
+        "6C:D1:21:8B:A9:4C:E1:D0:A0:B1:FA:C2:18:EE:93:19:AB:8D:21:BA:C1:4A:9C:8A:1E:9A:CE:79:D0:47:D1:4C"
+      ]
+    }
+  }
+]

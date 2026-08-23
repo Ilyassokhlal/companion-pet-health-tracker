@@ -32,6 +32,7 @@ function RootNavigator() {
       </Stack.Protected>
 
       <Stack.Screen name="verify" />
+      <Stack.Screen name="reset" />
     </Stack>
   );
 }

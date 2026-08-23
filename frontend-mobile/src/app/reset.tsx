@@ -5,9 +5,11 @@ import { Link, router, useLocalSearchParams } from "expo-router";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { resetPassword } from "@/api/auth";
+import { useAuth } from "@/auth/AuthContext";
 
 export default function Reset() {
   const { token } = useLocalSearchParams<{ token?: string }>();
+  const { logout } = useAuth();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
@@ -38,6 +40,7 @@ export default function Reset() {
     setSubmitting(true);
     try {
       await resetPassword(resetToken, password);
+      await logout();
       router.replace("/login");
     } catch (err) {
       setError((err as Error).message);
