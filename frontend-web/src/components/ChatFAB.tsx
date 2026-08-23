@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
 import { askStream } from "../api/chat";
@@ -17,9 +17,9 @@ interface Turn {
 // Each entry must stay a complete literal class string:
 // Tailwind scans source text, so anything assembled by concatenation is never emitted.
 const SIZES = [
-  "sm:w-80 sm:h-[26rem]",
-  "sm:w-96 sm:h-[32rem]",
-  "sm:w-[34rem] sm:h-[42rem]",
+  { label: "Small", className: "sm:w-80 sm:h-[26rem]" },
+  { label: "Medium", className: "sm:w-96 sm:h-[32rem]" },
+  { label: "Large", className: "sm:w-[34rem] sm:h-[42rem]" },
 ];
 
 export default function ChatFAB() {
@@ -29,6 +29,44 @@ export default function ChatFAB() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [question, setQuestion] = useState("");
   const [streaming, setStreaming] = useState(false);
+
+  // Desktop-only drag. The panel keeps its bottom-right anchor; this is an offset from it.
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const panelRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
+
+  // An offset left over from a desktop drag would shift the full-screen mobile panel.
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth < 640) setOffset({ x: 0, y: 0 });
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (window.innerWidth < 640) return;
+    if ((e.target as HTMLElement).closest("button")) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragStart.current = { px: e.clientX, py: e.clientY, ox: offset.x, oy: offset.y };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragStart.current;
+    if (!d || !panelRef.current) return;
+    const rect = panelRef.current.getBoundingClientRect();
+    const baseLeft = rect.left - offset.x;
+    const baseTop = rect.top - offset.y;
+    const x = Math.min(Math.max(d.ox + e.clientX - d.px, -baseLeft), window.innerWidth - rect.width - baseLeft);
+    const y = Math.min(Math.max(d.oy + e.clientY - d.py, -baseTop), window.innerHeight - rect.height - baseTop);
+    setOffset({ x, y });
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current) return;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    dragStart.current = null;
+  };
   
   const handleAsk = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,11 +119,21 @@ export default function ChatFAB() {
         </button>
       )}
       {open && (
-        <div className={`fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 ${SIZES[size]} sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50`}>
+        <div
+          ref={panelRef}
+          style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
+          className={`fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 ${SIZES[size].className} sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50`}
+        >
 
-          <div className="flex items-center justify-between p-4 border-b border-border">
+          <div
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            className="flex items-center justify-between p-4 border-b border-border select-none sm:cursor-move"
+          >
             <h2 className="text-lg font-semibold">Ask about {currentPet.name}</h2>
             <div className="flex items-center gap-3">
+              <span className="hidden sm:inline text-xs text-muted">{SIZES[size].label}</span>
               <button
                 onClick={() => setSize((size + 1) % SIZES.length)}
                 className="hidden sm:block text-muted hover:text-fg transition"
