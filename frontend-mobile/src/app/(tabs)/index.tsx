@@ -149,15 +149,24 @@ export default function Dashboard() {
         <Text numberOfLines={1} className="flex-1 text-2xl font-bold text-fg">
           {currentPet.name}
         </Text>
-        <View className="ml-4 shrink-0 flex-row gap-4">
-          <Pressable onPress={openAdd}>
-            <Text className="text-sm text-primary">Add</Text>
+        <View className="ml-3 shrink-0 flex-row gap-2">
+          <Pressable
+            onPress={openAdd}
+            className="rounded-full border border-border bg-surface px-3 py-1.5 active:opacity-70"
+          >
+            <Text className="text-sm font-medium text-primary">Add</Text>
           </Pressable>
-          <Pressable onPress={openEdit}>
-            <Text className="text-sm text-primary">Edit</Text>
+          <Pressable
+            onPress={openEdit}
+            className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
+          >
+            <Text className="text-sm font-medium text-white">Edit</Text>
           </Pressable>
-          <Pressable onPress={confirmDelete}>
-            <Text className="text-sm text-danger">Delete</Text>
+          <Pressable
+            onPress={confirmDelete}
+            className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
+          >
+            <Text className="text-sm font-medium text-white">Delete</Text>
           </Pressable>
         </View>
       </View>
@@ -195,7 +204,7 @@ export default function Dashboard() {
       >
         <ScrollView
           className="flex-1 bg-ink"
-          contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
         >
           {showForm === "edit" ? (
             <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />

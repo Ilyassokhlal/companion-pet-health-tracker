@@ -161,7 +161,7 @@ export default function Records() {
       >
         <ScrollView
           className="flex-1 bg-ink"
-          contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16, paddingTop: insets.top + 16 }}
         >
           {editing ? (
             <RecordForm

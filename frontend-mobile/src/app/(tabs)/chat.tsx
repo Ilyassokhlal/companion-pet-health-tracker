@@ -163,8 +163,11 @@ export default function Chat() {
           Ask about {currentPet.name}
         </Text>
         {turns.length > 0 ? (
-          <Pressable onPress={confirmClear} className="ml-4 shrink-0">
-            <Text className="text-sm text-danger">Clear</Text>
+          <Pressable
+            onPress={confirmClear}
+            className="ml-3 shrink-0 rounded-full border border-border bg-surface px-3 py-1.5 active:opacity-70"
+          >
+            <Text className="text-sm font-medium text-danger">Clear</Text>
           </Pressable>
         ) : null}
       </View>
