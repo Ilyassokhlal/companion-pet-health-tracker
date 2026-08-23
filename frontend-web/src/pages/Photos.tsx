@@ -71,7 +71,7 @@ export default function Photos() {
         <div className="max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
           <img
             src={`${import.meta.env.VITE_API_URL}/photos/${selected.filename}`}
-            className="max-h-[70vh] object-contain"
+            className="mx-auto max-h-[70vh] max-w-full object-contain"
           />
           <div className="flex justify-between items-center mt-4">
             <Link to="/records" className="text-primary hover:underline">
