@@ -1,11 +1,11 @@
 import json
-from datetime import date
+from datetime import date, datetime, timedelta
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.orm import Session
 from config import settings
 from database import get_db
-from models.models import User, HealthRecord
+from models.models import User, HealthRecord, ChatMessage
 from schemas.ask import AskRequest
 from utils.security import get_current_user
 from utils.limiter import limiter
@@ -64,11 +64,54 @@ def _format_pet_context(pet, records) -> str:
         lines.append(f"- {record.date} [{record.record_type.value}] {record.title}{due}: {record.description or ''}".rstrip())
     return "\n".join(lines)
 
+# Up to 25 messages from the past week. Cost is dominated by assistant answers, so they are truncated on a sliding scale:
+# the newest keep enough detail to answer a follow-up, older ones keep only enough to identify what the topic was.
+HISTORY_TURNS = 25
+HISTORY_WINDOW_DAYS = 7
+RECENT_ASSISTANT_CHARS = 1200
+OLDER_ASSISTANT_CHARS = 300
+RECENT_ANSWERS = 2
 
-def _build_messages(question: str, chunks, pet_context: str) -> list[dict]:
-    """Assemble the RAG prompt: retrieved context, the pet's own record, the question."""
+
+def _recent_turns(pet_id: int, db: Session) -> list[dict]:
+    """Prior messages for this pet, oldest first, as Anthropic turns."""
+    rows = (
+        db.query(ChatMessage)
+        .filter(
+            ChatMessage.pet_id == pet_id,
+            ChatMessage.created_at >= datetime.now() - timedelta(days=HISTORY_WINDOW_DAYS),
+        )
+        .order_by(ChatMessage.id.desc())
+        .limit(HISTORY_TURNS)
+        .all()
+    )
+
+    # rows is newest-first, which is what makes "the last two answers" easy to count.
+    turns: list[dict] = []
+    answers_seen = 0
+    for row in rows:
+        content = row.content
+        if row.role == "assistant":
+            answers_seen += 1
+            cap = RECENT_ASSISTANT_CHARS if answers_seen <= RECENT_ANSWERS else OLDER_ASSISTANT_CHARS
+            content = content[:cap]
+        turns.append({"role": row.role, "content": content})
+    turns.reverse()
+
+    # Anthropic requires the first message to be from the user and the roles to alternate.
+    while turns and turns[0]["role"] != "user":
+        turns.pop(0)
+    # A question whose answer never saved (interrupted stream) would sit next to the new one.
+    if turns and turns[-1]["role"] == "user":
+        turns.pop()
+    return turns
+
+
+def _build_messages(question: str, chunks, pet_context: str, history: list[dict]) -> list[dict]:
+    """Assemble the RAG prompt: prior turns, then retrieved context, the pet's record, the question."""
     context_text = "\n\n".join(f"[{c.source}]\n{c.text}" for c in chunks)
     return [
+        *history,
         {
             "role": "user",
             "content": (
@@ -97,6 +140,7 @@ def ask(
 
     # Retrieve the pet and its health records
     pet = _get_owned_pet(payload.pet_id, db, current_user)
+    history = _recent_turns(pet.id, db)
     save_message(pet.id, "user", question)
     records = db.query(HealthRecord).filter(HealthRecord.pet_id == pet.id).all()
 
@@ -118,7 +162,7 @@ def ask(
             content={"answer": answer, "sources": [], "confidence": "none"},
         )
     # Build the messages for the LLM
-    messages = _build_messages(question, chunks, pet_context)
+    messages = _build_messages(question, chunks, pet_context, history)
 
     # Stream the response from the LLM
     def stream_response():
