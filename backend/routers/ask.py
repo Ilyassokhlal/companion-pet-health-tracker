@@ -32,6 +32,21 @@ def _retrieval_query(question: str, pet) -> str:
     """Query used to pick chunks — the species suffix keeps dog and cat material apart."""
     return f"{_gate_query(question, pet)} {pet.species}"
 
+
+# A follow-up like "how often?" carries nothing retrievable on its own. Below this many words the previous question is prepended, so the gate and retrieval have something to match on.
+# The prompt still receives the question exactly as the user typed it.
+SHORT_QUESTION_WORDS = 6
+
+
+def _with_context(question: str, history: list[dict]) -> str:
+    """Expand a short follow-up using the last question asked. Retrieval only."""
+    if len(question.split()) >= SHORT_QUESTION_WORDS:
+        return question
+    for turn in reversed(history):
+        if turn["role"] == "user":
+            return f"{turn['content']} {question}"
+    return question
+
 def _format_age(birth_date) -> str:
     """Age in days under a month, months under a year, then years — matching both clients."""
     today = date.today()
@@ -148,8 +163,9 @@ def ask(
     pet_context = _format_pet_context(pet, records)
 
     # Determine if the question is in scope and retrieve relevant chunks from ChromaDB
-    in_scope = rag.retrieve(_gate_query(question, pet), 1, settings.CONFIDENCE_THRESHOLD)
-    chunks = rag.retrieve(_retrieval_query(question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
+    retrieval_question = _with_context(question, history)
+    in_scope = rag.retrieve(_gate_query(retrieval_question, pet), 1, settings.CONFIDENCE_THRESHOLD)
+    chunks = rag.retrieve(_retrieval_query(retrieval_question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
 
     if not chunks:
         answer = (

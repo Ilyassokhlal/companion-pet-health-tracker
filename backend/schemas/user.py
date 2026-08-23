@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr, ConfigDict, Field
 class RegisterRequest(BaseModel):
     """Schema for registering a new user"""
     username: str = Field(
-        max_length=36,
+        min_length=1, max_length=36,
         description="The username of the user.",
         examples=["alex_kanton"])
     email: EmailStr = Field(
