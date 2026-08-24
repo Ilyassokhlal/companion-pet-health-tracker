@@ -7,17 +7,21 @@ import pytest
 # time, and rag.py opens ChromaDB at import time
 _TMP = tempfile.mkdtemp(prefix="companion_tests_")
 def _test_database_url() -> str:
-    """TEST_DATABASE_URL if set, else derive one from the project .env."""
+    """TEST_DATABASE_URL if set, else derive one from DATABASE_URL or the project .env."""
     if "TEST_DATABASE_URL" in os.environ:
         return os.environ["TEST_DATABASE_URL"]
 
-    env_path = Path(__file__).resolve().parents[2] / ".env"
-    url = ""
-    for line in env_path.read_text().splitlines():
-        if line.startswith("DATABASE_URL="):
-            url = line.split("=", 1)[1].strip()
-            break
-    url = url.replace("@db:", "@localhost:")
+    # Inside the container compose has already exported DATABASE_URL from .env.
+    url = os.environ.get("DATABASE_URL", "")
+    if not url:
+        # Running on the host instead: read the project .env and use the published port.
+        env_path = Path(__file__).resolve().parents[2] / ".env"
+        for line in env_path.read_text().splitlines():
+            if line.startswith("DATABASE_URL="):
+                url = line.split("=", 1)[1].strip()
+                break
+        url = url.replace("@db:", "@localhost:")
+
     if url.endswith("/companion"):
         url = url[:-len("/companion")] + "/companion_test"
     return url

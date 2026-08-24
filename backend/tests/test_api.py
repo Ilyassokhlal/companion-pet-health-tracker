@@ -274,3 +274,80 @@ def test_gate_query_replaces_only_whole_words():
 
     cat = SimpleNamespace(name="Cat", species="Cat")
     assert _gate_query("should I use a catheter", cat) == "should I use a catheter"
+
+
+def test_timezones_are_listed(client, auth):
+    """The picker's list comes from the server's own tzdata, not the client's Intl."""
+    headers = auth()
+    r = client.get("/auth/timezones", headers=headers)
+    assert r.status_code == 200
+    timezones = r.json()
+    assert "America/Los_Angeles" in timezones
+    assert len(timezones) > 100
+
+    r = client.get("/auth/timezones")
+    assert r.status_code == 401
+
+
+def test_username_can_be_changed(client, auth):
+    """PATCH /auth/me updates the username without touching anything else."""
+    headers = auth()
+
+    r = client.patch("/auth/me", headers=headers, json={"username": "renamed"})
+    assert r.status_code == 200
+    assert r.json()["username"] == "renamed"
+
+    r = client.get("/auth/me", headers=headers)
+    assert r.status_code == 200
+
+    body = r.json()
+    assert body["username"] == "renamed"
+    assert "email" in body
+
+
+def test_avatar_upload_and_removal(client, auth):
+    """Uploading sets photo_filename; deleting clears it and 400s when there is none."""
+    headers = auth()
+
+    r = client.post("/auth/me/photo", headers=headers, files={"file": ("a.jpg", b"fake-bytes", "image/jpeg")})
+    assert r.status_code == 200
+    assert r.json()["photo_filename"].endswith(".jpg")
+
+    r = client.delete("/auth/me/photo", headers=headers)
+    assert r.status_code == 200
+    assert r.json()["photo_filename"] is None
+
+    r = client.delete("/auth/me/photo", headers=headers)
+    assert r.status_code == 400
+
+    r = client.post("/auth/me/photo", headers=headers, files={"file": ("a.txt", b"...", "text/plain")})
+    assert r.status_code == 400
+
+
+def test_change_password_invalidates_the_old_token(client, auth):
+    """The fp claim kills every existing token; the response carries a fresh one."""
+    headers = auth()
+
+    r = client.post("/auth/change-password", headers=headers, json={"current_password": "password", "new_password": "newpassword"})
+    assert r.status_code == 200
+    new_token = r.json()["access_token"]
+    assert new_token != headers["Authorization"].split(" ")[1]
+
+    r = client.get("/auth/me", headers=headers)
+    assert r.status_code == 401
+
+    new_headers = {"Authorization": f"Bearer {new_token}"}
+    r = client.get("/auth/me", headers=new_headers)
+    assert r.status_code == 200
+
+    r = client.post("/auth/change-password", headers=new_headers, json={"current_password": "wrongpassword", "new_password": "anothernewpassword"})
+    assert r.status_code == 401
+
+
+def test_short_follow_up_inherits_the_previous_question():
+    """A question too short to retrieve on is expanded with the previous one."""
+    from routers.ask import _with_context
+
+    assert _with_context("how often?", [{"role": "user", "content": "what vaccines does my dog need"}, {"role": "assistant", "content": "..."}]).startswith("what vaccines does my dog need")
+    assert _with_context("how often should a dog get the rabies vaccine", [{"role": "user", "content": "what vaccines does my dog need"}, {"role": "assistant", "content": "..."}]) == "how often should a dog get the rabies vaccine"
+    assert _with_context("how often?", []) == "how often?"
