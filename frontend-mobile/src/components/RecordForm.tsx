@@ -9,6 +9,8 @@ import { createRecord, updateRecord, uploadRecordPhotos } from "@/api/records";
 import type { PhotoUpload } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
 
 interface Props {
   petId: number;
@@ -17,6 +19,7 @@ interface Props {
 }
 
 export default function RecordForm({ petId, record, onDone }: Props) {
+  const { theme, accent } = useTheme();
   const [title, setTitle] = useState(record?.title || "");
   const [recordType, setRecordType] = useState<RecordType>(record?.record_type || "Vaccination");
   const [date, setDate] = useState(record?.date || new Date().toLocaleDateString("en-CA"));
@@ -117,7 +120,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           multiline
           textAlignVertical="top"
           placeholder="Optional"
-          placeholderTextColor="#9c93b8"
+          placeholderTextColor={themeColors(theme, accent).muted}
           className="min-h-24 w-full rounded-lg border border-border bg-ink px-4 py-3 text-fg"
         />
       </View>

@@ -1,8 +1,12 @@
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { useTheme } from '@/theme/ThemeContext';
+import { themeColors } from '@/theme/palette';
 
 export default function TabsLayout() {
+  const { theme, accent } = useTheme();
+
   return (
-    <NativeTabs tintColor="#7c3aed" disableIndicator>
+    <NativeTabs tintColor={themeColors(theme, accent).primary} disableIndicator>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Icon sf={{ default: 'house', selected: 'house.fill' }} md="home" />
         <NativeTabs.Trigger.Label>Dashboard</NativeTabs.Trigger.Label>

@@ -1,24 +1,26 @@
 import '@/global.css';
-import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { PetProvider } from '@/context/PetContext';
+import { ThemeProvider as AppThemeProvider, useTheme as useAppTheme } from '@/theme/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 
 function RootNavigator() {
   const { user, loading } = useAuth();
+  const { loading: themeLoading } = useAppTheme();
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !themeLoading) {
       SplashScreen.hideAsync();
     }
-  }, [loading]);
+  }, [loading, themeLoading]);
 
-  if (loading) {
+  if (loading || themeLoading) {
     return null;
   }
 
@@ -38,17 +40,26 @@ function RootNavigator() {
   );
 }
 
-export default function RootLayout() {
+function ThemedRoot() {
+  const { theme, style } = useAppTheme();
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={[{ flex: 1 }, style]}>
       <AuthProvider>
         <PetProvider>
-          <ThemeProvider value={DarkTheme}>
+          <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
             <RootNavigator />
           </ThemeProvider>
         </PetProvider>
       </AuthProvider>
     </GestureHandlerRootView>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <AppThemeProvider>
+      <ThemedRoot />
+    </AppThemeProvider>
   );
 }

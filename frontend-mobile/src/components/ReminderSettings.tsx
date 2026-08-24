@@ -6,10 +6,13 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { useAuth } from "@/auth/AuthContext";
 import { updateMe, listTimezones } from "@/api/auth";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
 
 export default function ReminderSettings() {
   const { user, refreshUser } = useAuth();
   const insets = useSafeAreaInsets();
+  const { theme, accent } = useTheme();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [picking, setPicking] = useState(false);
@@ -103,7 +106,7 @@ export default function ReminderSettings() {
           />
 
           {loadingZones ? (
-            <ActivityIndicator className="mt-8" color="#7c3aed" />
+            <ActivityIndicator className="mt-8" color={themeColors(theme, accent).primary} />
           ) : (
             <FlatList
               className="mt-4"

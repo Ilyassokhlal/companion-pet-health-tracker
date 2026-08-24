@@ -17,19 +17,23 @@ import { askStream, listMessages, deleteMessage, clearMessages } from "@/api/cha
 import type { Citation } from "@/types";
 import Markdown from "react-native-markdown-display";
 import SwipeTabs from "@/components/SwipeTabs";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
 
-const markdownStyles = {
-  body: { color: "#ece9f5" },
-  strong: { color: "#ece9f5", fontWeight: "700" as const },
-  em: { color: "#ece9f5" },
-  heading1: { color: "#ece9f5", fontSize: 18, fontWeight: "700" as const, marginBottom: 4 },
-  heading2: { color: "#ece9f5", fontSize: 16, fontWeight: "600" as const, marginBottom: 4 },
-  heading3: { color: "#ece9f5", fontSize: 15, fontWeight: "600" as const, marginBottom: 4 },
+type Palette = ReturnType<typeof themeColors>;
+
+const makeMarkdownStyles = (c: Palette) => ({
+  body: { color: c.fg },
+  strong: { color: c.fg, fontWeight: "700" as const },
+  em: { color: c.fg },
+  heading1: { color: c.fg, fontSize: 18, fontWeight: "700" as const, marginBottom: 4 },
+  heading2: { color: c.fg, fontSize: 16, fontWeight: "600" as const, marginBottom: 4 },
+  heading3: { color: c.fg, fontSize: 15, fontWeight: "600" as const, marginBottom: 4 },
   bullet_list: { marginVertical: 4 },
   ordered_list: { marginVertical: 4 },
-  link: { color: "#7c3aed" },
-  code_inline: { backgroundColor: "#0b0a0f", color: "#ece9f5" },
-};
+  link: { color: c.primary },
+  code_inline: { backgroundColor: c.ink, color: c.fg },
+});
 
 interface Turn {
   id?: number;
@@ -41,6 +45,8 @@ interface Turn {
 export default function Chat() {
   const { currentPet } = usePets();
   const insets = useSafeAreaInsets();
+  const { theme, accent } = useTheme();
+  const markdownStyles = makeMarkdownStyles(themeColors(theme, accent));
   const scrollRef = useRef<ScrollView>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [question, setQuestion] = useState("");

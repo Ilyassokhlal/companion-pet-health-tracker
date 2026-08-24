@@ -9,6 +9,9 @@ import ChangeEmailForm from "@/components/ChangeEmailForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 import UserPhoto from "@/components/UserPhoto";
 import ReminderSettings from "@/components/ReminderSettings";
+import AppearanceSettings from "@/components/AppearanceSettings";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
 import * as WebBrowser from "expo-web-browser";
 import SwipeTabs from "@/components/SwipeTabs";
@@ -21,12 +24,12 @@ const SITE = "https://mycompanion.pet";
 
 // Chrome Custom Tabs renders inside our task but with Chrome's own chrome. Tinting it to the app
 // palette is what makes it read as in-app rather than as a hand-off.
-const BROWSER_OPTIONS = {
-  toolbarColor: "#16131f",
-  controlsColor: "#7c3aed",
+const browserOptions = (c: ReturnType<typeof themeColors>) => ({
+  toolbarColor: c.surface,
+  controlsColor: c.primary,
   showTitle: false,
   enableBarCollapsing: true,
-} as const;
+});
 
 // One row of the account card: a label, its current value, and the button that opens its panel.
 function Row({
@@ -68,6 +71,8 @@ function Row({
 export default function Settings() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
+  const { theme, accent } = useTheme();
+  const browser = browserOptions(themeColors(theme, accent));
   const [editing, setEditing] = useState<Panel | null>(null);
 
   if (!user) return null;
@@ -106,6 +111,8 @@ export default function Settings() {
         {editing === "password" ? <ChangePasswordForm onDone={() => setEditing(null)} /> : null}
       </View>
 
+      <AppearanceSettings />
+
       <ReminderSettings />
 
       <DeleteAccountForm />
@@ -113,13 +120,13 @@ export default function Settings() {
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
         <Text className="mb-4 text-lg font-semibold text-fg">Legal</Text>
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`, BROWSER_OPTIONS)}
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`, browser)}
           className="mb-3 active:opacity-70"
         >
           <Text className="text-primary">Privacy Policy</Text>
         </Pressable>
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`, BROWSER_OPTIONS)}
+          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`, browser)}
           className="active:opacity-70"
         >
           <Text className="text-primary">Terms of Service</Text>
