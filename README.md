@@ -2,10 +2,9 @@
 
 **Live at [mycompanion.pet](https://mycompanion.pet)** — running on a Hetzner VPS behind Caddy with automatic TLS.
 
-> **v3 is in progress.** A React Native mobile app is being built in `frontend-mobile/`, and this
-> README still describes v2 — the backend, the web frontend and the deployment. Expect the
-> repository to contain more than is documented here, and some details to drift as the mobile
-> client lands. For a tree that matches this document exactly, see the
+> **v3.** A React Native mobile app now lives in `frontend-mobile/` and shares this backend.
+> The store release is pending; this README covers the backend, both clients and the
+> deployment. For the tree that predates the mobile client, see the
 > [`v2.0`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v2.0) tag.
 
 > **v2.** The Module 9 capstone that this project grew out of is preserved at the
@@ -16,7 +15,8 @@ A multi-user pet health record system. Owners log vaccinations, vet visits, medi
 weight and symptoms, attach photos to any record, and ask an AI assistant questions about
 their pet's care — answered from a curated veterinary reference corpus and grounded in that
 pet's own history. Due dates turn into email reminders that arrive at 8am in each owner's
-own timezone.
+own timezone. The same account works on the web and in the Android app, against one API and
+one database.
 
 ---
 
@@ -50,13 +50,13 @@ own timezone.
 
 **Interactive API documentation**
 
-![Swagger docs](screenshots/swagger.png)
+![Swagger docs](screenshots/Swagger.png)
 
 ---
 
 ## Architecture
 
-![Architecture](screenshots/Companion%20V2%20Architecture%20Diagram.png)
+![Architecture](screenshots/Companion%20V3%20Architecture%20Diagram.png)
 
 Three Compose services on one internal Docker network. In production only 80 and 443 are
 published — Caddy terminates TLS, serves the built React app, and reverse-proxies `/api/*`
@@ -75,6 +75,10 @@ ChromaDB runs in-process inside the backend, and its index lives on the shared `
 volume alongside uploaded photos. Answer generation calls the Claude API; email goes through
 Resend. Neither runs locally.
 
+The API is client-agnostic: the React app and the Android client are both ordinary consumers
+of the same 37 endpoints, and nothing in the backend knows which is calling. Native clients
+send no `Origin` header, so CORS never applies to them.
+
 **Volumes** — `db_data` holds the database, `app_data` holds `/data/chroma` and
 `/data/photos`, and `caddy_data` holds the TLS certificates. That last one is load-bearing:
 without it every restart re-requests a certificate, and Let's Encrypt allows five per domain
@@ -89,7 +93,8 @@ loads automatically by filename and which is deliberately not committed.
 
 | Layer | Choice |
 |---|---|
-| Frontend | React + TypeScript, Vite, Tailwind CSS v4, React Router, lucide-react |
+| Web frontend | React + TypeScript, Vite, Tailwind CSS v4, React Router, lucide-react |
+| Mobile client | React Native via Expo, NativeWind, expo-router |
 | Web server | Caddy |
 | API | FastAPI, Pydantic v2, SQLAlchemy 2, Alembic |
 | Database | PostgreSQL 17 |
@@ -121,6 +126,12 @@ means rewriting that one function and `MODEL_NAME` — nothing upstream in `ask.
 - An [Anthropic API key](https://console.anthropic.com)
 - A [Resend](https://resend.com) API key and a verified sending domain
 
+For the mobile app additionally:
+
+- Node 24 and an [Expo](https://expo.dev) account
+- A physical Android or iOS device, or an emulator
+- Push notifications require a development build — Expo Go cannot receive them
+
 Email is optional for local development — the app runs without it, but verification,
 password reset and reminders will silently do nothing.
 
@@ -143,6 +154,10 @@ docker compose up --build
 
 Then open **http://localhost**.
 
+To run the web frontend against the stack with hot reload, create `frontend-web/.env` with
+`VITE_API_URL=http://localhost:8000` and run `npm run dev` in that directory. That file is
+separate from the root `.env` — Vite runs on the host, not in Docker.
+
 First boot takes a few minutes: the backend downloads the embedding model and indexes the
 corpus, and the frontend runs a production build. Database migrations run automatically on
 every backend start.
@@ -164,7 +179,9 @@ All settings live in `.env`. `.env.example` lists every key with a safe default.
 | `RESEND_API_KEY` / `MAIL_FROM` | Outbound email. `MAIL_FROM` must be on a domain verified with Resend. |
 | `FRONTEND_URL` | Used to build verification and password-reset links |
 | `CORS_ORIGINS` | Comma-separated origins allowed to call the API |
-| `VITE_API_URL` | Baked into the frontend bundle **at build time** — changing it needs a rebuild |
+| `VITE_API_URL` | Build ARG for the frontend image, baked into the bundle. Normally unset — compose defaults it to `/api`. |
+| `EMAIL_LOGO_URL` | Optional. The logo in outbound email; defaults to `FRONTEND_URL/icon.png`. |
+| `SITE_ADDRESS` | Production only. The domain Caddy serves — this is what switches it from `:80` to automatic TLS. |
 | `PHOTO_DIR` / `MAX_PHOTO_MB` | Photo storage path and per-file size cap |
 | `REMINDER_HOUR` / `REMINDER_LEAD_DAYS` | When digests go out, and how far ahead they look |
 | `TIMEZONE` | Fallback for users who haven't chosen one |
@@ -183,7 +200,7 @@ users ──1:many──> pets ──1:many──> health_records ──1:many�
 
 ### `users`
 `id` · `username` · `email` (unique) · `hashed_password` · `email_verified` ·
-`reminders_enabled` · `timezone` · `created_at`
+`pending_email` · `reminders_enabled` · `timezone` · `photo_filename` · `created_at`
 
 Login is by email; usernames are display-only and need not be unique.
 
@@ -208,11 +225,17 @@ Several photos per record — a wound from three angles, or a medication label.
 
 `sources` is JSON: each citation carries the article title, section and a deep link.
 
+### `device_tokens`
+`id` · `user_id` → users · `token` (unique) · `platform` · `created_at`
+
+One row per app install that has accepted push notifications. Dead tokens are pruned when
+Expo reports them as unregistered.
+
 ---
 
 ## API
 
-31 endpoints. Interactive documentation at **http://localhost/api/docs** locally, or
+37 endpoints. Interactive documentation at **http://localhost/api/docs** locally, or
 **https://mycompanion.pet/api/docs** on the live site.
 
 ### Auth
@@ -221,13 +244,19 @@ Several photos per record — a wound from three angles, or a medication label.
 | POST | `/auth/register` | Returns a token; sends a verification email |
 | POST | `/auth/login` | Email and password |
 | GET | `/auth/me` | Current user |
-| PATCH | `/auth/me` | Update preferences — reminders, timezone |
+| PATCH | `/auth/me` | Update username, reminders, timezone |
 | DELETE | `/auth/me` | Delete the account. Requires the current password. |
+| POST | `/auth/me/photo` | Upload or replace the user's avatar |
+| DELETE | `/auth/me/photo` | Remove the avatar |
+| GET | `/auth/timezones` | The IANA zones this server accepts, from its own tzdata |
 | POST | `/auth/verify-email` | Unauthenticated — the signed token is the proof |
 | POST | `/auth/resend-verification` | Authenticated, rate limited to 3/hour |
-| POST | `/auth/forgot-password` | Always 204, whether or not the address exists |
+| POST | `/auth/forgot-password` | Always 204, whether or not the address exists. 3/hour. |
 | POST | `/auth/reset-password` | Single-use link; consumed once the password changes |
-| POST | `/auth/change-email` | Requires the current password; re-triggers verification |
+| POST | `/auth/change-email` | Requires the current password; writes `pending_email` |
+| POST | `/auth/change-password` | Returns a fresh token — the change invalidates every other one |
+
+Deleting an account removes its photo files from disk as well as its rows.
 
 ### Pets
 | Method | Path |
@@ -266,6 +295,12 @@ names.
 |---|---|
 | GET | `/health` |
 | POST | `/ingest` — re-index the corpus |
+| POST | `/devices` — register an Expo push token for the signed-in user |
+| DELETE | `/devices` — unregister on sign-out |
+
+A push token identifies one install on one device, not a person, so `token` is unique rather
+than `(user_id, token)`. When a second account signs in on the same phone the row is
+reassigned — otherwise the previous user would keep receiving that handset's reminders.
 
 ### `/ask` response format
 
@@ -326,6 +361,20 @@ without eroding the guardrail, at the cost of one extra ChromaDB lookup.
 The original question wording always goes to the model; only the retrieval queries are
 rewritten.
 
+**Conversation memory** — a question is not answered in isolation. Up to 25 prior messages
+for that pet, from the last seven days, are sent as conversation turns ahead of the current
+one. Cost is dominated by answers rather than turn count — a question is ~15 tokens, an
+answer 300+ — so answers are truncated on a sliding scale: the two most recent keep 1200
+characters, older ones keep 300, which is enough to identify what a topic was. Questions are
+never truncated. That keeps history at roughly 1,500 tokens instead of 3,800, and stops it
+rivalling the retrieved corpus for the model's attention.
+
+Memory alone does not make follow-ups work, because the scope gate runs first and a
+three-word question retrieves nothing. So a question under six words is expanded with the
+previous one **for retrieval only** — the model still receives what the user actually typed,
+and resolves the reference from the turns it now has. Both halves are needed: one lets the
+request survive to the model, the other lets the model understand it.
+
 **Guardrails**
 
 1. A system prompt that separates CONTEXT (general veterinary material) from PET (this
@@ -350,6 +399,53 @@ Digests only go to verified addresses with reminders enabled, and `reminder_sent
 written only after a successful send — so a mail outage retries rather than silently burning
 the reminder.
 
+**Push notifications** ride the same job. The scheduler already knows who is due and when it
+is 8am for them, so delivery was the only new part: `utils/push.py` sends the same digest to
+every registered device via Expo's push service, which fans out to FCM on Android and APNs on
+iOS. Tokens Expo reports as unregistered are deleted, so an uninstalled app stops being
+retried.
+
+---
+
+## Mobile client
+
+An Android client in `frontend-mobile/`, built with React Native and Expo. It talks to the
+same API as the web app, with no shared code and no backend changes beyond push
+notifications — a deliberate test of whether the API stands on its own.
+
+**Dashboard**
+
+![Dashboard](screenshots/V3/Dashboard.jpg)
+
+**Records**
+
+![Records](screenshots/V3/Records.jpg)
+
+**Photos**
+
+![Photos](screenshots/V3/Photos.jpg)
+
+**Chat**
+
+![Chat](screenshots/V3/Chat1.jpg)
+
+**The follow-up, resolved against the previous turn**
+
+![Chat follow-up](screenshots/V3/Chat2.jpg)
+
+"How often should a dog get those?" carries no subject of its own. The gate expands it with
+the previous question before retrieval, and the model receives the prior turns, so "those"
+resolves to the four core vaccines named a moment earlier — and the answer still cites the
+corpus.
+
+Three things it does that the web cannot: receive push reminders, capture photos from the
+camera, and read cached records offline. Records and the pet list are cached on each
+successful fetch and served with a banner when the network is unavailable.
+
+Setup is the same shape as the web app — `frontend-mobile/.env` needs `EXPO_PUBLIC_API_URL`
+and `EXPO_PUBLIC_USE_RN_FETCH=1`, then `npm install && npx expo start`. Note there is no
+`/api` prefix locally; Caddy adds and strips that only in production.
+
 ---
 
 ## Testing
@@ -358,7 +454,7 @@ the reminder.
 docker compose exec backend python -m pytest tests -v
 ```
 
-15 tests against a real PostgreSQL database. The suite creates and drops every table per
+21 tests against a real PostgreSQL database. The suite creates and drops every table per
 test, so it uses a separate `companion_test` database:
 
 ```bash
@@ -381,10 +477,11 @@ backend/
   alembic/            migrations
   docs/               the corpus, plus ATTRIBUTION.md
   models/             SQLAlchemy models
-  routers/            auth, pets, records, messages, ask
+  routers/            auth, pets, records, messages, ask, devices
   schemas/            Pydantic request and response models
   tests/
-  utils/              security, mailer, photos, export, reminders, exceptions
+  utils/              security, mailer, photos, export, reminders,
+                      push, messages, limiter, exceptions
   config.py           settings from environment
   database.py         engine and session
   rag.py              chunking, ingest, retrieval, generation
@@ -396,11 +493,18 @@ frontend-web/
     auth/             AuthContext
     context/          PetContext — current pet, shared across pages
     components/       Header, Footer, forms, ChatFAB
-    components/ui/    Button, Input, Section, ConfirmDialog
+    components/ui/    Button, Input, Modal, ConfirmDialog
     pages/            Landing, Login, Register, Verify, Forgot, Reset,
-                      Dashboard, Records, Photos, ChatHistory, Settings
+                      Dashboard, Records, Photos, ChatHistory, Settings,
+                      Privacy, Terms
+  public/.well-known/ assetlinks.json — Android App Links verification
   Caddyfile           static serving with SPA fallback
   Dockerfile          Node build stage, Caddy serving stage
+
+frontend-mobile/
+  src/app/            expo-router file routes; (auth) and (tabs) groups
+  src/api/            the same resource modules, ported
+  src/components/     forms and UI primitives
 ```
 
 ---
@@ -418,6 +522,10 @@ frontend-web/
 - **The corpus covers dogs and cats only.** Other species are refused by design rather than
   answered badly.
 - **No pagination.** Records and photos load in full; fine for hundreds, not thousands.
+- **Chat history is per-pet, not per-conversation.** There is no notion of separate threads,
+  so the seven-day window is what separates one sitting from the next.
+- **The mobile client is Android-only so far.** The iOS build needs an Apple developer
+  account; nothing in the code is platform-specific.
 
 ---
 
@@ -449,3 +557,13 @@ All corpus documents derive from English Wikipedia, licensed under
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Text was extracted via the
 MediaWiki API, stripped of markup, and reformatted so each paragraph carries its article and
 section heading. Per-file source links are in `backend/docs/ATTRIBUTION.md`.
+
+---
+
+## License
+
+All rights reserved. The source is published for evaluation and reference; it is not
+licensed for reuse, redistribution or deployment. See [`LICENSE`](LICENSE).
+
+The reference corpus in `backend/docs/` is the exception — it stays under CC BY-SA 4.0,
+as described above.

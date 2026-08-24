@@ -1,0 +1,24 @@
+Copyright (c) 2026 Ilias OKHLAL. All rights reserved.
+
+This software and its source code are published for evaluation and reference only.
+No permission is granted to use, copy, modify, merge, publish, distribute,
+sublicense, or sell any part of this software, in whole or in part, without prior
+written permission from the copyright holder.
+
+
+EXCEPTION — reference corpus
+
+The plain-text documents in backend/docs/ are derived from English Wikipedia and
+remain licensed under Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0). They are not covered by the terms above. Per-file sources are
+listed in backend/docs/ATTRIBUTION.md.
+
+https://creativecommons.org/licenses/by-sa/4.0/
+
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
