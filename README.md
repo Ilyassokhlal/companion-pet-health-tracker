@@ -2,6 +2,12 @@
 
 **Live at [mycompanion.pet](https://mycompanion.pet)** — running on a Hetzner VPS behind Caddy with automatic TLS.
 
+> **v4 is in progress.** This README still describes v3 — a theme system, seven languages,
+> appointment scheduling and new per-pet tracking (weight, walks, feeding, budget) are landing
+> on top of it, and some details will drift until they do. For a tree that matches this
+> document exactly, see the
+> [`v3.0`](https://github.com/Ilyassokhlal/companion-pet-health-tracker/releases/tag/v3.0) tag.
+
 > **v3.** A React Native mobile app now lives in `frontend-mobile/` and shares this backend.
 > The store release is pending; this README covers the backend, both clients and the
 > deployment. For the tree that predates the mobile client, see the
