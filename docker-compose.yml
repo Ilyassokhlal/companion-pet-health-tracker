@@ -37,7 +37,6 @@ services:
       - "443:443"
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-:80}
-      ACME_EMAIL: ${ACME_EMAIL:-}
     volumes:
       - caddy_data:/data
       - caddy_config:/config
