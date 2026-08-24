@@ -24,10 +24,21 @@
         {
           "action": "VIEW",
           "autoVerify": true,
-          "category": ["BROWSABLE", "DEFAULT"],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
           "data": [
-            { "scheme": "https", "host": "mycompanion.pet", "pathPrefix": "/verify" },
-            { "scheme": "https", "host": "mycompanion.pet", "pathPrefix": "/reset" }
+            {
+              "scheme": "https",
+              "host": "mycompanion.pet",
+              "pathPrefix": "/verify"
+            },
+            {
+              "scheme": "https",
+              "host": "mycompanion.pet",
+              "pathPrefix": "/reset"
+            }
           ]
         }
       ]
@@ -69,6 +80,12 @@
         "projectId": "5cb22260-f674-45cd-900a-bf61e7b31e1d"
       }
     },
-    "owner": "ilias-okhlal"
+    "owner": "ilias-okhlal",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5cb22260-f674-45cd-900a-bf61e7b31e1d"
+    }
   }
 }
