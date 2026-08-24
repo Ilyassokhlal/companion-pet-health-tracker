@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-accent="purple">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon.png" />
@@ -7,6 +7,16 @@
     <title>Companion — Pet Health Tracker</title>
     <meta name="description" content="Track your pet's vaccinations, medications and vet visits, and ask health questions answered from veterinary references." />
     <meta name="theme-color" content="#0b0a0f" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var a = localStorage.getItem("accent");
+          if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+          if (a) document.documentElement.dataset.accent = a;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

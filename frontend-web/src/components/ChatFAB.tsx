@@ -130,7 +130,7 @@ export default function ChatFAB() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary-hover text-white text-2xl shadow-glow transition-transform hover:scale-105 active:scale-95"
+          className="fixed bottom-6 end-6 w-14 h-14 rounded-full bg-primary hover:bg-primary-hover text-on-primary text-2xl shadow-glow transition-transform hover:scale-105 active:scale-95"
         >
           <MessageCircle size={24} className="mx-auto" />
         </button>
@@ -139,7 +139,7 @@ export default function ChatFAB() {
         <div
           ref={panelRef}
           style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
-          className={`fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 ${SIZES[size].className} sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50`}
+          className={`fixed inset-0 sm:inset-auto sm:bottom-6 sm:end-6 ${SIZES[size].className} sm:max-h-[calc(100vh-3rem)] sm:rounded-2xl bg-surface border border-border shadow-soft flex flex-col overflow-hidden z-50`}
         >
 
           <div
@@ -168,13 +168,13 @@ export default function ChatFAB() {
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {turns.map((t, idx) => (
               <div key={idx} className={`flex ${t.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${t.role === "user" ? "bg-primary text-white" : "bg-ink border border-border text-fg"}`}>
+                <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${t.role === "user" ? "bg-primary text-on-primary" : "bg-ink border border-border text-fg"}`}>
                   {t.role === "user" ? (
                     <span>{t.content}</span>
                   ) : (
                     <>
                       {t.content ? (
-                        <div className="[&_ul]:list-disc [&_ul]:pl-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
+                        <div className="[&_ul]:list-disc [&_ul]:ps-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
                           <ReactMarkdown>{t.content}</ReactMarkdown>
                         </div>
                       ) : (
@@ -205,7 +205,7 @@ export default function ChatFAB() {
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              className="flex-1 mr-2"
+              className="flex-1 me-2"
               placeholder="Ask a question..."
             />
             <Button type="submit" disabled={streaming} aria-label="Send">

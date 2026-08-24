@@ -106,7 +106,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           multiple
           accept="image/jpeg,image/png,image/webp"
           onChange={(e) => setFiles((prev) => [...prev, ...Array.from(e.target.files ?? [])])}
-          className="text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white file:cursor-pointer hover:file:bg-primary-hover"
+          className="text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-on-primary file:cursor-pointer hover:file:bg-primary-hover"
         />
         {files.length > 0 && (
           <ul className="mt-2 text-sm text-muted space-y-1">

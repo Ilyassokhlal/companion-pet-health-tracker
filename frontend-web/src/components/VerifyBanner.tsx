@@ -26,7 +26,7 @@ export default function VerifyBanner() {
     }
   }
     return (
-        <div className="bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4" role="alert">
+        <div className="bg-amber-100 border-s-4 border-amber-500 text-amber-700 p-4" role="alert">
             <p className="font-bold">Email verification required</p>
             <p className="text-sm">You need to verify your email address to access all features.</p>
             <button

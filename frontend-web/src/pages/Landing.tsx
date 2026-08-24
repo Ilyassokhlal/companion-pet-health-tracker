@@ -16,7 +16,7 @@ export default function Landing() {
             <img src={logo} alt="Companion — a dog and a cat" className="mx-auto mb-8 w-72 sm:w-96 h-auto" />
             <h1 className="text-4xl font-bold mb-4">Companion: Your Pet's Health Tracker</h1>
             <p className="text-lg mb-6">Keep track of your pet's health records, set due dates, receive reminders, and get grounded answers to your pet care questions.</p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center gap-4">
                 <Link to="/register">
                     <Button>Register</Button>
                 </Link>

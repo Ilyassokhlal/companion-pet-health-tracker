@@ -68,15 +68,15 @@ export default function UserPhoto() {
       {menuOpen && (
         <div className="absolute z-20 bg-surface border border-border rounded-lg mt-2 p-2 flex flex-col gap-2">
           {user.photo_filename && (
-            <button type="button" onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5">
+            <button type="button" onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
               View photo
             </button>
           )}
-          <button type="button" onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5">
+          <button type="button" onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
             {user.photo_filename ? "Replace photo" : "Upload photo"}
           </button>
           {user.photo_filename && (
-            <button type="button" onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5 text-danger">
+            <button type="button" onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover text-danger">
               Remove photo
             </button>
           )}
@@ -93,7 +93,7 @@ export default function UserPhoto() {
             />
             <button
               onClick={() => setViewing(false)}
-              className="absolute top-2 right-2 text-white"
+              className="absolute top-2 end-2 text-white"
               aria-label="Close"
             >
               <X size={22} />

@@ -77,7 +77,7 @@ export default function ChatHistory() {
               </button>
             </div>
             {m.role === "assistant" ? (
-              <div className="prose-invert space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_h2]:font-semibold [&_h3]:font-semibold">
+              <div className="prose-invert space-y-2 [&_ul]:list-disc [&_ul]:ps-5 [&_h2]:font-semibold [&_h3]:font-semibold">
                 <ReactMarkdown>{m.content}</ReactMarkdown>
               </div>
             ) : (

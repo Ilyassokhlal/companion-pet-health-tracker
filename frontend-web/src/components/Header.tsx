@@ -21,11 +21,11 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
-            <div className="flex flex-1 min-w-0 items-center space-x-2 sm:space-x-4">
+            <div className="flex flex-1 min-w-0 items-center gap-2 sm:gap-4">
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
-                    <PawPrint size={22} className="inline mr-2 -mt-1" /> Companion
+                    <PawPrint size={22} className="inline me-2 -mt-1" /> Companion
                 </NavLink>
-                <nav className="hidden md:flex space-x-4">
+                <nav className="hidden md:flex gap-4">
                     {navItems.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
@@ -40,7 +40,7 @@ export default function Header() {
             </div>
             <PetSelector />
 
-            <div className="flex flex-1 min-w-0 items-center justify-end space-x-2 sm:space-x-4">
+            <div className="flex flex-1 min-w-0 items-center justify-end gap-2 sm:gap-4">
                 <div className="hidden md:flex min-w-0 items-center gap-2">
                     {user?.photo_filename ? (
                         <img
@@ -75,7 +75,7 @@ export default function Header() {
             </div>
 
             {menuOpen && (
-                <nav className="md:hidden absolute top-full left-0 right-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
+                <nav className="md:hidden absolute top-full inset-x-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.to}
@@ -86,7 +86,7 @@ export default function Header() {
                             <span className="flex items-center gap-2"><item.icon size={16} />{item.label}</span>
                         </NavLink>
                     ))}
-                    <button onClick={logout} className="text-left text-danger">
+                    <button onClick={logout} className="text-start text-danger">
                         Log out
                     </button>
                 </nav>

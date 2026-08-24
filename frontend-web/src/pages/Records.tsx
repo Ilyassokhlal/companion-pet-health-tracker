@@ -51,7 +51,7 @@ export default function Records() {
       <div className="p-4 sm:p-8">
       <div className="flex flex-wrap gap-2 mb-4">
         <button
-          className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === "All" ? "bg-primary text-white" : "bg-surface border border-border text-muted hover:text-fg"}`}
+          className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === "All" ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
           onClick={() => setFilter("All")}
         >
           All ({records.length})
@@ -59,7 +59,7 @@ export default function Records() {
         {RECORD_TYPES.map(type => (
           <button
             key={type}
-            className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === type ? "bg-primary text-white" : "bg-surface border border-border text-muted hover:text-fg"}`}
+            className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === type ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
             onClick={() => setFilter(type)}
           >
             {type} ({records.filter(r => r.record_type === type).length})

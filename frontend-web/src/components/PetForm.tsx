@@ -99,7 +99,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             {error && <p className="text-danger text-sm">{error}</p>}
-            <div className="flex space-x-2">
+            <div className="flex gap-2">
                 <Button type="submit" disabled={submitting}>
                     {submitting ? "Saving..." : "Save"}
                 </Button>

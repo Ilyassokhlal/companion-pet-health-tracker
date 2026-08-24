@@ -6,6 +6,7 @@ import ReminderSettings from "../components/ReminderSettings";
 import DeleteAccountForm from "../components/DeleteAccountForm";
 import ChangeUsernameForm from "../components/ChangeUsernameForm";
 import UserPhoto from "../components/UserPhoto";
+import AppearanceSettings from "../components/AppearanceSettings";
 import Button from "../components/ui/Button";
 import { Pencil, X } from "lucide-react";
 
@@ -95,6 +96,7 @@ export default function Settings() {
         )}
       </section>
 
+      <AppearanceSettings />
       <ReminderSettings />
       <DeleteAccountForm />
     </div>

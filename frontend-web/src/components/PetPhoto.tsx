@@ -72,15 +72,15 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
       {menuOpen && (
         <div className="absolute z-20 bg-surface border border-border rounded-lg mt-2 p-2 flex flex-col gap-2">
           {pet.photo_filename && (
-            <button onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5">
+            <button onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
               View photo
             </button>
           )}
-          <button onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5">
+          <button onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
             {pet.photo_filename ? "Replace photo" : "Upload photo"}
           </button>
           {pet.photo_filename && (
-            <button onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-left px-2 py-1 rounded hover:bg-white/5 text-danger">
+            <button onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover text-danger">
               Remove photo
             </button>
           )}
@@ -97,7 +97,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             />
             <button
               onClick={() => setViewing(false)}
-              className="absolute top-2 right-2 text-white"
+              className="absolute top-2 end-2 text-white"
               aria-label="Close"
             >
               <X size={22} />

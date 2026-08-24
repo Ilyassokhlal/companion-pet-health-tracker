@@ -84,7 +84,7 @@ export default function PetSelector() {
       }
 
       {open && (
-        <div className="absolute left-0 right-0 mt-2 z-50 bg-surface border border-border rounded-lg shadow-lg">
+        <div className="absolute inset-x-0 mt-2 z-50 bg-surface border border-border rounded-lg shadow-lg">
           {pets.map((pet) => (
             <button
               key={pet.id}
