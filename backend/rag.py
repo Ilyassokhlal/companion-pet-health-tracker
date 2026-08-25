@@ -165,6 +165,6 @@ def generate(messages):
             for token in stream.text_stream:
                 yield token
     except anthropic.APIConnectionError:
-        raise ServiceUnavailableException("Could not reach the Claude API.")
+        raise ServiceUnavailableException("Could not reach the Claude API.", code="ai_unavailable")
     except anthropic.APIStatusError as e:
         raise ServiceUnavailableException(f"Claude API error: {e.message}")

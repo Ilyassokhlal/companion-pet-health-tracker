@@ -42,6 +42,7 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
         email=payload.email,
         hashed_password=hash_password(payload.password),
         timezone=payload.timezone or settings.TIMEZONE,
+        language=payload.language or "en",
     )
 
     db.add(user)
@@ -85,7 +86,7 @@ def login(request: Request, credentials: LoginRequest, db: Session = Depends(get
     user = db.query(User).filter(User.email == credentials.email).first()
 
     if not user or not verify_password(credentials.password, user.hashed_password):
-        raise UnauthorizedException("Invalid email or password")
+        raise UnauthorizedException("Invalid email or password", code="invalid_credentials")
     
     token = create_access_token(data={"sub": str(user.id), "fp": password_fingerprint(user.hashed_password)})
 
@@ -128,7 +129,7 @@ def resend_verification(request: Request, background_tasks: BackgroundTasks, cur
     """Send a fresh verification email, to the pending address when a change is staged."""
     target = current_user.pending_email or current_user.email
     if not current_user.pending_email and current_user.email_verified:
-        raise BadRequestException("Email already verified")
+        raise BadRequestException("Email already verified", code="email_already_verified")
     verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
     background_tasks.add_task(send_verification_email, target, verify_token)
     return
@@ -160,7 +161,7 @@ def reset_password(request: Request, payload: ResetPasswordRequest, background_t
     if not user:
         raise NotFoundException("User", user_id)
     if claims.get("fp") != password_fingerprint(user.hashed_password):
-        raise BadRequestException("This link has already been used.")
+        raise BadRequestException("This link has already been used.", code="link_already_used")
     user.hashed_password = hash_password(payload.new_password)
     db.commit()
     db.refresh(user)
@@ -172,9 +173,9 @@ def reset_password(request: Request, payload: ResetPasswordRequest, background_t
 def change_email(request: Request, payload: ChangeEmailRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Stage an email change. The address only moves once the new one is verified."""
     if not verify_password(payload.password, current_user.hashed_password):
-        raise UnauthorizedException("Incorrect password.")
+        raise UnauthorizedException("Incorrect password.", code="incorrect_password")
     if payload.email == current_user.email:
-        raise BadRequestException("The new email cannot be the same as the current email.")
+        raise BadRequestException("The new email cannot be the same as the current email.", code="email_unchanged")
     if db.query(User).filter(User.email == payload.email).first():
         raise DuplicateException("User", "email", payload.email)
     current_user.pending_email = payload.email
@@ -190,9 +191,9 @@ def change_email(request: Request, payload: ChangeEmailRequest, background_tasks
 def change_password(request: Request, payload: ChangePasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Change the signed-in user's password and hand back a fresh token."""
     if not verify_password(payload.current_password, current_user.hashed_password):
-        raise UnauthorizedException("Incorrect password.")
+        raise UnauthorizedException("Incorrect password.", code="incorrect_password")
     if payload.new_password == payload.current_password:
-        raise BadRequestException("The new password cannot be the same as the current password.")
+        raise BadRequestException("The new password cannot be the same as the current password.", code="password_unchanged")
     current_user.hashed_password = hash_password(payload.new_password)
     db.commit()
     db.refresh(current_user)
@@ -206,7 +207,7 @@ def change_password(request: Request, payload: ChangePasswordRequest, background
 def delete_account(request: Request, payload: DeleteAccountRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Permanently delete the signed-in user and everything they own."""
     if not verify_password(payload.password, current_user.hashed_password):
-        raise UnauthorizedException("Incorrect password.")
+        raise UnauthorizedException("Incorrect password.", code="incorrect_password")
     db.delete(current_user)
     delete_photo_file(current_user.photo_filename)
     for pet in current_user.pets:
@@ -218,8 +219,7 @@ def delete_account(request: Request, payload: DeleteAccountRequest, db: Session 
     return
 
 @router.patch("/me", response_model=UserResponse)
-def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db),
-              current_user: User = Depends(get_current_user)):
+def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Update the user's email preferences."""
     for key, value in payload.model_dump(exclude_unset=True).items():
         setattr(current_user, key, value)
@@ -229,8 +229,7 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db),
 
 
 @router.post("/me/photo", response_model=UserResponse)
-def upload_my_photo(file: UploadFile = File(...), db: Session = Depends(get_db),
-                    current_user: User = Depends(get_current_user)):
+def upload_my_photo(file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Attach or replace the signed-in user's avatar."""
     name = save_photo(file)
     delete_photo_file(current_user.photo_filename)
@@ -244,7 +243,7 @@ def upload_my_photo(file: UploadFile = File(...), db: Session = Depends(get_db),
 def delete_my_photo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Remove the signed-in user's avatar."""
     if not current_user.photo_filename:
-        raise BadRequestException("You have no photo.")
+        raise BadRequestException("You have no photo.", code="no_user_photo")
     delete_photo_file(current_user.photo_filename)
     current_user.photo_filename = None
     db.commit()

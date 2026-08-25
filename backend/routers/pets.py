@@ -89,7 +89,7 @@ def delete_photo(pet_id: int, db: Session = Depends(get_db), current_user: User 
     if not pet:
         raise NotFoundException("Pet", pet_id)
     if not pet.photo_filename:
-        raise BadRequestException("This pet has no photo.")
+        raise BadRequestException("This pet has no photo.", code="no_pet_photo")
     delete_photo_file(pet.photo_filename)
     pet.photo_filename = None
     db.commit()

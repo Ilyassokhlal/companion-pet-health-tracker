@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, EmailStr, ConfigDict, Field
 
@@ -35,6 +36,9 @@ class UserResponse(BaseModel):
     email: EmailStr
     email_verified: bool
     timezone: str
+    language: str
+    unit_system: str
+    currency: str
     reminders_enabled: bool
     photo_filename: str | None = None
     created_at: datetime
@@ -48,6 +52,9 @@ class UserResponse(BaseModel):
                 "email": "alex_kanton@example.com",
                 "email_verified": True,
                 "timezone": "America/Los_Angeles",
+                "language": "en",
+                "unit_system": "metric",
+                "currency": "USD",
                 "reminders_enabled": True,
                 "photo_filename": None,
                 "created_at": "2024-06-01T12:00:00"
@@ -108,6 +115,9 @@ class UserUpdateRequest(BaseModel):
     username: str | None = Field(default=None, min_length=1, max_length=36)
     reminders_enabled: bool | None = None
     timezone: str | None = None
+    language: Literal["en", "fr", "es", "de", "ar", "ru", "zh"] | None = None
+    unit_system: Literal["metric", "imperial"] | None = None
+    currency: str | None = Field(default=None, pattern="^[A-Z]{3}$")
 
 class DeviceTokenRequest(BaseModel):
     """Schema for registering a device's Expo push token."""

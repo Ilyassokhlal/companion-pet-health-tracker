@@ -92,7 +92,7 @@ def export_records(pet_id: int, format: str = "csv", db: Session = Depends(get_d
                         media_type="application/pdf",
                         headers={"Content-Disposition": f'attachment; filename="{safe_name}-records.pdf"'})
     else:
-        raise BadRequestException("Unsupported format.")
+        raise BadRequestException("Unsupported format.", code="unsupported_export_format")
 
 @router.post("/records/{record_id}/photos", response_model=list[RecordPhotoResponse], status_code=201)
 def upload_record_photos(record_id: int, files: list[UploadFile] = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):

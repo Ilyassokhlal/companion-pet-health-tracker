@@ -44,7 +44,7 @@ def create_access_token(data: dict) -> str:
 # Current user retrieval function
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     """Retrieve the current user based on the JWT token."""
-    credentials_exception = UnauthorizedException("Could not validate credentials")
+    credentials_exception = UnauthorizedException("Could not validate credentials", code="invalid_token")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
@@ -59,7 +59,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
     # Check if the password fingerprint in the token matches the current password hash
     if payload.get("fp") != password_fingerprint(user.hashed_password):
-        raise UnauthorizedException("Session expired, please log in again.")
+        raise UnauthorizedException("Session expired, please log in again.", code="session_expired")
     return user
 
 def create_purpose_token(user_id: int, purpose: str, expires: timedelta, extra: dict | None = None) -> str:
@@ -78,13 +78,13 @@ def decode_purpose_token(token: str, purpose: str) -> dict:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         if payload.get("purpose") != purpose:
-            raise BadRequestException("Invalid or expired link.")
+            raise BadRequestException("Invalid or expired link.", code="invalid_link")
         user_id = payload.get("sub")
         if user_id is None:
-            raise BadRequestException("Invalid or expired link.")
+            raise BadRequestException("Invalid or expired link.", code="invalid_link")
         return payload
     except JWTError:
-        raise BadRequestException("Invalid or expired link.")
+        raise BadRequestException("Invalid or expired link.", code="invalid_link")
 
 def password_fingerprint(hashed_password: str) -> str:
     """Short digest of a password hash, used to make reset links single-use."""

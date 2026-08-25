@@ -83,7 +83,7 @@ async def app_exception_handler(request: Request, exc: AppException):
     """Render any AppException subclass as JSON with its own status code."""
     return JSONResponse(
         status_code=exc.status_code,
-        content={"detail": exc.detail}
+        content={"detail": exc.detail, "code": exc.code, "params": exc.params}
     )
 
 # Including routers for authentication, pets, and health records

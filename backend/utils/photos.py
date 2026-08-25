@@ -12,10 +12,10 @@ ALLOWED = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}
 def save_photo(file: UploadFile) -> str:
     """Validate and store an uploaded image, returning its generated filename."""
     if file.content_type not in ALLOWED:
-        raise BadRequestException("Unsupported image type.")
+        raise BadRequestException("Unsupported image type.", code="unsupported_image_type")
     data = file.file.read()
     if len(data) > settings.MAX_PHOTO_MB * 1024 * 1024:
-        raise BadRequestException("Image too large.")
+        raise BadRequestException("Image too large.", code="image_too_large")
     name = f"{uuid4().hex}{ALLOWED[file.content_type]}"
     with open(os.path.join(settings.PHOTO_DIR, name), "wb") as f:
         f.write(data)

@@ -151,7 +151,7 @@ def ask(
     # Validate the question
     question = payload.question.strip()
     if not question:
-        raise BadRequestException("Question cannot be empty.")
+        raise BadRequestException("Question cannot be empty.", code="empty_question")
 
     # Retrieve the pet and its health records
     pet = _get_owned_pet(payload.pet_id, db, current_user)
