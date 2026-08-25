@@ -18,6 +18,7 @@ class RegisterRequest(BaseModel):
         description="The password of the user.",
         examples=["password123"])
     timezone: str | None = None
+    language: str | None = None
 
 class LoginRequest(BaseModel):
     """Schema for user login"""
