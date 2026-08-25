@@ -67,6 +67,10 @@ class Pet(Base):
         back_populates="pet",
         cascade="all, delete-orphan",
     )
+    events: Mapped[list["ScheduledEvent"]] = relationship(
+        back_populates="pet",
+        cascade="all, delete-orphan",
+    )
 
 
 # HealthRecord model
@@ -127,3 +131,47 @@ class DeviceToken(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     user: Mapped["User"] = relationship(back_populates="device_tokens")
+
+
+# What produced a scheduled event. Drives the default record_type when one is completed, and lets the dashboard group or filter by source.
+class EventKind(str, enum.Enum):
+    APPOINTMENT = "Appointment"
+    RECORD_FOLLOWUP = "Record Follow-up"
+    WEIGHT_CHECKIN = "Weight Check-in"
+
+
+# A thing that is due. Records author their own next_due_date and the routes mirror it here,
+# so every "what's due" query reads this table and nothing else.
+class ScheduledEvent(Base):
+    __tablename__ = "scheduled_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="CASCADE"), nullable=False, index=True)
+    title: Mapped[str] = mapped_column(String(100), nullable=False)
+    kind: Mapped[EventKind] = mapped_column(Enum(EventKind), nullable=False)
+    due_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    muted_until: Mapped[date | None] = mapped_column(Date, nullable=True)
+    reminder_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    confirmation_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    # The record that generated this follow-up, if any.
+    source_record_id: Mapped[int | None] = mapped_column(
+        Integer, ForeignKey("health_records.id", ondelete="CASCADE"), nullable=True
+    )
+    # The record created by marking this event done, if any. Setting NULL rather than CASCADE:
+    # deleting that record should not erase the history of the event being completed.
+    result_record_id: Mapped[int | None] = mapped_column(
+        Integer, ForeignKey("health_records.id", ondelete="SET NULL"), nullable=True
+    )
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    pet: Mapped["Pet"] = relationship(back_populates="events")
+    source_record: Mapped["HealthRecord | None"] = relationship(foreign_keys=[source_record_id])
+    result_record: Mapped["HealthRecord | None"] = relationship(foreign_keys=[result_record_id])
+    
+    @property
+    def record_type(self) -> "RecordType | None":
+        """The source record's category, so a Due can show 'Vaccination' rather than just a title."""
+        return self.source_record.record_type if self.source_record else None

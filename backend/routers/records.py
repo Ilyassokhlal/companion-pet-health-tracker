@@ -8,6 +8,7 @@ from schemas.record import RecordCreate, RecordUpdate, RecordResponse, RecordPho
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.photos import save_photo, delete_photo_file
+from utils.scheduling import sync_followup_event
 
 
 # Router setup
@@ -34,6 +35,8 @@ def create_record(pet_id: int, request: RecordCreate, db: Session = Depends(get_
     pet = _get_owned_pet(pet_id, db, current_user)
     record = HealthRecord(pet_id=pet.id, **request.model_dump())
     db.add(record)
+    db.flush()
+    sync_followup_event(db, record)
     db.commit()
     db.refresh(record)
     return record
@@ -52,6 +55,7 @@ def update_record(record_id: int, request: RecordUpdate, db: Session = Depends(g
         raise NotFoundException("Record", record_id)
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(record, key, value)
+    sync_followup_event(db, record)
     db.commit()
     db.refresh(record)
     return record
