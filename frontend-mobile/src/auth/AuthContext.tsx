@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
+import i18n, { detectLanguage } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, meCached, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
@@ -56,6 +57,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
         })();
     }, []);
+
+    // Follow the signed-in user's language. One effect covers login, register, refresh and logout, rather than patching all five setUser call sites.
+    useEffect(() => {
+        const lang = user?.language ?? detectLanguage();
+        if (i18n.language !== lang) i18n.changeLanguage(lang);
+    }, [user]);
 
     async function login(email: string, password: string) {
         await apiLogin(email, password);

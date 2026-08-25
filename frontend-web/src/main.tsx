@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './auth/AuthContext.tsx'
 import { PetProvider } from './context/PetContext.tsx'
 import { ThemeProvider } from './theme/ThemeContext.tsx'
+import './i18n'
 
 createRoot(document.getElementById('root')!).render(
 <StrictMode>

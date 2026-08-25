@@ -1,6 +1,17 @@
 import { apiFetch, setToken } from "./client";
 import type { TokenResponse, User } from "../types";
 
+
+// navigator.language gives things like "fr-CA" or "zh-Hans-CN"; the backend only accepts the seven base codes in its Literal, so we match on the primary subtag and fall back to English if no match is found.
+export function detectLanguage(): string {
+  const supported = ["en", "fr", "es", "de", "ar", "ru", "zh"];
+  for (const tag of navigator.languages ?? [navigator.language]) {
+    const base = tag.split("-")[0].toLowerCase();
+    if (supported.includes(base)) return base;
+  }
+  return "en";
+}
+
 // Registers a new user by sending their username, email, and password to the API. If successful, it stores the returned token in localStorage.
 export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
   const data = await apiFetch<TokenResponse>("/auth/register", {
@@ -10,6 +21,7 @@ export async function register(username: string, email: string, password: string
       email,
       password,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Automatically set the timezone based on the user's browser
+      language: detectLanguage(), // Best match between the browser's languages and the ones we support
     }),
   });
   

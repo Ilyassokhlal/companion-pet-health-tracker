@@ -10,6 +10,9 @@ export interface User {
   timezone: string;
   photo_filename: string | null;
   created_at: string;
+  language: string;
+  unit_system: string;
+  currency: string;
 }
 
 // Token response returned by the API upon successful authentication.

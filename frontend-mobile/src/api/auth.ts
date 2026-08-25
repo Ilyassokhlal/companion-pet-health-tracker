@@ -1,5 +1,6 @@
 import { apiFetch, setToken } from "./client";
 import type { TokenResponse, User } from "../types";
+import { detectLanguage } from "../i18n";
 import { withCache } from "@/cache";
 import type { PhotoUpload } from "./records";
 
@@ -12,6 +13,7 @@ export async function register(username: string, email: string, password: string
       email,
       password,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Automatically set the timezone based on the user's browser
+      language: detectLanguage(),
     }),
   });
   

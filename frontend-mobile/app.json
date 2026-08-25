@@ -9,7 +9,9 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "pet.mycompanion",
-      "associatedDomains": ["applinks:mycompanion.pet"]
+      "associatedDomains": [
+        "applinks:mycompanion.pet"
+      ]
     },
     "android": {
       "adaptiveIcon": {
@@ -68,7 +70,8 @@
         {
           "color": "#7c3aed"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,

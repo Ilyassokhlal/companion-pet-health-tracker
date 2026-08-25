@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -12,6 +13,8 @@ interface Props {
 // A centred modal that dims and blurs the page behind it. Sized to its content,
 // with its own scroll once that content outgrows the viewport.
 export default function Modal({ open, title, onClose, children }: Props) {
+  const { t } = useTranslation();
+
   if (!open) return null;
   useEffect(() => {
     if (!open) return;
@@ -39,7 +42,7 @@ export default function Modal({ open, title, onClose, children }: Props) {
       >
         <div className="flex justify-between items-center p-4 border-b border-border">
           <h2 className="text-lg font-semibold">{title}</h2>
-          <button onClick={onClose} aria-label="Close">
+          <button onClick={onClose} aria-label={t("common.close")}>
             <X size={18} />
           </button>
         </div>

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { forgotPassword } from "../api/auth";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 
 // Forgot password page component. Allows the user to enter their email to receive a password reset link.
 export default function Forgot() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -28,16 +30,16 @@ export default function Forgot() {
     return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="w-full max-w-md p-8 bg-surface border border-border rounded-lg">
-        <h1 className="text-2xl font-bold mb-6">Forgot Password</h1>
+        <h1 className="text-2xl font-bold mb-6">{t("auth.forgot.title")}</h1>
         {sent ? (
           <p className="text-muted">
-            If that address is registered, we've sent a link to reset your password.
+            {t("auth.forgot.sent")}
           </p>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-muted mb-2" htmlFor="email">
-                Email
+                {t("common.email")}
               </label>
               <Input
                 id="email"
@@ -49,13 +51,13 @@ export default function Forgot() {
             </div>
             {error && <p className="text-danger text-sm mb-4">{error}</p>}
             <Button type="submit" className="w-full" disabled={submitting}>
-              {submitting ? "Sending..." : "Send Reset Link"}
+              {submitting ? t("auth.forgot.submitting") : t("auth.forgot.submit")}
             </Button>
           </form>
         )}
         <p className="mt-4">
           <Link to="/login" className="text-primary hover:underline">
-            Back to login
+            {t("auth.forgot.backLink")}
           </Link>
         </p>
       </div>

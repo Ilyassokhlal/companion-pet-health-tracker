@@ -5,8 +5,10 @@ import { Link } from "expo-router";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { forgotPassword } from "@/api/auth";
+import { useTranslation } from "react-i18next";
 
 export default function Forgot() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -36,30 +38,30 @@ export default function Forgot() {
         className="px-6"
       >
         <View className="w-full max-w-sm gap-4 rounded-lg border border-border bg-surface p-6">
-          <Text className="text-center text-2xl font-bold text-fg">Forgot Password</Text>
+          <Text className="text-center text-2xl font-bold text-fg">{t("auth.forgot.title")}</Text>
 
           {sent ? (
             <Text className="text-muted">
-              If that address is registered, we sent a link to reset your password.
+              {t("auth.forgot.sent")}
             </Text>
           ) : (
             <>
               <Input
                 value={email}
                 onChangeText={setEmail}
-                placeholder="Email"
+                placeholder={t("common.email")}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoComplete="email"
                 textContentType="emailAddress"
               />
               {error ? <Text className="text-sm text-danger">{error}</Text> : null}
-              <Button label="Send Reset Link" onPress={handleSubmit} loading={submitting} />
+              <Button label={t("auth.forgot.submit")} onPress={handleSubmit} loading={submitting} />
             </>
           )}
 
           <Link href="/login">
-            <Text className="text-sm text-primary">Back to login</Text>
+            <Text className="text-sm text-primary">{t("auth.forgot.backLink")}</Text>
           </Link>
         </View>
       </ScrollView>

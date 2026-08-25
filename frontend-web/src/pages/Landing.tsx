@@ -2,10 +2,12 @@ import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
 import logo from "../assets/Logo.png";
+import { useTranslation } from "react-i18next";
 
 
 // This is the landing page for the application. It provides a brief overview of the app's features and allows users to navigate to the registration or login pages. If a user is already authenticated, they are redirected to the dashboard.
 export default function Landing() {
+  const { t } = useTranslation();
   const { user, loading } = useAuth();
   if (loading) return null;
   if (user) return <Navigate to="/dashboard" replace />;
@@ -24,7 +26,7 @@ export default function Landing() {
                     <Button variant="secondary">Login</Button>
                 </Link>
             </div>
-            <p className="text-sm text-muted mt-4">Responses within this app do not constitute professional veterinary advice. Please consult a veterinarian for any health concerns regarding your pet.</p>
+            <p className="text-sm text-muted mt-4">{t("common.disclaimer")}</p>
         </div>
     </div>
     );

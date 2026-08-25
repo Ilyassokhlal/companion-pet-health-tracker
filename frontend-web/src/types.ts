@@ -8,6 +8,9 @@ export interface User {
   email_verified: boolean;
   reminders_enabled: boolean;
   timezone: string;
+  language: string;
+  unit_system: string;
+  currency: string;
   photo_filename: string | null;
   created_at: string;
 }
