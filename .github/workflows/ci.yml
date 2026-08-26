@@ -83,6 +83,10 @@ jobs:
         working-directory: frontend-mobile
         run: npx tsc --noEmit
 
+      - name: Lint
+        working-directory: frontend-mobile
+        run: npm run lint
+
   web:
     runs-on: ubuntu-latest
     steps:
