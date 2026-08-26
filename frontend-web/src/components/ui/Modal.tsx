@@ -15,7 +15,6 @@ interface Props {
 export default function Modal({ open, title, onClose, children }: Props) {
   const { t } = useTranslation();
 
-  if (!open) return null;
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (e: KeyboardEvent) => {
