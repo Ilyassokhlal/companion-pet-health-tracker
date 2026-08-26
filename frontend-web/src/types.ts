@@ -1,5 +1,9 @@
 // Mirrors backend/schemas/*.py — update together when routes change.
 
+// How often the due-soon email goes out. Weekly lands on Sunday.
+export const REMINDER_FREQUENCIES = ['daily', 'weekly'] as const;
+export type ReminderFrequency = typeof REMINDER_FREQUENCIES[number];
+
 // User information returned by the API.
 export interface User {
   id: number;
@@ -7,6 +11,8 @@ export interface User {
   email: string;
   email_verified: boolean;
   reminders_enabled: boolean;
+  reminder_frequency: ReminderFrequency;
+  push_enabled: boolean;
   timezone: string;
   language: string;
   unit_system: string;
@@ -88,7 +94,6 @@ export interface ScheduledEvent {
   kind: EventKind;
   due_date: string;
   completed_at: string | null;
-  muted_until: string | null;
   source_record_id: number | null;
   result_record_id: number | null;
   record_type: RecordType | null;

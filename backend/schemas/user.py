@@ -41,6 +41,8 @@ class UserResponse(BaseModel):
     unit_system: str
     currency: str
     reminders_enabled: bool
+    reminder_frequency: str
+    push_enabled: bool
     photo_filename: str | None = None
     created_at: datetime
 
@@ -57,6 +59,8 @@ class UserResponse(BaseModel):
                 "unit_system": "metric",
                 "currency": "USD",
                 "reminders_enabled": True,
+                "reminder_frequency": "weekly",
+                "push_enabled": True,
                 "photo_filename": None,
                 "created_at": "2024-06-01T12:00:00"
             }
@@ -115,6 +119,8 @@ class UserUpdateRequest(BaseModel):
     """Schema for updating a user's account settings."""
     username: str | None = Field(default=None, min_length=1, max_length=36)
     reminders_enabled: bool | None = None
+    reminder_frequency: Literal["daily", "weekly"] | None = None
+    push_enabled: bool | None = None
     timezone: str | None = None
     language: Literal["en", "fr", "es", "de", "ar", "ru", "zh"] | None = None
     unit_system: Literal["metric", "imperial"] | None = None

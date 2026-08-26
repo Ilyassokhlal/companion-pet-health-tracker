@@ -38,7 +38,7 @@ class Settings:
     REMINDER_LEAD_DAYS: int = int(os.environ.get("REMINDER_LEAD_DAYS", "7"))
 
     # Reminder scheduling settings
-    REMINDER_HOUR: int = int(os.environ.get("REMINDER_HOUR", "8"))
+    REMINDER_HOUR: int = int(os.environ.get("REMINDER_HOUR", "6"))
     TIMEZONE: str = os.environ.get("TIMEZONE", "UTC")
 
     # Photo storage settings

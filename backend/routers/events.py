@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session, joinedload
@@ -61,7 +61,7 @@ def create_event(request: EventCreateRequest, db: Session = Depends(get_db), cur
 
 @router.patch("/events/{event_id}", response_model=EventResponse)
 def update_event(event_id: int, request: EventUpdateRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Update a scheduled event's title, due date, or mute-until date."""
+    """Update a scheduled event's title or due date."""
     event = _get_owned_event(event_id, db, current_user)
     for field, value in request.model_dump(exclude_unset=True).items():
         setattr(event, field, value)
@@ -76,16 +76,6 @@ def delete_event(event_id: int, db: Session = Depends(get_db), current_user: Use
     event = _get_owned_event(event_id, db, current_user)
     db.delete(event)
     db.commit()
-
-
-@router.post("/events/{event_id}/dismiss", response_model=EventResponse)
-def dismiss_event(event_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Hide until tomorrow. The client never computes the date itself."""
-    event = _get_owned_event(event_id, db, current_user)
-    event.muted_until = date.today() + timedelta(days=1)
-    db.commit()
-    db.refresh(event)
-    return event
 
 
 # Maps an event kind to the record type its completion should create.

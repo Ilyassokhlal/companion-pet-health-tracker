@@ -24,6 +24,8 @@ class User(Base):
     email_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     pending_email: Mapped[str | None] = mapped_column(String(100), nullable=True)
     reminders_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
+    reminder_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="weekly")
+    push_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
     timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
     language: Mapped[str] = mapped_column(String(10), nullable=False, server_default="en")
     unit_system: Mapped[str] = mapped_column(String(10), nullable=False, server_default="metric")
@@ -84,7 +86,6 @@ class HealthRecord(Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     date: Mapped[date] = mapped_column(Date, nullable=False)
     next_due_date: Mapped[date | None] = mapped_column(Date, nullable=True)
-    reminder_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to pet
@@ -151,9 +152,6 @@ class ScheduledEvent(Base):
     kind: Mapped[EventKind] = mapped_column(Enum(EventKind), nullable=False)
     due_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    muted_until: Mapped[date | None] = mapped_column(Date, nullable=True)
-    reminder_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    confirmation_sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     # The record that generated this follow-up, if any.
     source_record_id: Mapped[int | None] = mapped_column(

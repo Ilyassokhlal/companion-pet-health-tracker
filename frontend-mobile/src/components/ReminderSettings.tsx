@@ -8,6 +8,7 @@ import { useAuth } from "@/auth/AuthContext";
 import { updateMe, listTimezones } from "@/api/auth";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import { REMINDER_FREQUENCIES } from "@/types";
 
 export default function ReminderSettings() {
   const { user, refreshUser } = useAuth();
@@ -42,7 +43,7 @@ export default function ReminderSettings() {
     [zones, query],
   );
 
-  async function save(data: { reminders_enabled?: boolean; timezone?: string }) {
+  async function save(data: Parameters<typeof updateMe>[0]) {
     try {
       setSaving(true);
       setError("");
@@ -68,12 +69,45 @@ export default function ReminderSettings() {
       <Text className="mb-4 text-lg font-semibold text-fg">Reminders</Text>
       {error ? <Text className="mb-4 text-sm text-danger">{error}</Text> : null}
 
-      <View className="mb-4 flex-row items-center justify-between">
-        <Text className="text-fg">Enable reminders</Text>
+      <View className="mb-4 flex-row items-center justify-between gap-3">
+        <Text className="shrink text-fg">Email me what is due</Text>
         <Switch
           value={user.reminders_enabled}
           disabled={saving || !user.email_verified}
           onValueChange={(v) => save({ reminders_enabled: v })}
+        />
+      </View>
+
+      <View className="mb-4 flex-row items-center justify-between gap-3">
+        <Text className="shrink-0 text-fg">How often</Text>
+        <View className="flex-row gap-2">
+          {REMINDER_FREQUENCIES.map((frequency) => (
+            <Pressable
+              key={frequency}
+              onPress={() => save({ reminder_frequency: frequency })}
+              disabled={saving || !user.reminders_enabled}
+              className={`rounded-full px-3 py-1.5 active:opacity-70 ${
+                user.reminder_frequency === frequency ? "bg-primary" : "border border-border bg-ink"
+              } ${user.reminders_enabled ? "" : "opacity-50"}`}
+            >
+              <Text
+                className={`text-sm ${
+                  user.reminder_frequency === frequency ? "text-on-primary" : "text-fg"
+                }`}
+              >
+                {frequency === "weekly" ? "Sundays" : "Daily"}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+
+      <View className="mb-4 flex-row items-center justify-between gap-3">
+        <Text className="shrink text-fg">Notify this phone about today</Text>
+        <Switch
+          value={user.push_enabled}
+          disabled={saving || !user.email_verified}
+          onValueChange={(v) => save({ push_enabled: v })}
         />
       </View>
 
@@ -88,7 +122,7 @@ export default function ReminderSettings() {
         </Pressable>
       </View>
 
-      <Text className="mb-2 text-sm text-muted">Reminders arrive at 8am in this timezone.</Text>
+      <Text className="mb-2 text-sm text-muted">Everything arrives at 6am in this timezone.</Text>
       {!user.email_verified ? (
         <Text className="mb-2 text-sm text-muted">Verify your email to enable reminders.</Text>
       ) : null}

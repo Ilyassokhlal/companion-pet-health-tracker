@@ -38,7 +38,7 @@ os.environ["FRONTEND_URL"] = "http://localhost:5173"
 
 from fastapi.testclient import TestClient  # noqa: E402
 import main  # noqa: E402
-from database import Base, engine  # noqa: E402
+from database import Base, SessionLocal, engine  # noqa: E402
 from utils.limiter import limiter  # noqa: E402
 
 limiter.enabled = False
@@ -65,7 +65,7 @@ def client():
     Base.metadata.create_all(bind=engine)
     return TestClient(main.app)
 
-
+# Fixture for authenticated user
 @pytest.fixture
 def auth(client):
     """Factory: register a user, return their auth headers."""
@@ -76,7 +76,7 @@ def auth(client):
         return {"Authorization": f"Bearer {token}"}
     return _auth
 
-
+# Fixture for a user with a pet
 @pytest.fixture
 def pet(client, auth):
     """A registered user with one pet. Returns (headers, pet)."""
@@ -84,3 +84,26 @@ def pet(client, auth):
     r = client.post("/pets", json={"name": "Fluffy", "species": "cat"}, headers=headers)
     r.raise_for_status()
     return headers, r.json()
+
+# Fixture for a database session
+@pytest.fixture
+def db(client):
+    """A session on the test database. Depends on client so the tables exist first."""
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+
+# Fixture to disable push notifications during tests
+@pytest.fixture(autouse=True)
+def no_push(monkeypatch):
+    """Never call Expo during tests. Returns the list of pushes sent, for assertions."""
+    sent = []
+
+    def _fake_push(tokens, title, body):
+        sent.append({"tokens": list(tokens), "title": title, "body": body})
+        return []
+
+    monkeypatch.setattr("utils.reminders.send_push", _fake_push)
+    return sent

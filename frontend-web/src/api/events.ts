@@ -10,7 +10,7 @@ export interface EventCreate {
 }
 
 // The fields a scheduled event allows changing. Mirrors EventUpdateRequest.
-export type EventUpdate = Partial<Pick<ScheduledEvent, "title" | "due_date" | "muted_until">>;
+export type EventUpdate = Partial<Pick<ScheduledEvent, "title" | "due_date">>;
 
 // Fetch a pet's scheduled events, soonest first. Completed events are left out unless includeDone is set.
 export async function listEvents(petId: number, includeDone = false): Promise<ScheduledEvent[]> {

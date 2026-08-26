@@ -17,7 +17,6 @@ class EventUpdateRequest(BaseModel):
     """Request model for updating a scheduled event."""
     title: str | None = Field(default=None, min_length=1, max_length=100)
     due_date: date | None = None
-    muted_until: date | None = None
 
 
 class EventResponse(BaseModel):
@@ -28,7 +27,6 @@ class EventResponse(BaseModel):
     kind: EventKind
     due_date: date
     completed_at: datetime | None = None
-    muted_until: date | None = None
     source_record_id: int | None = None
     result_record_id: int | None = None
     record_type: RecordType | None = None
