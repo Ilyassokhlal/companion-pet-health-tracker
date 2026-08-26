@@ -101,3 +101,7 @@ jobs:
       - name: Type check
         working-directory: frontend-web
         run: npx tsc -p tsconfig.app.json --noEmit
+
+      - name: Lint
+        working-directory: frontend-web
+        run: npm run lint
