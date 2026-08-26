@@ -76,6 +76,25 @@ export interface HealthRecord {
   created_at: string;
 }
 
+// The kinds of scheduled event the backend can produce.
+export const EVENT_KINDS = ['Appointment', 'Record Follow-up', 'Weight Check-in'] as const;
+export type EventKind = typeof EVENT_KINDS[number];
+
+// A scheduled event returned by the API. Follow-ups carry the record that generated them and its type; appointments carry neither.
+export interface ScheduledEvent {
+  id: number;
+  pet_id: number;
+  title: string;
+  kind: EventKind;
+  due_date: string;
+  completed_at: string | null;
+  muted_until: string | null;
+  source_record_id: number | null;
+  result_record_id: number | null;
+  record_type: RecordType | null;
+  created_at: string;
+}
+
 // Citation information returned by the API.
 export interface Citation {
   title: string;
