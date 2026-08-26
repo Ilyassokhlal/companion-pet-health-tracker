@@ -17,6 +17,7 @@ module.exports = {
         fg: "var(--color-fg)",
         muted: "var(--color-muted)",
         danger: "var(--color-danger)",
+        warning: "var(--color-warning)",
       },
     },
   },

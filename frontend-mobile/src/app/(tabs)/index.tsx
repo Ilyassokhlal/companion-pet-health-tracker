@@ -1,13 +1,16 @@
 import { useCallback, useState } from "react";
+import type { ReactNode } from "react";
 import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
 import { usePets } from "@/context/PetContext";
-import { listRecords } from "@/api/records";
+import { listEvents, completeEvent } from "@/api/events";
 import { deletePet } from "@/api/pets";
-import type { HealthRecord } from "@/types";
+import type { HealthRecord, ScheduledEvent } from "@/types";
 import PetForm from "@/components/PetForm";
+import RecordForm from "@/components/RecordForm";
+import EventForm from "@/components/EventForm";
 import Button from "@/components/ui/Button";
 import { formatDate } from "@/dates";
 import SwipeTabs from "@/components/SwipeTabs";
@@ -38,10 +41,82 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
+// Returns the appropriate text color class for a due date based on whether it is overdue, due today, or in the future.
+function dueClass(dueDate: string, todayStr: string): string {
+  if (dueDate < todayStr) return "text-danger";
+  if (dueDate === todayStr) return "text-warning";
+  return "text-fg";
+}
+
+// A single row in the list of scheduled events, showing the event's title, due date, and a Done button.
+function EventRow({
+  event,
+  todayStr,
+  onDone,
+}: {
+  event: ScheduledEvent;
+  todayStr: string;
+  onDone: (event: ScheduledEvent) => void;
+}) {
+  return (
+    <View className="flex-row items-center justify-between gap-3 py-1.5">
+      <Text className={`flex-1 ${dueClass(event.due_date, todayStr)}`}>
+        {event.due_date < todayStr ? "Overdue: " : ""}
+        {event.title}
+        {event.record_type ? ` · ${event.record_type}` : ""}
+        {" — "}
+        {formatDate(event.due_date)}
+      </Text>
+      <Pressable
+        onPress={() => onDone(event)}
+        className="shrink-0 rounded-full bg-primary px-3 py-1.5 active:opacity-70"
+      >
+        <Text className="text-sm font-medium text-on-primary">Done</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+// A full-screen modal sheet used for displaying forms, such as the pet, record, and scheduling forms.
+function FormSheet({
+  visible,
+  onClose,
+  children,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
+      <KeyboardAvoidingView behavior="padding" className="flex-1">
+        <ScrollView
+          className="flex-1 bg-ink"
+          contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: insets.top + 16 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Pressable onPress={onClose} className="flex-1 justify-center">
+            <Pressable onPress={() => {}}>{children}</Pressable>
+          </Pressable>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}
+
 export default function Dashboard() {
   const { pets, currentPet, setCurrentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
   const [showForm, setShowForm] = useState<"edit" | null>(null);
   const insets = useSafeAreaInsets();
+  const [events, setEvents] = useState<ScheduledEvent[]>([]);
+  const [editingRecord, setEditingRecord] = useState<HealthRecord | null>(null);
+  const [scheduleOpen, setScheduleOpen] = useState(false);
+  // Dismissing a section is deliberately in-memory only. It lasts until the app is relaunched or
+  // the user logs in again, which is why it must never be persisted to AsyncStorage.
+  const [dueDismissed, setDueDismissed] = useState(false);
+  const [scheduledDismissed, setScheduledDismissed] = useState(false);
 
   function openAdd() {
     setShowForm(null);
@@ -57,14 +132,13 @@ export default function Dashboard() {
     setAddPetOpen(false);
     setShowForm(null);
   }
-  const [records, setRecords] = useState<HealthRecord[]>([]);
 
   const load = useCallback(() => {
     if (!currentPet) {
-      setRecords([]);
+      setEvents([]);
       return;
     }
-    listRecords(currentPet.id).then(setRecords).catch(console.error);
+    listEvents(currentPet.id).then(setEvents).catch(console.error);
   }, [currentPet]);
 
   useFocusEffect(
@@ -72,6 +146,21 @@ export default function Dashboard() {
       load();
     }, [load]),
   );
+
+  // Marks an event done. The backend creates the health record it produced and returns it, which
+  // opens in the record form for the user to fill in the details.
+  async function handleDone(event: ScheduledEvent) {
+    try {
+      setEditingRecord(await completeEvent(event.id));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function closeRecordForm() {
+    setEditingRecord(null);
+    load();
+  }
 
   function confirmDelete() {
     if (!currentPet) return;
@@ -118,12 +207,11 @@ export default function Dashboard() {
     );
   }
 
+  // Follow-ups and weight check-ins are things the pet is due for. Appointments are things the
+  // owner scheduled. The server already returns them soonest first with completed ones left out.
   const todayStr = new Date().toLocaleDateString("en-CA");
-  const dueRecords = records
-    .filter((r) => r.next_due_date)
-    .sort((a, b) => a.next_due_date!.localeCompare(b.next_due_date!));
-  const overdue = dueRecords.filter((r) => r.next_due_date! < todayStr);
-  const upcoming = dueRecords.filter((r) => r.next_due_date! >= todayStr);
+  const due = events.filter((e) => e.kind !== "Appointment");
+  const scheduled = events.filter((e) => e.kind === "Appointment");
 
   return (
     <SwipeTabs>
@@ -183,45 +271,79 @@ export default function Dashboard() {
         />
       </View>
 
-      <View className="mt-8 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-3 text-lg font-semibold text-fg">Due</Text>
-        {overdue.length === 0 && upcoming.length === 0 ? (
-          <Text className="text-muted">Nothing due.</Text>
-        ) : null}
-        {overdue.map((r) => (
-          <Text key={r.id} className="text-danger">
-            Overdue: {r.title} — {formatDate(r.next_due_date!)}
-          </Text>
-        ))}
-        {upcoming.map((r) => (
-          <Text key={r.id} className="text-fg">
-            {r.title} — {formatDate(r.next_due_date!)}
-          </Text>
-        ))}
-      </View>
-      <Modal
-        visible={addPetOpen || showForm === "edit"}
-        animationType="slide"
-        onRequestClose={closeForm}
-      >
-        <KeyboardAvoidingView behavior="padding" className="flex-1">
-          <ScrollView
-            className="flex-1 bg-ink"
-            contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: insets.top + 16 }}
-            keyboardShouldPersistTaps="handled"
-          >
-          <Pressable onPress={closeForm} className="flex-1 justify-center">
-            <Pressable onPress={() => {}}>
-            {showForm === "edit" ? (
-              <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />
-            ) : (
-              <PetForm key="add" onDone={closeForm} />
-            )}
+      {dueDismissed ? null : (
+        <View className="mt-8 rounded-xl border border-border bg-surface p-5">
+          <View className="mb-3 flex-row items-center justify-between">
+            <Text className="text-lg font-semibold text-fg">Due</Text>
+            <Pressable onPress={() => setDueDismissed(true)} className="active:opacity-70">
+              <Text className="text-sm text-muted">Dismiss</Text>
             </Pressable>
-          </Pressable>
-        </ScrollView>
-        </KeyboardAvoidingView>
-      </Modal>
+          </View>
+          {due.length === 0 ? (
+            <Text className="text-muted">Nothing due.</Text>
+          ) : (
+            due.map((e) => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
+          )}
+        </View>
+      )}
+
+      {scheduledDismissed ? null : (
+        <View className="mt-6 rounded-xl border border-border bg-surface p-5">
+          <View className="mb-3 flex-row items-center justify-between">
+            <Text className="text-lg font-semibold text-fg">Scheduled</Text>
+            <View className="flex-row items-center gap-3">
+              <Pressable
+                onPress={() => setScheduleOpen(true)}
+                className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
+              >
+                <Text className="text-sm font-medium text-on-primary">Schedule</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => setScheduledDismissed(true)}
+                className="active:opacity-70"
+              >
+                <Text className="text-sm text-muted">Dismiss</Text>
+              </Pressable>
+            </View>
+          </View>
+          {scheduled.length === 0 ? (
+            <Text className="text-muted">Nothing scheduled.</Text>
+          ) : (
+            scheduled.map((e) => (
+              <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />
+            ))
+          )}
+        </View>
+      )}
+
+      <FormSheet visible={addPetOpen || showForm === "edit"} onClose={closeForm}>
+        {showForm === "edit" ? (
+          <PetForm key={currentPet.id} pet={currentPet} onDone={closeForm} />
+        ) : (
+          <PetForm key="add" onDone={closeForm} />
+        )}
+      </FormSheet>
+
+      <FormSheet visible={editingRecord !== null} onClose={closeRecordForm}>
+        {editingRecord ? (
+          <RecordForm
+            key={editingRecord.id}
+            petId={currentPet.id}
+            record={editingRecord}
+            onDone={closeRecordForm}
+          />
+        ) : null}
+      </FormSheet>
+
+      <FormSheet visible={scheduleOpen} onClose={() => setScheduleOpen(false)}>
+        <EventForm
+          petId={currentPet.id}
+          onDone={(saved) => {
+            setScheduleOpen(false);
+            if (saved) load();
+          }}
+        />
+      </FormSheet>
     </ScrollView>
   </SwipeTabs>
   );

@@ -76,6 +76,25 @@ export interface HealthRecord {
   created_at: string;
 }
 
+// Event kinds that can be associated with a scheduled event. This constant is used for filtering and categorizing events in the application.
+export const EVENT_KINDS = ['Appointment', 'Record Follow-up', 'Weight Check-in'] as const;
+export type EventKind = typeof EVENT_KINDS[number];
+
+// Scheduled event information returned by the API. This includes appointments, record follow-ups, and weight check-ins for a pet.
+export interface ScheduledEvent {
+  id: number;
+  pet_id: number;
+  title: string;
+  kind: EventKind;
+  due_date: string;
+  completed_at: string | null;
+  muted_until: string | null;
+  source_record_id: number | null;
+  result_record_id: number | null;
+  record_type: RecordType | null;
+  created_at: string;
+}
+
 // Citation information returned by the API.
 export interface Citation {
   title: string;
