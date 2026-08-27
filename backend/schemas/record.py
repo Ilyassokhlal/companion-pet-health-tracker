@@ -23,11 +23,14 @@ class RecordCreate(BaseModel):
         default=None,
         description="The next due date for the health record, if applicable.",
         examples=["2024-12-31"])
+    weight_kg: float | None = Field(
+        default=None, gt=0,
+        description="The pet's weight in kilograms. Only meaningful on Weight records; storage is always metric regardless of the user's unit setting.",
+        examples=[27.2])
 
 
 class RecordUpdate(BaseModel):
     """Schema for updating a health record"""
-
     record_type: RecordType | None = Field(
         default=None,
         description="The type of the health record.",
@@ -48,6 +51,10 @@ class RecordUpdate(BaseModel):
         default=None,
         description="The next due date for the health record, if applicable.",
         examples=["2024-12-31"])
+    weight_kg: float | None = Field(
+        default=None, gt=0,
+        description="The pet's weight in kilograms. Only meaningful on Weight records; storage is always metric regardless of the user's unit setting.",
+        examples=[27.2])
 
 
 class RecordResponse(BaseModel):
@@ -59,6 +66,7 @@ class RecordResponse(BaseModel):
     description: str | None = None
     date: date_type
     next_due_date: date_type | None = None
+    weight_kg: float | None = None
     created_at: datetime
 
     model_config = ConfigDict(
@@ -72,6 +80,7 @@ class RecordResponse(BaseModel):
                 "description": "Rabies vaccination administered on 2023-12-31.",
                 "date": "2023-12-31",
                 "next_due_date": "2024-12-31",
+                "weight_kg": None,
                 "created_at": "2023-12-31T12:00:00"
             }
         }

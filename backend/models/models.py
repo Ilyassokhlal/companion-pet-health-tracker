@@ -26,6 +26,7 @@ class User(Base):
     reminders_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
     reminder_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="weekly")
     push_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
+    weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
     language: Mapped[str] = mapped_column(String(10), nullable=False, server_default="en")
     unit_system: Mapped[str] = mapped_column(String(10), nullable=False, server_default="metric")
@@ -56,6 +57,8 @@ class Pet(Base):
     breed: Mapped[str | None] = mapped_column(String(50), nullable=True)
     birth_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     weight: Mapped[float | None] = mapped_column(Float, nullable=True)
+    weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    weight_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="monthly")
     photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
@@ -86,6 +89,7 @@ class HealthRecord(Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     date: Mapped[date] = mapped_column(Date, nullable=False)
     next_due_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    weight_kg: Mapped[float | None] = mapped_column(Float, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     # Foreign key relationship to pet

@@ -9,6 +9,7 @@ from schemas.event import EventCreateRequest, EventUpdateRequest, EventResponse
 from schemas.record import RecordResponse
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
+from utils.weight import is_tracked, next_checkin_date
 
 
 router = APIRouter(tags=["Scheduled Events"])
@@ -105,6 +106,13 @@ def complete_event(event_id: int, db: Session = Depends(get_db), current_user: U
     event.completed_at = datetime.now()
     db.flush()
     event.result_record_id = record.id
+    if event.kind == EventKind.WEIGHT_CHECKIN and is_tracked(event.pet):
+        db.add(ScheduledEvent(
+            pet_id=event.pet_id,
+            title=event.title,
+            kind=EventKind.WEIGHT_CHECKIN,
+            due_date=next_checkin_date(event.due_date, event.pet.weight_frequency, date.today()),
+        ))
     db.commit()
     db.refresh(record)
     return record

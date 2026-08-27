@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 # Schemas for the pet endpoints
@@ -24,6 +25,14 @@ class PetCreate(BaseModel):
         default=None,
         description="The weight of the pet in kilograms.",
         examples=[12.5])
+    weight_tracking_enabled: bool = Field(
+        default=False,
+        description="Whether this pet is included in weight check-ins.",
+        examples=[True])
+    weight_frequency: Literal["weekly", "biweekly", "monthly"] = Field(
+        default="monthly",
+        description="How often a weight check-in is scheduled for this pet.",
+        examples=["monthly"])
 
 
 class PetUpdate(BaseModel):
@@ -48,6 +57,14 @@ class PetUpdate(BaseModel):
         default=None,
         description="The weight of the pet in kilograms.",
         examples=[12.5])
+    weight_tracking_enabled: bool | None = Field(
+        default=None,
+        description="Whether this pet is included in weight check-ins.",
+        examples=[True])
+    weight_frequency: Literal["weekly", "biweekly", "monthly"] | None = Field(
+        default=None,
+        description="How often a weight check-in is scheduled for this pet.",
+        examples=["monthly"])
 
 
 class PetResponse(BaseModel):
@@ -59,6 +76,8 @@ class PetResponse(BaseModel):
     breed: str | None = None
     birth_date: date | None = None
     weight: float | None = None
+    weight_tracking_enabled: bool
+    weight_frequency: str
     photo_filename: str | None = None
     created_at: datetime
 
@@ -73,6 +92,8 @@ class PetResponse(BaseModel):
                 "breed": "Labrador Retriever",
                 "birth_date": "2026-07-25",
                 "weight": 12.5,
+                "weight_tracking_enabled": False,
+                "weight_frequency": "monthly",
                 "created_at": "2023-12-31T12:00:00"
             }
         }

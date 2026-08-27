@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, Request, BackgroundTasks, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from datetime import timedelta
+from datetime import date, timedelta
 from zoneinfo import available_timezones
 
 from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
@@ -11,6 +11,7 @@ from schemas.user import ChangeEmailRequest, ChangePasswordRequest, DeleteAccoun
 from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
 from utils.mailer import send_verification_email, send_reset_email, send_email_changed_email, send_password_changed_email
 from utils.photos import save_photo, delete_photo_file
+from utils.weight import sync_checkin
 from utils.limiter import limiter
 from config import settings
 
@@ -223,6 +224,8 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db), current
     """Update the user's email preferences."""
     for key, value in payload.model_dump(exclude_unset=True).items():
         setattr(current_user, key, value)
+    for pet in current_user.pets:
+        sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(current_user)
     return current_user

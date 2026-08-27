@@ -7,6 +7,8 @@ from schemas.pet import PetCreate, PetUpdate, PetResponse
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.photos import save_photo, delete_photo_file
+from utils.weight import sync_checkin
+from datetime import date
 
 # Router setup
 router = APIRouter(prefix="/pets", tags=["Pets"])
@@ -25,6 +27,8 @@ def create_pet(request: PetCreate, db: Session = Depends(get_db), current_user: 
     """Create a new pet for the authenticated user."""
     pet = Pet(**request.model_dump(), user_id=current_user.id)
     db.add(pet)
+    db.flush()
+    sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)
     return pet
@@ -47,6 +51,7 @@ def update_pet(pet_id: int, request: PetUpdate, db: Session = Depends(get_db), c
         raise NotFoundException("Pet", pet_id)
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(pet, key, value)
+    sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)
     return pet

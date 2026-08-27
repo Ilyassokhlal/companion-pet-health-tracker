@@ -9,6 +9,7 @@ from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.photos import save_photo, delete_photo_file
 from utils.scheduling import sync_followup_event
+from utils.weight import sync_pet_weight
 
 
 # Router setup
@@ -37,6 +38,7 @@ def create_record(pet_id: int, request: RecordCreate, db: Session = Depends(get_
     db.add(record)
     db.flush()
     sync_followup_event(db, record)
+    sync_pet_weight(db, record)
     db.commit()
     db.refresh(record)
     return record
@@ -56,6 +58,7 @@ def update_record(record_id: int, request: RecordUpdate, db: Session = Depends(g
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(record, key, value)
     sync_followup_event(db, record)
+    sync_pet_weight(db, record)
     db.commit()
     db.refresh(record)
     return record
