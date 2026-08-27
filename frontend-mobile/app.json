@@ -3,6 +3,7 @@
     "name": "Companion",
     "slug": "companion",
     "version": "3.5.0",
+    "platforms": ["ios", "android"],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "companion",

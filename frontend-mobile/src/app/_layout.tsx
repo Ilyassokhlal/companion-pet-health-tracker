@@ -4,6 +4,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { PetProvider } from '@/context/PetContext';
@@ -46,14 +47,16 @@ function ThemedRoot() {
   const { theme, style } = useAppTheme();
 
   return (
-    <GestureHandlerRootView style={[{ flex: 1 }, style]}>
-      <AuthProvider>
-        <PetProvider>
-          <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
-            <RootNavigator />
-          </ThemeProvider>
-        </PetProvider>
-      </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={[{ flex: 1 }, style]}>
+        <AuthProvider>
+          <PetProvider>
+            <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+              <RootNavigator />
+            </ThemeProvider>
+          </PetProvider>
+        </AuthProvider>
+      </View>
     </GestureHandlerRootView>
   );
 }
