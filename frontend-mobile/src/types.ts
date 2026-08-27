@@ -8,6 +8,41 @@ export type ReminderFrequency = typeof REMINDER_FREQUENCIES[number];
 export const WEIGHT_FREQUENCIES = ['weekly', 'biweekly', 'monthly'] as const;
 export type WeightFrequency = typeof WEIGHT_FREQUENCIES[number];
 
+// The measurement systems offered in Settings. Storage is always metric; this is display only.
+export const UNIT_SYSTEMS = ['metric', 'imperial'] as const;
+export type UnitSystem = typeof UNIT_SYSTEMS[number];
+
+// The currencies offered in Settings. Deliberately not the full ISO list.
+// The backend accepts any three uppercase letters, so this can grow without a migration.
+export const CURRENCIES = [
+  { code: 'USD', name: 'US Dollar' },
+  { code: 'EUR', name: 'Euro' },
+  { code: 'GBP', name: 'British Pound' },
+  { code: 'CAD', name: 'Canadian Dollar' },
+  { code: 'AUD', name: 'Australian Dollar' },
+  { code: 'CHF', name: 'Swiss Franc' },
+  { code: 'JPY', name: 'Japanese Yen' },
+  { code: 'CNY', name: 'Chinese Yuan' },
+  { code: 'INR', name: 'Indian Rupee' },
+  { code: 'BRL', name: 'Brazilian Real' },
+  { code: 'MXN', name: 'Mexican Peso' },
+  { code: 'ZAR', name: 'South African Rand' },
+  { code: 'MAD', name: 'Moroccan Dirham' },
+  { code: 'RUB', name: 'Russian Ruble' },
+] as const;
+
+// UI languages, labelled in their own script so someone can find their language whatever the interface is currently set to and find their way back out of one they cannot read...I been there myself.
+export const LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'fr', name: 'Français' },
+  { code: 'es', name: 'Español' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'ar', name: 'العربية' },
+  { code: 'ru', name: 'Русский' },
+  { code: 'zh', name: '中文' },
+] as const;
+export type LanguageCode = typeof LANGUAGES[number]['code'];
+
 // User information returned by the API.
 export interface User {
   id: number;

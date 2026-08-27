@@ -170,7 +170,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
               {f.name}
             </Text>
             <Pressable onPress={() => setFiles(files.filter((_, j) => j !== i))}>
-              <Text className="ml-3 text-sm text-danger">remove</Text>
+              <Text className="ms-3 text-sm text-danger">remove</Text>
             </Pressable>
           </View>
         ))}

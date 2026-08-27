@@ -20,6 +20,14 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>Records</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
+      <NativeTabs.Trigger name="tracking">
+        <NativeTabs.Trigger.Icon
+          sf={{ default: 'chart.line.uptrend.xyaxis', selected: 'chart.line.uptrend.xyaxis' }}
+          md="trending_up"
+        />
+        <NativeTabs.Trigger.Label>Tracking</NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
+
       <NativeTabs.Trigger name="photos">
         <NativeTabs.Trigger.Icon sf={{ default: 'photo', selected: 'photo.fill' }} md="photo_library" />
         <NativeTabs.Trigger.Label>Photos</NativeTabs.Trigger.Label>
@@ -28,11 +36,6 @@ export default function TabsLayout() {
       <NativeTabs.Trigger name="chat">
         <NativeTabs.Trigger.Icon sf={{ default: 'message', selected: 'message.fill' }} md="chat" />
         <NativeTabs.Trigger.Label>Chat</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="settings">
-        <NativeTabs.Trigger.Icon sf={{ default: 'gearshape', selected: 'gearshape.fill' }} md="settings" />
-        <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );

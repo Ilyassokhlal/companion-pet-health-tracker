@@ -4,7 +4,7 @@ import { router, usePathname } from "expo-router";
 
 // Must match the NativeTabs.Trigger order in (tabs)/_layout.tsx. The swipe direction is only intuitive if it
 // matches the order of the bar you can see.
-const TABS = ["/", "/records", "/photos", "/chat", "/settings"] as const;
+const TABS = ["/", "/records", "/tracking", "/photos", "/chat"] as const;
 
 export default function SwipeTabs({ children }: { children: ReactNode }) {
   const path = usePathname();

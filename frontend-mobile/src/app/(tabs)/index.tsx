@@ -17,6 +17,7 @@ import SwipeTabs from "@/components/SwipeTabs";
 import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
+import DashboardHeader from "@/components/DashboardHeader";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
@@ -117,7 +118,6 @@ export default function Dashboard() {
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
   const [showForm, setShowForm] = useState<"edit" | null>(null);
-  const insets = useSafeAreaInsets();
   const [events, setEvents] = useState<ScheduledEvent[]>([]);
   const [records, setRecords] = useState<HealthRecord[]>([]);
   const [editingRecord, setEditingRecord] = useState<HealthRecord | null>(null);
@@ -237,9 +237,11 @@ export default function Dashboard() {
 
   return (
     <SwipeTabs>
+    <View className="flex-1 bg-ink">
+    <DashboardHeader />
     <ScrollView
-      className="flex-1 bg-ink"
-      contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
+      className="flex-1"
+      contentContainerStyle={{ padding: 16 }}
     >
       {pets.length > 1 ? (
         <View className="mb-6 flex-row flex-wrap gap-2">
@@ -261,7 +263,7 @@ export default function Dashboard() {
         <Text numberOfLines={1} className="flex-1 text-2xl font-bold text-fg">
           {currentPet.name}
         </Text>
-        <View className="ml-3 shrink-0 flex-row gap-2">
+        <View className="ms-3 shrink-0 flex-row gap-2">
           <Pressable
             onPress={openAdd}
             className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
@@ -372,6 +374,7 @@ export default function Dashboard() {
         />
       </FormSheet>
     </ScrollView>
+    </View>
   </SwipeTabs>
   );
 }

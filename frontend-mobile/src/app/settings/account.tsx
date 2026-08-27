@@ -2,35 +2,13 @@ import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Button from "@/components/ui/Button";
 import { useAuth } from "@/auth/AuthContext";
+import UserPhoto from "@/components/UserPhoto";
 import ChangeUsernameForm from "@/components/ChangeUsernameForm";
 import ChangeEmailForm from "@/components/ChangeEmailForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
-import UserPhoto from "@/components/UserPhoto";
-import ReminderSettings from "@/components/ReminderSettings";
-import WeightSettings from "@/components/WeightSettings";
-import AppearanceSettings from "@/components/AppearanceSettings";
-import { useTheme } from "@/theme/ThemeContext";
-import { themeColors } from "@/theme/palette";
-import DeleteAccountForm from "@/components/DeleteAccountForm";
-import * as WebBrowser from "expo-web-browser";
-import SwipeTabs from "@/components/SwipeTabs";
 
 type Panel = "username" | "email" | "password";
-
-// The legal pages are hosted by the web app. Hardcoded rather than derived from EXPO_PUBLIC_API_URL, which points
-// at localhost in development. These must always resolve to production, since store reviewers fetch them.
-const SITE = "https://mycompanion.pet";
-
-// Chrome Custom Tabs renders inside our task but with Chrome's own chrome. Tinting it to the app
-// palette is what makes it read as in-app rather than as a hand-off.
-const browserOptions = (c: ReturnType<typeof themeColors>) => ({
-  toolbarColor: c.surface,
-  controlsColor: c.primary,
-  showTitle: false,
-  enableBarCollapsing: true,
-});
 
 // One row of the account card: a label, its current value, and the button that opens its panel.
 function Row({
@@ -69,11 +47,9 @@ function Row({
   );
 }
 
-export default function Settings() {
-  const { user, logout } = useAuth();
+export default function Account() {
+  const { user } = useAuth();
   const insets = useSafeAreaInsets();
-  const { theme, accent } = useTheme();
-  const browser = browserOptions(themeColors(theme, accent));
   const [editing, setEditing] = useState<Panel | null>(null);
 
   if (!user) return null;
@@ -81,16 +57,14 @@ export default function Settings() {
   const toggle = (panel: Panel) => setEditing(editing === panel ? null : panel);
 
   return (
-    <SwipeTabs>
     <ScrollView
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
       keyboardShouldPersistTaps="handled"
     >
-      <Text className="mb-6 text-2xl font-bold text-fg">Settings</Text>
+      <Text className="mb-6 text-2xl font-bold text-fg">Account</Text>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-4 text-lg font-semibold text-fg">Account</Text>
         <View className="mb-6">
           <UserPhoto />
         </View>
@@ -111,33 +85,6 @@ export default function Settings() {
         {editing === "email" ? <ChangeEmailForm /> : null}
         {editing === "password" ? <ChangePasswordForm onDone={() => setEditing(null)} /> : null}
       </View>
-
-      <AppearanceSettings />
-
-      <ReminderSettings />
-
-      <WeightSettings />
-
-      <DeleteAccountForm />
-
-      <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-4 text-lg font-semibold text-fg">Legal</Text>
-        <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`, browser)}
-          className="mb-3 active:opacity-70"
-        >
-          <Text className="text-primary">Privacy Policy</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`, browser)}
-          className="active:opacity-70"
-        >
-          <Text className="text-primary">Terms of Service</Text>
-        </Pressable>
-      </View>
-
-      <Button label="Log out" variant="secondary" onPress={logout} />
     </ScrollView>
-    </SwipeTabs>
   );
 }
