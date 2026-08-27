@@ -110,7 +110,7 @@ export async function resendVerification(): Promise<void> {
 }
 
 // This constant defines the types of health records that can be associated with a pet. It is used for filtering and categorizing health records in the application.
-export const RECORD_TYPES = ['Vaccination', 'Vet Visit', 'Medication', 'Weight', 'Symptom'] as const;
+export const RECORD_TYPES = ['Vaccination', 'Vet Visit', 'Medication', 'Weight', 'Symptom', 'Grooming', 'Training'] as const;
 export type RecordType = typeof RECORD_TYPES[number];
 
 // Health record information returned by the API.

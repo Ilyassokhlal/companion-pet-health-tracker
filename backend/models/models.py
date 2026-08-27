@@ -11,6 +11,8 @@ class RecordType(str, enum.Enum):
     MEDICATION = "Medication"
     WEIGHT = "Weight"
     SYMPTOM = "Symptom"
+    GROOMING = "Grooming"
+    TRAINING = "Training"
 
 
 # User model
