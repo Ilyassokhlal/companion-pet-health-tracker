@@ -11,6 +11,8 @@ import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import { useAuth } from "@/auth/AuthContext";
+import { fromKg, toKg, weightUnit } from "@/units";
 
 interface Props {
   petId: number;
@@ -20,11 +22,17 @@ interface Props {
 
 export default function RecordForm({ petId, record, onDone }: Props) {
   const { theme, accent } = useTheme();
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
+  const unit = weightUnit(unitSystem);
   const [title, setTitle] = useState(record?.title || "");
   const [recordType, setRecordType] = useState<RecordType>(record?.record_type || "Vaccination");
   const [date, setDate] = useState(record?.date || new Date().toLocaleDateString("en-CA"));
   const [description, setDescription] = useState(record?.description || "");
   const [nextDueDate, setNextDueDate] = useState(record?.next_due_date || "");
+  const [weight, setWeight] = useState(
+    record?.weight_kg != null ? String(fromKg(record.weight_kg, unitSystem)) : "",
+  );
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<PhotoUpload[]>([]);
@@ -68,6 +76,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       date,
       description: description || null,
       next_due_date: nextDueDate || null,
+      weight_kg: recordType === "Weight" && weight ? toKg(parseFloat(weight), unitSystem) : null,
     };
     try {
       const saved = record
@@ -109,6 +118,18 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           ))}
         </View>
       </View>
+
+      {recordType === "Weight" ? (
+        <View>
+          <Text className="mb-1 text-sm text-muted">Weight ({unit})</Text>
+          <Input
+            value={weight}
+            onChangeText={setWeight}
+            placeholder={unit}
+            keyboardType="decimal-pad"
+          />
+        </View>
+      ) : null}
 
       <DateField label="Date" value={date} onChange={setDate} />
 

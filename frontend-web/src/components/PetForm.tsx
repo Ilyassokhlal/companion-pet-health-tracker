@@ -4,6 +4,10 @@ import { createPet, updatePet } from "../api/pets";
 import type { Pet } from "../types";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import { WEIGHT_FREQUENCIES } from "../types";
+import type { WeightFrequency } from "../types";
+import { useAuth } from "../auth/AuthContext";
+import { fromKg, toKg, weightUnit } from "../units";
 
 
 // Props for the PetForm component, which can optionally take a pet object for editing and a callback function to be called when the form submission is done.
@@ -15,11 +19,16 @@ interface Props {
 // The PetForm component provides a form for adding or editing a pet. It manages the state for the pet's name, species, breed, birth date, and weight. Upon submission, it calls the appropriate API function to create or update the pet and refreshes the pet list.
 export default function PetForm({ pet, onDone }: Props) {
 // Manages the state for the pet form fields, including name, species, breed, birth date, weight, error messages, and submission status. It uses the usePets hook to refresh the pet list after a successful submission.
+    const { user } = useAuth();
+    const unitSystem = user?.unit_system ?? "metric";
+    const unit = weightUnit(unitSystem);
     const [name, setName] = useState(pet?.name ?? "");
     const [species, setSpecies] = useState(pet?.species ?? "Dog");
     const [breed, setBreed] = useState(pet?.breed ?? "");
     const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
-    const [weight, setWeight] = useState(pet?.weight?.toString() ?? "");
+    const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
+    const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
+    const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const { refresh } = usePets();
@@ -34,7 +43,9 @@ export default function PetForm({ pet, onDone }: Props) {
       species,
         breed: breed || null,
         birth_date: birthDate || null,
-        weight: weight ? parseFloat(weight) : null,
+        weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
+        weight_tracking_enabled: trackWeight,
+        weight_frequency: frequency,
     };
     try {
       if (pet) {
@@ -90,14 +101,40 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             <div>
-                <label className="block mb-1">Weight (kg)</label>
+                <label className="block mb-1">Weight ({unit})</label>
                 <Input
                     type="number"
                     step="0.1"
+                    min="0"
                     value={weight}
                     onChange={e => setWeight(e.target.value)}
                 />
             </div>
+            <label className="flex items-center gap-2">
+                <input
+                    type="checkbox"
+                    checked={trackWeight}
+                    onChange={e => setTrackWeight(e.target.checked)}
+                    className="accent-primary"
+                />
+                <span>Track this pet's weight</span>
+            </label>
+            {trackWeight && (
+                <div>
+                    <label className="block mb-1">Check in</label>
+                    <select
+                        value={frequency}
+                        onChange={e => setFrequency(e.target.value as WeightFrequency)}
+                        className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
+                    >
+                        {WEIGHT_FREQUENCIES.map(f => (
+                            <option key={f} value={f}>
+                                {f === "weekly" ? "Every week" : f === "biweekly" ? "Every two weeks" : "Every month"}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            )}
             {error && <p className="text-danger text-sm">{error}</p>}
             <div className="flex gap-2">
                 <Button type="submit" disabled={submitting}>

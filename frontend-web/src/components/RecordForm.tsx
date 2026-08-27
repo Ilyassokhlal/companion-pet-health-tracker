@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createRecord, updateRecord, uploadRecordPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
+import { useAuth } from "../auth/AuthContext";
+import { fromKg, toKg, weightUnit } from "../units";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
@@ -12,15 +14,23 @@ interface Props {
 }
 
 export default function RecordForm({ petId, record, onDone }: Props) {
+  // Weight is stored in kilograms; the field shows and accepts the user's own unit.
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
+  const unit = weightUnit(unitSystem);
+
   const [title, setTitle] = useState(record?.title || "");
   const [recordType, setRecordType] = useState<RecordType>(record?.record_type || "Vaccination");
   const [date, setDate] = useState(record?.date || new Date().toLocaleDateString("en-CA"));
   const [description, setDescription] = useState(record?.description || "");
   const [nextDueDate, setNextDueDate] = useState(record?.next_due_date || "");
+  const [weight, setWeight] = useState(
+    record?.weight_kg != null ? String(fromKg(record.weight_kg, unitSystem)) : "",
+  );
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -31,6 +41,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       date,
       description: description || null,
       next_due_date: nextDueDate || null,
+      weight_kg: recordType === "Weight" && weight ? toKg(parseFloat(weight), unitSystem) : null,
     };
     try {
       const saved = record
@@ -73,6 +84,19 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           ))}
         </select>
       </div>
+      {recordType === "Weight" && (
+        <div>
+          <label className="block">Weight ({unit})</label>
+          <Input
+            type="number"
+            step="0.1"
+            min="0"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            required
+          />
+        </div>
+      )}
       <div>
         <label className="block">Date</label>
         <Input

@@ -4,6 +4,10 @@
 export const REMINDER_FREQUENCIES = ['daily', 'weekly'] as const;
 export type ReminderFrequency = typeof REMINDER_FREQUENCIES[number];
 
+// How often a pet's weight check-in is scheduled.
+export const WEIGHT_FREQUENCIES = ['weekly', 'biweekly', 'monthly'] as const;
+export type WeightFrequency = typeof WEIGHT_FREQUENCIES[number];
+
 // User information returned by the API.
 export interface User {
   id: number;
@@ -13,6 +17,7 @@ export interface User {
   reminders_enabled: boolean;
   reminder_frequency: ReminderFrequency;
   push_enabled: boolean;
+  weight_tracking_enabled: boolean;
   timezone: string;
   photo_filename: string | null;
   created_at: string;
@@ -36,6 +41,8 @@ export interface Pet {
   breed: string | null;
   birth_date: string | null;
   weight: number | null;
+  weight_tracking_enabled: boolean;
+  weight_frequency: WeightFrequency;
   photo_filename: string | null;
   created_at: string;
 }
@@ -79,6 +86,7 @@ export interface HealthRecord {
   description: string | null;
   date: string;
   next_due_date: string | null;
+  weight_kg: number | null;
   created_at: string;
 }
 

@@ -9,6 +9,7 @@ import ChangeEmailForm from "@/components/ChangeEmailForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 import UserPhoto from "@/components/UserPhoto";
 import ReminderSettings from "@/components/ReminderSettings";
+import WeightSettings from "@/components/WeightSettings";
 import AppearanceSettings from "@/components/AppearanceSettings";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
@@ -114,6 +115,8 @@ export default function Settings() {
       <AppearanceSettings />
 
       <ReminderSettings />
+
+      <WeightSettings />
 
       <DeleteAccountForm />
 

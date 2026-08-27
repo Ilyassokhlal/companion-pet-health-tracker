@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Switch, Text, View } from "react-native";
 import DateField from "@/components/ui/DateField";
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { usePets } from "@/context/PetContext";
+import { useAuth } from "@/auth/AuthContext";
 import { createPet, updatePet } from "@/api/pets";
-import type { Pet } from "@/types";
+import { WEIGHT_FREQUENCIES } from "@/types";
+import type { Pet, WeightFrequency } from "@/types";
+import { fromKg, toKg, weightUnit } from "@/units";
 
 interface Props {
   pet?: Pet;
@@ -15,12 +18,24 @@ interface Props {
 
 const SPECIES = ["Dog", "Cat"];
 
+const FREQUENCY_LABELS: Record<WeightFrequency, string> = {
+  weekly: "Every week",
+  biweekly: "Every two weeks",
+  monthly: "Every month",
+};
+
+
 export default function PetForm({ pet, onDone }: Props) {
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
+  const unit = weightUnit(unitSystem);
   const [name, setName] = useState(pet?.name ?? "");
   const [species, setSpecies] = useState(pet?.species ?? "Dog");
   const [breed, setBreed] = useState(pet?.breed ?? "");
   const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
-  const [weight, setWeight] = useState(pet?.weight?.toString() ?? "");
+  const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
+  const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
+  const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const { refresh } = usePets();
@@ -33,7 +48,9 @@ export default function PetForm({ pet, onDone }: Props) {
       species,
       breed: breed || null,
       birth_date: birthDate || null,
-      weight: weight ? parseFloat(weight) : null,
+      weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
+      weight_tracking_enabled: trackWeight,
+      weight_frequency: frequency,
     };
     try {
       if (pet) {
@@ -88,7 +105,7 @@ export default function PetForm({ pet, onDone }: Props) {
       />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Weight (kg)</Text>
+        <Text className="mb-1 text-sm text-muted">Weight ({unit})</Text>
         <Input
           value={weight}
           onChangeText={setWeight}
@@ -96,6 +113,32 @@ export default function PetForm({ pet, onDone }: Props) {
           keyboardType="decimal-pad"
         />
       </View>
+
+      <View className="flex-row items-center justify-between gap-3">
+        <Text className="shrink text-fg">{"Track this pet's weight"}</Text>
+        <Switch value={trackWeight} onValueChange={setTrackWeight} />
+      </View>
+
+      {trackWeight ? (
+        <View>
+          <Text className="mb-1 text-sm text-muted">Check in</Text>
+          <View className="flex-row flex-wrap gap-2">
+            {WEIGHT_FREQUENCIES.map((f) => (
+              <Pressable
+                key={f}
+                onPress={() => setFrequency(f)}
+                className={`rounded-lg px-3 py-2 ${
+                  frequency === f ? "bg-primary" : "border border-border bg-ink"
+                }`}
+              >
+                <Text className={`text-sm ${frequency === f ? "text-on-primary" : "text-fg"}`}>
+                  {FREQUENCY_LABELS[f]}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
       {error ? <Text className="text-sm text-danger">{error}</Text> : null}
 

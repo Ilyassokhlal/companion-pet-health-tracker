@@ -8,11 +8,15 @@ import type { HealthRecord, RecordType } from "../types";
 import { Plus, Download, Pencil, Trash2 } from "lucide-react";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
+import { useAuth } from "../auth/AuthContext";
+import { formatWeight } from "../units";
 
 
 // The Records component displays the health records of the current pet. It uses the usePets hook to access the current pet and fetches its health records using the listRecords API function. The component allows filtering of records by type and displays the count of each record type. If there is no current pet, it prompts the user to add a pet first.
 export default function Records() {
   const { currentPet } = usePets();
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
   const [records, setRecords] = useState<HealthRecord[]>([]);
   const [filter, setFilter] = useState<RecordType | "All">("All");
   const [loading, setLoading] = useState(false);
@@ -46,6 +50,17 @@ export default function Records() {
   }
 
   const filteredRecords = filter === "All" ? records : records.filter(r => r.record_type === filter);
+
+  // Each Weight record measured against the previous one by date. The earliest has nothing to compare against, and an unchanged weight gets no arrow at all.
+  const weightDeltas = new Map<number, number>();
+  const weighed = records
+    .filter((r) => r.record_type === "Weight" && r.weight_kg != null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  weighed.forEach((r, index) => {
+    if (index === 0) return;
+    const change = r.weight_kg! - weighed[index - 1].weight_kg!;
+    if (change !== 0) weightDeltas.set(r.id, change);
+  });
 
   return (
       <div className="p-4 sm:p-8">
@@ -99,6 +114,16 @@ export default function Records() {
             <span className="text-sm text-muted shrink-0">{r.date}</span>
           </div>
           <p className="text-sm text-primary mt-1">{r.record_type}</p>
+          {r.weight_kg != null && (
+            <p className="mt-2">
+              <span className="font-medium">{formatWeight(r.weight_kg, unitSystem)}</span>
+              {weightDeltas.has(r.id) && (
+                <span className="ml-2 text-sm text-muted">
+                  {weightDeltas.get(r.id)! > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightDeltas.get(r.id)!), unitSystem)}
+                </span>
+              )}
+            </p>
+          )}
           {r.description && <p className="text-muted mt-2">{r.description}</p>}
           {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
           <div className="flex gap-2 mt-2">

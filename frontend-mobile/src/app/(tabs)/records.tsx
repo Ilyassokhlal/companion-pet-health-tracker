@@ -12,9 +12,15 @@ import { listRecordsCached, deleteRecord, exportRecords } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
 import { formatDate } from "@/dates";
+import { useAuth } from "@/auth/AuthContext";
+import { formatWeight } from "@/units";
 
+
+// Records screen for managing pet health records, including listing, filtering, adding, editing, and deleting records.
 export default function Records() {
   const { currentPet } = usePets();
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
   const insets = useSafeAreaInsets();
   const [records, setRecords] = useState<HealthRecord[]>([]);
   const [filter, setFilter] = useState<RecordType | "All">("All");
@@ -79,6 +85,17 @@ export default function Records() {
     filter === "All" ? records : records.filter((r) => r.record_type === filter);
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
 
+  // Each Weight record measured against the previous one by date, so the arrow stays correct. An unchanged weight gets no arrow at all.
+  const weightDeltas = new Map<number, number>();
+  const weighed = records
+    .filter((r) => r.record_type === "Weight" && r.weight_kg != null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  weighed.forEach((r, index) => {
+    if (index === 0) return;
+    const change = r.weight_kg! - weighed[index - 1].weight_kg!;
+    if (change !== 0) weightDeltas.set(r.id, change);
+  });
+
   return (
     <SwipeTabs>
     <ScrollView
@@ -138,6 +155,17 @@ export default function Records() {
           </View>
 
           <Text className="mt-1 text-sm text-primary">{r.record_type}</Text>
+
+          {r.weight_kg != null ? (
+            <Text className="mt-2 text-fg">
+              {formatWeight(r.weight_kg, unitSystem)}
+              {weightDeltas.has(r.id) ? (
+                <Text className="text-sm text-muted">
+                  {"  "}{weightDeltas.get(r.id)! > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightDeltas.get(r.id)!), unitSystem)}
+                </Text>
+              ) : null}
+            </Text>
+          ) : null}
 
           {r.description ? <Text className="mt-2 text-muted">{r.description}</Text> : null}
 

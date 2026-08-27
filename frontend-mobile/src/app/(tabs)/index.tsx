@@ -14,6 +14,9 @@ import EventForm from "@/components/EventForm";
 import Button from "@/components/ui/Button";
 import { formatDate } from "@/dates";
 import SwipeTabs from "@/components/SwipeTabs";
+import { listRecords } from "@/api/records";
+import { useAuth } from "@/auth/AuthContext";
+import { formatWeight } from "@/units";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
@@ -32,11 +35,14 @@ function formatAge(birthDate: string | null): string {
   return years === 1 ? "1 year" : `${years} years`;
 }
 
-function Field({ label, value }: { label: string; value: string }) {
+function Field({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
     <View className="mb-4 w-1/2">
       <Text className="text-sm text-muted">{label}</Text>
-      <Text className="text-fg">{value}</Text>
+      <Text className="text-fg">
+        {value}
+        {hint ? <Text className="text-sm text-muted"> {hint}</Text> : null}
+      </Text>
     </View>
   );
 }
@@ -108,9 +114,12 @@ function FormSheet({
 
 export default function Dashboard() {
   const { pets, currentPet, setCurrentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
   const [showForm, setShowForm] = useState<"edit" | null>(null);
   const insets = useSafeAreaInsets();
   const [events, setEvents] = useState<ScheduledEvent[]>([]);
+  const [records, setRecords] = useState<HealthRecord[]>([]);
   const [editingRecord, setEditingRecord] = useState<HealthRecord | null>(null);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   // Dismissing a section is deliberately in-memory only. It lasts until the app is relaunched or
@@ -136,9 +145,11 @@ export default function Dashboard() {
   const load = useCallback(() => {
     if (!currentPet) {
       setEvents([]);
+      setRecords([]);
       return;
     }
     listEvents(currentPet.id).then(setEvents).catch(console.error);
+    listRecords(currentPet.id).then(setRecords).catch(console.error);
   }, [currentPet]);
 
   useFocusEffect(
@@ -213,6 +224,17 @@ export default function Dashboard() {
   const due = events.filter((e) => e.kind !== "Appointment");
   const scheduled = events.filter((e) => e.kind === "Appointment");
 
+  // The newest Weight record against the one before it, for the arrow beside the current weight.
+  // Null when there are fewer than two, or when the weight has not moved.
+  const weighed = records
+    .filter((r) => r.record_type === "Weight" && r.weight_kg != null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  let weightChange: number | null = null;
+  if (weighed.length >= 2) {
+    const change = weighed[weighed.length - 1].weight_kg! - weighed[weighed.length - 2].weight_kg!;
+    weightChange = change === 0 ? null : change;
+  }
+
   return (
     <SwipeTabs>
     <ScrollView
@@ -267,7 +289,12 @@ export default function Dashboard() {
         <Field label="Age" value={formatAge(currentPet.birth_date)} />
         <Field
           label="Weight"
-          value={currentPet.weight !== null ? `${currentPet.weight} kg` : "Not set"}
+          value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}
+          hint={
+            weightChange !== null
+              ? `${weightChange > 0 ? "↑" : "↓"} ${formatWeight(Math.abs(weightChange), unitSystem)}`
+              : undefined
+          }
         />
       </View>
 

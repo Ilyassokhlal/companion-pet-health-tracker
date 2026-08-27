@@ -1,6 +1,9 @@
 import { usePets } from "../context/PetContext";
 import { useState, useEffect, useCallback } from "react";
 import { listEvents, completeEvent } from "../api/events";
+import { listRecords } from "../api/records";
+import { useAuth } from "../auth/AuthContext";
+import { formatWeight } from "../units";
 import type { HealthRecord, ScheduledEvent } from "../types";
 import PetForm from "../components/PetForm";
 import RecordForm from "../components/RecordForm";
@@ -63,8 +66,11 @@ function EventRow({ event, todayStr, onDone }: { event: ScheduledEvent; todayStr
 // The Dashboard component manages the display and interaction with the current pet's information, scheduled events, and health records. It handles loading state, adding a new pet, completing events, and deleting the current pet.
 export default function Dashboard() {
   const { currentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
+  const { user } = useAuth();
+  const unitSystem = user?.unit_system ?? "metric";
   const [showForm, setShowForm] = useState<"edit" | null>(null);
   const [events, setEvents] = useState<ScheduledEvent[]>([]);
+  const [records, setRecords] = useState<HealthRecord[]>([]);
   const [editingRecord, setEditingRecord] = useState<HealthRecord | null>(null);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -80,6 +86,17 @@ export default function Dashboard() {
 
   useEffect(loadEvents, [loadEvents]);
 
+  // The pet's records, needed only for the weight arrow. Kept separate from the events load so the event flows do not have to care about records.
+  const loadRecords = useCallback(() => {
+    if (!currentPet) {
+      setRecords([]);
+      return;
+    }
+    listRecords(currentPet.id).then(setRecords).catch(console.error);
+  }, [currentPet]);
+
+  useEffect(loadRecords, [loadRecords]);
+
   // Ends an event by marking it done and opening the resulting health record for editing.
   async function handleDone(event: ScheduledEvent) {
     try {
@@ -93,6 +110,7 @@ export default function Dashboard() {
   function closeRecordForm() {
     setEditingRecord(null);
     loadEvents();
+    loadRecords();
   }
 
   // Deletes the current pet after confirmation.
@@ -126,6 +144,16 @@ export default function Dashboard() {
   const due = events.filter(e => e.kind !== "Appointment");
   const scheduled = events.filter(e => e.kind === "Appointment");
 
+  // The newest Weight record against the one before it, for the arrow beside the current weight. Null when there are fewer than two, or when the weight has not moved.
+  const weighed = records
+    .filter((r) => r.record_type === "Weight" && r.weight_kg != null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  let weightChange: number | null = null;
+  if (weighed.length >= 2) {
+    const change = weighed[weighed.length - 1].weight_kg! - weighed[weighed.length - 2].weight_kg!;
+    weightChange = change === 0 ? null : change;
+  }
+
   return (
     <div className="p-4 sm:p-8">
       <div className="flex flex-wrap items-center gap-4">
@@ -146,7 +174,17 @@ export default function Dashboard() {
         <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
         <div><dt className="text-sm text-muted">Breed</dt><dd>{currentPet.breed ?? "Not set"}</dd></div>
         <div><dt className="text-sm text-muted">Age</dt><dd>{formatAge(currentPet.birth_date)}</dd></div>
-        <div><dt className="text-sm text-muted">Weight</dt><dd>{currentPet.weight !== null ? `${currentPet.weight} kg` : "Not set"}</dd></div>
+        <div>
+          <dt className="text-sm text-muted">Weight</dt>
+          <dd>
+            {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}
+            {weightChange !== null && (
+              <span className="ml-2 text-sm text-muted">
+                {weightChange > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightChange), unitSystem)}
+              </span>
+            )}
+          </dd>
+        </div>
       </dl>
       <section className="mt-8 bg-surface border border-border rounded-xl p-6 shadow-soft">
         <h2 className="text-lg font-semibold mb-3">Due</h2>
