@@ -1,8 +1,14 @@
 """API tests. These never call the Anthropic API — /ask is exercised only on its guardrail
 path, where an empty Chroma collection triggers the refusal branch before any request."""
 
+from datetime import date, datetime, timezone
+
+import pytest
+
 import rag
 from config import settings
+from models.models import User
+from utils.reminders import send_due_reminders
 
 
 def test_health_check(client):
@@ -351,3 +357,114 @@ def test_short_follow_up_inherits_the_previous_question():
     assert _with_context("how often?", [{"role": "user", "content": "what vaccines does my dog need"}, {"role": "assistant", "content": "..."}]).startswith("what vaccines does my dog need")
     assert _with_context("how often should a dog get the rabies vaccine", [{"role": "user", "content": "what vaccines does my dog need"}, {"role": "assistant", "content": "..."}]) == "how often should a dog get the rabies vaccine"
     assert _with_context("how often?", []) == "how often?"
+
+
+@pytest.fixture(autouse=True)
+def pinned_reminder_hour(monkeypatch):
+    """The .env sets REMINDER_HOUR, but these tests pin it to 6 AM."""
+    monkeypatch.setattr(settings, "REMINDER_HOUR", 6)
+
+
+def _prepare_user(db, *, frequency="weekly", email=True, push=True, tz="UTC"):
+    """Verify the test user and set their reminder preferences."""
+    user = db.query(User).filter(User.email == "testuser@example.com").one()
+    user.email_verified = True
+    user.timezone = tz
+    user.reminder_frequency = frequency
+    user.reminders_enabled = email
+    user.push_enabled = push
+    db.commit()
+    return user
+
+
+def _at_six_utc(day: date) -> datetime:
+    """Return a datetime at 6 AM UTC on the given day."""
+    return datetime(day.year, day.month, day.day, 6, 0, tzinfo=timezone.utc)
+
+
+def _schedule(client, headers, pet_id, title, due_date):
+    """Schedule an event for the given pet."""
+    client.post(
+        "/events",
+        json={"pet_id": pet_id, "title": title, "due_date": due_date},
+        headers=headers,
+    ).raise_for_status()
+
+
+def _reminders(no_email):
+    """Filter out only the upcoming pet care reminder emails."""
+    return [message for message in no_email if message["subject"] == "Upcoming pet care"]
+
+
+def test_weekly_email_fires_only_on_sunday(client, pet, db, no_email):
+    """Test that weekly email reminders are sent only on Sundays."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "AlphaEvent", "2026-09-02")
+    _prepare_user(db, frequency="weekly")
+
+    sunday = date(2026, 8, 30)
+    assert send_due_reminders(db, sunday, _at_six_utc(sunday)) == 1
+    assert len(_reminders(no_email)) == 1
+    assert "AlphaEvent" in _reminders(no_email)[0]["html"]
+
+    no_email.clear()
+    monday = date(2026, 8, 31)
+    assert send_due_reminders(db, monday, _at_six_utc(monday)) == 0
+    assert _reminders(no_email) == []
+
+
+def test_daily_email_covers_today_and_not_the_week(client, pet, db, no_email):
+    """Test that daily email reminders cover only today's events."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "AlphaEvent", "2026-08-30")
+    _schedule(client, headers, pet_data["id"], "BetaEvent", "2026-09-02")
+    _prepare_user(db, frequency="daily")
+
+    today = date(2026, 8, 30)
+    assert send_due_reminders(db, today, _at_six_utc(today)) == 1
+    body = _reminders(no_email)[0]["html"]
+    assert "AlphaEvent" in body
+    assert "BetaEvent" not in body
+
+
+def test_push_is_independent_of_the_email_toggle(client, pet, db, no_email, no_push):
+    """Test that push notifications are sent even if email reminders are disabled."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "GammaEvent", "2026-08-30")
+    client.post(
+        "/devices",
+        json={"token": "ExponentPushToken[test]", "platform": "android"},
+        headers=headers,
+    ).raise_for_status()
+    _prepare_user(db, email=False, push=True)
+
+    today = date(2026, 8, 30)
+    assert send_due_reminders(db, today, _at_six_utc(today)) == 0
+    assert _reminders(no_email) == []
+    assert len(no_push) == 1
+    assert "GammaEvent" in no_push[0]["body"]
+
+
+def test_no_channel_fires_outside_the_reminder_hour(client, pet, db, no_email, no_push):
+    """Test that no reminders are sent outside the user's local reminder hour."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "DeltaEvent", "2026-08-30")
+    _prepare_user(db, frequency="daily")
+
+    today = date(2026, 8, 30)
+    noon = datetime(2026, 8, 30, 12, 0, tzinfo=timezone.utc)
+    assert send_due_reminders(db, today, noon) == 0
+    assert _reminders(no_email) == []
+    assert no_push == []
+
+
+def test_due_today_follows_the_users_timezone_not_the_servers(client, pet, db, no_email):
+    """At 6 AM in Auckland, the server is still on the previous date. Test that due today follows the user's timezone, not the server's."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "EpsilonEvent", "2026-08-31")
+    _prepare_user(db, frequency="daily", tz="Pacific/Auckland")
+
+    server_today = date(2026, 8, 30)
+    six_in_auckland = datetime(2026, 8, 30, 18, 0, tzinfo=timezone.utc)
+    assert send_due_reminders(db, server_today, six_in_auckland) == 1
+    assert "EpsilonEvent" in _reminders(no_email)[0]["html"]
