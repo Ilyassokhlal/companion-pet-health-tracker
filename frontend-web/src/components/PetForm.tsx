@@ -8,6 +8,7 @@ import { WEIGHT_FREQUENCIES } from "../types";
 import type { WeightFrequency } from "../types";
 import { useAuth } from "../auth/AuthContext";
 import { fromKg, toKg, weightUnit } from "../units";
+import TagInput from "../components/TagInput";
 
 
 // Props for the PetForm component, which can optionally take a pet object for editing and a callback function to be called when the form submission is done.
@@ -29,6 +30,10 @@ export default function PetForm({ pet, onDone }: Props) {
     const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
     const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
     const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
+    const [dietary, setDietary] = useState<string[]>(pet?.dietary_restrictions ?? []);
+    const [hasDietary, setHasDietary] = useState((pet?.dietary_restrictions?.length ?? 0) > 0);
+    const [disabilities, setDisabilities] = useState<string[]>(pet?.disabilities ?? []);
+    const [hasDisabilities, setHasDisabilities] = useState((pet?.disabilities?.length ?? 0) > 0);
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const { refresh } = usePets();
@@ -46,6 +51,8 @@ export default function PetForm({ pet, onDone }: Props) {
         weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
         weight_tracking_enabled: trackWeight,
         weight_frequency: frequency,
+        dietary_restrictions: dietary,
+        disabilities: disabilities,
     };
     try {
       if (pet) {
@@ -135,6 +142,50 @@ export default function PetForm({ pet, onDone }: Props) {
                     </select>
                 </div>
             )}
+            <div>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasDietary}
+                  onChange={e => { setHasDietary(e.target.checked); if (!e.target.checked) setDietary([]); }}
+                  className="accent-primary"
+                />
+                <span>Has dietary restrictions or allergies</span>
+              </label>
+              {hasDietary && (
+                <div className="mt-2">
+                  <TagInput
+                    label="Dietary restrictions &amp; allergies"
+                    values={dietary}
+                    onChange={setDietary}
+                    placeholder="e.g. Chicken"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasDisabilities}
+                  onChange={e => { setHasDisabilities(e.target.checked); if (!e.target.checked) setDisabilities([]); }}
+                  className="accent-primary"
+                />
+                <span>Has disabilities</span>
+              </label>
+              {hasDisabilities && (
+                <div className="mt-2">
+                  <TagInput
+                    label="Disabilities"
+                    values={disabilities}
+                    onChange={setDisabilities}
+                    placeholder="e.g. Deaf in left ear"
+                  />
+                </div>
+              )}
+            </div>
+
             {error && <p className="text-danger text-sm">{error}</p>}
             <div className="flex gap-2">
                 <Button type="submit" disabled={submitting}>

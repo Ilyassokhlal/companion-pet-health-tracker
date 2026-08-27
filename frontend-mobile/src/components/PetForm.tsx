@@ -10,6 +10,7 @@ import { createPet, updatePet } from "@/api/pets";
 import { WEIGHT_FREQUENCIES } from "@/types";
 import type { Pet, WeightFrequency } from "@/types";
 import { fromKg, toKg, weightUnit } from "@/units";
+import TagInput from "@/components/TagInput";
 
 interface Props {
   pet?: Pet;
@@ -36,6 +37,10 @@ export default function PetForm({ pet, onDone }: Props) {
   const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
   const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
   const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
+  const [dietary, setDietary] = useState<string[]>(pet?.dietary_restrictions ?? []);
+  const [hasDietary, setHasDietary] = useState((pet?.dietary_restrictions?.length ?? 0) > 0);
+  const [disabilities, setDisabilities] = useState<string[]>(pet?.disabilities ?? []);
+  const [hasDisabilities, setHasDisabilities] = useState((pet?.disabilities?.length ?? 0) > 0);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const { refresh } = usePets();
@@ -51,6 +56,8 @@ export default function PetForm({ pet, onDone }: Props) {
       weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
       weight_tracking_enabled: trackWeight,
       weight_frequency: frequency,
+      dietary_restrictions: dietary,
+      disabilities: disabilities,
     };
     try {
       if (pet) {
@@ -138,6 +145,40 @@ export default function PetForm({ pet, onDone }: Props) {
             ))}
           </View>
         </View>
+      ) : null}
+
+      <View className="flex-row items-center justify-between gap-3">
+        <Text className="shrink text-fg">Has dietary restrictions or allergies</Text>
+        <Switch
+          value={hasDietary}
+          onValueChange={(v) => { setHasDietary(v); if (!v) setDietary([]); }}
+        />
+      </View>
+
+      {hasDietary ? (
+        <TagInput
+          label="Dietary restrictions & allergies"
+          values={dietary}
+          onChange={setDietary}
+          placeholder="e.g. Chicken"
+        />
+      ) : null}
+
+      <View className="flex-row items-center justify-between gap-3">
+        <Text className="shrink text-fg">Has disabilities</Text>
+        <Switch
+          value={hasDisabilities}
+          onValueChange={(v) => { setHasDisabilities(v); if (!v) setDisabilities([]); }}
+        />
+      </View>
+
+      {hasDisabilities ? (
+        <TagInput
+          label="Disabilities"
+          values={disabilities}
+          onChange={setDisabilities}
+          placeholder="e.g. Deaf in left ear"
+        />
       ) : null}
 
       {error ? <Text className="text-sm text-danger">{error}</Text> : null}

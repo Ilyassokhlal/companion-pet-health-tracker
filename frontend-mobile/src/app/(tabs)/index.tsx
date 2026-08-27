@@ -300,6 +300,35 @@ export default function Dashboard() {
         />
       </View>
 
+      {currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0 ? (
+        <View className="rounded-xl border border-border bg-surface p-5">
+          {currentPet.dietary_restrictions.length > 0 ? (
+            <View>
+              <Text className="mb-2 text-sm text-muted">Dietary restrictions & allergies</Text>
+              <View className="flex-row flex-wrap gap-2">
+                {currentPet.dietary_restrictions.map((item) => (
+                  <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
+                    <Text className="text-sm text-fg">{item}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          ) : null}
+          {currentPet.disabilities.length > 0 ? (
+            <View className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
+              <Text className="mb-2 text-sm text-muted">Disabilities</Text>
+              <View className="flex-row flex-wrap gap-2">
+                {currentPet.disabilities.map((item) => (
+                  <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
+                    <Text className="text-sm text-fg">{item}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          ) : null}
+        </View>
+      ) : null}
+
       {dueDismissed ? null : (
         <View className="mt-8 rounded-xl border border-border bg-surface p-5">
           <View className="mb-3 flex-row items-center justify-between">

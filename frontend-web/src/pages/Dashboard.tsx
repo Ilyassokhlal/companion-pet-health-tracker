@@ -186,6 +186,34 @@ export default function Dashboard() {
           </dd>
         </div>
       </dl>
+      {(currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0) && (
+        <section className="mt-6 bg-surface border border-border rounded-xl p-6 shadow-soft">
+          {currentPet.dietary_restrictions.length > 0 && (
+            <div>
+              <h2 className="text-sm text-muted mb-2">Dietary restrictions &amp; allergies</h2>
+              <ul className="flex flex-wrap gap-2">
+                {currentPet.dietary_restrictions.map((item) => (
+                  <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {currentPet.disabilities.length > 0 && (
+            <div className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
+              <h2 className="text-sm text-muted mb-2">Disabilities</h2>
+              <ul className="flex flex-wrap gap-2">
+                {currentPet.disabilities.map((item) => (
+                  <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
       <section className="mt-8 bg-surface border border-border rounded-xl p-6 shadow-soft">
         <h2 className="text-lg font-semibold mb-3">Due</h2>
         {due.length === 0 ? (

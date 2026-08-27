@@ -71,6 +71,15 @@ def _format_pet_context(pet, records) -> str:
         f"Breed: {pet.breed}",
         f"Age: {age}",
         f"Weight: {pet.weight or 'unknown'} kg",
+    ]
+
+    # An empty line costs tokens on every question and says nothing and an explicit "Allergies: none" would invite Claude to reason about an absence the app cannot actually vouch for, since an owner who never filled the field in looks identical to one whose pet genuinely has no allergies.
+    if pet.dietary_restrictions:
+        lines.append(f"Dietary Restrictions and Allergies: {', '.join(pet.dietary_restrictions)}")
+    if pet.disabilities:
+        lines.append(f"Disabilities: {', '.join(pet.disabilities)}")
+
+    lines += [
         "",
         "Health Records:" if records else "Health Records: none",
     ]

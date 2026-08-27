@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import enum
-from sqlalchemy import String, Integer, Float, Date, DateTime, Text, ForeignKey, Enum, Boolean
+from sqlalchemy import String, Integer, Float, Date, DateTime, Text, ForeignKey, Enum, Boolean, ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
@@ -61,6 +61,8 @@ class Pet(Base):
     weight: Mapped[float | None] = mapped_column(Float, nullable=True)
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     weight_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="monthly")
+    dietary_restrictions: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
+    disabilities: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
     photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 

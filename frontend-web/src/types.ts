@@ -79,6 +79,8 @@ export interface Pet {
   weight: number | null;
   weight_tracking_enabled: boolean;
   weight_frequency: WeightFrequency;
+  dietary_restrictions: string[];
+  disabilities: string[];
   photo_filename: string | null;
   created_at: string;
 }

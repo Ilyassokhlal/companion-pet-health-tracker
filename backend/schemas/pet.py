@@ -1,6 +1,9 @@
 from datetime import datetime, date
-from typing import Literal
+from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field
+
+# One entry in a tag list. The length matches the ARRAY(String(100)) column, so an over-long entry comes back as a 422 rather than a 500 from Postgres truncating it.
+TagEntry = Annotated[str, Field(min_length=1, max_length=100)]
 
 # Schemas for the pet endpoints
 class PetCreate(BaseModel):
@@ -33,6 +36,14 @@ class PetCreate(BaseModel):
         default="monthly",
         description="How often a weight check-in is scheduled for this pet.",
         examples=["monthly"])
+    dietary_restrictions: list[TagEntry] = Field(
+        default_factory=list,
+        description="Dietary restrictions and allergies, one per entry.",
+        examples=[["Chicken", "Grain-free"]])
+    disabilities: list[TagEntry] = Field(
+        default_factory=list,
+        description="Disabilities, one per entry.",
+        examples=[["Deaf in left ear"]])
 
 
 class PetUpdate(BaseModel):
@@ -65,6 +76,14 @@ class PetUpdate(BaseModel):
         default=None,
         description="How often a weight check-in is scheduled for this pet.",
         examples=["monthly"])
+    dietary_restrictions: list[TagEntry] | None = Field(
+        default=None,
+        description="Dietary restrictions and allergies, one per entry.",
+        examples=[["Chicken", "Grain-free"]])
+    disabilities: list[TagEntry] | None = Field(
+        default=None,
+        description="Disabilities, one per entry.",
+        examples=[["Deaf in left ear"]])
 
 
 class PetResponse(BaseModel):
@@ -78,6 +97,8 @@ class PetResponse(BaseModel):
     weight: float | None = None
     weight_tracking_enabled: bool
     weight_frequency: str
+    dietary_restrictions: list[str]
+    disabilities: list[str]
     photo_filename: str | None = None
     created_at: datetime
 
@@ -92,6 +113,8 @@ class PetResponse(BaseModel):
                 "breed": "Labrador Retriever",
                 "birth_date": "2026-07-25",
                 "weight": 12.5,
+                "dietary_restrictions": ["Chicken", "Grain-free"],
+                "disabilities": ["Deaf in left ear"],
                 "weight_tracking_enabled": False,
                 "weight_frequency": "monthly",
                 "created_at": "2023-12-31T12:00:00"
