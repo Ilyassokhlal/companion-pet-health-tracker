@@ -1,5 +1,6 @@
 import { apiFetch } from "./client";
 import type { Pet } from "../types";
+import type { PhotoUpload } from "./records";
 import { withCache } from "@/cache";
 
 // Defines the types for creating and updating pets. PetCreate omits the id, user_id, and created_at fields from the Pet interface, while PetUpdate allows partial updates to a pet's information.
@@ -44,10 +45,11 @@ export async function deletePet(id: number): Promise<void> {
   });
 }
 
-// Uploads a photo for a pet by its ID. Returns the updated pet with the new photo filename if successful.
-export async function uploadPhoto(petId: number, file: File): Promise<Pet> {
+// Uploads a photo for a pet by its ID. Returns the updated pet with the new photo filename.
+// React Native has no File object, so the part is described by uri, name and type. The same shape uploadRecordPhotos uses.
+export async function uploadPhoto(petId: number, file: PhotoUpload): Promise<Pet> {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("file", file as unknown as Blob);
   return apiFetch<Pet>(`/pets/${petId}/photo`, {
     method: "POST",
     body: formData,

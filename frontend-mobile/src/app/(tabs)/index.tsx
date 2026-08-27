@@ -18,6 +18,7 @@ import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
 import DashboardHeader from "@/components/DashboardHeader";
+import PetPhoto from "@/components/PetPhoto";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
@@ -249,10 +250,11 @@ export default function Dashboard() {
             <Pressable
               key={pet.id}
               onPress={() => setCurrentPet(pet)}
-              className={`rounded-full px-4 py-2 ${
+              className={`flex-row items-center gap-2 rounded-full py-1.5 ps-1.5 pe-4 ${
                 pet.id === currentPet.id ? "bg-primary" : "border border-border bg-surface"
               }`}
             >
+              <PetPhoto pet={pet} size="h-7 w-7" textSize="text-xs" interactive={false} />
               <Text className="text-fg">{pet.name}</Text>
             </Pressable>
           ))}
@@ -260,7 +262,8 @@ export default function Dashboard() {
       ) : null}
 
       <View className="flex-row items-center justify-between">
-        <Text numberOfLines={1} className="flex-1 text-2xl font-bold text-fg">
+        <PetPhoto pet={currentPet} />
+        <Text numberOfLines={1} className="ms-3 flex-1 text-2xl font-bold text-fg">
           {currentPet.name}
         </Text>
         <View className="ms-3 shrink-0 flex-row gap-2">
