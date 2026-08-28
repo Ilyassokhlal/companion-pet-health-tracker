@@ -2,7 +2,6 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
 
-import DeleteAccountForm from "@/components/DeleteAccountForm";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 
@@ -48,7 +47,6 @@ export default function Privacy() {
         </Pressable>
       </View>
 
-      <DeleteAccountForm />
     </ScrollView>
   );
 }

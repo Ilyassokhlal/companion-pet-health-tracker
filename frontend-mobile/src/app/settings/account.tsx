@@ -7,6 +7,7 @@ import UserPhoto from "@/components/UserPhoto";
 import ChangeUsernameForm from "@/components/ChangeUsernameForm";
 import ChangeEmailForm from "@/components/ChangeEmailForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
+import DeleteAccountForm from "@/components/DeleteAccountForm";
 import { dateLocale } from "@/dates";
 
 type Panel = "username" | "email" | "password";
@@ -85,6 +86,7 @@ export default function Account() {
         {editing === "username" ? <ChangeUsernameForm onDone={() => setEditing(null)} /> : null}
         {editing === "email" ? <ChangeEmailForm /> : null}
         {editing === "password" ? <ChangePasswordForm onDone={() => setEditing(null)} /> : null}
+      <DeleteAccountForm />
       </View>
     </ScrollView>
   );

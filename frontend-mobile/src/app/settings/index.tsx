@@ -10,11 +10,11 @@ import { themeColors } from "@/theme/palette";
 
 // Seventeen-odd controls in one scrolling column stopped working on a phone. Each group is its own pushed screen; this is just the index.
 const GROUPS = [
-  { href: "/settings/account", label: "Account", hint: "Photo, username, email, password" },
+  { href: "/settings/account", label: "Account", hint: "Photo, username, email, password, delete account" },
   { href: "/settings/appearance", label: "Appearance", hint: "Theme and accent colour" },
-  { href: "/settings/notifications", label: "Notifications", hint: "Reminders, push and weight check-ins" },
+  { href: "/settings/notifications", label: "Notifications & Tracking", hint: "Reminders, push and weight check-ins" },
   { href: "/settings/units", label: "Units & Language", hint: "Measurement, currency and language" },
-  { href: "/settings/privacy", label: "Data & Privacy", hint: "Legal pages and deleting your account" },
+  { href: "/settings/privacy", label: "Data & Privacy", hint: "Privacy Policy and Terms of Service" },
 ] as const;
 
 export default function Settings() {
