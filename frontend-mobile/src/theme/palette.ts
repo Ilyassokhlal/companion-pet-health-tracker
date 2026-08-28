@@ -69,6 +69,7 @@ export function themeColors(theme: Theme, accent: Accent) {
     fg: n["--color-fg"],
     muted: n["--color-muted"],
     danger: n["--color-danger"],
+    warning: n["--color-warning"],
     onPrimary: n["--color-on-primary"],
     primary: ACCENT_COLORS[theme][accent].primary,
   };

@@ -49,5 +49,12 @@
       "homeLink": "Go to home page",
       "loginLink": "Go to login page"
     }
+  },
+  "verifyBanner": {
+    "title": "Verify your email address",
+    "body": "Reminders and push notifications stay off until you do.",
+    "resend": "Resend email",
+    "sending": "Sending…",
+    "sent": "Sent — check your inbox."
   }
 }

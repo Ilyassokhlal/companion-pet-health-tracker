@@ -19,6 +19,7 @@ import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
+import VerifyBanner from "@/components/VerifyBanner";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 function formatAge(birthDate: string | null): string {
@@ -245,6 +246,7 @@ export default function Dashboard() {
     <SwipeTabs>
     <View className="flex-1 bg-ink">
     <DashboardHeader />
+    <VerifyBanner />
     <ScrollView
       className="flex-1"
       contentContainerStyle={{ padding: 16 }}
