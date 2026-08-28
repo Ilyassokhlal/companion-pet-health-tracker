@@ -236,6 +236,10 @@ export default function Dashboard() {
     weightChange = change === 0 ? null : change;
   }
 
+  // Absent rather than empty when the server predates these columns — an older backend returns a pet object without them at all, and calling .length on that is what crashes the screen.
+  const dietary = currentPet.dietary_restrictions ?? [];
+  const disabilities = currentPet.disabilities ?? [];
+
   return (
     <SwipeTabs>
     <View className="flex-1 bg-ink">
@@ -303,13 +307,13 @@ export default function Dashboard() {
         />
       </View>
 
-      {currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0 ? (
+      {dietary.length > 0 || disabilities.length > 0 ? (
         <View className="rounded-xl border border-border bg-surface p-5">
-          {currentPet.dietary_restrictions.length > 0 ? (
+          {dietary.length > 0 ? (
             <View>
               <Text className="mb-2 text-sm text-muted">Dietary restrictions & allergies</Text>
               <View className="flex-row flex-wrap gap-2">
-                {currentPet.dietary_restrictions.map((item) => (
+                {dietary.map((item) => (
                   <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
                     <Text className="text-sm text-fg">{item}</Text>
                   </View>
@@ -317,11 +321,11 @@ export default function Dashboard() {
               </View>
             </View>
           ) : null}
-          {currentPet.disabilities.length > 0 ? (
-            <View className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
+          {disabilities.length > 0 ? (
+            <View className={dietary.length > 0 ? "mt-4" : ""}>
               <Text className="mb-2 text-sm text-muted">Disabilities</Text>
               <View className="flex-row flex-wrap gap-2">
-                {currentPet.disabilities.map((item) => (
+                {disabilities.map((item) => (
                   <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
                     <Text className="text-sm text-fg">{item}</Text>
                   </View>
