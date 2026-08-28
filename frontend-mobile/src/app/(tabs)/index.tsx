@@ -251,22 +251,31 @@ export default function Dashboard() {
       className="flex-1"
       contentContainerStyle={{ padding: 16 }}
     >
-      {pets.length > 1 ? (
-        <View className="mb-6 flex-row flex-wrap gap-2">
-          {pets.map((pet) => (
-            <Pressable
-              key={pet.id}
-              onPress={() => setCurrentPet(pet)}
-              className={`flex-row items-center gap-2 rounded-full py-1.5 ps-1.5 pe-4 ${
-                pet.id === currentPet.id ? "bg-primary" : "border border-border bg-surface"
-              }`}
-            >
-              <PetPhoto pet={pet} size="h-7 w-7" textSize="text-xs" interactive={false} />
-              <Text className="text-fg">{pet.name}</Text>
-            </Pressable>
-          ))}
-        </View>
-      ) : null}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="mb-6"
+        contentContainerStyle={{ gap: 8 }}
+      >
+        {pets.map((pet) => (
+          <Pressable
+            key={pet.id}
+            onPress={() => setCurrentPet(pet)}
+            className={`flex-row items-center gap-2 rounded-full py-1.5 ps-1.5 pe-4 ${
+              pet.id === currentPet.id ? "bg-primary" : "border border-border bg-surface"
+            }`}
+          >
+            <PetPhoto pet={pet} size="h-7 w-7" textSize="text-xs" interactive={false} />
+            <Text className="text-fg">{pet.name}</Text>
+          </Pressable>
+        ))}
+        <Pressable
+          onPress={openAdd}
+          className="flex-row items-center rounded-full border border-border bg-surface px-4 py-1.5 active:opacity-70"
+        >
+          <Text className="text-fg">+ Add</Text>
+        </Pressable>
+      </ScrollView>
 
       <View className="flex-row items-center justify-between">
         <PetPhoto pet={currentPet} />
@@ -274,12 +283,6 @@ export default function Dashboard() {
           {currentPet.name}
         </Text>
         <View className="ms-3 shrink-0 flex-row gap-2">
-          <Pressable
-            onPress={openAdd}
-            className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
-          >
-            <Text className="text-sm font-medium text-white">Add</Text>
-          </Pressable>
           <Pressable
             onPress={openEdit}
             className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
