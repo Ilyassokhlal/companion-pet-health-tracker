@@ -30,3 +30,12 @@ def delete_photo_file(filename: str | None) -> None:
         os.remove(os.path.join(settings.PHOTO_DIR, filename))
     except FileNotFoundError:
         pass
+
+
+def read_photo(filename: str) -> bytes | None:
+    """Read a stored photo. None when the row points at a file that is no longer on disk."""
+    try:
+        with open(os.path.join(settings.PHOTO_DIR, filename), "rb") as f:
+            return f.read()
+    except FileNotFoundError:
+        return None

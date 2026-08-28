@@ -1,6 +1,8 @@
 """API tests. These never call the Anthropic API — /ask is exercised only on its guardrail
 path, where an empty Chroma collection triggers the refusal branch before any request."""
 
+import io
+import zipfile
 from datetime import date, datetime, timedelta, timezone
 
 import pytest
@@ -559,3 +561,48 @@ def test_only_the_newest_weight_record_moves_the_pets_weight(client, pet):
 
     client.patch(f"/records/{old['id']}", json={"weight_kg": 9.0}, headers=headers).raise_for_status()
     assert client.get(f"/pets/{pet_id}", headers=headers).json()["weight"] == 12.0
+
+
+def test_photo_zip_contains_exactly_the_selected_photos(client, pet):
+    """The archive holds one entry per selected photo, with the stored bytes intact."""
+    headers, p = pet
+    r = client.post(f"/pets/{p['id']}/records", json={"title": "Vet Visit", "record_type": "Vet Visit", "date": "2024-03-04"}, headers=headers)
+    record_id = r.json()["id"]
+
+    r = client.post(f"/records/{record_id}/photos", files=[("files", ("a.jpg", b"first-bytes", "image/jpeg")), ("files", ("b.png", b"second-bytes", "image/png"))], headers=headers)
+    assert r.status_code == 201
+    ids = [photo["id"] for photo in r.json()]
+
+    r = client.get(f"/pets/{p['id']}/photos/download", params={"ids": ids}, headers=headers)
+    assert r.status_code == 200
+    assert r.headers["content-type"] == "application/zip"
+
+    archive = zipfile.ZipFile(io.BytesIO(r.content))
+    names = archive.namelist()
+    assert len(names) == 2
+    # The record's date and title name the entries, not the stored UUIDs.
+    assert all(name.startswith("2024-03-04-Vet Visit-") for name in names)
+    assert sorted(archive.read(n) for n in names) == sorted([b"first-bytes", b"second-bytes"])
+
+
+def test_photo_zip_refuses_a_photo_belonging_to_another_user(client, auth, pet):
+    """An id outside the requested pet is a 404, and nothing partial comes back."""
+    headers_a, pet_a = pet
+    r = client.post(f"/pets/{pet_a['id']}/records", json={"title": "Vaccination", "record_type": "Vaccination", "date": "2024-01-01"}, headers=headers_a)
+    record_id = r.json()["id"]
+    r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", b"fake-bytes", "image/jpeg")}, headers=headers_a)
+    photo_id = r.json()[0]["id"]
+
+    headers_b = auth(username="userb", email="userb@example.com")
+    pet_b_id = client.post("/pets", json={"name": "Rex", "species": "dog"}, headers=headers_b).json()["id"]
+
+    r = client.get(f"/pets/{pet_b_id}/photos/download", params={"ids": [photo_id]}, headers=headers_b)
+    assert r.status_code == 404
+
+
+def test_photo_zip_caps_the_selection(client, pet):
+    """Eleven ids is refused before any ownership lookup or file read."""
+    headers, p = pet
+    r = client.get(f"/pets/{p['id']}/photos/download", params={"ids": list(range(1, 12))}, headers=headers)
+    assert r.status_code == 400
+    assert "too_many_photos" in r.text

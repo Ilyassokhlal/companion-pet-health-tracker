@@ -1,4 +1,9 @@
-from fastapi import APIRouter, Depends, Response, File, UploadFile
+import io
+import os
+import zipfile
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, Query, Response, File, UploadFile
 from sqlalchemy.orm import Session
 
 from utils.export import records_to_csv, records_to_pdf
@@ -7,7 +12,7 @@ from models.models import User, Pet, HealthRecord, RecordPhoto
 from schemas.record import RecordCreate, RecordUpdate, RecordResponse, RecordPhotoResponse, GalleryPhoto
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
-from utils.photos import save_photo, delete_photo_file
+from utils.photos import save_photo, delete_photo_file, read_photo
 from utils.scheduling import sync_followup_event
 from utils.weight import sync_pet_weight
 
@@ -161,3 +166,62 @@ def list_pet_photos(pet_id: int, db: Session = Depends(get_db), current_user: Us
         )
         for p, r in rows
     ]
+
+
+# Maximum number of photos that can be downloaded at once.
+MAX_PHOTO_DOWNLOAD = 10
+
+
+@router.get("/pets/{pet_id}/photos/download")
+def download_pet_photos(
+    pet_id: int,
+    ids: Annotated[list[int], Query()],
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Download a selection of a pet's photos as a single zip."""
+    unique = list(dict.fromkeys(ids))
+    if not unique:
+        raise BadRequestException("No photos selected.", code="no_photos_selected")
+    if len(unique) > MAX_PHOTO_DOWNLOAD:
+        raise BadRequestException(f"Select at most {MAX_PHOTO_DOWNLOAD} photos.", code="too_many_photos")
+
+    pet = _get_owned_pet(pet_id, db, current_user)
+    rows = (
+        db.query(RecordPhoto, HealthRecord)
+        .join(HealthRecord)
+        .filter(HealthRecord.pet_id == pet.id, RecordPhoto.id.in_(unique))
+        .order_by(HealthRecord.date.desc(), RecordPhoto.created_at.desc())
+        .all()
+    )
+
+    # Check which requested photos were found and which are missing.
+    found = {photo.id for photo, _ in rows}
+    missing = [i for i in unique if i not in found]
+    if missing:
+        raise NotFoundException("Photo", missing[0])
+
+    safe_name = "".join(c for c in pet.name if c.isalnum() or c in "-_") or "pet"
+    buffer = io.BytesIO()
+    written = 0
+
+    # Create a zip archive in memory and add the selected photos to it.
+    with zipfile.ZipFile(buffer, "w", zipfile.ZIP_STORED) as archive:
+        for index, (photo, record) in enumerate(rows, start=1):
+            data = read_photo(photo.filename)
+            if data is None:
+                continue
+            safe_title = "".join(c for c in record.title if c.isalnum() or c in "-_ ").strip() or "record"
+            extension = os.path.splitext(photo.filename)[1]
+            archive.writestr(f"{record.date}-{safe_title}-{index}{extension}", data)
+            written += 1
+
+    # If no photos were successfully written to the archive, raise a 404 to indicate that the requested photos could not be found.
+    if written == 0:
+        raise NotFoundException("Photo", unique[0])
+
+    return Response(
+        content=buffer.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="{safe_name}-photos.zip"'},
+    )
