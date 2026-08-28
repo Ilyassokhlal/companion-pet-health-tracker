@@ -147,7 +147,7 @@ def list_pet_photos(pet_id: int, db: Session = Depends(get_db), current_user: Us
         db.query(RecordPhoto, HealthRecord)
         .join(HealthRecord)
         .filter(HealthRecord.pet_id == pet.id)
-        .order_by(RecordPhoto.created_at.desc())
+        .order_by(HealthRecord.date.desc(), RecordPhoto.created_at.desc())
     )
     rows = query.all()
     return [
@@ -156,7 +156,8 @@ def list_pet_photos(pet_id: int, db: Session = Depends(get_db), current_user: Us
             record_id=r.id,
             filename=p.filename,
             record_title=r.title,
-            record_date=r.date
+            record_date=r.date,
+            record_type=r.record_type
         )
         for p, r in rows
     ]

@@ -103,3 +103,4 @@ class GalleryPhoto(BaseModel):
     filename: str
     record_title: str
     record_date: date_type
+    record_type: RecordType

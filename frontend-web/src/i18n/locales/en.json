@@ -56,5 +56,15 @@
     "resend": "Resend email",
     "sending": "Sending…",
     "sent": "Sent — check your inbox."
+  },
+  "photos": {
+    "noPet": "Add a pet first.",
+    "empty": "No photos yet. Attach photos when you add a health record.",
+    "noMatch": "No photos match these filters.",
+    "filter": "Filter",
+    "clearFilters": "Clear",
+    "type": "Type",
+    "from": "From",
+    "to": "To"
   }
 }

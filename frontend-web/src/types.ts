@@ -178,4 +178,5 @@ export interface GalleryPhoto {
   filename: string;
   record_title: string;
   record_date: string;
+  record_type: RecordType;
 }
