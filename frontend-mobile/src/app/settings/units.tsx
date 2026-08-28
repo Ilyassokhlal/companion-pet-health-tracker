@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { FlatList, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 
+import Button from "@/components/ui/Button";
 import { useAuth } from "@/auth/AuthContext";
 import { updateMe } from "@/api/auth";
 import { CURRENCIES, LANGUAGES, UNIT_SYSTEMS } from "@/types";
+import type { LanguageCode } from "@/types";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 
@@ -14,12 +16,16 @@ const UNIT_LABELS: Record<string, string> = {
   imperial: "Imperial (lb, mi)",
 };
 
+type Picker = "currency" | "language";
+
+// This screen allows the user to select their preferred unit system (metric or imperial), currency, and language.
 export default function Units() {
   const { user, refreshUser } = useAuth();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [picking, setPicking] = useState<Picker | null>(null);
   const colors = themeColors(theme, accent);
 
   async function save(patch: Parameters<typeof updateMe>[0]) {
@@ -35,7 +41,19 @@ export default function Units() {
     }
   }
 
+  function choose(code: string) {
+    const target = picking;
+    setPicking(null);
+    if (target === "currency") save({ currency: code });
+    if (target === "language") save({ language: code as LanguageCode });
+  }
+
   if (!user) return null;
+
+  const currencyName = CURRENCIES.find((c) => c.code === user.currency)?.name;
+  const languageName = LANGUAGES.find((l) => l.code === user.language)?.name;
+  const options: ReadonlyArray<{ code: string; name: string }> = picking === "currency" ? CURRENCIES : LANGUAGES;
+  const selected = picking === "currency" ? user.currency : user.language;
 
   return (
     <ScrollView
@@ -66,48 +84,66 @@ export default function Units() {
           ))}
         </View>
         <Text className="mt-3 text-sm text-muted">
-          Weights are always stored in kilograms — this only changes how they are shown and entered.
+          Metric — weight in kilograms, distance in kilometers
+        </Text>
+        <Text className="text-sm text-muted">
+          Imperial — weight in pounds, distance in miles
         </Text>
       </View>
 
-      <View className="mb-6 overflow-hidden rounded-xl border border-border bg-surface">
-        <Text className="p-5 pb-3 text-lg font-semibold text-fg">Currency</Text>
-        {CURRENCIES.map((currency) => (
-          <Pressable
-            key={currency.code}
-            onPress={() => save({ currency: currency.code })}
-            disabled={saving}
-            className="flex-row items-center justify-between gap-3 border-t border-border px-5 py-3 active:opacity-70"
-          >
-            <Text className="text-fg">
-              {currency.code} — {currency.name}
-            </Text>
-            {user.currency === currency.code ? (
-              <Ionicons name="checkmark" size={18} color={colors.primary} />
-            ) : null}
-          </Pressable>
-        ))}
+      <View className="mb-6 rounded-xl border border-border bg-surface p-5">
+        <Text className="mb-4 text-lg font-semibold text-fg">Currency</Text>
+        <Pressable
+          onPress={() => setPicking("currency")}
+          disabled={saving}
+          className="flex-row items-center justify-between gap-3 rounded-lg border border-border bg-ink px-3 py-2.5 active:opacity-70"
+        >
+          <Text className="text-fg">
+            {currencyName ? `${user.currency} — ${currencyName}` : user.currency}
+          </Text>
+          <Ionicons name="chevron-down" size={16} color={colors.muted} />
+        </Pressable>
       </View>
 
-      <View className="mb-6 overflow-hidden rounded-xl border border-border bg-surface">
-        <Text className="p-5 pb-3 text-lg font-semibold text-fg">Language</Text>
-        {LANGUAGES.map((language) => (
-          <Pressable
-            key={language.code}
-            onPress={() => save({ language: language.code })}
-            disabled={saving}
-            className="flex-row items-center justify-between gap-3 border-t border-border px-5 py-3 active:opacity-70"
-          >
-            <Text className="text-fg">{language.name}</Text>
-            {user.language === language.code ? (
-              <Ionicons name="checkmark" size={18} color={colors.primary} />
-            ) : null}
-          </Pressable>
-        ))}
-        <Text className="border-t border-border px-5 py-3 text-sm text-muted">
+      <View className="mb-6 rounded-xl border border-border bg-surface p-5">
+        <Text className="mb-4 text-lg font-semibold text-fg">Language</Text>
+        <Pressable
+          onPress={() => setPicking("language")}
+          disabled={saving}
+          className="flex-row items-center justify-between gap-3 rounded-lg border border-border bg-ink px-3 py-2.5 active:opacity-70"
+        >
+          <Text className="text-fg">{languageName ?? user.language}</Text>
+          <Ionicons name="chevron-down" size={16} color={colors.muted} />
+        </Pressable>
+        <Text className="mt-3 text-sm text-muted">
           Most of the app is still English while translations are in progress.
         </Text>
       </View>
+
+      <Modal visible={picking !== null} animationType="slide" onRequestClose={() => setPicking(null)}>
+        <View className="flex-1 bg-ink px-4" style={{ paddingTop: insets.top + 16 }}>
+          <Text className="mb-4 text-xl font-bold text-fg">
+            {picking === "currency" ? "Choose a currency" : "Choose a language"}
+          </Text>
+          <FlatList
+            data={options}
+            keyExtractor={(item) => item.code}
+            renderItem={({ item }) => (
+              <Pressable
+                onPress={() => choose(item.code)}
+                className="border-b border-border py-3 active:opacity-70"
+              >
+                <Text className={item.code === selected ? "text-primary" : "text-fg"}>
+                  {picking === "currency" ? `${item.code} — ${item.name}` : item.name}
+                </Text>
+              </Pressable>
+            )}
+          />
+          <View className="py-4">
+            <Button label="Close" variant="secondary" onPress={() => setPicking(null)} />
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
