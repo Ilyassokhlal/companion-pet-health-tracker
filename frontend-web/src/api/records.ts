@@ -53,6 +53,38 @@ export async function downloadExport(petId: number, format: "csv" | "pdf"): Prom
   URL.revokeObjectURL(url);
 }
 
+// Save a Blob object as a file in the user's browser. This utility function creates a temporary anchor element, triggers a download, and then cleans up the URL object.
+function saveBlob(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Download a single photo. This function fetches the photo from the public static files and saves it using the record's date and title as the filename.
+export async function downloadPhoto(photo: GalleryPhoto): Promise<void> {
+  const res = await fetch(`${BASE_URL}/photos/${photo.filename}`);
+  if (!res.ok) throw new Error("Failed to download photo");
+  const extension = photo.filename.slice(photo.filename.lastIndexOf("."));
+  saveBlob(await res.blob(), `${photo.record_date}-${photo.record_title}${extension}`);
+}
+
+// Download multiple photos as a single zip file. This function sends an authenticated request to the API endpoint for the specified pet and photo IDs, and saves the resulting zip file.
+export async function downloadPhotos(petId: number, ids: number[]): Promise<void> {
+  const query = ids.map((id) => `ids=${id}`).join("&");
+  const res = await fetch(`${BASE_URL}/pets/${petId}/photos/download?${query}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to download photos");
+  saveBlob(await res.blob(), "photos.zip");
+}
+
 // Upload multiple photos for a health record. This function sends a POST request to the API endpoint for the specified record with the provided files, and returns an array of RecordPhoto objects.
 export async function uploadRecordPhotos(recordId: number, files: File[]): Promise<RecordPhoto[]> {
   const form = new FormData();
@@ -67,7 +99,7 @@ export async function deleteRecordPhoto(photoId: number): Promise<void> {
   return apiFetch<void>(`/record-photos/${photoId}`, { method: "DELETE" });
 }
 
-// List all photos associated with a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of GalleryPhoto objects.
+// List all photos associated with a specific pet.
 export async function listPetPhotos(petId: number): Promise<GalleryPhoto[]> {
   return apiFetch<GalleryPhoto[]>(`/pets/${petId}/photos`);
 }

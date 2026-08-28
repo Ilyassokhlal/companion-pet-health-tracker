@@ -95,3 +95,79 @@ export async function exportRecords(petId: number, format: "csv" | "pdf"): Promi
     dialogTitle: "Export records",
   });
 }
+
+// Lazily import the media library module to handle cases where it is not available on the device. This allows the app to fall back to the share sheet instead of throwing an error at import time.
+let mediaLibrary: typeof import("expo-media-library") | null | undefined;
+
+async function getMediaLibrary() {
+  if (mediaLibrary === undefined) {
+    try {
+      mediaLibrary = await import("expo-media-library");
+    } catch {
+      mediaLibrary = null;
+    }
+  }
+  return mediaLibrary;
+}
+
+// Save a single photo to the media library or share it via the system share sheet if the media library is unavailable. Returns "saved" if the photo was saved to the library, or "shared" if it was shared.
+export async function savePhotoToLibrary(photo: GalleryPhoto): Promise<"saved" | "shared"> {
+  const extension = photo.filename.slice(photo.filename.lastIndexOf("."));
+  const destination = new File(Paths.cache, `${photo.record_date}-${photo.id}${extension}`);
+  if (destination.exists) {
+    destination.delete();
+  }
+
+  const task = File.createDownloadTask(`${BASE_URL}/photos/${photo.filename}`, destination);
+  const downloaded = await task.downloadAsync();
+  if (!downloaded) {
+    throw new Error("Download failed.");
+  }
+
+  const library = await getMediaLibrary();
+  if (library) {
+    // Request the necessary permission to save photos to the media library.
+    const permission = await library.requestPermissionsAsync(true, ["photo"]);
+    if (!permission.granted) {
+      throw new Error("Companion needs permission to save to your photos.");
+    }
+    // Save the downloaded photo to the media library.
+    await library.Asset.create(downloaded.uri);
+    return "saved";
+  }
+
+  if (!(await Sharing.isAvailableAsync())) {
+    throw new Error("Sharing is not available on this device.");
+  }
+  await Sharing.shareAsync(downloaded.uri, { dialogTitle: "Save photo" });
+  return "shared";
+}
+
+// Download multiple photos as a zip file and share it via the system share sheet. This is used for bulk downloads since the media library only accepts individual media files. The endpoint requires authentication.
+export async function downloadPhotos(petId: number, ids: number[]): Promise<void> {
+  if (!(await Sharing.isAvailableAsync())) {
+    throw new Error("Sharing is not available on this device.");
+  }
+
+  const token = await getToken();
+  const destination = new File(Paths.cache, "photos.zip");
+  if (destination.exists) {
+    destination.delete();
+  }
+
+  const query = ids.map((id) => `ids=${id}`).join("&");
+  const task = File.createDownloadTask(
+    `${BASE_URL}/pets/${petId}/photos/download?${query}`,
+    destination,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+  const downloaded = await task.downloadAsync();
+  if (!downloaded) {
+    throw new Error("Download failed.");
+  }
+
+  await Sharing.shareAsync(downloaded.uri, {
+    mimeType: "application/zip",
+    dialogTitle: "Save photos",
+  });
+}

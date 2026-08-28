@@ -2,11 +2,14 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
-import { listPetPhotos, deleteRecordPhoto } from "../api/records";
+import { listPetPhotos, deleteRecordPhoto, downloadPhoto, downloadPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { GalleryPhoto, RecordType } from "../types";
-import { X, Trash2, SlidersHorizontal } from "lucide-react";
+import { X, Trash2, SlidersHorizontal, Download, Check } from "lucide-react";
 import { formatDateLong, dateLocale } from "../dates";
+
+// The server refuses more than ten ids, so the UI must not let you pick an eleventh.
+const MAX_SELECTION = 10;
 
 // The Photos component displays a gallery of photos associated with the current pet. It fetches the photos from the API, allows users to view individual photos in a modal, and provides functionality to delete photos. The component handles loading states and displays appropriate messages when there are no pets or no photos available.
 export default function Photos() {
@@ -20,6 +23,11 @@ export default function Photos() {
   const [types, setTypes] = useState<RecordType[]>([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [selecting, setSelecting] = useState(false);
+  const [chosen, setChosen] = useState<number[]>([]);
+  const [confirming, setConfirming] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!currentPet) return;
@@ -38,8 +46,7 @@ export default function Photos() {
     load();
   }, [load]);   // above any early return
 
-  // Filtering and grouping derive from the one list already fetched, so no filter change costs a request.
-  // Dates compare as ISO strings, and the server orders by record date descending, so the months land in the map already newest-first and never need sorting.
+  // Group photos by month after applying the active filters. This memoized computation creates a map where the keys are year-month strings and the values are arrays of photos that match the current filters.
   const months = useMemo(() => {
     const byMonth = new Map<string, GalleryPhoto[]>();
     for (const p of photos) {
@@ -55,6 +62,7 @@ export default function Photos() {
   }, [photos, types, from, to]);
 
   const activeFilters = types.length + (from ? 1 : 0) + (to ? 1 : 0);
+  const atLimit = chosen.length >= MAX_SELECTION;
 
   const toggleType = (type: RecordType) =>
     setTypes((current) =>
@@ -66,6 +74,57 @@ export default function Photos() {
     setFrom("");
     setTo("");
   };
+
+  function toggleChosen(id: number) {
+    setError(null);
+    setChosen((current) => {
+      if (current.includes(id)) return current.filter((x) => x !== id);
+      if (current.length >= MAX_SELECTION) {
+        setError(t("photos.limitReached", { max: MAX_SELECTION }));
+        return current;
+      }
+      return [...current, id];
+    });
+  }
+
+  function exitSelection() {
+    setSelecting(false);
+    setChosen([]);
+    setConfirming(false);
+    setError(null);
+  }
+
+  async function handleBulkDownload() {
+    if (!currentPet || chosen.length === 0) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await downloadPhotos(currentPet.id, chosen);
+      exitSelection();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Handle bulk deletion of selected photos. This function iterates over the chosen photo IDs, deletes each one, and reloads the photo list. It stops at the first failure and displays an error message.
+  async function handleBulkDelete() {
+    setBusy(true);
+    setError(null);
+    try {
+      for (const id of chosen) {
+        await deleteRecordPhoto(id);
+      }
+      exitSelection();
+    } catch (err) {
+      setError((err as Error).message);
+      setConfirming(false);
+    } finally {
+      setBusy(false);
+      load();
+    }
+  }
 
     const handleDelete = async () => {
       if (!selected) return;
@@ -89,17 +148,80 @@ export default function Photos() {
     }
     return (
       <div className="p-4 sm:p-8">
-        <div className="mb-4 flex items-center justify-end">
-          <button
-            onClick={() => setFiltersOpen(!filtersOpen)}
-            className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm transition ${filtersOpen || activeFilters > 0 ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
-          >
-            <SlidersHorizontal size={16} />
-            {t("photos.filter")}{activeFilters > 0 ? ` (${activeFilters})` : ""}
-          </button>
+        <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
+          {selecting ? (
+            <>
+              <span className="me-auto text-sm text-muted">
+                {t("photos.selectedCount", { count: chosen.length })}
+              </span>
+              {confirming ? (
+                <>
+                  <span className="text-sm text-fg">
+                    {t("photos.confirmDelete", { count: chosen.length })}
+                  </span>
+                  <button
+                    onClick={handleBulkDelete}
+                    disabled={busy}
+                    className="rounded-lg bg-danger px-3 py-1.5 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-50"
+                  >
+                    {t("photos.confirm")}
+                  </button>
+                  <button
+                    onClick={() => setConfirming(false)}
+                    className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-muted transition hover:text-fg"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={handleBulkDownload}
+                    disabled={busy || chosen.length === 0}
+                    className="flex items-center gap-2 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-on-primary transition hover:bg-primary-hover disabled:opacity-50"
+                  >
+                    <Download size={16} />
+                    {t("photos.download")}
+                  </button>
+                  <button
+                    onClick={() => setConfirming(true)}
+                    disabled={busy || chosen.length === 0}
+                    className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-danger transition hover:bg-danger/10 disabled:opacity-50"
+                  >
+                    <Trash2 size={16} />
+                    {t("common.delete")}
+                  </button>
+                  <button
+                    onClick={exitSelection}
+                    className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-muted transition hover:text-fg"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => setSelecting(true)}
+                className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-muted transition hover:text-fg"
+              >
+                {t("photos.select")}
+              </button>
+              <button
+                onClick={() => setFiltersOpen(!filtersOpen)}
+                className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm transition ${filtersOpen || activeFilters > 0 ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
+              >
+                <SlidersHorizontal size={16} />
+                {t("photos.filter")}{activeFilters > 0 ? ` (${activeFilters})` : ""}
+              </button>
+            </>
+          )}
         </div>
 
-        {filtersOpen && (
+        {error && <p className="mb-4 text-sm text-danger">{error}</p>}
+
+        {filtersOpen && !selecting && (
           <div className="mb-6 rounded-xl border border-border bg-surface p-4">
             <p className="mb-2 text-sm font-medium text-fg">{t("photos.type")}</p>
             <div className="flex flex-wrap gap-2">
@@ -151,14 +273,28 @@ export default function Photos() {
                 {new Date(`${key}-01T00:00:00`).toLocaleDateString(dateLocale(), { month: "long", year: "numeric" })}
               </h2>
               <div className="mb-8 mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                {items.map((p) => (
-                  <button key={p.id} onClick={() => setSelected(p)}>
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}/photos/${p.filename}`}
-                      className="aspect-square w-full object-cover rounded-lg border border-border hover:opacity-80 transition"
-                    />
-                  </button>
-                ))}
+                {items.map((p) => {
+                  const picked = chosen.includes(p.id);
+                  return (
+                    <button
+                      key={p.id}
+                      onClick={() => (selecting ? toggleChosen(p.id) : setSelected(p))}
+                      className="relative"
+                    >
+                      <img
+                        src={`${import.meta.env.VITE_API_URL}/photos/${p.filename}`}
+                        className={`aspect-square w-full object-cover rounded-lg border transition ${picked ? "border-primary opacity-60" : "border-border hover:opacity-80"} ${selecting && !picked && atLimit ? "opacity-40" : ""}`}
+                      />
+                      {selecting && (
+                        <span
+                          className={`absolute end-2 top-2 flex h-6 w-6 items-center justify-center rounded-full border ${picked ? "border-primary bg-primary text-on-primary" : "border-border bg-ink/70 text-transparent"}`}
+                        >
+                          <Check size={14} />
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </section>
           ))
@@ -180,6 +316,13 @@ export default function Photos() {
             <p className="shrink-0 text-sm text-muted">
               {formatDateLong(selected.record_date)}
             </p>
+            <button
+              onClick={() => downloadPhoto(selected)}
+              aria-label={t("photos.download")}
+              className="shrink-0 rounded-lg p-2 text-muted transition hover:bg-hover hover:text-fg"
+            >
+              <Download size={18} />
+            </button>
             <button
               onClick={handleDelete}
               aria-label={t("common.delete")}

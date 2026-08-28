@@ -65,6 +65,12 @@
     "clearFilters": "Clear",
     "type": "Type",
     "from": "From",
-    "to": "To"
+    "to": "To",
+    "select": "Select",
+    "selectedCount": "{{count}} selected",
+    "download": "Download",
+    "confirmDelete": "Delete {{count}} photos?",
+    "confirm": "Confirm",
+    "limitReached": "You can select up to {{max}} photos."
   }
 }

@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 
 import { usePets } from "@/context/PetContext";
-import { listPetPhotos, deleteRecordPhoto } from "@/api/records";
+import { listPetPhotos, deleteRecordPhoto, savePhotoToLibrary, downloadPhotos } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { GalleryPhoto, RecordType } from "@/types";
 import { formatDateLong } from "@/dates";
@@ -17,6 +17,9 @@ import SwipeTabs from "@/components/SwipeTabs";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
+
+// The server refuses more than ten ids, so the UI must not let you pick an eleventh.
+const MAX_SELECTION = 10;
 
 export default function Photos() {
   const { t } = useTranslation();
@@ -30,6 +33,9 @@ export default function Photos() {
   const [types, setTypes] = useState<RecordType[]>([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [selecting, setSelecting] = useState(false);
+  const [chosen, setChosen] = useState<number[]>([]);
+  const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     if (!currentPet) {
@@ -52,9 +58,7 @@ export default function Photos() {
     }, [load]),
   );
 
-  // Same derivation as the web gallery: one fetch, filtered and bucketed by month in memory. Dates
-  // compare as ISO strings, and the server orders by record date descending, so the months come out
-  // newest-first without any sorting.
+  // Group the photos by month, applying the current filters for type and date range.
   const months = useMemo(() => {
     const byMonth = new Map<string, GalleryPhoto[]>();
     for (const p of photos) {
@@ -69,10 +73,11 @@ export default function Photos() {
     return [...byMonth];
   }, [photos, types, from, to]);
 
-  // The lightbox swipes through what is on screen, not the unfiltered list.
+  // Flatten the month-bucketed photos into a single array for display, preserving the current filters.
   const visible = useMemo(() => months.flatMap(([, items]) => items), [months]);
 
   const activeFilters = types.length + (from ? 1 : 0) + (to ? 1 : 0);
+  const atLimit = chosen.length >= MAX_SELECTION;
 
   function toggleType(type: RecordType) {
     setTypes((current) =>
@@ -84,6 +89,79 @@ export default function Photos() {
     setTypes([]);
     setFrom("");
     setTo("");
+  }
+
+  function toggleChosen(id: number) {
+    setChosen((current) => {
+      if (current.includes(id)) return current.filter((x) => x !== id);
+      if (current.length >= MAX_SELECTION) {
+        Alert.alert(t("photos.limitReached", { max: MAX_SELECTION }));
+        return current;
+      }
+      return [...current, id];
+    });
+  }
+
+  function exitSelection() {
+    setSelecting(false);
+    setChosen([]);
+  }
+
+  function startSelection(id: number) {
+    setSelecting(true);
+    setChosen([id]);
+  }
+
+  async function handleSave(photo: GalleryPhoto) {
+    setBusy(true);
+    try {
+      const outcome = await savePhotoToLibrary(photo);
+      if (outcome === "saved") {
+        Alert.alert(t("photos.savedToLibrary"));
+      }
+    } catch (err) {
+      Alert.alert((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleBulkDownload() {
+    if (!currentPet || chosen.length === 0) return;
+    setBusy(true);
+    try {
+      await downloadPhotos(currentPet.id, chosen);
+      exitSelection();
+    } catch (err) {
+      Alert.alert((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Confirm and execute the bulk delete action for the selected photos.
+  function confirmBulkDelete() {
+    Alert.alert(t("photos.confirmDelete", { count: chosen.length }), undefined, [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          setBusy(true);
+          try {
+            for (const id of chosen) {
+              await deleteRecordPhoto(id);
+            }
+            exitSelection();
+          } catch (err) {
+            Alert.alert((err as Error).message);
+          } finally {
+            setBusy(false);
+            load();
+          }
+        },
+      },
+    ]);
   }
 
   function confirmDelete(photo: GalleryPhoto) {
@@ -109,7 +187,7 @@ export default function Photos() {
     );
   }
 
-  // Inside the lightbox a horizontal swipe moves between photos. The Modal covers the screen, so the tab swipe underneath is unreachable while it is open.
+  // Define the gesture for swiping between photos in the lightbox.
   const swipePhoto = Gesture.Pan()
     .runOnJS(true)
     .activeOffsetX([-20, 20])
@@ -122,9 +200,7 @@ export default function Photos() {
       else if (e.translationX > 50 && i > 0) setSelected(visible[i - 1]);
     });
 
-  // Three fixed children come before the month sections, and each month contributes exactly two, so
-  // the sticky indices are arithmetic. The filter panel and the status line always render as a View
-  // even when empty, because a conditional child would shift every index below it.
+  // Calculate the indices of the sticky headers for the month sections in the ScrollView.
   const stickyIndices = months.map((_, i) => 3 + i * 2);
   const colors = themeColors(theme, accent);
   const filterActive = filtersOpen || activeFilters > 0;
@@ -136,25 +212,52 @@ export default function Photos() {
       contentContainerStyle={{ paddingTop: insets.top + 16, paddingBottom: 16 }}
       stickyHeaderIndices={stickyIndices}
     >
-      <View className="flex-row items-center justify-between px-4 pb-4">
-        <Text className="text-2xl font-bold text-fg">{t("photos.title")}</Text>
-        <Pressable
-          onPress={() => setFiltersOpen(!filtersOpen)}
-          className={`flex-row items-center gap-2 rounded-lg px-3 py-1.5 ${filterActive ? "bg-primary" : "border border-border bg-surface"}`}
-        >
-          <Ionicons
-            name="options-outline"
-            size={16}
-            color={filterActive ? colors.onPrimary : colors.muted}
-          />
-          <Text className={`text-sm ${filterActive ? "text-on-primary" : "text-muted"}`}>
-            {t("photos.filter")}{activeFilters > 0 ? ` (${activeFilters})` : ""}
-          </Text>
-        </Pressable>
+      <View className="flex-row items-center justify-between gap-2 px-4 pb-4">
+        {selecting ? (
+          <>
+            <Text className="flex-1 text-base font-semibold text-fg">
+              {t("photos.selectedCount", { count: chosen.length })}
+            </Text>
+            <Pressable
+              onPress={handleBulkDownload}
+              disabled={busy || chosen.length === 0}
+              className={`rounded-lg bg-primary px-3 py-1.5 ${busy || chosen.length === 0 ? "opacity-50" : ""}`}
+            >
+              <Ionicons name="download-outline" size={18} color={colors.onPrimary} />
+            </Pressable>
+            <Pressable
+              onPress={confirmBulkDelete}
+              disabled={busy || chosen.length === 0}
+              className={`rounded-lg border border-border px-3 py-1.5 ${busy || chosen.length === 0 ? "opacity-50" : ""}`}
+            >
+              <Ionicons name="trash-outline" size={18} color={colors.danger} />
+            </Pressable>
+            <Pressable onPress={exitSelection} className="rounded-lg border border-border px-3 py-1.5">
+              <Text className="text-sm text-muted">{t("common.cancel")}</Text>
+            </Pressable>
+          </>
+        ) : (
+          <>
+            <Text className="flex-1 text-2xl font-bold text-fg">{t("photos.title")}</Text>
+            <Pressable
+              onPress={() => setFiltersOpen(!filtersOpen)}
+              className={`flex-row items-center gap-2 rounded-lg px-3 py-1.5 ${filterActive ? "bg-primary" : "border border-border bg-surface"}`}
+            >
+              <Ionicons
+                name="options-outline"
+                size={16}
+                color={filterActive ? colors.onPrimary : colors.muted}
+              />
+              <Text className={`text-sm ${filterActive ? "text-on-primary" : "text-muted"}`}>
+                {t("photos.filter")}{activeFilters > 0 ? ` (${activeFilters})` : ""}
+              </Text>
+            </Pressable>
+          </>
+        )}
       </View>
 
       <View className="px-4">
-        {filtersOpen ? (
+        {filtersOpen && !selecting ? (
           <View className="mb-4 rounded-xl border border-border bg-surface p-4">
             <Text className="mb-2 text-sm font-medium text-fg">{t("photos.type")}</Text>
             <View className="flex-row flex-wrap gap-2">
@@ -206,14 +309,29 @@ export default function Photos() {
           })}
         </Text>,
         <View key={`g-${key}`} className="flex-row flex-wrap px-3 pb-4">
-          {items.map((p) => (
-            <Pressable key={p.id} onPress={() => setSelected(p)} className="w-1/3 p-1">
-              <Image
-                source={{ uri: `${BASE}/photos/${p.filename}` }}
-                className="aspect-square w-full rounded-lg border border-border"
-              />
-            </Pressable>
-          ))}
+          {items.map((p) => {
+            const picked = chosen.includes(p.id);
+            return (
+              <Pressable
+                key={p.id}
+                onPress={() => (selecting ? toggleChosen(p.id) : setSelected(p))}
+                onLongPress={() => (selecting ? toggleChosen(p.id) : startSelection(p.id))}
+                className="w-1/3 p-1"
+              >
+                <Image
+                  source={{ uri: `${BASE}/photos/${p.filename}` }}
+                  className={`aspect-square w-full rounded-lg border ${picked ? "border-primary opacity-60" : "border-border"} ${selecting && !picked && atLimit ? "opacity-40" : ""}`}
+                />
+                {selecting ? (
+                  <View
+                    className={`absolute end-3 top-3 h-6 w-6 items-center justify-center rounded-full border ${picked ? "border-primary bg-primary" : "border-border bg-ink/70"}`}
+                  >
+                    {picked ? <Ionicons name="checkmark" size={14} color={colors.onPrimary} /> : null}
+                  </View>
+                ) : null}
+              </Pressable>
+            );
+          })}
         </View>,
       ])}
 
@@ -263,12 +381,22 @@ export default function Photos() {
                     <Ionicons name="trash-outline" size={16} color={colors.danger} />
                     <Text className="text-sm font-medium text-danger">{t("common.delete")}</Text>
                   </Pressable>
-                  <Pressable
-                    onPress={() => setSelected(null)}
-                    className="rounded-lg border border-border px-4 py-2"
-                  >
-                    <Text className="text-sm font-medium text-fg">{t("common.close")}</Text>
-                  </Pressable>
+                  <View className="flex-row items-center gap-2">
+                    <Pressable
+                      onPress={() => handleSave(selected)}
+                      disabled={busy}
+                      className={`flex-row items-center gap-1.5 rounded-lg border border-border px-4 py-2 ${busy ? "opacity-50" : ""}`}
+                    >
+                      <Ionicons name="download-outline" size={16} color={colors.fg} />
+                      <Text className="text-sm font-medium text-fg">{t("photos.download")}</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => setSelected(null)}
+                      className="rounded-lg border border-border px-4 py-2"
+                    >
+                      <Text className="text-sm font-medium text-fg">{t("common.close")}</Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </Pressable>
