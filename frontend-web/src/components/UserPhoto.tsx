@@ -89,7 +89,7 @@ export default function UserPhoto() {
             <img
               src={`${import.meta.env.VITE_API_URL}/photos/${user.photo_filename}`}
               alt={user.username}
-              className="max-w-full max-h-full rounded-lg"
+              className="max-w-[90vw] max-h-[85vh] rounded-lg object-contain"
             />
             <button
               onClick={() => setViewing(false)}

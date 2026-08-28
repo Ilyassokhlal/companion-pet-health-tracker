@@ -93,7 +93,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             <img
               src={`${import.meta.env.VITE_API_URL}/photos/${pet.photo_filename}`}
               alt={pet.name}
-              className="max-w-full max-h-full rounded-lg"
+              className="max-w-[90vw] max-h-[85vh] rounded-lg object-contain"
             />
             <button
               onClick={() => setViewing(false)}
