@@ -219,8 +219,9 @@ export default function Dashboard() {
     );
   }
 
-  // Follow-ups and weight check-ins are things the pet is due for. Appointments are things the
-  // owner scheduled. The server already returns them soonest first with completed ones left out.
+  // Follow-ups and weight check-ins are things the pet is due for.
+  // Appointments are things the owner scheduled.
+  // The server already returns them soonest first with completed ones left out.
   const todayStr = new Date().toLocaleDateString("en-CA");
   const due = events.filter((e) => e.kind !== "Appointment");
   const scheduled = events.filter((e) => e.kind === "Appointment");

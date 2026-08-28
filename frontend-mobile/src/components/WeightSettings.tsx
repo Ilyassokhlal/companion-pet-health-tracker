@@ -47,7 +47,7 @@ export default function WeightSettings() {
       <View className="mb-4 flex-row items-center justify-between gap-3">
         <Text className="shrink text-fg">{"Track my pets' weight"}</Text>
         <Switch
-          value={user.weight_tracking_enabled}
+          value={user.weight_tracking_enabled ?? false}
           disabled={saving}
           onValueChange={(v) => save(() => updateMe({ weight_tracking_enabled: v }))}
         />
@@ -69,7 +69,7 @@ export default function WeightSettings() {
               <View className="flex-row items-center justify-between gap-3">
                 <Text className="shrink text-fg">{pet.name}</Text>
                 <Switch
-                  value={pet.weight_tracking_enabled}
+                  value={pet.weight_tracking_enabled ?? false}
                   disabled={saving}
                   onValueChange={(v) => save(() => updatePet(pet.id, { weight_tracking_enabled: v }))}
                 />

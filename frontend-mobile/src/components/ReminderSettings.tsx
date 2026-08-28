@@ -105,7 +105,7 @@ export default function ReminderSettings() {
       <View className="mb-4 flex-row items-center justify-between gap-3">
         <Text className="shrink text-fg">Notify this phone about today</Text>
         <Switch
-          value={user.push_enabled}
+          value={user.push_enabled ?? false}
           disabled={saving || !user.email_verified}
           onValueChange={(v) => save({ push_enabled: v })}
         />
