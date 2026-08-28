@@ -5,7 +5,7 @@ export function formatDate(iso: string): string {
   return new Date(`${iso}T00:00:00`).toLocaleDateString(dateLocale());
 }
 
-// The long form, for surfaces where the date is read rather than scanned — "August 23, 2026" instead of 8/23/2026. Same parse rule as above, for the same reason.
+// The long form, for surfaces where the date is read rather than scanned.
 export function formatDateLong(iso: string): string {
   return new Date(`${iso}T00:00:00`).toLocaleDateString(dateLocale(), {
     day: "numeric",
@@ -14,7 +14,7 @@ export function formatDateLong(iso: string): string {
   });
 }
 
-// Dates follow the APP's language rather than the device's locale to avoid mismatches between the interface language and the date format.
+// Dates follow the APP's language setting rather than the browser's to avoid inconsistencies.
 export function dateLocale(): string | undefined {
   return i18n.language || undefined;
 }

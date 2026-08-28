@@ -11,6 +11,7 @@ import WeightSettings from "../components/WeightSettings";
 import PreferencesSettings from "../components/PreferencesSettings";
 import Button from "../components/ui/Button";
 import { Pencil, X } from "lucide-react";
+import { dateLocale } from "../dates";
 
 type Panel = "username" | "email" | "password";
 
@@ -77,7 +78,7 @@ export default function Settings() {
           </div>
           <div className="flex justify-between gap-4">
             <dt className="text-muted">Member since</dt>
-            <dd>{new Date(user.created_at).toLocaleDateString()}</dd>
+            <dd>{new Date(user.created_at).toLocaleDateString(dateLocale())}</dd>
           </div>
         </dl>
 

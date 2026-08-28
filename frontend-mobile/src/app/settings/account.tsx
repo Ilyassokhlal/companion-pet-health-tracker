@@ -7,6 +7,7 @@ import UserPhoto from "@/components/UserPhoto";
 import ChangeUsernameForm from "@/components/ChangeUsernameForm";
 import ChangeEmailForm from "@/components/ChangeEmailForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
+import { dateLocale } from "@/dates";
 
 type Panel = "username" | "email" | "password";
 
@@ -75,7 +76,7 @@ export default function Account() {
 
         <View className="flex-row items-center justify-between">
           <Text className="text-sm text-muted">Member since</Text>
-          <Text className="text-fg">{new Date(user.created_at).toLocaleDateString()}</Text>
+          <Text className="text-fg">{new Date(user.created_at).toLocaleDateString(dateLocale())}</Text>
         </View>
 
         {user.email_verified ? null : (

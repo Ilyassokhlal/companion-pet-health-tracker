@@ -14,6 +14,7 @@ import { Pencil, Trash2, Check, CalendarPlus } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
+import { formatDate } from "../dates";
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
 function formatAge(birthDate: string | null): string {
@@ -53,7 +54,7 @@ function EventRow({ event, todayStr, onDone }: { event: ScheduledEvent; todayStr
         {event.title}
         {event.record_type && <span className="text-muted"> · {event.record_type}</span>}
         {" — "}
-        {new Date(`${event.due_date}T00:00:00`).toLocaleDateString()}
+        {formatDate(event.due_date)}
       </p>
       <Button variant="secondary" onClick={() => onDone(event)} className="inline-flex items-center gap-2">
         <Check size={16} />

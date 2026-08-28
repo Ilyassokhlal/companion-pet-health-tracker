@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { formatDate } from "@/dates";
 
 type Props = {
   label: string;
@@ -22,7 +23,7 @@ export default function DateField({ label, value, onChange, maximumDate, clearab
           className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
         >
           <Text className={value ? "text-fg" : "text-muted"}>
-            {value ? new Date(`${value}T00:00:00`).toLocaleDateString() : "Not set"}
+            {value ? formatDate(value) : "Not set"}
           </Text>
         </Pressable>
         {clearable && value ? (
