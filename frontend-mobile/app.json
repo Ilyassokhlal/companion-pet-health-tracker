@@ -65,7 +65,15 @@
           "cameraPermission": "Companion needs camera access so you can photograph symptoms, medications and vet documents."
         }
       ],
-      "expo-sharing",
+      [
+        "expo-media-library",
+        {
+          "savePhotosPermission": "Companion saves a pet photo to your library when you download it.",
+          "photosPermission": "Companion needs access to your photos so you can attach them to your pet's health records.",
+          "granularPermissions": ["photo"],
+          "isAccessMediaLocationEnabled": false
+        }
+      ],
       [
         "expo-notifications",
         {
