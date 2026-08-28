@@ -95,7 +95,7 @@ export default function ReminderSettings() {
                   user.reminder_frequency === frequency ? "text-on-primary" : "text-fg"
                 }`}
               >
-                {frequency === "weekly" ? "Sundays" : "Daily"}
+                {frequency === "weekly" ? "Weekly, on Sunday" : "Every day"}
               </Text>
             </Pressable>
           ))}
@@ -103,7 +103,7 @@ export default function ReminderSettings() {
       </View>
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Notify this phone about today</Text>
+        <Text className="shrink text-fg">Notify my phone about what is due today</Text>
         <Switch
           value={user.push_enabled ?? false}
           disabled={saving || !user.email_verified}

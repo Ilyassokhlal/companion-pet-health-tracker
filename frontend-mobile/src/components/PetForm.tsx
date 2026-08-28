@@ -27,7 +27,7 @@ const FREQUENCY_LABELS: Record<WeightFrequency, string> = {
 
 
 export default function PetForm({ pet, onDone }: Props) {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
   const unit = weightUnit(unitSystem);
   const [name, setName] = useState(pet?.name ?? "");
@@ -66,6 +66,7 @@ export default function PetForm({ pet, onDone }: Props) {
         await createPet(payload);
       }
       await refresh();
+      if (trackWeight && !user?.weight_tracking_enabled) await refreshUser();
       onDone();
     } catch (err) {
       setError((err as Error).message);

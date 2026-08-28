@@ -28,6 +28,8 @@ def create_pet(request: PetCreate, db: Session = Depends(get_db), current_user: 
     pet = Pet(**request.model_dump(), user_id=current_user.id)
     db.add(pet)
     db.flush()
+    if pet.weight_tracking_enabled and not current_user.weight_tracking_enabled:
+        current_user.weight_tracking_enabled = True
     sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)
@@ -51,6 +53,8 @@ def update_pet(pet_id: int, request: PetUpdate, db: Session = Depends(get_db), c
         raise NotFoundException("Pet", pet_id)
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(pet, key, value)
+    if request.weight_tracking_enabled and not current_user.weight_tracking_enabled:
+        current_user.weight_tracking_enabled = True
     sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)

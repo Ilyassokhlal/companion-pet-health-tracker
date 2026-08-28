@@ -224,6 +224,9 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db), current
     """Update the user's email preferences."""
     for key, value in payload.model_dump(exclude_unset=True).items():
         setattr(current_user, key, value)
+    if payload.weight_tracking_enabled is False:
+        for pet in current_user.pets:
+            pet.weight_tracking_enabled = False
     for pet in current_user.pets:
         sync_checkin(db, pet, date.today())
     db.commit()
