@@ -50,6 +50,7 @@ export default function PetForm({ pet, onDone }: Props) {
         birth_date: birthDate || null,
         weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
         weight_tracking_enabled: trackWeight,
+        walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
         weight_frequency: frequency,
         dietary_restrictions: dietary,
         disabilities: disabilities,

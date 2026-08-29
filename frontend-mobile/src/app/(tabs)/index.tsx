@@ -17,6 +17,8 @@ import SwipeTabs from "@/components/SwipeTabs";
 import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
+import { listWalks } from "@/api/walks";
+import type { Walk } from "@/types";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
@@ -128,6 +130,7 @@ export default function Dashboard() {
   // the user logs in again, which is why it must never be persisted to AsyncStorage.
   const [dueDismissed, setDueDismissed] = useState(false);
   const [scheduledDismissed, setScheduledDismissed] = useState(false);
+  const [walks, setWalks] = useState<Walk[]>([]);
 
   function openAdd() {
     setShowForm(null);
@@ -148,11 +151,17 @@ export default function Dashboard() {
     if (!currentPet) {
       setEvents([]);
       setRecords([]);
+      setWalks([]);
       return;
     }
     listEvents(currentPet.id).then(setEvents).catch(console.error);
     listRecords(currentPet.id).then(setRecords).catch(console.error);
-  }, [currentPet]);
+    if (user?.walk_tracking_enabled && currentPet.walk_tracking_enabled) {
+      listWalks(currentPet.id).then(setWalks).catch(console.error);
+    } else {
+      setWalks([]);
+    }
+  }, [currentPet, user?.walk_tracking_enabled]);
 
   useFocusEffect(
     useCallback(() => {
@@ -301,7 +310,9 @@ export default function Dashboard() {
       <View className="mt-6 flex-row flex-wrap">
         <Field label="Species" value={currentPet.species} />
         <Field label="Breed" value={currentPet.breed ?? "Not set"} />
-        <Field label="Age" value={formatAge(currentPet.birth_date)} />
+        {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
+          <Field label="Walked today" value={walks[0]?.date === todayStr ? "Yes" : "Not yet"} />
+        ) : null}
         <Field
           label="Weight"
           value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}

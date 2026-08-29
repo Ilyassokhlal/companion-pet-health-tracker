@@ -88,7 +88,7 @@ export async function deleteAccount(password: string): Promise<void> {
 }
 
 // Updates the user's account settings, such as email preferences, by sending the updated data to the API. If successful, it returns the updated user information.
-export async function updateMe(data: { reminders_enabled?: boolean; reminder_frequency?: User["reminder_frequency"]; push_enabled?: boolean; weight_tracking_enabled?: boolean; timezone?: string; language?: string; unit_system?: string; currency?: string; username?: string }): Promise<User> {
+export async function updateMe(data: { reminders_enabled?: boolean; reminder_frequency?: User["reminder_frequency"]; push_enabled?: boolean; weight_tracking_enabled?: boolean; walk_tracking_enabled?: boolean; timezone?: string; language?: string; unit_system?: string; currency?: string; username?: string }): Promise<User> {
   return apiFetch<User>("/auth/me", {
     method: "PATCH",
     body: JSON.stringify(data),

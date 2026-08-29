@@ -53,6 +53,7 @@ export interface User {
   reminder_frequency: ReminderFrequency;
   push_enabled: boolean;
   weight_tracking_enabled: boolean;
+  walk_tracking_enabled: boolean;
   timezone: string;
   photo_filename: string | null;
   created_at: string;
@@ -77,6 +78,7 @@ export interface Pet {
   birth_date: string | null;
   weight: number | null;
   weight_tracking_enabled: boolean;
+  walk_tracking_enabled: boolean;
   weight_frequency: WeightFrequency;
   dietary_restrictions: string[];
   disabilities: string[];
@@ -178,4 +180,15 @@ export interface GalleryPhoto {
   record_title: string;
   record_date: string;
   record_type: RecordType;
+}
+
+// Walk information returned by the API. This includes details about individual walks for a pet, such as the date, duration, distance, and any notes.
+export interface Walk {
+  id: number;
+  pet_id: number;
+  date: string;
+  duration_minutes: number;
+  distance_km: number | null;
+  notes: string | null;
+  created_at: string;
 }

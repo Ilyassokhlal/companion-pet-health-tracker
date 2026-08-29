@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import ReminderSettings from "@/components/ReminderSettings";
 import WeightSettings from "@/components/WeightSettings";
+import WalkSettings from "@/components/WalkSettings";
 
 export default function Notifications() {
   const insets = useSafeAreaInsets();
@@ -15,6 +16,7 @@ export default function Notifications() {
       <Text className="mb-6 text-2xl font-bold text-fg">Notifications & Tracking</Text>
       <ReminderSettings />
       <WeightSettings />
+      <WalkSettings />
     </ScrollView>
   );
 }

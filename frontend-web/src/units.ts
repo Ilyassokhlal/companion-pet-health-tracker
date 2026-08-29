@@ -22,3 +22,34 @@ export function toKg(value: number, unitSystem: string): number {
 export function formatWeight(kg: number, unitSystem: string): string {
   return `${fromKg(kg, unitSystem)} ${weightUnit(unitSystem)}`;
 }
+
+const KM_PER_MILE = 1.609344;
+
+// The unit label for the user's distance setting.
+export function distanceUnit(unitSystem: string): string {
+  return unitSystem === "imperial" ? "mi" : "km";
+}
+
+// A stored kilometre value as the number the user should see, rounded to one decimal.
+export function fromKm(km: number, unitSystem: string): number {
+  const value = unitSystem === "imperial" ? km / KM_PER_MILE : km;
+  return Math.round(value * 10) / 10;
+}
+
+// A number the user typed, converted to the kilometres that get stored.
+export function toKm(value: number, unitSystem: string): number {
+  return unitSystem === "imperial" ? value * KM_PER_MILE : value;
+}
+
+// A stored kilometre value as a display string, with its unit.
+export function formatDistance(km: number, unitSystem: string): string {
+  return `${fromKm(km, unitSystem)} ${distanceUnit(unitSystem)}`;
+}
+
+// Format a duration in minutes as a human-readable string. Examples: "45 min", "1 h 15 min".
+export function formatDuration(minutes: number): string {
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest ? `${hours} h ${rest} min` : `${hours} h`;
+}

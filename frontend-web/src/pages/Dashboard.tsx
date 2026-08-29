@@ -15,6 +15,8 @@ import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 import { formatDate } from "../dates";
+import { listWalks } from "../api/walks";
+import type { Walk } from "../types";
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
 function formatAge(birthDate: string | null): string {
@@ -75,6 +77,7 @@ export default function Dashboard() {
   const [editingRecord, setEditingRecord] = useState<HealthRecord | null>(null);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [walks, setWalks] = useState<Walk[]>([]);
 
   // Loads the current pet's upcoming scheduled events. Kept as a callback so it can be re-run after an event is completed or a new one is scheduled.
   const loadEvents = useCallback(() => {
@@ -97,6 +100,18 @@ export default function Dashboard() {
   }, [currentPet]);
 
   useEffect(loadRecords, [loadRecords]);
+  
+  // Loads the pet's walks if both the user and the pet have walk tracking enabled.
+  // The walks are only relevant if both the user and the pet have walk tracking enabled.
+  const loadWalks = useCallback(() => {
+    if (!currentPet || !user?.walk_tracking_enabled || !currentPet.walk_tracking_enabled) {
+      setWalks([]);
+      return;
+    }
+    listWalks(currentPet.id).then(setWalks).catch(console.error);
+  }, [currentPet, user?.walk_tracking_enabled]);
+
+  useEffect(loadWalks, [loadWalks]);
 
   // Ends an event by marking it done and opening the resulting health record for editing.
   async function handleDone(event: ScheduledEvent) {
@@ -175,6 +190,12 @@ export default function Dashboard() {
         <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
         <div><dt className="text-sm text-muted">Breed</dt><dd>{currentPet.breed ?? "Not set"}</dd></div>
         <div><dt className="text-sm text-muted">Age</dt><dd>{formatAge(currentPet.birth_date)}</dd></div>
+        {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled && (
+          <div>
+            <dt className="text-sm text-muted">Walked today</dt>
+            <dd>{walks[0]?.date === todayStr ? "Yes" : "Not yet"}</dd>
+          </div>
+        )}
         <div>
           <dt className="text-sm text-muted">Weight</dt>
           <dd>

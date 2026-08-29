@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, Footprints } from "lucide-react";
 import PetSelector from "./PetSelector";
 
 
@@ -10,6 +10,7 @@ import PetSelector from "./PetSelector";
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/records", label: "Records", icon: FileText },
+  { to: "/walks", label: "Walks", icon: Footprints },
   { to: "/photos", label: "Photos", icon: Images },
   { to: "/chat", label: "Chat history", icon: MessageSquare },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
@@ -18,6 +19,8 @@ const navItems = [
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
 export default function Header() {
     const { user, logout } = useAuth();
+    // Filter navigation items based on user settings (e.g., walk tracking enabled)
+    const visibleNav = navItems.filter((item) => item.to !== "/walks" || user?.walk_tracking_enabled);
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
@@ -26,7 +29,7 @@ export default function Header() {
                     <PawPrint size={22} className="inline me-2 -mt-1" /> Companion
                 </NavLink>
                 <nav className="hidden md:flex gap-4">
-                    {navItems.filter((item) => item.to !== "/settings").map((item) => (
+                    {visibleNav.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
@@ -76,7 +79,7 @@ export default function Header() {
 
             {menuOpen && (
                 <nav className="md:hidden absolute top-full inset-x-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
-                    {navItems.map((item) => (
+                    {visibleNav.map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
