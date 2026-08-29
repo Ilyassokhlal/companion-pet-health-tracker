@@ -30,6 +30,8 @@ def create_pet(request: PetCreate, db: Session = Depends(get_db), current_user: 
     db.flush()
     if pet.weight_tracking_enabled and not current_user.weight_tracking_enabled:
         current_user.weight_tracking_enabled = True
+    if pet.walk_tracking_enabled and not current_user.walk_tracking_enabled:
+        current_user.walk_tracking_enabled = True
     sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)
@@ -55,6 +57,8 @@ def update_pet(pet_id: int, request: PetUpdate, db: Session = Depends(get_db), c
         setattr(pet, key, value)
     if request.weight_tracking_enabled and not current_user.weight_tracking_enabled:
         current_user.weight_tracking_enabled = True
+    if request.walk_tracking_enabled and not current_user.walk_tracking_enabled:
+        current_user.walk_tracking_enabled = True
     sync_checkin(db, pet, date.today())
     db.commit()
     db.refresh(pet)

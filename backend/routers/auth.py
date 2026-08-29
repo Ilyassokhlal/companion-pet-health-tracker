@@ -227,6 +227,9 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db), current
     if payload.weight_tracking_enabled is False:
         for pet in current_user.pets:
             pet.weight_tracking_enabled = False
+    if payload.walk_tracking_enabled is False:
+        for pet in current_user.pets:
+            pet.walk_tracking_enabled = False
     for pet in current_user.pets:
         sync_checkin(db, pet, date.today())
     db.commit()

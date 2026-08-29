@@ -36,6 +36,10 @@ class PetCreate(BaseModel):
         default="monthly",
         description="How often a weight check-in is scheduled for this pet.",
         examples=["monthly"])
+    walk_tracking_enabled: bool = Field(
+        default=False,
+        description="Whether this pet is included in walk tracking.",
+        examples=[True])
     dietary_restrictions: list[TagEntry] = Field(
         default_factory=list,
         description="Dietary restrictions and allergies, one per entry.",
@@ -76,6 +80,10 @@ class PetUpdate(BaseModel):
         default=None,
         description="How often a weight check-in is scheduled for this pet.",
         examples=["monthly"])
+    walk_tracking_enabled: bool | None = Field(
+        default=None,
+        description="Whether this pet is included in walk tracking.",
+        examples=[True])
     dietary_restrictions: list[TagEntry] | None = Field(
         default=None,
         description="Dietary restrictions and allergies, one per entry.",
@@ -96,6 +104,7 @@ class PetResponse(BaseModel):
     birth_date: date | None = None
     weight: float | None = None
     weight_tracking_enabled: bool
+    walk_tracking_enabled: bool
     weight_frequency: str
     dietary_restrictions: list[str]
     disabilities: list[str]
@@ -116,6 +125,7 @@ class PetResponse(BaseModel):
                 "dietary_restrictions": ["Chicken", "Grain-free"],
                 "disabilities": ["Deaf in left ear"],
                 "weight_tracking_enabled": False,
+                "walk_tracking_enabled": False,
                 "weight_frequency": "monthly",
                 "created_at": "2023-12-31T12:00:00"
             }

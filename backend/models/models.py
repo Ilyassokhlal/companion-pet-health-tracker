@@ -29,6 +29,7 @@ class User(Base):
     reminder_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="weekly")
     push_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    walk_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
     language: Mapped[str] = mapped_column(String(10), nullable=False, server_default="en")
     unit_system: Mapped[str] = mapped_column(String(10), nullable=False, server_default="metric")
@@ -61,6 +62,7 @@ class Pet(Base):
     weight: Mapped[float | None] = mapped_column(Float, nullable=True)
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     weight_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="monthly")
+    walk_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     dietary_restrictions: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
     disabilities: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
     photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -68,6 +70,7 @@ class Pet(Base):
 
     # Foreign key relationship to user
     owner: Mapped["User"] = relationship(back_populates="pets")
+    walks: Mapped[list["Walk"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
     records: Mapped[list["HealthRecord"]] = relationship(
         back_populates="pet",
         cascade="all, delete-orphan",
@@ -181,3 +184,18 @@ class ScheduledEvent(Base):
     def record_type(self) -> "RecordType | None":
         """The source record's category, so a Due can show 'Vaccination' rather than just a title."""
         return self.source_record.record_type if self.source_record else None
+
+
+# Walk tracking. Logged walks are logged after the fact. No GPS or schedule is required. The dashboard only shows whether the pet walked that day or not.
+class Walk(Base):
+    __tablename__ = "walks"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="CASCADE"), nullable=False, index=True)
+    date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    duration_minutes: Mapped[int] = mapped_column(Integer, nullable=False)
+    distance_km: Mapped[float | None] = mapped_column(Float, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    pet: Mapped["Pet"] = relationship(back_populates="walks")
