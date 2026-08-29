@@ -44,6 +44,8 @@ class UserResponse(BaseModel):
     reminder_frequency: str
     push_enabled: bool
     weight_tracking_enabled: bool
+    feeding_email_enabled: bool
+    feeding_push_enabled: bool
     walk_tracking_enabled: bool
     photo_filename: str | None = None
     created_at: datetime
@@ -64,6 +66,8 @@ class UserResponse(BaseModel):
                 "reminder_frequency": "weekly",
                 "push_enabled": True,
                 "weight_tracking_enabled": False,
+                "feeding_email_enabled": True,
+                "feeding_push_enabled": True,
                 "walk_tracking_enabled": False,
                 "photo_filename": None,
                 "created_at": "2024-06-01T12:00:00"
@@ -126,6 +130,8 @@ class UserUpdateRequest(BaseModel):
     reminder_frequency: Literal["daily", "weekly"] | None = None
     push_enabled: bool | None = None
     weight_tracking_enabled: bool | None = None
+    feeding_email_enabled: bool | None = None
+    feeding_push_enabled: bool | None = None
     walk_tracking_enabled: bool | None = None
     timezone: str | None = None
     language: Literal["en", "fr", "es", "de", "ar", "ru", "zh"] | None = None

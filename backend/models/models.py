@@ -1,6 +1,6 @@
-from datetime import datetime, date
+from datetime import datetime, date, time as time_type
 import enum
-from sqlalchemy import String, Integer, Float, Date, DateTime, Text, ForeignKey, Enum, Boolean, ARRAY
+from sqlalchemy import String, Integer, Float, Date, DateTime, Time, Text, ForeignKey, Enum, Boolean, ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
@@ -30,6 +30,8 @@ class User(Base):
     push_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     walk_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    feeding_email_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    feeding_push_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     timezone: Mapped[str] = mapped_column(String(64), nullable=False, server_default="UTC")
     language: Mapped[str] = mapped_column(String(10), nullable=False, server_default="en")
     unit_system: Mapped[str] = mapped_column(String(10), nullable=False, server_default="metric")
@@ -71,6 +73,8 @@ class Pet(Base):
     # Foreign key relationship to user
     owner: Mapped["User"] = relationship(back_populates="pets")
     walks: Mapped[list["Walk"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
+    feeding_times: Mapped[list["FeedingTime"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
+    feedings: Mapped[list["Feeding"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
     records: Mapped[list["HealthRecord"]] = relationship(
         back_populates="pet",
         cascade="all, delete-orphan",
@@ -199,3 +203,35 @@ class Walk(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     pet: Mapped["Pet"] = relationship(back_populates="walks")
+
+
+# A scheduled feeding time. Having at least one is what opts a pet into feeding tracking — there is no
+# separate switch, because a schedule already states the intent. Times snap to 15-minute increments so
+# every slot coincides exactly with a tick of the feeding reminder job.
+class FeedingTime(Base):
+    __tablename__ = "feeding_times"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="CASCADE"), nullable=False, index=True)
+    time: Mapped[time_type] = mapped_column(Time, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    pet: Mapped["Pet"] = relationship(back_populates="feeding_times")
+
+
+# Logged feeding. Free-standing. It carries its own real time and is matched to a scheduled slot.
+# The amount is a number plus the unit the person actually measured in, stored as typed and never converted.
+class Feeding(Base):
+    __tablename__ = "feedings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="CASCADE"), nullable=False, index=True)
+    date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    time: Mapped[time_type] = mapped_column(Time, nullable=False)
+    food: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    amount: Mapped[float | None] = mapped_column(Float, nullable=True)
+    amount_unit: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    pet: Mapped["Pet"] = relationship(back_populates="feedings")

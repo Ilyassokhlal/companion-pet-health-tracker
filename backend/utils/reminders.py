@@ -4,9 +4,10 @@ from sqlalchemy.orm import Session
 from zoneinfo import ZoneInfo
 
 from config import settings
-from utils.mailer import send_reminder_email
-from models.models import Pet, ScheduledEvent, User
+from utils.mailer import send_reminder_email, send_email
+from models.models import FeedingTime, Pet, ScheduledEvent, User
 from utils.push import send_push, prune_tokens
+from utils.feeding import pet_slots, satisfied_slots, to_minutes
 
 # datetime.weekday() counts Monday as 0, so Sunday is 6.
 _SUNDAY = 6
@@ -85,3 +86,39 @@ def send_due_reminders(db: Session, today: date, instant: datetime | None = None
     # Prune any dead push tokens and return the number of emails sent.
     prune_tokens(db, dead_tokens)
     return emails_sent
+
+
+def send_feeding_reminders(db: Session, instant: datetime | None = None) -> int:
+    """Send feeding reminders for pets whose feeding slots are due."""
+    moment = instant or datetime.now(timezone.utc)
+    sent = 0
+
+    rows = (
+        db.query(FeedingTime, Pet, User)
+        .join(Pet, FeedingTime.pet_id == Pet.id)
+        .join(User, Pet.user_id == User.id)
+        .filter(User.email_verified.is_(True))
+        .all()
+    )
+
+    for feeding_time, pet, user in rows:
+        if not (user.feeding_email_enabled or user.feeding_push_enabled):
+            continue
+        local = moment.astimezone(ZoneInfo(user.timezone or "UTC"))
+        if (local.hour, local.minute) != (feeding_time.time.hour, feeding_time.time.minute):
+            continue
+
+        slots = pet_slots(db, pet.id)
+        covered = satisfied_slots(db, pet.id, local.date(), slots)
+        if to_minutes(feeding_time.time) in covered:
+            continue
+
+        title = "Feeding due"
+        body = f"{pet.name} is due to be fed."
+        if user.feeding_push_enabled:
+            send_push([token.token for token in user.device_tokens], title, body)
+        if user.feeding_email_enabled:
+            send_email(user.email, title, f"<p>{body}</p>")
+        sent += 1
+
+    return sent

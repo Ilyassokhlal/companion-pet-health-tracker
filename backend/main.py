@@ -11,8 +11,8 @@ from slowapi.errors import RateLimitExceeded
 
 from utils.limiter import limiter
 from utils.exceptions import AppException
-from utils.reminders import send_due_reminders
-from routers import auth, pets, records, ask, messages, devices, events, walks
+from utils.reminders import send_due_reminders, send_feeding_reminders
+from routers import auth, pets, records, ask, messages, devices, events, walks, feedings
 
 from contextlib import asynccontextmanager
 from config import settings
@@ -38,6 +38,10 @@ def _run_reminders():
     finally:
         db.close()
 
+# Scheduler entry point for feeding reminders
+def _run_feeding_reminders():
+    with SessionLocal() as db:
+        send_feeding_reminders(db)
 
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
@@ -51,6 +55,7 @@ async def lifespan(app: FastAPI):
         print(f"Startup ingest error: {e}")
     scheduler = BackgroundScheduler(timezone=settings.TIMEZONE)
     scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
+    scheduler.add_job(_run_feeding_reminders, "cron", minute="0,15,30,45", id="feeding_reminders")
     scheduler.start()
     yield
     scheduler.shutdown()
@@ -95,6 +100,7 @@ app.include_router(messages.router)
 app.include_router(devices.router)
 app.include_router(events.router)
 app.include_router(walks.router)
+app.include_router(feedings.router)
 
 # Root endpoint for introduction and redirection to documentation
 @app.get("/", include_in_schema=False)
