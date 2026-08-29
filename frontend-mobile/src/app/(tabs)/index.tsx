@@ -7,7 +7,7 @@ import { useFocusEffect } from "expo-router";
 import { usePets } from "@/context/PetContext";
 import { listEvents, completeEvent } from "@/api/events";
 import { deletePet } from "@/api/pets";
-import type { HealthRecord, ScheduledEvent } from "@/types";
+import type { HealthRecord, ScheduledEvent, Walk, SlotStatus } from "@/types";
 import PetForm from "@/components/PetForm";
 import RecordForm from "@/components/RecordForm";
 import EventForm from "@/components/EventForm";
@@ -18,7 +18,7 @@ import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
 import { listWalks } from "@/api/walks";
-import type { Walk } from "@/types";
+import { feedingStatus } from "@/api/feeding";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
@@ -130,6 +130,7 @@ export default function Dashboard() {
   // the user logs in again, which is why it must never be persisted to AsyncStorage.
   const [dueDismissed, setDueDismissed] = useState(false);
   const [scheduledDismissed, setScheduledDismissed] = useState(false);
+  const [slots, setSlots] = useState<SlotStatus[]>([]);
   const [walks, setWalks] = useState<Walk[]>([]);
 
   function openAdd() {
@@ -151,6 +152,7 @@ export default function Dashboard() {
     if (!currentPet) {
       setEvents([]);
       setRecords([]);
+      setSlots([]);
       setWalks([]);
       return;
     }
@@ -161,6 +163,8 @@ export default function Dashboard() {
     } else {
       setWalks([]);
     }
+    // No gate — a pet with no feeding times simply returns an empty list.
+    feedingStatus(currentPet.id).then(setSlots).catch(console.error);
   }, [currentPet, user?.walk_tracking_enabled]);
 
   useFocusEffect(
@@ -310,8 +314,21 @@ export default function Dashboard() {
       <View className="mt-6 flex-row flex-wrap">
         <Field label="Species" value={currentPet.species} />
         <Field label="Breed" value={currentPet.breed ?? "Not set"} />
+        <Field label="Age" value={formatAge(currentPet.birth_date)} />
         {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
           <Field label="Walked today" value={walks[0]?.date === todayStr ? "Yes" : "Not yet"} />
+        ) : null}
+        {slots.length > 0 ? (
+          <Field
+            label="Feeding"
+            value={
+              slots.some((s) => s.status === "missed")
+                ? `${slots.filter((s) => s.status === "missed").length} missed`
+                : slots.some((s) => s.status === "due")
+                  ? "Due now"
+                  : "On track"
+            }
+          />
         ) : null}
         <Field
           label="Weight"
