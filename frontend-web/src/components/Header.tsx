@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, Footprints } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, Activity } from "lucide-react";
 import PetSelector from "./PetSelector";
 
 
@@ -10,7 +10,7 @@ import PetSelector from "./PetSelector";
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/records", label: "Records", icon: FileText },
-  { to: "/walks", label: "Walks", icon: Footprints },
+  { to: "/tracking", label: "Tracking", icon: Activity },
   { to: "/photos", label: "Photos", icon: Images },
   { to: "/chat", label: "Chat history", icon: MessageSquare },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
@@ -20,7 +20,7 @@ const navItems = [
 export default function Header() {
     const { user, logout } = useAuth();
     // Filter navigation items based on user settings (e.g., walk tracking enabled)
-    const visibleNav = navItems.filter((item) => item.to !== "/walks" || user?.walk_tracking_enabled);
+        const visibleNav = navItems.filter((item) => item.to !== "/walks" || user?.walk_tracking_enabled);
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">

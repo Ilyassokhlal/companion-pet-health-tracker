@@ -9,6 +9,7 @@ import UserPhoto from "../components/UserPhoto";
 import AppearanceSettings from "../components/AppearanceSettings";
 import WeightSettings from "../components/WeightSettings";
 import WalkSettings from "../components/WalkSettings";
+import FeedingSettings from "../components/FeedingSettings";
 import PreferencesSettings from "../components/PreferencesSettings";
 import Button from "../components/ui/Button";
 import { Pencil, X } from "lucide-react";
@@ -104,6 +105,7 @@ export default function Settings() {
       <ReminderSettings />
       <WeightSettings />
       <WalkSettings />
+      <FeedingSettings />
       <PreferencesSettings />
       <DeleteAccountForm />
     </div>

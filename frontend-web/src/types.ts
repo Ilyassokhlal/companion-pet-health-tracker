@@ -55,6 +55,8 @@ export interface User {
   push_enabled: boolean;
   weight_tracking_enabled: boolean;
   walk_tracking_enabled: boolean;
+  feeding_email_enabled: boolean;
+  feeding_push_enabled: boolean;
   timezone: string;
   language: string;
   unit_system: string;
@@ -192,4 +194,34 @@ export interface Walk {
   distance_km: number | null;
   notes: string | null;
   created_at: string;
+}
+
+// Feeding time information returned by the API.
+export interface FeedingTime {
+  id: number;
+  pet_id: number;
+  time: string;
+}
+
+// Feeding information returned by the API.
+export interface Feeding {
+  id: number;
+  pet_id: number;
+  date: string;
+  time: string;
+  food: string | null;
+  amount: number | null;
+  amount_unit: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
+// Units for feeding amounts.
+export const AMOUNT_UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'oz'] as const;
+export type AmountUnit = typeof AMOUNT_UNITS[number];
+
+// Status of a scheduled feeding slot for a pet.
+export interface SlotStatus {
+  time: string;
+  status: "met" | "due" | "missed" | "upcoming";
 }

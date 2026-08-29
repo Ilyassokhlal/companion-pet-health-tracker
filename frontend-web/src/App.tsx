@@ -15,6 +15,9 @@ import Photos from "./pages/Photos";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Walks from "./pages/Walks";
+import Tracking from "./pages/Tracking";
+import WeightTracking from "./pages/WeightTracking";
+import Feeding from "./pages/Feeding";
 
 export default function App() {
   return (
@@ -33,7 +36,10 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/records" element={<Records />} />
           <Route path="/photos" element={<Photos />} />
-          <Route path="/walks" element={<Walks />} />
+          <Route path="/tracking" element={<Tracking />} />
+          <Route path="/tracking/weight" element={<WeightTracking />} />
+          <Route path="/tracking/walks" element={<Walks />} />
+          <Route path="/tracking/feeding" element={<Feeding />} />
           <Route path="/chat" element={<ChatHistory />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
