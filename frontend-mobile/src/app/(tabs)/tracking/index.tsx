@@ -35,6 +35,13 @@ export default function Tracking() {
             <Text className="mt-1 text-sm text-muted">Logged walks, newest first</Text>
           </Pressable>
         ) : null}
+        <Pressable
+          onPress={() => router.navigate("/tracking/feeding")}
+          className="mt-4 rounded-xl border border-border bg-surface p-5 active:opacity-70"
+        >
+          <Text className="text-lg font-semibold text-fg">Feeding</Text>
+          <Text className="mt-1 text-sm text-muted">Feeding times and today&apos;s log</Text>
+        </Pressable>
       </ScrollView>
     </SwipeTabs>
   );

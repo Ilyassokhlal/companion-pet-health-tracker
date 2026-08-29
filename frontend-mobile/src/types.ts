@@ -54,6 +54,8 @@ export interface User {
   push_enabled: boolean;
   weight_tracking_enabled: boolean;
   walk_tracking_enabled: boolean;
+  feeding_email_enabled: boolean;
+  feeding_push_enabled: boolean;
   timezone: string;
   photo_filename: string | null;
   created_at: string;
@@ -191,4 +193,34 @@ export interface Walk {
   distance_km: number | null;
   notes: string | null;
   created_at: string;
+}
+
+// Scheduled feeding time information returned by the API. This includes the time of the feeding for a pet.
+export interface FeedingTime {
+  id: number;
+  pet_id: number;
+  time: string;
+}
+
+// Feeding information returned by the API. This includes details about individual feedings for a pet, such as the date, time, food, amount, and any notes.
+export interface Feeding {
+  id: number;
+  pet_id: number;
+  date: string;
+  time: string;
+  food: string | null;
+  amount: number | null;
+  amount_unit: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
+// Units of measurement for the amount of food in a feeding. This constant is used to standardize the units across the application.
+export const AMOUNT_UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'oz'] as const;
+export type AmountUnit = typeof AMOUNT_UNITS[number];
+
+// Status of a scheduled feeding time slot. Indicates whether the feeding has been met, is due, was missed, or is upcoming.
+export interface SlotStatus {
+  time: string;
+  status: "met" | "due" | "missed" | "upcoming";
 }
