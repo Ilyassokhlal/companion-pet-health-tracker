@@ -72,5 +72,57 @@
     "confirmDelete": "Delete {{count}} photos?",
     "confirm": "Confirm",
     "limitReached": "You can select up to {{max}} photos."
+  },
+  "tracking": {
+    "title": "Tracking",
+    "empty": "Turn on weight or walk tracking in Settings to see them here.",
+    "weight": "Weight",
+    "weightHint": "Weigh-ins and how they have changed",
+    "walks": "Walks",
+    "walksHint": "Logged walks, newest first",
+    "feeding": "Feeding",
+    "feedingHint": "Feeding times and today's log",
+    "budget": "Budget",
+    "budgetHint": "What this pet costs each month"
+  },
+  "walks": {
+    "noPet": "Add a pet first.",
+    "trackingOff": "Turn on walk tracking in Settings to log walks.",
+    "title": "Walks",
+    "log": "Log a walk",
+    "edit": "Edit walk",
+    "empty": "No walks logged yet.",
+    "confirmDelete": "Delete this walk?",
+    "date": "Date",
+    "duration": "Duration (minutes)",
+    "distance": "Distance ({{unit}})",
+    "notes": "Notes"
+  },
+  "budget": {
+    "noPet": "Add a pet first.",
+    "title": "Budget",
+    "log": "Add an expense",
+    "edit": "Edit expense",
+    "empty": "Nothing logged for this month.",
+    "confirmDelete": "Delete this expense?",
+    "month": "Month",
+    "date": "Date",
+    "amount": "Amount ({{currency}})",
+    "category": "Category",
+    "record": "Attach to a health record",
+    "noRecord": "Not attached",
+    "notes": "Notes",
+    "of": "of {{limit}}",
+    "noLimit": "No monthly limit set",
+    "mixedCurrencies": "This month mixes {{codes}} — the total is a raw sum, not a conversion.",
+    "categories": {
+      "food": "Food",
+      "vet": "Vet",
+      "medication": "Medication",
+      "grooming": "Grooming",
+      "supplies": "Supplies",
+      "insurance": "Insurance",
+      "other": "Other"
+    }
   }
 }

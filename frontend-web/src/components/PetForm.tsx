@@ -34,6 +34,8 @@ export default function PetForm({ pet, onDone }: Props) {
     const [hasDietary, setHasDietary] = useState((pet?.dietary_restrictions?.length ?? 0) > 0);
     const [disabilities, setDisabilities] = useState<string[]>(pet?.disabilities ?? []);
     const [hasDisabilities, setHasDisabilities] = useState((pet?.disabilities?.length ?? 0) > 0);
+    const [monthlyBudget, setMonthlyBudget] = useState(pet?.monthly_budget != null ? String(pet.monthly_budget) : "");
+    const currency = user?.currency ?? "USD";
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const { refresh } = usePets();
@@ -51,7 +53,7 @@ export default function PetForm({ pet, onDone }: Props) {
         weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
         weight_tracking_enabled: trackWeight,
         walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
-        monthly_budget: pet?.monthly_budget ?? null,
+        monthly_budget: monthlyBudget === "" ? null : Number(monthlyBudget),
         weight_frequency: frequency,
         dietary_restrictions: dietary,
         disabilities: disabilities,
@@ -118,6 +120,17 @@ export default function PetForm({ pet, onDone }: Props) {
                     value={weight}
                     onChange={e => setWeight(e.target.value)}
                 />
+            </div>
+            <div>
+                <label className="block mb-1">Monthly budget ({currency})</label>
+                <Input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={monthlyBudget}
+                    onChange={e => setMonthlyBudget(e.target.value)}
+                />
+                <p className="mt-1 text-sm text-muted">Leave empty for no limit.</p>
             </div>
             <label className="flex items-center gap-2">
                 <input

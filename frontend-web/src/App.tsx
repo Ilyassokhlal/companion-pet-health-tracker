@@ -18,6 +18,7 @@ import Walks from "./pages/Walks";
 import Tracking from "./pages/Tracking";
 import WeightTracking from "./pages/WeightTracking";
 import Feeding from "./pages/Feeding";
+import Budget from "./pages/Budget";
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/tracking/weight" element={<WeightTracking />} />
           <Route path="/tracking/walks" element={<Walks />} />
           <Route path="/tracking/feeding" element={<Feeding />} />
+          <Route path="/tracking/budget" element={<Budget />} />
           <Route path="/chat" element={<ChatHistory />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
