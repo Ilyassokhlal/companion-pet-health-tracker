@@ -22,7 +22,7 @@ import Button from "@/components/ui/Button";
 const BAR: Record<string, string> = {
   none: "bg-primary",
   ok: "bg-primary",
-  warning: "bg-amber-500",
+  warning: "bg-warning",
   over: "bg-danger",
 };
 
@@ -194,7 +194,7 @@ export default function Budget() {
             ) : null}
 
             {summary.currencies.length > 1 ? (
-              <Text className="mt-2 text-sm text-amber-500">
+              <Text className="mt-2 text-sm text-warning">
                 {t("budget.mixedCurrencies", { codes: summary.currencies.join(", ") })}
               </Text>
             ) : null}

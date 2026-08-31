@@ -19,7 +19,7 @@ const FIELD = "w-full rounded-lg bg-ink border border-border px-3 py-2 text-sm t
 const BAR: Record<string, string> = {
   none: "bg-primary",
   ok: "bg-primary",
-  warning: "bg-amber-500",
+  warning: "bg-warning",
   over: "bg-danger",
 };
 
@@ -169,7 +169,7 @@ export default function Budget() {
           )}
 
           {summary.currencies.length > 1 && (
-            <p className="mt-2 text-sm text-amber-500">
+            <p className="mt-2 text-sm text-warning">
               {t("budget.mixedCurrencies", { codes: summary.currencies.join(", ") })}
             </p>
           )}
