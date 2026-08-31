@@ -65,6 +65,7 @@ class Pet(Base):
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     weight_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="monthly")
     walk_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    monthly_budget: Mapped[float | None] = mapped_column(Float, nullable=True)
     dietary_restrictions: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
     disabilities: Mapped[list[str]] = mapped_column(ARRAY(String(100)), nullable=False, server_default="{}")
     photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -75,6 +76,7 @@ class Pet(Base):
     walks: Mapped[list["Walk"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
     feeding_times: Mapped[list["FeedingTime"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
     feedings: Mapped[list["Feeding"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
+    expenses: Mapped[list["Expense"]] = relationship(back_populates="pet", cascade="all, delete-orphan")
     records: Mapped[list["HealthRecord"]] = relationship(
         back_populates="pet",
         cascade="all, delete-orphan",
@@ -235,3 +237,24 @@ class Feeding(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     pet: Mapped["Pet"] = relationship(back_populates="feedings")
+
+
+# Per-pet spending. An expense can attach to a health record so a vet visit carries its cost. The FK is SET NULL rather than CASCADE. Deleting the record should not erase what the pet's owner actually paid.
+class Expense(Base):
+    __tablename__ = "expenses"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    pet_id: Mapped[int] = mapped_column(Integer, ForeignKey("pets.id", ondelete="CASCADE"), nullable=False, index=True)
+    record_id: Mapped[int | None] = mapped_column(
+        Integer, ForeignKey("health_records.id", ondelete="SET NULL"), nullable=True
+    )
+    date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    amount: Mapped[float] = mapped_column(Float, nullable=False)
+    # Stamped from the owner's currency setting at write time, so changing that setting later never affects the recorded currency of past expenses.
+    currency: Mapped[str] = mapped_column(String(3), nullable=False)
+    category: Mapped[str] = mapped_column(String(20), nullable=False)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    pet: Mapped["Pet"] = relationship(back_populates="expenses")
+    record: Mapped["HealthRecord | None"] = relationship()

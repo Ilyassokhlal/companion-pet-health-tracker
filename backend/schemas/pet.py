@@ -40,6 +40,10 @@ class PetCreate(BaseModel):
         default=False,
         description="Whether this pet is included in walk tracking.",
         examples=[True])
+    monthly_budget: float | None = Field(
+        default=None, gt=0,
+        description="Monthly spending limit for this pet, in the owner's currency.",
+        examples=[120.0])
     dietary_restrictions: list[TagEntry] = Field(
         default_factory=list,
         description="Dietary restrictions and allergies, one per entry.",
@@ -84,6 +88,10 @@ class PetUpdate(BaseModel):
         default=None,
         description="Whether this pet is included in walk tracking.",
         examples=[True])
+    monthly_budget: float | None = Field(
+        default=None, gt=0,
+        description="Monthly spending limit for this pet. Send null to clear it.",
+        examples=[120.0])
     dietary_restrictions: list[TagEntry] | None = Field(
         default=None,
         description="Dietary restrictions and allergies, one per entry.",
@@ -106,6 +114,7 @@ class PetResponse(BaseModel):
     weight_tracking_enabled: bool
     walk_tracking_enabled: bool
     weight_frequency: str
+    monthly_budget: float | None = None
     dietary_restrictions: list[str]
     disabilities: list[str]
     photo_filename: str | None = None
