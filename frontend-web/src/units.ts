@@ -53,3 +53,19 @@ export function formatDuration(minutes: number): string {
   const rest = minutes % 60;
   return rest ? `${hours} h ${rest} min` : `${hours} h`;
 }
+
+// Currency symbols for the codes offered in Settings. Written out rather than reached for through Intl.NumberFormat, because Hermes' Intl surface differs from the browser's and a wrong-looking price is exactly the kind of thing that only shows up once it is on the phone.
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  USD: "$", EUR: "€", GBP: "£", CAD: "CA$", AUD: "A$", CHF: "CHF", JPY: "¥",
+  CNY: "CN¥", INR: "₹", BRL: "R$", MXN: "MX$", ZAR: "R", MAD: "MAD", RUB: "₽",
+};
+
+// Currencies that are conventionally written without minor units (e.g., JPY has no cents).
+const ZERO_DECIMAL = new Set(["JPY"]);
+
+// Format a monetary amount with its currency symbol or code. Uses zero decimal places for currencies like JPY.
+export function formatMoney(amount: number, currency: string): string {
+  const value = amount.toFixed(ZERO_DECIMAL.has(currency) ? 0 : 2);
+  const symbol = CURRENCY_SYMBOLS[currency];
+  return symbol ? `${symbol}${value}` : `${value} ${currency}`;
+}

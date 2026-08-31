@@ -31,7 +31,8 @@ export const CURRENCIES = [
   { code: 'RUB', name: 'Russian Ruble' },
 ] as const;
 
-// UI languages, labelled in their own script so someone can find their language whatever the interface is currently set to and find their way back out of one they cannot read...I been there myself.
+// UI languages, labelled in their own script so someone can find their language whatever the
+// interface is currently set to — and find their way back out of one they cannot read.
 export const LANGUAGES = [
   { code: 'en', name: 'English' },
   { code: 'fr', name: 'Français' },
@@ -57,11 +58,11 @@ export interface User {
   feeding_email_enabled: boolean;
   feeding_push_enabled: boolean;
   timezone: string;
-  photo_filename: string | null;
-  created_at: string;
   language: string;
   unit_system: string;
   currency: string;
+  photo_filename: string | null;
+  created_at: string;
 }
 
 // Token response returned by the API upon successful authentication.
@@ -82,6 +83,7 @@ export interface Pet {
   weight_tracking_enabled: boolean;
   walk_tracking_enabled: boolean;
   weight_frequency: WeightFrequency;
+  monthly_budget: number | null;
   dietary_restrictions: string[];
   disabilities: string[];
   photo_filename: string | null;
@@ -131,11 +133,11 @@ export interface HealthRecord {
   created_at: string;
 }
 
-// Event kinds that can be associated with a scheduled event. This constant is used for filtering and categorizing events in the application.
+// The kinds of scheduled event the backend can produce.
 export const EVENT_KINDS = ['Appointment', 'Record Follow-up', 'Weight Check-in'] as const;
 export type EventKind = typeof EVENT_KINDS[number];
 
-// Scheduled event information returned by the API. This includes appointments, record follow-ups, and weight check-ins for a pet.
+// A scheduled event returned by the API. Follow-ups carry the record that generated them and its type; appointments carry neither.
 export interface ScheduledEvent {
   id: number;
   pet_id: number;
@@ -184,7 +186,7 @@ export interface GalleryPhoto {
   record_type: RecordType;
 }
 
-// Walk information returned by the API. This includes details about individual walks for a pet, such as the date, duration, distance, and any notes.
+// Walk information returned by the API.
 export interface Walk {
   id: number;
   pet_id: number;
@@ -195,14 +197,14 @@ export interface Walk {
   created_at: string;
 }
 
-// Scheduled feeding time information returned by the API. This includes the time of the feeding for a pet.
+// Feeding time information returned by the API.
 export interface FeedingTime {
   id: number;
   pet_id: number;
   time: string;
 }
 
-// Feeding information returned by the API. This includes details about individual feedings for a pet, such as the date, time, food, amount, and any notes.
+// Feeding information returned by the API.
 export interface Feeding {
   id: number;
   pet_id: number;
@@ -215,12 +217,47 @@ export interface Feeding {
   created_at: string;
 }
 
-// Units of measurement for the amount of food in a feeding. This constant is used to standardize the units across the application.
+// Units for feeding amounts.
 export const AMOUNT_UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'oz'] as const;
 export type AmountUnit = typeof AMOUNT_UNITS[number];
 
-// Status of a scheduled feeding time slot. Indicates whether the feeding has been met, is due, was missed, or is upcoming.
+// Status of a scheduled feeding slot for a pet.
 export interface SlotStatus {
   time: string;
   status: "met" | "due" | "missed" | "upcoming";
+}
+
+// Expense categories accepted by the API. 
+export const EXPENSE_CATEGORIES = ['food', 'vet', 'medication', 'grooming', 'supplies', 'insurance', 'other'] as const;
+export type ExpenseCategory = typeof EXPENSE_CATEGORIES[number];
+
+// Expense information returned by the API. The currency is stamped by the backend at write time.
+export interface Expense {
+  id: number;
+  pet_id: number;
+  record_id: number | null;
+  date: string;
+  amount: number;
+  currency: string;
+  category: ExpenseCategory;
+  notes: string | null;
+  created_at: string;
+}
+
+// Total spending for a single expense category within a summarised month.
+export interface CategoryTotal {
+  category: ExpenseCategory;
+  total: number;
+}
+
+// Summary of a pet's expenses for a given month, including total spending, budget limit, and breakdown by category.
+export interface ExpenseSummary {
+  month: string;
+  total: number;
+  currency: string;
+  limit: number | null;
+  percent: number | null;
+  status: 'none' | 'ok' | 'warning' | 'over';
+  by_category: CategoryTotal[];
+  currencies: string[];
 }

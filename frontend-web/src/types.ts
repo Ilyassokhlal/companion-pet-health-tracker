@@ -83,6 +83,7 @@ export interface Pet {
   weight_tracking_enabled: boolean;
   walk_tracking_enabled: boolean;
   weight_frequency: WeightFrequency;
+  monthly_budget: number | null;
   dietary_restrictions: string[];
   disabilities: string[];
   photo_filename: string | null;
@@ -224,4 +225,39 @@ export type AmountUnit = typeof AMOUNT_UNITS[number];
 export interface SlotStatus {
   time: string;
   status: "met" | "due" | "missed" | "upcoming";
+}
+
+// Expense categories accepted by the API. 
+export const EXPENSE_CATEGORIES = ['food', 'vet', 'medication', 'grooming', 'supplies', 'insurance', 'other'] as const;
+export type ExpenseCategory = typeof EXPENSE_CATEGORIES[number];
+
+// Expense information returned by the API. The currency is stamped by the backend at write time.
+export interface Expense {
+  id: number;
+  pet_id: number;
+  record_id: number | null;
+  date: string;
+  amount: number;
+  currency: string;
+  category: ExpenseCategory;
+  notes: string | null;
+  created_at: string;
+}
+
+// Total spending for a single expense category within a summarised month.
+export interface CategoryTotal {
+  category: ExpenseCategory;
+  total: number;
+}
+
+// Summary of a pet's expenses for a given month, including total spending, budget limit, and breakdown by category.
+export interface ExpenseSummary {
+  month: string;
+  total: number;
+  currency: string;
+  limit: number | null;
+  percent: number | null;
+  status: 'none' | 'ok' | 'warning' | 'over';
+  by_category: CategoryTotal[];
+  currencies: string[];
 }

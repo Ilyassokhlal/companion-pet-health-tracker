@@ -51,6 +51,7 @@ export default function PetForm({ pet, onDone }: Props) {
         weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
         weight_tracking_enabled: trackWeight,
         walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
+        monthly_budget: pet?.monthly_budget ?? null,
         weight_frequency: frequency,
         dietary_restrictions: dietary,
         disabilities: disabilities,

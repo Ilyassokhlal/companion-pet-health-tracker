@@ -55,3 +55,19 @@ export function formatDuration(minutes: number): string {
   const rest = minutes % 60;
   return rest ? `${hours} h ${rest} min` : `${hours} h`;
 }
+
+// A mapping from currency codes to their respective symbols.
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  USD: "$", EUR: "€", GBP: "£", CAD: "CA$", AUD: "A$", CHF: "CHF", JPY: "¥",
+  CNY: "CN¥", INR: "₹", BRL: "R$", MXN: "MX$", ZAR: "R", MAD: "MAD", RUB: "₽",
+};
+
+// A set of currency codes that are conventionally written without minor units (e.g., no cents).
+const ZERO_DECIMAL = new Set(["JPY"]);
+
+// Format a monetary amount with its currency symbol, using zero decimal places for currencies in ZERO_DECIMAL.
+export function formatMoney(amount: number, currency: string): string {
+  const value = amount.toFixed(ZERO_DECIMAL.has(currency) ? 0 : 2);
+  const symbol = CURRENCY_SYMBOLS[currency];
+  return symbol ? `${symbol}${value}` : `${value} ${currency}`;
+}
