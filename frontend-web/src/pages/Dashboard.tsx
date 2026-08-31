@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { listEvents, completeEvent } from "../api/events";
 import { listRecords } from "../api/records";
 import { useAuth } from "../auth/AuthContext";
-import { formatWeight } from "../units";
+import { formatMoney, formatWeight } from "../units";
 import type { HealthRecord, ScheduledEvent } from "../types";
 import PetForm from "../components/PetForm";
 import RecordForm from "../components/RecordForm";
@@ -17,6 +17,8 @@ import ConfirmDialog from "../components/ui/ConfirmDialog";
 import { formatDate } from "../dates";
 import { listWalks } from "../api/walks";
 import type { Walk } from "../types";
+import { getExpenseSummary } from "../api/expenses";
+import type { ExpenseSummary } from "../types";
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
 function formatAge(birthDate: string | null): string {
@@ -78,6 +80,7 @@ export default function Dashboard() {
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [walks, setWalks] = useState<Walk[]>([]);
+  const [summary, setSummary] = useState<ExpenseSummary | null>(null);
 
   // Loads the current pet's upcoming scheduled events. Kept as a callback so it can be re-run after an event is completed or a new one is scheduled.
   const loadEvents = useCallback(() => {
@@ -110,8 +113,19 @@ export default function Dashboard() {
     }
     listWalks(currentPet.id).then(setWalks).catch(console.error);
   }, [currentPet, user?.walk_tracking_enabled]);
-
+  
   useEffect(loadWalks, [loadWalks]);
+
+  // Loads the current pet's expense summary for the current month. This is used to display the pet's spending status on the dashboard.
+  const loadSummary = useCallback(() => {
+    if (!currentPet) {
+      setSummary(null);
+      return;
+    }
+    getExpenseSummary(currentPet.id).then(setSummary).catch(console.error);
+  }, [currentPet]);
+
+  useEffect(loadSummary, [loadSummary]);
 
   // Ends an event by marking it done and opening the resulting health record for editing.
   async function handleDone(event: ScheduledEvent) {
@@ -194,6 +208,17 @@ export default function Dashboard() {
           <div>
             <dt className="text-sm text-muted">Walked today</dt>
             <dd>{walks[0]?.date === todayStr ? "Yes" : "Not yet"}</dd>
+          </div>
+        )}
+        {summary && (summary.limit !== null || summary.total > 0) && (
+          <div>
+            <dt className="text-sm text-muted">Spent this month</dt>
+            <dd className={summary.status === "over" ? "text-danger" : summary.status === "warning" ? "text-warning" : ""}>
+              {formatMoney(summary.total, summary.currency)}
+              {summary.limit !== null && (
+                <span className="ml-2 text-sm text-muted">of {formatMoney(summary.limit, summary.currency)}</span>
+              )}
+            </dd>
           </div>
         )}
         <div>

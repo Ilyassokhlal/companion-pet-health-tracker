@@ -7,7 +7,7 @@ import { useFocusEffect } from "expo-router";
 import { usePets } from "@/context/PetContext";
 import { listEvents, completeEvent } from "@/api/events";
 import { deletePet } from "@/api/pets";
-import type { HealthRecord, ScheduledEvent, Walk, SlotStatus } from "@/types";
+import type { HealthRecord, ScheduledEvent, Walk, SlotStatus, ExpenseSummary } from "@/types";
 import PetForm from "@/components/PetForm";
 import RecordForm from "@/components/RecordForm";
 import EventForm from "@/components/EventForm";
@@ -16,9 +16,10 @@ import { formatDate } from "@/dates";
 import SwipeTabs from "@/components/SwipeTabs";
 import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
-import { formatWeight } from "@/units";
+import { formatMoney, formatWeight } from "@/units";
 import { listWalks } from "@/api/walks";
 import { feedingStatus } from "@/api/feeding";
+import { getExpenseSummary } from "@/api/expenses";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
@@ -121,6 +122,7 @@ export default function Dashboard() {
   const { pets, currentPet, setCurrentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
+  const [summary, setSummary] = useState<ExpenseSummary | null>(null);
   const [showForm, setShowForm] = useState<"edit" | null>(null);
   const [events, setEvents] = useState<ScheduledEvent[]>([]);
   const [records, setRecords] = useState<HealthRecord[]>([]);
@@ -154,6 +156,7 @@ export default function Dashboard() {
       setRecords([]);
       setSlots([]);
       setWalks([]);
+      setSummary(null);
       return;
     }
     listEvents(currentPet.id).then(setEvents).catch(console.error);
@@ -165,6 +168,8 @@ export default function Dashboard() {
     }
     // No gate — a pet with no feeding times simply returns an empty list.
     feedingStatus(currentPet.id).then(setSlots).catch(console.error);
+    // No month argument — the server defaults to today's month in the owner's timezone.
+    getExpenseSummary(currentPet.id).then(setSummary).catch(console.error);
   }, [currentPet, user?.walk_tracking_enabled]);
 
   useFocusEffect(
@@ -339,6 +344,25 @@ export default function Dashboard() {
               : undefined
           }
         />
+        {summary && (summary.limit !== null || summary.total > 0) ? (
+          <View className="mb-4 w-1/2">
+            <Text className="text-sm text-muted">Spent this month</Text>
+            <Text
+              className={
+                summary.status === "over"
+                  ? "text-danger"
+                  : summary.status === "warning"
+                    ? "text-warning"
+                    : "text-fg"
+              }
+            >
+              {formatMoney(summary.total, summary.currency)}
+              {summary.limit !== null ? (
+                <Text className="text-sm text-muted"> of {formatMoney(summary.limit, summary.currency)}</Text>
+              ) : null}
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       {dietary.length > 0 || disabilities.length > 0 ? (
