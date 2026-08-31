@@ -74,5 +74,44 @@
     "confirm": "Confirm",
     "limitReached": "You can select up to {{max}} photos.",
     "savedToLibrary": "Saved to your photos."
+  },
+  "tracking": {
+    "title": "Tracking",
+    "weight": "Weight",
+    "weightHint": "Weigh-ins and how they have changed",
+    "walks": "Walks",
+    "walksHint": "Logged walks, newest first",
+    "feeding": "Feeding",
+    "feedingHint": "Feeding times and today's log",
+    "budget": "Budget",
+    "budgetHint": "What this pet costs each month"
+  },
+  "budget": {
+    "noPet": "Add a pet first.",
+    "title": "Budget",
+    "log": "Add an expense",
+    "edit": "Edit expense",
+    "empty": "Nothing logged for this month.",
+    "confirmDeleteTitle": "Delete expense",
+    "confirmDeleteBody": "This expense will be permanently removed.",
+    "date": "Date",
+    "amount": "Amount ({{currency}})",
+    "category": "Category",
+    "record": "Attach to a health record",
+    "noRecord": "Not attached",
+    "notes": "Notes (optional)",
+    "of": "of {{limit}}",
+    "noLimit": "No monthly limit set",
+    "invalidAmount": "Enter what this cost.",
+    "mixedCurrencies": "This month mixes {{codes}} — the total is a raw sum, not a conversion.",
+    "categories": {
+      "food": "Food",
+      "vet": "Vet",
+      "medication": "Medication",
+      "grooming": "Grooming",
+      "supplies": "Supplies",
+      "insurance": "Insurance",
+      "other": "Other"
+    }
   }
 }

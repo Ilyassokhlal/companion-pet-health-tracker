@@ -41,6 +41,8 @@ export default function PetForm({ pet, onDone }: Props) {
   const [hasDietary, setHasDietary] = useState((pet?.dietary_restrictions?.length ?? 0) > 0);
   const [disabilities, setDisabilities] = useState<string[]>(pet?.disabilities ?? []);
   const [hasDisabilities, setHasDisabilities] = useState((pet?.disabilities?.length ?? 0) > 0);
+  const [monthlyBudget, setMonthlyBudget] = useState(pet?.monthly_budget != null ? String(pet.monthly_budget) : "");
+  const currency = user?.currency ?? "USD";
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const { refresh } = usePets();
@@ -56,7 +58,7 @@ export default function PetForm({ pet, onDone }: Props) {
       weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
       weight_tracking_enabled: trackWeight,
       walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
-      monthly_budget: pet?.monthly_budget ?? null,
+      monthly_budget: monthlyBudget === "" ? null : Number(monthlyBudget),
       weight_frequency: frequency,
       dietary_restrictions: dietary,
       disabilities: disabilities,
@@ -120,6 +122,16 @@ export default function PetForm({ pet, onDone }: Props) {
           value={weight}
           onChangeText={setWeight}
           placeholder="Optional"
+          keyboardType="decimal-pad"
+        />
+      </View>
+
+      <View>
+        <Text className="mb-1 text-sm text-muted">Monthly budget ({currency})</Text>
+        <Input
+          value={monthlyBudget}
+          onChangeText={setMonthlyBudget}
+          placeholder="No limit"
           keyboardType="decimal-pad"
         />
       </View>
