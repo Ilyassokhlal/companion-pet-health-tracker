@@ -1,0 +1,50 @@
+{
+  "email.signature": "— El equipo de Companion",
+  "email.footer": "Recibes este mensaje porque tienes una cuenta de Companion.",
+
+  "email.verify.subject": "Verifica tu correo electrónico",
+  "email.verify.line1": "Te damos la bienvenida a Companion.",
+  "email.verify.line2": "Confirma tu dirección de correo para terminar de configurar tu cuenta.",
+  "email.verify.button": "Verificar correo",
+  "email.verify.note": "Este enlace caduca en 24 horas. Si no creaste una cuenta de Companion, puedes ignorar este mensaje.",
+
+  "email.reset.subject": "Restablece tu contraseña",
+  "email.reset.line1": "Hemos recibido una solicitud para restablecer tu contraseña de Companion.",
+  "email.reset.button": "Restablecer contraseña",
+  "email.reset.note": "Este enlace caduca en 15 minutos. Si no solicitaste el restablecimiento, no necesitas hacer nada: tu contraseña no ha cambiado.",
+
+  "email.reminder.subject": "Cuidados próximos de tu mascota",
+  "email.reminder.greeting": "Hola {name}:",
+  "email.reminder.intro": "Estos seguimientos de salud están próximos a vencer:",
+  "email.reminder.outro": "Atiéndelos cuando te sea posible.",
+  "email.reminder.button": "Abrir Companion",
+  "email.reminder.manage": "Gestiona tus recordatorios en {link}.",
+  "email.reminder.manageLink": "Ajustes",
+
+  "email.emailChanged.subject": "Se ha solicitado un cambio en tu correo de Companion",
+  "email.emailChanged.line1": "Alguien ha solicitado cambiar la dirección de correo de tu cuenta de Companion a {email}. El cambio no se aplicará hasta que esa dirección se verifique.",
+  "email.emailChanged.line2": "Si hiciste este cambio, no necesitas hacer nada: este aviso es solo para tu registro.",
+  "email.emailChanged.line3": "Si no fuiste tú, es posible que otra persona tenga acceso a tu cuenta. Restablece tu contraseña ahora para protegerla.",
+  "email.emailChanged.button": "Restablecer tu contraseña",
+
+  "email.passwordChanged.subject": "Tu contraseña de Companion ha cambiado",
+  "email.passwordChanged.line1": "Tu contraseña de Companion acaba de cambiar.",
+  "email.passwordChanged.line2": "Si fuiste tú, no necesitas hacer nada.",
+  "email.passwordChanged.line3": "Si no fuiste tú, solicita un restablecimiento de inmediato: eso invalidará la contraseña actual.",
+
+  "reminder.item": "{title} de {pet} — vence el {date}",
+  "reminder.itemWithType": "{title} de {pet} ({type}) — vence el {date}",
+
+  "push.due.title": "Pendiente hoy",
+  "push.due.many": "Hay {count} cosas pendientes hoy.",
+  "push.feeding.title": "Hora de comer",
+  "push.feeding.body": "Es hora de dar de comer a {pet}.",
+
+  "recordType.Vaccination": "Vacunación",
+  "recordType.Vet Visit": "Visita al veterinario",
+  "recordType.Medication": "Medicamento",
+  "recordType.Weight": "Peso",
+  "recordType.Symptom": "Síntoma",
+  "recordType.Grooming": "Aseo",
+  "recordType.Training": "Adiestramiento"
+}

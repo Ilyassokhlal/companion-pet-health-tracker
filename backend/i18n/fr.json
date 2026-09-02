@@ -1,0 +1,50 @@
+{
+  "email.signature": "— L'équipe Companion",
+  "email.footer": "Vous recevez ce message parce que vous avez un compte Companion.",
+
+  "email.verify.subject": "Vérifiez votre adresse e-mail",
+  "email.verify.line1": "Bienvenue sur Companion.",
+  "email.verify.line2": "Confirmez votre adresse e-mail pour terminer la configuration de votre compte.",
+  "email.verify.button": "Vérifier l'e-mail",
+  "email.verify.note": "Ce lien expire dans 24 heures. Si vous n'avez pas créé de compte Companion, vous pouvez ignorer cet e-mail.",
+
+  "email.reset.subject": "Réinitialisez votre mot de passe",
+  "email.reset.line1": "Nous avons reçu une demande de réinitialisation de votre mot de passe Companion.",
+  "email.reset.button": "Réinitialiser le mot de passe",
+  "email.reset.note": "Ce lien expire dans 15 minutes. Si vous n'avez pas demandé de réinitialisation, aucune action n'est nécessaire — votre mot de passe n'a pas changé.",
+
+  "email.reminder.subject": "Soins à venir pour votre animal",
+  "email.reminder.greeting": "Bonjour {name},",
+  "email.reminder.intro": "Ces suivis de santé arrivent à échéance :",
+  "email.reminder.outro": "Merci de vous en occuper dès que possible.",
+  "email.reminder.button": "Ouvrir Companion",
+  "email.reminder.manage": "Gérez vos rappels dans {link}.",
+  "email.reminder.manageLink": "Paramètres",
+
+  "email.emailChanged.subject": "Une modification de votre e-mail Companion a été demandée",
+  "email.emailChanged.line1": "Quelqu'un a demandé à remplacer l'adresse e-mail de votre compte Companion par {email}. Le changement ne prendra effet qu'après vérification de cette adresse.",
+  "email.emailChanged.line2": "Si vous êtes à l'origine de ce changement, aucune action n'est nécessaire — cet avis est pour vos archives.",
+  "email.emailChanged.line3": "Dans le cas contraire, quelqu'un d'autre a peut-être accès à votre compte. Réinitialisez votre mot de passe immédiatement pour le sécuriser.",
+  "email.emailChanged.button": "Réinitialiser votre mot de passe",
+
+  "email.passwordChanged.subject": "Votre mot de passe Companion a été modifié",
+  "email.passwordChanged.line1": "Votre mot de passe Companion vient d'être modifié.",
+  "email.passwordChanged.line2": "Si c'était vous, aucune action n'est nécessaire.",
+  "email.passwordChanged.line3": "Si ce n'était pas vous, demandez immédiatement une réinitialisation — cela invalidera le mot de passe actuel.",
+
+  "reminder.item": "{title} pour {pet} — échéance {date}",
+  "reminder.itemWithType": "{title} pour {pet} ({type}) — échéance {date}",
+
+  "push.due.title": "À faire aujourd'hui",
+  "push.due.many": "{count} choses sont à faire aujourd'hui.",
+  "push.feeding.title": "Repas à donner",
+  "push.feeding.body": "C'est l'heure du repas de {pet}.",
+
+  "recordType.Vaccination": "Vaccination",
+  "recordType.Vet Visit": "Visite vétérinaire",
+  "recordType.Medication": "Médicament",
+  "recordType.Weight": "Poids",
+  "recordType.Symptom": "Symptôme",
+  "recordType.Grooming": "Toilettage",
+  "recordType.Training": "Dressage"
+}

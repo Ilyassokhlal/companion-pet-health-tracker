@@ -1,0 +1,50 @@
+{
+  "email.signature": "— Das Companion-Team",
+  "email.footer": "Sie erhalten diese Nachricht, weil Sie ein Companion-Konto haben.",
+
+  "email.verify.subject": "Bestätigen Sie Ihre E-Mail-Adresse",
+  "email.verify.line1": "Willkommen bei Companion.",
+  "email.verify.line2": "Bestätigen Sie Ihre E-Mail-Adresse, um die Einrichtung Ihres Kontos abzuschließen.",
+  "email.verify.button": "E-Mail bestätigen",
+  "email.verify.note": "Dieser Link läuft in 24 Stunden ab. Wenn Sie kein Companion-Konto erstellt haben, können Sie diese E-Mail ignorieren.",
+
+  "email.reset.subject": "Setzen Sie Ihr Passwort zurück",
+  "email.reset.line1": "Wir haben eine Anfrage zum Zurücksetzen Ihres Companion-Passworts erhalten.",
+  "email.reset.button": "Passwort zurücksetzen",
+  "email.reset.note": "Dieser Link läuft in 15 Minuten ab. Wenn Sie kein Zurücksetzen angefordert haben, ist nichts zu tun — Ihr Passwort wurde nicht geändert.",
+
+  "email.reminder.subject": "Anstehende Tierpflege",
+  "email.reminder.greeting": "Hallo {name},",
+  "email.reminder.intro": "Diese Gesundheitseinträge stehen an:",
+  "email.reminder.outro": "Bitte kümmern Sie sich bei Gelegenheit darum.",
+  "email.reminder.button": "Companion öffnen",
+  "email.reminder.manage": "Verwalten Sie Ihre Erinnerungen unter {link}.",
+  "email.reminder.manageLink": "Einstellungen",
+
+  "email.emailChanged.subject": "Eine Änderung Ihrer Companion-E-Mail wurde angefordert",
+  "email.emailChanged.line1": "Jemand hat angefordert, die E-Mail-Adresse Ihres Companion-Kontos in {email} zu ändern. Die Änderung wird erst wirksam, wenn diese Adresse bestätigt wurde.",
+  "email.emailChanged.line2": "Wenn Sie diese Änderung vorgenommen haben, ist nichts zu tun — dieser Hinweis dient nur Ihrer Information.",
+  "email.emailChanged.line3": "Falls nicht, hat möglicherweise jemand anderes Zugriff auf Ihr Konto. Setzen Sie Ihr Passwort jetzt zurück, um es wieder abzusichern.",
+  "email.emailChanged.button": "Passwort zurücksetzen",
+
+  "email.passwordChanged.subject": "Ihr Companion-Passwort wurde geändert",
+  "email.passwordChanged.line1": "Ihr Companion-Passwort wurde soeben geändert.",
+  "email.passwordChanged.line2": "Wenn Sie das waren, ist nichts zu tun.",
+  "email.passwordChanged.line3": "Falls nicht, fordern Sie sofort ein Zurücksetzen an — dadurch wird das aktuelle Passwort ungültig.",
+
+  "reminder.item": "{title} für {pet} — fällig am {date}",
+  "reminder.itemWithType": "{title} für {pet} ({type}) — fällig am {date}",
+
+  "push.due.title": "Heute fällig",
+  "push.due.many": "Heute sind {count} Dinge fällig.",
+  "push.feeding.title": "Fütterung fällig",
+  "push.feeding.body": "{pet} muss gefüttert werden.",
+
+  "recordType.Vaccination": "Impfung",
+  "recordType.Vet Visit": "Tierarztbesuch",
+  "recordType.Medication": "Medikament",
+  "recordType.Weight": "Gewicht",
+  "recordType.Symptom": "Symptom",
+  "recordType.Grooming": "Pflege",
+  "recordType.Training": "Training"
+}

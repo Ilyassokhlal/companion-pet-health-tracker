@@ -5,6 +5,7 @@ from html import escape
 import resend
 
 from config import settings
+from utils.i18n import t
 
 resend.api_key = os.environ["RESEND_API_KEY"]
 
@@ -40,7 +41,7 @@ def _button(label: str, url: str) -> str:
     """
 
 
-def _layout(title: str, body: str) -> str:
+def _layout(title: str, body: str, lang: str | None = None) -> str:
     """Wrap body content in the shared shell: logo header, card, signature."""
     return f"""<!DOCTYPE html>
 <html>
@@ -69,13 +70,13 @@ def _layout(title: str, body: str) -> str:
         </tr>
         <tr>
           <td style="padding:20px 32px 32px 32px;border-top:1px solid {BORDER};font-family:{FONT};font-size:13px;line-height:1.6;color:{MUTED};">
-            — The Companion team<br>
+            {t("email.signature", lang)}<br>
             <a href="{settings.FRONTEND_URL}" style="color:{PRIMARY};text-decoration:none;">mycompanion.pet</a>
           </td>
         </tr>
       </table>
       <div style="font-family:{FONT};font-size:12px;color:{MUTED};padding-top:18px;">
-        You're receiving this because you have a Companion account.
+        {t("email.footer", lang)}
       </div>
     </td>
   </tr>
@@ -83,28 +84,28 @@ def _layout(title: str, body: str) -> str:
 </body>
 </html>"""
 
-def send_verification_email(to: str, token: str) -> None:
+def send_verification_email(to: str, token: str, lang: str | None = None) -> None:
     """Email a verification link."""
     link = f"{settings.FRONTEND_URL}/verify?token={token}"
-    subject = "Verify your email"
+    subject = t("email.verify.subject", lang)
     body = f"""
-    <p style="margin:0 0 14px 0;">Welcome to Companion.</p>
-    <p style="margin:0 0 14px 0;">Confirm your email address to finish setting up your account.</p>
-    {_button('Verify email', link)}
-    <p style="margin:0;color:{MUTED};font-size:13px;">This link expires in 24 hours. If you didn't create a Companion account, you can ignore this email.</p>
+    <p style="margin:0 0 14px 0;">{t("email.verify.line1", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.verify.line2", lang)}</p>
+    {_button(t("email.verify.button", lang), link)}
+    <p style="margin:0;color:{MUTED};font-size:13px;">{t("email.verify.note", lang)}</p>
     """
-    send_email(to, subject, _layout(subject, body))
+    send_email(to, subject, _layout(subject, body, lang))
 
-def send_reset_email(to: str, token: str) -> None:
+def send_reset_email(to: str, token: str, lang: str | None = None) -> None:
     """Email a password reset link."""
     link = f"{settings.FRONTEND_URL}/reset?token={token}"
-    subject = "Reset your password"
+    subject = t("email.reset.subject", lang)
     body = f"""
-    <p style="margin:0 0 14px 0;">We received a request to reset your Companion password.</p>
-    {_button('Reset password', link)}
-    <p style="margin:0;color:{MUTED};font-size:13px;">This link expires in 15 minutes. If you didn't request a reset, no action is needed — your password hasn't changed.</p>
+    <p style="margin:0 0 14px 0;">{t("email.reset.line1", lang)}</p>
+    {_button(t("email.reset.button", lang), link)}
+    <p style="margin:0;color:{MUTED};font-size:13px;">{t("email.reset.note", lang)}</p>
     """
-    send_email(to, subject, _layout(subject, body))
+    send_email(to, subject, _layout(subject, body, lang))
 
 def send_email(to: str, subject: str, html: str) -> bool:
     """... returns True if it was accepted by Resend, False on failure."""
@@ -121,44 +122,49 @@ def send_email(to: str, subject: str, html: str) -> bool:
         logger.error(f"Failed to send email to {to}: {e}")
         return False
 
-def send_reminder_email(to: str, username: str, items: list[str]) -> bool:
+def send_reminder_email(to: str, username: str, items: list[str], lang: str | None = None) -> bool:
     """Email a digest of records coming due. Returns True if it sent."""
-    subject = "Upcoming pet care"
+    subject = t("email.reminder.subject", lang)
     safe_name = escape(username)
     rows = "".join(f'<li style="margin:0 0 8px 0;">{escape(item)}</li>' for item in items)
+    settings_link = (
+        f'<a href="{settings.FRONTEND_URL}/settings" style="color:{PRIMARY};text-decoration:none;">'
+        f'{t("email.reminder.manageLink", lang)}</a>'
+    )
     body = f"""
-    <p style="margin:0 0 14px 0;">Hello {safe_name},</p>
-    <p style="margin:0 0 14px 0;">These health updates are coming due:</p>
+    <p style="margin:0 0 14px 0;">{t("email.reminder.greeting", lang, name=safe_name)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.reminder.intro", lang)}</p>
     <ul style="margin:0 0 20px 0;padding-left:20px;">{rows}</ul>
-    <p style="margin:0 0 14px 0;">Please take care of these at your earliest convenience.</p>
-    {_button('Open Companion', f'{settings.FRONTEND_URL}/dashboard')}
-    <p style="margin:0;color:{MUTED};font-size:13px;">Manage your reminders in <a href="{settings.FRONTEND_URL}/settings" style="color:{PRIMARY};text-decoration:none;">Settings</a>.</p>
+    <p style="margin:0 0 14px 0;">{t("email.reminder.outro", lang)}</p>
+    {_button(t("email.reminder.button", lang), f'{settings.FRONTEND_URL}/dashboard')}
+    <p style="margin:0;color:{MUTED};font-size:13px;">{t("email.reminder.manage", lang, link=settings_link)}</p>
     """
-    return send_email(to, subject, _layout(subject, body))
+    return send_email(to, subject, _layout(subject, body, lang))
 
-def send_email_changed_email(to: str, new_email: str) -> bool:
+def send_email_changed_email(to: str, new_email: str, lang: str | None = None) -> bool:
     """Warn the PREVIOUS address that the account's email was changed.
 
     Deliberately sent to the old address: if someone changes the email on a
     hijacked session, this is the only message that still reaches the real owner.
     """
-    subject = "A change to your Companion email was requested"
+    subject = t("email.emailChanged.subject", lang)
+    highlighted = f"<strong>{escape(new_email)}</strong>"
     body = f"""
-    <p style="margin:0 0 14px 0;">Someone requested to change the email address on your Companion account to <strong>{escape(new_email)}</strong>. The change won't take effect until that address is verified.</p>
-    <p style="margin:0 0 14px 0;">If you made this change, no action is needed — this notice is for your records.</p>
-    <p style="margin:0 0 14px 0;">If you did not, someone else may have access to your account. Reset your password now to lock it back down.</p>
-    {_button('Reset your password', f'{settings.FRONTEND_URL}/forgot')}
+    <p style="margin:0 0 14px 0;">{t("email.emailChanged.line1", lang, email=highlighted)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.emailChanged.line2", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.emailChanged.line3", lang)}</p>
+    {_button(t("email.emailChanged.button", lang), f'{settings.FRONTEND_URL}/forgot')}
     """
-    return send_email(to, subject, _layout(subject, body))
+    return send_email(to, subject, _layout(subject, body, lang))
 
 
-def send_password_changed_email(to: str) -> bool:
+def send_password_changed_email(to: str, lang: str | None = None) -> bool:
     """Confirm to the account holder that their password was changed."""
-    subject = "Your Companion password was changed"
+    subject = t("email.passwordChanged.subject", lang)
     body = f"""
-    <p style="margin:0 0 14px 0;">Your Companion password was just changed.</p>
-    <p style="margin:0 0 14px 0;">If this was you, no action is needed.</p>
-    <p style="margin:0 0 14px 0;">If it wasn't, request a reset immediately — that will invalidate the current password.</p>
-    {_button('Reset your password', f'{settings.FRONTEND_URL}/forgot')}
+    <p style="margin:0 0 14px 0;">{t("email.passwordChanged.line1", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.passwordChanged.line2", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.passwordChanged.line3", lang)}</p>
+    {_button(t("email.emailChanged.button", lang), f'{settings.FRONTEND_URL}/forgot')}
     """
-    return send_email(to, subject, _layout(subject, body))
+    return send_email(to, subject, _layout(subject, body, lang))

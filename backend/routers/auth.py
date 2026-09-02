@@ -59,7 +59,7 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
 
     # Send a verification email in the background
     verify_token = create_purpose_token(user.id, "verify", timedelta(hours=24))
-    background_tasks.add_task(send_verification_email, user.email, verify_token)
+    background_tasks.add_task(send_verification_email, user.email, verify_token, user.language)
 
     return{
         "access_token": token,
@@ -132,7 +132,7 @@ def resend_verification(request: Request, background_tasks: BackgroundTasks, cur
     if not current_user.pending_email and current_user.email_verified:
         raise BadRequestException("Email already verified", code="email_already_verified")
     verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
-    background_tasks.add_task(send_verification_email, target, verify_token)
+    background_tasks.add_task(send_verification_email, target, verify_token, current_user.language)
     return
 
 @router.get("/me", response_model=UserResponse)
@@ -148,7 +148,7 @@ def forgot_password(request: Request, payload: ForgotPasswordRequest, background
     if user:
         fp = password_fingerprint(user.hashed_password)
         token = create_purpose_token(user.id, "reset", timedelta(minutes=15), {"fp": fp})
-        background_tasks.add_task(send_reset_email, user.email, token)
+        background_tasks.add_task(send_reset_email, user.email, token, user.language)
     return
 
 
@@ -166,7 +166,7 @@ def reset_password(request: Request, payload: ResetPasswordRequest, background_t
     user.hashed_password = hash_password(payload.new_password)
     db.commit()
     db.refresh(user)
-    background_tasks.add_task(send_password_changed_email, user.email)
+    background_tasks.add_task(send_password_changed_email, user.email, user.language)
     return
 
 @router.post("/change-email", response_model=UserResponse)
@@ -183,8 +183,8 @@ def change_email(request: Request, payload: ChangeEmailRequest, background_tasks
     db.commit()
     db.refresh(current_user)
     verify_token = create_purpose_token(current_user.id, "verify", timedelta(hours=24))
-    background_tasks.add_task(send_verification_email, payload.email, verify_token)
-    background_tasks.add_task(send_email_changed_email, current_user.email, payload.email)
+    background_tasks.add_task(send_verification_email, payload.email, verify_token, current_user.language)
+    background_tasks.add_task(send_email_changed_email, current_user.email, payload.email, current_user.language)
     return current_user
 
 @router.post("/change-password", response_model=TokenResponse)
@@ -198,7 +198,7 @@ def change_password(request: Request, payload: ChangePasswordRequest, background
     current_user.hashed_password = hash_password(payload.new_password)
     db.commit()
     db.refresh(current_user)
-    background_tasks.add_task(send_password_changed_email, current_user.email)
+    background_tasks.add_task(send_password_changed_email, current_user.email, current_user.language)
     token = create_access_token(data={"sub": str(current_user.id), "fp": password_fingerprint(current_user.hashed_password)})
     return {"access_token": token, "token_type": "bearer"}
 

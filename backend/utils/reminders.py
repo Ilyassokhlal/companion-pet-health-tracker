@@ -8,15 +8,22 @@ from utils.mailer import send_reminder_email, send_email
 from models.models import FeedingTime, Pet, ScheduledEvent, User
 from utils.push import send_push, prune_tokens
 from utils.feeding import pet_slots, satisfied_slots, to_minutes
+from utils.i18n import t
 
 # datetime.weekday() counts Monday as 0, so Sunday is 6.
 _SUNDAY = 6
 
 
-def _describe(event: ScheduledEvent, pet: Pet) -> str:
+def _describe(event: ScheduledEvent, pet: Pet, lang: str | None = None) -> str:
     """One line of a digest: what it is, whose it is, its category when a record generated it, and when it is due."""
-    category = f" ({event.record_type.value})" if event.record_type else ""
-    return f"{event.title} for {pet.name}{category} — due {event.due_date}"
+    if event.record_type:
+        return t(
+            "reminder.itemWithType", lang,
+            title=event.title, pet=pet.name,
+            type=t(f"recordType.{event.record_type.value}", lang),
+            date=event.due_date,
+        )
+    return t("reminder.item", lang, title=event.title, pet=pet.name, date=event.due_date)
 
 
 def send_due_reminders(db: Session, today: date, instant: datetime | None = None) -> int:
@@ -70,18 +77,18 @@ def send_due_reminders(db: Session, today: date, instant: datetime | None = None
             else:
                 selected = outstanding
             if selected:
-                items = [_describe(event, pet) for event, pet in selected]
-                if send_reminder_email(user.email, user.username, items):
+                items = [_describe(event, pet, user.language) for event, pet in selected]
+                if send_reminder_email(user.email, user.username, items, user.language):
                     emails_sent += 1
 
         if user.push_enabled and outstanding:
             tokens = [device.token for device in user.device_tokens]
             if tokens:
                 if len(outstanding) == 1:
-                    body = _describe(outstanding[0][0], outstanding[0][1])
+                    body = _describe(outstanding[0][0], outstanding[0][1], user.language)
                 else:
-                    body = f"{len(outstanding)} things are due today."
-                dead_tokens.extend(send_push(tokens, "Due today", body))
+                    body = t("push.due.many", user.language, count=len(outstanding))
+                dead_tokens.extend(send_push(tokens, t("push.due.title", user.language), body))
 
     # Prune any dead push tokens and return the number of emails sent.
     prune_tokens(db, dead_tokens)
@@ -113,8 +120,8 @@ def send_feeding_reminders(db: Session, instant: datetime | None = None) -> int:
         if to_minutes(feeding_time.time) in covered:
             continue
 
-        title = "Feeding due"
-        body = f"{pet.name} is due to be fed."
+        title = t("push.feeding.title", user.language)
+        body = t("push.feeding.body", user.language, pet=pet.name)
         if user.feeding_push_enabled:
             send_push([token.token for token in user.device_tokens], title, body)
         if user.feeding_email_enabled:

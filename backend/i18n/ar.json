@@ -1,0 +1,50 @@
+{
+  "email.signature": "— فريق Companion",
+  "email.footer": "تصلك هذه الرسالة لأن لديك حسابًا على Companion.",
+
+  "email.verify.subject": "تحقّق من بريدك الإلكتروني",
+  "email.verify.line1": "مرحبًا بك في Companion.",
+  "email.verify.line2": "أكّد عنوان بريدك الإلكتروني لإكمال إعداد حسابك.",
+  "email.verify.button": "تأكيد البريد الإلكتروني",
+  "email.verify.note": "تنتهي صلاحية هذا الرابط خلال 24 ساعة. إذا لم تنشئ حسابًا على Companion، يمكنك تجاهل هذه الرسالة.",
+
+  "email.reset.subject": "إعادة تعيين كلمة المرور",
+  "email.reset.line1": "تلقّينا طلبًا لإعادة تعيين كلمة مرور حسابك على Companion.",
+  "email.reset.button": "إعادة تعيين كلمة المرور",
+  "email.reset.note": "تنتهي صلاحية هذا الرابط خلال 15 دقيقة. إذا لم تطلب إعادة التعيين، فلا حاجة لأي إجراء — لم تتغيّر كلمة المرور.",
+
+  "email.reminder.subject": "رعاية قادمة لحيوانك الأليف",
+  "email.reminder.greeting": "مرحبًا {name}،",
+  "email.reminder.intro": "تقترب مواعيد هذه المتابعات الصحية:",
+  "email.reminder.outro": "يرجى الاهتمام بها في أقرب وقت ممكن.",
+  "email.reminder.button": "فتح Companion",
+  "email.reminder.manage": "يمكنك إدارة تذكيراتك من {link}.",
+  "email.reminder.manageLink": "الإعدادات",
+
+  "email.emailChanged.subject": "تم طلب تغيير بريدك الإلكتروني في Companion",
+  "email.emailChanged.line1": "طلب أحدهم تغيير عنوان البريد الإلكتروني لحسابك في Companion إلى {email}. لن يسري التغيير حتى يتم التحقق من ذلك العنوان.",
+  "email.emailChanged.line2": "إذا كنت أنت من أجرى هذا التغيير، فلا حاجة لأي إجراء — هذا الإشعار لسجلاتك فقط.",
+  "email.emailChanged.line3": "أما إذا لم تكن أنت، فقد يكون شخص آخر قادرًا على الوصول إلى حسابك. أعد تعيين كلمة المرور فورًا لتأمينه.",
+  "email.emailChanged.button": "إعادة تعيين كلمة المرور",
+
+  "email.passwordChanged.subject": "تم تغيير كلمة مرور Companion",
+  "email.passwordChanged.line1": "تم تغيير كلمة مرور حسابك في Companion للتو.",
+  "email.passwordChanged.line2": "إذا كنت أنت من قام بذلك، فلا حاجة لأي إجراء.",
+  "email.passwordChanged.line3": "وإذا لم تكن أنت، فاطلب إعادة التعيين فورًا — سيؤدي ذلك إلى إبطال كلمة المرور الحالية.",
+
+  "reminder.item": "{title} لـ {pet} — الموعد {date}",
+  "reminder.itemWithType": "{title} لـ {pet} ({type}) — الموعد {date}",
+
+  "push.due.title": "مستحق اليوم",
+  "push.due.many": "لديك {count} أمور مستحقة اليوم.",
+  "push.feeding.title": "موعد الوجبة",
+  "push.feeding.body": "حان موعد إطعام {pet}.",
+
+  "recordType.Vaccination": "التطعيم",
+  "recordType.Vet Visit": "زيارة الطبيب البيطري",
+  "recordType.Medication": "دواء",
+  "recordType.Weight": "الوزن",
+  "recordType.Symptom": "عرض",
+  "recordType.Grooming": "العناية بالحيوان",
+  "recordType.Training": "التدريب"
+}

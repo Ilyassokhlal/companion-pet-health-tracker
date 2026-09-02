@@ -1,0 +1,50 @@
+{
+  "email.signature": "— Команда Companion",
+  "email.footer": "Вы получили это письмо, потому что у вас есть учётная запись Companion.",
+
+  "email.verify.subject": "Подтвердите адрес электронной почты",
+  "email.verify.line1": "Добро пожаловать в Companion.",
+  "email.verify.line2": "Подтвердите адрес электронной почты, чтобы завершить настройку учётной записи.",
+  "email.verify.button": "Подтвердить адрес",
+  "email.verify.note": "Ссылка действует 24 часа. Если вы не создавали учётную запись Companion, просто проигнорируйте это письмо.",
+
+  "email.reset.subject": "Сброс пароля",
+  "email.reset.line1": "Мы получили запрос на сброс пароля вашей учётной записи Companion.",
+  "email.reset.button": "Сбросить пароль",
+  "email.reset.note": "Ссылка действует 15 минут. Если вы не запрашивали сброс, ничего делать не нужно — ваш пароль не изменился.",
+
+  "email.reminder.subject": "Предстоящий уход за питомцем",
+  "email.reminder.greeting": "Здравствуйте, {name}!",
+  "email.reminder.intro": "Приближаются сроки по этим записям о здоровье:",
+  "email.reminder.outro": "Пожалуйста, займитесь этим при первой возможности.",
+  "email.reminder.button": "Открыть Companion",
+  "email.reminder.manage": "Управлять напоминаниями можно в разделе {link}.",
+  "email.reminder.manageLink": "Настройки",
+
+  "email.emailChanged.subject": "Запрошено изменение адреса электронной почты в Companion",
+  "email.emailChanged.line1": "Кто-то запросил смену адреса электронной почты вашей учётной записи Companion на {email}. Изменение вступит в силу только после подтверждения этого адреса.",
+  "email.emailChanged.line2": "Если это сделали вы, ничего делать не нужно — это уведомление только для вашего сведения.",
+  "email.emailChanged.line3": "Если это были не вы, доступ к вашей учётной записи может быть у постороннего. Немедленно сбросьте пароль, чтобы защитить её.",
+  "email.emailChanged.button": "Сбросить пароль",
+
+  "email.passwordChanged.subject": "Пароль Companion изменён",
+  "email.passwordChanged.line1": "Пароль вашей учётной записи Companion только что был изменён.",
+  "email.passwordChanged.line2": "Если это были вы, ничего делать не нужно.",
+  "email.passwordChanged.line3": "Если это были не вы, немедленно запросите сброс — текущий пароль станет недействительным.",
+
+  "reminder.item": "{title} для {pet} — срок {date}",
+  "reminder.itemWithType": "{title} для {pet} ({type}) — срок {date}",
+
+  "push.due.title": "Сегодня к выполнению",
+  "push.due.many": "Сегодня запланировано дел: {count}.",
+  "push.feeding.title": "Пора кормить",
+  "push.feeding.body": "{pet} пора кормить.",
+
+  "recordType.Vaccination": "Вакцинация",
+  "recordType.Vet Visit": "Визит к ветеринару",
+  "recordType.Medication": "Лекарство",
+  "recordType.Weight": "Вес",
+  "recordType.Symptom": "Симптом",
+  "recordType.Grooming": "Уход",
+  "recordType.Training": "Дрессировка"
+}

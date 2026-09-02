@@ -1,0 +1,50 @@
+{
+  "email.signature": "— The Companion team",
+  "email.footer": "You're receiving this because you have a Companion account.",
+
+  "email.verify.subject": "Verify your email",
+  "email.verify.line1": "Welcome to Companion.",
+  "email.verify.line2": "Confirm your email address to finish setting up your account.",
+  "email.verify.button": "Verify email",
+  "email.verify.note": "This link expires in 24 hours. If you didn't create a Companion account, you can ignore this email.",
+
+  "email.reset.subject": "Reset your password",
+  "email.reset.line1": "We received a request to reset your Companion password.",
+  "email.reset.button": "Reset password",
+  "email.reset.note": "This link expires in 15 minutes. If you didn't request a reset, no action is needed — your password hasn't changed.",
+
+  "email.reminder.subject": "Upcoming pet care",
+  "email.reminder.greeting": "Hello {name},",
+  "email.reminder.intro": "These health updates are coming due:",
+  "email.reminder.outro": "Please take care of these at your earliest convenience.",
+  "email.reminder.button": "Open Companion",
+  "email.reminder.manage": "Manage your reminders in {link}.",
+  "email.reminder.manageLink": "Settings",
+
+  "email.emailChanged.subject": "A change to your Companion email was requested",
+  "email.emailChanged.line1": "Someone requested to change the email address on your Companion account to {email}. The change won't take effect until that address is verified.",
+  "email.emailChanged.line2": "If you made this change, no action is needed — this notice is for your records.",
+  "email.emailChanged.line3": "If you did not, someone else may have access to your account. Reset your password now to lock it back down.",
+  "email.emailChanged.button": "Reset your password",
+
+  "email.passwordChanged.subject": "Your Companion password was changed",
+  "email.passwordChanged.line1": "Your Companion password was just changed.",
+  "email.passwordChanged.line2": "If this was you, no action is needed.",
+  "email.passwordChanged.line3": "If it wasn't, request a reset immediately — that will invalidate the current password.",
+
+  "reminder.item": "{title} for {pet} — due {date}",
+  "reminder.itemWithType": "{title} for {pet} ({type}) — due {date}",
+
+  "push.due.title": "Due today",
+  "push.due.many": "{count} things are due today.",
+  "push.feeding.title": "Feeding due",
+  "push.feeding.body": "{pet} is due to be fed.",
+
+  "recordType.Vaccination": "Vaccination",
+  "recordType.Vet Visit": "Vet Visit",
+  "recordType.Medication": "Medication",
+  "recordType.Weight": "Weight",
+  "recordType.Symptom": "Symptom",
+  "recordType.Grooming": "Grooming",
+  "recordType.Training": "Training"
+}

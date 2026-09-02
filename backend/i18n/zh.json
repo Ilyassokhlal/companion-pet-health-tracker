@@ -1,0 +1,50 @@
+{
+  "email.signature": "— Companion 团队",
+  "email.footer": "您收到此邮件是因为您拥有 Companion 账户。",
+
+  "email.verify.subject": "验证您的电子邮箱",
+  "email.verify.line1": "欢迎使用 Companion。",
+  "email.verify.line2": "请确认您的电子邮箱地址，以完成账户设置。",
+  "email.verify.button": "验证邮箱",
+  "email.verify.note": "此链接将在 24 小时后失效。如果您没有创建 Companion 账户，可以忽略此邮件。",
+
+  "email.reset.subject": "重置您的密码",
+  "email.reset.line1": "我们收到了重置您 Companion 密码的请求。",
+  "email.reset.button": "重置密码",
+  "email.reset.note": "此链接将在 15 分钟后失效。如果您没有请求重置，则无需执行任何操作——您的密码没有更改。",
+
+  "email.reminder.subject": "即将到期的宠物护理",
+  "email.reminder.greeting": "您好，{name}：",
+  "email.reminder.intro": "以下健康事项即将到期：",
+  "email.reminder.outro": "请尽早处理这些事项。",
+  "email.reminder.button": "打开 Companion",
+  "email.reminder.manage": "您可以在{link}中管理提醒。",
+  "email.reminder.manageLink": "设置",
+
+  "email.emailChanged.subject": "有人请求更改您的 Companion 邮箱",
+  "email.emailChanged.line1": "有人请求将您 Companion 账户的电子邮箱地址更改为 {email}。在该地址通过验证之前，更改不会生效。",
+  "email.emailChanged.line2": "如果是您本人所为，则无需执行任何操作——此通知仅供存档。",
+  "email.emailChanged.line3": "如果不是您本人，可能有其他人可以访问您的账户。请立即重置密码以重新保护账户。",
+  "email.emailChanged.button": "重置您的密码",
+
+  "email.passwordChanged.subject": "您的 Companion 密码已更改",
+  "email.passwordChanged.line1": "您的 Companion 密码刚刚被更改。",
+  "email.passwordChanged.line2": "如果是您本人所为，则无需执行任何操作。",
+  "email.passwordChanged.line3": "如果不是您本人，请立即请求重置——这将使当前密码失效。",
+
+  "reminder.item": "{pet}的{title} — 到期 {date}",
+  "reminder.itemWithType": "{pet}的{title}（{type}） — 到期 {date}",
+
+  "push.due.title": "今日待办",
+  "push.due.many": "今天有 {count} 项待办。",
+  "push.feeding.title": "该喂食了",
+  "push.feeding.body": "该给{pet}喂食了。",
+
+  "recordType.Vaccination": "疫苗接种",
+  "recordType.Vet Visit": "兽医就诊",
+  "recordType.Medication": "药物",
+  "recordType.Weight": "体重",
+  "recordType.Symptom": "症状",
+  "recordType.Grooming": "护理",
+  "recordType.Training": "训练"
+}
