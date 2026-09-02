@@ -64,7 +64,7 @@ export default function Records() {
     ]);
   }
 
-  async function handleExport(format: "csv" | "pdf") {
+  async function handleExport(format: "zip" | "pdf") {
     if (!currentPet) return;
     try {
       await exportRecords(currentPet.id, format);
@@ -131,7 +131,7 @@ export default function Records() {
         <Button label="Add record" onPress={() => setEditing("new")} />
         <View className="flex-row gap-2">
           <View className="flex-1">
-            <Button label="Export CSV" variant="secondary" onPress={() => handleExport("csv")} />
+            <Button label="Export data" variant="secondary" onPress={() => handleExport("zip")} />
           </View>
           <View className="flex-1">
             <Button label="Export PDF" variant="secondary" onPress={() => handleExport("pdf")} />

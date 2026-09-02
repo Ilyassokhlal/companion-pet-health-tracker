@@ -83,7 +83,7 @@ export default function Records() {
       </div>
       <div className="flex gap-2 mb-6">
         <Button onClick={() => setEditing("new")} className="flex items-center gap-1.5"><Plus size={16} />Add record</Button>
-        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "csv")} className="flex items-center gap-1.5"><Download size={16} />CSV</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "zip")} className="flex items-center gap-1.5"><Download size={16} />Data</Button>
         <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")} className="flex items-center gap-1.5"><Download size={16} />PDF</Button>
       </div>
       <Modal

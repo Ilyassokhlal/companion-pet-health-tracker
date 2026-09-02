@@ -6,9 +6,9 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, Response, File, UploadFile
 from sqlalchemy.orm import Session
 
-from utils.export import records_to_csv, records_to_pdf
+from utils.export import export_zip, records_to_pdf
 from database import get_db
-from models.models import User, Pet, HealthRecord, RecordPhoto
+from models.models import User, Pet, HealthRecord, RecordPhoto, Walk, Feeding, FeedingTime, Expense
 from schemas.record import RecordCreate, RecordUpdate, RecordResponse, RecordPhotoResponse, GalleryPhoto
 from utils.security import get_current_user
 from utils.exceptions import BadRequestException, NotFoundException
@@ -88,21 +88,23 @@ def delete_record(record_id: int, db: Session = Depends(get_db), current_user: U
 
 @router.get("/pets/{pet_id}/export")
 def export_records(pet_id: int, format: str = "csv", db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Download a pet's records as CSV or PDF."""
-    # Validate the requested format
+    """Download a pet's full data as a zip of CSVs, or its health record as a PDF."""
     pet = _get_owned_pet(pet_id, db, current_user)
     records = db.query(HealthRecord).filter(HealthRecord.pet_id == pet.id).all()
 
     safe_name = "".join(c for c in pet.name if c.isalnum() or c in "-_") or "pet"
 
-    if format == "csv":
-        return Response(content=records_to_csv(pet, records).encode("utf-8-sig"),
-                        media_type="text/csv",
-                        headers={"Content-Disposition": f'attachment; filename="{safe_name}-records.csv"'})
+    # "csv" stays as an alias for "zip" so an installed app that has not taken the OTA yet still gets a
+    # working download instead of an error during the window between deploying the two.
+    if format in ("zip", "csv"):
+        walks = db.query(Walk).filter(Walk.pet_id == pet.id).all()
+        feedings = db.query(Feeding).filter(Feeding.pet_id == pet.id).all()
+        expenses = db.query(Expense).filter(Expense.pet_id == pet.id).all()
+        return Response(content=export_zip(pet, records, walks, feedings, expenses), media_type="application/zip", headers={"Content-Disposition": f'attachment; filename="{safe_name}-export.zip"'})
     elif format == "pdf":
-        return Response(content=records_to_pdf(pet, records),
-                        media_type="application/pdf",
-                        headers={"Content-Disposition": f'attachment; filename="{safe_name}-records.pdf"'})
+        walks = db.query(Walk).filter(Walk.pet_id == pet.id).all()
+        feeding_times = db.query(FeedingTime).filter(FeedingTime.pet_id == pet.id).all()
+        return Response(content=records_to_pdf(pet, records, walks, feeding_times), media_type="application/pdf", headers={"Content-Disposition": f'attachment; filename="{safe_name}-records.pdf"'})
     else:
         raise BadRequestException("Unsupported format.", code="unsupported_export_format")
 

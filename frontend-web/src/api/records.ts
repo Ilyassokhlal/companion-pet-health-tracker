@@ -33,8 +33,8 @@ export async function deleteRecord(recordId: number): Promise<void> {
   });
 }
 
-// Download a pet's health records as a CSV or PDF file. This function sends a GET request to the API endpoint for the specified pet and format, and triggers a download of the file in the user's browser.
-export async function downloadExport(petId: number, format: "csv" | "pdf"): Promise<void> {
+// Download a pet's health records as a zip or PDF file. This function sends a GET request to the API endpoint for the specified pet and format, and triggers a download of the file in the user's browser.
+export async function downloadExport(petId: number, format: "zip" | "pdf"): Promise<void> {
   const res = await fetch(`${BASE_URL}/pets/${petId}/export?format=${format}`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -46,7 +46,7 @@ export async function downloadExport(petId: number, format: "csv" | "pdf"): Prom
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `records.${format}`;
+  a.download = format === "zip" ? "companion-export.zip" : "records.pdf";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

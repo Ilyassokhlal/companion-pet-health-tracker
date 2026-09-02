@@ -69,13 +69,13 @@ export async function listPetPhotos(petId: number): Promise<GalleryPhoto[]> {
 }
 
 // Download a pet's records and hand the file to another app. On mobile a download is not a download: the file is written to the cache directory and then offered to the share sheet.
-export async function exportRecords(petId: number, format: "csv" | "pdf"): Promise<void> {
+export async function exportRecords(petId: number, format: "zip" | "pdf"): Promise<void> {
   if (!(await Sharing.isAvailableAsync())) {
     throw new Error("Sharing is not available on this device.");
   }
 
   const token = await getToken();
-  const destination = new File(Paths.cache, `records.${format}`);
+  const destination = new File(Paths.cache, format === "zip" ? "companion-export.zip" : "records.pdf");
   if (destination.exists) {
     destination.delete();
   }
@@ -91,7 +91,7 @@ export async function exportRecords(petId: number, format: "csv" | "pdf"): Promi
   }
 
   await Sharing.shareAsync(downloaded.uri, {
-    mimeType: format === "csv" ? "text/csv" : "application/pdf",
+    mimeType: format === "zip" ? "application/zip" : "application/pdf",
     dialogTitle: "Export records",
   });
 }
