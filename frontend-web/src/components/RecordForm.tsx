@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createRecord, updateRecord, uploadRecordPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
 import { useAuth } from "../auth/AuthContext";
 import { fromKg, toKg, weightUnit } from "../units";
+import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
@@ -15,6 +17,7 @@ interface Props {
 
 export default function RecordForm({ petId, record, onDone }: Props) {
   // Weight is stored in kilograms; the field shows and accepts the user's own unit.
+  const { t } = useTranslation();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
   const unit = weightUnit(unitSystem);
@@ -52,7 +55,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       }
       onDone(true);
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -62,7 +65,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && <p className="text-danger text-sm">{error}</p>}
       <div>
-        <label className="block">Title</label>
+        <label className="block">{t("common.title")}</label>
         <Input
           type="text"
           value={title}
@@ -71,7 +74,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Record Type</label>
+        <label className="block">{t("recordForm.recordType")}</label>
         <select
           value={recordType}
           onChange={(e) => setRecordType(e.target.value as RecordType)}
@@ -79,14 +82,14 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         >
           {RECORD_TYPES.map((type) => (
             <option key={type} value={type}>
-              {type}
+              {t(`recordTypes.${type}`)}
             </option>
           ))}
         </select>
       </div>
       {recordType === "Weight" && (
         <div>
-          <label className="block">Weight ({unit})</label>
+          <label className="block">{t("common.weight", { unit })}</label>
           <Input
             type="number"
             step="0.1"
@@ -98,7 +101,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         </div>
       )}
       <div>
-        <label className="block">Date</label>
+        <label className="block">{t("common.date")}</label>
         <Input
           type="date"
           value={date}
@@ -107,7 +110,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Description (optional)</label>
+        <label className="block">{t("recordForm.description")}</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -116,7 +119,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Next Due Date (optional)</label>
+        <label className="block">{t("recordForm.nextDue")}</label>
         <Input
           type="date"
           value={nextDueDate}
@@ -124,7 +127,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block text-sm text-muted mb-1">Photos (optional)</label>
+        <label className="block text-sm text-muted mb-1">{t("recordForm.photos")}</label>
         <input
           type="file"
           multiple
@@ -137,7 +140,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
             {files.map((f, i) => (
               <li key={i} className="flex items-center justify-between gap-2">
                 {f.name}
-                <button type="button" onClick={() => setFiles(files.filter((_, j) => j !== i))} className="text-danger hover:brightness-125">remove</button>
+                <button type="button" onClick={() => setFiles(files.filter((_, j) => j !== i))} className="text-danger hover:brightness-125">{t("recordForm.removeFile")}</button>
               </li>
             ))}
           </ul>
@@ -145,10 +148,10 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       </div>
       <div className="flex gap-2">
         <Button type="submit" disabled={submitting}>
-          {submitting ? "Saving..." : "Save"}
+          {submitting ? t("common.saving") : t("common.save")}
         </Button>
         <Button type="button" variant="secondary" onClick={() => onDone(false)}>
-          Cancel
+          {t("common.cancel")}
         </Button>
       </div>
     </form>

@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createEvent } from "../api/events";
+import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
@@ -10,6 +12,7 @@ interface Props {
 
 // Renders a form to create a new event for a pet. Calls onDone(true) if the event is successfully created, onDone(false) if cancelled.
 export default function EventForm({ petId, onDone }: Props) {
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState(new Date().toLocaleDateString("en-CA"));
   const [error, setError] = useState("");
@@ -23,7 +26,7 @@ export default function EventForm({ petId, onDone }: Props) {
       await createEvent({ pet_id: petId, title, due_date: dueDate });
       onDone(true);
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -33,7 +36,7 @@ export default function EventForm({ petId, onDone }: Props) {
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && <p className="text-danger text-sm">{error}</p>}
       <div>
-        <label className="block">Title</label>
+        <label className="block">{t("common.title")}</label>
         <Input
           type="text"
           value={title}
@@ -42,7 +45,7 @@ export default function EventForm({ petId, onDone }: Props) {
         />
       </div>
       <div>
-        <label className="block">Date</label>
+        <label className="block">{t("common.date")}</label>
         <Input
           type="date"
           value={dueDate}
@@ -52,10 +55,10 @@ export default function EventForm({ petId, onDone }: Props) {
       </div>
       <div className="flex gap-2">
         <Button type="submit" disabled={submitting}>
-          {submitting ? "Saving..." : "Save"}
+          {submitting ? t("common.saving") : t("common.save")}
         </Button>
         <Button type="button" variant="secondary" onClick={() => onDone(false)}>
-          Cancel
+          {t("common.cancel")}
         </Button>
       </div>
     </form>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
@@ -11,8 +12,9 @@ interface Props {
 }
 
 // A list of short text entries, added one at a time and shown as removable chips.
-// The backing column is ARRAY(String(100)), so entries are capped here to match rather than 422-ing on save.
+// Each entry is limited to 100 characters instead of getting 422-ed on save.
 export default function TagInput({ label, values, onChange, placeholder }: Props) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState("");
 
   function add() {
@@ -44,7 +46,7 @@ export default function TagInput({ label, values, onChange, placeholder }: Props
           }}
         />
         <Button type="button" variant="secondary" onClick={add} className="shrink-0">
-          Add
+          {t("tagInput.add")}
         </Button>
       </div>
       {values.length > 0 && (
@@ -58,7 +60,7 @@ export default function TagInput({ label, values, onChange, placeholder }: Props
               <button
                 type="button"
                 onClick={() => onChange(values.filter((v) => v !== value))}
-                aria-label={`Remove ${value}`}
+                aria-label={t("tagInput.remove", { value })}
                 className="text-muted hover:text-danger"
               >
                 <X size={14} />

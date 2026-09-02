@@ -1,18 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import { updateMe } from "../api/auth";
 import { updatePet } from "../api/pets";
+import { errorMessage } from "../errors";
 import { WEIGHT_FREQUENCIES } from "../types";
 import type { WeightFrequency } from "../types";
 
-const FREQUENCY_LABELS: Record<WeightFrequency, string> = {
-  weekly: "Every week",
-  biweekly: "Every two weeks",
-  monthly: "Every month",
-};
-
 export default function WeightSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const { pets, refresh } = usePets();
   const [saving, setSaving] = useState(false);
@@ -27,7 +24,7 @@ export default function WeightSettings() {
       await refreshUser();
       await refresh();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -37,7 +34,7 @@ export default function WeightSettings() {
 
   return (
     <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-      <h2 className="text-lg font-semibold mb-4">Weight tracking</h2>
+      <h2 className="text-lg font-semibold mb-4">{t("trackingSettings.weight.title")}</h2>
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
 
       <label className="flex items-center gap-2 mb-4">
@@ -48,15 +45,15 @@ export default function WeightSettings() {
           onChange={() => save(() => updateMe({ weight_tracking_enabled: !user.weight_tracking_enabled }))}
           className="accent-primary"
         />
-        <span>Track my pets' weight</span>
+        <span>{t("trackingSettings.weight.account")}</span>
       </label>
 
       {!user.weight_tracking_enabled && (
-        <p className="text-sm text-muted">Turn this on to schedule weigh-ins for individual pets.</p>
+        <p className="text-sm text-muted">{t("trackingSettings.weight.off")}</p>
       )}
 
       {user.weight_tracking_enabled && pets.length === 0 && (
-        <p className="text-sm text-muted">Add a pet to start tracking.</p>
+        <p className="text-sm text-muted">{t("trackingSettings.weight.noPets")}</p>
       )}
 
       {user.weight_tracking_enabled && pets.map((pet) => (
@@ -78,7 +75,7 @@ export default function WeightSettings() {
             className="rounded-lg bg-ink border border-border px-3 py-1.5 text-sm text-fg focus:border-primary focus:outline-none disabled:opacity-50"
           >
             {WEIGHT_FREQUENCIES.map((f) => (
-              <option key={f} value={f}>{FREQUENCY_LABELS[f]}</option>
+              <option key={f} value={f}>{t(`trackingSettings.weight.${f}`)}</option>
             ))}
           </select>
         </div>

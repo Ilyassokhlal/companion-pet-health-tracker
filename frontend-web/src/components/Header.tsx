@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import Button from "./ui/Button";
 import { useState } from "react";
@@ -6,18 +7,19 @@ import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as 
 import PetSelector from "./PetSelector";
 
 
-// Navigation items for the header, each with a path and label.
+// Navigation items for the header, each with a path and label key.
 const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/records", label: "Records", icon: FileText },
-  { to: "/tracking", label: "Tracking", icon: Activity },
-  { to: "/photos", label: "Photos", icon: Images },
-  { to: "/chat", label: "Chat history", icon: MessageSquare },
-  { to: "/settings", label: "Settings", icon: SettingsIcon },
+  { to: "/dashboard", key: "dashboard", icon: LayoutDashboard },
+  { to: "/records", key: "records", icon: FileText },
+  { to: "/tracking", key: "tracking", icon: Activity },
+  { to: "/photos", key: "photos", icon: Images },
+  { to: "/chat", key: "chat", icon: MessageSquare },
+  { to: "/settings", key: "settings", icon: SettingsIcon },
 ];
 
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
 export default function Header() {
+    const { t } = useTranslation();
     const { user, logout } = useAuth();
     // Filter navigation items based on user settings (e.g., walk tracking enabled)
         const visibleNav = navItems.filter((item) => item.to !== "/walks" || user?.walk_tracking_enabled);
@@ -36,7 +38,7 @@ export default function Header() {
                             end={item.to === "/"}
                             className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}
                         >
-                            <span className="flex items-center gap-1.5"><item.icon size={16} />{item.label}</span>
+                            <span className="flex items-center gap-1.5"><item.icon size={16} />{t(`nav.${item.key}`)}</span>
                         </NavLink>
                     ))}
                 </nav>
@@ -63,15 +65,15 @@ export default function Header() {
                     className={({ isActive }) => `hidden md:flex shrink-0 items-center gap-1.5 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
                 >
                     <SettingsIcon size={16} />
-                    Settings
+                    {t("nav.settings")}
                 </NavLink>
                 <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden md:block">
-                    Logout
+                    {t("nav.logout")}
                 </Button>
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="md:hidden shrink-0 text-muted hover:text-fg"
-                    aria-label="Menu"
+                    aria-label={t("nav.menu")}
                 >
                     {menuOpen ? <X size={22} /> : <Menu size={22} />}
                 </button>
@@ -86,11 +88,11 @@ export default function Header() {
                             onClick={() => setMenuOpen(false)}
                             className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted"}
                         >
-                            <span className="flex items-center gap-2"><item.icon size={16} />{item.label}</span>
+                            <span className="flex items-center gap-2"><item.icon size={16} />{t(`nav.${item.key}`)}</span>
                         </NavLink>
                     ))}
                     <button onClick={logout} className="text-start text-danger">
-                        Log out
+                        {t("nav.logoutMobile")}
                     </button>
                 </nav>
             )}

@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { updateMe } from "../api/auth";
+import { errorMessage } from "../errors";
 import { REMINDER_FREQUENCIES } from "../types";
 import type { ReminderFrequency } from "../types";
 
 export default function ReminderSettings() {
 
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [ saving, setSaving ] = useState(false);
   const [ error, setError ] = useState<string | null>(null);
@@ -18,7 +21,7 @@ export default function ReminderSettings() {
       await updateMe(patch);
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -29,7 +32,7 @@ export default function ReminderSettings() {
 
   return (
     <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-      <h2 className="text-lg font-semibold mb-4">Reminders</h2>
+      <h2 className="text-lg font-semibold mb-4">{t("settings.reminders.title")}</h2>
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
 
       <label className="flex items-center gap-2 mb-4">
@@ -40,11 +43,11 @@ export default function ReminderSettings() {
           onChange={() => save({ reminders_enabled: !user?.reminders_enabled })}
           className="accent-primary"
         />
-        <span>Email me what is due</span>
+        <span>{t("settings.reminders.email")}</span>
       </label>
 
       <label className="block mb-4">
-        <span className="block text-sm text-muted mb-1">How often</span>
+        <span className="block text-sm text-muted mb-1">{t("settings.reminders.howOften")}</span>
         <select
           value={user?.reminder_frequency ?? "weekly"}
           onChange={(e) => save({ reminder_frequency: e.target.value as ReminderFrequency })}
@@ -53,7 +56,7 @@ export default function ReminderSettings() {
         >
           {REMINDER_FREQUENCIES.map((frequency) => (
             <option key={frequency} value={frequency}>
-              {frequency === "weekly" ? "Weekly, on Sunday" : "Every day"}
+              {t(`settings.reminders.${frequency}`)}
             </option>
           ))}
         </select>
@@ -67,11 +70,11 @@ export default function ReminderSettings() {
           onChange={() => save({ push_enabled: !user?.push_enabled })}
           className="accent-primary"
         />
-        <span>Notify my phone about what is due today</span>
+        <span>{t("settings.reminders.push")}</span>
       </label>
 
       <label className="block">
-        <span className="block text-sm text-muted mb-1">Timezone</span>
+        <span className="block text-sm text-muted mb-1">{t("settings.reminders.timezone")}</span>
         <select
           value={user?.timezone ?? ""}
           onChange={(e) => save({ timezone: e.target.value })}
@@ -84,9 +87,9 @@ export default function ReminderSettings() {
         </select>
       </label>
 
-      <p className="text-sm text-muted mt-3">Everything arrives at 6am in this timezone.</p>
+      <p className="text-sm text-muted mt-3">{t("settings.reminders.arrival")}</p>
       {!user?.email_verified && (
-        <p className="text-sm text-muted mt-2">Verify your email to enable reminders.</p>
+        <p className="text-sm text-muted mt-2">{t("settings.reminders.verifyFirst")}</p>
       )}
     </section>
   );

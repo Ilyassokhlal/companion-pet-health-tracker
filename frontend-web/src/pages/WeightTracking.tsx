@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
 import { useAuth } from "../auth/AuthContext";
 import { listRecords } from "../api/records";
@@ -7,6 +8,7 @@ import { formatDate } from "../dates";
 import type { HealthRecord } from "../types";
 
 export default function TrackingWeight() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -30,16 +32,16 @@ export default function TrackingWeight() {
     load();
   }, [load]);
 
-  if (!currentPet) return <p className="p-8 text-muted">Add a pet first.</p>;
-  if (loading) return <p className="p-8 text-muted">Loading…</p>;
+  if (!currentPet) return <p className="p-8 text-muted">{t("common.noPet")}</p>;
+  if (loading) return <p className="p-8 text-muted">{t("common.loading")}</p>;
 
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="mb-1 text-2xl font-bold">Weight</h1>
+      <h1 className="mb-1 text-2xl font-bold">{t("tracking.weight")}</h1>
       <p className="mb-6 text-sm text-muted">{currentPet.name}</p>
 
       {records.length === 0 ? (
-        <p className="text-muted">No weigh-ins yet. Add a health record of type Weight.</p>
+        <p className="text-muted">{t("weightTracking.empty")}</p>
       ) : (
         records.map((record, index) => {
           // Calculate the change in weight compared to the previous record.

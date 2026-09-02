@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { usePets } from "../context/PetContext";
 import { updateMe } from "../api/auth";
 import { updatePet } from "../api/pets";
+import { errorMessage } from "../errors";
 
 export default function WalkSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const { pets, refresh } = usePets();
   const [saving, setSaving] = useState(false);
@@ -19,7 +22,7 @@ export default function WalkSettings() {
       await refreshUser();
       await refresh();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -29,7 +32,7 @@ export default function WalkSettings() {
 
   return (
     <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-      <h2 className="text-lg font-semibold mb-4">Walk tracking</h2>
+      <h2 className="text-lg font-semibold mb-4">{t("trackingSettings.walks.title")}</h2>
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
 
       <label className="flex items-center gap-2 mb-4">
@@ -40,15 +43,15 @@ export default function WalkSettings() {
           onChange={() => save(() => updateMe({ walk_tracking_enabled: !user.walk_tracking_enabled }))}
           className="accent-primary"
         />
-        <span>Track my pets' walks</span>
+        <span>{t("trackingSettings.walks.account")}</span>
       </label>
 
       {!user.walk_tracking_enabled && (
-        <p className="text-sm text-muted">Turn this on to log walks and see which pets have been out today.</p>
+        <p className="text-sm text-muted">{t("trackingSettings.walks.off")}</p>
       )}
 
       {user.walk_tracking_enabled && pets.length === 0 && (
-        <p className="text-sm text-muted">Add a pet to start tracking.</p>
+        <p className="text-sm text-muted">{t("trackingSettings.walks.noPets")}</p>
       )}
 
       {user.walk_tracking_enabled && pets.map((pet) => (

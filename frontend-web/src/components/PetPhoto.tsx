@@ -1,13 +1,16 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { uploadPhoto, deletePhoto } from "../api/pets";
 import type { Pet } from "../types";
 import { usePets } from "../context/PetContext";
+import { errorMessage } from "../errors";
 import { Camera, X } from "lucide-react";
 
 
 
 // A React component that displays a pet's photo and allows the user to upload a new photo. It handles the uploading state and any errors that may occur during the upload process.
 export default function PetPhoto({ pet }: { pet: Pet }) {
+  const { t } = useTranslation();
   const {refresh} = usePets();
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -24,7 +27,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
       await uploadPhoto(pet.id, file);
       await refresh();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setUploading(false);
     }
@@ -38,7 +41,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
       await deletePhoto(pet.id);
       await refresh();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setUploading(false);
     }
@@ -73,15 +76,15 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
         <div className="absolute z-20 bg-surface border border-border rounded-lg mt-2 p-2 flex flex-col gap-2">
           {pet.photo_filename && (
             <button onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
-              View photo
+              {t("photoMenu.view")}
             </button>
           )}
           <button onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
-            {pet.photo_filename ? "Replace photo" : "Upload photo"}
+            {pet.photo_filename ? t("photoMenu.replace") : t("photoMenu.upload")}
           </button>
           {pet.photo_filename && (
             <button onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover text-danger">
-              Remove photo
+              {t("photoMenu.remove")}
             </button>
           )}
         </div>
@@ -98,7 +101,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
             <button
               onClick={() => setViewing(false)}
               className="absolute top-2 end-2 text-white"
-              aria-label="Close"
+              aria-label={t("common.close")}
             >
               <X size={22} />
             </button>

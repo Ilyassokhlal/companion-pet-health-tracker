@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
 import { createPet, updatePet } from "../api/pets";
 import type { Pet } from "../types";
@@ -8,6 +9,7 @@ import { WEIGHT_FREQUENCIES } from "../types";
 import type { WeightFrequency } from "../types";
 import { useAuth } from "../auth/AuthContext";
 import { fromKg, toKg, weightUnit } from "../units";
+import { errorMessage } from "../errors";
 import TagInput from "../components/TagInput";
 
 
@@ -20,6 +22,7 @@ interface Props {
 // The PetForm component provides a form for adding or editing a pet. It manages the state for the pet's name, species, breed, birth date, and weight. Upon submission, it calls the appropriate API function to create or update the pet and refreshes the pet list.
 export default function PetForm({ pet, onDone }: Props) {
 // Manages the state for the pet form fields, including name, species, breed, birth date, weight, error messages, and submission status. It uses the usePets hook to refresh the pet list after a successful submission.
+    const { t } = useTranslation();
     const { user } = useAuth();
     const unitSystem = user?.unit_system ?? "metric";
     const unit = weightUnit(unitSystem);
@@ -67,7 +70,7 @@ export default function PetForm({ pet, onDone }: Props) {
       await refresh();
       onDone();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -76,7 +79,7 @@ export default function PetForm({ pet, onDone }: Props) {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label className="block mb-1">Name</label>
+                <label className="block mb-1">{t("petForm.name")}</label>
                 <Input
                     type="text"
                     value={name}
@@ -85,18 +88,18 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             <div>
-                <label className="block mb-1">Species</label>
+                <label className="block mb-1">{t("petForm.species")}</label>
                 <select
                     value={species}
                     onChange={e => setSpecies(e.target.value)}
                     className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
                 >
-                    <option value="Dog">Dog</option>
-                    <option value="Cat">Cat</option>
+                    <option value="Dog">{t("petForm.dog")}</option>
+                    <option value="Cat">{t("petForm.cat")}</option>
                 </select>
             </div>
             <div>
-                <label className="block mb-1">Breed</label>
+                <label className="block mb-1">{t("petForm.breed")}</label>
                 <Input
                     type="text"
                     value={breed}
@@ -104,7 +107,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             <div>
-                <label className="block mb-1">Birth Date</label>
+                <label className="block mb-1">{t("petForm.birthDate")}</label>
                 <Input
                     type="date"
                     value={birthDate}
@@ -112,7 +115,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             <div>
-                <label className="block mb-1">Weight ({unit})</label>
+                <label className="block mb-1">{t("common.weight", { unit })}</label>
                 <Input
                     type="number"
                     step="0.1"
@@ -122,7 +125,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 />
             </div>
             <div>
-                <label className="block mb-1">Monthly budget ({currency})</label>
+                <label className="block mb-1">{t("petForm.budget", { currency })}</label>
                 <Input
                     type="number"
                     step="0.01"
@@ -130,7 +133,7 @@ export default function PetForm({ pet, onDone }: Props) {
                     value={monthlyBudget}
                     onChange={e => setMonthlyBudget(e.target.value)}
                 />
-                <p className="mt-1 text-sm text-muted">Leave empty for no limit.</p>
+                <p className="mt-1 text-sm text-muted">{t("petForm.budgetHint")}</p>
             </div>
             <label className="flex items-center gap-2">
                 <input
@@ -139,11 +142,11 @@ export default function PetForm({ pet, onDone }: Props) {
                     onChange={e => setTrackWeight(e.target.checked)}
                     className="accent-primary"
                 />
-                <span>Track this pet's weight</span>
+                <span>{t("petForm.trackWeight")}</span>
             </label>
             {trackWeight && (
                 <div>
-                    <label className="block mb-1">Check in</label>
+                    <label className="block mb-1">{t("petForm.checkIn")}</label>
                     <select
                         value={frequency}
                         onChange={e => setFrequency(e.target.value as WeightFrequency)}
@@ -151,7 +154,7 @@ export default function PetForm({ pet, onDone }: Props) {
                     >
                         {WEIGHT_FREQUENCIES.map(f => (
                             <option key={f} value={f}>
-                                {f === "weekly" ? "Every week" : f === "biweekly" ? "Every two weeks" : "Every month"}
+                                {t(`trackingSettings.weight.${f}`)}
                             </option>
                         ))}
                     </select>
@@ -165,15 +168,15 @@ export default function PetForm({ pet, onDone }: Props) {
                   onChange={e => { setHasDietary(e.target.checked); if (!e.target.checked) setDietary([]); }}
                   className="accent-primary"
                 />
-                <span>Has dietary restrictions or allergies</span>
+                <span>{t("petForm.hasDietary")}</span>
               </label>
               {hasDietary && (
                 <div className="mt-2">
                   <TagInput
-                    label="Dietary restrictions &amp; allergies"
+                    label={t("petForm.dietary")}
                     values={dietary}
                     onChange={setDietary}
-                    placeholder="e.g. Chicken"
+                    placeholder={t("petForm.dietaryPlaceholder")}
                   />
                 </div>
               )}
@@ -187,15 +190,15 @@ export default function PetForm({ pet, onDone }: Props) {
                   onChange={e => { setHasDisabilities(e.target.checked); if (!e.target.checked) setDisabilities([]); }}
                   className="accent-primary"
                 />
-                <span>Has disabilities</span>
+                <span>{t("petForm.hasDisabilities")}</span>
               </label>
               {hasDisabilities && (
                 <div className="mt-2">
                   <TagInput
-                    label="Disabilities"
+                    label={t("petForm.disabilities")}
                     values={disabilities}
                     onChange={setDisabilities}
-                    placeholder="e.g. Deaf in left ear"
+                    placeholder={t("petForm.disabilitiesPlaceholder")}
                   />
                 </div>
               )}
@@ -204,10 +207,10 @@ export default function PetForm({ pet, onDone }: Props) {
             {error && <p className="text-danger text-sm">{error}</p>}
             <div className="flex gap-2">
                 <Button type="submit" disabled={submitting}>
-                    {submitting ? "Saving..." : "Save"}
+                    {submitting ? t("common.saving") : t("common.save")}
                 </Button>
                 <Button type="button" variant="secondary" onClick={onDone}>
-                    Cancel
+                    {t("common.cancel")}
                 </Button>
             </div>
         </form>

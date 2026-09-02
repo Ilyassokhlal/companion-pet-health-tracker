@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { updateMe } from "../api/auth";
+import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
 // Lets a signed-in user change their display name. Unlike email this needs no password confirmation
 // and no re-verification — the username is not an identifier.
 export default function ChangeUsernameForm() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [username, setUsername] = useState(user?.username ?? "");
   const [error, setError] = useState("");
@@ -25,7 +28,7 @@ export default function ChangeUsernameForm() {
       await updateMe({ username: trimmed });
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -34,7 +37,7 @@ export default function ChangeUsernameForm() {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="username" className="block text-sm font-medium text-primary">
-        Username
+        {t("account.username.label")}
       </label>
       <Input
         id="username"
@@ -46,7 +49,7 @@ export default function ChangeUsernameForm() {
       />
       {error && <p className="text-sm text-danger mt-2">{error}</p>}
       <Button type="submit" disabled={submitting} className="mt-4">
-        Change Username
+        {t("account.username.submit")}
       </Button>
     </form>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
 import {
   listFeedingTimes, createFeedingTime, deleteFeedingTime,
@@ -7,6 +8,7 @@ import {
 import { AMOUNT_UNITS } from "../types";
 import type { Feeding as FeedingLog, FeedingTime, SlotStatus } from "../types";
 import { formatDate } from "../dates";
+import { errorMessage } from "../errors";
 import { Trash2 } from "lucide-react";
 
 const STATUS_STYLE: Record<SlotStatus["status"], string> = {
@@ -16,16 +18,10 @@ const STATUS_STYLE: Record<SlotStatus["status"], string> = {
   upcoming: "text-muted",
 };
 
-const STATUS_LABEL: Record<SlotStatus["status"], string> = {
-  met: "Fed",
-  due: "Due now",
-  missed: "Missed",
-  upcoming: "Later today",
-};
-
 // Component for managing feeding times and feeding logs for the current pet.
 // Allows adding, deleting, and viewing feeding times and logs, and shows the status of each feeding slot.
 export default function Feeding() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const [times, setTimes] = useState<FeedingTime[]>([]);
   const [statuses, setStatuses] = useState<SlotStatus[]>([]);
@@ -69,13 +65,13 @@ export default function Feeding() {
       setNewTime("");
       load();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     }
   }
 
   async function addFeeding() {
     if (!currentPet || !time) {
-      setError("A feeding needs a time.");
+      setError(t("feeding.timeRequired"));
       return;
     }
     setError(null);
@@ -95,25 +91,25 @@ export default function Feeding() {
       setNotes("");
       load();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     }
   }
 
-  if (!currentPet) return <p className="p-8 text-muted">Add a pet first.</p>;
+  if (!currentPet) return <p className="p-8 text-muted">{t("common.noPet")}</p>;
 
   const field = "rounded-lg bg-ink border border-border px-3 py-1.5 text-sm text-fg focus:border-primary focus:outline-none";
 
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="mb-1 text-2xl font-bold">Feeding</h1>
+      <h1 className="mb-1 text-2xl font-bold">{t("tracking.feeding")}</h1>
       <p className="mb-6 text-sm text-muted">{currentPet.name}</p>
       {error && <p className="mb-4 text-sm text-danger">{error}</p>}
 
       <section className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <h2 className="mb-3 text-lg font-semibold">Schedule</h2>
+        <h2 className="mb-3 text-lg font-semibold">{t("feeding.schedule")}</h2>
         {times.length === 0 && (
           <p className="mb-3 text-sm text-muted">
-            No feeding times set. Adding one turns on the dashboard indicator and lets reminders fire.
+            {t("feeding.noTimes")}
           </p>
         )}
         {times.map((entry) => {
@@ -124,13 +120,13 @@ export default function Feeding() {
               <div className="flex items-center gap-4">
                 {status && (
                   <span className={`text-sm ${STATUS_STYLE[status.status]}`}>
-                    {STATUS_LABEL[status.status]}
+                    {t(`feeding.status.${status.status}`)}
                   </span>
                 )}
                 <button
                   onClick={() => deleteFeedingTime(entry.id).then(load)}
                   className="text-danger hover:brightness-125"
-                  aria-label="Remove feeding time"
+                  aria-label={t("feeding.removeTime")}
                 >
                   <Trash2 size={16} />
                 </button>
@@ -142,22 +138,22 @@ export default function Feeding() {
           {/* step=900 restricts the picker to 15-minute increments, which the server also enforces. */}
           <input type="time" step="900" value={newTime} onChange={(e) => setNewTime(e.target.value)} className={field} />
           <button onClick={addTime} className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-on-primary">
-            Add time
+            {t("feeding.addTime")}
           </button>
         </div>
       </section>
 
       <section className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <h2 className="mb-3 text-lg font-semibold">Log a feeding</h2>
+        <h2 className="mb-3 text-lg font-semibold">{t("feeding.logTitle")}</h2>
         <div className="flex flex-wrap items-center gap-3">
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={field} />
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className={field} />
-          <input placeholder="Food" value={food} onChange={(e) => setFood(e.target.value)} className={field} />
+          <input placeholder={t("feeding.food")} value={food} onChange={(e) => setFood(e.target.value)} className={field} />
           <input
             type="number"
             min="0"
             step="any"
-            placeholder="Amount"
+            placeholder={t("feeding.amount")}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className={`${field} w-28`}
@@ -167,16 +163,16 @@ export default function Feeding() {
               <option key={u} value={u}>{u}</option>
             ))}
           </select>
-          <input placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} className={`${field} grow`} />
+          <input placeholder={t("feeding.notes")} value={notes} onChange={(e) => setNotes(e.target.value)} className={`${field} grow`} />
           <button onClick={addFeeding} className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-on-primary">
-            Log
+            {t("feeding.logButton")}
           </button>
         </div>
       </section>
 
-      <h2 className="mb-3 text-lg font-semibold">History</h2>
+      <h2 className="mb-3 text-lg font-semibold">{t("feeding.history")}</h2>
       {log.length === 0 ? (
-        <p className="text-muted">Nothing logged yet.</p>
+        <p className="text-muted">{t("feeding.empty")}</p>
       ) : (
         log.map((entry) => (
           <div key={entry.id} className="mb-3 flex items-start justify-between rounded-xl border border-border bg-surface p-4">
@@ -187,14 +183,14 @@ export default function Feeding() {
               <p className="text-sm text-muted">
                 {[entry.food, entry.amount !== null ? `${entry.amount} ${entry.amount_unit ?? ""}`.trim() : null]
                   .filter(Boolean)
-                  .join(" · ") || "No details"}
+                  .join(" · ") || t("feeding.noDetails")}
               </p>
               {entry.notes && <p className="mt-1 text-sm text-fg">{entry.notes}</p>}
             </div>
             <button
               onClick={() => deleteFeeding(entry.id).then(load)}
               className="text-danger hover:brightness-125"
-              aria-label="Delete feeding"
+              aria-label={t("feeding.deleteEntry")}
             >
               <Trash2 size={16} />
             </button>

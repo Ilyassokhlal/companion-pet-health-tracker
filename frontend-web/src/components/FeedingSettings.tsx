@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { updateMe } from "../api/auth";
+import { errorMessage } from "../errors";
 
 // Component for managing feeding reminders for the current user.
 // Allows enabling or disabling push and email notifications for feeding reminders.
 export default function FeedingSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +19,7 @@ export default function FeedingSettings() {
       await action();
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -26,11 +29,10 @@ export default function FeedingSettings() {
 
   return (
     <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-      <h2 className="text-lg font-semibold mb-4">Feeding reminders</h2>
+      <h2 className="text-lg font-semibold mb-4">{t("trackingSettings.feeding.title")}</h2>
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
       <p className="text-sm text-muted mb-4">
-        Fires at each scheduled feeding time when nothing has been logged for it. Separate from the daily
-        reminder digest.
+        {t("trackingSettings.feeding.note")}
       </p>
 
       <label className="flex items-center gap-2 mb-3">
@@ -41,7 +43,7 @@ export default function FeedingSettings() {
           onChange={() => save(() => updateMe({ feeding_push_enabled: !user.feeding_push_enabled }))}
           className="accent-primary"
         />
-        <span>Push notification</span>
+        <span>{t("trackingSettings.feeding.push")}</span>
       </label>
 
       <label className="flex items-center gap-2">
@@ -52,7 +54,7 @@ export default function FeedingSettings() {
           onChange={() => save(() => updateMe({ feeding_email_enabled: !user.feeding_email_enabled }))}
           className="accent-primary"
         />
-        <span>Email</span>
+        <span>{t("trackingSettings.feeding.email")}</span>
       </label>
     </section>
   );

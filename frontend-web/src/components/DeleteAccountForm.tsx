@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { deleteAccount } from "../api/auth";
+import { errorMessage } from "../errors";
 import { useNavigate } from "react-router-dom";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
 // DeleteAccountForm component allows the user to delete their account. It requires the user to confirm their action by entering their current password. Upon successful submission, it deletes the user's account and logs them out.
 export default function DeleteAccountForm() {
+  const { t } = useTranslation();
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [confirming, setConfirming] = useState(false);
@@ -24,7 +27,7 @@ export default function DeleteAccountForm() {
       logout();
       navigate("/login", { replace: true });
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -33,21 +36,21 @@ export default function DeleteAccountForm() {
     // Render the delete account form with a confirmation step, input field for the current password, and submission handling with feedback messages.
     return (
         <section className="p-6 bg-surface border border-danger/30 rounded-xl shadow-soft mb-6">
-            <h2 className="text-lg font-semibold mb-4">Delete Account</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("account.delete.title")}</h2>
             {!confirming ? (
                 <div>
                     <p className="mb-4 text-muted">
-                        Deleting your account is permanent. Your pets, health records, photos and chat history all go with it.
+                        {t("account.delete.warning")}
                     </p>
                     <Button variant="danger" onClick={() => setConfirming(true)}>
-                        Delete Account
+                        {t("account.delete.start")}
                     </Button>
                 </div>
             ) : (
                 <form onSubmit={handleDelete}>
                     <div className="mb-4">
                         <label htmlFor="password" className="block text-sm text-muted mb-2">
-                            Confirm Password
+                            {t("account.delete.confirmPassword")}
                         </label>
                         <Input
                             type="password"
@@ -61,10 +64,10 @@ export default function DeleteAccountForm() {
                     {error && <p className="text-danger text-sm mb-4">{error}</p>}
                     <div className="flex gap-2">
                         <Button type="submit" variant="danger" disabled={submitting}>
-                            {submitting ? "Deleting..." : "Permanently delete"}
+                            {submitting ? t("account.delete.submitting") : t("account.delete.submit")}
                         </Button>
                         <Button type="button" variant="secondary" onClick={() => setConfirming(false)}>
-                            Cancel
+                            {t("common.cancel")}
                         </Button>
                     </div>
                 </form>

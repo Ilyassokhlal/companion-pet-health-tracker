@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { changePassword } from "../api/auth";
+import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
 // Lets a signed-in user change their password. changePassword() stores the fresh
 // token the API returns, so this session survives the change while others die.
 export default function ChangePasswordForm() {
+  const { t } = useTranslation();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,13 +24,13 @@ export default function ChangePasswordForm() {
     setSubmitting(true);
 
     if (newPassword !== confirmPassword) {
-      setError("New password and confirmation do not match.");
+      setError(t("account.password.mismatch"));
       setSubmitting(false);
       return;
     }
 
     if (newPassword.length < 8) {
-      setError("New password must be at least 8 characters long.");
+      setError(t("account.password.tooShort"));
       setSubmitting(false);
       return;
     }
@@ -37,9 +40,9 @@ export default function ChangePasswordForm() {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      setMessage("Password changed successfully.");
+      setMessage(t("account.password.changed"));
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -49,7 +52,7 @@ export default function ChangePasswordForm() {
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label htmlFor="current-password" className="block text-sm text-muted mb-2">
-          Current password
+          {t("account.password.current")}
         </label>
         <Input
           type="password"
@@ -62,7 +65,7 @@ export default function ChangePasswordForm() {
       </div>
       <div className="mb-4">
         <label htmlFor="new-password" className="block text-sm text-muted mb-2">
-          New password
+          {t("account.password.new")}
         </label>
         <Input
           type="password"
@@ -75,7 +78,7 @@ export default function ChangePasswordForm() {
       </div>
       <div className="mb-4">
         <label htmlFor="confirm-password" className="block text-sm text-muted mb-2">
-          Confirm new password
+          {t("account.password.confirm")}
         </label>
         <Input
           type="password"
@@ -89,7 +92,7 @@ export default function ChangePasswordForm() {
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
       {message && <p className="text-primary text-sm mb-4">{message}</p>}
       <Button type="submit" disabled={submitting} className="w-full">
-        {submitting ? "Submitting..." : "Change Password"}
+        {submitting ? t("account.password.submitting") : t("account.password.submit")}
       </Button>
     </form>
   );

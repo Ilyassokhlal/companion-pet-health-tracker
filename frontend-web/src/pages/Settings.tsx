@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import ChangeEmailForm from "../components/ChangeEmailForm";
 import ChangePasswordForm from "../components/ChangePasswordForm";
@@ -18,6 +19,7 @@ import { dateLocale } from "../dates";
 type Panel = "username" | "email" | "password";
 
 export default function Settings() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   // One panel at a time — opening either closes the other.
   const [editing, setEditing] = useState<Panel | null>(null);
@@ -28,16 +30,16 @@ export default function Settings() {
 
   return (
     <div className="p-4 sm:p-8 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Settings</h1>
+      <h1 className="text-2xl font-bold mb-6">{t("settingsPage.title")}</h1>
 
       <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-        <h2 className="text-lg font-semibold mb-4">Account</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("settingsPage.account")}</h2>
         <div className="mb-6 flex justify-center">
           <UserPhoto />
         </div>
         <dl className="space-y-3 text-sm">
           <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">Username</dt>
+            <dt className="text-muted shrink-0">{t("settingsPage.username")}</dt>
             <dd className="flex items-center gap-3 min-w-0">
               <span className="truncate">{user.username}</span>
               <Button
@@ -46,12 +48,12 @@ export default function Settings() {
                 className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
               >
                 {editing === "username" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "username" ? "Cancel" : "Update"}
+                {editing === "username" ? t("common.cancel") : t("settingsPage.update")}
               </Button>
             </dd>
           </div>
           <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">Email</dt>
+            <dt className="text-muted shrink-0">{t("settingsPage.email")}</dt>
             <dd className="flex items-center gap-3 min-w-0">
               <span className="truncate">{user.email}</span>
               <Button
@@ -60,12 +62,12 @@ export default function Settings() {
                 className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
               >
                 {editing === "email" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "email" ? "Cancel" : "Update"}
+                {editing === "email" ? t("common.cancel") : t("settingsPage.update")}
               </Button>
             </dd>
           </div>
           <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">Password</dt>
+            <dt className="text-muted shrink-0">{t("settingsPage.password")}</dt>
             <dd className="flex items-center gap-3">
               <span>••••••••</span>
               <Button
@@ -74,12 +76,12 @@ export default function Settings() {
                 className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
               >
                 {editing === "password" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "password" ? "Cancel" : "Update"}
+                {editing === "password" ? t("common.cancel") : t("settingsPage.update")}
               </Button>
             </dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-muted">Member since</dt>
+            <dt className="text-muted">{t("settingsPage.memberSince")}</dt>
             <dd>{new Date(user.created_at).toLocaleDateString(dateLocale())}</dd>
           </div>
         </dl>

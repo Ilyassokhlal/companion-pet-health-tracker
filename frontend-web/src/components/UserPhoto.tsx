@@ -1,10 +1,13 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { uploadMyPhoto, deleteMyPhoto } from "../api/auth";
 import { useAuth } from "../auth/AuthContext";
+import { errorMessage } from "../errors";
 import { Camera, X } from "lucide-react";
 
 // The signed-in user's avatar, with the same View / Replace / Remove overlay as PetPhoto.
 export default function UserPhoto() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +24,7 @@ export default function UserPhoto() {
       await uploadMyPhoto(file);
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setUploading(false);
     }
@@ -34,7 +37,7 @@ export default function UserPhoto() {
       await deleteMyPhoto();
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setUploading(false);
     }
@@ -69,15 +72,15 @@ export default function UserPhoto() {
         <div className="absolute z-20 bg-surface border border-border rounded-lg mt-2 p-2 flex flex-col gap-2">
           {user.photo_filename && (
             <button type="button" onClick={() => { setViewing(true); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
-              View photo
+              {t("photoMenu.view")}
             </button>
           )}
           <button type="button" onClick={() => { inputRef.current?.click(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover">
-            {user.photo_filename ? "Replace photo" : "Upload photo"}
+            {user.photo_filename ? t("photoMenu.replace") : t("photoMenu.upload")}
           </button>
           {user.photo_filename && (
             <button type="button" onClick={() => { handleRemove(); setMenuOpen(false); }} className="text-start px-2 py-1 rounded hover:bg-hover text-danger">
-              Remove photo
+              {t("photoMenu.remove")}
             </button>
           )}
         </div>
@@ -94,7 +97,7 @@ export default function UserPhoto() {
             <button
               onClick={() => setViewing(false)}
               className="absolute top-2 end-2 text-white"
-              aria-label="Close"
+              aria-label={t("common.close")}
             >
               <X size={22} />
             </button>

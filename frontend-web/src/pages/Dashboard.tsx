@@ -1,5 +1,7 @@
 import { usePets } from "../context/PetContext";
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { listEvents, completeEvent } from "../api/events";
 import { listRecords } from "../api/records";
 import { useAuth } from "../auth/AuthContext";
@@ -21,9 +23,10 @@ import { getExpenseSummary } from "../api/expenses";
 import type { ExpenseSummary } from "../types";
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
-function formatAge(birthDate: string | null): string {
+// Takes t as an argument because a module-level function cannot call the hook, and the plural forms come from i18next rather than a ternary.
+function formatAge(birthDate: string | null, t: TFunction): string {
     if (!birthDate) {
-        return "Unknown";
+        return t("dashboard.ageUnknown");
     }
     const birth = new Date(`${birthDate}T00:00:00`);
     const now = new Date();
@@ -33,13 +36,13 @@ function formatAge(birthDate: string | null): string {
     }
     if (months < 1) {
         const days = Math.floor((now.getTime() - birth.getTime()) / 86400000);
-        return days === 1 ? "1 day" : `${days} days`;
+        return t("dashboard.days", { count: days });
     }
     if (months < 12) {
-        return months === 1 ? "1 month" : `${months} months`;
+        return t("dashboard.months", { count: months });
     }
     const years = Math.floor(months / 12);
-    return years === 1 ? "1 year" : `${years} years`;
+    return t("dashboard.years", { count: years });
 }
 
 // Returns a CSS class for a due date: red if overdue, yellow if due today, default otherwise.
@@ -51,18 +54,19 @@ function dueClass(dueDate: string, todayStr: string): string {
 
 // Renders a single scheduled event row with its title, due date, and a Done button. Highlights overdue and due-today events. Calls onDone when the event is marked as done.
 function EventRow({ event, todayStr, onDone }: { event: ScheduledEvent; todayStr: string; onDone: (event: ScheduledEvent) => void }) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 py-1.5">
       <p className={dueClass(event.due_date, todayStr)}>
-        {event.due_date < todayStr && "Overdue: "}
+        {event.due_date < todayStr && t("dashboard.overdue")}
         {event.title}
-        {event.record_type && <span className="text-muted"> · {event.record_type}</span>}
+        {event.record_type && <span className="text-muted"> · {t(`recordTypes.${event.record_type}`)}</span>}
         {" — "}
         {formatDate(event.due_date)}
       </p>
       <Button variant="secondary" onClick={() => onDone(event)} className="inline-flex items-center gap-2">
         <Check size={16} />
-        Done
+        {t("dashboard.done")}
       </Button>
     </div>
   );
@@ -70,6 +74,7 @@ function EventRow({ event, todayStr, onDone }: { event: ScheduledEvent; todayStr
 
 // The Dashboard component manages the display and interaction with the current pet's information, scheduled events, and health records. It handles loading state, adding a new pet, completing events, and deleting the current pet.
 export default function Dashboard() {
+  const { t } = useTranslation();
   const { currentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -153,16 +158,16 @@ export default function Dashboard() {
   }
 
   if (loading) {
-    return <div className="p-8">Loading…</div>;
+    return <div className="p-8">{t("common.loading")}</div>;
   }
   if (!currentPet) {
     return (
     <div className="p-4 sm:p-8">
-        <p className="text-muted">You haven't added a pet yet.</p>
+        <p className="text-muted">{t("dashboard.noPetYet")}</p>
         <Button onClick={() => setAddPetOpen(true)} className="mt-4">
-          Add Pet
+          {t("dashboard.addPet")}
         </Button>
-        <Modal open={addPetOpen} title="Add pet" onClose={() => setAddPetOpen(false)}>
+        <Modal open={addPetOpen} title={t("dashboard.addPetTitle")} onClose={() => setAddPetOpen(false)}>
           <PetForm onDone={() => setAddPetOpen(false)} />
         </Modal>
       </div>
@@ -192,39 +197,39 @@ export default function Dashboard() {
         <div className="flex gap-2">
           <Button onClick={() => setShowForm("edit")} className="inline-flex items-center gap-2">
             <Pencil size={16} />
-            Edit
+            {t("common.edit")}
           </Button>
           <Button variant="danger" onClick={() => setConfirmingDelete(true)} className="inline-flex items-center gap-2">
             <Trash2 size={16} />
-            Delete
+            {t("common.delete")}
           </Button>
         </div>
       </div>
       <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div><dt className="text-sm text-muted">Species</dt><dd>{currentPet.species}</dd></div>
-        <div><dt className="text-sm text-muted">Breed</dt><dd>{currentPet.breed ?? "Not set"}</dd></div>
-        <div><dt className="text-sm text-muted">Age</dt><dd>{formatAge(currentPet.birth_date)}</dd></div>
+        <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
+        <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
+        <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
         {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled && (
           <div>
-            <dt className="text-sm text-muted">Walked today</dt>
-            <dd>{walks[0]?.date === todayStr ? "Yes" : "Not yet"}</dd>
+            <dt className="text-sm text-muted">{t("dashboard.walkedToday")}</dt>
+            <dd>{walks[0]?.date === todayStr ? t("dashboard.yes") : t("dashboard.notYet")}</dd>
           </div>
         )}
         {summary && (summary.limit !== null || summary.total > 0) && (
           <div>
-            <dt className="text-sm text-muted">Spent this month</dt>
+            <dt className="text-sm text-muted">{t("dashboard.spentThisMonth")}</dt>
             <dd className={summary.status === "over" ? "text-danger" : summary.status === "warning" ? "text-warning" : ""}>
               {formatMoney(summary.total, summary.currency)}
               {summary.limit !== null && (
-                <span className="ml-2 text-sm text-muted">of {formatMoney(summary.limit, summary.currency)}</span>
+                <span className="ml-2 text-sm text-muted">{t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}</span>
               )}
             </dd>
           </div>
         )}
         <div>
-          <dt className="text-sm text-muted">Weight</dt>
+          <dt className="text-sm text-muted">{t("dashboard.weight")}</dt>
           <dd>
-            {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}
+            {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("dashboard.notSet")}
             {weightChange !== null && (
               <span className="ml-2 text-sm text-muted">
                 {weightChange > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightChange), unitSystem)}
@@ -237,7 +242,7 @@ export default function Dashboard() {
         <section className="mt-6 bg-surface border border-border rounded-xl p-6 shadow-soft">
           {currentPet.dietary_restrictions.length > 0 && (
             <div>
-              <h2 className="text-sm text-muted mb-2">Dietary restrictions &amp; allergies</h2>
+              <h2 className="text-sm text-muted mb-2">{t("petForm.dietary")}</h2>
               <ul className="flex flex-wrap gap-2">
                 {currentPet.dietary_restrictions.map((item) => (
                   <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
@@ -249,7 +254,7 @@ export default function Dashboard() {
           )}
           {currentPet.disabilities.length > 0 && (
             <div className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
-              <h2 className="text-sm text-muted mb-2">Disabilities</h2>
+              <h2 className="text-sm text-muted mb-2">{t("petForm.disabilities")}</h2>
               <ul className="flex flex-wrap gap-2">
                 {currentPet.disabilities.map((item) => (
                   <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
@@ -262,45 +267,45 @@ export default function Dashboard() {
         </section>
       )}
       <section className="mt-8 bg-surface border border-border rounded-xl p-6 shadow-soft">
-        <h2 className="text-lg font-semibold mb-3">Due</h2>
+        <h2 className="text-lg font-semibold mb-3">{t("dashboard.due")}</h2>
         {due.length === 0 ? (
-          <p className="text-muted">Nothing due.</p>
+          <p className="text-muted">{t("dashboard.nothingDue")}</p>
         ) : (
           due.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
         )}
       </section>
       <section className="mt-6 bg-surface border border-border rounded-xl p-6 shadow-soft">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-lg font-semibold">Scheduled</h2>
+          <h2 className="text-lg font-semibold">{t("dashboard.scheduled")}</h2>
           <Button variant="secondary" onClick={() => setScheduleOpen(true)} className="inline-flex items-center gap-2">
             <CalendarPlus size={16} />
-            Schedule
+            {t("dashboard.schedule")}
           </Button>
         </div>
         {scheduled.length === 0 ? (
-          <p className="text-muted">Nothing scheduled.</p>
+          <p className="text-muted">{t("dashboard.nothingScheduled")}</p>
         ) : (
           scheduled.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
         )}
       </section>
-      <Modal open={showForm === "edit"} title={`Edit ${currentPet.name}`} onClose={() => setShowForm(null)}>
+      <Modal open={showForm === "edit"} title={t("dashboard.editPet", { name: currentPet.name })} onClose={() => setShowForm(null)}>
         <PetForm key={currentPet.id} pet={currentPet} onDone={() => setShowForm(null)} />
       </Modal>
-      <Modal open={addPetOpen} title="Add pet" onClose={() => setAddPetOpen(false)}>
+      <Modal open={addPetOpen} title={t("dashboard.addPetTitle")} onClose={() => setAddPetOpen(false)}>
         <PetForm key="add" onDone={() => setAddPetOpen(false)} />
       </Modal>
-      <Modal open={editingRecord !== null} title="Complete record" onClose={closeRecordForm}>
+      <Modal open={editingRecord !== null} title={t("dashboard.completeRecord")} onClose={closeRecordForm}>
         {editingRecord && (
           <RecordForm key={editingRecord.id} petId={currentPet.id} record={editingRecord} onDone={closeRecordForm} />
         )}
       </Modal>
-      <Modal open={scheduleOpen} title="Schedule something" onClose={() => setScheduleOpen(false)}>
+      <Modal open={scheduleOpen} title={t("dashboard.scheduleSomething")} onClose={() => setScheduleOpen(false)}>
         <EventForm petId={currentPet.id} onDone={(saved) => { setScheduleOpen(false); if (saved) loadEvents(); }} />
       </Modal>
       <ConfirmDialog
         open={confirmingDelete}
-        title={`Delete ${currentPet.name}?`}
-        message="Their health records, photos and chat history are deleted too. This cannot be undone."
+        title={t("dashboard.deleteTitle", { name: currentPet.name })}
+        message={t("dashboard.deleteBody")}
         onConfirm={handleDelete}
         onCancel={() => setConfirmingDelete(false)}
       />

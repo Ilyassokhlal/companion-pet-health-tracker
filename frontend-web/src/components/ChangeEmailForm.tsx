@@ -1,18 +1,21 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { changeEmail } from "../api/auth";
+import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
 
 // ChangeEmailForm component allows the user to change their email address. It requires the user to input their new email and current password for verification. Upon successful submission, it updates the user's email and prompts them to check their new email for a verification link.
 export default function ChangeEmailForm() {
-  const { refreshUser } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+    const { t } = useTranslation();
+    const { refreshUser } = useAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+    const [submitting, setSubmitting] = useState(false);
 
     // Handle form submission for changing the email. It validates the input, calls the changeEmail API function, and updates the user context upon success. It also handles error states and displays appropriate messages to the user.
     async function handleSubmit(e: React.FormEvent) {
@@ -25,9 +28,9 @@ export default function ChangeEmailForm() {
             await refreshUser();
             setEmail("");
             setPassword("");
-            setMessage("Check your new address for a verification link. Your email won't change until you confirm it there.");
+            setMessage(t("account.email.sent"));
         } catch (err) {
-            setError((err as Error).message);
+            setError(errorMessage(err));
         } finally {
             setSubmitting(false);
         }
@@ -38,7 +41,7 @@ export default function ChangeEmailForm() {
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm text-muted mb-2">
-                        New Email
+                        {t("account.email.label")}
                     </label>
                     <Input
                         type="email"
@@ -50,7 +53,7 @@ export default function ChangeEmailForm() {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="password" className="block text-sm text-muted mb-2">
-                        Current Password
+                        {t("account.email.currentPassword")}
                     </label>
                     <Input
                         type="password"
@@ -64,7 +67,7 @@ export default function ChangeEmailForm() {
                 {error && <p className="text-danger text-sm mb-4">{error}</p>}
                 {message && <p className="text-primary text-sm mb-4">{message}</p>}
                 <Button type="submit" disabled={submitting} className="w-full">
-                    {submitting ? "Submitting..." : "Change Email"}
+                    {submitting ? t("account.email.submitting") : t("account.email.submit")}
                 </Button>
             </form>
     );

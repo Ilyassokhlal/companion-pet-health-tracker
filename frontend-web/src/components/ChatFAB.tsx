@@ -6,6 +6,7 @@ import type { Citation } from "../types";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { MessageCircle, X, Send, Maximize2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Turn {
   role: "user" | "assistant";
@@ -17,12 +18,13 @@ interface Turn {
 // Each entry must stay a complete literal class string:
 // Tailwind scans source text, so anything assembled by concatenation is never emitted.
 const SIZES = [
-  { label: "Small", className: "sm:w-80 sm:h-[26rem]" },
-  { label: "Medium", className: "sm:w-96 sm:h-[32rem]" },
-  { label: "Large", className: "sm:w-[34rem] sm:h-[42rem]" },
+  { key: "small", className: "sm:w-80 sm:h-[26rem]" },
+  { key: "medium", className: "sm:w-96 sm:h-[32rem]" },
+  { key: "large", className: "sm:w-[34rem] sm:h-[42rem]" },
 ];
 
 export default function ChatFAB() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState(1);
@@ -148,14 +150,14 @@ export default function ChatFAB() {
             onPointerUp={onPointerUp}
             className="flex items-center justify-between p-4 border-b border-border select-none sm:cursor-move"
           >
-            <h2 className="text-lg font-semibold">Ask about {currentPet.name}</h2>
+            <h2 className="text-lg font-semibold">{t("chat.title", { name: currentPet.name })}</h2>
             <div className="flex items-center gap-3">
-              <span className="hidden sm:inline text-xs text-muted">{SIZES[size].label}</span>
+              <span className="hidden sm:inline text-xs text-muted">{t(`chat.${SIZES[size].key}`)}</span>
               <button
                 onClick={() => setSize((size + 1) % SIZES.length)}
                 className="hidden sm:block text-muted hover:text-fg transition"
-                title="Change panel size"
-                aria-label="Change panel size"
+                title={t("chat.resize")}
+                aria-label={t("chat.resize")}
               >
                 <Maximize2 size={16} />
               </button>
@@ -166,24 +168,24 @@ export default function ChatFAB() {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
-            {turns.map((t, idx) => (
-              <div key={idx} className={`flex ${t.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${t.role === "user" ? "bg-primary text-on-primary" : "bg-ink border border-border text-fg"}`}>
-                  {t.role === "user" ? (
-                    <span>{t.content}</span>
+            {turns.map((turn, idx) => (
+              <div key={idx} className={`flex ${turn.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${turn.role === "user" ? "bg-primary text-on-primary" : "bg-ink border border-border text-fg"}`}>
+                  {turn.role === "user" ? (
+                    <span>{turn.content}</span>
                   ) : (
                     <>
-                      {t.content ? (
+                      {turn.content ? (
                         <div className="[&_ul]:list-disc [&_ul]:ps-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
-                          <ReactMarkdown>{t.content}</ReactMarkdown>
+                          <ReactMarkdown>{turn.content}</ReactMarkdown>
                         </div>
                       ) : (
-                        <span className="text-muted">🤔 Thinking…</span>
+                        <span className="text-muted">{t("chat.thinking")}</span>
                       )}
-                      {t.sources && t.sources.length > 0 && (
+                      {turn.sources && turn.sources.length > 0 && (
                         <div className="mt-2 text-sm text-muted">
-                          Sources:{" "}
-                          {t.sources.map((s, i) => (
+                          {t("chat.sources")}{" "}
+                          {turn.sources.map((s, i) => (
                             <span key={i}>
                               {i > 0 && ", "}
                               <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
@@ -206,9 +208,9 @@ export default function ChatFAB() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               className="flex-1 me-2"
-              placeholder="Ask a question..."
+              placeholder={t("chat.placeholder")}
             />
-            <Button type="submit" disabled={streaming} aria-label="Send">
+            <Button type="submit" disabled={streaming} aria-label={t("chat.send")}>
               <Send size={16} />
             </Button>
           </form>

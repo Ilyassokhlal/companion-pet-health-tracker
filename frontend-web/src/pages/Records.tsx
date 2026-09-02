@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { listRecords, deleteRecord, downloadExport } from "../api/records";
 import RecordForm from "../components/RecordForm";
 import Modal from "../components/ui/Modal";
@@ -14,6 +15,7 @@ import { formatWeight } from "../units";
 
 // The Records component displays the health records of the current pet. It uses the usePets hook to access the current pet and fetches its health records using the listRecords API function. The component allows filtering of records by type and displays the count of each record type. If there is no current pet, it prompts the user to add a pet first.
 export default function Records() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -46,7 +48,7 @@ export default function Records() {
   }
 
   if (!currentPet) {
-    return <div className="p-8">Add a pet first.</div>;
+    return <div className="p-8">{t("common.noPet")}</div>;
   }
 
   const filteredRecords = filter === "All" ? records : records.filter(r => r.record_type === filter);
@@ -69,7 +71,7 @@ export default function Records() {
           className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === "All" ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
           onClick={() => setFilter("All")}
         >
-          All ({records.length})
+          {t("common.all")} ({records.length})
         </button>
         {RECORD_TYPES.map(type => (
           <button
@@ -77,18 +79,18 @@ export default function Records() {
             className={`px-3 py-1.5 rounded-lg text-sm transition ${filter === type ? "bg-primary text-on-primary" : "bg-surface border border-border text-muted hover:text-fg"}`}
             onClick={() => setFilter(type)}
           >
-            {type} ({records.filter(r => r.record_type === type).length})
+            {t(`recordTypes.${type}`)} ({records.filter(r => r.record_type === type).length})
           </button>
         ))}
       </div>
       <div className="flex gap-2 mb-6">
-        <Button onClick={() => setEditing("new")} className="flex items-center gap-1.5"><Plus size={16} />Add record</Button>
-        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "zip")} className="flex items-center gap-1.5"><Download size={16} />Data</Button>
-        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")} className="flex items-center gap-1.5"><Download size={16} />PDF</Button>
+        <Button onClick={() => setEditing("new")} className="flex items-center gap-1.5"><Plus size={16} />{t("records.add")}</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "zip")} className="flex items-center gap-1.5"><Download size={16} />{t("records.exportData")}</Button>
+        <Button variant="secondary" onClick={() => downloadExport(currentPet.id, "pdf")} className="flex items-center gap-1.5"><Download size={16} />{t("records.exportPdf")}</Button>
       </div>
       <Modal
         open={editing !== null}
-        title={editing === "new" ? "Add record" : "Edit record"}
+        title={editing === "new" ? t("records.add") : t("records.edit")}
         onClose={() => setEditing(null)}
       >
         {editing && (
@@ -103,9 +105,9 @@ export default function Records() {
           />
         )}
       </Modal>
-      {loading && <p className="text-muted">Loading…</p>}
+      {loading && <p className="text-muted">{t("common.loading")}</p>}
       {!loading && filteredRecords.length === 0 && (
-        <p className="text-muted">No records yet.</p>
+        <p className="text-muted">{t("records.empty")}</p>
       )}
       {[...filteredRecords].sort((a, b) => b.date.localeCompare(a.date)).map(r => (
         <div key={r.id} className="bg-surface border border-border rounded-xl p-5 mb-3 shadow-soft">
@@ -113,7 +115,7 @@ export default function Records() {
             <h3 className="font-semibold">{r.title}</h3>
             <span className="text-sm text-muted shrink-0">{r.date}</span>
           </div>
-          <p className="text-sm text-primary mt-1">{r.record_type}</p>
+          <p className="text-sm text-primary mt-1">{t(`recordTypes.${r.record_type}`)}</p>
           {r.weight_kg != null && (
             <p className="mt-2">
               <span className="font-medium">{formatWeight(r.weight_kg, unitSystem)}</span>
@@ -125,17 +127,17 @@ export default function Records() {
             </p>
           )}
           {r.description && <p className="text-muted mt-2">{r.description}</p>}
-          {r.next_due_date && <p className="text-sm text-muted mt-2">Next due {r.next_due_date}</p>}
+          {r.next_due_date && <p className="text-sm text-muted mt-2">{t("records.nextDue", { date: r.next_due_date })}</p>}
           <div className="flex gap-2 mt-2">
-            <Button onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />Edit</Button>
-            <Button variant="danger" onClick={() => setPendingDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />Delete</Button>
+            <Button onClick={() => setEditing(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Pencil size={14} />{t("common.edit")}</Button>
+            <Button variant="danger" onClick={() => setPendingDelete(r)} className="px-3 py-1 text-sm flex items-center gap-1.5"><Trash2 size={14} />{t("common.delete")}</Button>
           </div>
         </div>
       ))}
       <ConfirmDialog
         open={!!pendingDelete}
-        title="Delete record"
-        message={`"${pendingDelete?.title}" will be permanently removed.`}
+        title={t("records.deleteTitle")}
+        message={t("records.deleteBody", { title: pendingDelete?.title })}
         onConfirm={handleDelete}
         onCancel={() => setPendingDelete(null)}
       />

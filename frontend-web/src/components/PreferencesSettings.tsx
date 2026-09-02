@@ -1,17 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import { updateMe } from "../api/auth";
+import { errorMessage } from "../errors";
 import { CURRENCIES, LANGUAGES, UNIT_SYSTEMS } from "../types";
-
-const UNIT_LABELS: Record<string, string> = {
-  metric: "Metric (kg, km)",
-  imperial: "Imperial (lb, mi)",
-};
 
 const SELECT =
   "w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none disabled:opacity-50";
 
 export default function PreferencesSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +21,7 @@ export default function PreferencesSettings() {
       await updateMe(patch);
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -33,11 +31,11 @@ export default function PreferencesSettings() {
 
   return (
     <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-      <h2 className="text-lg font-semibold mb-4">Units &amp; Language</h2>
+      <h2 className="text-lg font-semibold mb-4">{t("settings.preferences.title")}</h2>
       {error && <p className="text-danger text-sm mb-4">{error}</p>}
 
       <label className="block mb-4">
-        <span className="block text-sm text-muted mb-1">Measurements</span>
+        <span className="block text-sm text-muted mb-1">{t("settings.preferences.measurements")}</span>
         <select
           value={user.unit_system}
           disabled={saving}
@@ -45,13 +43,13 @@ export default function PreferencesSettings() {
           className={SELECT}
         >
           {UNIT_SYSTEMS.map((unit) => (
-            <option key={unit} value={unit}>{UNIT_LABELS[unit]}</option>
+            <option key={unit} value={unit}>{t(`settings.preferences.${unit}`)}</option>
           ))}
         </select>
       </label>
 
       <label className="block mb-4">
-        <span className="block text-sm text-muted mb-1">Currency</span>
+        <span className="block text-sm text-muted mb-1">{t("settings.preferences.currency")}</span>
         <select
           value={user.currency}
           disabled={saving}
@@ -67,7 +65,7 @@ export default function PreferencesSettings() {
       </label>
 
       <label className="block">
-        <span className="block text-sm text-muted mb-1">Language</span>
+        <span className="block text-sm text-muted mb-1">{t("settings.preferences.language")}</span>
         <select
           value={user.language}
           disabled={saving}
@@ -81,8 +79,7 @@ export default function PreferencesSettings() {
       </label>
 
       <p className="text-sm text-muted mt-3">
-        Weights are always stored in kilograms — this only changes how they are shown and entered.
-        Most of the app is still English while translations are in progress.
+        {t("settings.preferences.note")}
       </p>
     </section>
   );

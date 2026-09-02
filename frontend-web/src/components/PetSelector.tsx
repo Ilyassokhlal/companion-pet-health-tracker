@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
 import { Check, ChevronDown, Plus } from "lucide-react";
 import type { Pet } from "../types";
@@ -25,6 +26,7 @@ function Avatar({ pet, size }: { pet: Pet; size: number }) {
 
 // Dropdown that shows the active pet and switches between pets. Replaces the
 export default function PetSelector() {
+  const { t } = useTranslation();
   const { pets, currentPet, setCurrentPet, setAddPetOpen } = usePets();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -107,7 +109,7 @@ export default function PetSelector() {
               onClick={addPet}
             >
               <Plus size={16} />
-              Add a pet
+              {t("petSelector.addPet")}
             </button>
           </div>
         </div>
