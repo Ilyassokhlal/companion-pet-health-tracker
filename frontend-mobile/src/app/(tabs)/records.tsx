@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import SwipeTabs from "@/components/SwipeTabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -14,10 +15,12 @@ import type { HealthRecord, RecordType } from "@/types";
 import { formatDate } from "@/dates";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
+import { errorMessage } from "@/errors";
 
 
 // Records screen for managing pet health records, including listing, filtering, adding, editing, and deleting records.
 export default function Records() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -51,10 +54,10 @@ export default function Records() {
   );
 
   function confirmDelete(record: HealthRecord) {
-    Alert.alert("Delete record", `"${record.title}" will be permanently removed.`, [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("records.confirmDeleteTitle"), t("records.confirmDeleteBody", { title: record.title }), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: async () => {
           await deleteRecord(record.id);
@@ -69,14 +72,14 @@ export default function Records() {
     try {
       await exportRecords(currentPet.id, format);
     } catch (err) {
-      Alert.alert("Export failed", (err as Error).message);
+      Alert.alert(t("records.exportFailed"), errorMessage(err));
     }
   }
 
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
-        <Text className="text-center text-muted">Add a pet first.</Text>
+        <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
   }
@@ -110,7 +113,7 @@ export default function Records() {
             filter === "All" ? "bg-primary" : "border border-border bg-surface"
           }`}
         >
-          <Text className="text-sm text-fg">All ({records.length})</Text>
+          <Text className="text-sm text-fg">{t("common.all")} ({records.length})</Text>
         </Pressable>
         {RECORD_TYPES.map((type) => (
           <Pressable
@@ -121,28 +124,28 @@ export default function Records() {
             }`}
           >
             <Text className="text-sm text-fg">
-              {type} ({records.filter((r) => r.record_type === type).length})
+              {t(`recordTypes.${type}`)} ({records.filter((r) => r.record_type === type).length})
             </Text>
           </Pressable>
         ))}
       </View>
 
       <View className="mb-6 gap-2">
-        <Button label="Add record" onPress={() => setEditing("new")} />
+        <Button label={t("recordForm.add")} onPress={() => setEditing("new")} />
         <View className="flex-row gap-2">
           <View className="flex-1">
-            <Button label="Export data" variant="secondary" onPress={() => handleExport("zip")} />
+            <Button label={t("records.exportData")} variant="secondary" onPress={() => handleExport("zip")} />
           </View>
           <View className="flex-1">
-            <Button label="Export PDF" variant="secondary" onPress={() => handleExport("pdf")} />
+            <Button label={t("records.exportPdf")} variant="secondary" onPress={() => handleExport("pdf")} />
           </View>
         </View>
       </View>
 
-      {loading ? <Text className="text-muted">Loading…</Text> : null}
+      {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
 
       {!loading && sorted.length === 0 ? (
-        <Text className="text-muted">No records yet.</Text>
+        <Text className="text-muted">{t("records.empty")}</Text>
       ) : null}
 
       {sorted.map((r) => (
@@ -154,7 +157,7 @@ export default function Records() {
             <Text className="shrink-0 text-sm text-muted">{formatDate(r.date)}</Text>
           </View>
 
-          <Text className="mt-1 text-sm text-primary">{r.record_type}</Text>
+          <Text className="mt-1 text-sm text-primary">{t(`recordTypes.${r.record_type}`)}</Text>
 
           {r.weight_kg != null ? (
             <Text className="mt-2 text-fg">
@@ -170,7 +173,7 @@ export default function Records() {
           {r.description ? <Text className="mt-2 text-muted">{r.description}</Text> : null}
 
           {r.next_due_date ? (
-            <Text className="mt-2 text-sm text-muted">Next due {formatDate(r.next_due_date)}</Text>
+            <Text className="mt-2 text-sm text-muted">{t("records.nextDue", { date: formatDate(r.next_due_date) })}</Text>
           ) : null}
 
           <View className="mt-3 flex-row gap-2">
@@ -178,13 +181,13 @@ export default function Records() {
               onPress={() => setEditing(r)}
               className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
             >
-              <Text className="text-sm font-medium text-white">Edit</Text>
+              <Text className="text-sm font-medium text-white">{t("common.edit")}</Text>
             </Pressable>
             <Pressable
               onPress={() => confirmDelete(r)}
               className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
             >
-              <Text className="text-sm font-medium text-white">Delete</Text>
+              <Text className="text-sm font-medium text-white">{t("common.delete")}</Text>
             </Pressable>
           </View>
         </View>

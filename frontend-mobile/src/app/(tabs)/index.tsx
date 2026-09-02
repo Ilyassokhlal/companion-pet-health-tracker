@@ -1,5 +1,7 @@
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -25,8 +27,9 @@ import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
 
 // Formats a pet's age: days under one month, months under one year, then years.
-function formatAge(birthDate: string | null): string {
-  if (!birthDate) return "Unknown";
+// t is passed in because a module-level function cannot call the hook, and the plural forms come from i18next.
+function formatAge(birthDate: string | null, t: TFunction): string {
+  if (!birthDate) return t("dashboard.ageUnknown");
   const birth = new Date(`${birthDate}T00:00:00`);
   const now = new Date();
   let months =
@@ -34,11 +37,11 @@ function formatAge(birthDate: string | null): string {
   if (now.getDate() < birth.getDate()) months--;
   if (months < 1) {
     const days = Math.floor((now.getTime() - birth.getTime()) / 86400000);
-    return days === 1 ? "1 day" : `${days} days`;
+    return t("dashboard.days", { count: days });
   }
-  if (months < 12) return months === 1 ? "1 month" : `${months} months`;
+  if (months < 12) return t("dashboard.months", { count: months });
   const years = Math.floor(months / 12);
-  return years === 1 ? "1 year" : `${years} years`;
+  return t("dashboard.years", { count: years });
 }
 
 function Field({ label, value, hint }: { label: string; value: string; hint?: string }) {
@@ -70,12 +73,13 @@ function EventRow({
   todayStr: string;
   onDone: (event: ScheduledEvent) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <View className="flex-row items-center justify-between gap-3 py-1.5">
       <Text className={`flex-1 ${dueClass(event.due_date, todayStr)}`}>
-        {event.due_date < todayStr ? "Overdue: " : ""}
+        {event.due_date < todayStr ? t("dashboard.overdue") : ""}
         {event.title}
-        {event.record_type ? ` · ${event.record_type}` : ""}
+        {event.record_type ? ` · ${t(`recordTypes.${event.record_type}`)}` : ""}
         {" — "}
         {formatDate(event.due_date)}
       </Text>
@@ -83,7 +87,7 @@ function EventRow({
         onPress={() => onDone(event)}
         className="shrink-0 rounded-full bg-primary px-3 py-1.5 active:opacity-70"
       >
-        <Text className="text-sm font-medium text-on-primary">Done</Text>
+        <Text className="text-sm font-medium text-on-primary">{t("dashboard.done")}</Text>
       </Pressable>
     </View>
   );
@@ -119,6 +123,7 @@ function FormSheet({
 }
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   const { pets, currentPet, setCurrentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -196,12 +201,12 @@ export default function Dashboard() {
   function confirmDelete() {
     if (!currentPet) return;
     Alert.alert(
-      `Delete ${currentPet.name}?`,
-      "Their health records, photos and chat history are deleted too. This cannot be undone.",
+      t("dashboard.deleteTitle", { name: currentPet.name }),
+      t("dashboard.deleteBody"),
       [
-        { text: "Cancel", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Delete",
+          text: t("common.delete"),
           style: "destructive",
           onPress: async () => {
             await deletePet(currentPet.id);
@@ -215,7 +220,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center bg-ink">
-        <Text className="text-muted">Loading…</Text>
+        <Text className="text-muted">{t("common.loading")}</Text>
       </View>
     );
   }
@@ -230,8 +235,8 @@ export default function Dashboard() {
           <PetForm onDone={() => setAddPetOpen(false)} />
         ) : (
           <>
-            <Text className="mb-4 text-center text-muted">You have not added a pet yet.</Text>
-            <Button label="Add pet" onPress={() => setAddPetOpen(true)} />
+            <Text className="mb-4 text-center text-muted">{t("dashboard.noPetYet")}</Text>
+            <Button label={t("petForm.add")} onPress={() => setAddPetOpen(true)} />
           </>
         )}
       </ScrollView>
@@ -291,7 +296,7 @@ export default function Dashboard() {
           onPress={openAdd}
           className="flex-row items-center rounded-full border border-border bg-surface px-4 py-1.5 active:opacity-70"
         >
-          <Text className="text-fg">+ Add</Text>
+          <Text className="text-fg">{t("dashboard.addChip")}</Text>
         </Pressable>
       </ScrollView>
 
@@ -305,39 +310,39 @@ export default function Dashboard() {
             onPress={openEdit}
             className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-white">Edit</Text>
+            <Text className="text-sm font-medium text-white">{t("common.edit")}</Text>
           </Pressable>
           <Pressable
             onPress={confirmDelete}
             className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-white">Delete</Text>
+            <Text className="text-sm font-medium text-white">{t("common.delete")}</Text>
           </Pressable>
         </View>
       </View>
 
       <View className="mt-6 flex-row flex-wrap">
-        <Field label="Species" value={currentPet.species} />
-        <Field label="Breed" value={currentPet.breed ?? "Not set"} />
-        <Field label="Age" value={formatAge(currentPet.birth_date)} />
+        <Field label={t("dashboard.species")} value={currentPet.species} />
+        <Field label={t("dashboard.breed")} value={currentPet.breed ?? t("common.notSet")} />
+        <Field label={t("dashboard.age")} value={formatAge(currentPet.birth_date, t)} />
         {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
-          <Field label="Walked today" value={walks[0]?.date === todayStr ? "Yes" : "Not yet"} />
+          <Field label={t("dashboard.walkedToday")} value={walks[0]?.date === todayStr ? t("dashboard.yes") : t("dashboard.notYet")} />
         ) : null}
         {slots.length > 0 ? (
           <Field
-            label="Feeding"
+            label={t("dashboard.feeding")}
             value={
               slots.some((s) => s.status === "missed")
-                ? `${slots.filter((s) => s.status === "missed").length} missed`
+                ? t("dashboard.missed", { count: slots.filter((s) => s.status === "missed").length })
                 : slots.some((s) => s.status === "due")
-                  ? "Due now"
-                  : "On track"
+                  ? t("feeding.status.due")
+                  : t("dashboard.onTrack")
             }
           />
         ) : null}
         <Field
-          label="Weight"
-          value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}
+          label={t("dashboard.weight")}
+          value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
           hint={
             weightChange !== null
               ? `${weightChange > 0 ? "↑" : "↓"} ${formatWeight(Math.abs(weightChange), unitSystem)}`
@@ -346,7 +351,7 @@ export default function Dashboard() {
         />
         {summary && (summary.limit !== null || summary.total > 0) ? (
           <View className="mb-4 w-1/2">
-            <Text className="text-sm text-muted">Spent this month</Text>
+            <Text className="text-sm text-muted">{t("dashboard.spentThisMonth")}</Text>
             <Text
               className={
                 summary.status === "over"
@@ -358,7 +363,7 @@ export default function Dashboard() {
             >
               {formatMoney(summary.total, summary.currency)}
               {summary.limit !== null ? (
-                <Text className="text-sm text-muted"> of {formatMoney(summary.limit, summary.currency)}</Text>
+                <Text className="text-sm text-muted"> {t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}</Text>
               ) : null}
             </Text>
           </View>
@@ -369,7 +374,7 @@ export default function Dashboard() {
         <View className="rounded-xl border border-border bg-surface p-5">
           {dietary.length > 0 ? (
             <View>
-              <Text className="mb-2 text-sm text-muted">Dietary restrictions & allergies</Text>
+              <Text className="mb-2 text-sm text-muted">{t("petForm.dietary")}</Text>
               <View className="flex-row flex-wrap gap-2">
                 {dietary.map((item) => (
                   <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
@@ -381,7 +386,7 @@ export default function Dashboard() {
           ) : null}
           {disabilities.length > 0 ? (
             <View className={dietary.length > 0 ? "mt-4" : ""}>
-              <Text className="mb-2 text-sm text-muted">Disabilities</Text>
+              <Text className="mb-2 text-sm text-muted">{t("petForm.disabilities")}</Text>
               <View className="flex-row flex-wrap gap-2">
                 {disabilities.map((item) => (
                   <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
@@ -397,13 +402,13 @@ export default function Dashboard() {
       {dueDismissed ? null : (
         <View className="mt-8 rounded-xl border border-border bg-surface p-5">
           <View className="mb-3 flex-row items-center justify-between">
-            <Text className="text-lg font-semibold text-fg">Due</Text>
+            <Text className="text-lg font-semibold text-fg">{t("dashboard.due")}</Text>
             <Pressable onPress={() => setDueDismissed(true)} className="active:opacity-70">
-              <Text className="text-sm text-muted">Dismiss</Text>
+              <Text className="text-sm text-muted">{t("dashboard.dismiss")}</Text>
             </Pressable>
           </View>
           {due.length === 0 ? (
-            <Text className="text-muted">Nothing due.</Text>
+            <Text className="text-muted">{t("dashboard.nothingDue")}</Text>
           ) : (
             due.map((e) => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
           )}
@@ -413,24 +418,24 @@ export default function Dashboard() {
       {scheduledDismissed ? null : (
         <View className="mt-6 rounded-xl border border-border bg-surface p-5">
           <View className="mb-3 flex-row items-center justify-between">
-            <Text className="text-lg font-semibold text-fg">Scheduled</Text>
+            <Text className="text-lg font-semibold text-fg">{t("dashboard.scheduled")}</Text>
             <View className="flex-row items-center gap-3">
               <Pressable
                 onPress={() => setScheduleOpen(true)}
                 className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
               >
-                <Text className="text-sm font-medium text-on-primary">Schedule</Text>
+                <Text className="text-sm font-medium text-on-primary">{t("dashboard.schedule")}</Text>
               </Pressable>
               <Pressable
                 onPress={() => setScheduledDismissed(true)}
                 className="active:opacity-70"
               >
-                <Text className="text-sm text-muted">Dismiss</Text>
+                <Text className="text-sm text-muted">{t("dashboard.dismiss")}</Text>
               </Pressable>
             </View>
           </View>
           {scheduled.length === 0 ? (
-            <Text className="text-muted">Nothing scheduled.</Text>
+            <Text className="text-muted">{t("dashboard.nothingScheduled")}</Text>
           ) : (
             scheduled.map((e) => (
               <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />

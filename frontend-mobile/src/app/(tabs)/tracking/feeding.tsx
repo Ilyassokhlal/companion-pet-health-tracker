@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -14,13 +15,7 @@ import type { Feeding as FeedingLog, FeedingTime, SlotStatus } from "@/types";
 import { formatDate } from "@/dates";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
-
-const STATUS_LABEL: Record<SlotStatus["status"], string> = {
-  met: "Fed",
-  due: "Due now",
-  missed: "Missed",
-  upcoming: "Later today",
-};
+import { errorMessage } from "@/errors";
 
 const STATUS_CLASS: Record<SlotStatus["status"], string> = {
   met: "text-muted",
@@ -34,6 +29,7 @@ const HOURS = Array.from({ length: 24 }, (_, h) => h);
 const MINUTES = [0, 15, 30, 45];
 
 export default function Feeding() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { currentPet } = usePets();
   const { theme, accent } = useTheme();
@@ -82,7 +78,7 @@ export default function Feeding() {
       await createFeedingTime(currentPet.id, `${pad(pickHour)}:${pad(pickMinute)}:00`);
       load();
     } catch (err) {
-      Alert.alert((err as Error).message);
+      Alert.alert(errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -108,17 +104,17 @@ export default function Feeding() {
       setNotes("");
       load();
     } catch (err) {
-      Alert.alert((err as Error).message);
+      Alert.alert(errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
   function confirmDeleteLog(entry: FeedingLog) {
-    Alert.alert("Delete feeding", "This entry will be permanently removed.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("feeding.confirmDeleteTitle"), t("feeding.confirmDeleteBody"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: async () => {
           await deleteFeeding(entry.id);
@@ -131,7 +127,7 @@ export default function Feeding() {
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
-        <Text className="text-center text-muted">Add a pet first.</Text>
+        <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
   }
@@ -144,14 +140,14 @@ export default function Feeding() {
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
-      <Text className="mb-1 text-2xl font-bold text-fg">Feeding</Text>
+      <Text className="mb-1 text-2xl font-bold text-fg">{t("tracking.feeding")}</Text>
       <Text className="mb-6 text-sm text-muted">{currentPet.name}</Text>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-3 text-lg font-semibold text-fg">Schedule</Text>
+        <Text className="mb-3 text-lg font-semibold text-fg">{t("feeding.schedule")}</Text>
         {times.length === 0 ? (
           <Text className="mb-3 text-sm text-muted">
-            No feeding times set. Adding one turns on the dashboard indicator and lets reminders fire.
+            {t("feeding.noTimes")}
           </Text>
         ) : null}
 
@@ -163,7 +159,7 @@ export default function Feeding() {
               <View className="flex-row items-center gap-4">
                 {status ? (
                   <Text className={`text-sm ${STATUS_CLASS[status.status]}`}>
-                    {STATUS_LABEL[status.status]}
+                    {t(`feeding.status.${status.status}`)}
                   </Text>
                 ) : null}
                 <Pressable onPress={() => deleteFeedingTime(entry.id).then(load)}>
@@ -174,7 +170,7 @@ export default function Feeding() {
           );
         })}
 
-        <Text className="mb-2 mt-4 text-sm text-muted">Add a time</Text>
+        <Text className="mb-2 mt-4 text-sm text-muted">{t("feeding.addTime")}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-2">
           <View className="flex-row gap-2">
             {HOURS.map((h) => (
@@ -204,16 +200,16 @@ export default function Feeding() {
           disabled={busy}
           className={`items-center rounded-lg bg-primary px-4 py-3 ${busy ? "opacity-50" : "active:opacity-70"}`}
         >
-          <Text className="font-semibold text-on-primary">{`Add ${pad(pickHour)}:${pad(pickMinute)}`}</Text>
+          <Text className="font-semibold text-on-primary">{t("feeding.addAt", { time: `${pad(pickHour)}:${pad(pickMinute)}` })}</Text>
         </Pressable>
       </View>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-3 text-lg font-semibold text-fg">Log a feeding</Text>
-        <TextInput placeholder="Food" value={food} onChangeText={setFood} className={`mb-3 ${input}`} />
+        <Text className="mb-3 text-lg font-semibold text-fg">{t("feeding.logTitle")}</Text>
+        <TextInput placeholder={t("feeding.food")} value={food} onChangeText={setFood} className={`mb-3 ${input}`} />
         <View className="mb-3 flex-row items-center gap-2">
           <TextInput
-            placeholder="Amount"
+            placeholder={t("feeding.amount")}
             value={amount}
             onChangeText={setAmount}
             keyboardType="decimal-pad"
@@ -229,19 +225,19 @@ export default function Feeding() {
             </Pressable>
           ))}
         </View>
-        <TextInput placeholder="Notes" value={notes} onChangeText={setNotes} className={`mb-4 ${input}`} />
+        <TextInput placeholder={t("feeding.notes")} value={notes} onChangeText={setNotes} className={`mb-4 ${input}`} />
         <Pressable
           onPress={logNow}
           disabled={busy}
           className={`items-center rounded-lg bg-primary px-4 py-3 ${busy ? "opacity-50" : "active:opacity-70"}`}
         >
-          <Text className="font-semibold text-on-primary">Log now</Text>
+          <Text className="font-semibold text-on-primary">{t("feeding.logNow")}</Text>
         </Pressable>
       </View>
 
-      <Text className="mb-3 text-lg font-semibold text-fg">History</Text>
+      <Text className="mb-3 text-lg font-semibold text-fg">{t("feeding.history")}</Text>
       {log.length === 0 ? (
-        <Text className="text-muted">Nothing logged yet.</Text>
+        <Text className="text-muted">{t("feeding.empty")}</Text>
       ) : (
         log.map((entry) => (
           <Pressable
@@ -255,7 +251,7 @@ export default function Feeding() {
             <Text className="mt-1 text-sm text-muted">
               {[entry.food, entry.amount !== null ? `${entry.amount} ${entry.amount_unit ?? ""}`.trim() : null]
                 .filter(Boolean)
-                .join(" · ") || "No details"}
+                .join(" · ") || t("feeding.noDetails")}
             </Text>
             {entry.notes ? <Text className="mt-2 text-sm text-fg">{entry.notes}</Text> : null}
           </Pressable>

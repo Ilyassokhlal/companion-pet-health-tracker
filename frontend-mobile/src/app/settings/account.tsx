@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -26,6 +27,7 @@ function Row({
   editing: Panel | null;
   onToggle: (panel: Panel) => void;
 }) {
+  const { t } = useTranslation();
   const open = editing === panel;
   return (
     <View className="mb-4 flex-row items-center justify-between gap-3">
@@ -42,7 +44,7 @@ function Row({
         }`}
       >
         <Text className={`text-sm font-medium ${open ? "text-primary" : "text-white"}`}>
-          {open ? "Cancel" : "Update"}
+          {open ? t("common.cancel") : t("settingsPage.update")}
         </Text>
       </Pressable>
     </View>
@@ -50,6 +52,7 @@ function Row({
 }
 
 export default function Account() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const insets = useSafeAreaInsets();
   const [editing, setEditing] = useState<Panel | null>(null);
@@ -64,24 +67,24 @@ export default function Account() {
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
       keyboardShouldPersistTaps="handled"
     >
-      <Text className="mb-6 text-2xl font-bold text-fg">Account</Text>
+      <Text className="mb-6 text-2xl font-bold text-fg">{t("settingsPage.groups.account.label")}</Text>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
         <View className="mb-6">
           <UserPhoto />
         </View>
 
-        <Row label="Username" value={user.username} panel="username" editing={editing} onToggle={toggle} />
-        <Row label="Email" value={user.email} panel="email" editing={editing} onToggle={toggle} />
-        <Row label="Password" value="••••••••" panel="password" editing={editing} onToggle={toggle} />
+        <Row label={t("common.username")} value={user.username} panel="username" editing={editing} onToggle={toggle} />
+        <Row label={t("common.email")} value={user.email} panel="email" editing={editing} onToggle={toggle} />
+        <Row label={t("common.password")} value="••••••••" panel="password" editing={editing} onToggle={toggle} />
 
         <View className="flex-row items-center justify-between">
-          <Text className="text-sm text-muted">Member since</Text>
+          <Text className="text-sm text-muted">{t("settingsPage.memberSince")}</Text>
           <Text className="text-fg">{new Date(user.created_at).toLocaleDateString(dateLocale())}</Text>
         </View>
 
         {user.email_verified ? null : (
-          <Text className="mt-4 text-sm text-danger">Email not verified</Text>
+          <Text className="mt-4 text-sm text-danger">{t("settingsPage.notVerified")}</Text>
         )}
         {editing === "username" ? <ChangeUsernameForm onDone={() => setEditing(null)} /> : null}
         {editing === "email" ? <ChangeEmailForm /> : null}

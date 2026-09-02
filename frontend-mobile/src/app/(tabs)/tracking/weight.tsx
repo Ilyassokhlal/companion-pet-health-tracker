@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -13,6 +14,7 @@ import { formatWeight } from "@/units";
 
 // Weight tracking screen for the current pet.
 export default function Weight() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -38,7 +40,7 @@ export default function Weight() {
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink">
-        <Text className="text-muted">Add a pet first.</Text>
+        <Text className="text-muted">{t("common.noPet")}</Text>
       </View>
     );
   }
@@ -53,17 +55,17 @@ export default function Weight() {
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
-      <Text className="mb-6 text-2xl font-bold text-fg">Weight</Text>
+      <Text className="mb-6 text-2xl font-bold text-fg">{t("tracking.weight")}</Text>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="text-sm text-muted">Current</Text>
+        <Text className="text-sm text-muted">{t("weightTracking.current")}</Text>
         <Text className="text-3xl font-bold text-fg">
-          {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : "Not set"}
+          {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
         </Text>
       </View>
 
       {weighed.length === 0 ? (
-        <Text className="text-muted">No weigh-ins yet.</Text>
+        <Text className="text-muted">{t("weightTracking.empty")}</Text>
       ) : (
         [...weighed].reverse().map((r, index, list) => {
           // list is newest first, so the previous weigh-in is the NEXT item along.

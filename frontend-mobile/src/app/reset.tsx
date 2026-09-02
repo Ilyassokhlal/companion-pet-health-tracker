@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, ScrollView, Text, View } from "react-native";
 import { Link, router, useLocalSearchParams } from "expo-router";
 
@@ -6,8 +7,10 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { resetPassword } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
+import { errorMessage } from "@/errors";
 
 export default function Reset() {
+  const { t } = useTranslation();
   const { token } = useLocalSearchParams<{ token?: string }>();
   const { logout } = useAuth();
   const [password, setPassword] = useState("");
@@ -19,10 +22,10 @@ export default function Reset() {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
         <View className="w-full max-w-sm gap-4 rounded-lg border border-border bg-surface p-6">
-          <Text className="text-center text-2xl font-bold text-fg">Reset Password</Text>
-          <Text className="text-danger">That link is missing its token.</Text>
+          <Text className="text-center text-2xl font-bold text-fg">{t("auth.reset.title")}</Text>
+          <Text className="text-danger">{t("auth.reset.missingToken")}</Text>
           <Link href="/forgot">
-            <Text className="text-sm text-primary">Request a new reset link</Text>
+            <Text className="text-sm text-primary">{t("auth.reset.requestNewLink")}</Text>
           </Link>
         </View>
       </View>
@@ -34,7 +37,7 @@ export default function Reset() {
   async function handleSubmit() {
     setError("");
     if (password !== confirm) {
-      setError("Passwords don't match.");
+      setError(t("auth.reset.mismatch"));
       return;
     }
     setSubmitting(true);
@@ -43,7 +46,7 @@ export default function Reset() {
       await logout();
       router.replace("/login");
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -60,12 +63,12 @@ export default function Reset() {
         className="px-6"
       >
         <View className="w-full max-w-sm gap-4 rounded-lg border border-border bg-surface p-6">
-          <Text className="text-center text-2xl font-bold text-fg">Reset Password</Text>
+          <Text className="text-center text-2xl font-bold text-fg">{t("auth.reset.title")}</Text>
 
           <Input
             value={password}
             onChangeText={setPassword}
-            placeholder="New password"
+            placeholder={t("auth.reset.newPassword")}
             secureTextEntry
             autoCapitalize="none"
             autoComplete="new-password"
@@ -75,7 +78,7 @@ export default function Reset() {
           <Input
             value={confirm}
             onChangeText={setConfirm}
-            placeholder="Confirm password"
+            placeholder={t("auth.reset.confirmPassword")}
             secureTextEntry
             autoCapitalize="none"
             autoComplete="new-password"
@@ -84,7 +87,7 @@ export default function Reset() {
 
           {error ? <Text className="text-sm text-danger">{error}</Text> : null}
 
-          <Button label="Reset Password" onPress={handleSubmit} loading={submitting} />
+          <Button label={t("auth.reset.submit")} onPress={handleSubmit} loading={submitting} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

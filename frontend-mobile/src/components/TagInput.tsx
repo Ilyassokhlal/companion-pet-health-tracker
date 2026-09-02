@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -16,6 +17,7 @@ type Props = {
 // A list of short text entries, added one at a time and shown as removable chips.
 // Tapping a chip removes it. There is no hover on a phone to reveal a delete affordance.
 export default function TagInput({ label, values, onChange, placeholder }: Props) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState("");
   const { theme, accent } = useTheme();
   const colors = themeColors(theme, accent);
@@ -48,7 +50,7 @@ export default function TagInput({ label, values, onChange, placeholder }: Props
           onPress={add}
           className="shrink-0 justify-center rounded-lg border border-border bg-ink px-4 active:opacity-70"
         >
-          <Text className="text-fg">Add</Text>
+          <Text className="text-fg">{t("tagInput.add")}</Text>
         </Pressable>
       </View>
       {values.length > 0 ? (

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator, FlatList, Modal, Pressable, Switch, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,8 +10,10 @@ import { updateMe, listTimezones } from "@/api/auth";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { REMINDER_FREQUENCIES } from "@/types";
+import { errorMessage } from "@/errors";
 
 export default function ReminderSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
@@ -30,7 +33,7 @@ export default function ReminderSettings() {
         setLoadingZones(true);
         setZones(await listTimezones());
       } catch (err) {
-        setError((err as Error).message);
+        setError(errorMessage(err));
         setPicking(false);
       } finally {
         setLoadingZones(false);
@@ -50,7 +53,7 @@ export default function ReminderSettings() {
       await updateMe(data);
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -66,11 +69,11 @@ export default function ReminderSettings() {
 
   return (
     <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-      <Text className="mb-4 text-lg font-semibold text-fg">Reminders</Text>
+      <Text className="mb-4 text-lg font-semibold text-fg">{t("settings.reminders.title")}</Text>
       {error ? <Text className="mb-4 text-sm text-danger">{error}</Text> : null}
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Email me what is due</Text>
+        <Text className="shrink text-fg">{t("settings.reminders.email")}</Text>
         <Switch
           value={user.reminders_enabled}
           disabled={saving || !user.email_verified}
@@ -79,7 +82,7 @@ export default function ReminderSettings() {
       </View>
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink-0 text-fg">How often</Text>
+        <Text className="shrink-0 text-fg">{t("settings.reminders.howOften")}</Text>
         <View className="flex-row gap-2">
           {REMINDER_FREQUENCIES.map((frequency) => (
             <Pressable
@@ -95,7 +98,7 @@ export default function ReminderSettings() {
                   user.reminder_frequency === frequency ? "text-on-primary" : "text-fg"
                 }`}
               >
-                {frequency === "weekly" ? "Weekly, on Sunday" : "Every day"}
+                {frequency === "weekly" ? t("settings.reminders.weekly") : t("settings.reminders.daily")}
               </Text>
             </Pressable>
           ))}
@@ -103,7 +106,7 @@ export default function ReminderSettings() {
       </View>
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Notify my phone about what is due today</Text>
+        <Text className="shrink text-fg">{t("settings.reminders.push")}</Text>
         <Switch
           value={user.push_enabled ?? false}
           disabled={saving || !user.email_verified}
@@ -112,7 +115,7 @@ export default function ReminderSettings() {
       </View>
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink-0 text-fg">Timezone</Text>
+        <Text className="shrink-0 text-fg">{t("settings.reminders.timezone")}</Text>
         <Pressable
           onPress={() => setPicking(true)}
           disabled={saving}
@@ -122,19 +125,19 @@ export default function ReminderSettings() {
         </Pressable>
       </View>
 
-      <Text className="mb-2 text-sm text-muted">Everything arrives at 6am in this timezone.</Text>
+      <Text className="mb-2 text-sm text-muted">{t("settings.reminders.arrival")}</Text>
       {!user.email_verified ? (
-        <Text className="mb-2 text-sm text-muted">Verify your email to enable reminders.</Text>
+        <Text className="mb-2 text-sm text-muted">{t("settings.reminders.verifyFirst")}</Text>
       ) : null}
 
       <Modal visible={picking} animationType="slide" onRequestClose={() => setPicking(false)}>
         <View className="flex-1 bg-ink px-4" style={{ paddingTop: insets.top + 16 }}>
-          <Text className="mb-4 text-xl font-bold text-fg">Choose a timezone</Text>
+          <Text className="mb-4 text-xl font-bold text-fg">{t("settings.reminders.chooseTimezone")}</Text>
 
           <Input
             value={query}
             onChangeText={setQuery}
-            placeholder="Search"
+            placeholder={t("settings.reminders.search")}
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -159,7 +162,7 @@ export default function ReminderSettings() {
           )}
 
           <View className="py-4">
-            <Button label="Close" variant="secondary" onPress={() => setPicking(false)} />
+            <Button label={t("common.close")} variant="secondary" onPress={() => setPicking(false)} />
           </View>
         </View>
       </Modal>

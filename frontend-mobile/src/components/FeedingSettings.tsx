@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Switch, Text, View } from "react-native";
 
 import { useAuth } from "@/auth/AuthContext";
 import { updateMe } from "@/api/auth";
+import { errorMessage } from "@/errors";
 
 export default function FeedingSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +19,7 @@ export default function FeedingSettings() {
       await action();
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -26,15 +29,14 @@ export default function FeedingSettings() {
 
   return (
     <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-      <Text className="mb-4 text-lg font-semibold text-fg">Feeding reminders</Text>
+      <Text className="mb-4 text-lg font-semibold text-fg">{t("trackingSettings.feeding.title")}</Text>
       {error ? <Text className="mb-4 text-sm text-danger">{error}</Text> : null}
       <Text className="mb-4 text-sm text-muted">
-        Fires at each scheduled feeding time when nothing has been logged for it. Separate from the daily
-        reminder digest.
+        {t("trackingSettings.feeding.note")}
       </Text>
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Push notification</Text>
+        <Text className="shrink text-fg">{t("trackingSettings.feeding.push")}</Text>
         <Switch
           value={user.feeding_push_enabled ?? false}
           disabled={saving}
@@ -43,7 +45,7 @@ export default function FeedingSettings() {
       </View>
 
       <View className="flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Email</Text>
+        <Text className="shrink text-fg">{t("trackingSettings.feeding.email")}</Text>
         <Switch
           value={user.feeding_email_enabled ?? false}
           disabled={saving}

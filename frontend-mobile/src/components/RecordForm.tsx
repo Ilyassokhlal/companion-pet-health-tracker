@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 import Button from "@/components/ui/Button";
@@ -13,6 +14,7 @@ import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { useAuth } from "@/auth/AuthContext";
 import { fromKg, toKg, weightUnit } from "@/units";
+import { errorMessage } from "@/errors";
 
 interface Props {
   petId: number;
@@ -21,6 +23,7 @@ interface Props {
 }
 
 export default function RecordForm({ petId, record, onDone }: Props) {
+  const { t } = useTranslation();
   const { theme, accent } = useTheme();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -51,7 +54,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
   async function takePhoto() {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      setError("Camera permission is required to take a photo.");
+      setError(t("recordForm.cameraDenied"));
       return;
     }
     const result = await ImagePicker.launchCameraAsync({ quality: 0.7 });
@@ -87,7 +90,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       }
       onDone(true);
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -98,12 +101,12 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       {error ? <Text className="text-sm text-danger">{error}</Text> : null}
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Title</Text>
-        <Input value={title} onChangeText={setTitle} placeholder="Title" />
+        <Text className="mb-1 text-sm text-muted">{t("common.title")}</Text>
+        <Input value={title} onChangeText={setTitle} placeholder={t("common.title")} />
       </View>
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Record type</Text>
+        <Text className="mb-1 text-sm text-muted">{t("recordForm.recordType")}</Text>
         <View className="flex-row flex-wrap gap-2">
           {RECORD_TYPES.map((type) => (
             <Pressable
@@ -113,7 +116,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
                 recordType === type ? "bg-primary" : "border border-border bg-ink"
               }`}
             >
-              <Text className="text-sm text-fg">{type}</Text>
+              <Text className="text-sm text-fg">{t(`recordTypes.${type}`)}</Text>
             </Pressable>
           ))}
         </View>
@@ -121,7 +124,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
 
       {recordType === "Weight" ? (
         <View>
-          <Text className="mb-1 text-sm text-muted">Weight ({unit})</Text>
+          <Text className="mb-1 text-sm text-muted">{t("common.weight", { unit })}</Text>
           <Input
             value={weight}
             onChangeText={setWeight}
@@ -131,37 +134,37 @@ export default function RecordForm({ petId, record, onDone }: Props) {
         </View>
       ) : null}
 
-      <DateField label="Date" value={date} onChange={setDate} />
+      <DateField label={t("common.date")} value={date} onChange={setDate} />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Description (optional)</Text>
+        <Text className="mb-1 text-sm text-muted">{t("recordForm.description")}</Text>
         <TextInput
           value={description}
           onChangeText={setDescription}
           multiline
           textAlignVertical="top"
-          placeholder="Optional"
+          placeholder={t("common.optional")}
           placeholderTextColor={themeColors(theme, accent).muted}
           className="min-h-24 w-full rounded-lg border border-border bg-ink px-4 py-3 text-fg"
         />
       </View>
 
-      <DateField label="Next due date (optional)" value={nextDueDate} onChange={setNextDueDate} clearable />
+      <DateField label={t("recordForm.nextDue")} value={nextDueDate} onChange={setNextDueDate} clearable />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Photos (optional)</Text>
+        <Text className="mb-1 text-sm text-muted">{t("recordForm.photos")}</Text>
         <View className="flex-row gap-2">
           <Pressable
             onPress={takePhoto}
             className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
           >
-            <Text className="text-center text-fg">Take photo</Text>
+            <Text className="text-center text-fg">{t("recordForm.takePhoto")}</Text>
           </Pressable>
           <Pressable
             onPress={pickPhotos}
             className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
           >
-            <Text className="text-center text-fg">Choose</Text>
+            <Text className="text-center text-fg">{t("recordForm.choose")}</Text>
           </Pressable>
         </View>
         {files.map((f, i) => (
@@ -170,14 +173,14 @@ export default function RecordForm({ petId, record, onDone }: Props) {
               {f.name}
             </Text>
             <Pressable onPress={() => setFiles(files.filter((_, j) => j !== i))}>
-              <Text className="ms-3 text-sm text-danger">remove</Text>
+              <Text className="ms-3 text-sm text-danger">{t("recordForm.removeFile")}</Text>
             </Pressable>
           </View>
         ))}
       </View>
 
-      <Button label={record ? "Save" : "Add record"} onPress={handleSubmit} loading={submitting} />
-      <Button label="Cancel" variant="secondary" onPress={() => onDone(false)} />
+      <Button label={record ? t("common.save") : t("recordForm.add")} onPress={handleSubmit} loading={submitting} />
+      <Button label={t("common.cancel")} variant="secondary" onPress={() => onDone(false)} />
     </View>
   );
 }

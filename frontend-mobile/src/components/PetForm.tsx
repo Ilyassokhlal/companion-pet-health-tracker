@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, Switch, Text, View } from "react-native";
 import DateField from "@/components/ui/DateField";
 
@@ -10,6 +11,7 @@ import { createPet, updatePet } from "@/api/pets";
 import { WEIGHT_FREQUENCIES } from "@/types";
 import type { Pet, WeightFrequency } from "@/types";
 import { fromKg, toKg, weightUnit } from "@/units";
+import { errorMessage } from "@/errors";
 import TagInput from "@/components/TagInput";
 
 interface Props {
@@ -17,16 +19,12 @@ interface Props {
   onDone: () => void;
 }
 
+// These are the values the API stores. Their labels live in en.json under petForm.speciesOptions.
 const SPECIES = ["Dog", "Cat"];
-
-const FREQUENCY_LABELS: Record<WeightFrequency, string> = {
-  weekly: "Every week",
-  biweekly: "Every two weeks",
-  monthly: "Every month",
-};
 
 
 export default function PetForm({ pet, onDone }: Props) {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
   const unit = weightUnit(unitSystem);
@@ -73,7 +71,7 @@ export default function PetForm({ pet, onDone }: Props) {
       if (trackWeight && !user?.weight_tracking_enabled) await refreshUser();
       onDone();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -82,12 +80,12 @@ export default function PetForm({ pet, onDone }: Props) {
   return (
     <View className="mt-6 gap-4 rounded-xl border border-border bg-surface p-5">
       <View>
-        <Text className="mb-1 text-sm text-muted">Name</Text>
-        <Input value={name} onChangeText={setName} placeholder="Name" />
+        <Text className="mb-1 text-sm text-muted">{t("petForm.name")}</Text>
+        <Input value={name} onChangeText={setName} placeholder={t("petForm.name")} />
       </View>
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Species</Text>
+        <Text className="mb-1 text-sm text-muted">{t("petForm.species")}</Text>
         <View className="flex-row gap-2">
           {SPECIES.map((s) => (
             <Pressable
@@ -97,19 +95,19 @@ export default function PetForm({ pet, onDone }: Props) {
                 species === s ? "bg-primary" : "border border-border bg-ink"
               }`}
             >
-              <Text className="text-fg">{s}</Text>
+              <Text className="text-fg">{t(`petForm.speciesOptions.${s}`)}</Text>
             </Pressable>
           ))}
         </View>
       </View>
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Breed</Text>
-        <Input value={breed} onChangeText={setBreed} placeholder="Optional" />
+        <Text className="mb-1 text-sm text-muted">{t("petForm.breed")}</Text>
+        <Input value={breed} onChangeText={setBreed} placeholder={t("common.optional")} />
       </View>
 
       <DateField
-        label="Birth date"
+        label={t("petForm.birthDate")}
         value={birthDate}
         onChange={setBirthDate}
         maximumDate={new Date()}
@@ -117,33 +115,33 @@ export default function PetForm({ pet, onDone }: Props) {
       />
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Weight ({unit})</Text>
+        <Text className="mb-1 text-sm text-muted">{t("common.weight", { unit })}</Text>
         <Input
           value={weight}
           onChangeText={setWeight}
-          placeholder="Optional"
+          placeholder={t("common.optional")}
           keyboardType="decimal-pad"
         />
       </View>
 
       <View>
-        <Text className="mb-1 text-sm text-muted">Monthly budget ({currency})</Text>
+        <Text className="mb-1 text-sm text-muted">{t("petForm.budget", { currency })}</Text>
         <Input
           value={monthlyBudget}
           onChangeText={setMonthlyBudget}
-          placeholder="No limit"
+          placeholder={t("petForm.noLimit")}
           keyboardType="decimal-pad"
         />
       </View>
 
       <View className="flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">{"Track this pet's weight"}</Text>
+        <Text className="shrink text-fg">{t("petForm.trackWeight")}</Text>
         <Switch value={trackWeight} onValueChange={setTrackWeight} />
       </View>
 
       {trackWeight ? (
         <View>
-          <Text className="mb-1 text-sm text-muted">Check in</Text>
+          <Text className="mb-1 text-sm text-muted">{t("petForm.checkIn")}</Text>
           <View className="flex-row flex-wrap gap-2">
             {WEIGHT_FREQUENCIES.map((f) => (
               <Pressable
@@ -154,7 +152,7 @@ export default function PetForm({ pet, onDone }: Props) {
                 }`}
               >
                 <Text className={`text-sm ${frequency === f ? "text-on-primary" : "text-fg"}`}>
-                  {FREQUENCY_LABELS[f]}
+                  {t(`trackingSettings.weight.${f}`)}
                 </Text>
               </Pressable>
             ))}
@@ -163,7 +161,7 @@ export default function PetForm({ pet, onDone }: Props) {
       ) : null}
 
       <View className="flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Has dietary restrictions or allergies</Text>
+        <Text className="shrink text-fg">{t("petForm.hasDietary")}</Text>
         <Switch
           value={hasDietary}
           onValueChange={(v) => { setHasDietary(v); if (!v) setDietary([]); }}
@@ -172,15 +170,15 @@ export default function PetForm({ pet, onDone }: Props) {
 
       {hasDietary ? (
         <TagInput
-          label="Dietary restrictions & allergies"
+          label={t("petForm.dietary")}
           values={dietary}
           onChange={setDietary}
-          placeholder="e.g. Chicken"
+          placeholder={t("petForm.dietaryPlaceholder")}
         />
       ) : null}
 
       <View className="flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">Has disabilities</Text>
+        <Text className="shrink text-fg">{t("petForm.hasDisabilities")}</Text>
         <Switch
           value={hasDisabilities}
           onValueChange={(v) => { setHasDisabilities(v); if (!v) setDisabilities([]); }}
@@ -189,17 +187,17 @@ export default function PetForm({ pet, onDone }: Props) {
 
       {hasDisabilities ? (
         <TagInput
-          label="Disabilities"
+          label={t("petForm.disabilities")}
           values={disabilities}
           onChange={setDisabilities}
-          placeholder="e.g. Deaf in left ear"
+          placeholder={t("petForm.disabilitiesPlaceholder")}
         />
       ) : null}
 
       {error ? <Text className="text-sm text-danger">{error}</Text> : null}
 
-      <Button label={pet ? "Save" : "Add pet"} onPress={handleSubmit} loading={submitting} />
-      <Button label="Cancel" variant="secondary" onPress={onDone} />
+      <Button label={pet ? t("common.save") : t("petForm.add")} onPress={handleSubmit} loading={submitting} />
+      <Button label={t("common.cancel")} variant="secondary" onPress={onDone} />
     </View>
   );
 }

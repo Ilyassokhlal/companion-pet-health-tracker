@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Image, Pressable, Text, View, type AlertButton } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -6,6 +7,7 @@ import { usePets } from "@/context/PetContext";
 import { uploadPhoto, deletePhoto } from "@/api/pets";
 import type { Pet } from "@/types";
 import type { PhotoUpload } from "@/api/records";
+import { errorMessage } from "@/errors";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
@@ -16,14 +18,14 @@ type Props = {
   interactive?: boolean;
 };
 
-// A pet's avatar. Same actions as the web's hover menu, driven by a native Alert instead — a
-// phone has no hover state to reveal an overlay with.
+// A pet's avatar component that supports uploading and removing photos via a native alert menu.
 export default function PetPhoto({
   pet,
   size = "h-14 w-14",
   textSize = "text-xl",
   interactive = true,
 }: Props) {
+  const { t } = useTranslation();
   const { refresh } = usePets();
   const [busy, setBusy] = useState(false);
 
@@ -38,7 +40,7 @@ export default function PetPhoto({
       await uploadPhoto(pet.id, file);
       await refresh();
     } catch (err) {
-      Alert.alert("Upload failed", (err as Error).message);
+      Alert.alert(t("photoMenu.uploadFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -55,19 +57,19 @@ export default function PetPhoto({
       await deletePhoto(pet.id);
       await refresh();
     } catch (err) {
-      Alert.alert("Remove failed", (err as Error).message);
+      Alert.alert(t("photoMenu.removeFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
   function openMenu() {
-    const buttons: AlertButton[] = [{ text: "Choose photo", onPress: pick }];
+    const buttons: AlertButton[] = [{ text: t("photoMenu.choose"), onPress: pick }];
     if (pet.photo_filename) {
-      buttons.push({ text: "Remove", style: "destructive", onPress: remove });
+      buttons.push({ text: t("photoMenu.remove"), style: "destructive", onPress: remove });
     }
-    buttons.push({ text: "Cancel", style: "cancel" });
-    Alert.alert(`${pet.name}'s photo`, undefined, buttons);
+    buttons.push({ text: t("common.cancel"), style: "cancel" });
+    Alert.alert(t("photoMenu.petTitle", { name: pet.name }), undefined, buttons);
   }
 
   const avatar = pet.photo_filename ? (
@@ -78,8 +80,7 @@ export default function PetPhoto({
     </View>
   );
 
-  // In the pet selector the tap has to switch pets, so the avatar renders bare and the touch
-  // falls through to the row that wraps it.
+  // In the pet selector the tap has to switch pets, so the avatar renders bare and the touch falls through to the row that wraps it.
   if (!interactive) return avatar;
 
   return (

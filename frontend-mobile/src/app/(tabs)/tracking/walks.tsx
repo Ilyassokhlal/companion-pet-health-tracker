@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -9,10 +10,12 @@ import { listWalks, createWalk, updateWalk, deleteWalk } from "@/api/walks";
 import type { Walk } from "@/types";
 import { formatDate } from "@/dates";
 import { distanceUnit, formatDistance, formatDuration, fromKm, toKm } from "@/units";
+import { errorMessage } from "@/errors";
 import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
 
 export default function Walks() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { currentPet } = usePets();
@@ -62,12 +65,12 @@ export default function Walks() {
     if (!currentPet || editing === null) return;
     const minutes = Number(duration);
     if (!Number.isFinite(minutes) || minutes <= 0) {
-      setError("Enter how long the walk lasted, in minutes.");
+      setError(t("walks.durationRequired"));
       return;
     }
     const typed = distance.trim() === "" ? null : Number(distance);
     if (typed !== null && (!Number.isFinite(typed) || typed < 0)) {
-      setError("Distance must be a number.");
+      setError(t("walks.distanceInvalid"));
       return;
     }
 
@@ -85,17 +88,17 @@ export default function Walks() {
       setEditing(null);
       load();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
   }
 
   function confirmDelete(walk: Walk) {
-    Alert.alert("Delete walk", "This walk will be permanently removed.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("walks.confirmDeleteTitle"), t("walks.confirmDeleteBody"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: async () => {
           await deleteWalk(walk.id);
@@ -109,7 +112,7 @@ export default function Walks() {
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
-        <Text className="text-center text-muted">Add a pet first.</Text>
+        <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
   }
@@ -117,18 +120,18 @@ export default function Walks() {
   return (
     <View className="flex-1 bg-ink">
       <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}>
-        <Text className="mb-1 text-2xl font-bold text-fg">Walks</Text>
+        <Text className="mb-1 text-2xl font-bold text-fg">{t("tracking.walks")}</Text>
         <Text className="mb-6 text-sm text-muted">{currentPet.name}</Text>
 
         <Pressable
           onPress={() => open("new")}
           className="mb-6 items-center rounded-lg bg-primary px-4 py-3 active:opacity-70"
         >
-          <Text className="font-semibold text-on-primary">Log a walk</Text>
+          <Text className="font-semibold text-on-primary">{t("walks.log")}</Text>
         </Pressable>
 
         {walks.length === 0 ? (
-          <Text className="text-muted">No walks logged yet.</Text>
+          <Text className="text-muted">{t("walks.empty")}</Text>
         ) : (
           walks.map((walk) => (
             <Pressable
@@ -155,15 +158,15 @@ export default function Walks() {
         <View className="flex-1 justify-end bg-black/70">
           <View className="rounded-t-2xl border-t border-border bg-ink p-5">
             <Text className="mb-4 text-lg font-semibold text-fg">
-              {editing === "new" ? "Log a walk" : "Edit walk"}
+              {editing === "new" ? t("walks.log") : t("walks.edit")}
             </Text>
             {error ? <Text className="mb-3 text-sm text-danger">{error}</Text> : null}
 
             <View className="mb-4">
-              <DateField label="Date" value={date} onChange={setDate} maximumDate={new Date()} />
+              <DateField label={t("common.date")} value={date} onChange={setDate} maximumDate={new Date()} />
             </View>
 
-            <Text className="mb-1 text-sm text-muted">Duration (minutes)</Text>
+            <Text className="mb-1 text-sm text-muted">{t("walks.duration")}</Text>
             <TextInput
               value={duration}
               onChangeText={setDuration}
@@ -172,7 +175,7 @@ export default function Walks() {
               className="mb-4 rounded-lg border border-border bg-surface px-4 py-3 text-fg"
             />
 
-            <Text className="mb-1 text-sm text-muted">{`Distance (${distanceUnit(unitSystem)}, optional)`}</Text>
+            <Text className="mb-1 text-sm text-muted">{t("walks.distance", { unit: distanceUnit(unitSystem) })}</Text>
             <TextInput
               value={distance}
               onChangeText={setDistance}
@@ -181,7 +184,7 @@ export default function Walks() {
               className="mb-4 rounded-lg border border-border bg-surface px-4 py-3 text-fg"
             />
 
-            <Text className="mb-1 text-sm text-muted">Notes (optional)</Text>
+            <Text className="mb-1 text-sm text-muted">{t("walks.notes")}</Text>
             <TextInput
               value={notes}
               onChangeText={setNotes}
@@ -189,15 +192,15 @@ export default function Walks() {
               className="mb-5 min-h-20 rounded-lg border border-border bg-surface px-4 py-3 text-fg"
             />
 
-            <Button label={saving ? "Saving…" : "Save"} onPress={save} disabled={saving} />
+            <Button label={saving ? t("common.saving") : t("common.save")} onPress={save} disabled={saving} />
 
             <View className="mt-3 flex-row items-center justify-between">
               <Pressable onPress={() => setEditing(null)} className="px-2 py-2">
-                <Text className="text-muted">Cancel</Text>
+                <Text className="text-muted">{t("common.cancel")}</Text>
               </Pressable>
               {editing !== "new" && editing !== null ? (
                 <Pressable onPress={() => confirmDelete(editing)} className="px-2 py-2">
-                  <Text className="text-danger">Delete</Text>
+                  <Text className="text-danger">{t("common.delete")}</Text>
                 </Pressable>
               ) : null}
             </View>

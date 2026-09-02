@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, Text, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { formatDate } from "@/dates";
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export default function DateField({ label, value, onChange, maximumDate, clearable }: Props) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
 
   return (
@@ -23,12 +25,12 @@ export default function DateField({ label, value, onChange, maximumDate, clearab
           className="flex-1 rounded-lg border border-border bg-ink px-4 py-3"
         >
           <Text className={value ? "text-fg" : "text-muted"}>
-            {value ? formatDate(value) : "Not set"}
+            {value ? formatDate(value) : t("common.notSet")}
           </Text>
         </Pressable>
         {clearable && value ? (
           <Pressable onPress={() => onChange("")}>
-            <Text className="text-sm text-danger">Clear</Text>
+            <Text className="text-sm text-danger">{t("common.clear")}</Text>
           </Pressable>
         ) : null}
       </View>

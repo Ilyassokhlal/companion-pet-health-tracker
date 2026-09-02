@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Image, Pressable, Text, View, type AlertButton } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { useAuth } from "@/auth/AuthContext";
 import { uploadMyPhoto, deleteMyPhoto } from "@/api/auth";
 import type { PhotoUpload } from "@/api/records";
+import { errorMessage } from "@/errors";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
 // The signed-in user's avatar. Same actions as the web's hover menu, but driven by a native Alert
 // A phone has no hover state to reveal an overlay with.
 export default function UserPhoto() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [busy, setBusy] = useState(false);
 
@@ -25,7 +28,7 @@ export default function UserPhoto() {
       await uploadMyPhoto(file);
       await refreshUser();
     } catch (err) {
-      Alert.alert("Upload failed", (err as Error).message);
+      Alert.alert(t("photoMenu.uploadFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -43,19 +46,19 @@ export default function UserPhoto() {
       await deleteMyPhoto();
       await refreshUser();
     } catch (err) {
-      Alert.alert("Remove failed", (err as Error).message);
+      Alert.alert(t("photoMenu.removeFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
   function openMenu() {
-    const buttons: AlertButton[] = [{ text: "Choose photo", onPress: pick }];
+    const buttons: AlertButton[] = [{ text: t("photoMenu.choose"), onPress: pick }];
     if (user?.photo_filename) {
-      buttons.push({ text: "Remove", style: "destructive", onPress: remove });
+      buttons.push({ text: t("photoMenu.remove"), style: "destructive", onPress: remove });
     }
-    buttons.push({ text: "Cancel", style: "cancel" });
-    Alert.alert("Profile photo", undefined, buttons);
+    buttons.push({ text: t("common.cancel"), style: "cancel" });
+    Alert.alert(t("photoMenu.userTitle"), undefined, buttons);
   }
 
   if (!user) return null;
@@ -72,8 +75,7 @@ export default function UserPhoto() {
           </View>
         )}
       </Pressable>
-      <Text className="mt-2 text-sm text-primary">Change photo</Text>
+      <Text className="mt-2 text-sm text-primary">{t("photoMenu.change")}</Text>
     </View>
   );
 }
-    

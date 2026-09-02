@@ -40,6 +40,17 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "close": "Close",
+    "notSet": "Not set",
+    "clear": "Clear",
+    "offline": "Offline — showing records saved {{date}}",
+    "title": "Title",
+    "date": "Date",
+    "weight": "Weight ({{unit}})",
+    "optional": "Optional",
+    "noPet": "Add a pet first.",
+    "saving": "Saving…",
+    "all": "All",
+    "edit": "Edit",
     "loading": "Loading...",
     "disclaimer": "Responses within this app do not constitute professional veterinary advice. Please consult a veterinarian for any health concerns regarding your pet."
   },
@@ -76,12 +87,283 @@
       "submitting": "Resetting..."
     },
     "verify": {
+      "title": "Verify Email",
+      "continue": "Continue",
       "verifying": "Verifying…",
       "missingToken": "That link is missing its token.",
       "success": "Email verified successfully.",
       "homeLink": "Go to home page",
       "loginLink": "Go to login page"
     }
+  },
+  "account": {
+    "username": {
+      "label": "Username",
+      "submit": "Change Username"
+    },
+    "email": {
+      "label": "New Email",
+      "currentPassword": "Current Password",
+      "submit": "Change Email",
+      "sent": "Check your NEW inbox to confirm the email change."
+    },
+    "password": {
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "submit": "Change Password"
+    },
+    "delete": {
+      "title": "Delete account",
+      "warning": "This action is permanent and cannot be undone.",
+      "currentPassword": "Current password",
+      "confirmBody": "This permanently removes your pets, records and photos."
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "Appearance",
+      "darkMode": "Dark Mode",
+      "accent": "Accent"
+    },
+    "preferences": {
+      "title": "Units & Language",
+      "measurements": "Measurements",
+      "metric": "Metric (kg, km)",
+      "imperial": "Imperial (lb, mi)",
+      "metricHint": "Metric — weight in kilograms, distance in kilometers",
+      "imperialHint": "Imperial — weight in pounds, distance in miles",
+      "currency": "Currency",
+      "language": "Language",
+      "note": "Most of the app is still English while translations are in progress.",
+      "chooseCurrency": "Choose a currency",
+      "chooseLanguage": "Choose a language"
+    },
+    "reminders": {
+      "title": "Reminders",
+      "email": "Email me what is due",
+      "howOften": "How often",
+      "weekly": "Weekly, on Sunday",
+      "daily": "Every day",
+      "push": "Notify my phone about what is due today",
+      "timezone": "Timezone",
+      "arrival": "Everything arrives at 6am in this timezone.",
+      "verifyFirst": "Verify your email to enable reminders.",
+      "chooseTimezone": "Choose a timezone",
+      "search": "Search"
+    }
+  },
+  "trackingSettings": {
+    "weight": {
+      "title": "Weight tracking",
+      "account": "Track my pets' weight",
+      "off": "Turn this on to schedule weigh-ins for individual pets.",
+      "noPets": "Add a pet to start tracking.",
+      "weekly": "Every week",
+      "biweekly": "Every two weeks",
+      "monthly": "Every month"
+    },
+    "walks": {
+      "title": "Walk tracking",
+      "account": "Track my pets' walks",
+      "off": "Turn this on to log walks and see which pets have been out today.",
+      "noPets": "Add a pet to start tracking."
+    },
+    "feeding": {
+      "title": "Feeding reminders",
+      "note": "Fires at each scheduled feeding time when nothing has been logged for it. Separate from the daily reminder digest.",
+      "push": "Push notification",
+      "email": "Email"
+    }
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "logout": "Log out",
+    "groups": {
+      "account": {
+        "label": "Account",
+        "hint": "Photo, username, email, password, delete account"
+      },
+      "appearance": {
+        "label": "Appearance",
+        "hint": "Theme and accent colour"
+      },
+      "notifications": {
+        "label": "Notifications & Tracking",
+        "hint": "Reminders, push and weight check-ins"
+      },
+      "units": {
+        "label": "Units & Language",
+        "hint": "Measurement, currency and language"
+      },
+      "privacy": {
+        "label": "Data & Privacy",
+        "hint": "Privacy Policy and Terms of Service"
+      }
+    },
+    "memberSince": "Member since",
+    "update": "Update",
+    "notVerified": "Email not verified",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "tagInput": {
+    "add": "Add"
+  },
+  "photoMenu": {
+    "petTitle": "{{name}}'s photo",
+    "userTitle": "Profile photo",
+    "choose": "Choose photo",
+    "remove": "Remove",
+    "change": "Change photo",
+    "uploadFailed": "Upload failed",
+    "removeFailed": "Remove failed"
+  },
+  "recordTypes": {
+    "Vaccination": "Vaccination",
+    "Vet Visit": "Vet Visit",
+    "Medication": "Medication",
+    "Weight": "Weight",
+    "Symptom": "Symptom",
+    "Grooming": "Grooming",
+    "Training": "Training"
+  },
+  "recordForm": {
+    "recordType": "Record type",
+    "description": "Description (optional)",
+    "nextDue": "Next due date (optional)",
+    "photos": "Photos (optional)",
+    "takePhoto": "Take photo",
+    "choose": "Choose",
+    "removeFile": "remove",
+    "add": "Add record",
+    "cameraDenied": "Camera permission is required to take a photo."
+  },
+  "petForm": {
+    "name": "Name",
+    "species": "Species",
+    "speciesOptions": {
+      "Dog": "Dog",
+      "Cat": "Cat"
+    },
+    "breed": "Breed",
+    "birthDate": "Birth date",
+    "budget": "Monthly budget ({{currency}})",
+    "noLimit": "No limit",
+    "trackWeight": "Track this pet's weight",
+    "checkIn": "Check in",
+    "hasDietary": "Has dietary restrictions or allergies",
+    "dietary": "Dietary restrictions & allergies",
+    "dietaryPlaceholder": "e.g. Chicken",
+    "hasDisabilities": "Has disabilities",
+    "disabilities": "Disabilities",
+    "disabilitiesPlaceholder": "e.g. Deaf in left ear",
+    "add": "Add pet"
+  },
+  "eventForm": {
+    "submit": "Schedule"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "records": "Records",
+    "tracking": "Tracking",
+    "photos": "Photos",
+    "chat": "Chat"
+  },
+  "weightTracking": {
+    "current": "Current",
+    "empty": "No weigh-ins yet."
+  },
+  "walks": {
+    "log": "Log a walk",
+    "edit": "Edit walk",
+    "empty": "No walks logged yet.",
+    "duration": "Duration (minutes)",
+    "distance": "Distance ({{unit}}, optional)",
+    "notes": "Notes (optional)",
+    "durationRequired": "Enter how long the walk lasted, in minutes.",
+    "distanceInvalid": "Distance must be a number.",
+    "confirmDeleteTitle": "Delete walk",
+    "confirmDeleteBody": "This walk will be permanently removed."
+  },
+  "feeding": {
+    "schedule": "Schedule",
+    "noTimes": "No feeding times set. Adding one turns on the dashboard indicator and lets reminders fire.",
+    "addTime": "Add a time",
+    "addAt": "Add {{time}}",
+    "logTitle": "Log a feeding",
+    "food": "Food",
+    "amount": "Amount",
+    "notes": "Notes",
+    "logNow": "Log now",
+    "history": "History",
+    "empty": "Nothing logged yet.",
+    "noDetails": "No details",
+    "confirmDeleteTitle": "Delete feeding",
+    "confirmDeleteBody": "This entry will be permanently removed.",
+    "status": {
+      "met": "Fed",
+      "due": "Due now",
+      "missed": "Missed",
+      "upcoming": "Later today"
+    }
+  },
+  "records": {
+    "exportData": "Export data",
+    "exportPdf": "Export PDF",
+    "exportFailed": "Export failed",
+    "empty": "No records yet.",
+    "nextDue": "Next due {{date}}",
+    "confirmDeleteTitle": "Delete record",
+    "confirmDeleteBody": "\"{{title}}\" will be permanently removed."
+  },
+  "chat": {
+    "title": "Ask about {{name}}",
+    "clear": "Clear",
+    "empty": "Ask anything about {{name}} — vaccinations, symptoms, medications.",
+    "thinking": "Thinking…",
+    "sources": "Sources: ",
+    "placeholder": "Ask a question…",
+    "send": "Send",
+    "error": "Error: {{message}}",
+    "confirmDeleteTitle": "Delete message",
+    "confirmDeleteBody": "This message will be permanently removed.",
+    "confirmClearTitle": "Clear chat",
+    "confirmClearBody": "Every message for this pet will be permanently removed."
+  },
+  "dashboard": {
+    "ageUnknown": "Unknown",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "months_one": "{{count}} month",
+    "months_other": "{{count}} months",
+    "years_one": "{{count}} year",
+    "years_other": "{{count}} years",
+    "species": "Species",
+    "breed": "Breed",
+    "age": "Age",
+    "walkedToday": "Walked today",
+    "yes": "Yes",
+    "notYet": "Not yet",
+    "feeding": "Feeding",
+    "missed_one": "{{count}} missed",
+    "missed_other": "{{count}} missed",
+    "onTrack": "On track",
+    "weight": "Weight",
+    "spentThisMonth": "Spent this month",
+    "noPetYet": "You have not added a pet yet.",
+    "addChip": "+ Add",
+    "due": "Due",
+    "dismiss": "Dismiss",
+    "nothingDue": "Nothing due.",
+    "scheduled": "Scheduled",
+    "schedule": "Schedule",
+    "nothingScheduled": "Nothing scheduled.",
+    "overdue": "Overdue: ",
+    "done": "Done",
+    "deleteTitle": "Delete {{name}}?",
+    "deleteBody": "Their health records, photos and chat history are deleted too. This cannot be undone."
   },
   "verifyBanner": {
     "title": "Verify your email address",

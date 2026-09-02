@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
@@ -20,6 +21,7 @@ const browserOptions = (c: ReturnType<typeof themeColors>) => ({
 });
 
 export default function Privacy() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
   const browser = browserOptions(themeColors(theme, accent));
@@ -29,21 +31,21 @@ export default function Privacy() {
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
-      <Text className="mb-6 text-2xl font-bold text-fg">Data & Privacy</Text>
+      <Text className="mb-6 text-2xl font-bold text-fg">{t("settingsPage.groups.privacy.label")}</Text>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-4 text-lg font-semibold text-fg">Legal</Text>
+        <Text className="mb-4 text-lg font-semibold text-fg">{t("settingsPage.legal")}</Text>
         <Pressable
           onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`, browser)}
           className="mb-3 active:opacity-70"
         >
-          <Text className="text-primary">Privacy Policy</Text>
+          <Text className="text-primary">{t("settingsPage.privacyPolicy")}</Text>
         </Pressable>
         <Pressable
           onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`, browser)}
           className="active:opacity-70"
         >
-          <Text className="text-primary">Terms of Service</Text>
+          <Text className="text-primary">{t("settingsPage.terms")}</Text>
         </Pressable>
       </View>
 

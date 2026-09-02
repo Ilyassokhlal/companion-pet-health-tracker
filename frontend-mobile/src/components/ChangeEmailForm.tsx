@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAuth } from "@/auth/AuthContext";
 import { changeEmail } from "@/api/auth";
+import { errorMessage } from "@/errors";
 
 // Stages an email change. Since v2.1 the API writes pending_email rather than swapping immediately.
 // The address only changes when the link in the NEW inbox is clicked, so a typo can no longer strand the account.
 export default function ChangeEmailForm() {
+  const { t } = useTranslation();
   const { refreshUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,9 +28,9 @@ export default function ChangeEmailForm() {
       await refreshUser();
       setEmail("");
       setPassword("");
-      setMessage("Check your NEW inbox to confirm the email change.");
+      setMessage(t("account.email.sent"));
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -35,7 +38,7 @@ export default function ChangeEmailForm() {
 
   return (
     <View className="mt-4 border-t border-border pt-4">
-      <Text className="mb-2 text-sm text-muted">New Email</Text>
+      <Text className="mb-2 text-sm text-muted">{t("account.email.label")}</Text>
       <Input
         value={email}
         onChangeText={setEmail}
@@ -43,7 +46,7 @@ export default function ChangeEmailForm() {
         autoCapitalize="none"
       />
 
-      <Text className="mt-4 mb-2 text-sm text-muted">Current Password</Text>
+      <Text className="mt-4 mb-2 text-sm text-muted">{t("account.email.currentPassword")}</Text>
       <Input
         value={password}
         onChangeText={setPassword}
@@ -53,7 +56,7 @@ export default function ChangeEmailForm() {
 
       {error ? <Text className="mt-2 text-sm text-danger">{error}</Text> : null}
       {message ? <Text className="mt-2 text-sm text-primary">{message}</Text> : null}
-      <Button label="Change Email" onPress={handleSubmit} loading={submitting} />
+      <Button label={t("account.email.submit")} onPress={handleSubmit} loading={submitting} />
     </View>
   );
 }

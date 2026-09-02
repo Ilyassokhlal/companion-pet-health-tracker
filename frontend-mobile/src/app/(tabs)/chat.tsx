@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -19,6 +20,7 @@ import Markdown from "react-native-markdown-display";
 import SwipeTabs from "@/components/SwipeTabs";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import { errorMessage } from "@/errors";
 
 type Palette = ReturnType<typeof themeColors>;
 
@@ -43,6 +45,7 @@ interface Turn {
 }
 
 export default function Chat() {
+  const { t } = useTranslation();
   const { currentPet } = usePets();
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
@@ -101,15 +104,15 @@ export default function Chat() {
     try {
       for await (const event of askStream(currentPet.id, asked)) {
         if (event.type === "token") {
-          updateLast((t) => ({ ...t, content: t.content + event.value }));
+          updateLast((turn) => ({ ...turn, content: turn.content + event.value }));
         } else if (event.type === "meta") {
-          updateLast((t) => ({ ...t, sources: event.sources }));
+          updateLast((turn) => ({ ...turn, sources: event.sources }));
         }
       }
     } catch (err) {
-      updateLast((t) => ({
-        ...t,
-        content: `${t.content}\n\nError: ${(err as Error).message}`,
+      updateLast((turn) => ({
+        ...turn,
+        content: `${turn.content}\n\n${t("chat.error", { message: errorMessage(err) })}`,
       }));
     } finally {
       setStreaming(false);
@@ -119,10 +122,10 @@ export default function Chat() {
   function confirmDeleteTurn(turn: Turn) {
     if (turn.id === undefined) return;
     const id = turn.id;
-    Alert.alert("Delete message", "This message will be permanently removed.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("chat.confirmDeleteTitle"), t("chat.confirmDeleteBody"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: async () => {
           await deleteMessage(id);
@@ -135,10 +138,10 @@ export default function Chat() {
   function confirmClear() {
     if (!currentPet) return;
     const petId = currentPet.id;
-    Alert.alert("Clear chat", "Every message for this pet will be permanently removed.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("chat.confirmClearTitle"), t("chat.confirmClearBody"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Clear",
+        text: t("chat.clear"),
         style: "destructive",
         onPress: async () => {
           await clearMessages(petId);
@@ -151,7 +154,7 @@ export default function Chat() {
   if (!currentPet) {
     return (
       <View className="flex-1 items-center justify-center bg-ink px-6">
-        <Text className="text-center text-muted">Add a pet first.</Text>
+        <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
   }
@@ -167,14 +170,14 @@ export default function Chat() {
         style={{ paddingTop: insets.top + 12 }}
       >
         <Text numberOfLines={1} className="flex-1 text-lg font-semibold text-fg">
-          Ask about {currentPet.name}
+          {t("chat.title", { name: currentPet.name })}
         </Text>
         {turns.length > 0 ? (
           <Pressable
             onPress={confirmClear}
             className="ms-3 shrink-0 rounded-full border border-danger bg-surface px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-danger">Clear</Text>
+            <Text className="text-sm font-medium text-danger">{t("chat.clear")}</Text>
           </Pressable>
         ) : null}
       </View>
@@ -187,30 +190,30 @@ export default function Chat() {
       >
         {turns.length === 0 ? (
           <Text className="text-muted">
-            Ask anything about {currentPet.name} — vaccinations, symptoms, medications.
+            {t("chat.empty", { name: currentPet.name })}
           </Text>
         ) : null}
 
-        {turns.map((t, idx) => (
+        {turns.map((turn, idx) => (
           <Pressable
             key={idx}
-            onLongPress={() => confirmDeleteTurn(t)}
+            onLongPress={() => confirmDeleteTurn(turn)}
             className={`max-w-[85%] rounded-xl px-3 py-2 ${
-              t.role === "user" ? "self-end bg-primary" : "self-start border border-border bg-surface"
+              turn.role === "user" ? "self-end bg-primary" : "self-start border border-border bg-surface"
             }`}
           >
-            {t.role === "assistant" && !t.content ? (
-              <Text className="text-muted">Thinking…</Text>
-            ) : t.role === "assistant" ? (
-              <Markdown style={markdownStyles}>{t.content}</Markdown>
+            {turn.role === "assistant" && !turn.content ? (
+              <Text className="text-muted">{t("chat.thinking")}</Text>
+            ) : turn.role === "assistant" ? (
+              <Markdown style={markdownStyles}>{turn.content}</Markdown>
             ) : (
-              <Text className="text-fg">{t.content}</Text>
+              <Text className="text-fg">{turn.content}</Text>
             )}
 
-            {t.sources && t.sources.length > 0 ? (
+            {turn.sources && turn.sources.length > 0 ? (
               <View className="mt-2 flex-row flex-wrap items-baseline">
-                <Text className="text-xs text-muted">Sources: </Text>
-                {t.sources.map((s, i) => (
+                <Text className="text-xs text-muted">{t("chat.sources")}</Text>
+                {turn.sources.map((s, i) => (
                   <Pressable key={i} onPress={() => WebBrowser.openBrowserAsync(s.url)}>
                     <Text className="text-xs text-primary">
                       {i > 0 ? ", " : ""}
@@ -228,7 +231,7 @@ export default function Chat() {
         <Input
           value={question}
           onChangeText={setQuestion}
-          placeholder="Ask a question…"
+          placeholder={t("chat.placeholder")}
           className="flex-1 rounded-lg border border-border bg-ink px-4 py-3 text-fg"
           onSubmitEditing={handleAsk}
           returnKeyType="send"
@@ -239,7 +242,7 @@ export default function Chat() {
           disabled={streaming}
           className={`justify-center rounded-lg px-5 ${streaming ? "bg-surface" : "bg-primary"}`}
         >
-          <Text className="font-semibold text-fg">Send</Text>
+          <Text className="font-semibold text-fg">{t("chat.send")}</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>

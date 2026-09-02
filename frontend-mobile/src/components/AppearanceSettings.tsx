@@ -1,16 +1,18 @@
+import { useTranslation } from "react-i18next";
 import { Switch, Text, View, Pressable } from "react-native";
 import { useTheme } from "@/theme/ThemeContext";
 import { ACCENTS, accentColor } from "@/theme/palette";
 
 export default function AppearanceSettings() {
+  const { t } = useTranslation();
   const { theme, accent, setTheme, setAccent } = useTheme();
 
   return (
     <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-      <Text className="mb-4 text-lg font-semibold text-fg">Appearance</Text>
+      <Text className="mb-4 text-lg font-semibold text-fg">{t("settings.appearance.title")}</Text>
 
       <View className="mb-4 flex-row items-center justify-between">
-        <Text className="text-fg">Dark Mode</Text>
+        <Text className="text-fg">{t("settings.appearance.darkMode")}</Text>
         <Switch
           value={theme === "dark"}
           onValueChange={(v) => setTheme(v ? "dark" : "light")}
@@ -18,7 +20,7 @@ export default function AppearanceSettings() {
       </View>
 
       <View className="flex-row items-center justify-between">
-        <Text className="text-fg">Accent</Text>
+        <Text className="text-fg">{t("settings.appearance.accent")}</Text>
         <View className="flex-row gap-2">
           {ACCENTS.map(a => (
             <Pressable

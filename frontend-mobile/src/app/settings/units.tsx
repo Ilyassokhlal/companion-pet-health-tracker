@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,16 +11,13 @@ import { CURRENCIES, LANGUAGES, UNIT_SYSTEMS } from "@/types";
 import type { LanguageCode } from "@/types";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
-
-const UNIT_LABELS: Record<string, string> = {
-  metric: "Metric (kg, km)",
-  imperial: "Imperial (lb, mi)",
-};
+import { errorMessage } from "@/errors";
 
 type Picker = "currency" | "language";
 
 // This screen allows the user to select their preferred unit system (metric or imperial), currency, and language.
 export default function Units() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
@@ -35,7 +33,7 @@ export default function Units() {
       await updateMe(patch);
       await refreshUser();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -60,11 +58,11 @@ export default function Units() {
       className="flex-1 bg-ink"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
-      <Text className="mb-6 text-2xl font-bold text-fg">Units & Language</Text>
+      <Text className="mb-6 text-2xl font-bold text-fg">{t("settings.preferences.title")}</Text>
       {error ? <Text className="mb-4 text-sm text-danger">{error}</Text> : null}
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-3 text-lg font-semibold text-fg">Measurements</Text>
+        <Text className="mb-3 text-lg font-semibold text-fg">{t("settings.preferences.measurements")}</Text>
         <View className="flex-row flex-wrap gap-2">
           {UNIT_SYSTEMS.map((unit) => (
             <Pressable
@@ -78,21 +76,21 @@ export default function Units() {
               <Text
                 className={`text-sm ${user.unit_system === unit ? "text-on-primary" : "text-fg"}`}
               >
-                {UNIT_LABELS[unit]}
+                {t(`settings.preferences.${unit}`)}
               </Text>
             </Pressable>
           ))}
         </View>
         <Text className="mt-3 text-sm text-muted">
-          Metric — weight in kilograms, distance in kilometers
+          {t("settings.preferences.metricHint")}
         </Text>
         <Text className="text-sm text-muted">
-          Imperial — weight in pounds, distance in miles
+          {t("settings.preferences.imperialHint")}
         </Text>
       </View>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-4 text-lg font-semibold text-fg">Currency</Text>
+        <Text className="mb-4 text-lg font-semibold text-fg">{t("settings.preferences.currency")}</Text>
         <Pressable
           onPress={() => setPicking("currency")}
           disabled={saving}
@@ -106,7 +104,7 @@ export default function Units() {
       </View>
 
       <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <Text className="mb-4 text-lg font-semibold text-fg">Language</Text>
+        <Text className="mb-4 text-lg font-semibold text-fg">{t("settings.preferences.language")}</Text>
         <Pressable
           onPress={() => setPicking("language")}
           disabled={saving}
@@ -116,14 +114,14 @@ export default function Units() {
           <Ionicons name="chevron-down" size={16} color={colors.muted} />
         </Pressable>
         <Text className="mt-3 text-sm text-muted">
-          Most of the app is still English while translations are in progress.
+          {t("settings.preferences.note")}
         </Text>
       </View>
 
       <Modal visible={picking !== null} animationType="slide" onRequestClose={() => setPicking(null)}>
         <View className="flex-1 bg-ink px-4" style={{ paddingTop: insets.top + 16 }}>
           <Text className="mb-4 text-xl font-bold text-fg">
-            {picking === "currency" ? "Choose a currency" : "Choose a language"}
+            {picking === "currency" ? t("settings.preferences.chooseCurrency") : t("settings.preferences.chooseLanguage")}
           </Text>
           <FlatList
             data={options}
@@ -140,7 +138,7 @@ export default function Units() {
             )}
           />
           <View className="py-4">
-            <Button label="Close" variant="secondary" onPress={() => setPicking(null)} />
+            <Button label={t("common.close")} variant="secondary" onPress={() => setPicking(null)} />
           </View>
         </View>
       </Modal>

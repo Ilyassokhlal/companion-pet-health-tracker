@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Switch, Text, View } from "react-native";
 
 import { useAuth } from "@/auth/AuthContext";
 import { usePets } from "@/context/PetContext";
 import { updateMe } from "@/api/auth";
 import { updatePet } from "@/api/pets";
+import { errorMessage } from "@/errors";
 
 export default function WalkSettings() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const { pets, refresh } = usePets();
   const [saving, setSaving] = useState(false);
@@ -20,7 +23,7 @@ export default function WalkSettings() {
       await refreshUser();
       await refresh();
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -30,11 +33,11 @@ export default function WalkSettings() {
 
   return (
     <View className="mb-6 rounded-xl border border-border bg-surface p-5">
-      <Text className="mb-4 text-lg font-semibold text-fg">Walk tracking</Text>
+      <Text className="mb-4 text-lg font-semibold text-fg">{t("trackingSettings.walks.title")}</Text>
       {error ? <Text className="mb-4 text-sm text-danger">{error}</Text> : null}
 
       <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink text-fg">{"Track my pets' walks"}</Text>
+        <Text className="shrink text-fg">{t("trackingSettings.walks.account")}</Text>
         <Switch
           value={user.walk_tracking_enabled ?? false}
           disabled={saving}
@@ -44,12 +47,12 @@ export default function WalkSettings() {
 
       {!user.walk_tracking_enabled ? (
         <Text className="text-sm text-muted">
-          Turn this on to log walks and see which pets have been out today.
+          {t("trackingSettings.walks.off")}
         </Text>
       ) : null}
 
       {user.walk_tracking_enabled && pets.length === 0 ? (
-        <Text className="text-sm text-muted">Add a pet to start tracking.</Text>
+        <Text className="text-sm text-muted">{t("trackingSettings.walks.noPets")}</Text>
       ) : null}
 
       {user.walk_tracking_enabled
