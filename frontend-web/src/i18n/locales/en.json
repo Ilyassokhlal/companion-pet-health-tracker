@@ -134,7 +134,10 @@
       "imperial": "Imperial (lb, mi)",
       "currency": "Currency",
       "language": "Language",
-      "note": "Weights are always stored in kilograms — this only changes how they are shown and entered. Most of the app is still English while translations are in progress."
+      "restartTitle": "Restart required",
+      "restartBody": "Arabic changes the layout direction. Companion needs to restart to apply it.",
+      "restartNow": "Restart",
+      "note": "Weights are always stored in kilograms — this only changes how they are shown and entered. Emails and reminders are still sent in English."
     },
     "reminders": {
       "title": "Reminders",

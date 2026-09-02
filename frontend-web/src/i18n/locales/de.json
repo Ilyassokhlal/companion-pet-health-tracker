@@ -1,0 +1,442 @@
+{
+"errors": {
+"generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+"validation": "Bitte überprüfen Sie die eingegebenen Informationen.",
+"too_many_attempts": "Zu viele Versuche. Bitte warten Sie einen Moment und versuchen Sie es erneut.",
+"error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+"not_found": "Nicht gefunden.",
+"duplicate": "Dieses Element existiert bereits.",
+"bad_request": "Diese Anfrage konnte nicht verarbeitet werden.",
+"forbidden": "Sie haben keine Berechtigung dafür.",
+"unauthorized": "Bitte melden Sie sich erneut an.",
+"service_unavailable": "Dieser Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.",
+"internal_error": "Auf unserer Seite ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+"ai_unavailable": "Der Assistent ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.",
+"bad_month": "Dieser Monat ist ungültig.",
+"email_already_verified": "Diese E-Mail-Adresse wurde bereits bestätigt.",
+"email_unchanged": "Dies ist bereits Ihre E-Mail-Adresse.",
+"empty_question": "Geben Sie zuerst eine Frage ein.",
+"event_already_completed": "Dies wurde bereits als erledigt markiert.",
+"image_too_large": "Dieses Bild ist zu groß.",
+"incorrect_password": "Das Passwort ist falsch.",
+"invalid_credentials": "E-Mail-Adresse oder Passwort ist falsch.",
+"invalid_link": "Dieser Link ist ungültig.",
+"invalid_token": "Dieser Link ist ungültig oder abgelaufen.",
+"link_already_used": "Dieser Link wurde bereits verwendet.",
+"no_pet_photo": "Für dieses Haustier ist kein Foto vorhanden.",
+"no_photos_selected": "Keine Fotos ausgewählt.",
+"no_user_photo": "Für Sie ist kein Foto vorhanden.",
+"password_unchanged": "Dies ist bereits Ihr Passwort.",
+"session_expired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+"too_many_photos": "Sie haben zu viele Fotos ausgewählt.",
+"unsupported_export_format": "Dieses Exportformat wird nicht unterstützt.",
+"unsupported_image_type": "Dieser Bildtyp wird nicht unterstützt."
+},
+
+"common": {
+"username": "Benutzername",
+"email": "E-Mail-Adresse",
+"password": "Passwort",
+"save": "Speichern",
+"cancel": "Abbrechen",
+"delete": "Löschen",
+"close": "Schließen",
+"saving": "Wird gespeichert...",
+"title": "Titel",
+"date": "Datum",
+"weight": "Gewicht ({{unit}})",
+"all": "Alle",
+"edit": "Bearbeiten",
+"noPet": "Fügen Sie zuerst ein Haustier hinzu.",
+"loading": "Wird geladen...",
+"disclaimer": "Die Antworten in dieser App stellen keine professionelle tierärztliche Beratung dar. Bitte wenden Sie sich bei gesundheitlichen Fragen zu Ihrem Haustier an einen Tierarzt."
+},
+
+"auth": {
+"welcome": "Willkommen bei Companion",
+"login": {
+"title": "Anmelden",
+"submit": "Anmelden",
+"submitting": "Anmeldung läuft...",
+"registerLink": "Noch kein Konto? Jetzt registrieren",
+"forgotLink": "Passwort vergessen?"
+},
+"register": {
+"title": "Konto erstellen",
+"submit": "Registrieren",
+"submitting": "Registrierung läuft...",
+"loginLink": "Sie haben bereits ein Konto? Jetzt anmelden"
+},
+"forgot": {
+"title": "Passwort vergessen",
+"sent": "Wenn diese E-Mail-Adresse registriert ist, haben wir einen Link zum Zurücksetzen Ihres Passworts gesendet.",
+"submit": "Link senden",
+"submitting": "Wird gesendet...",
+"backLink": "Zurück zur Anmeldung"
+},
+"reset": {
+"title": "Passwort zurücksetzen",
+"missingToken": "Der Bestätigungscode fehlt in diesem Link.",
+"requestNewLink": "Neuen Link anfordern",
+"newPassword": "Neues Passwort",
+"confirmPassword": "Passwort bestätigen",
+"mismatch": "Die Passwörter stimmen nicht überein.",
+"submit": "Passwort zurücksetzen",
+"submitting": "Passwort wird zurückgesetzt..."
+},
+"verify": {
+"verifying": "Wird überprüft…",
+"missingToken": "Der Bestätigungscode fehlt in diesem Link.",
+"success": "E-Mail-Adresse erfolgreich bestätigt.",
+"homeLink": "Zur Startseite",
+"loginLink": "Zur Anmeldung"
+}
+},
+
+"account": {
+"username": {
+"label": "Benutzername",
+"submit": "Benutzernamen ändern"
+},
+"email": {
+"label": "Neue E-Mail-Adresse",
+"currentPassword": "Aktuelles Passwort",
+"submit": "E-Mail-Adresse ändern",
+"submitting": "Wird gesendet...",
+"sent": "Prüfen Sie Ihre neue E-Mail-Adresse auf den Bestätigungslink. Ihre E-Mail-Adresse wird erst geändert, wenn Sie die Änderung bestätigen."
+},
+"password": {
+"current": "Aktuelles Passwort",
+"new": "Neues Passwort",
+"confirm": "Neues Passwort bestätigen",
+"submit": "Passwort ändern",
+"submitting": "Passwort wird geändert...",
+"mismatch": "Das neue Passwort und die Bestätigung stimmen nicht überein.",
+"tooShort": "Das neue Passwort muss mindestens 8 Zeichen enthalten.",
+"changed": "Passwort erfolgreich geändert."
+},
+"delete": {
+"title": "Konto löschen",
+"warning": "Das Löschen Ihres Kontos ist endgültig. Ihre Haustiere, Gesundheitsakten, Fotos und der Chatverlauf werden dauerhaft gelöscht.",
+"start": "Konto löschen",
+"confirmPassword": "Passwort bestätigen",
+"submit": "Endgültig löschen",
+"submitting": "Konto wird gelöscht..."
+}
+},
+
+"settings": {
+"appearance": {
+"title": "Erscheinungsbild",
+"darkMode": "Dunkelmodus",
+"accent": "Akzentfarbe"
+},
+"preferences": {
+"title": "Einheiten und Sprache",
+"measurements": "Maßeinheiten",
+"metric": "Metrisch (kg, km)",
+"imperial": "Imperial (lb, mi)",
+"currency": "Währung",
+"language": "Sprache",
+"restartTitle": "Neustart erforderlich",
+"restartBody": "Arabisch ändert die Layoutrichtung. Companion muss neu starten, um sie anzuwenden.",
+"restartNow": "Neu starten",
+"note": "Gewichte werden immer in Kilogramm gespeichert — diese Einstellung ändert nur ihre Anzeige und Eingabe. E-Mails und Erinnerungen werden weiterhin auf Englisch versendet."
+},
+"reminders": {
+"title": "Erinnerungen",
+"email": "Mir per E-Mail mitteilen, was zu erledigen ist",
+"howOften": "Häufigkeit",
+"weekly": "Jede Woche, sonntags",
+"daily": "Täglich",
+"push": "Mein Handy über die heutigen Aufgaben benachrichtigen",
+"timezone": "Zeitzone",
+"arrival": "Alle Benachrichtigungen werden um 6 Uhr morgens entsprechend dieser Zeitzone zugestellt.",
+"verifyFirst": "Bestätigen Sie Ihre E-Mail-Adresse, um Erinnerungen zu aktivieren."
+}
+},
+
+"trackingSettings": {
+"weight": {
+"title": "Gewichtsverfolgung",
+"account": "Gewicht meiner Haustiere verfolgen",
+"off": "Aktivieren Sie diese Option, um Wiegetermine für jedes Haustier zu planen.",
+"noPets": "Fügen Sie ein Haustier hinzu, um mit der Verfolgung zu beginnen.",
+"weekly": "Wöchentlich",
+"biweekly": "Alle zwei Wochen",
+"monthly": "Monatlich"
+},
+"walks": {
+"title": "Spaziergangverfolgung",
+"account": "Spaziergänge meiner Haustiere verfolgen",
+"off": "Aktivieren Sie diese Option, um Spaziergänge zu erfassen und zu sehen, welche Haustiere heute draußen waren.",
+"noPets": "Fügen Sie ein Haustier hinzu, um mit der Verfolgung zu beginnen."
+},
+"feeding": {
+"title": "Fütterungserinnerungen",
+"note": "Die Erinnerung wird zu jeder geplanten Fütterungszeit ausgelöst, wenn keine Fütterung erfasst wurde. Sie ist unabhängig von der täglichen Zusammenfassung.",
+"push": "Push-Benachrichtigung",
+"email": "E-Mail"
+}
+},
+
+"nav": {
+"dashboard": "Dashboard",
+"records": "Aufzeichnungen",
+"tracking": "Verfolgung",
+"photos": "Fotos",
+"chat": "Chatverlauf",
+"settings": "Einstellungen",
+"logout": "Abmelden",
+"logoutMobile": "Abmelden",
+"menu": "Menü"
+},
+
+"settingsPage": {
+"title": "Einstellungen",
+"account": "Konto",
+"username": "Benutzername",
+"email": "E-Mail-Adresse",
+"password": "Passwort",
+"memberSince": "Mitglied seit",
+"update": "Bearbeiten"
+},
+
+"footer": {
+"disclaimer": "Hinweis: Diese App dient ausschließlich zu Informationszwecken und ersetzt keine professionelle tierärztliche Beratung. Wenden Sie sich bei gesundheitlichen Fragen zu Ihrem Haustier immer an einen Tierarzt. Nutzen Sie die App nach eigenem Ermessen.",
+"privacy": "Datenschutzerklärung",
+"terms": "Nutzungsbedingungen",
+"rights": "© {{year}} Companion. Alle Rechte vorbehalten."
+},
+
+"petSelector": {
+"addPet": "Haustier hinzufügen"
+},
+
+"chat": {
+"title": "Frage zu {{name}} stellen",
+"small": "Klein",
+"medium": "Mittel",
+"large": "Groß",
+"resize": "Größe des Bereichs ändern",
+"thinking": "🤔 Wird verarbeitet…",
+"sources": "Quellen:",
+"placeholder": "Stellen Sie eine Frage...",
+"send": "Senden",
+"error": "Fehler: {{message}}"
+},
+
+"tagInput": {
+"add": "Hinzufügen",
+"remove": "{{value}} entfernen"
+},
+
+"photoMenu": {
+"view": "Foto anzeigen",
+"replace": "Foto ersetzen",
+"upload": "Foto hochladen",
+"remove": "Foto löschen"
+},
+
+"recordTypes": {
+"Vaccination": "Impfung",
+"Vet Visit": "Tierarztbesuch",
+"Medication": "Medikament",
+"Weight": "Gewicht",
+"Symptom": "Symptom",
+"Grooming": "Pflege",
+"Training": "Training"
+},
+
+"recordForm": {
+"recordType": "Art der Aufzeichnung",
+"description": "Beschreibung (optional)",
+"nextDue": "Nächster Termin (optional)",
+"photos": "Fotos (optional)",
+"removeFile": "Entfernen"
+},
+
+"petForm": {
+"name": "Name",
+"species": "Tierart",
+"dog": "Hund",
+"cat": "Katze",
+"breed": "Rasse",
+"birthDate": "Geburtsdatum",
+"budget": "Monatliches Budget ({{currency}})",
+"budgetHint": "Leer lassen, wenn kein Limit festgelegt werden soll.",
+"trackWeight": "Gewicht dieses Haustiers verfolgen",
+"checkIn": "Wiegehäufigkeit",
+"hasDietary": "Hat Ernährungseinschränkungen oder Allergien",
+"dietary": "Ernährungseinschränkungen und Allergien",
+"dietaryPlaceholder": "z. B. Huhn",
+"hasDisabilities": "Hat eine Behinderung",
+"disabilities": "Behinderungen",
+"disabilitiesPlaceholder": "z. B. auf dem linken Ohr taub"
+},
+
+"chatHistory": {
+"title": "Chatverlauf",
+"empty": "Noch keine Unterhaltungen.",
+"clearAll": "Alle löschen",
+"assistant": "Companion",
+"you": "Sie",
+"sources": "Quellen",
+"deleteMessage": "Nachricht löschen",
+"deleteMessageBody": "Diese Nachricht wird dauerhaft aus der Unterhaltung entfernt.",
+"clearTitle": "Unterhaltung löschen",
+"clearBody": "Alle Nachrichten zu {{name}} werden dauerhaft gelöscht."
+},
+
+"weightTracking": {
+"empty": "Noch keine Wiegevorgänge. Fügen Sie eine Gesundheitsaufzeichnung vom Typ „Gewicht“ hinzu."
+},
+
+"records": {
+"add": "Aufzeichnung hinzufügen",
+"edit": "Aufzeichnung bearbeiten",
+"exportData": "Daten",
+"exportPdf": "PDF",
+"empty": "Noch keine Aufzeichnungen.",
+"nextDue": "Nächster Termin {{date}}",
+"deleteTitle": "Aufzeichnung löschen",
+"deleteBody": "„{{title}}“ wird dauerhaft gelöscht."
+},
+
+"feeding": {
+"timeRequired": "Für eine Fütterung muss eine Uhrzeit angegeben werden.",
+"schedule": "Zeitplan",
+"noTimes": "Es wurden noch keine Fütterungszeiten festgelegt. Durch das Hinzufügen einer Uhrzeit wird der Hinweis im Dashboard aktiviert und die Erinnerungen werden ausgelöst.",
+"removeTime": "Fütterungszeit entfernen",
+"addTime": "Uhrzeit hinzufügen",
+"logTitle": "Fütterung erfassen",
+"food": "Futter",
+"amount": "Menge",
+"notes": "Notizen",
+"logButton": "Erfassen",
+"history": "Verlauf",
+"empty": "Noch keine Fütterungen erfasst.",
+"noDetails": "Keine Details",
+"deleteEntry": "Fütterung löschen",
+"status": {
+"met": "Gefüttert",
+"due": "Jetzt fällig",
+"missed": "Verpasst",
+"upcoming": "Später heute"
+}
+},
+
+"dashboard": {
+"noPetYet": "Sie haben noch kein Haustier hinzugefügt.",
+"addPet": "Haustier hinzufügen",
+"addPetTitle": "Haustier hinzufügen",
+"species": "Tierart",
+"breed": "Rasse",
+"age": "Alter",
+"notSet": "Nicht angegeben",
+"ageUnknown": "Unbekannt",
+"days_one": "{{count}} Tag",
+"days_other": "{{count}} Tage",
+"months_one": "{{count}} Monat",
+"months_other": "{{count}} Monate",
+"years_one": "{{count}} Jahr",
+"years_other": "{{count}} Jahre",
+"walkedToday": "Heute spazieren gegangen",
+"yes": "Ja",
+"notYet": "Noch nicht",
+"spentThisMonth": "Diesen Monat ausgegeben",
+"weight": "Gewicht",
+"due": "Fällig",
+"nothingDue": "Nichts fällig.",
+"scheduled": "Geplant",
+"schedule": "Planen",
+"nothingScheduled": "Nichts geplant.",
+"overdue": "Überfällig: ",
+"done": "Erledigt",
+"editPet": "{{name}} bearbeiten",
+"completeRecord": "Aufzeichnung abschließen",
+"scheduleSomething": "Aufgabe planen",
+"deleteTitle": "{{name}} löschen?",
+"deleteBody": "Die Gesundheitsaufzeichnungen, Fotos und der Chatverlauf werden ebenfalls gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+},
+
+"verifyBanner": {
+"title": "Bestätigen Sie Ihre E-Mail-Adresse",
+"body": "Erinnerungen und Benachrichtigungen bleiben deaktiviert, bis die Bestätigung erfolgt ist.",
+"resend": "E-Mail erneut senden",
+"sending": "Wird gesendet…",
+"sent": "Gesendet — prüfen Sie Ihren Posteingang."
+},
+
+"photos": {
+"noPet": "Fügen Sie zuerst ein Haustier hinzu.",
+"empty": "Noch keine Fotos. Fügen Sie beim Erstellen einer Gesundheitsaufzeichnung Fotos hinzu.",
+"noMatch": "Keine Fotos entsprechen diesen Filtern.",
+"filter": "Filtern",
+"clearFilters": "Filter löschen",
+"type": "Typ",
+"from": "Von",
+"to": "Bis",
+"select": "Auswählen",
+"selectedCount": "{{count}} ausgewählt",
+"download": "Herunterladen",
+"confirmDelete": "{{count}} Fotos löschen?",
+"confirm": "Bestätigen",
+"limitReached": "Sie können bis zu {{max}} Fotos auswählen."
+},
+
+"tracking": {
+"title": "Verfolgung",
+"empty": "Aktivieren Sie die Gewichts- oder Spaziergangverfolgung in den Einstellungen, um sie hier anzuzeigen.",
+"weight": "Gewicht",
+"weightHint": "Wiegevorgänge und Gewichtsverlauf",
+"walks": "Spaziergänge",
+"walksHint": "Erfasste Spaziergänge, neueste zuerst",
+"feeding": "Fütterung",
+"feedingHint": "Fütterungszeiten und Tagesprotokoll",
+"budget": "Budget",
+"budgetHint": "Monatliche Kosten für dieses Haustier"
+},
+
+"walks": {
+"noPet": "Fügen Sie zuerst ein Haustier hinzu.",
+"trackingOff": "Aktivieren Sie die Spaziergangverfolgung in den Einstellungen, um Spaziergänge zu erfassen.",
+"title": "Spaziergänge",
+"log": "Spaziergang erfassen",
+"edit": "Spaziergang bearbeiten",
+"empty": "Keine Spaziergänge erfasst.",
+"confirmDelete": "Diesen Spaziergang löschen?",
+"date": "Datum",
+"duration": "Dauer (Minuten)",
+"distance": "Entfernung ({{unit}})",
+"notes": "Notizen"
+},
+
+"budget": {
+"noPet": "Fügen Sie zuerst ein Haustier hinzu.",
+"title": "Budget",
+"log": "Ausgabe hinzufügen",
+"edit": "Ausgabe bearbeiten",
+"empty": "Für diesen Monat sind keine Ausgaben erfasst.",
+"confirmDelete": "Diese Ausgabe löschen?",
+"month": "Monat",
+"date": "Datum",
+"amount": "Betrag ({{currency}})",
+"category": "Kategorie",
+"record": "Mit einer Gesundheitsaufzeichnung verknüpfen",
+"noRecord": "Nicht verknüpft",
+"notes": "Notizen",
+"of": "von {{limit}}",
+"noLimit": "Kein monatliches Limit festgelegt",
+"mixedCurrencies": "Dieser Monat enthält mehrere Währungen ({{codes}}) — die Gesamtsumme ist eine Rohsumme und keine Währungsumrechnung.",
+"categories": {
+"food": "Futter",
+"vet": "Tierarzt",
+"medication": "Medikamente",
+"grooming": "Pflege",
+"supplies": "Zubehör",
+"insurance": "Versicherung",
+"other": "Sonstiges"
+}
+}
+}

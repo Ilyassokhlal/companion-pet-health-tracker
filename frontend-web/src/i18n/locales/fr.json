@@ -1,0 +1,417 @@
+{
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer.",
+    "validation": "Veuillez vérifier les informations saisies.",
+    "too_many_attempts": "Trop de tentatives. Patientez un moment et réessayez.",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "not_found": "Introuvable.",
+    "duplicate": "Cet élément existe déjà.",
+    "bad_request": "Cette requête n'a pas pu être traitée.",
+    "forbidden": "Vous n'avez pas la permission de faire cela.",
+    "unauthorized": "Veuillez vous reconnecter.",
+    "service_unavailable": "Ce service est temporairement indisponible. Réessayez sous peu.",
+    "internal_error": "Une erreur est survenue de notre côté. Réessayez sous peu.",
+    "ai_unavailable": "L'assistant est indisponible pour le moment. Réessayez sous peu.",
+    "bad_month": "Ce mois n'est pas valide.",
+    "email_already_verified": "Cette adresse e-mail est déjà vérifiée.",
+    "email_unchanged": "C'est déjà votre adresse e-mail.",
+    "empty_question": "Saisissez d'abord une question.",
+    "event_already_completed": "C'est déjà marqué comme fait.",
+    "image_too_large": "Cette image est trop volumineuse.",
+    "incorrect_password": "Mot de passe incorrect.",
+    "invalid_credentials": "E-mail ou mot de passe incorrect.",
+    "invalid_link": "Ce lien n'est pas valide.",
+    "invalid_token": "Ce lien n'est pas valide, ou il a expiré.",
+    "link_already_used": "Ce lien a déjà été utilisé.",
+    "no_pet_photo": "Cet animal n'a pas de photo.",
+    "no_photos_selected": "Aucune photo sélectionnée.",
+    "no_user_photo": "Vous n'avez pas de photo.",
+    "password_unchanged": "C'est déjà votre mot de passe.",
+    "session_expired": "Votre session a expiré. Veuillez vous reconnecter.",
+    "too_many_photos": "Vous avez sélectionné trop de photos.",
+    "unsupported_export_format": "Ce format d'export n'est pas pris en charge.",
+    "unsupported_image_type": "Ce type d'image n'est pas pris en charge."
+  },
+  "common": {
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "saving": "Enregistrement...",
+    "title": "Titre",
+    "date": "Date",
+    "weight": "Poids ({{unit}})",
+    "all": "Tout",
+    "edit": "Modifier",
+    "noPet": "Ajoutez d'abord un animal.",
+    "loading": "Chargement...",
+    "disclaimer": "Les réponses fournies dans cette application ne constituent pas un avis vétérinaire professionnel. Veuillez consulter un vétérinaire pour toute préoccupation concernant la santé de votre animal."
+  },
+  "auth": {
+    "welcome": "Bienvenue sur Companion",
+    "login": {
+      "title": "Connexion",
+      "submit": "Se connecter",
+      "submitting": "Connexion...",
+      "registerLink": "Nouveau ? Inscrivez-vous ici",
+      "forgotLink": "Mot de passe oublié ?"
+    },
+    "register": {
+      "title": "Inscription",
+      "submit": "S'inscrire",
+      "submitting": "Inscription...",
+      "loginLink": "Vous avez déjà un compte ? Connectez-vous ici"
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "sent": "Si cette adresse est enregistrée, nous avons envoyé un lien pour réinitialiser votre mot de passe.",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi...",
+      "backLink": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Réinitialiser le mot de passe",
+      "missingToken": "Il manque le jeton dans ce lien.",
+      "requestNewLink": "Demander un nouveau lien",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "submit": "Réinitialiser le mot de passe",
+      "submitting": "Réinitialisation..."
+    },
+    "verify": {
+      "verifying": "Vérification…",
+      "missingToken": "Il manque le jeton dans ce lien.",
+      "success": "Adresse e-mail vérifiée avec succès.",
+      "homeLink": "Aller à l'accueil",
+      "loginLink": "Aller à la connexion"
+    }
+  },
+  "account": {
+    "username": {
+      "label": "Nom d'utilisateur",
+      "submit": "Changer le nom d'utilisateur"
+    },
+    "email": {
+      "label": "Nouvel e-mail",
+      "currentPassword": "Mot de passe actuel",
+      "submit": "Changer l'e-mail",
+      "submitting": "Envoi...",
+      "sent": "Consultez votre nouvelle adresse pour le lien de vérification. Votre e-mail ne changera pas tant que vous ne l'aurez pas confirmé."
+    },
+    "password": {
+      "current": "Mot de passe actuel",
+      "new": "Nouveau mot de passe",
+      "confirm": "Confirmer le nouveau mot de passe",
+      "submit": "Changer le mot de passe",
+      "submitting": "Envoi...",
+      "mismatch": "Le nouveau mot de passe et sa confirmation ne correspondent pas.",
+      "tooShort": "Le nouveau mot de passe doit contenir au moins 8 caractères.",
+      "changed": "Mot de passe modifié avec succès."
+    },
+    "delete": {
+      "title": "Supprimer le compte",
+      "warning": "La suppression de votre compte est définitive. Vos animaux, dossiers de santé, photos et historique de conversation disparaissent avec lui.",
+      "start": "Supprimer le compte",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Supprimer définitivement",
+      "submitting": "Suppression..."
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "Apparence",
+      "darkMode": "Mode sombre",
+      "accent": "Couleur d'accent"
+    },
+    "preferences": {
+      "title": "Unités et langue",
+      "measurements": "Mesures",
+      "metric": "Métrique (kg, km)",
+      "imperial": "Impérial (lb, mi)",
+      "currency": "Devise",
+      "language": "Langue",
+      "restartTitle": "Redémarrage nécessaire",
+      "restartBody": "L'arabe change le sens de la mise en page. Companion doit redémarrer pour l'appliquer.",
+      "restartNow": "Redémarrer",
+      "note": "Les poids sont toujours stockés en kilogrammes — ceci ne change que leur affichage et leur saisie. Les e-mails et les rappels sont encore envoyés en anglais."
+    },
+    "reminders": {
+      "title": "Rappels",
+      "email": "M'envoyer par e-mail ce qui est à faire",
+      "howOften": "Fréquence",
+      "weekly": "Chaque semaine, le dimanche",
+      "daily": "Chaque jour",
+      "push": "Notifier mon téléphone de ce qui est à faire aujourd'hui",
+      "timezone": "Fuseau horaire",
+      "arrival": "Tout arrive à 6 h dans ce fuseau horaire.",
+      "verifyFirst": "Vérifiez votre e-mail pour activer les rappels."
+    }
+  },
+  "trackingSettings": {
+    "weight": {
+      "title": "Suivi du poids",
+      "account": "Suivre le poids de mes animaux",
+      "off": "Activez ceci pour planifier des pesées pour chaque animal.",
+      "noPets": "Ajoutez un animal pour commencer le suivi.",
+      "weekly": "Chaque semaine",
+      "biweekly": "Toutes les deux semaines",
+      "monthly": "Chaque mois"
+    },
+    "walks": {
+      "title": "Suivi des promenades",
+      "account": "Suivre les promenades de mes animaux",
+      "off": "Activez ceci pour enregistrer les promenades et voir quels animaux sont sortis aujourd'hui.",
+      "noPets": "Ajoutez un animal pour commencer le suivi."
+    },
+    "feeding": {
+      "title": "Rappels de repas",
+      "note": "Se déclenche à chaque heure de repas prévue si rien n'a été enregistré. Indépendant du récapitulatif quotidien.",
+      "push": "Notification push",
+      "email": "E-mail"
+    }
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "records": "Dossiers",
+    "tracking": "Suivi",
+    "photos": "Photos",
+    "chat": "Historique des conversations",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "logoutMobile": "Se déconnecter",
+    "menu": "Menu"
+  },
+  "settingsPage": {
+    "title": "Paramètres",
+    "account": "Compte",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "memberSince": "Membre depuis",
+    "update": "Modifier"
+  },
+  "footer": {
+    "disclaimer": "Avertissement : cette application est fournie à titre informatif uniquement et ne remplace pas un avis vétérinaire professionnel. Consultez toujours votre vétérinaire pour toute préoccupation concernant la santé de votre animal. À utiliser avec discernement.",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions",
+    "rights": "© {{year}} Companion. Tous droits réservés."
+  },
+  "petSelector": {
+    "addPet": "Ajouter un animal"
+  },
+  "chat": {
+    "title": "Poser une question sur {{name}}",
+    "small": "Petit",
+    "medium": "Moyen",
+    "large": "Grand",
+    "resize": "Changer la taille du panneau",
+    "thinking": "🤔 Réflexion…",
+    "sources": "Sources :",
+    "placeholder": "Posez une question...",
+    "send": "Envoyer",
+    "error": "Erreur : {{message}}"
+  },
+  "tagInput": {
+    "add": "Ajouter",
+    "remove": "Supprimer {{value}}"
+  },
+  "photoMenu": {
+    "view": "Voir la photo",
+    "replace": "Remplacer la photo",
+    "upload": "Téléverser une photo",
+    "remove": "Supprimer la photo"
+  },
+  "recordTypes": {
+    "Vaccination": "Vaccination",
+    "Vet Visit": "Visite vétérinaire",
+    "Medication": "Médicament",
+    "Weight": "Poids",
+    "Symptom": "Symptôme",
+    "Grooming": "Toilettage",
+    "Training": "Dressage"
+  },
+  "recordForm": {
+    "recordType": "Type de dossier",
+    "description": "Description (facultatif)",
+    "nextDue": "Prochaine échéance (facultatif)",
+    "photos": "Photos (facultatif)",
+    "removeFile": "retirer"
+  },
+  "petForm": {
+    "name": "Nom",
+    "species": "Espèce",
+    "dog": "Chien",
+    "cat": "Chat",
+    "breed": "Race",
+    "birthDate": "Date de naissance",
+    "budget": "Budget mensuel ({{currency}})",
+    "budgetHint": "Laissez vide pour ne pas fixer de limite.",
+    "trackWeight": "Suivre le poids de cet animal",
+    "checkIn": "Fréquence des pesées",
+    "hasDietary": "A des restrictions alimentaires ou des allergies",
+    "dietary": "Restrictions alimentaires et allergies",
+    "dietaryPlaceholder": "ex. Poulet",
+    "hasDisabilities": "A un handicap",
+    "disabilities": "Handicaps",
+    "disabilitiesPlaceholder": "ex. Sourd de l'oreille gauche"
+  },
+  "chatHistory": {
+    "title": "Historique des conversations",
+    "empty": "Aucune conversation pour le moment.",
+    "clearAll": "Tout effacer",
+    "assistant": "Companion",
+    "you": "Vous",
+    "sources": "Sources",
+    "deleteMessage": "Supprimer le message",
+    "deleteMessageBody": "Ce message sera définitivement retiré de la conversation.",
+    "clearTitle": "Effacer la conversation",
+    "clearBody": "Tous les messages concernant {{name}} seront définitivement supprimés."
+  },
+  "weightTracking": {
+    "empty": "Aucune pesée pour le moment. Ajoutez un dossier de santé de type Poids."
+  },
+  "records": {
+    "add": "Ajouter un dossier",
+    "edit": "Modifier le dossier",
+    "exportData": "Données",
+    "exportPdf": "PDF",
+    "empty": "Aucun dossier pour le moment.",
+    "nextDue": "Prochaine échéance {{date}}",
+    "deleteTitle": "Supprimer le dossier",
+    "deleteBody": "« {{title}} » sera définitivement supprimé."
+  },
+  "feeding": {
+    "timeRequired": "Un repas a besoin d'une heure.",
+    "schedule": "Horaires",
+    "noTimes": "Aucune heure de repas définie. En ajouter une active l'indicateur du tableau de bord et permet aux rappels de se déclencher.",
+    "removeTime": "Retirer l'heure de repas",
+    "addTime": "Ajouter une heure",
+    "logTitle": "Enregistrer un repas",
+    "food": "Aliment",
+    "amount": "Quantité",
+    "notes": "Notes",
+    "logButton": "Enregistrer",
+    "history": "Historique",
+    "empty": "Rien d'enregistré pour le moment.",
+    "noDetails": "Aucun détail",
+    "deleteEntry": "Supprimer le repas",
+    "status": {
+      "met": "Nourri",
+      "due": "À faire maintenant",
+      "missed": "Manqué",
+      "upcoming": "Plus tard aujourd'hui"
+    }
+  },
+  "dashboard": {
+    "noPetYet": "Vous n'avez pas encore ajouté d'animal.",
+    "addPet": "Ajouter un animal",
+    "addPetTitle": "Ajouter un animal",
+    "species": "Espèce",
+    "breed": "Race",
+    "age": "Âge",
+    "notSet": "Non renseigné",
+    "ageUnknown": "Inconnu",
+    "days_one": "{{count}} jour",
+    "days_other": "{{count}} jours",
+    "months_one": "{{count}} mois",
+    "months_other": "{{count}} mois",
+    "years_one": "{{count}} an",
+    "years_other": "{{count}} ans",
+    "walkedToday": "Promené aujourd'hui",
+    "yes": "Oui",
+    "notYet": "Pas encore",
+    "spentThisMonth": "Dépensé ce mois-ci",
+    "weight": "Poids",
+    "due": "À faire",
+    "nothingDue": "Rien à faire.",
+    "scheduled": "Planifié",
+    "schedule": "Planifier",
+    "nothingScheduled": "Rien de planifié.",
+    "overdue": "En retard : ",
+    "done": "Terminé",
+    "editPet": "Modifier {{name}}",
+    "completeRecord": "Compléter le dossier",
+    "scheduleSomething": "Planifier quelque chose",
+    "deleteTitle": "Supprimer {{name}} ?",
+    "deleteBody": "Ses dossiers de santé, photos et historique de conversation sont également supprimés. Cette action est irréversible."
+  },
+  "verifyBanner": {
+    "title": "Vérifiez votre adresse e-mail",
+    "body": "Les rappels et les notifications restent désactivés tant que ce n'est pas fait.",
+    "resend": "Renvoyer l'e-mail",
+    "sending": "Envoi…",
+    "sent": "Envoyé — vérifiez votre boîte de réception."
+  },
+  "photos": {
+    "noPet": "Ajoutez d'abord un animal.",
+    "empty": "Aucune photo pour le moment. Ajoutez des photos lorsque vous créez un dossier de santé.",
+    "noMatch": "Aucune photo ne correspond à ces filtres.",
+    "filter": "Filtrer",
+    "clearFilters": "Effacer",
+    "type": "Type",
+    "from": "Du",
+    "to": "Au",
+    "select": "Sélectionner",
+    "selectedCount": "{{count}} sélectionnées",
+    "download": "Télécharger",
+    "confirmDelete": "Supprimer {{count}} photos ?",
+    "confirm": "Confirmer",
+    "limitReached": "Vous pouvez sélectionner jusqu'à {{max}} photos."
+  },
+  "tracking": {
+    "title": "Suivi",
+    "empty": "Activez le suivi du poids ou des promenades dans les Paramètres pour les voir ici.",
+    "weight": "Poids",
+    "weightHint": "Les pesées et leur évolution",
+    "walks": "Promenades",
+    "walksHint": "Promenades enregistrées, les plus récentes d'abord",
+    "feeding": "Repas",
+    "feedingHint": "Heures des repas et journal du jour",
+    "budget": "Budget",
+    "budgetHint": "Ce que cet animal coûte chaque mois"
+  },
+  "walks": {
+    "noPet": "Ajoutez d'abord un animal.",
+    "trackingOff": "Activez le suivi des promenades dans les Paramètres pour en enregistrer.",
+    "title": "Promenades",
+    "log": "Enregistrer une promenade",
+    "edit": "Modifier la promenade",
+    "empty": "Aucune promenade enregistrée.",
+    "confirmDelete": "Supprimer cette promenade ?",
+    "date": "Date",
+    "duration": "Durée (minutes)",
+    "distance": "Distance ({{unit}})",
+    "notes": "Notes"
+  },
+  "budget": {
+    "noPet": "Ajoutez d'abord un animal.",
+    "title": "Budget",
+    "log": "Ajouter une dépense",
+    "edit": "Modifier la dépense",
+    "empty": "Rien d'enregistré pour ce mois-ci.",
+    "confirmDelete": "Supprimer cette dépense ?",
+    "month": "Mois",
+    "date": "Date",
+    "amount": "Montant ({{currency}})",
+    "category": "Catégorie",
+    "record": "Associer à un dossier de santé",
+    "noRecord": "Non associé",
+    "notes": "Notes",
+    "of": "sur {{limit}}",
+    "noLimit": "Aucune limite mensuelle définie",
+    "mixedCurrencies": "Ce mois-ci mélange {{codes}} — le total est une somme brute, pas une conversion.",
+    "categories": {
+      "food": "Nourriture",
+      "vet": "Vétérinaire",
+      "medication": "Médicaments",
+      "grooming": "Toilettage",
+      "supplies": "Fournitures",
+      "insurance": "Assurance",
+      "other": "Autre"
+    }
+  }
+}

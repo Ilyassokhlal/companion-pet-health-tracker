@@ -135,7 +135,10 @@
       "imperialHint": "Imperial — weight in pounds, distance in miles",
       "currency": "Currency",
       "language": "Language",
-      "note": "Most of the app is still English while translations are in progress.",
+      "restartTitle": "Restart required",
+      "restartBody": "Arabic changes the layout direction. Companion needs to restart to apply it.",
+      "restartNow": "Restart",
+      "note": "Emails and reminders are still sent in English.",
       "chooseCurrency": "Choose a currency",
       "chooseLanguage": "Choose a language"
     },

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, FlatList, I18nManager, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -12,6 +12,7 @@ import type { LanguageCode } from "@/types";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { errorMessage } from "@/errors";
+import * as Updates from "expo-updates";
 
 type Picker = "currency" | "language";
 
@@ -39,11 +40,33 @@ export default function Units() {
     }
   }
 
+  // Apply the selected language, handling RTL changes for Arabic and prompting for a restart if necessary.
+  async function applyLanguage(code: string) {
+    await save({ language: code as LanguageCode });
+    const nextRTL = code === "ar";
+    if (nextRTL === I18nManager.isRTL) return;
+    Alert.alert(t("settings.preferences.restartTitle"), t("settings.preferences.restartBody"), [
+      { text: t("common.cancel"), style: "cancel" },
+      {
+        text: t("settings.preferences.restartNow"),
+        onPress: async () => {
+          I18nManager.forceRTL(nextRTL);
+          try {
+            await Updates.reloadAsync();
+          } catch {
+            // If reloadAsync fails, the app will need to be restarted manually. The preference is already saved.
+            setError(t("errors.generic"));
+          }
+        },
+      },
+    ]);
+  }
+
   function choose(code: string) {
     const target = picking;
     setPicking(null);
     if (target === "currency") save({ currency: code });
-    if (target === "language") save({ language: code as LanguageCode });
+    if (target === "language") applyLanguage(code);
   }
 
   if (!user) return null;
