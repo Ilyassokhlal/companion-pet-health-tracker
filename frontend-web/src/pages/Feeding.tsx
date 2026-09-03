@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Plus, Trash2 } from "lucide-react";
 import { usePets } from "../context/PetContext";
 import {
   listFeedingTimes, createFeedingTime, deleteFeedingTime,
@@ -9,7 +10,8 @@ import { AMOUNT_UNITS } from "../types";
 import type { Feeding as FeedingLog, FeedingTime, SlotStatus } from "../types";
 import { formatDate } from "../dates";
 import { errorMessage } from "../errors";
-import { Trash2 } from "lucide-react";
+import Button from "../components/ui/Button";
+import Modal from "../components/ui/Modal";
 
 const STATUS_STYLE: Record<SlotStatus["status"], string> = {
   met: "text-muted",
@@ -18,8 +20,12 @@ const STATUS_STYLE: Record<SlotStatus["status"], string> = {
   upcoming: "text-muted",
 };
 
+const FIELD = "w-full rounded-lg bg-ink border border-border px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none";
+
 // Component for managing feeding times and feeding logs for the current pet.
 // Allows adding, deleting, and viewing feeding times and logs, and shows the status of each feeding slot.
+// Both actions go through a button that opens a form, matching Budget and Walks — the inline rows of
+// bare inputs gave no indication of what they were for.
 export default function Feeding() {
   const { t } = useTranslation();
   const { currentPet } = usePets();
@@ -28,6 +34,9 @@ export default function Feeding() {
   const [log, setLog] = useState<FeedingLog[]>([]);
   const [newTime, setNewTime] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const [timeOpen, setTimeOpen] = useState(false);
+  const [logOpen, setLogOpen] = useState(false);
 
   const today = new Date().toLocaleDateString("en-CA");
   const [date, setDate] = useState(today);
@@ -57,19 +66,39 @@ export default function Feeding() {
     load();
   }, [load]);
 
-  async function addTime() {
+  function openTime() {
+    setNewTime("");
+    setError(null);
+    setTimeOpen(true);
+  }
+
+  function openLog() {
+    setDate(today);
+    setTime("");
+    setFood("");
+    setAmount("");
+    setUnit("g");
+    setNotes("");
+    setError(null);
+    setLogOpen(true);
+  }
+
+  async function addTime(e: React.FormEvent) {
+    e.preventDefault();
     if (!currentPet || !newTime) return;
     setError(null);
     try {
       await createFeedingTime(currentPet.id, `${newTime}:00`);
       setNewTime("");
+      setTimeOpen(false);
       load();
     } catch (err) {
       setError(errorMessage(err));
     }
   }
 
-  async function addFeeding() {
+  async function addFeeding(e: React.FormEvent) {
+    e.preventDefault();
     if (!currentPet || !time) {
       setError(t("feeding.timeRequired"));
       return;
@@ -85,10 +114,7 @@ export default function Feeding() {
         amount_unit: typed === null ? null : unit,
         notes: notes.trim() || null,
       });
-      setTime("");
-      setFood("");
-      setAmount("");
-      setNotes("");
+      setLogOpen(false);
       load();
     } catch (err) {
       setError(errorMessage(err));
@@ -97,18 +123,29 @@ export default function Feeding() {
 
   if (!currentPet) return <p className="p-8 text-muted">{t("common.noPet")}</p>;
 
-  const field = "rounded-lg bg-ink border border-border px-3 py-1.5 text-sm text-fg focus:border-primary focus:outline-none";
-
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="mb-1 text-2xl font-bold">{t("tracking.feeding")}</h1>
-      <p className="mb-6 text-sm text-muted">{currentPet.name}</p>
-      {error && <p className="mb-4 text-sm text-danger">{error}</p>}
+      {/* The title bar gets its own card so it is not reading straight off the background pattern. */}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface px-5 py-4">
+        <h1 className="text-2xl font-bold text-fg">{t("tracking.feeding")}</h1>
+        <Button onClick={openLog} className="flex items-center gap-2 whitespace-nowrap">
+          <Plus size={20} strokeWidth={2.5} />
+          {t("feeding.logTitle")}
+        </Button>
+      </div>
+
+      {error && !timeOpen && !logOpen && <p className="mb-4 text-sm text-danger">{error}</p>}
 
       <section className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <h2 className="mb-3 text-lg font-semibold">{t("feeding.schedule")}</h2>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-lg font-semibold">{t("feeding.schedule")}</h2>
+          <Button variant="secondary" onClick={openTime} className="flex items-center gap-2 whitespace-nowrap px-3 py-1.5 text-sm">
+            <Plus size={16} strokeWidth={2.5} />
+            {t("feeding.addTime")}
+          </Button>
+        </div>
         {times.length === 0 && (
-          <p className="mb-3 text-sm text-muted">
+          <p className="text-sm text-muted">
             {t("feeding.noTimes")}
           </p>
         )}
@@ -134,40 +171,6 @@ export default function Feeding() {
             </div>
           );
         })}
-        <div className="mt-4 flex items-center gap-3">
-          {/* step=900 restricts the picker to 15-minute increments, which the server also enforces. */}
-          <input type="time" step="900" value={newTime} onChange={(e) => setNewTime(e.target.value)} className={field} />
-          <button onClick={addTime} className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-on-primary">
-            {t("feeding.addTime")}
-          </button>
-        </div>
-      </section>
-
-      <section className="mb-6 rounded-xl border border-border bg-surface p-5">
-        <h2 className="mb-3 text-lg font-semibold">{t("feeding.logTitle")}</h2>
-        <div className="flex flex-wrap items-center gap-3">
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={field} />
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className={field} />
-          <input placeholder={t("feeding.food")} value={food} onChange={(e) => setFood(e.target.value)} className={field} />
-          <input
-            type="number"
-            min="0"
-            step="any"
-            placeholder={t("feeding.amount")}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className={`${field} w-28`}
-          />
-          <select value={unit} onChange={(e) => setUnit(e.target.value)} className={field}>
-            {AMOUNT_UNITS.map((u) => (
-              <option key={u} value={u}>{u}</option>
-            ))}
-          </select>
-          <input placeholder={t("feeding.notes")} value={notes} onChange={(e) => setNotes(e.target.value)} className={`${field} grow`} />
-          <button onClick={addFeeding} className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-on-primary">
-            {t("feeding.logButton")}
-          </button>
-        </div>
       </section>
 
       <h2 className="mb-3 text-lg font-semibold">{t("feeding.history")}</h2>
@@ -197,6 +200,80 @@ export default function Feeding() {
           </div>
         ))
       )}
+
+      <Modal open={timeOpen} title={t("feeding.addTime")} onClose={() => setTimeOpen(false)}>
+        <form onSubmit={addTime} className="flex flex-col gap-4">
+          <label className="text-sm text-muted">
+            {t("feeding.time")}
+            {/* step=900 restricts the picker to 15-minute increments, which the server also enforces. */}
+            <input
+              type="time"
+              step="900"
+              required
+              value={newTime}
+              onChange={(e) => setNewTime(e.target.value)}
+              className={`mt-1 ${FIELD}`}
+            />
+          </label>
+          <p className="text-sm text-muted">{t("feeding.noTimes")}</p>
+          {error && <p className="text-sm text-danger">{error}</p>}
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="secondary" onClick={() => setTimeOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <Button type="submit">{t("common.save")}</Button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal open={logOpen} title={t("feeding.logTitle")} onClose={() => setLogOpen(false)}>
+        <form onSubmit={addFeeding} className="flex flex-col gap-4">
+          <label className="text-sm text-muted">
+            {t("common.date")}
+            <input type="date" required value={date} onChange={(e) => setDate(e.target.value)} className={`mt-1 ${FIELD}`} />
+          </label>
+          <label className="text-sm text-muted">
+            {t("feeding.time")}
+            <input type="time" required value={time} onChange={(e) => setTime(e.target.value)} className={`mt-1 ${FIELD}`} />
+          </label>
+          <label className="text-sm text-muted">
+            {t("feeding.food")}
+            <input value={food} onChange={(e) => setFood(e.target.value)} className={`mt-1 ${FIELD}`} />
+          </label>
+          <div className="flex gap-3">
+            <label className="flex-1 text-sm text-muted">
+              {t("feeding.amount")}
+              <input
+                type="number"
+                min="0"
+                step="any"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className={`mt-1 ${FIELD}`}
+              />
+            </label>
+            <label className="w-32 text-sm text-muted">
+              {t("feeding.unit")}
+              <select value={unit} onChange={(e) => setUnit(e.target.value)} className={`mt-1 ${FIELD}`}>
+                {AMOUNT_UNITS.map((u) => (
+                  <option key={u} value={u}>{u}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <label className="text-sm text-muted">
+            {t("feeding.notes")}
+            <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className={`mt-1 ${FIELD}`} />
+          </label>
+          {error && <p className="text-sm text-danger">{error}</p>}
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="secondary" onClick={() => setLogOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <Button type="submit">{t("feeding.logButton")}</Button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
