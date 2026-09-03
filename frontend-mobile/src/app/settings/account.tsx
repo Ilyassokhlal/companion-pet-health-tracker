@@ -63,7 +63,7 @@ export default function Account() {
 
   return (
     <ScrollView
-      className="flex-1 bg-ink"
+      className="flex-1"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
       keyboardShouldPersistTaps="handled"
     >
@@ -89,8 +89,9 @@ export default function Account() {
         {editing === "username" ? <ChangeUsernameForm onDone={() => setEditing(null)} /> : null}
         {editing === "email" ? <ChangeEmailForm /> : null}
         {editing === "password" ? <ChangePasswordForm onDone={() => setEditing(null)} /> : null}
-      <DeleteAccountForm />
       </View>
+
+      <DeleteAccountForm />
     </ScrollView>
   );
 }

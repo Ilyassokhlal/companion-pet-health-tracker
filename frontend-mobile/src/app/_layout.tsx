@@ -45,13 +45,18 @@ function RootNavigator() {
 
 function ThemedRoot() {
   const { theme, style } = useAppTheme();
+  // Override the default background color with transparent to allow the custom pattern background to show through.
+  // This ensures that the pattern background remains visible behind all screens. Without being obscured by the default background color.
+  const base = theme === 'dark' ? DarkTheme : DefaultTheme;
+  const navTheme = { ...base, colors: { ...base.colors, background: 'transparent' } };
+
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={[{ flex: 1 }, style]}>
         <AuthProvider>
           <PetProvider>
-            <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+            <ThemeProvider value={navTheme}>
               <RootNavigator />
             </ThemeProvider>
           </PetProvider>

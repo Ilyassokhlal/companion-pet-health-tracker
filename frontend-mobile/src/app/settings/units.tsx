@@ -78,7 +78,7 @@ export default function Units() {
 
   return (
     <ScrollView
-      className="flex-1 bg-ink"
+      className="flex-1"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
       <Text className="mb-6 text-2xl font-bold text-fg">{t("settings.preferences.title")}</Text>
