@@ -46,13 +46,6 @@ class BadRequestException(AppException):
     def __init__(self, detail: str = "Bad request", code: str | None = None, **params):
         super().__init__(detail=detail, status_code=400, code=code, **params)
 
-class ForbiddenException(AppException):
-    """The user does not have permission to access this resource (403)"""
-    code = "forbidden"
-
-    def __init__(self, detail: str = "You do not have permission to access this resource", code: str | None = None, **params):
-        super().__init__(detail=detail, status_code=403, code=code, **params)
-
 class UnauthorizedException(AppException):
     """Authentication failed or missing (401)"""
     code = "unauthorized"

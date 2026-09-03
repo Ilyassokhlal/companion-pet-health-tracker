@@ -3,7 +3,7 @@ import i18n, { detectLanguage } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, meCached, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
-import { getToken, setToken } from "../api/client";
+import { getToken } from "../api/client";
 import { registerForPush, unregisterForPush } from "../notifications";
 import { clearCache } from "@/cache";
 

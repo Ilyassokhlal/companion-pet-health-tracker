@@ -32,7 +32,6 @@
     "unsupported_export_format": "Dieses Exportformat wird nicht unterstützt.",
     "unsupported_image_type": "Dieser Bildtyp wird nicht unterstützt."
   },
-
   "common": {
     "username": "Benutzername",
     "email": "E-Mail",
@@ -55,27 +54,23 @@
     "loading": "Laden...",
     "disclaimer": "Die Antworten in dieser App stellen keine professionelle tierärztliche Beratung dar. Wenden Sie sich bei Fragen zur Gesundheit Ihres Tieres an einen Tierarzt."
   },
-
   "auth": {
     "welcome": "Willkommen bei Companion",
     "login": {
       "title": "Anmelden",
       "submit": "Anmelden",
-      "submitting": "Anmeldung...",
       "registerLink": "Neu bei der App? Jetzt registrieren",
       "forgotLink": "Passwort vergessen?"
     },
     "register": {
       "title": "Konto erstellen",
       "submit": "Registrieren",
-      "submitting": "Registrierung...",
       "loginLink": "Sie haben bereits ein Konto? Anmelden"
     },
     "forgot": {
       "title": "Passwort vergessen",
       "sent": "Wenn diese E-Mail-Adresse registriert ist, haben wir Ihnen einen Link zum Zurücksetzen Ihres Passworts gesendet.",
       "submit": "Link zum Zurücksetzen senden",
-      "submitting": "Senden...",
       "backLink": "Zurück zur Anmeldung"
     },
     "reset": {
@@ -85,20 +80,16 @@
       "newPassword": "Neues Passwort",
       "confirmPassword": "Passwort bestätigen",
       "mismatch": "Die Passwörter stimmen nicht überein.",
-      "submit": "Passwort zurücksetzen",
-      "submitting": "Zurücksetzen..."
+      "submit": "Passwort zurücksetzen"
     },
     "verify": {
       "title": "E-Mail-Adresse bestätigen",
       "continue": "Weiter",
       "verifying": "Wird bestätigt…",
       "missingToken": "Das Token fehlt in diesem Link.",
-      "success": "E-Mail-Adresse erfolgreich bestätigt.",
-      "homeLink": "Zur Startseite",
-      "loginLink": "Zur Anmeldeseite"
+      "success": "E-Mail-Adresse erfolgreich bestätigt."
     }
   },
-
   "account": {
     "username": {
       "label": "Benutzername",
@@ -123,7 +114,6 @@
       "confirmBody": "Dadurch werden Ihre Tiere, Aufzeichnungen und Fotos dauerhaft gelöscht."
     }
   },
-
   "settings": {
     "appearance": {
       "title": "Darstellung",
@@ -160,7 +150,6 @@
       "search": "Suchen"
     }
   },
-
   "trackingSettings": {
     "weight": {
       "title": "Gewichtsverfolgung",
@@ -184,7 +173,6 @@
       "email": "E-Mail"
     }
   },
-
   "settingsPage": {
     "title": "Einstellungen",
     "logout": "Abmelden",
@@ -217,11 +205,9 @@
     "privacyPolicy": "Datenschutzerklärung",
     "terms": "Nutzungsbedingungen"
   },
-
   "tagInput": {
     "add": "Hinzufügen"
   },
-
   "photoMenu": {
     "petTitle": "Foto von {{name}}",
     "userTitle": "Profilfoto",
@@ -231,7 +217,6 @@
     "uploadFailed": "Hochladen fehlgeschlagen",
     "removeFailed": "Entfernen fehlgeschlagen"
   },
-
   "recordTypes": {
     "Vaccination": "Impfung",
     "Vet Visit": "Tierarztbesuch",
@@ -241,7 +226,6 @@
     "Grooming": "Pflege",
     "Training": "Training"
   },
-
   "recordForm": {
     "recordType": "Art des Eintrags",
     "description": "Beschreibung (optional)",
@@ -253,7 +237,6 @@
     "add": "Eintrag hinzufügen",
     "cameraDenied": "Die Kameraberechtigung ist erforderlich, um ein Foto aufzunehmen."
   },
-
   "petForm": {
     "name": "Name",
     "species": "Tierart",
@@ -275,11 +258,9 @@
     "disabilitiesPlaceholder": "z. B. auf dem linken Ohr taub",
     "add": "Tier hinzufügen"
   },
-
   "eventForm": {
     "submit": "Planen"
   },
-
   "nav": {
     "dashboard": "Dashboard",
     "records": "Einträge",
@@ -287,12 +268,10 @@
     "photos": "Fotos",
     "chat": "Chat"
   },
-
   "weightTracking": {
     "current": "Aktuell",
     "empty": "Noch keine Wiegevorgänge."
   },
-
   "walks": {
     "log": "Spaziergang aufzeichnen",
     "edit": "Spaziergang bearbeiten",
@@ -305,7 +284,6 @@
     "confirmDeleteTitle": "Spaziergang löschen",
     "confirmDeleteBody": "Dieser Spaziergang wird dauerhaft gelöscht."
   },
-
   "feeding": {
     "schedule": "Zeitplan",
     "noTimes": "Keine Fütterungszeiten festgelegt. Wenn Sie eine hinzufügen, wird der Dashboard-Indikator aktiviert und Erinnerungen können ausgelöst werden.",
@@ -328,7 +306,6 @@
       "upcoming": "Später heute"
     }
   },
-
   "records": {
     "exportData": "Daten exportieren",
     "exportPdf": "Als PDF exportieren",
@@ -338,7 +315,6 @@
     "confirmDeleteTitle": "Eintrag löschen",
     "confirmDeleteBody": "\"{{title}}\" wird dauerhaft gelöscht."
   },
-
   "chat": {
     "title": "Eine Frage zu {{name}} stellen",
     "clear": "Leeren",
@@ -353,7 +329,6 @@
     "confirmClearTitle": "Chat leeren",
     "confirmClearBody": "Alle Nachrichten zu diesem Tier werden dauerhaft gelöscht."
   },
-
   "dashboard": {
     "ageUnknown": "Unbekannt",
     "days_one": "{{count}} Tag",
@@ -387,7 +362,6 @@
     "deleteTitle": "{{name}} löschen?",
     "deleteBody": "Auch die Gesundheitsaufzeichnungen, Fotos und der Chatverlauf werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
   },
-
   "verifyBanner": {
     "title": "Bestätigen Sie Ihre E-Mail-Adresse",
     "body": "Erinnerungen und Push-Benachrichtigungen bleiben deaktiviert, bis Sie dies tun.",
@@ -395,7 +369,6 @@
     "sending": "Wird gesendet…",
     "sent": "Gesendet — überprüfen Sie Ihren Posteingang."
   },
-
   "photos": {
     "title": "Fotos",
     "noPet": "Fügen Sie zuerst ein Tier hinzu.",
@@ -406,15 +379,12 @@
     "type": "Typ",
     "from": "Von",
     "to": "Bis",
-    "select": "Auswählen",
     "selectedCount": "{{count}} ausgewählt",
     "download": "Herunterladen",
     "confirmDelete": "{{count}} Fotos löschen?",
-    "confirm": "Bestätigen",
     "limitReached": "Sie können bis zu {{max}} Fotos auswählen.",
     "savedToLibrary": "In Ihren Fotos gespeichert."
   },
-
   "tracking": {
     "title": "Verfolgung",
     "weight": "Gewicht",
@@ -426,7 +396,6 @@
     "budget": "Budget",
     "budgetHint": "Monatliche Kosten für dieses Tier"
   },
-
   "budget": {
     "noPet": "Fügen Sie zuerst ein Tier hinzu.",
     "title": "Budget",

@@ -32,7 +32,6 @@
     "unsupported_export_format": "Este formato de exportación no es compatible.",
     "unsupported_image_type": "Este tipo de imagen no es compatible."
   },
-
   "common": {
     "username": "Nombre de usuario",
     "email": "Correo electrónico",
@@ -55,27 +54,23 @@
     "loading": "Cargando...",
     "disclaimer": "Las respuestas proporcionadas en esta aplicación no constituyen asesoramiento veterinario profesional. Consulta a un veterinario si tienes alguna pregunta sobre la salud de tu animal."
   },
-
   "auth": {
     "welcome": "Bienvenido a Companion",
     "login": {
       "title": "Iniciar sesión",
       "submit": "Iniciar sesión",
-      "submitting": "Iniciando sesión...",
       "registerLink": "¿Nuevo en la aplicación? Regístrate",
       "forgotLink": "¿Has olvidado tu contraseña?"
     },
     "register": {
       "title": "Crear una cuenta",
       "submit": "Registrarse",
-      "submitting": "Registrando...",
       "loginLink": "¿Ya tienes una cuenta? Inicia sesión"
     },
     "forgot": {
       "title": "Contraseña olvidada",
       "sent": "Si esta dirección está registrada, te hemos enviado un enlace para restablecer tu contraseña.",
       "submit": "Enviar enlace para restablecer la contraseña",
-      "submitting": "Enviando...",
       "backLink": "Volver al inicio de sesión"
     },
     "reset": {
@@ -85,20 +80,16 @@
       "newPassword": "Nueva contraseña",
       "confirmPassword": "Confirmar contraseña",
       "mismatch": "Las contraseñas no coinciden.",
-      "submit": "Restablecer contraseña",
-      "submitting": "Restableciendo..."
+      "submit": "Restablecer contraseña"
     },
     "verify": {
       "title": "Verificar correo electrónico",
       "continue": "Continuar",
       "verifying": "Verificando…",
       "missingToken": "Falta el token en este enlace.",
-      "success": "La dirección de correo electrónico se ha verificado correctamente.",
-      "homeLink": "Ir al inicio",
-      "loginLink": "Ir a la página de inicio de sesión"
+      "success": "La dirección de correo electrónico se ha verificado correctamente."
     }
   },
-
   "account": {
     "username": {
       "label": "Nombre de usuario",
@@ -123,7 +114,6 @@
       "confirmBody": "Esto eliminará permanentemente tus animales, registros y fotos."
     }
   },
-
   "settings": {
     "appearance": {
       "title": "Apariencia",
@@ -160,7 +150,6 @@
       "search": "Buscar"
     }
   },
-
   "trackingSettings": {
     "weight": {
       "title": "Seguimiento del peso",
@@ -184,7 +173,6 @@
       "email": "Correo electrónico"
     }
   },
-
   "settingsPage": {
     "title": "Configuración",
     "logout": "Cerrar sesión",
@@ -217,11 +205,9 @@
     "privacyPolicy": "Política de privacidad",
     "terms": "Condiciones de uso"
   },
-
   "tagInput": {
     "add": "Añadir"
   },
-
   "photoMenu": {
     "petTitle": "Foto de {{name}}",
     "userTitle": "Foto de perfil",
@@ -231,7 +217,6 @@
     "uploadFailed": "Error al subir la foto",
     "removeFailed": "Error al eliminar la foto"
   },
-
   "recordTypes": {
     "Vaccination": "Vacunación",
     "Vet Visit": "Visita al veterinario",
@@ -241,7 +226,6 @@
     "Grooming": "Aseo",
     "Training": "Entrenamiento"
   },
-
   "recordForm": {
     "recordType": "Tipo de registro",
     "description": "Descripción (opcional)",
@@ -253,7 +237,6 @@
     "add": "Añadir registro",
     "cameraDenied": "Se necesita permiso para usar la cámara para hacer una foto."
   },
-
   "petForm": {
     "name": "Nombre",
     "species": "Especie",
@@ -275,11 +258,9 @@
     "disabilitiesPlaceholder": "p. ej., sordera del oído izquierdo",
     "add": "Añadir animal"
   },
-
   "eventForm": {
     "submit": "Programar"
   },
-
   "nav": {
     "dashboard": "Panel",
     "records": "Registros",
@@ -287,12 +268,10 @@
     "photos": "Fotos",
     "chat": "Chat"
   },
-
   "weightTracking": {
     "current": "Actual",
     "empty": "Aún no hay pesajes."
   },
-
   "walks": {
     "log": "Registrar un paseo",
     "edit": "Editar paseo",
@@ -305,7 +284,6 @@
     "confirmDeleteTitle": "Eliminar paseo",
     "confirmDeleteBody": "Este paseo se eliminará permanentemente."
   },
-
   "feeding": {
     "schedule": "Horario",
     "noTimes": "No se han definido horarios de comida. Añadir uno activa el indicador del panel y permite que se envíen recordatorios.",
@@ -328,7 +306,6 @@
       "upcoming": "Más tarde hoy"
     }
   },
-
   "records": {
     "exportData": "Exportar datos",
     "exportPdf": "Exportar a PDF",
@@ -338,7 +315,6 @@
     "confirmDeleteTitle": "Eliminar registro",
     "confirmDeleteBody": "\"{{title}}\" se eliminará permanentemente."
   },
-
   "chat": {
     "title": "Hacer una pregunta sobre {{name}}",
     "clear": "Borrar",
@@ -353,7 +329,6 @@
     "confirmClearTitle": "Borrar chat",
     "confirmClearBody": "Todos los mensajes sobre este animal se eliminarán permanentemente."
   },
-
   "dashboard": {
     "ageUnknown": "Desconocido",
     "days_one": "{{count}} día",
@@ -387,7 +362,6 @@
     "deleteTitle": "¿Eliminar a {{name}}?",
     "deleteBody": "También se eliminarán sus registros de salud, fotos e historial de chat. Esta acción no se puede deshacer."
   },
-
   "verifyBanner": {
     "title": "Verifica tu dirección de correo electrónico",
     "body": "Los recordatorios y las notificaciones push permanecerán desactivados hasta que lo hagas.",
@@ -395,7 +369,6 @@
     "sending": "Enviando…",
     "sent": "Enviado — revisa tu bandeja de entrada."
   },
-
   "photos": {
     "title": "Fotos",
     "noPet": "Añade primero un animal.",
@@ -406,15 +379,12 @@
     "type": "Tipo",
     "from": "Desde",
     "to": "Hasta",
-    "select": "Seleccionar",
     "selectedCount": "{{count}} seleccionadas",
     "download": "Descargar",
     "confirmDelete": "¿Eliminar {{count}} fotos?",
-    "confirm": "Confirmar",
     "limitReached": "Puedes seleccionar hasta {{max}} fotos.",
     "savedToLibrary": "Guardado en tus fotos."
   },
-
   "tracking": {
     "title": "Seguimiento",
     "weight": "Peso",
@@ -426,7 +396,6 @@
     "budget": "Presupuesto",
     "budgetHint": "Coste mensual de este animal"
   },
-
   "budget": {
     "noPet": "Añade primero un animal.",
     "title": "Presupuesto",

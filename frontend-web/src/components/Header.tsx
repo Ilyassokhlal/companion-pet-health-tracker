@@ -21,8 +21,6 @@ const navItems = [
 export default function Header() {
     const { t } = useTranslation();
     const { user, logout } = useAuth();
-    // Filter navigation items based on user settings (e.g., walk tracking enabled)
-        const visibleNav = navItems.filter((item) => item.to !== "/walks" || user?.walk_tracking_enabled);
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
@@ -31,7 +29,7 @@ export default function Header() {
                     <PawPrint size={22} className="inline me-2 -mt-1" /> Companion
                 </NavLink>
                 <nav className="hidden md:flex gap-4">
-                    {visibleNav.filter((item) => item.to !== "/settings").map((item) => (
+                    {navItems.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
@@ -81,7 +79,7 @@ export default function Header() {
 
             {menuOpen && (
                 <nav className="md:hidden absolute top-full inset-x-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
-                    {visibleNav.map((item) => (
+                    {navItems.map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}

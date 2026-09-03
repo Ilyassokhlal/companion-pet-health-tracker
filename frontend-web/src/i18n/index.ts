@@ -10,7 +10,6 @@ import ru from "./locales/ru.json";
 import zh from "./locales/zh.json";
 
 export const LANGUAGES = ["en", "fr", "es", "de", "ar", "ru", "zh"] as const;
-export type Language = (typeof LANGUAGES)[number];
 
 // The only right-to-left language in the set. A Set so adding he or fa later is one entry.
 const RTL_LANGUAGES = new Set<string>(["ar"]);

@@ -59,21 +59,18 @@
     "login": {
       "title": "Login",
       "submit": "Login",
-      "submitting": "Logging in...",
       "registerLink": "New user? Register here",
       "forgotLink": "Forgot your password?"
     },
     "register": {
       "title": "Register",
       "submit": "Register",
-      "submitting": "Registering...",
       "loginLink": "Already have an account? Login here"
     },
     "forgot": {
       "title": "Forgot Password",
       "sent": "If that address is registered, we've sent a link to reset your password.",
       "submit": "Send Reset Link",
-      "submitting": "Sending...",
       "backLink": "Back to login"
     },
     "reset": {
@@ -83,17 +80,14 @@
       "newPassword": "New Password",
       "confirmPassword": "Confirm Password",
       "mismatch": "Passwords don't match.",
-      "submit": "Reset Password",
-      "submitting": "Resetting..."
+      "submit": "Reset Password"
     },
     "verify": {
       "title": "Verify Email",
       "continue": "Continue",
       "verifying": "Verifying…",
       "missingToken": "That link is missing its token.",
-      "success": "Email verified successfully.",
-      "homeLink": "Go to home page",
-      "loginLink": "Go to login page"
+      "success": "Email verified successfully."
     }
   },
   "account": {
@@ -385,11 +379,9 @@
     "type": "Type",
     "from": "From",
     "to": "To",
-    "select": "Select",
     "selectedCount": "{{count}} selected",
     "download": "Download",
     "confirmDelete": "Delete {{count}} photos?",
-    "confirm": "Confirm",
     "limitReached": "You can select up to {{max}} photos.",
     "savedToLibrary": "Saved to your photos."
   },

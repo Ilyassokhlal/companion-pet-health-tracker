@@ -10,7 +10,6 @@ export type WeightFrequency = typeof WEIGHT_FREQUENCIES[number];
 
 // The measurement systems offered in Settings. Storage is always metric; this is display only.
 export const UNIT_SYSTEMS = ['metric', 'imperial'] as const;
-export type UnitSystem = typeof UNIT_SYSTEMS[number];
 
 // The currencies offered in Settings. Deliberately not the full ISO list.
 // The backend accepts any three uppercase letters, so this can grow without a migration.
@@ -42,7 +41,6 @@ export const LANGUAGES = [
   { code: 'ru', name: 'Русский' },
   { code: 'zh', name: '中文' },
 ] as const;
-export type LanguageCode = typeof LANGUAGES[number]['code'];
 
 // User information returned by the API.
 export interface User {
@@ -219,7 +217,6 @@ export interface Feeding {
 
 // Units for feeding amounts.
 export const AMOUNT_UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'oz'] as const;
-export type AmountUnit = typeof AMOUNT_UNITS[number];
 
 // Status of a scheduled feeding slot for a pet.
 export interface SlotStatus {

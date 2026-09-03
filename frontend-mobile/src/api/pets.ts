@@ -25,11 +25,6 @@ export async function createPet(data: PetCreate): Promise<Pet> {
   });
 }
 
-// Fetches a pet by its ID. Returns the pet if found, or throws an error if not found.
-export async function getPet(id: number): Promise<Pet> {
-  return apiFetch<Pet>(`/pets/${id}`);
-}
-
 // Updates a pet by its ID. Returns the updated pet if successful.
 export async function updatePet(id: number, data: PetUpdate): Promise<Pet> {
   return apiFetch<Pet>(`/pets/${id}`, {

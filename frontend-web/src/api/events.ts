@@ -25,19 +25,6 @@ export async function createEvent(data: EventCreate): Promise<ScheduledEvent> {
   });
 }
 
-// Update a scheduled event's title or due date.
-export async function updateEvent(eventId: number, data: EventUpdate): Promise<ScheduledEvent> {
-  return apiFetch<ScheduledEvent>(`/events/${eventId}`, {
-    method: "PATCH",
-    body: JSON.stringify(data),
-  });
-}
-
-// Remove a scheduled event.
-export async function deleteEvent(eventId: number): Promise<void> {
-  return apiFetch<void>(`/events/${eventId}`, { method: "DELETE" });
-}
-
 // Mark an event done. The backend creates the health record it produced and returns that record for editing.
 export async function completeEvent(eventId: number): Promise<HealthRecord> {
   return apiFetch<HealthRecord>(`/events/${eventId}/complete`, { method: "POST" });

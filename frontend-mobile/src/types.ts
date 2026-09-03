@@ -10,7 +10,6 @@ export type WeightFrequency = typeof WEIGHT_FREQUENCIES[number];
 
 // The measurement systems offered in Settings. Storage is always metric; this is display only.
 export const UNIT_SYSTEMS = ['metric', 'imperial'] as const;
-export type UnitSystem = typeof UNIT_SYSTEMS[number];
 
 // The currencies offered in Settings. Deliberately not the full ISO list.
 // The backend accepts any three uppercase letters, so this can grow without a migration.
@@ -104,16 +103,6 @@ export async function verifyEmail(token: string): Promise<User> {
     throw new Error('Failed to verify email');
   }
   return response.json();
-}
-
-// A function to resend the verification email.
-export async function resendVerification(): Promise<void> {
-  const response = await fetch('/auth/resend-verification', {
-    method: 'POST',
-  });
-  if (!response.ok) {
-    throw new Error('Failed to resend verification email');
-  }
 }
 
 // This constant defines the types of health records that can be associated with a pet. It is used for filtering and categorizing health records in the application.
@@ -219,7 +208,6 @@ export interface Feeding {
 
 // Units for feeding amounts.
 export const AMOUNT_UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'oz'] as const;
-export type AmountUnit = typeof AMOUNT_UNITS[number];
 
 // Status of a scheduled feeding slot for a pet.
 export interface SlotStatus {

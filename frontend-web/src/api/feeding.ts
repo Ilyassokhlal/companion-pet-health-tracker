@@ -11,9 +11,6 @@ export type FeedingCreate = {
   notes?: string | null;
 };
 
-// Data required to create a new feeding record.
-export type FeedingUpdate = Partial<FeedingCreate>;
-
 // List all feeding times for a given pet.
 export async function listFeedingTimes(petId: number): Promise<FeedingTime[]> {
   return apiFetch<FeedingTime[]>(`/pets/${petId}/feeding-times`);
@@ -41,14 +38,6 @@ export async function listFeedings(petId: number, on?: string): Promise<Feeding[
 export async function createFeeding(petId: number, feeding: FeedingCreate): Promise<Feeding> {
   return apiFetch<Feeding>(`/pets/${petId}/feedings`, {
     method: "POST",
-    body: JSON.stringify(feeding),
-  });
-}
-
-// Update an existing feeding record by its ID.
-export async function updateFeeding(id: number, feeding: FeedingUpdate): Promise<Feeding> {
-  return apiFetch<Feeding>(`/feedings/${id}`, {
-    method: "PATCH",
     body: JSON.stringify(feeding),
   });
 }

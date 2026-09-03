@@ -51,7 +51,6 @@
     "disclaimer": "Responses within this app do not constitute professional veterinary advice. Please consult a veterinarian for any health concerns regarding your pet."
   },
   "auth": {
-    "welcome": "Welcome to Companion",
     "login": {
       "title": "Login",
       "submit": "Login",

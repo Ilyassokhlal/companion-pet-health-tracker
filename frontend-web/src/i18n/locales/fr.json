@@ -51,7 +51,6 @@
     "disclaimer": "Les réponses fournies dans cette application ne constituent pas un avis vétérinaire professionnel. Veuillez consulter un vétérinaire pour toute préoccupation concernant la santé de votre animal."
   },
   "auth": {
-    "welcome": "Bienvenue sur Companion",
     "login": {
       "title": "Connexion",
       "submit": "Se connecter",

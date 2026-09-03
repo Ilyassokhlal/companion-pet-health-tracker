@@ -1,442 +1,416 @@
 {
-"errors": {
-"generic": "发生错误。请再试一次。",
-"validation": "请检查您输入的信息。",
-"too_many_attempts": "尝试次数过多。请稍等片刻后再试。",
-"error": "发生错误。请再试一次。",
-"not_found": "未找到。",
-"duplicate": "此项目已存在。",
-"bad_request": "无法处理此请求。",
-"forbidden": "您没有执行此操作的权限。",
-"unauthorized": "请重新登录。",
-"service_unavailable": "此服务暂时不可用。请稍后再试。",
-"internal_error": "我们这边发生了错误。请稍后再试。",
-"ai_unavailable": "助手目前不可用。请稍后再试。",
-"bad_month": "此月份无效。",
-"email_already_verified": "此电子邮件地址已经验证。",
-"email_unchanged": "这已经是您的电子邮件地址。",
-"empty_question": "请先输入问题。",
-"event_already_completed": "此项目已经标记为完成。",
-"image_too_large": "此图片太大。",
-"incorrect_password": "密码错误。",
-"invalid_credentials": "电子邮件地址或密码错误。",
-"invalid_link": "此链接无效。",
-"invalid_token": "此链接无效或已过期。",
-"link_already_used": "此链接已被使用。",
-"no_pet_photo": "此宠物没有照片。",
-"no_photos_selected": "未选择照片。",
-"no_user_photo": "您还没有照片。",
-"password_unchanged": "这已经是您的密码。",
-"session_expired": "您的会话已过期。请重新登录。",
-"too_many_photos": "您选择的照片太多。",
-"unsupported_export_format": "不支持此导出格式。",
-"unsupported_image_type": "不支持此图片类型。"
-},
-
-"common": {
-"username": "用户名",
-"email": "电子邮件",
-"password": "密码",
-"save": "保存",
-"cancel": "取消",
-"delete": "删除",
-"close": "关闭",
-"saving": "正在保存...",
-"title": "标题",
-"date": "日期",
-"weight": "体重（{{unit}}）",
-"all": "全部",
-"edit": "编辑",
-"noPet": "请先添加宠物。",
-"loading": "正在加载...",
-"disclaimer": "本应用中的回答不构成专业兽医建议。如果您对宠物的健康有任何疑问，请咨询兽医。"
-},
-
-"auth": {
-"welcome": "欢迎使用 Companion",
-"login": {
-"title": "登录",
-"submit": "登录",
-"submitting": "正在登录...",
-"registerLink": "还没有账户？立即注册",
-"forgotLink": "忘记密码？"
-},
-"register": {
-"title": "创建账户",
-"submit": "注册",
-"submitting": "正在注册...",
-"loginLink": "已有账户？立即登录"
-},
-"forgot": {
-"title": "忘记密码",
-"sent": "如果此电子邮件地址已注册，我们已向您发送重置密码的链接。",
-"submit": "发送链接",
-"submitting": "正在发送...",
-"backLink": "返回登录"
-},
-"reset": {
-"title": "重置密码",
-"missingToken": "此链接中缺少令牌。",
-"requestNewLink": "请求新链接",
-"newPassword": "新密码",
-"confirmPassword": "确认密码",
-"mismatch": "两次输入的密码不一致。",
-"submit": "重置密码",
-"submitting": "正在重置密码..."
-},
-"verify": {
-"verifying": "正在验证…",
-"missingToken": "此链接中缺少令牌。",
-"success": "电子邮件地址已成功验证。",
-"homeLink": "返回首页",
-"loginLink": "前往登录"
-}
-},
-
-"account": {
-"username": {
-"label": "用户名",
-"submit": "更改用户名"
-},
-"email": {
-"label": "新电子邮件地址",
-"currentPassword": "当前密码",
-"submit": "更改电子邮件地址",
-"submitting": "正在发送...",
-"sent": "请检查您的新电子邮件地址，查找验证链接。确认更改后，您的电子邮件地址才会更新。"
-},
-"password": {
-"current": "当前密码",
-"new": "新密码",
-"confirm": "确认新密码",
-"submit": "更改密码",
-"submitting": "正在更改密码...",
-"mismatch": "新密码与确认密码不一致。",
-"tooShort": "新密码必须至少包含 8 个字符。",
-"changed": "密码已成功更改。"
-},
-"delete": {
-"title": "删除账户",
-"warning": "删除账户后无法恢复。您的宠物、健康记录、照片和聊天记录都将被永久删除。",
-"start": "删除账户",
-"confirmPassword": "确认密码",
-"submit": "永久删除",
-"submitting": "正在删除账户..."
-}
-},
-
-"settings": {
-"appearance": {
-"title": "外观",
-"darkMode": "深色模式",
-"accent": "强调色"
-},
-"preferences": {
-"title": "单位和语言",
-"measurements": "测量单位",
-"metric": "公制（kg、km）",
-"imperial": "英制（lb、mi）",
-"currency": "货币",
-"language": "语言",
-"restartTitle": "需要重启",
-"restartBody": "阿拉伯语会改变布局方向。Companion 需要重启才能应用。",
-"restartNow": "重启",
-"note": "体重始终以千克存储——此设置仅更改体重的显示和输入方式。电子邮件和提醒仍以英文发送。"
-},
-"reminders": {
-"title": "提醒",
-"email": "通过电子邮件告诉我待办事项",
-"howOften": "频率",
-"weekly": "每周日",
-"daily": "每天",
-"push": "通过手机通知告诉我今天的任务",
-"timezone": "时区",
-"arrival": "所有通知将根据此时区在早上 6:00 发送。",
-"verifyFirst": "请验证您的电子邮件地址以启用提醒。"
-}
-},
-
-"trackingSettings": {
-"weight": {
-"title": "体重追踪",
-"account": "追踪我的宠物体重",
-"off": "启用此选项，为每只宠物安排称重计划。",
-"noPets": "添加宠物后即可开始追踪。",
-"weekly": "每周",
-"biweekly": "每两周",
-"monthly": "每月"
-},
-"walks": {
-"title": "散步追踪",
-"account": "追踪我的宠物散步情况",
-"off": "启用此选项以记录散步，并查看哪些宠物今天已经外出。",
-"noPets": "添加宠物后即可开始追踪。"
-},
-"feeding": {
-"title": "喂食提醒",
-"note": "如果在计划的喂食时间没有记录喂食，就会触发提醒。此提醒与每日摘要相互独立。",
-"push": "推送通知",
-"email": "电子邮件"
-}
-},
-
-"nav": {
-"dashboard": "仪表板",
-"records": "记录",
-"tracking": "追踪",
-"photos": "照片",
-"chat": "聊天记录",
-"settings": "设置",
-"logout": "退出登录",
-"logoutMobile": "退出登录",
-"menu": "菜单"
-},
-
-"settingsPage": {
-"title": "设置",
-"account": "账户",
-"username": "用户名",
-"email": "电子邮件",
-"password": "密码",
-"memberSince": "加入时间",
-"update": "编辑"
-},
-
-"footer": {
-"disclaimer": "提示：本应用仅供参考，不能替代专业兽医建议。如果您对宠物的健康有任何疑问，请务必咨询兽医。请自行判断并谨慎使用本应用。",
-"privacy": "隐私政策",
-"terms": "使用条款",
-"rights": "© {{year}} Companion。保留所有权利。"
-},
-
-"petSelector": {
-"addPet": "添加宠物"
-},
-
-"chat": {
-"title": "询问有关 {{name}} 的问题",
-"small": "小",
-"medium": "中",
-"large": "大",
-"resize": "调整区域大小",
-"thinking": "🤔 正在处理…",
-"sources": "来源：",
-"placeholder": "请输入问题...",
-"send": "发送",
-"error": "错误：{{message}}"
-},
-
-"tagInput": {
-"add": "添加",
-"remove": "删除 {{value}}"
-},
-
-"photoMenu": {
-"view": "查看照片",
-"replace": "替换照片",
-"upload": "上传照片",
-"remove": "删除照片"
-},
-
-"recordTypes": {
-"Vaccination": "疫苗接种",
-"Vet Visit": "兽医就诊",
-"Medication": "药物",
-"Weight": "体重",
-"Symptom": "症状",
-"Grooming": "护理",
-"Training": "训练"
-},
-
-"recordForm": {
-"recordType": "记录类型",
-"description": "描述（可选）",
-"nextDue": "下次日期（可选）",
-"photos": "照片（可选）",
-"removeFile": "删除"
-},
-
-"petForm": {
-"name": "名称",
-"species": "物种",
-"dog": "狗",
-"cat": "猫",
-"breed": "品种",
-"birthDate": "出生日期",
-"budget": "每月预算（{{currency}}）",
-"budgetHint": "如果不想设置限额，请留空。",
-"trackWeight": "追踪此宠物的体重",
-"checkIn": "称重频率",
-"hasDietary": "有饮食限制或过敏",
-"dietary": "饮食限制和过敏",
-"dietaryPlaceholder": "例如：鸡肉",
-"hasDisabilities": "有残疾",
-"disabilities": "残疾情况",
-"disabilitiesPlaceholder": "例如：左耳失聪"
-},
-
-"chatHistory": {
-"title": "聊天记录",
-"empty": "暂无对话。",
-"clearAll": "全部删除",
-"assistant": "Companion",
-"you": "您",
-"sources": "来源",
-"deleteMessage": "删除消息",
-"deleteMessageBody": "此消息将从对话中永久删除。",
-"clearTitle": "删除对话",
-"clearBody": "与 {{name}} 相关的所有消息都将被永久删除。"
-},
-
-"weightTracking": {
-"empty": "暂无称重记录。请添加一条类型为“体重”的健康记录。"
-},
-
-"records": {
-"add": "添加记录",
-"edit": "编辑记录",
-"exportData": "数据",
-"exportPdf": "PDF",
-"empty": "暂无记录。",
-"nextDue": "下次日期 {{date}}",
-"deleteTitle": "删除记录",
-"deleteBody": "“{{title}}”将被永久删除。"
-},
-
-"feeding": {
-"timeRequired": "喂食必须指定时间。",
-"schedule": "时间表",
-"noTimes": "尚未设置喂食时间。添加时间后，仪表板中的提醒将启用，并开始触发通知。",
-"removeTime": "删除喂食时间",
-"addTime": "添加时间",
-"logTitle": "记录喂食",
-"food": "食物",
-"amount": "数量",
-"notes": "备注",
-"logButton": "记录",
-"history": "记录",
-"empty": "暂无喂食记录。",
-"noDetails": "无详细信息",
-"deleteEntry": "删除喂食记录",
-"status": {
-"met": "已喂食",
-"due": "现在应喂食",
-"missed": "已错过",
-"upcoming": "今天稍后"
-}
-},
-
-"dashboard": {
-"noPetYet": "您还没有添加宠物。",
-"addPet": "添加宠物",
-"addPetTitle": "添加宠物",
-"species": "物种",
-"breed": "品种",
-"age": "年龄",
-"notSet": "未设置",
-"ageUnknown": "未知",
-"days_one": "{{count}} 天",
-"days_other": "{{count}} 天",
-"months_one": "{{count}} 个月",
-"months_other": "{{count}} 个月",
-"years_one": "{{count}} 年",
-"years_other": "{{count}} 年",
-"walkedToday": "今天已散步",
-"yes": "是",
-"notYet": "还没有",
-"spentThisMonth": "本月已支出",
-"weight": "体重",
-"due": "到期",
-"nothingDue": "没有待处理事项。",
-"scheduled": "已安排",
-"schedule": "安排",
-"nothingScheduled": "没有已安排的事项。",
-"overdue": "已逾期：",
-"done": "已完成",
-"editPet": "编辑 {{name}}",
-"completeRecord": "完成记录",
-"scheduleSomething": "安排任务",
-"deleteTitle": "删除 {{name}}？",
-"deleteBody": "其健康记录、照片和聊天记录也将被删除。此操作无法撤销。"
-},
-
-"verifyBanner": {
-"title": "验证您的电子邮件地址",
-"body": "在完成验证之前，提醒和通知将保持关闭状态。",
-"resend": "重新发送电子邮件",
-"sending": "正在发送…",
-"sent": "已发送 — 请检查您的收件箱。"
-},
-
-"photos": {
-"noPet": "请先添加宠物。",
-"empty": "暂无照片。创建健康记录时可以添加照片。",
-"noMatch": "没有照片符合这些筛选条件。",
-"filter": "筛选",
-"clearFilters": "清除筛选条件",
-"type": "类型",
-"from": "从",
-"to": "到",
-"select": "选择",
-"selectedCount": "已选择 {{count}} 张",
-"download": "下载",
-"confirmDelete": "删除 {{count}} 张照片？",
-"confirm": "确认",
-"limitReached": "最多可以选择 {{max}} 张照片。"
-},
-
-"tracking": {
-"title": "追踪",
-"empty": "请在设置中启用体重或散步追踪，以便在此查看。",
-"weight": "体重",
-"weightHint": "称重记录和体重变化",
-"walks": "散步",
-"walksHint": "已记录的散步，最新的在前",
-"feeding": "喂食",
-"feedingHint": "喂食时间和每日记录",
-"budget": "预算",
-"budgetHint": "此宠物的每月费用"
-},
-
-"walks": {
-"noPet": "请先添加宠物。",
-"trackingOff": "请在设置中启用散步追踪，以便记录散步。",
-"title": "散步",
-"log": "记录散步",
-"edit": "编辑散步",
-"empty": "暂无散步记录。",
-"confirmDelete": "删除这次散步？",
-"date": "日期",
-"duration": "时长（分钟）",
-"distance": "距离（{{unit}}）",
-"notes": "备注"
-},
-
-"budget": {
-"noPet": "请先添加宠物。",
-"title": "预算",
-"log": "添加支出",
-"edit": "编辑支出",
-"empty": "本月暂无支出记录。",
-"confirmDelete": "删除这笔支出？",
-"month": "月份",
-"date": "日期",
-"amount": "金额（{{currency}}）",
-"category": "类别",
-"record": "关联健康记录",
-"noRecord": "未关联",
-"notes": "备注",
-"of": "共 {{limit}}",
-"noLimit": "未设置每月限额",
-"mixedCurrencies": "本月包含多种货币（{{codes}}）——总金额为直接相加的结果，并未进行货币换算。",
-"categories": {
-"food": "食物",
-"vet": "兽医",
-"medication": "药物",
-"grooming": "护理",
-"supplies": "用品",
-"insurance": "保险",
-"other": "其他"
-}
-}
+  "errors": {
+    "generic": "发生错误。请再试一次。",
+    "validation": "请检查您输入的信息。",
+    "too_many_attempts": "尝试次数过多。请稍等片刻后再试。",
+    "error": "发生错误。请再试一次。",
+    "not_found": "未找到。",
+    "duplicate": "此项目已存在。",
+    "bad_request": "无法处理此请求。",
+    "forbidden": "您没有执行此操作的权限。",
+    "unauthorized": "请重新登录。",
+    "service_unavailable": "此服务暂时不可用。请稍后再试。",
+    "internal_error": "我们这边发生了错误。请稍后再试。",
+    "ai_unavailable": "助手目前不可用。请稍后再试。",
+    "bad_month": "此月份无效。",
+    "email_already_verified": "此电子邮件地址已经验证。",
+    "email_unchanged": "这已经是您的电子邮件地址。",
+    "empty_question": "请先输入问题。",
+    "event_already_completed": "此项目已经标记为完成。",
+    "image_too_large": "此图片太大。",
+    "incorrect_password": "密码错误。",
+    "invalid_credentials": "电子邮件地址或密码错误。",
+    "invalid_link": "此链接无效。",
+    "invalid_token": "此链接无效或已过期。",
+    "link_already_used": "此链接已被使用。",
+    "no_pet_photo": "此宠物没有照片。",
+    "no_photos_selected": "未选择照片。",
+    "no_user_photo": "您还没有照片。",
+    "password_unchanged": "这已经是您的密码。",
+    "session_expired": "您的会话已过期。请重新登录。",
+    "too_many_photos": "您选择的照片太多。",
+    "unsupported_export_format": "不支持此导出格式。",
+    "unsupported_image_type": "不支持此图片类型。"
+  },
+  "common": {
+    "username": "用户名",
+    "email": "电子邮件",
+    "password": "密码",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "close": "关闭",
+    "saving": "正在保存...",
+    "title": "标题",
+    "date": "日期",
+    "weight": "体重（{{unit}}）",
+    "all": "全部",
+    "edit": "编辑",
+    "noPet": "请先添加宠物。",
+    "loading": "正在加载...",
+    "disclaimer": "本应用中的回答不构成专业兽医建议。如果您对宠物的健康有任何疑问，请咨询兽医。"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "submit": "登录",
+      "submitting": "正在登录...",
+      "registerLink": "还没有账户？立即注册",
+      "forgotLink": "忘记密码？"
+    },
+    "register": {
+      "title": "创建账户",
+      "submit": "注册",
+      "submitting": "正在注册...",
+      "loginLink": "已有账户？立即登录"
+    },
+    "forgot": {
+      "title": "忘记密码",
+      "sent": "如果此电子邮件地址已注册，我们已向您发送重置密码的链接。",
+      "submit": "发送链接",
+      "submitting": "正在发送...",
+      "backLink": "返回登录"
+    },
+    "reset": {
+      "title": "重置密码",
+      "missingToken": "此链接中缺少令牌。",
+      "requestNewLink": "请求新链接",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码",
+      "mismatch": "两次输入的密码不一致。",
+      "submit": "重置密码",
+      "submitting": "正在重置密码..."
+    },
+    "verify": {
+      "verifying": "正在验证…",
+      "missingToken": "此链接中缺少令牌。",
+      "success": "电子邮件地址已成功验证。",
+      "homeLink": "返回首页",
+      "loginLink": "前往登录"
+    }
+  },
+  "account": {
+    "username": {
+      "label": "用户名",
+      "submit": "更改用户名"
+    },
+    "email": {
+      "label": "新电子邮件地址",
+      "currentPassword": "当前密码",
+      "submit": "更改电子邮件地址",
+      "submitting": "正在发送...",
+      "sent": "请检查您的新电子邮件地址，查找验证链接。确认更改后，您的电子邮件地址才会更新。"
+    },
+    "password": {
+      "current": "当前密码",
+      "new": "新密码",
+      "confirm": "确认新密码",
+      "submit": "更改密码",
+      "submitting": "正在更改密码...",
+      "mismatch": "新密码与确认密码不一致。",
+      "tooShort": "新密码必须至少包含 8 个字符。",
+      "changed": "密码已成功更改。"
+    },
+    "delete": {
+      "title": "删除账户",
+      "warning": "删除账户后无法恢复。您的宠物、健康记录、照片和聊天记录都将被永久删除。",
+      "start": "删除账户",
+      "confirmPassword": "确认密码",
+      "submit": "永久删除",
+      "submitting": "正在删除账户..."
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "外观",
+      "darkMode": "深色模式",
+      "accent": "强调色"
+    },
+    "preferences": {
+      "title": "单位和语言",
+      "measurements": "测量单位",
+      "metric": "公制（kg、km）",
+      "imperial": "英制（lb、mi）",
+      "currency": "货币",
+      "language": "语言",
+      "restartTitle": "需要重启",
+      "restartBody": "阿拉伯语会改变布局方向。Companion 需要重启才能应用。",
+      "restartNow": "重启",
+      "note": "体重始终以千克存储——此设置仅更改体重的显示和输入方式。电子邮件和提醒仍以英文发送。"
+    },
+    "reminders": {
+      "title": "提醒",
+      "email": "通过电子邮件告诉我待办事项",
+      "howOften": "频率",
+      "weekly": "每周日",
+      "daily": "每天",
+      "push": "通过手机通知告诉我今天的任务",
+      "timezone": "时区",
+      "arrival": "所有通知将根据此时区在早上 6:00 发送。",
+      "verifyFirst": "请验证您的电子邮件地址以启用提醒。"
+    }
+  },
+  "trackingSettings": {
+    "weight": {
+      "title": "体重追踪",
+      "account": "追踪我的宠物体重",
+      "off": "启用此选项，为每只宠物安排称重计划。",
+      "noPets": "添加宠物后即可开始追踪。",
+      "weekly": "每周",
+      "biweekly": "每两周",
+      "monthly": "每月"
+    },
+    "walks": {
+      "title": "散步追踪",
+      "account": "追踪我的宠物散步情况",
+      "off": "启用此选项以记录散步，并查看哪些宠物今天已经外出。",
+      "noPets": "添加宠物后即可开始追踪。"
+    },
+    "feeding": {
+      "title": "喂食提醒",
+      "note": "如果在计划的喂食时间没有记录喂食，就会触发提醒。此提醒与每日摘要相互独立。",
+      "push": "推送通知",
+      "email": "电子邮件"
+    }
+  },
+  "nav": {
+    "dashboard": "仪表板",
+    "records": "记录",
+    "tracking": "追踪",
+    "photos": "照片",
+    "chat": "聊天记录",
+    "settings": "设置",
+    "logout": "退出登录",
+    "logoutMobile": "退出登录",
+    "menu": "菜单"
+  },
+  "settingsPage": {
+    "title": "设置",
+    "account": "账户",
+    "username": "用户名",
+    "email": "电子邮件",
+    "password": "密码",
+    "memberSince": "加入时间",
+    "update": "编辑"
+  },
+  "footer": {
+    "disclaimer": "提示：本应用仅供参考，不能替代专业兽医建议。如果您对宠物的健康有任何疑问，请务必咨询兽医。请自行判断并谨慎使用本应用。",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "rights": "© {{year}} Companion。保留所有权利。"
+  },
+  "petSelector": {
+    "addPet": "添加宠物"
+  },
+  "chat": {
+    "title": "询问有关 {{name}} 的问题",
+    "small": "小",
+    "medium": "中",
+    "large": "大",
+    "resize": "调整区域大小",
+    "thinking": "🤔 正在处理…",
+    "sources": "来源：",
+    "placeholder": "请输入问题...",
+    "send": "发送",
+    "error": "错误：{{message}}"
+  },
+  "tagInput": {
+    "add": "添加",
+    "remove": "删除 {{value}}"
+  },
+  "photoMenu": {
+    "view": "查看照片",
+    "replace": "替换照片",
+    "upload": "上传照片",
+    "remove": "删除照片"
+  },
+  "recordTypes": {
+    "Vaccination": "疫苗接种",
+    "Vet Visit": "兽医就诊",
+    "Medication": "药物",
+    "Weight": "体重",
+    "Symptom": "症状",
+    "Grooming": "护理",
+    "Training": "训练"
+  },
+  "recordForm": {
+    "recordType": "记录类型",
+    "description": "描述（可选）",
+    "nextDue": "下次日期（可选）",
+    "photos": "照片（可选）",
+    "removeFile": "删除"
+  },
+  "petForm": {
+    "name": "名称",
+    "species": "物种",
+    "dog": "狗",
+    "cat": "猫",
+    "breed": "品种",
+    "birthDate": "出生日期",
+    "budget": "每月预算（{{currency}}）",
+    "budgetHint": "如果不想设置限额，请留空。",
+    "trackWeight": "追踪此宠物的体重",
+    "checkIn": "称重频率",
+    "hasDietary": "有饮食限制或过敏",
+    "dietary": "饮食限制和过敏",
+    "dietaryPlaceholder": "例如：鸡肉",
+    "hasDisabilities": "有残疾",
+    "disabilities": "残疾情况",
+    "disabilitiesPlaceholder": "例如：左耳失聪"
+  },
+  "chatHistory": {
+    "title": "聊天记录",
+    "empty": "暂无对话。",
+    "clearAll": "全部删除",
+    "assistant": "Companion",
+    "you": "您",
+    "sources": "来源",
+    "deleteMessage": "删除消息",
+    "deleteMessageBody": "此消息将从对话中永久删除。",
+    "clearTitle": "删除对话",
+    "clearBody": "与 {{name}} 相关的所有消息都将被永久删除。"
+  },
+  "weightTracking": {
+    "empty": "暂无称重记录。请添加一条类型为“体重”的健康记录。"
+  },
+  "records": {
+    "add": "添加记录",
+    "edit": "编辑记录",
+    "exportData": "数据",
+    "exportPdf": "PDF",
+    "empty": "暂无记录。",
+    "nextDue": "下次日期 {{date}}",
+    "deleteTitle": "删除记录",
+    "deleteBody": "“{{title}}”将被永久删除。"
+  },
+  "feeding": {
+    "timeRequired": "喂食必须指定时间。",
+    "schedule": "时间表",
+    "noTimes": "尚未设置喂食时间。添加时间后，仪表板中的提醒将启用，并开始触发通知。",
+    "removeTime": "删除喂食时间",
+    "addTime": "添加时间",
+    "logTitle": "记录喂食",
+    "food": "食物",
+    "amount": "数量",
+    "notes": "备注",
+    "logButton": "记录",
+    "history": "记录",
+    "empty": "暂无喂食记录。",
+    "noDetails": "无详细信息",
+    "deleteEntry": "删除喂食记录",
+    "status": {
+      "met": "已喂食",
+      "due": "现在应喂食",
+      "missed": "已错过",
+      "upcoming": "今天稍后"
+    }
+  },
+  "dashboard": {
+    "noPetYet": "您还没有添加宠物。",
+    "addPet": "添加宠物",
+    "addPetTitle": "添加宠物",
+    "species": "物种",
+    "breed": "品种",
+    "age": "年龄",
+    "notSet": "未设置",
+    "ageUnknown": "未知",
+    "days_one": "{{count}} 天",
+    "days_other": "{{count}} 天",
+    "months_one": "{{count}} 个月",
+    "months_other": "{{count}} 个月",
+    "years_one": "{{count}} 年",
+    "years_other": "{{count}} 年",
+    "walkedToday": "今天已散步",
+    "yes": "是",
+    "notYet": "还没有",
+    "spentThisMonth": "本月已支出",
+    "weight": "体重",
+    "due": "到期",
+    "nothingDue": "没有待处理事项。",
+    "scheduled": "已安排",
+    "schedule": "安排",
+    "nothingScheduled": "没有已安排的事项。",
+    "overdue": "已逾期：",
+    "done": "已完成",
+    "editPet": "编辑 {{name}}",
+    "completeRecord": "完成记录",
+    "scheduleSomething": "安排任务",
+    "deleteTitle": "删除 {{name}}？",
+    "deleteBody": "其健康记录、照片和聊天记录也将被删除。此操作无法撤销。"
+  },
+  "verifyBanner": {
+    "title": "验证您的电子邮件地址",
+    "body": "在完成验证之前，提醒和通知将保持关闭状态。",
+    "resend": "重新发送电子邮件",
+    "sending": "正在发送…",
+    "sent": "已发送 — 请检查您的收件箱。"
+  },
+  "photos": {
+    "noPet": "请先添加宠物。",
+    "empty": "暂无照片。创建健康记录时可以添加照片。",
+    "noMatch": "没有照片符合这些筛选条件。",
+    "filter": "筛选",
+    "clearFilters": "清除筛选条件",
+    "type": "类型",
+    "from": "从",
+    "to": "到",
+    "select": "选择",
+    "selectedCount": "已选择 {{count}} 张",
+    "download": "下载",
+    "confirmDelete": "删除 {{count}} 张照片？",
+    "confirm": "确认",
+    "limitReached": "最多可以选择 {{max}} 张照片。"
+  },
+  "tracking": {
+    "title": "追踪",
+    "empty": "请在设置中启用体重或散步追踪，以便在此查看。",
+    "weight": "体重",
+    "weightHint": "称重记录和体重变化",
+    "walks": "散步",
+    "walksHint": "已记录的散步，最新的在前",
+    "feeding": "喂食",
+    "feedingHint": "喂食时间和每日记录",
+    "budget": "预算",
+    "budgetHint": "此宠物的每月费用"
+  },
+  "walks": {
+    "noPet": "请先添加宠物。",
+    "trackingOff": "请在设置中启用散步追踪，以便记录散步。",
+    "title": "散步",
+    "log": "记录散步",
+    "edit": "编辑散步",
+    "empty": "暂无散步记录。",
+    "confirmDelete": "删除这次散步？",
+    "date": "日期",
+    "duration": "时长（分钟）",
+    "distance": "距离（{{unit}}）",
+    "notes": "备注"
+  },
+  "budget": {
+    "noPet": "请先添加宠物。",
+    "title": "预算",
+    "log": "添加支出",
+    "edit": "编辑支出",
+    "empty": "本月暂无支出记录。",
+    "confirmDelete": "删除这笔支出？",
+    "month": "月份",
+    "date": "日期",
+    "amount": "金额（{{currency}}）",
+    "category": "类别",
+    "record": "关联健康记录",
+    "noRecord": "未关联",
+    "notes": "备注",
+    "of": "共 {{limit}}",
+    "noLimit": "未设置每月限额",
+    "mixedCurrencies": "本月包含多种货币（{{codes}}）——总金额为直接相加的结果，并未进行货币换算。",
+    "categories": {
+      "food": "食物",
+      "vet": "兽医",
+      "medication": "药物",
+      "grooming": "护理",
+      "supplies": "用品",
+      "insurance": "保险",
+      "other": "其他"
+    }
+  }
 }

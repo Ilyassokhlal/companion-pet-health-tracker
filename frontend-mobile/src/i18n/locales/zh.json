@@ -32,7 +32,6 @@
     "unsupported_export_format": "不支持此导出格式。",
     "unsupported_image_type": "不支持此图片类型。"
   },
-
   "common": {
     "username": "用户名",
     "email": "电子邮件",
@@ -55,27 +54,23 @@
     "loading": "加载中...",
     "disclaimer": "本应用提供的回答不构成专业兽医建议。如有任何关于宠物健康的问题，请咨询兽医。"
   },
-
   "auth": {
     "welcome": "欢迎使用 Companion",
     "login": {
       "title": "登录",
       "submit": "登录",
-      "submitting": "正在登录...",
       "registerLink": "第一次使用此应用？注册",
       "forgotLink": "忘记密码？"
     },
     "register": {
       "title": "创建账户",
       "submit": "注册",
-      "submitting": "正在注册...",
       "loginLink": "已有账户？登录"
     },
     "forgot": {
       "title": "忘记密码",
       "sent": "如果此电子邮件地址已注册，我们已向您发送重置密码的链接。",
       "submit": "发送重置密码链接",
-      "submitting": "正在发送...",
       "backLink": "返回登录"
     },
     "reset": {
@@ -85,20 +80,16 @@
       "newPassword": "新密码",
       "confirmPassword": "确认密码",
       "mismatch": "两次输入的密码不一致。",
-      "submit": "重置密码",
-      "submitting": "正在重置..."
+      "submit": "重置密码"
     },
     "verify": {
       "title": "验证电子邮件",
       "continue": "继续",
       "verifying": "正在验证…",
       "missingToken": "此链接中缺少令牌。",
-      "success": "电子邮件地址验证成功。",
-      "homeLink": "前往首页",
-      "loginLink": "前往登录页面"
+      "success": "电子邮件地址验证成功。"
     }
   },
-
   "account": {
     "username": {
       "label": "用户名",
@@ -123,7 +114,6 @@
       "confirmBody": "这将永久删除您的宠物、记录和照片。"
     }
   },
-
   "settings": {
     "appearance": {
       "title": "外观",
@@ -160,7 +150,6 @@
       "search": "搜索"
     }
   },
-
   "trackingSettings": {
     "weight": {
       "title": "体重追踪",
@@ -184,7 +173,6 @@
       "email": "电子邮件"
     }
   },
-
   "settingsPage": {
     "title": "设置",
     "logout": "退出登录",
@@ -217,11 +205,9 @@
     "privacyPolicy": "隐私政策",
     "terms": "使用条款"
   },
-
   "tagInput": {
     "add": "添加"
   },
-
   "photoMenu": {
     "petTitle": "{{name}} 的照片",
     "userTitle": "头像",
@@ -231,7 +217,6 @@
     "uploadFailed": "上传失败",
     "removeFailed": "删除失败"
   },
-
   "recordTypes": {
     "Vaccination": "疫苗接种",
     "Vet Visit": "兽医就诊",
@@ -241,7 +226,6 @@
     "Grooming": "美容护理",
     "Training": "训练"
   },
-
   "recordForm": {
     "recordType": "记录类型",
     "description": "描述（可选）",
@@ -253,7 +237,6 @@
     "add": "添加记录",
     "cameraDenied": "拍照需要获得相机使用权限。"
   },
-
   "petForm": {
     "name": "名称",
     "species": "物种",
@@ -275,11 +258,9 @@
     "disabilitiesPlaceholder": "例如：左耳失聪",
     "add": "添加宠物"
   },
-
   "eventForm": {
     "submit": "安排"
   },
-
   "nav": {
     "dashboard": "仪表板",
     "records": "记录",
@@ -287,12 +268,10 @@
     "photos": "照片",
     "chat": "聊天"
   },
-
   "weightTracking": {
     "current": "当前",
     "empty": "目前没有称重记录。"
   },
-
   "walks": {
     "log": "记录散步",
     "edit": "编辑散步",
@@ -305,7 +284,6 @@
     "confirmDeleteTitle": "删除散步记录",
     "confirmDeleteBody": "此散步记录将被永久删除。"
   },
-
   "feeding": {
     "schedule": "时间表",
     "noTimes": "尚未设置喂食时间。添加一个时间后，仪表板指示器会启用，并允许发送提醒。",
@@ -328,7 +306,6 @@
       "upcoming": "今天稍后"
     }
   },
-
   "records": {
     "exportData": "导出数据",
     "exportPdf": "导出为 PDF",
@@ -338,7 +315,6 @@
     "confirmDeleteTitle": "删除记录",
     "confirmDeleteBody": "\"{{title}}\" 将被永久删除。"
   },
-
   "chat": {
     "title": "询问有关 {{name}} 的问题",
     "clear": "清除",
@@ -353,7 +329,6 @@
     "confirmClearTitle": "清除聊天",
     "confirmClearBody": "与此宠物相关的所有消息都将被永久删除。"
   },
-
   "dashboard": {
     "ageUnknown": "未知",
     "days_one": "{{count}} 天",
@@ -387,7 +362,6 @@
     "deleteTitle": "删除 {{name}}？",
     "deleteBody": "其健康记录、照片和聊天记录也将被删除。此操作无法撤销。"
   },
-
   "verifyBanner": {
     "title": "验证您的电子邮件地址",
     "body": "在完成验证之前，提醒和推送通知将保持关闭。",
@@ -395,7 +369,6 @@
     "sending": "正在发送…",
     "sent": "已发送 — 请检查您的收件箱。"
   },
-
   "photos": {
     "title": "照片",
     "noPet": "请先添加宠物。",
@@ -406,15 +379,12 @@
     "type": "类型",
     "from": "从",
     "to": "到",
-    "select": "选择",
     "selectedCount": "已选择 {{count}} 张",
     "download": "下载",
     "confirmDelete": "删除 {{count}} 张照片？",
-    "confirm": "确认",
     "limitReached": "最多可以选择 {{max}} 张照片。",
     "savedToLibrary": "已保存到您的照片中。"
   },
-
   "tracking": {
     "title": "追踪",
     "weight": "体重",
@@ -426,7 +396,6 @@
     "budget": "预算",
     "budgetHint": "此宠物的每月费用"
   },
-
   "budget": {
     "noPet": "请先添加宠物。",
     "title": "预算",
