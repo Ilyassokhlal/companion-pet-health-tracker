@@ -22,11 +22,11 @@ export const PATTERN_TILES: Record<Exclude<Pattern, "none">, Motif[]> = {
   ],
   bones: [
     { name: "bone", x: 10, y: 20, size: 28, rotate: -18 },
-    { name: "paw", x: 64, y: 62, size: 22, rotate: 16 },
+    { name: "bone", x: 62, y: 62, size: 22, rotate: 16 },
   ],
   fish: [
     { name: "fish", x: 12, y: 18, size: 28, rotate: -10 },
-    { name: "paw", x: 62, y: 64, size: 20, rotate: 24 },
+    { name: "fish", x: 60, y: 64, size: 22, rotate: 24 },
   ],
   mixed: [
     { name: "paw", x: 12, y: 14, size: 26, rotate: -12 },
