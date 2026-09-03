@@ -12,7 +12,7 @@ interface PetState {
   pets: Pet[];
   currentPet: Pet | null;
   setCurrentPet: (pet: Pet) => void;
-  refresh: () => Promise<void>;
+  refresh: (silent?: boolean) => Promise<void>;
   loading: boolean;
   addPetOpen: boolean;
   setAddPetOpen: (open: boolean) => void;
@@ -29,8 +29,9 @@ export function PetProvider({ children }: { children: ReactNode }) {
   const [addPetOpen, setAddPetOpen] = useState(false);
   const [offlineSince, setOfflineSince] = useState<string | null>(null);
 
-  const refresh = useCallback(async () => {
-    setLoading(true);
+  // Refreshes the list of pets from the server, optionally skipping the loading indicator if `silent` is true. Updates the local state with the latest pets and the current pet selection. Persists the current pet selection in secure storage.
+  const refresh = useCallback(async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const { data, savedAt } = await listPetsCached();
       setPets(data);

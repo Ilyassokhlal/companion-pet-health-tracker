@@ -180,7 +180,9 @@ export default function Dashboard() {
   useFocusEffect(
     useCallback(() => {
       load();
-    }, [load]),
+      // Silent, so the pet's weight is current after a weigh-in without the screen flashing its loading state on every return to the tab.
+      refresh(true);
+    }, [load, refresh]),
   );
 
   // Marks an event done. The backend creates the health record it produced and returns it, which
