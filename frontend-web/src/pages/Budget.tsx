@@ -153,7 +153,7 @@ export default function Budget() {
     <div className="p-4 sm:p-8">
       {/* The title bar gets its own card so it is not reading straight off the background pattern. */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface px-5 py-4">
-        <h1 className="text-xl font-semibold text-fg">{t("budget.title")}</h1>
+        <h1 className="text-2xl font-bold text-fg">{t("budget.title")}</h1>
         <div className="flex items-center gap-2">
           <input
             type="month"
