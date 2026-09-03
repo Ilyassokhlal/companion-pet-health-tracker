@@ -181,7 +181,7 @@ export default function Photos() {
 
   if (!currentPet) {
     return (
-      <View className="flex-1 items-center justify-center bg-ink px-6">
+      <View className="flex-1 items-center justify-center px-6">
         <Text className="text-center text-muted">{t("photos.noPet")}</Text>
       </View>
     );
@@ -208,7 +208,7 @@ export default function Photos() {
   return (
     <SwipeTabs>
     <ScrollView
-      className="flex-1 bg-ink"
+      className="flex-1"
       contentContainerStyle={{ paddingTop: insets.top + 16, paddingBottom: 16 }}
       stickyHeaderIndices={stickyIndices}
     >

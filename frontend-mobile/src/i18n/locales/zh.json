@@ -118,7 +118,15 @@
     "appearance": {
       "title": "外观",
       "darkMode": "深色模式",
-      "accent": "强调色"
+      "accent": "强调色",
+      "pattern": "图案",
+      "patterns": {
+        "none": "无",
+        "paws": "爪印",
+        "bones": "骨头",
+        "pond": "鱼",
+        "menagerie": "动物"
+      }
     },
     "preferences": {
       "title": "单位和语言",

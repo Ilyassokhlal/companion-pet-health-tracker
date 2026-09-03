@@ -124,7 +124,15 @@
     "appearance": {
       "title": "Erscheinungsbild",
       "darkMode": "Dunkelmodus",
-      "accent": "Akzentfarbe"
+      "accent": "Akzentfarbe",
+      "pattern": "Muster",
+      "patterns": {
+        "none": "Keines",
+        "paws": "Pfotenabdrücke",
+        "bones": "Knochen",
+        "pond": "Fische",
+        "menagerie": "Menagerie"
+      }
     },
     "preferences": {
       "title": "Einheiten und Sprache",

@@ -124,7 +124,15 @@
     "appearance": {
       "title": "Внешний вид",
       "darkMode": "Тёмная тема",
-      "accent": "Цвет акцента"
+      "accent": "Цвет акцента",
+      "pattern": "Узор",
+      "patterns": {
+        "none": "Нет",
+        "paws": "Лапки",
+        "bones": "Косточки",
+        "pond": "Рыбки",
+        "menagerie": "Зверинец"
+      }
     },
     "preferences": {
       "title": "Единицы измерения и язык",

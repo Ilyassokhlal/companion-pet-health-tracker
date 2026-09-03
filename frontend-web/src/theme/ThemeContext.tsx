@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { PATTERNS, type Pattern } from "./patterns";
 
 export type Theme = "dark" | "light";
 export type Accent = "purple" | "yellow" | "green" | "blue" | "pink";
@@ -8,8 +9,10 @@ export const ACCENTS: Accent[] = ["purple", "yellow", "green", "blue", "pink"];
 type ThemeContextValue = {
   theme: Theme;
   accent: Accent;
+  pattern: Pattern;
   setTheme: (t: Theme) => void;
   setAccent: (a: Accent) => void;
+  setPattern: (p: Pattern) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -26,6 +29,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return ACCENTS.includes(storedAccent as Accent) ? (storedAccent as Accent) : "purple";
   });
 
+  // Stored beside theme and accent rather than on the user record: it is a per-device look, and
+  // keeping it local means no column, no migration and no request to change it.
+  const [pattern, setPattern] = useState<Pattern>(() => {
+    const stored = localStorage.getItem("pattern");
+    return PATTERNS.includes(stored as Pattern) ? (stored as Pattern) : "paws";
+  });
+
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
@@ -36,8 +46,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("accent", accent);
   }, [accent]);
 
+  useEffect(() => {
+    localStorage.setItem("pattern", pattern);
+  }, [pattern]);
+
   return (
-    <ThemeContext.Provider value={{ theme, accent, setTheme, setAccent }}>
+    <ThemeContext.Provider value={{ theme, accent, pattern, setTheme, setAccent, setPattern }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -78,7 +78,7 @@ export default function Records() {
 
   if (!currentPet) {
     return (
-      <View className="flex-1 items-center justify-center bg-ink px-6">
+      <View className="flex-1 items-center justify-center px-6">
         <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
@@ -102,7 +102,7 @@ export default function Records() {
   return (
     <SwipeTabs>
     <ScrollView
-      className="flex-1 bg-ink"
+      className="flex-1"
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
       <OfflineBanner savedAt={offlineSince} />
@@ -181,7 +181,7 @@ export default function Records() {
               onPress={() => setEditing(r)}
               className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
             >
-              <Text className="text-sm font-medium text-white">{t("common.edit")}</Text>
+              <Text className="text-sm font-medium text-on-primary">{t("common.edit")}</Text>
             </Pressable>
             <Pressable
               onPress={() => confirmDelete(r)}

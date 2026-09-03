@@ -124,7 +124,15 @@
     "appearance": {
       "title": "المظهر",
       "darkMode": "الوضع الداكن",
-      "accent": "لون التمييز"
+      "accent": "لون التمييز",
+      "pattern": "النقش",
+      "patterns": {
+        "none": "بدون",
+        "paws": "آثار الأقدام",
+        "bones": "عظام",
+        "pond": "أسماك",
+        "menagerie": "حيوانات"
+      }
     },
     "preferences": {
       "title": "الوحدات واللغة",

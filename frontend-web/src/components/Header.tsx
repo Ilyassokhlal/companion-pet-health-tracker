@@ -23,7 +23,7 @@ export default function Header() {
     const { user, logout } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
     return (
-        <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface border-b border-border">
+        <header className="relative flex items-center justify-between px-4 sm:px-6 py-4 bg-surface/70 backdrop-blur-xl border-b border-border">
             <div className="flex flex-1 min-w-0 items-center gap-2 sm:gap-4">
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
                     <PawPrint size={22} className="inline me-2 -mt-1" /> Companion

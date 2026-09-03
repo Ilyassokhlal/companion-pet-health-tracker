@@ -124,7 +124,15 @@
     "appearance": {
       "title": "Apparence",
       "darkMode": "Mode sombre",
-      "accent": "Couleur d'accent"
+      "accent": "Couleur d'accent",
+      "pattern": "Motif",
+      "patterns": {
+        "none": "Aucun",
+        "paws": "Empreintes",
+        "bones": "Os",
+        "pond": "Poissons",
+        "menagerie": "Ménagerie"
+      }
     },
     "preferences": {
       "title": "Unités et langue",

@@ -219,7 +219,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center bg-ink">
+      <View className="flex-1 items-center justify-center">
         <Text className="text-muted">{t("common.loading")}</Text>
       </View>
     );
@@ -228,7 +228,7 @@ export default function Dashboard() {
   if (!currentPet) {
     return (
       <ScrollView
-        className="flex-1 bg-ink"
+        className="flex-1"
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16 }}
       >
         {addPetOpen ? (
@@ -267,38 +267,42 @@ export default function Dashboard() {
 
   return (
     <SwipeTabs>
-    <View className="flex-1 bg-ink">
+    <View className="flex-1">
     <DashboardHeader />
     <VerifyBanner />
     <ScrollView
       className="flex-1"
       contentContainerStyle={{ padding: 16 }}
     >
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        className="mb-6"
-        contentContainerStyle={{ gap: 8 }}
-      >
-        {pets.map((pet) => (
-          <Pressable
-            key={pet.id}
-            onPress={() => setCurrentPet(pet)}
-            className={`flex-row items-center gap-2 rounded-full py-1.5 ps-1.5 pe-4 ${
-              pet.id === currentPet.id ? "bg-primary" : "border border-border bg-surface"
-            }`}
-          >
-            <PetPhoto pet={pet} size="h-7 w-7" textSize="text-xs" interactive={false} />
-            <Text className="text-fg">{pet.name}</Text>
-          </Pressable>
-        ))}
+      <View className="mb-6">
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8, paddingEnd: 88 }}
+        >
+          {pets.map((pet) => (
+            <Pressable
+              key={pet.id}
+              onPress={() => setCurrentPet(pet)}
+              className={`flex-row items-center gap-2 rounded-full py-1.5 ps-1.5 pe-4 ${
+                pet.id === currentPet.id ? "bg-primary" : "border border-border bg-surface"
+              }`}
+            >
+              <PetPhoto pet={pet} size="h-7 w-7" textSize="text-xs" interactive={false} />
+              <Text className={pet.id === currentPet.id ? "text-on-primary" : "text-fg"}>{pet.name}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+        {/* Pinned rather than a child of the ScrollView, so the pet chips slide underneath it. insetInlineEnd rather than right.
+          It mirrors under RTL, and RN 0.86 supports it. */}
         <Pressable
           onPress={openAdd}
-          className="flex-row items-center rounded-full border border-border bg-surface px-4 py-1.5 active:opacity-70"
+          style={{ position: "absolute", insetInlineEnd: 0, top: 0, bottom: 0 }}
+          className="flex-row items-center rounded-full bg-primary px-4 active:opacity-70"
         >
-          <Text className="text-fg">{t("dashboard.addChip")}</Text>
+          <Text className="font-medium text-on-primary">{t("dashboard.addChip")}</Text>
         </Pressable>
-      </ScrollView>
+      </View>
 
       <View className="flex-row items-center justify-between">
         <PetPhoto pet={currentPet} />
@@ -310,7 +314,7 @@ export default function Dashboard() {
             onPress={openEdit}
             className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-white">{t("common.edit")}</Text>
+            <Text className="text-sm font-medium text-on-primary">{t("common.edit")}</Text>
           </Pressable>
           <Pressable
             onPress={confirmDelete}

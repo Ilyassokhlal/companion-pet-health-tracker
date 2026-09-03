@@ -43,7 +43,7 @@ function Row({
           open ? "border border-border bg-surface" : "bg-primary"
         }`}
       >
-        <Text className={`text-sm font-medium ${open ? "text-primary" : "text-white"}`}>
+        <Text className={`text-sm font-medium ${open ? "text-primary" : "text-on-primary"}`}>
           {open ? t("common.cancel") : t("settingsPage.update")}
         </Text>
       </Pressable>

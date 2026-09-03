@@ -118,7 +118,15 @@
     "appearance": {
       "title": "Appearance",
       "darkMode": "Dark Mode",
-      "accent": "Accent"
+      "accent": "Accent",
+      "pattern": "Pattern",
+      "patterns": {
+        "none": "None",
+        "paws": "Paw prints",
+        "bones": "Bones",
+        "pond": "Fish",
+        "menagerie": "Menagerie"
+      }
     },
     "preferences": {
       "title": "Units & Language",

@@ -149,14 +149,14 @@ export default function Budget() {
 
   if (!currentPet) {
     return (
-      <View className="flex-1 items-center justify-center bg-ink px-6">
+      <View className="flex-1 items-center justify-center px-6">
         <Text className="text-center text-muted">{t("budget.noPet")}</Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 bg-ink">
+    <View className="flex-1">
       <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}>
         <Text className="mb-1 text-2xl font-bold text-fg">{t("budget.title")}</Text>
         <Text className="mb-6 text-sm text-muted">{currentPet.name}</Text>

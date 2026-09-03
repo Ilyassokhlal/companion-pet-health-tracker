@@ -118,7 +118,15 @@
     "appearance": {
       "title": "Apariencia",
       "darkMode": "Modo oscuro",
-      "accent": "Color de acento"
+      "accent": "Color de acento",
+      "pattern": "Patrón",
+      "patterns": {
+        "none": "Ninguno",
+        "paws": "Huellas",
+        "bones": "Huesos",
+        "pond": "Peces",
+        "menagerie": "Animales"
+      }
     },
     "preferences": {
       "title": "Unidades e idioma",

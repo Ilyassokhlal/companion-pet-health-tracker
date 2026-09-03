@@ -153,7 +153,7 @@ export default function Chat() {
 
   if (!currentPet) {
     return (
-      <View className="flex-1 items-center justify-center bg-ink px-6">
+      <View className="flex-1 items-center justify-center px-6">
         <Text className="text-center text-muted">{t("common.noPet")}</Text>
       </View>
     );
@@ -163,7 +163,7 @@ export default function Chat() {
     <SwipeTabs>
     <KeyboardAvoidingView
       behavior="padding"
-      className="flex-1 bg-ink"
+      className="flex-1"
     >
       <View
         className="flex-row items-center justify-between border-b border-border px-4 pb-3"
