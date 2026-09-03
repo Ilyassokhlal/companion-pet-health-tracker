@@ -5,6 +5,7 @@ import { usePets } from "../context/PetContext";
 import { useAuth } from "../auth/AuthContext";
 import { listExpenses, createExpense, updateExpense, deleteExpense, getExpenseSummary } from "../api/expenses";
 import type { ExpenseCreate } from "../api/expenses";
+import { updatePet } from "../api/pets";
 import { listRecords } from "../api/records";
 import { EXPENSE_CATEGORIES } from "../types";
 import type { Expense, ExpenseCategory, ExpenseSummary, HealthRecord } from "../types";
@@ -26,7 +27,7 @@ const BAR: Record<string, string> = {
 // Budget page for tracking a pet's expenses within a given month.
 export default function Budget() {
   const { t } = useTranslation();
-  const { currentPet } = usePets();
+  const { currentPet, refresh } = usePets();
   const { user } = useAuth();
   const currency = user?.currency ?? "USD";
 
@@ -40,6 +41,11 @@ export default function Budget() {
   const [editing, setEditing] = useState<Expense | null>(null);
   const [confirming, setConfirming] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // The limit lives on the pet, so it is edited here as well as in the pet form — naming a setting
+  // with nowhere to change it was a dead end.
+  const [limitOpen, setLimitOpen] = useState(false);
+  const [limitValue, setLimitValue] = useState("");
 
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -96,6 +102,20 @@ export default function Budget() {
     setFormOpen(true);
   }
 
+  // Writes the limit to the pet, then refreshes both the pet list and this month's summary so the
+  // bar and the status recompute from the server rather than being guessed at here.
+  async function saveLimit(value: number | null) {
+    if (!currentPet) return;
+    try {
+      await updatePet(currentPet.id, { monthly_budget: value });
+      setLimitOpen(false);
+      await refresh();
+      load();
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!currentPet) return;
@@ -131,7 +151,8 @@ export default function Budget() {
 
   return (
     <div className="p-4 sm:p-8">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      {/* The title bar gets its own card so it is not reading straight off the background pattern. */}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface px-5 py-4">
         <h1 className="text-xl font-semibold text-fg">{t("budget.title")}</h1>
         <div className="flex items-center gap-2">
           <input
@@ -141,8 +162,8 @@ export default function Budget() {
             onChange={(e) => setMonth(e.target.value)}
             className={`${FIELD} w-auto`}
           />
-          <Button onClick={openCreate} className="flex items-center gap-1.5">
-            <Plus size={16} />
+          <Button onClick={openCreate} className="flex items-center gap-2 whitespace-nowrap">
+            <Plus size={20} strokeWidth={2.5} />
             {t("budget.log")}
           </Button>
         </div>
@@ -152,12 +173,50 @@ export default function Budget() {
         <div className="mb-6 rounded-xl border border-border bg-surface p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <p className="text-lg font-semibold text-fg">{formatMoney(summary.total, summary.currency)}</p>
-            <p className="text-sm text-muted">
+            {/* The limit line is also the control that sets it. "over" means total >= limit; nothing
+                on the server blocks the expense, so this only reports what the red bar shows. */}
+            <button
+              type="button"
+              onClick={() => {
+                setLimitValue(summary.limit === null ? "" : String(summary.limit));
+                setLimitOpen((open) => !open);
+              }}
+              className={`text-sm underline-offset-2 hover:underline ${
+                summary.status === "over" ? "font-semibold text-danger" : "text-muted"
+              }`}
+            >
               {summary.limit === null
                 ? t("budget.noLimit")
-                : t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}
-            </p>
+                : summary.status === "over"
+                  ? t("budget.exceeded")
+                  : t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}
+            </button>
           </div>
+
+          {limitOpen && (
+            <div className="mt-3 flex flex-wrap items-end gap-2">
+              <label className="text-sm text-muted">
+                {t("budget.editLimit", { currency })}
+                <input
+                  type="number"
+                  min={0.01}
+                  step="0.01"
+                  value={limitValue}
+                  onChange={(e) => setLimitValue(e.target.value)}
+                  className={`mt-1 ${FIELD} w-40`}
+                />
+              </label>
+              <Button onClick={() => saveLimit(limitValue.trim() === "" ? null : Number(limitValue))}>
+                {t("common.save")}
+              </Button>
+              <Button variant="secondary" onClick={() => saveLimit(null)}>
+                {t("budget.clearLimit")}
+              </Button>
+              <Button variant="secondary" onClick={() => setLimitOpen(false)}>
+                {t("common.cancel")}
+              </Button>
+            </div>
+          )}
 
           {summary.limit !== null && (
             <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-ink">

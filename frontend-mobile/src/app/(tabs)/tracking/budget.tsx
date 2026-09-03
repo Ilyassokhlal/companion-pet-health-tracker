@@ -10,6 +10,7 @@ import {
   listExpenses, createExpense, updateExpense, deleteExpense, getExpenseSummary,
 } from "@/api/expenses";
 import { listRecords } from "@/api/records";
+import { updatePet } from "@/api/pets";
 import { EXPENSE_CATEGORIES } from "@/types";
 import type { Expense, ExpenseCategory, ExpenseSummary, HealthRecord } from "@/types";
 import { formatDate, dateLocale } from "@/dates";
@@ -44,7 +45,7 @@ export default function Budget() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { currentPet } = usePets();
+  const { currentPet, refresh } = usePets();
   const currency = user?.currency ?? "USD";
 
   // The currently selected month in YYYY-MM format.
@@ -55,6 +56,10 @@ export default function Budget() {
   const [editing, setEditing] = useState<Expense | "new" | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // The limit lives on the pet, so it is edited here as well as in the pet form.
+  const [limitOpen, setLimitOpen] = useState(false);
+  const [limitValue, setLimitValue] = useState("");
 
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -84,6 +89,19 @@ export default function Budget() {
     if (!currentPet) return;
     listRecords(currentPet.id).then(setRecords).catch(() => setRecords([]));
   }, [currentPet]);
+
+  // Save the new monthly budget limit for the current pet.
+  async function saveLimit(value: number | null) {
+    if (!currentPet) return;
+    try {
+      await updatePet(currentPet.id, { monthly_budget: value });
+      setLimitOpen(false);
+      await refresh();
+      load();
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  }
 
   function open(expense: Expense | "new") {
     setError(null);
@@ -177,12 +195,49 @@ export default function Budget() {
               <Text className="text-lg font-semibold text-fg">
                 {formatMoney(summary.total, summary.currency)}
               </Text>
-              <Text className="text-sm text-muted">
-                {summary.limit === null
-                  ? t("budget.noLimit")
-                  : t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}
-              </Text>
+              <Pressable
+                onPress={() => {
+                  setLimitValue(summary.limit === null ? "" : String(summary.limit));
+                  setLimitOpen((isOpen) => !isOpen);
+                }}
+                className="active:opacity-70"
+              >
+                {/* "over" means total >= limit. Nothing on the server blocks the expense, so this
+                    only reports what the red bar already shows. */}
+                <Text
+                  className={`text-sm ${summary.status === "over" ? "font-semibold text-danger" : "text-muted"}`}
+                >
+                  {summary.limit === null
+                    ? t("budget.noLimit")
+                    : summary.status === "over"
+                      ? t("budget.exceeded")
+                      : t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}
+                </Text>
+              </Pressable>
             </View>
+
+            {limitOpen ? (
+              <View className="mt-3">
+                <Text className="mb-2 text-sm text-muted">{t("budget.editLimit", { currency })}</Text>
+                <TextInput
+                  value={limitValue}
+                  onChangeText={setLimitValue}
+                  keyboardType="decimal-pad"
+                  className="mb-3 rounded-lg border border-border bg-ink px-4 py-3 text-fg"
+                />
+                <View className="flex-row gap-2">
+                  <View className="flex-1">
+                    <Button
+                      label={t("common.save")}
+                      onPress={() => saveLimit(limitValue.trim() === "" ? null : Number(limitValue))}
+                    />
+                  </View>
+                  <View className="flex-1">
+                    <Button label={t("budget.clearLimit")} variant="secondary" onPress={() => saveLimit(null)} />
+                  </View>
+                </View>
+              </View>
+            ) : null}
 
             {summary.limit !== null ? (
               <View className="mt-3 h-2 w-full overflow-hidden rounded-full bg-ink">
