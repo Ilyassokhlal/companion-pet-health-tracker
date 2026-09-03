@@ -59,9 +59,17 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
   }
 }
 
-// Fetches the list of chat messages for a specific pet. This function sends a GET request to the API endpoint for the specified pet's messages and returns an array of ChatMessage objects.
-export async function listMessages(petId: number): Promise<ChatMessage[]> {
-  return apiFetch<ChatMessage[]>(`/pets/${petId}/messages`);
+// Fetches chat messages for a specific pet, with optional pagination parameters. 
+// The `limit` option controls how many messages are returned, and the `before` option is used to fetch messages older than a certain message ID.
+export async function listMessages(
+  petId: number,
+  options: { limit?: number; before?: number } = {},
+): Promise<ChatMessage[]> {
+  const query = new URLSearchParams();
+  if (options.limit !== undefined) query.set("limit", String(options.limit));
+  if (options.before !== undefined) query.set("before", String(options.before));
+  const suffix = query.toString() ? `?${query}` : "";
+  return apiFetch<ChatMessage[]>(`/pets/${petId}/messages${suffix}`);
 }
 
 // Deletes a specific chat message by its ID. This function sends a DELETE request to the API endpoint for the specified message.

@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "Eliminar mensaje",
     "confirmDeleteBody": "Este mensaje se eliminará permanentemente.",
     "confirmClearTitle": "Borrar chat",
-    "confirmClearBody": "Todos los mensajes sobre este animal se eliminarán permanentemente."
+    "confirmClearBody": "Todos los mensajes de esta mascota se eliminarán permanentemente.",
+    "loadOlder": "Cargar mensajes anteriores"
   },
   "dashboard": {
     "ageUnknown": "Desconocido",

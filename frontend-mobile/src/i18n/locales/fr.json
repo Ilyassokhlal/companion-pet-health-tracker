@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "Supprimer le message",
     "confirmDeleteBody": "Ce message sera définitivement supprimé.",
     "confirmClearTitle": "Effacer le chat",
-    "confirmClearBody": "Tous les messages concernant cet animal seront définitivement supprimés."
+    "confirmClearBody": "Tous les messages concernant cet animal seront définitivement supprimés.",
+    "loadOlder": "Charger les messages plus anciens"
   },
   "dashboard": {
     "ageUnknown": "Inconnu",

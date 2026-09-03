@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "Удалить сообщение",
     "confirmDeleteBody": "Это сообщение будет удалено навсегда.",
     "confirmClearTitle": "Очистить чат",
-    "confirmClearBody": "Все сообщения об этом питомце будут удалены навсегда."
+    "confirmClearBody": "Все сообщения об этом питомце будут навсегда удалены.",
+    "loadOlder": "Загрузить старые сообщения"
   },
   "dashboard": {
     "ageUnknown": "Неизвестно",

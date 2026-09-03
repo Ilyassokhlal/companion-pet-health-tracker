@@ -276,7 +276,8 @@
     "deleteMessage": "Eliminar mensaje",
     "deleteMessageBody": "Este mensaje se eliminará permanentemente de la conversación.",
     "clearTitle": "Borrar conversación",
-    "clearBody": "Todos los mensajes relacionados con {{name}} se eliminarán permanentemente."
+    "clearBody": "Todos los mensajes relacionados con {{name}} se eliminarán permanentemente.",
+    "loadOlder": "Cargar mensajes anteriores"
   },
   "weightTracking": {
     "empty": "No hay pesajes todavía. Añade un registro de salud de tipo «Peso»."

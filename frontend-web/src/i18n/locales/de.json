@@ -276,7 +276,8 @@
     "deleteMessage": "Nachricht löschen",
     "deleteMessageBody": "Diese Nachricht wird dauerhaft aus der Unterhaltung entfernt.",
     "clearTitle": "Unterhaltung löschen",
-    "clearBody": "Alle Nachrichten zu {{name}} werden dauerhaft gelöscht."
+    "clearBody": "Alle Nachrichten zu {{name}} werden dauerhaft gelöscht.",
+    "loadOlder": "Ältere Nachrichten laden"
   },
   "weightTracking": {
     "empty": "Noch keine Wiegevorgänge. Fügen Sie eine Gesundheitsaufzeichnung vom Typ „Gewicht“ hinzu."

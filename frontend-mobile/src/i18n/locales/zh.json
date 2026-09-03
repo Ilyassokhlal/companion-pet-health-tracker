@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "删除消息",
     "confirmDeleteBody": "此消息将被永久删除。",
     "confirmClearTitle": "清除聊天",
-    "confirmClearBody": "与此宠物相关的所有消息都将被永久删除。"
+    "confirmClearBody": "该宠物的所有消息都将被永久删除。",
+    "loadOlder": "加载更早的消息"
   },
   "dashboard": {
     "ageUnknown": "未知",

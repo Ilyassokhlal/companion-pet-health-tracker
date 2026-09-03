@@ -276,7 +276,8 @@
     "deleteMessage": "删除消息",
     "deleteMessageBody": "此消息将从对话中永久删除。",
     "clearTitle": "删除对话",
-    "clearBody": "与 {{name}} 相关的所有消息都将被永久删除。"
+    "clearBody": "与 {{name}} 相关的所有消息都将被永久删除。",
+    "loadOlder": "加载更早的消息"
   },
   "weightTracking": {
     "empty": "暂无称重记录。请添加一条类型为“体重”的健康记录。"

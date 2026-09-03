@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "Delete message",
     "confirmDeleteBody": "This message will be permanently removed.",
     "confirmClearTitle": "Clear chat",
-    "confirmClearBody": "Every message for this pet will be permanently removed."
+    "confirmClearBody": "Every message for this pet will be permanently removed.",
+    "loadOlder": "Load older messages"
   },
   "dashboard": {
     "ageUnknown": "Unknown",

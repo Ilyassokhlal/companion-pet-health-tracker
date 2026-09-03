@@ -65,14 +65,24 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
   }
 }
 
-export async function listMessages(petId: number): Promise<ChatMessage[]> {
-  return apiFetch<ChatMessage[]>(`/pets/${petId}/messages`);
+// Fetch a list of chat messages for a given pet, with optional pagination.
+export async function listMessages(
+  petId: number,
+  options: { limit?: number; before?: number } = {},
+): Promise<ChatMessage[]> {
+  const query = new URLSearchParams();
+  if (options.limit !== undefined) query.set("limit", String(options.limit));
+  if (options.before !== undefined) query.set("before", String(options.before));
+  const suffix = query.toString() ? `?${query}` : "";
+  return apiFetch<ChatMessage[]>(`/pets/${petId}/messages${suffix}`);
 }
 
+// Delete a specific chat message by its ID.
 export async function deleteMessage(messageId: number): Promise<void> {
   return apiFetch<void>(`/messages/${messageId}`, { method: "DELETE" });
 }
 
+// Clear all chat messages for a given pet.
 export async function clearMessages(petId: number): Promise<void> {
   return apiFetch<void>(`/pets/${petId}/messages`, { method: "DELETE" });
 }

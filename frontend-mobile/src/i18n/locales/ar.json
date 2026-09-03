@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "حذف الرسالة",
     "confirmDeleteBody": "سيتم حذف هذه الرسالة نهائيًا.",
     "confirmClearTitle": "مسح الدردشة",
-    "confirmClearBody": "سيتم حذف جميع الرسائل المتعلقة بهذا الحيوان نهائيًا."
+    "confirmClearBody": "سيتم حذف جميع الرسائل الخاصة بهذا الحيوان نهائيًا.",
+    "loadOlder": "تحميل الرسائل الأقدم"
   },
   "dashboard": {
     "ageUnknown": "غير معروف",

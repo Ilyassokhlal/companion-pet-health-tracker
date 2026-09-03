@@ -276,7 +276,8 @@
     "deleteMessage": "Delete message",
     "deleteMessageBody": "This message will be permanently removed from the conversation.",
     "clearTitle": "Clear conversation",
-    "clearBody": "Every message for {{name}} will be permanently removed."
+    "clearBody": "Every message for {{name}} will be permanently removed.",
+    "loadOlder": "Load older messages"
   },
   "weightTracking": {
     "empty": "No weigh-ins yet. Add a health record of type Weight."

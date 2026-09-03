@@ -335,7 +335,8 @@
     "confirmDeleteTitle": "Nachricht löschen",
     "confirmDeleteBody": "Diese Nachricht wird dauerhaft gelöscht.",
     "confirmClearTitle": "Chat leeren",
-    "confirmClearBody": "Alle Nachrichten zu diesem Tier werden dauerhaft gelöscht."
+    "confirmClearBody": "Alle Nachrichten zu diesem Tier werden dauerhaft gelöscht.",
+    "loadOlder": "Ältere Nachrichten laden"
   },
   "dashboard": {
     "ageUnknown": "Unbekannt",

@@ -26,15 +26,27 @@ def _to_response(message: ChatMessage) -> MessageResponse:
 
 
 @router.get("/pets/{pet_id}/messages", response_model=list[MessageResponse])
-def list_messages(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Return the conversation for one pet, oldest first."""
+def list_messages(
+    pet_id: int,
+    limit: int | None = None,
+    before: int | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List chat messages for a specific pet.
+
+    The `before` parameter is used for pagination to fetch messages older than a certain message ID.
+    The `limit` parameter controls how many messages are returned. If not specified, all messages are returned.
+    Messages are returned in ascending order by ID (oldest first).
+    """
     pet = _get_owned_pet(pet_id, db, current_user)
-    messages = (
-        db.query(ChatMessage)
-        .filter(ChatMessage.pet_id == pet.id)
-        .order_by(ChatMessage.id)
-        .all()
-    )
+    query = db.query(ChatMessage).filter(ChatMessage.pet_id == pet.id)
+    if before is not None:
+        query = query.filter(ChatMessage.id < before)
+    if limit is None:
+        messages = query.order_by(ChatMessage.id).all()
+    else:
+        messages = list(reversed(query.order_by(ChatMessage.id.desc()).limit(limit).all()))
     return [_to_response(m) for m in messages]
 
 

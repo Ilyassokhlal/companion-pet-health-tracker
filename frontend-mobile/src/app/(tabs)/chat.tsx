@@ -50,18 +50,28 @@ export default function Chat() {
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
   const markdownStyles = makeMarkdownStyles(themeColors(theme, accent));
+  // The screen opens on the newest exchange, so it only fetches the tail. Older messages come in
+  // larger chunks, since by then the user is deliberately reading back.
+  const INITIAL = 20;
+  const PAGE = 20;
+
   const scrollRef = useRef<ScrollView>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [question, setQuestion] = useState("");
   const [streaming, setStreaming] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingOlder, setLoadingOlder] = useState(false);
+  // True while older messages are being prepended, so onContentSizeChange leaves the view alone.
+  const prepending = useRef(false);
 
   const load = useCallback(async () => {
     if (!currentPet) {
       setTurns([]);
+      setHasMore(false);
       return;
     }
     try {
-      const messages = await listMessages(currentPet.id);
+      const messages = await listMessages(currentPet.id, { limit: INITIAL });
       setTurns(
         messages.map((m) => ({
           id: m.id,
@@ -70,10 +80,36 @@ export default function Chat() {
           sources: m.sources ?? undefined,
         })),
       );
+      setHasMore(messages.length === INITIAL);
     } catch (err) {
       console.error(err);
     }
   }, [currentPet]);
+
+  async function loadOlder() {
+    const oldest = turns.find((turn) => turn.id !== undefined);
+    if (!currentPet || oldest?.id === undefined) return;
+    setLoadingOlder(true);
+    prepending.current = true;
+    try {
+      const older = await listMessages(currentPet.id, { limit: PAGE, before: oldest.id });
+      setTurns((prev) => [
+        ...older.map((m) => ({
+          id: m.id,
+          role: m.role,
+          content: m.content,
+          sources: m.sources ?? undefined,
+        })),
+        ...prev,
+      ]);
+      setHasMore(older.length === PAGE);
+    } catch (err) {
+      console.error(err);
+      prepending.current = false;
+    } finally {
+      setLoadingOlder(false);
+    }
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -186,8 +222,29 @@ export default function Chat() {
         ref={scrollRef}
         className="flex-1"
         contentContainerStyle={{ padding: 16, gap: 12 }}
-        onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
+        // Anchors on the second child — index 0 is the Load older button — so prepending older messages does not shift what the reader is looking at.
+        maintainVisibleContentPosition={{ minIndexForVisible: 1 }}
+        onContentSizeChange={() => {
+          // Skip while older messages are being prepended, or this would yank the reader back to the newest message every time they page backwards.
+          if (prepending.current) {
+            prepending.current = false;
+            return;
+          }
+          scrollRef.current?.scrollToEnd({ animated: true });
+        }}
       >
+        {hasMore ? (
+          <Pressable
+            onPress={loadOlder}
+            disabled={loadingOlder}
+            className="items-center rounded-lg border border-border bg-surface px-4 py-2 active:opacity-70"
+          >
+            <Text className="text-sm text-muted">
+              {loadingOlder ? t("common.loading") : t("chat.loadOlder")}
+            </Text>
+          </Pressable>
+        ) : null}
+
         {turns.length === 0 ? (
           <Text className="text-muted">
             {t("chat.empty", { name: currentPet.name })}
