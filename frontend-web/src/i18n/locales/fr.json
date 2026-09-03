@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "ex. Poulet",
     "hasDisabilities": "A un handicap",
     "disabilities": "Handicaps",
-    "disabilitiesPlaceholder": "ex. Sourd de l'oreille gauche"
+    "disabilitiesPlaceholder": "ex. Sourd de l'oreille gauche",
+    "sex": "Sexe",
+    "sexUnset": "Non renseigné",
+    "male": "Mâle",
+    "female": "Femelle",
+    "neutered": "Castré",
+    "spayed": "Stérilisée",
+    "neuteredOrSpayed": "Castré ou stérilisé"
   },
   "chatHistory": {
     "title": "Historique des conversations",

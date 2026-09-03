@@ -264,7 +264,14 @@
     "hasDisabilities": "Has disabilities",
     "disabilities": "Disabilities",
     "disabilitiesPlaceholder": "e.g. Deaf in left ear",
-    "add": "Add pet"
+    "add": "Add pet",
+    "sex": "Sex",
+    "sexUnset": "Not set",
+    "male": "Male",
+    "female": "Female",
+    "neutered": "Neutered",
+    "spayed": "Spayed",
+    "neuteredOrSpayed": "Neutered or spayed"
   },
   "eventForm": {
     "submit": "Schedule"

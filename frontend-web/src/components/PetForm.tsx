@@ -30,6 +30,8 @@ export default function PetForm({ pet, onDone }: Props) {
     const [species, setSpecies] = useState(pet?.species ?? "Dog");
     const [breed, setBreed] = useState(pet?.breed ?? "");
     const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
+    const [sex, setSex] = useState<"male" | "female" | "">(pet?.sex ?? "");
+    const [neutered, setNeutered] = useState(pet?.neutered ?? false);
     const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
     const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
     const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
@@ -53,6 +55,8 @@ export default function PetForm({ pet, onDone }: Props) {
       species,
         breed: breed || null,
         birth_date: birthDate || null,
+        sex: sex === "" ? null : sex,
+        neutered,
         weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
         weight_tracking_enabled: trackWeight,
         walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
@@ -114,6 +118,35 @@ export default function PetForm({ pet, onDone }: Props) {
                     onChange={e => setBirthDate(e.target.value)}
                 />
             </div>
+            <div>
+                <label className="block mb-1">{t("petForm.sex")}</label>
+                <select
+                    value={sex}
+                    onChange={e => setSex(e.target.value as "male" | "female" | "")}
+                    className="w-full rounded-lg bg-ink border border-border px-3 py-2.5 text-fg focus:border-primary focus:outline-none"
+                >
+                    <option value="">{t("petForm.sexUnset")}</option>
+                    <option value="male">{t("petForm.male")}</option>
+                    <option value="female">{t("petForm.female")}</option>
+                </select>
+            </div>
+            <label className="flex items-center gap-2">
+                <input
+                    type="checkbox"
+                    checked={neutered}
+                    onChange={e => setNeutered(e.target.checked)}
+                    className="accent-primary"
+                />
+                {/* The word is gendered, so the label follows the sex above and falls back to the
+                    neutral form while sex is unset. */}
+                <span>
+                    {sex === "male"
+                        ? t("petForm.neutered")
+                        : sex === "female"
+                          ? t("petForm.spayed")
+                          : t("petForm.neuteredOrSpayed")}
+                </span>
+            </label>
             <div>
                 <label className="block mb-1">{t("common.weight", { unit })}</label>
                 <Input

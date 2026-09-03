@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "p. ej., pollo",
     "hasDisabilities": "Tiene una discapacidad",
     "disabilities": "Discapacidades",
-    "disabilitiesPlaceholder": "p. ej., sordera del oído izquierdo"
+    "disabilitiesPlaceholder": "p. ej., sordera del oído izquierdo",
+    "sex": "Sexo",
+    "sexUnset": "Sin especificar",
+    "male": "Macho",
+    "female": "Hembra",
+    "neutered": "Castrado",
+    "spayed": "Esterilizada",
+    "neuteredOrSpayed": "Castrado o esterilizado"
   },
   "chatHistory": {
     "title": "Historial de conversaciones",

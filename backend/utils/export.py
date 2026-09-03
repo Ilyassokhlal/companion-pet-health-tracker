@@ -118,7 +118,9 @@ def records_to_pdf(pet, records, walks, feeding_times) -> bytes:
         line(text)
         pdf.set_font("helvetica", size=11)
 
-    line(f"{pet.name} - {pet.species} - {pet.breed or ''}")
+    # Empty parts are dropped rather than leaving a dangling " - ", which the old f-string did whenever a pet had no breed.
+    details = [pet.species, pet.breed or "", pet.sex or "", "neutered or spayed" if pet.neutered else ""]
+    line(" - ".join([pet.name, *[part for part in details if part]]))
     pdf.ln(5)
 
     heading("Health records")

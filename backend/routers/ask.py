@@ -80,6 +80,11 @@ def _format_pet_context(pet, records) -> str:
         lines.append(f"Dietary Restrictions and Allergies: {', '.join(pet.dietary_restrictions)}")
     if pet.disabilities:
         lines.append(f"Disabilities: {', '.join(pet.disabilities)}")
+    # Same reasoning as the block above. An unset field must never read as "male" or "not neutered", so each of these is only stated when the owner actually said so.
+    if pet.sex:
+        lines.append(f"Sex: {pet.sex}")
+    if pet.neutered:
+        lines.append("Neutered or spayed: yes")
 
     lines += [
         "",

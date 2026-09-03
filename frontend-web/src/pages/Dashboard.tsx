@@ -209,6 +209,15 @@ export default function Dashboard() {
         <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
         <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
         <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
+        {currentPet.sex && (
+          <div>
+            <dt className="text-sm text-muted">{t("petForm.sex")}</dt>
+            <dd>
+              {t(`petForm.${currentPet.sex}`)}
+              {currentPet.neutered && ` · ${currentPet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}`}
+            </dd>
+          </div>
+        )}
         {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled && (
           <div>
             <dt className="text-sm text-muted">{t("dashboard.walkedToday")}</dt>

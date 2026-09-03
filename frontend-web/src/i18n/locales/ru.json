@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "например, курица",
     "hasDisabilities": "Есть инвалидность",
     "disabilities": "Особенности здоровья",
-    "disabilitiesPlaceholder": "например, глухота на левое ухо"
+    "disabilitiesPlaceholder": "например, глухота на левое ухо",
+    "sex": "Пол",
+    "sexUnset": "Не указан",
+    "male": "Самец",
+    "female": "Самка",
+    "neutered": "Кастрирован",
+    "spayed": "Стерилизована",
+    "neuteredOrSpayed": "Кастрирован или стерилизована"
   },
   "chatHistory": {
     "title": "История чатов",

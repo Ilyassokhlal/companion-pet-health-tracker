@@ -264,7 +264,14 @@
     "hasDisabilities": "Есть инвалидность",
     "disabilities": "Особенности здоровья",
     "disabilitiesPlaceholder": "например, глухота на левое ухо",
-    "add": "Добавить питомца"
+    "add": "Добавить питомца",
+    "sex": "Пол",
+    "sexUnset": "Не указан",
+    "male": "Самец",
+    "female": "Самка",
+    "neutered": "Кастрирован",
+    "spayed": "Стерилизована",
+    "neuteredOrSpayed": "Кастрирован или стерилизована"
   },
   "eventForm": {
     "submit": "Запланировать"

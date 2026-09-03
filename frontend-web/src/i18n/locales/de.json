@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "z. B. Huhn",
     "hasDisabilities": "Hat eine Behinderung",
     "disabilities": "Behinderungen",
-    "disabilitiesPlaceholder": "z. B. auf dem linken Ohr taub"
+    "disabilitiesPlaceholder": "z. B. auf dem linken Ohr taub",
+    "sex": "Geschlecht",
+    "sexUnset": "Nicht angegeben",
+    "male": "Männlich",
+    "female": "Weiblich",
+    "neutered": "Kastriert",
+    "spayed": "Sterilisiert",
+    "neuteredOrSpayed": "Kastriert oder sterilisiert"
   },
   "chatHistory": {
     "title": "Chatverlauf",

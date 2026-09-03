@@ -45,6 +45,14 @@ class PetCreate(BaseModel):
         default=None, gt=0,
         description="Monthly spending limit for this pet, in the owner's currency.",
         examples=[120.0])
+    sex: Literal["male", "female"] | None = Field(
+        default=None,
+        description="The pet's sex, or null when the owner has not said.",
+        examples=["female"])
+    neutered: bool = Field(
+        default=False,
+        description="Whether the pet is neutered or spayed.",
+        examples=[True])
     dietary_restrictions: list[TagEntry] = Field(
         default_factory=list,
         description="Dietary restrictions and allergies, one per entry.",
@@ -93,6 +101,14 @@ class PetUpdate(BaseModel):
         default=None, gt=0,
         description="Monthly spending limit for this pet. Send null to clear it.",
         examples=[120.0])
+    sex: Literal["male", "female"] | None = Field(
+        default=None,
+        description="The pet's sex. Send null to clear it.",
+        examples=["female"])
+    neutered: bool | None = Field(
+        default=None,
+        description="Whether the pet is neutered or spayed.",
+        examples=[True])
     dietary_restrictions: list[TagEntry] | None = Field(
         default=None,
         description="Dietary restrictions and allergies, one per entry.",
@@ -116,6 +132,8 @@ class PetResponse(BaseModel):
     walk_tracking_enabled: bool
     weight_frequency: str
     monthly_budget: float | None = None
+    sex: str | None = None
+    neutered: bool
     dietary_restrictions: list[str]
     disabilities: list[str]
     photo_filename: str | None = None

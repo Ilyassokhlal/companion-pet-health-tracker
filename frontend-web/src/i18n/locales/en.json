@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "e.g. Chicken",
     "hasDisabilities": "Has disabilities",
     "disabilities": "Disabilities",
-    "disabilitiesPlaceholder": "e.g. Deaf in left ear"
+    "disabilitiesPlaceholder": "e.g. Deaf in left ear",
+    "sex": "Sex",
+    "sexUnset": "Not set",
+    "male": "Male",
+    "female": "Female",
+    "neutered": "Neutered",
+    "spayed": "Spayed",
+    "neuteredOrSpayed": "Neutered or spayed"
   },
   "chatHistory": {
     "title": "Chat History",

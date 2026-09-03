@@ -32,6 +32,8 @@ export default function PetForm({ pet, onDone }: Props) {
   const [species, setSpecies] = useState(pet?.species ?? "Dog");
   const [breed, setBreed] = useState(pet?.breed ?? "");
   const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
+  const [sex, setSex] = useState<"male" | "female" | "">(pet?.sex ?? "");
+  const [neutered, setNeutered] = useState(pet?.neutered ?? false);
   const [weight, setWeight] = useState(pet?.weight != null ? String(fromKg(pet.weight, unitSystem)) : "");
   const [trackWeight, setTrackWeight] = useState(pet?.weight_tracking_enabled ?? false);
   const [frequency, setFrequency] = useState<WeightFrequency>(pet?.weight_frequency ?? "monthly");
@@ -53,6 +55,8 @@ export default function PetForm({ pet, onDone }: Props) {
       species,
       breed: breed || null,
       birth_date: birthDate || null,
+      sex: sex === "" ? null : sex,
+      neutered,
       weight: weight ? toKg(parseFloat(weight), unitSystem) : null,
       weight_tracking_enabled: trackWeight,
       walk_tracking_enabled: pet?.walk_tracking_enabled ?? false,
@@ -115,6 +119,45 @@ export default function PetForm({ pet, onDone }: Props) {
       />
 
       <View>
+        <Text className="mb-1 text-sm text-muted">{t("petForm.sex")}</Text>
+        <View className="mb-4 flex-row flex-wrap gap-2">
+          {([["", "sexUnset"], ["male", "male"], ["female", "female"]] as const).map(([value, key]) => (
+            <Pressable
+              key={key}
+              onPress={() => setSex(value)}
+              className={`rounded-lg border px-3 py-1.5 active:opacity-70 ${
+                sex === value ? "border-primary bg-primary" : "border-border bg-ink"
+              }`}
+            >
+              <Text className={`text-sm ${sex === value ? "text-on-primary" : "text-muted"}`}>
+                {t(`petForm.${key}`)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+
+        {/* The word is gendered, so the label follows the sex above and falls back to the neutral
+            form while sex is unset. */}
+        <Pressable
+          onPress={() => setNeutered(!neutered)}
+          className="mb-4 flex-row items-center gap-3 active:opacity-70"
+        >
+          <View
+            className={`h-5 w-5 items-center justify-center rounded border ${
+              neutered ? "border-primary bg-primary" : "border-border bg-ink"
+            }`}
+          >
+            {neutered ? <Text className="text-xs font-bold text-on-primary">✓</Text> : null}
+          </View>
+          <Text className="text-fg">
+            {sex === "male"
+              ? t("petForm.neutered")
+              : sex === "female"
+                ? t("petForm.spayed")
+                : t("petForm.neuteredOrSpayed")}
+          </Text>
+        </Pressable>
+
         <Text className="mb-1 text-sm text-muted">{t("common.weight", { unit })}</Text>
         <Input
           value={weight}

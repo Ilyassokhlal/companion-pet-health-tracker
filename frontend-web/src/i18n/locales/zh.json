@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "例如：鸡肉",
     "hasDisabilities": "有残疾",
     "disabilities": "残疾情况",
-    "disabilitiesPlaceholder": "例如：左耳失聪"
+    "disabilitiesPlaceholder": "例如：左耳失聪",
+    "sex": "性别",
+    "sexUnset": "未设置",
+    "male": "雄性",
+    "female": "雌性",
+    "neutered": "已绝育",
+    "spayed": "已绝育",
+    "neuteredOrSpayed": "已绝育"
   },
   "chatHistory": {
     "title": "聊天记录",

@@ -64,6 +64,8 @@ class Pet(Base):
     species: Mapped[str] = mapped_column(String(50), nullable=False)
     breed: Mapped[str | None] = mapped_column(String(50), nullable=True)
     birth_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    sex: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    neutered: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     weight: Mapped[float | None] = mapped_column(Float, nullable=True)
     weight_tracking_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     weight_frequency: Mapped[str] = mapped_column(String(10), nullable=False, server_default="monthly")

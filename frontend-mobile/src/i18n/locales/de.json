@@ -264,7 +264,14 @@
     "hasDisabilities": "Hat eine Behinderung",
     "disabilities": "Behinderungen",
     "disabilitiesPlaceholder": "z. B. auf dem linken Ohr taub",
-    "add": "Tier hinzufügen"
+    "add": "Tier hinzufügen",
+    "sex": "Geschlecht",
+    "sexUnset": "Nicht angegeben",
+    "male": "Männlich",
+    "female": "Weiblich",
+    "neutered": "Kastriert",
+    "spayed": "Sterilisiert",
+    "neuteredOrSpayed": "Kastriert oder sterilisiert"
   },
   "eventForm": {
     "submit": "Planen"

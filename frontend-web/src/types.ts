@@ -77,6 +77,8 @@ export interface Pet {
   species: string;
   breed: string | null;
   birth_date: string | null;
+  sex: "male" | "female" | null;
+  neutered: boolean;
   weight: number | null;
   weight_tracking_enabled: boolean;
   walk_tracking_enabled: boolean;

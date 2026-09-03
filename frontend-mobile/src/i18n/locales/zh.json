@@ -264,7 +264,14 @@
     "hasDisabilities": "有残障",
     "disabilities": "残障情况",
     "disabilitiesPlaceholder": "例如：左耳失聪",
-    "add": "添加宠物"
+    "add": "添加宠物",
+    "sex": "性别",
+    "sexUnset": "未设置",
+    "male": "雄性",
+    "female": "雌性",
+    "neutered": "已绝育",
+    "spayed": "已绝育",
+    "neuteredOrSpayed": "已绝育"
   },
   "eventForm": {
     "submit": "安排"

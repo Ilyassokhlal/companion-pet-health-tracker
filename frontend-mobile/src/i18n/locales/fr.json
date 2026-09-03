@@ -264,7 +264,14 @@
     "hasDisabilities": "A un handicap",
     "disabilities": "Handicaps",
     "disabilitiesPlaceholder": "ex. Sourd de l'oreille gauche",
-    "add": "Ajouter un animal"
+    "add": "Ajouter un animal",
+    "sex": "Sexe",
+    "sexUnset": "Non renseigné",
+    "male": "Mâle",
+    "female": "Femelle",
+    "neutered": "Castré",
+    "spayed": "Stérilisée",
+    "neuteredOrSpayed": "Castré ou stérilisé"
   },
   "eventForm": {
     "submit": "Planifier"

@@ -264,7 +264,14 @@
     "hasDisabilities": "لديه إعاقة",
     "disabilities": "الإعاقات",
     "disabilitiesPlaceholder": "مثال: أصم في الأذن اليسرى",
-    "add": "إضافة حيوان"
+    "add": "إضافة حيوان",
+    "sex": "الجنس",
+    "sexUnset": "غير محدد",
+    "male": "ذكر",
+    "female": "أنثى",
+    "neutered": "مخصي",
+    "spayed": "معقّمة",
+    "neuteredOrSpayed": "مخصي أو معقّم"
   },
   "eventForm": {
     "submit": "جدولة"

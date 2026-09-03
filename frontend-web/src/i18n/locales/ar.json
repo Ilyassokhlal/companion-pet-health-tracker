@@ -264,7 +264,14 @@
     "dietaryPlaceholder": "مثال: الدجاج",
     "hasDisabilities": "لديه إعاقة",
     "disabilities": "الإعاقات",
-    "disabilitiesPlaceholder": "مثال: أصم في الأذن اليسرى"
+    "disabilitiesPlaceholder": "مثال: أصم في الأذن اليسرى",
+    "sex": "الجنس",
+    "sexUnset": "غير محدد",
+    "male": "ذكر",
+    "female": "أنثى",
+    "neutered": "مخصي",
+    "spayed": "معقّمة",
+    "neuteredOrSpayed": "مخصي أو معقّم"
   },
   "chatHistory": {
     "title": "سجل المحادثات",

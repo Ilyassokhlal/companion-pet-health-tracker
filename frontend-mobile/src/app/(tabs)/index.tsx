@@ -346,6 +346,19 @@ export default function Dashboard() {
             }
           />
         ) : null}
+        {currentPet.sex ? (
+          <Field
+            label={t("petForm.sex")}
+            value={t(`petForm.${currentPet.sex}`)}
+            hint={
+              currentPet.neutered
+                ? currentPet.sex === "male"
+                  ? t("petForm.neutered")
+                  : t("petForm.spayed")
+                : undefined
+            }
+          />
+        ) : null}
         <Field
           label={t("dashboard.weight")}
           value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
