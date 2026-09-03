@@ -27,7 +27,6 @@ export default function Tracking() {
   const { theme, accent } = useTheme();
   const colors = themeColors(theme, accent);
   const unitSystem = user?.unit_system ?? "metric";
-  const walksOn = user?.walk_tracking_enabled ?? false;
 
   const [weight, setWeight] = useState<string | null>(null);
   const [walk, setWalk] = useState<string | null>(null);
@@ -49,22 +48,20 @@ export default function Tracking() {
       })
       .catch(() => setWeight(null));
 
-    if (walksOn) {
-      listWalks(currentPet.id)
-        .then((rows) => {
-          // The API returns newest first, so rows[0] is the most recent walk.
-          if (rows.length === 0) {
-            setWalk(null);
-            return;
-          }
-          setWalk(
-            rows[0].date === today
-              ? t("tracking.walkedToday")
-              : t("tracking.lastWalk", { date: formatDate(rows[0].date) }),
-          );
-        })
-        .catch(() => setWalk(null));
-    }
+    listWalks(currentPet.id)
+      .then((rows) => {
+        // The API returns newest first, so rows[0] is the most recent walk.
+        if (rows.length === 0) {
+          setWalk(null);
+          return;
+        }
+        setWalk(
+          rows[0].date === today
+            ? t("tracking.walkedToday")
+            : t("tracking.lastWalk", { date: formatDate(rows[0].date) }),
+        );
+      })
+      .catch(() => setWalk(null));
 
     feedingStatus(currentPet.id)
       .then((slots) => {
@@ -77,7 +74,7 @@ export default function Tracking() {
     getExpenseSummary(currentPet.id, today.slice(0, 7))
       .then((s) => setSpend(t("tracking.spentThisMonth", { amount: formatMoney(s.total, s.currency) })))
       .catch(() => setSpend(null));
-  }, [currentPet, unitSystem, walksOn, t]);
+  }, [currentPet, unitSystem, t]);
 
   // Tabs stay mounted, so a plain useEffect would run once and never refresh.
   useFocusEffect(
@@ -86,11 +83,13 @@ export default function Tracking() {
     }, [load]),
   );
 
+  // All four rows are unconditional. The account switches govern check-ins and reminders, not
+  // whether the history can be read, and each screen explains its own switch when it is off.
   const rows = [
-    { href: "/tracking/weight", key: "weight", icon: "scale-outline", value: weight, shown: true },
-    { href: "/tracking/walks", key: "walks", icon: "footsteps-outline", value: walk, shown: walksOn },
-    { href: "/tracking/feeding", key: "feeding", icon: "restaurant-outline", value: feeding, shown: true },
-    { href: "/tracking/budget", key: "budget", icon: "wallet-outline", value: spend, shown: true },
+    { href: "/tracking/weight", key: "weight", icon: "scale-outline", value: weight },
+    { href: "/tracking/walks", key: "walks", icon: "footsteps-outline", value: walk },
+    { href: "/tracking/feeding", key: "feeding", icon: "restaurant-outline", value: feeding },
+    { href: "/tracking/budget", key: "budget", icon: "wallet-outline", value: spend },
   ] as const;
 
   return (
@@ -101,31 +100,29 @@ export default function Tracking() {
       >
         <Text className="mb-6 text-2xl font-bold text-fg">{t("tracking.title")}</Text>
 
-        {rows
-          .filter((row) => row.shown)
-          .map((row, index) => (
-            <Pressable
-              key={row.href}
-              onPress={() => router.navigate(row.href)}
-              className={`flex-row items-start gap-4 rounded-xl border border-border bg-surface p-5 active:opacity-70 ${
-                index > 0 ? "mt-4" : ""
-              }`}
+        {rows.map((row, index) => (
+          <Pressable
+            key={row.href}
+            onPress={() => router.navigate(row.href)}
+            className={`flex-row items-start gap-4 rounded-xl border border-border bg-surface p-5 active:opacity-70 ${
+              index > 0 ? "mt-4" : ""
+            }`}
+          >
+            <View
+              style={{ backgroundColor: `${colors.primary}1A` }}
+              className="h-11 w-11 items-center justify-center rounded-lg"
             >
-              <View
-                style={{ backgroundColor: `${colors.primary}1A` }}
-                className="h-11 w-11 items-center justify-center rounded-lg"
-              >
-                <Ionicons name={row.icon} size={22} color={colors.primary} />
-              </View>
-              <View className="min-w-0 flex-1">
-                <Text className="text-lg font-semibold text-fg">{t(`tracking.${row.key}`)}</Text>
-                <Text className="mt-0.5 text-sm text-muted">{t(`tracking.${row.key}Hint`)}</Text>
-                <Text className="mt-2 text-base font-semibold text-primary">
-                  {row.value ?? t("tracking.noData")}
-                </Text>
-              </View>
-            </Pressable>
-          ))}
+              <Ionicons name={row.icon} size={22} color={colors.primary} />
+            </View>
+            <View className="min-w-0 flex-1">
+              <Text className="text-lg font-semibold text-fg">{t(`tracking.${row.key}`)}</Text>
+              <Text className="mt-0.5 text-sm text-muted">{t(`tracking.${row.key}Hint`)}</Text>
+              <Text className="mt-2 text-base font-semibold text-primary">
+                {row.value ?? t("tracking.noData")}
+              </Text>
+            </View>
+          </Pressable>
+        ))}
       </ScrollView>
     </SwipeTabs>
   );

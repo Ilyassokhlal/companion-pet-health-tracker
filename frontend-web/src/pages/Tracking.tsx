@@ -11,13 +11,14 @@ import { getExpenseSummary } from "../api/expenses";
 import { formatWeight, formatMoney } from "../units";
 import { formatDate } from "../dates";
 
-// Tracking page for the current pet, displaying weight, walks, feeding, and budget information. The page shows the most recent data for each category and links to detailed views.
+// Tracking hub. Each card links to its section and carries that section's current figure, so the
+// page says something about the pet rather than being four empty links. No page title: Records and
+// Photos do not carry one either, and the nav already says where you are.
 export default function Tracking() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { currentPet } = usePets();
   const unitSystem = user?.unit_system ?? "metric";
-  const walksOn = user?.walk_tracking_enabled ?? false;
 
   const [weight, setWeight] = useState<string | null>(null);
   const [walk, setWalk] = useState<string | null>(null);
@@ -28,7 +29,8 @@ export default function Tracking() {
     if (!currentPet) return;
     const today = new Date().toLocaleDateString("en-CA");
 
-    // Four independent fetches rather than a Promise.all: one tracker failing must not blank the other three cards.
+    // Four independent fetches rather than a Promise.all: one tracker failing must not blank the
+    // other three cards.
     listRecords(currentPet.id)
       .then((all) => {
         const weighed = all
@@ -38,22 +40,20 @@ export default function Tracking() {
       })
       .catch(() => setWeight(null));
 
-    if (walksOn) {
-      listWalks(currentPet.id)
-        .then((rows) => {
-          // The API returns newest first, so rows[0] is the most recent walk.
-          if (rows.length === 0) {
-            setWalk(null);
-            return;
-          }
-          setWalk(
-            rows[0].date === today
-              ? t("tracking.walkedToday")
-              : t("tracking.lastWalk", { date: formatDate(rows[0].date) }),
-          );
-        })
-        .catch(() => setWalk(null));
-    }
+    listWalks(currentPet.id)
+      .then((rows) => {
+        // The API returns newest first, so rows[0] is the most recent walk.
+        if (rows.length === 0) {
+          setWalk(null);
+          return;
+        }
+        setWalk(
+          rows[0].date === today
+            ? t("tracking.walkedToday")
+            : t("tracking.lastWalk", { date: formatDate(rows[0].date) }),
+        );
+      })
+      .catch(() => setWalk(null));
 
     feedingStatus(currentPet.id)
       .then((slots) => {
@@ -66,30 +66,29 @@ export default function Tracking() {
     getExpenseSummary(currentPet.id, today.slice(0, 7))
       .then((s) => setSpend(t("tracking.spentThisMonth", { amount: formatMoney(s.total, s.currency) })))
       .catch(() => setSpend(null));
-  }, [currentPet, unitSystem, walksOn, t]);
+  }, [currentPet, unitSystem, t]);
 
   useEffect(() => {
     load();
   }, [load]);
 
-  // Early return if no current pet is selected. This ensures that the rest of the component only renders when a pet is available.
+  // Every early return sits below the hooks: an early return between them is invisible until a hook
+  // is added above it, which is how Modal.tsx blanked every dialog for two versions.
   if (!currentPet) return <p className="p-4 sm:p-8 text-muted">{t("common.noPet")}</p>;
 
+  // All four rows are unconditional. The account switches govern check-ins and reminders, not
+  // whether the history can be read, and each page explains its own switch when it is off.
   const rows = [
-    { to: "/tracking/weight", key: "weight", Icon: Scale, value: weight, shown: true },
-    { to: "/tracking/walks", key: "walks", Icon: Footprints, value: walk, shown: walksOn },
-    { to: "/tracking/feeding", key: "feeding", Icon: Utensils, value: feeding, shown: true },
-    { to: "/tracking/budget", key: "budget", Icon: Wallet, value: spend, shown: true },
-  ].filter((row) => row.shown);
+    { to: "/tracking/weight", key: "weight", Icon: Scale, value: weight },
+    { to: "/tracking/walks", key: "walks", Icon: Footprints, value: walk },
+    { to: "/tracking/feeding", key: "feeding", Icon: Utensils, value: feeding },
+    { to: "/tracking/budget", key: "budget", Icon: Wallet, value: spend },
+  ];
 
   return (
     <div className="p-4 sm:p-8">
-      {/* The title gets its own card so it is not reading straight off the background pattern. */}
-      <div className="mb-6 rounded-xl border border-border bg-surface px-5 py-4">
-        <h1 className="text-2xl font-bold text-fg">{t("tracking.title")}</h1>
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Two columns, so the four cards sit as a 2x2 and every card is the same size. */}
+      <div className="grid gap-3 sm:grid-cols-2">
         {rows.map((row) => (
           <Link
             key={row.to}
