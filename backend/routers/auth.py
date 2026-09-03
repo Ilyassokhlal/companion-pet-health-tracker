@@ -1,20 +1,44 @@
-from fastapi import APIRouter, Depends, status, Request, BackgroundTasks, UploadFile, File
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
 from datetime import date, timedelta
 from zoneinfo import available_timezones
 
-from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
-from database import get_db
-from models.models import User
-from schemas.user import ChangeEmailRequest, ChangePasswordRequest, DeleteAccountRequest, ForgotPasswordRequest, RegisterRequest, LoginRequest, ResetPasswordRequest, TokenResponse, UserResponse, UserUpdateRequest, VerifyRequest
-from utils.security import hash_password, verify_password, create_access_token, get_current_user, create_purpose_token, decode_purpose_token, password_fingerprint
-from utils.mailer import send_verification_email, send_reset_email, send_email_changed_email, send_password_changed_email
-from utils.photos import save_photo, delete_photo_file
-from utils.weight import sync_checkin
-from utils.limiter import limiter
 from config import settings
-
+from database import get_db
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Request, UploadFile, status
+from models.models import User
+from schemas.user import (
+    ChangeEmailRequest,
+    ChangePasswordRequest,
+    DeleteAccountRequest,
+    ForgotPasswordRequest,
+    LoginRequest,
+    RegisterRequest,
+    ResetPasswordRequest,
+    TokenResponse,
+    UserResponse,
+    UserUpdateRequest,
+    VerifyRequest,
+)
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
+from utils.limiter import limiter
+from utils.mailer import (
+    send_email_changed_email,
+    send_password_changed_email,
+    send_reset_email,
+    send_verification_email,
+)
+from utils.photos import delete_photo_file, save_photo
+from utils.security import (
+    create_access_token,
+    create_purpose_token,
+    decode_purpose_token,
+    get_current_user,
+    hash_password,
+    password_fingerprint,
+    verify_password,
+)
+from utils.weight import sync_checkin
 
 # Router for authentication-related endpoints
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -49,9 +73,9 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
     db.add(user)
     try:
         db.commit()
-    except IntegrityError:
+    except IntegrityError as e:
         db.rollback()
-        raise DuplicateException("User", "email", payload.email)
+        raise DuplicateException("User", "email", payload.email) from e
     db.refresh(user)
 
     # Create an access token for the newly registered user
@@ -111,9 +135,9 @@ def verify_email(request: Request, payload: VerifyRequest, db: Session = Depends
         user.email_verified = True
         try:
             db.commit()
-        except IntegrityError:
+        except IntegrityError as e:
             db.rollback()
-            raise DuplicateException("User", "email", claimed)
+            raise DuplicateException("User", "email", claimed) from e
         db.refresh(user)
         return user
     if user.email_verified:

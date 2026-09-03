@@ -1,9 +1,8 @@
-import os
 import logging
+import os
 from html import escape
 
 import resend
-
 from config import settings
 from utils.i18n import t
 

@@ -1,8 +1,11 @@
-from datetime import datetime, date, time as time_type
 import enum
-from sqlalchemy import String, Integer, Float, Date, DateTime, Time, Text, ForeignKey, Enum, Boolean, ARRAY
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from datetime import date, datetime
+from datetime import time as time_type
+
 from database import Base
+from sqlalchemy import ARRAY, Boolean, Date, DateTime, Enum, Float, ForeignKey, Integer, String, Text, Time
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 
 # Enum for different types of health records
 class RecordType(str, enum.Enum):

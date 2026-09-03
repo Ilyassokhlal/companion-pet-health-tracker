@@ -1,28 +1,22 @@
+import os
+from contextlib import asynccontextmanager
 from datetime import date
 
-from fastapi import FastAPI
-from fastapi import Request
-from fastapi.responses import JSONResponse
+import rag
+from apscheduler.schedulers.background import BackgroundScheduler
+from config import settings
+from database import SessionLocal
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-
+from routers import ask, auth, devices, events, expenses, feedings, messages, pets, records, walks
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-
-from utils.limiter import limiter
 from utils.exceptions import AppException
+from utils.limiter import limiter
 from utils.reminders import send_due_reminders, send_feeding_reminders
-from routers import auth, pets, records, ask, messages, devices, events, walks, feedings, expenses
 
-from contextlib import asynccontextmanager
-from config import settings
-import rag
-
-from apscheduler.schedulers.background import BackgroundScheduler
-from database import SessionLocal
-
-
-import os
 
 # Scheduler for sending reminders
 def _run_reminders():

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 # Schemas for the ask endpoint
 class AskRequest(BaseModel):
     """Schema for creating a new ask"""

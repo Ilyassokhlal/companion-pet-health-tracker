@@ -1,12 +1,10 @@
-from fastapi import APIRouter, Depends, Response
-from sqlalchemy.orm import Session
-
 from database import get_db
-from models.models import User, Pet, Walk
-from schemas.walk import WalkCreate, WalkUpdate, WalkResponse
-from utils.security import get_current_user
+from fastapi import APIRouter, Depends, Response
+from models.models import Pet, User, Walk
+from schemas.walk import WalkCreate, WalkResponse, WalkUpdate
+from sqlalchemy.orm import Session
 from utils.exceptions import NotFoundException
-
+from utils.security import get_current_user
 
 router = APIRouter(tags=["Walks"])
 

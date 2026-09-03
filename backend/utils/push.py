@@ -1,9 +1,8 @@
 import logging
 
 import httpx
-from sqlalchemy.orm import Session
-
 from models.models import DeviceToken
+from sqlalchemy.orm import Session
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +25,7 @@ def send_push(tokens: list[str], title: str, body: str) -> list[str]:
         try:
             r = httpx.post(EXPO_PUSH_URL, json=chunk, timeout=15)
             r.raise_for_status()
-            for msg, result in zip(chunk, r.json().get("data", [])):
+            for msg, result in zip(chunk, r.json().get("data", []), strict=False):
                 if result.get("status") == "error":
                     logger.error(f"Push error for {msg['to']}: {result}")
                     if result.get("details", {}).get("error") == "DeviceNotRegistered":

@@ -1,5 +1,6 @@
 import os
 
+
 # Configuration for the Companion API application
 class Settings:
     """Application settings loaded from environment variables."""

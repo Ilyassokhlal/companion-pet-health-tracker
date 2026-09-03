@@ -1,10 +1,11 @@
-import re
-from pydantic import BaseModel
-import chromadb
-import anthropic
-from utils.exceptions import InternalException, ServiceUnavailableException
-from config import settings
 import os
+import re
+
+import anthropic
+import chromadb
+from config import settings
+from pydantic import BaseModel
+from utils.exceptions import InternalException, ServiceUnavailableException
 
 # ChromaDB setup
 client = chromadb.PersistentClient(path=settings.CHROMA_PATH)
@@ -138,7 +139,7 @@ def ingest(docs_dir: str | None = None) -> dict:
             metadatas=metadatas[start:end],
         )
 
-    return {"documents": len(set(m["source"] for m in metadatas)), "chunks": len(documents)}
+    return {"documents": len({m["source"] for m in metadatas}), "chunks": len(documents)}
 
 
 def translate_to_english(question: str, lang: str | None) -> str:
@@ -220,7 +221,7 @@ def generate(messages, lang: str | None = None):
         ) as stream:
             for token in stream.text_stream:
                 yield token
-    except anthropic.APIConnectionError:
-        raise ServiceUnavailableException("Could not reach the Claude API.", code="ai_unavailable")
+    except anthropic.APIConnectionError as e:
+        raise ServiceUnavailableException("Could not reach the Claude API.", code="ai_unavailable") from e
     except anthropic.APIStatusError as e:
-        raise ServiceUnavailableException(f"Claude API error: {e.message}")
+        raise ServiceUnavailableException(f"Claude API error: {e.message}") from e

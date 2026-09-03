@@ -3,19 +3,17 @@ import os
 import zipfile
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query, Response, File, UploadFile
-from sqlalchemy.orm import Session
-
-from utils.export import export_zip, records_to_pdf
 from database import get_db
-from models.models import User, Pet, HealthRecord, RecordPhoto, Walk, Feeding, FeedingTime, Expense
-from schemas.record import RecordCreate, RecordUpdate, RecordResponse, RecordPhotoResponse, GalleryPhoto
-from utils.security import get_current_user
+from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
+from models.models import Expense, Feeding, FeedingTime, HealthRecord, Pet, RecordPhoto, User, Walk
+from schemas.record import GalleryPhoto, RecordCreate, RecordPhotoResponse, RecordResponse, RecordUpdate
+from sqlalchemy.orm import Session
 from utils.exceptions import BadRequestException, NotFoundException
-from utils.photos import save_photo, delete_photo_file, read_photo
+from utils.export import export_zip, records_to_pdf
+from utils.photos import delete_photo_file, read_photo, save_photo
 from utils.scheduling import sync_followup_event
+from utils.security import get_current_user
 from utils.weight import sync_pet_weight
-
 
 # Router setup
 router = APIRouter(tags=["Health Records"])

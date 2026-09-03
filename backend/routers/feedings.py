@@ -1,17 +1,23 @@
-from datetime import date as date_type, datetime, time as time_type
+from datetime import date as date_type
+from datetime import datetime
+from datetime import time as time_type
 from zoneinfo import ZoneInfo
 
-from fastapi import APIRouter, Depends, Response
-from sqlalchemy.orm import Session
-
 from database import get_db
-from models.models import User, Pet, Feeding, FeedingTime
+from fastapi import APIRouter, Depends, Response
+from models.models import Feeding, FeedingTime, Pet, User
 from schemas.feeding import (
-    FeedingTimeCreate, FeedingTimeResponse, FeedingCreate, FeedingUpdate, FeedingResponse, SlotStatus,
+    FeedingCreate,
+    FeedingResponse,
+    FeedingTimeCreate,
+    FeedingTimeResponse,
+    FeedingUpdate,
+    SlotStatus,
 )
-from utils.security import get_current_user
-from utils.exceptions import NotFoundException, DuplicateException
+from sqlalchemy.orm import Session
+from utils.exceptions import DuplicateException, NotFoundException
 from utils.feeding import pet_slots, satisfied_slots, slot_status, to_minutes
+from utils.security import get_current_user
 
 router = APIRouter(tags=["Feeding"])
 

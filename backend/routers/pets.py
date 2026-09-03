@@ -1,14 +1,14 @@
-from fastapi import APIRouter, Depends, File, Response, UploadFile
-from sqlalchemy.orm import Session
+from datetime import date
 
 from database import get_db
-from models.models import User, Pet
-from schemas.pet import PetCreate, PetUpdate, PetResponse
-from utils.security import get_current_user
+from fastapi import APIRouter, Depends, File, Response, UploadFile
+from models.models import Pet, User
+from schemas.pet import PetCreate, PetResponse, PetUpdate
+from sqlalchemy.orm import Session
 from utils.exceptions import BadRequestException, NotFoundException
-from utils.photos import save_photo, delete_photo_file
+from utils.photos import delete_photo_file, save_photo
+from utils.security import get_current_user
 from utils.weight import sync_checkin
-from datetime import date
 
 # Router setup
 router = APIRouter(prefix="/pets", tags=["Pets"])

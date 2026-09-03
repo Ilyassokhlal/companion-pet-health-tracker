@@ -1,12 +1,13 @@
 import json
-from fastapi import APIRouter, Depends, Response, status
-from sqlalchemy.orm import Session
+
 from database import get_db
-from models.models import User, Pet, ChatMessage
-from schemas.message import MessageResponse
-from utils.security import get_current_user
-from utils.exceptions import NotFoundException
+from fastapi import APIRouter, Depends, Response, status
+from models.models import ChatMessage, Pet, User
 from routers.records import _get_owned_pet
+from schemas.message import MessageResponse
+from sqlalchemy.orm import Session
+from utils.exceptions import NotFoundException
+from utils.security import get_current_user
 
 # Router for chat message endpoints
 router = APIRouter(tags=["Chat History"])

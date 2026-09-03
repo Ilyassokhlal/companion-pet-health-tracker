@@ -1,6 +1,5 @@
+from models.models import EventKind, HealthRecord, ScheduledEvent
 from sqlalchemy.orm import Session
-
-from models.models import HealthRecord, ScheduledEvent, EventKind
 
 
 def sync_followup_event(db: Session, record: HealthRecord) -> None:

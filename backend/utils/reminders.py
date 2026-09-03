@@ -1,14 +1,13 @@
 from datetime import date, datetime, timedelta, timezone
-
-from sqlalchemy.orm import Session
 from zoneinfo import ZoneInfo
 
 from config import settings
-from utils.mailer import send_reminder_email, send_email
 from models.models import FeedingTime, Pet, ScheduledEvent, User
-from utils.push import send_push, prune_tokens
+from sqlalchemy.orm import Session
 from utils.feeding import pet_slots, satisfied_slots, to_minutes
 from utils.i18n import t
+from utils.mailer import send_email, send_reminder_email
+from utils.push import prune_tokens, send_push
 
 # datetime.weekday() counts Monday as 0, so Sunday is 6.
 _SUNDAY = 6

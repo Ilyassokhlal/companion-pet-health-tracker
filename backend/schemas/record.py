@@ -1,6 +1,9 @@
-from datetime import datetime, date as date_type
-from pydantic import BaseModel, Field, ConfigDict
+from datetime import date as date_type
+from datetime import datetime
+
 from models.models import RecordType
+from pydantic import BaseModel, ConfigDict, Field
+
 
 # Schemas for the health record endpoints
 class RecordCreate(BaseModel):

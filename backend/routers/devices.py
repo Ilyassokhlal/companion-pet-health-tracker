@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
 from database import get_db
-from models.models import User, DeviceToken
+from fastapi import APIRouter, Depends
+from models.models import DeviceToken, User
 from schemas.user import DeviceTokenRequest
+from sqlalchemy.orm import Session
 from utils.security import get_current_user
 
 # Router setup

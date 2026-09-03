@@ -1,15 +1,15 @@
+import hashlib
 from datetime import datetime, timedelta, timezone
+
+from config import settings
+from database import get_db
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
+from models.models import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from utils.exceptions import BadRequestException, UnauthorizedException
-from config import settings
-from database import get_db
-from models.models import User
-
-import hashlib
 
 # Security utility functions for authentication and password management
 SECRET_KEY = settings.SECRET_KEY
@@ -50,8 +50,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         user_id = payload.get("sub")
         if user_id is None:
             raise credentials_exception
-    except JWTError:
-        raise credentials_exception
+    except JWTError as e:
+        raise credentials_exception from e
 
     user = db.query(User).filter(User.id == int(user_id)).first()
     if user is None:
@@ -83,8 +83,8 @@ def decode_purpose_token(token: str, purpose: str) -> dict:
         if user_id is None:
             raise BadRequestException("Invalid or expired link.", code="invalid_link")
         return payload
-    except JWTError:
-        raise BadRequestException("Invalid or expired link.", code="invalid_link")
+    except JWTError as e:
+        raise BadRequestException("Invalid or expired link.", code="invalid_link") from e
 
 def password_fingerprint(hashed_password: str) -> str:
     """Short digest of a password hash, used to make reset links single-use."""

@@ -1,9 +1,9 @@
+import contextlib
 import os
 from uuid import uuid4
 
-from fastapi import UploadFile
-
 from config import settings
+from fastapi import UploadFile
 from utils.exceptions import BadRequestException
 
 ALLOWED = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}
@@ -26,10 +26,8 @@ def delete_photo_file(filename: str | None) -> None:
     """Remove a stored photo. Silent if the filename is empty or the file is already gone."""
     if not filename:
         return
-    try:
+    with contextlib.suppress(FileNotFoundError):
         os.remove(os.path.join(settings.PHOTO_DIR, filename))
-    except FileNotFoundError:
-        pass
 
 
 def read_photo(filename: str) -> bytes | None:

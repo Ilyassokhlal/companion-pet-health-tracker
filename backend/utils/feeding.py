@@ -1,8 +1,8 @@
-from datetime import date as date_type, time as time_type
-
-from sqlalchemy.orm import Session
+from datetime import date as date_type
+from datetime import time as time_type
 
 from models.models import Feeding, FeedingTime
+from sqlalchemy.orm import Session
 
 MINUTES_IN_DAY = 24 * 60
 LOOKBACK_MINUTES = 120

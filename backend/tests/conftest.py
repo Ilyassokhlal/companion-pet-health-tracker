@@ -1,6 +1,7 @@
 import os
 import tempfile
 from pathlib import Path
+
 import pytest
 
 # these must be set BEFORE importing main/database/rag — config.py reads env at import
@@ -36,9 +37,9 @@ os.environ["MAIL_FROM"] = "Companion <noreply@mycompanion.pet>"
 os.environ["FRONTEND_URL"] = "http://localhost:5173"
 
 
-from fastapi.testclient import TestClient  # noqa: E402
 import main  # noqa: E402
 from database import Base, SessionLocal, engine  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
 from utils.limiter import limiter  # noqa: E402
 
 limiter.enabled = False

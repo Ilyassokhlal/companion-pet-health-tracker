@@ -1,9 +1,8 @@
 from calendar import monthrange
 from datetime import date, timedelta
 
-from sqlalchemy.orm import Session
-
 from models.models import EventKind, HealthRecord, Pet, RecordType, ScheduledEvent
+from sqlalchemy.orm import Session
 
 # Fixed-length intervals. Monthly is calendar-based rather than a day count, so it is handled apart.
 _INTERVAL_DAYS = {"weekly": 7, "biweekly": 14}

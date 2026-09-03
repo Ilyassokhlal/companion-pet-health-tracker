@@ -1,11 +1,8 @@
+import os
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
-
-import os
+from sqlalchemy import engine_from_config, pool
 
 if "DATABASE_URL" not in os.environ:
     # fall back to the project .env, rewriting the container hostname for host access
@@ -17,8 +14,8 @@ if "DATABASE_URL" not in os.environ:
             break
 
 
-from database import Base
 import models.models  # noqa: F401 - registers all tables on Base.metadata
+from database import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

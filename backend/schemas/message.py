@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, Field
+
 
 class Citation(BaseModel):
     """One cited corpus passage, resolved to its public source."""

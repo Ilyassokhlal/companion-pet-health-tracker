@@ -1,5 +1,6 @@
-from datetime import datetime, date
+from datetime import date, datetime
 from typing import Annotated, Literal
+
 from pydantic import BaseModel, ConfigDict, Field
 
 # One entry in a tag list. The length matches the ARRAY(String(100)) column, so an over-long entry comes back as a 422 rather than a 500 from Postgres truncating it.

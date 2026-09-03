@@ -6,7 +6,6 @@ import zipfile
 from datetime import date, datetime, timedelta, timezone
 
 import pytest
-
 import rag
 from config import settings
 from models.models import User

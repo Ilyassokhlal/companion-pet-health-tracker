@@ -1,8 +1,7 @@
 from datetime import date, datetime
 
-from pydantic import BaseModel, ConfigDict, Field
-
 from models.models import EventKind, RecordType
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class EventCreateRequest(BaseModel):

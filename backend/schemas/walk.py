@@ -1,5 +1,7 @@
-from datetime import date as date_type, datetime
-from pydantic import BaseModel, Field, ConfigDict
+from datetime import date as date_type
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 # Schemas for the walk endpoints

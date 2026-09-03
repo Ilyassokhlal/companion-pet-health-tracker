@@ -1,16 +1,14 @@
 from datetime import date, datetime
 
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session, joinedload
-
 from database import get_db
-from models.models import User, Pet, HealthRecord, ScheduledEvent, EventKind, RecordType
-from schemas.event import EventCreateRequest, EventUpdateRequest, EventResponse
+from fastapi import APIRouter, Depends
+from models.models import EventKind, HealthRecord, Pet, RecordType, ScheduledEvent, User
+from schemas.event import EventCreateRequest, EventResponse, EventUpdateRequest
 from schemas.record import RecordResponse
-from utils.security import get_current_user
+from sqlalchemy.orm import Session, joinedload
 from utils.exceptions import BadRequestException, NotFoundException
+from utils.security import get_current_user
 from utils.weight import is_tracked, next_checkin_date
-
 
 router = APIRouter(tags=["Scheduled Events"])
 
