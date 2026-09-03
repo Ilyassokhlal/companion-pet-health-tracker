@@ -81,9 +81,9 @@ export default function ReminderSettings() {
         />
       </View>
 
-      <View className="mb-4 flex-row items-center justify-between gap-3">
-        <Text className="shrink-0 text-fg">{t("settings.reminders.howOften")}</Text>
-        <View className="flex-row gap-2">
+      <View className="mb-4">
+        <Text className="mb-2 text-fg">{t("settings.reminders.howOften")}</Text>
+        <View className="flex-row flex-wrap gap-2">
           {REMINDER_FREQUENCIES.map((frequency) => (
             <Pressable
               key={frequency}
