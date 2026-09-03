@@ -31,7 +31,11 @@ export default function TrackingWeight() {
     setLoading(true);
     try {
       const all = await listRecords(currentPet.id);
-      setRecords(all.filter((r) => r.record_type === "Weight" && r.weight_kg !== null));
+      setRecords(
+        all
+          .filter((r) => r.record_type === "Weight" && r.weight_kg !== null)
+          .sort((a, b) => b.date.localeCompare(a.date)),
+      );
     } catch (err) {
       console.error(err);
     } finally {
