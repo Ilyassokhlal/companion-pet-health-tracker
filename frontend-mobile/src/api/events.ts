@@ -9,9 +9,6 @@ export interface EventCreate {
   kind?: EventKind;
 }
 
-// Payload for updating an existing scheduled event. Only the title and due date can be changed. Mirrors EventUpdateRequest.
-export type EventUpdate = Partial<Pick<ScheduledEvent, "title" | "due_date">>;
-
 // Fetch a pet's scheduled events, soonest first. Completed events are left out unless includeDone is set.
 export async function listEvents(petId: number, includeDone = false): Promise<ScheduledEvent[]> {
   return apiFetch<ScheduledEvent[]>(`/pets/${petId}/events?include_done=${includeDone}`);
