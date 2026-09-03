@@ -128,10 +128,10 @@
       "pattern": "图案",
       "patterns": {
         "none": "无",
-        "paws": "爪印",
+        "paws": "爪子",
         "bones": "骨头",
-        "pond": "鱼",
-        "menagerie": "动物"
+        "fish": "鱼",
+        "mixed": "混合"
       }
     },
     "preferences": {

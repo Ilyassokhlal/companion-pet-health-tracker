@@ -122,10 +122,10 @@
       "pattern": "Motif",
       "patterns": {
         "none": "Aucun",
-        "paws": "Empreintes",
+        "paws": "Pattes",
         "bones": "Os",
-        "pond": "Poissons",
-        "menagerie": "Ménagerie"
+        "fish": "Poissons",
+        "mixed": "Mixte"
       }
     },
     "preferences": {

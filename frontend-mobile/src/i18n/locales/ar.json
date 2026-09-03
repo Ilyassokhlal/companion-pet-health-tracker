@@ -122,10 +122,10 @@
       "pattern": "النقش",
       "patterns": {
         "none": "بدون",
-        "paws": "آثار الأقدام",
+        "paws": "كفوف",
         "bones": "عظام",
-        "pond": "أسماك",
-        "menagerie": "حيوانات"
+        "fish": "أسماك",
+        "mixed": "مختلط"
       }
     },
     "preferences": {

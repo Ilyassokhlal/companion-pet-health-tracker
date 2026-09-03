@@ -128,10 +128,10 @@
       "pattern": "Patrón",
       "patterns": {
         "none": "Ninguno",
-        "paws": "Huellas",
+        "paws": "Patas",
         "bones": "Huesos",
-        "pond": "Peces",
-        "menagerie": "Animales"
+        "fish": "Peces",
+        "mixed": "Mixto"
       }
     },
     "preferences": {

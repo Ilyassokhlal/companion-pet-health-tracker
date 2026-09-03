@@ -122,10 +122,10 @@
       "pattern": "Muster",
       "patterns": {
         "none": "Keines",
-        "paws": "Pfotenabdrücke",
+        "paws": "Pfoten",
         "bones": "Knochen",
-        "pond": "Fische",
-        "menagerie": "Menagerie"
+        "fish": "Fische",
+        "mixed": "Gemischt"
       }
     },
     "preferences": {
