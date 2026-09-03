@@ -10,7 +10,7 @@ import { themeColors } from "@/theme/palette";
 const ICONS: Record<string, { on: keyof typeof Ionicons.glyphMap; off: keyof typeof Ionicons.glyphMap }> = {
   index: { on: "home", off: "home-outline" },
   records: { on: "clipboard", off: "clipboard-outline" },
-  tracking: { on: "trending-up", off: "trending-up-outline" },
+  tracking: { on: "stats-chart", off: "stats-chart-outline" },
   photos: { on: "images", off: "images-outline" },
   chat: { on: "chatbubble", off: "chatbubble-outline" },
 };

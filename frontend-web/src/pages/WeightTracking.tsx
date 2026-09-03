@@ -37,8 +37,10 @@ export default function TrackingWeight() {
 
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="mb-1 text-2xl font-bold">{t("tracking.weight")}</h1>
-      <p className="mb-6 text-sm text-muted">{currentPet.name}</p>
+      <div className="mb-6 rounded-xl border border-border bg-surface px-5 py-4">
+        <h1 className="text-2xl font-bold text-fg">{t("tracking.weight")}</h1>
+        <p className="mt-0.5 text-sm text-muted">{currentPet.name}</p>
+      </div>
 
       {records.length === 0 ? (
         <p className="text-muted">{t("weightTracking.empty")}</p>

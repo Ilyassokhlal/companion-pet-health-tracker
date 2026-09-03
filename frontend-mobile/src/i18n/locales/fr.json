@@ -312,7 +312,9 @@
       "due": "À faire maintenant",
       "missed": "Manqué",
       "upcoming": "Plus tard aujourd'hui"
-    }
+    },
+    "time": "Heure",
+    "unit": "Unité"
   },
   "records": {
     "exportData": "Exporter les données",
@@ -403,7 +405,12 @@
     "feeding": "Repas",
     "feedingHint": "Heures de repas et journal du jour",
     "budget": "Budget",
-    "budgetHint": "Coût mensuel de cet animal"
+    "budgetHint": "Coût mensuel de cet animal",
+    "noData": "Rien pour l'instant",
+    "walkedToday": "Promené aujourd'hui",
+    "lastWalk": "Dernière promenade {{date}}",
+    "nextFeeding": "Prochain repas {{time}}",
+    "spentThisMonth": "{{amount}} ce mois-ci"
   },
   "budget": {
     "noPet": "Ajoutez d'abord un animal.",
@@ -431,6 +438,9 @@
       "supplies": "Fournitures",
       "insurance": "Assurance",
       "other": "Autre"
-    }
+    },
+    "exceeded": "Limite mensuelle dépassée",
+    "editLimit": "Limite mensuelle ({{currency}})",
+    "clearLimit": "Supprimer la limite"
   }
 }

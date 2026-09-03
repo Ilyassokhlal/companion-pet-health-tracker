@@ -312,7 +312,9 @@
       "due": "Due now",
       "missed": "Missed",
       "upcoming": "Later today"
-    }
+    },
+    "time": "Time",
+    "unit": "Unit"
   },
   "records": {
     "exportData": "Export data",
@@ -403,7 +405,12 @@
     "feeding": "Feeding",
     "feedingHint": "Feeding times and today's log",
     "budget": "Budget",
-    "budgetHint": "What this pet costs each month"
+    "budgetHint": "What this pet costs each month",
+    "noData": "Nothing yet",
+    "walkedToday": "Walked today",
+    "lastWalk": "Last walk {{date}}",
+    "nextFeeding": "Next feeding {{time}}",
+    "spentThisMonth": "{{amount}} this month"
   },
   "budget": {
     "noPet": "Add a pet first.",
@@ -431,6 +438,9 @@
       "supplies": "Supplies",
       "insurance": "Insurance",
       "other": "Other"
-    }
+    },
+    "exceeded": "Monthly limit exceeded",
+    "editLimit": "Monthly limit ({{currency}})",
+    "clearLimit": "Remove limit"
   }
 }

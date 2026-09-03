@@ -312,7 +312,9 @@
       "due": "现在应喂食",
       "missed": "已错过",
       "upcoming": "今天稍后"
-    }
+    },
+    "time": "时间",
+    "unit": "单位"
   },
   "dashboard": {
     "noPetYet": "您还没有添加宠物。",
@@ -372,7 +374,6 @@
   },
   "tracking": {
     "title": "追踪",
-    "empty": "请在设置中启用体重或散步追踪，以便在此查看。",
     "weight": "体重",
     "weightHint": "称重记录和体重变化",
     "walks": "散步",
@@ -380,7 +381,12 @@
     "feeding": "喂食",
     "feedingHint": "喂食时间和每日记录",
     "budget": "预算",
-    "budgetHint": "此宠物的每月费用"
+    "budgetHint": "此宠物的每月费用",
+    "noData": "暂无数据",
+    "walkedToday": "今天已散步",
+    "lastWalk": "上次散步 {{date}}",
+    "nextFeeding": "下次喂食 {{time}}",
+    "spentThisMonth": "本月 {{amount}}"
   },
   "walks": {
     "noPet": "请先添加宠物。",
@@ -420,6 +426,9 @@
       "supplies": "用品",
       "insurance": "保险",
       "other": "其他"
-    }
+    },
+    "exceeded": "已超出每月上限",
+    "editLimit": "每月上限（{{currency}}）",
+    "clearLimit": "移除上限"
   }
 }

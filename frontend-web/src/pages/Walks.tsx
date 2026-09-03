@@ -103,7 +103,7 @@ export default function Walks() {
 
   return (
     <div className="p-4 sm:p-8">
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-border bg-surface px-5 py-4">
         <h1 className="text-xl font-semibold text-fg">{t("walks.title")}</h1>
         <Button onClick={openCreate} className="flex items-center gap-1.5">
           <Plus size={16} />

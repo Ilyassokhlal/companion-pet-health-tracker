@@ -312,7 +312,9 @@
       "due": "À faire maintenant",
       "missed": "Manqué",
       "upcoming": "Plus tard aujourd'hui"
-    }
+    },
+    "time": "Heure",
+    "unit": "Unité"
   },
   "dashboard": {
     "noPetYet": "Vous n'avez pas encore ajouté d'animal.",
@@ -372,7 +374,6 @@
   },
   "tracking": {
     "title": "Suivi",
-    "empty": "Activez le suivi du poids ou des promenades dans les Paramètres pour les voir ici.",
     "weight": "Poids",
     "weightHint": "Les pesées et leur évolution",
     "walks": "Promenades",
@@ -380,7 +381,12 @@
     "feeding": "Repas",
     "feedingHint": "Heures des repas et journal du jour",
     "budget": "Budget",
-    "budgetHint": "Ce que cet animal coûte chaque mois"
+    "budgetHint": "Ce que cet animal coûte chaque mois",
+    "noData": "Rien pour l'instant",
+    "walkedToday": "Promené aujourd'hui",
+    "lastWalk": "Dernière promenade {{date}}",
+    "nextFeeding": "Prochain repas {{time}}",
+    "spentThisMonth": "{{amount}} ce mois-ci"
   },
   "walks": {
     "noPet": "Ajoutez d'abord un animal.",
@@ -420,6 +426,9 @@
       "supplies": "Fournitures",
       "insurance": "Assurance",
       "other": "Autre"
-    }
+    },
+    "exceeded": "Limite mensuelle dépassée",
+    "editLimit": "Limite mensuelle ({{currency}})",
+    "clearLimit": "Supprimer la limite"
   }
 }

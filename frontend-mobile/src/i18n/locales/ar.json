@@ -312,7 +312,9 @@
       "due": "مستحق الآن",
       "missed": "فائت",
       "upcoming": "لاحقًا اليوم"
-    }
+    },
+    "time": "الوقت",
+    "unit": "الوحدة"
   },
   "records": {
     "exportData": "تصدير البيانات",
@@ -419,7 +421,12 @@
     "feeding": "الوجبات",
     "feedingHint": "مواعيد الوجبات وسجل اليوم",
     "budget": "الميزانية",
-    "budgetHint": "التكلفة الشهرية لهذا الحيوان"
+    "budgetHint": "التكلفة الشهرية لهذا الحيوان",
+    "noData": "لا شيء بعد",
+    "walkedToday": "تمت النزهة اليوم",
+    "lastWalk": "آخر نزهة {{date}}",
+    "nextFeeding": "الوجبة التالية {{time}}",
+    "spentThisMonth": "{{amount}} هذا الشهر"
   },
   "budget": {
     "noPet": "أضف حيوانًا أولًا.",
@@ -447,6 +454,9 @@
       "supplies": "المستلزمات",
       "insurance": "التأمين",
       "other": "أخرى"
-    }
+    },
+    "exceeded": "تم تجاوز الحد الشهري",
+    "editLimit": "الحد الشهري ({{currency}})",
+    "clearLimit": "إزالة الحد"
   }
 }

@@ -312,7 +312,9 @@
       "due": "Due now",
       "missed": "Missed",
       "upcoming": "Later today"
-    }
+    },
+    "time": "Time",
+    "unit": "Unit"
   },
   "dashboard": {
     "noPetYet": "You haven't added a pet yet.",
@@ -372,7 +374,6 @@
   },
   "tracking": {
     "title": "Tracking",
-    "empty": "Turn on weight or walk tracking in Settings to see them here.",
     "weight": "Weight",
     "weightHint": "Weigh-ins and how they have changed",
     "walks": "Walks",
@@ -380,7 +381,12 @@
     "feeding": "Feeding",
     "feedingHint": "Feeding times and today's log",
     "budget": "Budget",
-    "budgetHint": "What this pet costs each month"
+    "budgetHint": "What this pet costs each month",
+    "noData": "Nothing yet",
+    "walkedToday": "Walked today",
+    "lastWalk": "Last walk {{date}}",
+    "nextFeeding": "Next feeding {{time}}",
+    "spentThisMonth": "{{amount}} this month"
   },
   "walks": {
     "noPet": "Add a pet first.",
@@ -420,6 +426,9 @@
       "supplies": "Supplies",
       "insurance": "Insurance",
       "other": "Other"
-    }
+    },
+    "exceeded": "Monthly limit exceeded",
+    "editLimit": "Monthly limit ({{currency}})",
+    "clearLimit": "Remove limit"
   }
 }

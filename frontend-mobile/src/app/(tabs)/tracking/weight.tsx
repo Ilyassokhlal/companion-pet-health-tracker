@@ -57,7 +57,7 @@ export default function Weight() {
     >
       <Text className="mb-6 text-2xl font-bold text-fg">{t("tracking.weight")}</Text>
 
-      <View className="mb-6 rounded-xl border border-border bg-surface p-5">
+      <View className="mb-6 items-center rounded-xl border border-border bg-surface p-5">
         <Text className="text-sm text-muted">{t("weightTracking.current")}</Text>
         <Text className="text-3xl font-bold text-fg">
           {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}

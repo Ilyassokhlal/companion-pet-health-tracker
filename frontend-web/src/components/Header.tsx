@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import Button from "./ui/Button";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, Activity } from "lucide-react";
+import { Menu, X, LayoutDashboard, FileText, Images, MessageSquare, Settings as SettingsIcon, PawPrint, ChartLine } from "lucide-react";
 import PetSelector from "./PetSelector";
 
 
@@ -11,7 +11,7 @@ import PetSelector from "./PetSelector";
 const navItems = [
   { to: "/dashboard", key: "dashboard", icon: LayoutDashboard },
   { to: "/records", key: "records", icon: FileText },
-  { to: "/tracking", key: "tracking", icon: Activity },
+  { to: "/tracking", key: "tracking", icon: ChartLine },
   { to: "/photos", key: "photos", icon: Images },
   { to: "/chat", key: "chat", icon: MessageSquare },
   { to: "/settings", key: "settings", icon: SettingsIcon },
