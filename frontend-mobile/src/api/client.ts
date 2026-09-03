@@ -40,7 +40,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
   if (!(options.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
-  const token = getToken();
+  const token = await getToken();
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
