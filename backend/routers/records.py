@@ -30,7 +30,13 @@ def _get_owned_pet(pet_id: int, db: Session, current_user: User) -> Pet:
 def list_records(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """List all health records for a specific pet."""
     pet = _get_owned_pet(pet_id, db, current_user)
-    return db.query(HealthRecord).filter(HealthRecord.pet_id == pet.id).all()
+    # Return the health records for the pet, sorted by date (newest first) and creation time (newest first).
+    return (
+        db.query(HealthRecord)
+        .filter(HealthRecord.pet_id == pet.id)
+        .order_by(HealthRecord.date.desc(), HealthRecord.created_at.desc())
+        .all()
+    )
 
 
 @router.post("/pets/{pet_id}/records", response_model=RecordResponse, status_code=201)
