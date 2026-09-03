@@ -280,7 +280,8 @@
     "loadOlder": "Charger les messages plus anciens"
   },
   "weightTracking": {
-    "empty": "Aucune pesée pour le moment. Ajoutez un dossier de santé de type Poids."
+    "empty": "Aucune pesée pour le moment. Ajoutez un dossier de santé de type Poids.",
+    "add": "Ajouter une pesée"
   },
   "records": {
     "add": "Ajouter un dossier",

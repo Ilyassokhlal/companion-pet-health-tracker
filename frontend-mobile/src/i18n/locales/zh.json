@@ -278,7 +278,8 @@
   },
   "weightTracking": {
     "current": "当前",
-    "empty": "目前没有称重记录。"
+    "empty": "目前没有称重记录。",
+    "add": "添加称重记录"
   },
   "walks": {
     "log": "记录散步",

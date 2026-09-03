@@ -278,7 +278,8 @@
   },
   "weightTracking": {
     "current": "Aktuell",
-    "empty": "Noch keine Wiegevorgänge."
+    "empty": "Noch keine Wiegevorgänge.",
+    "add": "Wiegevorgang hinzufügen"
   },
   "walks": {
     "log": "Spaziergang aufzeichnen",

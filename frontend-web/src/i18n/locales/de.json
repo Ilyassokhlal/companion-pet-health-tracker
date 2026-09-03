@@ -280,7 +280,8 @@
     "loadOlder": "Ältere Nachrichten laden"
   },
   "weightTracking": {
-    "empty": "Noch keine Wiegevorgänge. Fügen Sie eine Gesundheitsaufzeichnung vom Typ „Gewicht“ hinzu."
+    "empty": "Noch keine Wiegevorgänge. Fügen Sie eine Gesundheitsaufzeichnung vom Typ „Gewicht“ hinzu.",
+    "add": "Wiegevorgang hinzufügen"
   },
   "records": {
     "add": "Aufzeichnung hinzufügen",

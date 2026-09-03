@@ -278,7 +278,8 @@
   },
   "weightTracking": {
     "current": "Actual",
-    "empty": "Aún no hay pesajes."
+    "empty": "Aún no hay pesajes.",
+    "add": "Añadir un pesaje"
   },
   "walks": {
     "log": "Registrar un paseo",

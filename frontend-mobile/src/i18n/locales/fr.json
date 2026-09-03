@@ -278,7 +278,8 @@
   },
   "weightTracking": {
     "current": "Actuel",
-    "empty": "Aucune pesée pour le moment."
+    "empty": "Aucune pesée pour le moment.",
+    "add": "Ajouter une pesée"
   },
   "walks": {
     "log": "Enregistrer une promenade",

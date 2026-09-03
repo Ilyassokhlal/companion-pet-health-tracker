@@ -280,7 +280,8 @@
     "loadOlder": "Load older messages"
   },
   "weightTracking": {
-    "empty": "No weigh-ins yet. Add a health record of type Weight."
+    "empty": "No weigh-ins yet. Add a health record of type Weight.",
+    "add": "Add a weigh-in"
   },
   "records": {
     "add": "Add record",

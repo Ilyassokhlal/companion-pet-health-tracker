@@ -280,7 +280,8 @@
     "loadOlder": "Cargar mensajes anteriores"
   },
   "weightTracking": {
-    "empty": "No hay pesajes todavía. Añade un registro de salud de tipo «Peso»."
+    "empty": "No hay pesajes todavía. Añade un registro de salud de tipo «Peso».",
+    "add": "Añadir un pesaje"
   },
   "records": {
     "add": "Añadir registro",

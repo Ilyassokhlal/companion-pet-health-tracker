@@ -278,7 +278,8 @@
   },
   "weightTracking": {
     "current": "Current",
-    "empty": "No weigh-ins yet."
+    "empty": "No weigh-ins yet.",
+    "add": "Add a weigh-in"
   },
   "walks": {
     "log": "Log a walk",
