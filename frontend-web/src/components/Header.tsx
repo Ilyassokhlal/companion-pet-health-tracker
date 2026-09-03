@@ -28,15 +28,15 @@ export default function Header() {
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
                     <PawPrint size={22} className="inline me-2 -mt-1" /> Companion
                 </NavLink>
-                <nav className="hidden md:flex gap-4">
+                <nav className="hidden md:flex min-w-0 gap-4 overflow-x-auto">
                     {navItems.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
                             end={item.to === "/"}
-                            className={({ isActive }) => isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}
+                            className={({ isActive }) => `shrink-0 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
                         >
-                            <span className="flex items-center gap-1.5"><item.icon size={16} />{t(`nav.${item.key}`)}</span>
+                            <span className="flex items-center gap-1.5 whitespace-nowrap"><item.icon size={16} />{t(`nav.${item.key}`)}</span>
                         </NavLink>
                     ))}
                 </nav>
