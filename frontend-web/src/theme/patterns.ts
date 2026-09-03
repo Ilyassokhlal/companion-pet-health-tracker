@@ -9,6 +9,10 @@ type Motif = { Icon: LucideIcon; x: number; y: number; size: number; rotate: num
 // Each pattern consists of multiple motifs, each with its own position, size, and rotation within the tile.
 export const TILE = 96;
 
+// How present the pattern is. Web needs more than mobile: lucide draws thin outlines, where
+// MaterialCommunityIcons glyphs are solid and carry far more ink per motif.
+export const OPACITY = 0.16;
+
 export const PATTERN_TILES: Record<Exclude<Pattern, "none">, Motif[]> = {
   paws: [
     { Icon: PawPrint, x: 14, y: 16, size: 26, rotate: -14 },

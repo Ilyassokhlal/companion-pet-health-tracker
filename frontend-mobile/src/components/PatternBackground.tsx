@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
-import { PATTERN_TILES, TILE } from "@/theme/patterns";
+import { OPACITY, PATTERN_TILES, TILE } from "@/theme/patterns";
 
 export default function PatternBackground() {
   // Get the current theme, accent color, and pattern from the theme context. Also get the window dimensions.
@@ -36,7 +36,7 @@ export default function PatternBackground() {
   return (
     <View
       pointerEvents="none"
-      style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, opacity: 0.07, overflow: "hidden" }}
+      style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, opacity: OPACITY, overflow: "hidden" }}
     >
       {tiles.map((tile) => (
         <MaterialCommunityIcons

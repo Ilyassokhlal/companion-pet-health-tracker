@@ -10,6 +10,9 @@ type Motif = { name: Glyph; x: number; y: number; size: number; rotate: number }
 // Size of each pattern tile in pixels. Used to repeat the pattern across the viewport.
 export const TILE = 104;
 
+// Lower than web's: these glyphs are filled, not outlined, so the same number reads much heavier.
+export const OPACITY = 0.12;
+
 export const PATTERN_TILES: Record<Exclude<Pattern, "none">, Motif[]> = {
   paws: [
     { name: "paw", x: 14, y: 16, size: 28, rotate: -14 },
