@@ -39,6 +39,7 @@
   "push.due.many": "Hay {count} cosas pendientes hoy.",
   "push.feeding.title": "Hora de comer",
   "push.feeding.body": "Es hora de dar de comer a {pet}.",
+  "ask.noAnswer": "No tengo información sobre eso en mis referencias de cuidado de mascotas. Aviso: esto es solo información general, no asesoramiento veterinario ni un asistente de uso general.",
 
   "recordType.Vaccination": "Vacunación",
   "recordType.Vet Visit": "Visita al veterinario",

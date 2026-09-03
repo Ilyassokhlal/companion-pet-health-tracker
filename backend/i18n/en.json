@@ -39,6 +39,7 @@
   "push.due.many": "{count} things are due today.",
   "push.feeding.title": "Feeding due",
   "push.feeding.body": "{pet} is due to be fed.",
+  "ask.noAnswer": "I don't have information on that in my pet care references. Disclaimer: This is intended for general information, not veterinary advice or a general use assistant.",
 
   "recordType.Vaccination": "Vaccination",
   "recordType.Vet Visit": "Vet Visit",

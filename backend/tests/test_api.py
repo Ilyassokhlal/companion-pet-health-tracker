@@ -185,7 +185,7 @@ def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
     rag.ingest(str(tmp_path))
 
     # Mock the RAG generate function to return a fixed response
-    monkeypatch.setattr(rag, "generate", lambda messages: iter(["Kennel ", "cough."]))
+    monkeypatch.setattr(rag, "generate", lambda messages, lang=None: iter(["Kennel ", "cough."]))
 
     # Get headers and pet data from the fixture
     headers, pet_data = pet

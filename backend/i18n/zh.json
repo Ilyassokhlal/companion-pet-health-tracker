@@ -39,6 +39,7 @@
   "push.due.many": "今天有 {count} 项待办。",
   "push.feeding.title": "该喂食了",
   "push.feeding.body": "该给{pet}喂食了。",
+  "ask.noAnswer": "我的宠物护理资料中没有相关信息。免责声明：此内容仅供一般参考，不构成兽医建议，也不是通用助手。",
 
   "recordType.Vaccination": "疫苗接种",
   "recordType.Vet Visit": "兽医就诊",

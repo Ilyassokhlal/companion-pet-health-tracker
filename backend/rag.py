@@ -48,8 +48,35 @@ Rules:
 9. Keep the answer under 150 words.
 """
 
+# Claude needs the language spelled out; the app stores ISO codes.
+LANGUAGE_NAMES = {
+    "en": "English",
+    "fr": "French",
+    "es": "Spanish",
+    "de": "German",
+    "ar": "Arabic",
+    "ru": "Russian",
+    "zh": "Chinese (Simplified)",
+}
+
+
+def _system_prompt(lang: str | None) -> str:
+    """The base prompt, plus an output-language rule for a non-English owner."""
+    name = LANGUAGE_NAMES.get(lang or "en", "English")
+    if name == "English":
+        return SYSTEM_PROMPT
+    return (
+        f"{SYSTEM_PROMPT}"
+        f"10. Write the entire answer in {name}. CONTEXT and PET are supplied in English; "
+        f"translate whatever you use from them rather than quoting the English.\n"
+    )
+
+
 # Minimum number of characters for a chunk
 MIN_CHUNK_CHARS = 60
+
+# A translated question is short, so this only has to cover one sentence.
+TRANSLATE_MAX_TOKENS = 200
 
 # Functions for RAG operations
 def chunk_document(text: str) -> list[str]:
@@ -114,6 +141,35 @@ def ingest(docs_dir: str | None = None) -> dict:
     return {"documents": len(set(m["source"] for m in metadatas)), "chunks": len(documents)}
 
 
+def translate_to_english(question: str, lang: str | None) -> str:
+    """Render a question in English so it can be matched against the English corpus.
+
+    The corpus is embedded with Chroma's English-trained MiniLM, so a French question scores past
+    the distance threshold and the caller falls back to "no information" before Claude is reached.
+    Translating the question is far cheaper than re-embedding 946+ chunks and re-tuning 1.2.
+
+    Returns the question unchanged on any failure — a translation outage should degrade retrieval,
+    not take /ask down with it.
+    """
+    if not lang or lang == "en":
+        return question
+    try:
+        message = claude.messages.create(
+            model=settings.MODEL_NAME,
+            max_tokens=TRANSLATE_MAX_TOKENS,
+            temperature=0,
+            system=(
+                "Translate the user's message into English. Reply with the translation and nothing else. no preamble,"
+                "no quotation marks, no explanation. If the message is already in English, repeat it unchanged."
+            ),
+            messages=[{"role": "user", "content": question}],
+        )
+        text = "".join(block.text for block in message.content if block.type == "text").strip()
+        return text or question
+    except Exception:
+        return question
+
+
 def retrieve(question: str, n_results: int, max_distance: float):
     """Retrieve relevant chunks from ChromaDB based on the question."""
     if collection.count() == 0:
@@ -152,14 +208,14 @@ def get_confidence(chunks):
         return "medium"
     return "low"
 
-def generate(messages):
-    """Stream the answer from Claude token by token."""
+def generate(messages, lang: str | None = None):
+    """Stream the answer from Claude token by token, in the owner's language."""
     try:
         with claude.messages.stream(
             model=settings.MODEL_NAME,
             max_tokens=1024,
             temperature=0.3,
-            system=SYSTEM_PROMPT,
+            system=_system_prompt(lang),
             messages=messages,
         ) as stream:
             for token in stream.text_stream:

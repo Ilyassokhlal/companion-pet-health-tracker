@@ -39,6 +39,7 @@
   "push.due.many": "{count} choses sont à faire aujourd'hui.",
   "push.feeding.title": "Repas à donner",
   "push.feeding.body": "C'est l'heure du repas de {pet}.",
+  "ask.noAnswer": "Je n'ai pas d'information à ce sujet dans mes références de soins animaliers. Avertissement : ceci est fourni à titre d'information générale, et ne constitue ni un avis vétérinaire ni un assistant à usage général.",
 
   "recordType.Vaccination": "Vaccination",
   "recordType.Vet Visit": "Visite vétérinaire",

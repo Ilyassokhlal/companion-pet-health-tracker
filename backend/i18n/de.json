@@ -39,6 +39,7 @@
   "push.due.many": "Heute sind {count} Dinge fällig.",
   "push.feeding.title": "Fütterung fällig",
   "push.feeding.body": "{pet} muss gefüttert werden.",
+  "ask.noAnswer": "Dazu habe ich in meinen Tierpflege-Referenzen keine Informationen. Hinweis: Dies dient nur der allgemeinen Information und ist weder eine tierärztliche Beratung noch ein Allzweck-Assistent.",
 
   "recordType.Vaccination": "Impfung",
   "recordType.Vet Visit": "Tierarztbesuch",

@@ -11,6 +11,7 @@ from utils.security import get_current_user
 from utils.limiter import limiter
 from utils.exceptions import BadRequestException
 from utils.messages import save_message
+from utils.i18n import t
 from routers.records import _get_owned_pet
 import rag
 import re
@@ -173,19 +174,20 @@ def ask(
 
     # Determine if the question is in scope and retrieve relevant chunks from ChromaDB
     retrieval_question = _with_context(question, history)
+    # The corpus is English and MiniLM is English-trained, so a non-English question has to be rendered in English
+    # before it is measured against the threshold. The prompt below still receives the question exactly as the user typed it.
+    retrieval_question = rag.translate_to_english(retrieval_question, current_user.language)
     in_scope = rag.retrieve(_gate_query(retrieval_question, pet), 1, settings.CONFIDENCE_THRESHOLD)
     chunks = rag.retrieve(_retrieval_query(retrieval_question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
 
     if not chunks:
-        answer = (
-            "I don't have information on that in my pet care references. "
-            "Disclaimer: This is intended for general information, not veterinary advice or a general use assistant."
-        )
+        answer = t("ask.noAnswer", current_user.language)
         save_message(pet.id, "assistant", answer, [])
         return JSONResponse(
             status_code=200,
             content={"answer": answer, "sources": [], "confidence": "none"},
         )
+
     # Build the messages for the LLM
     messages = _build_messages(question, chunks, pet_context, history)
 
@@ -201,7 +203,7 @@ def ask(
             seen.add(key)
             sources.append({"title": chunk.title, "section": chunk.section, "url": chunk.link})
         try:
-            for token in rag.generate(messages):
+            for token in rag.generate(messages, current_user.language):
                 parts.append(token)
                 yield json.dumps({"token": token}) + "\n"
             yield json.dumps({"meta": {
