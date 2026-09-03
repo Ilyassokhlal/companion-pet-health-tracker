@@ -58,7 +58,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Companion API",
     description="API for managing users, their pets, and their pets' health records",
-    version="2.0.0",
+    version="3.5.0",
     lifespan=lifespan
 )
 
