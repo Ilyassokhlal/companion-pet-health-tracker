@@ -181,10 +181,13 @@ export default function Budget() {
                 setLimitValue(summary.limit === null ? "" : String(summary.limit));
                 setLimitOpen((open) => !open);
               }}
-              className={`text-sm underline-offset-2 hover:underline ${
-                summary.status === "over" ? "font-semibold text-danger" : "text-muted"
+              className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition ${
+                summary.status === "over"
+                  ? "border-danger font-semibold text-danger hover:bg-danger/10"
+                  : "border-border text-muted hover:border-primary hover:text-fg"
               }`}
             >
+              <Pencil size={14} />
               {summary.limit === null
                 ? t("budget.noLimit")
                 : summary.status === "over"

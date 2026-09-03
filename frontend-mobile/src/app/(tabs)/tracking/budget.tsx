@@ -3,6 +3,7 @@ import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "reac
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 
 import { useAuth } from "@/auth/AuthContext";
 import { usePets } from "@/context/PetContext";
@@ -17,6 +18,8 @@ import { formatDate, dateLocale } from "@/dates";
 import { formatMoney } from "@/units";
 import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
 
 // The bar fills toward the pet's monthly limit. The server decides the status, this only picks a colour.
 // The different bar statuses and their corresponding CSS classes.
@@ -66,6 +69,9 @@ export default function Budget() {
   const [category, setCategory] = useState<ExpenseCategory>("food");
   const [recordId, setRecordId] = useState<number | null>(null);
   const [notes, setNotes] = useState("");
+
+  const { theme, accent } = useTheme();
+  const colors = themeColors(theme, accent);
 
   const load = useCallback(() => {
     if (!currentPet) {
@@ -200,10 +206,17 @@ export default function Budget() {
                   setLimitValue(summary.limit === null ? "" : String(summary.limit));
                   setLimitOpen((isOpen) => !isOpen);
                 }}
-                className="active:opacity-70"
+                className={`flex-row items-center gap-1.5 rounded-lg border px-3 py-1.5 active:opacity-70 ${
+                  summary.status === "over" ? "border-danger" : "border-border"
+                }`}
               >
                 {/* "over" means total >= limit. Nothing on the server blocks the expense, so this
                     only reports what the red bar already shows. */}
+                <Ionicons
+                  name="pencil"
+                  size={13}
+                  color={summary.status === "over" ? colors.danger : colors.muted}
+                />
                 <Text
                   className={`text-sm ${summary.status === "over" ? "font-semibold text-danger" : "text-muted"}`}
                 >
