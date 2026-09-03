@@ -231,7 +231,7 @@ export default function Photos() {
                   className={`px-3 py-1.5 rounded-lg text-sm transition ${types.includes(type) ? "bg-primary text-on-primary" : "bg-ink border border-border text-muted hover:text-fg"}`}
                   onClick={() => toggleType(type)}
                 >
-                  {type} ({photos.filter((p) => p.record_type === type).length})
+                  {t(`recordTypes.${type}`)} ({photos.filter((p) => p.record_type === type).length})
                 </button>
               ))}
             </div>

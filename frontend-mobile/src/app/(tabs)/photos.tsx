@@ -268,7 +268,7 @@ export default function Photos() {
                   className={`rounded-lg px-3 py-1.5 ${types.includes(type) ? "bg-primary" : "border border-border bg-ink"}`}
                 >
                   <Text className={`text-sm ${types.includes(type) ? "text-on-primary" : "text-muted"}`}>
-                    {type}
+                    {t(`recordTypes.${type}`)}
                   </Text>
                 </Pressable>
               ))}
