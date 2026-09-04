@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import SwipeTabs from "@/components/SwipeTabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -16,11 +17,13 @@ import { formatDate } from "@/dates";
 import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
 import { errorMessage } from "@/errors";
+import EmptyState from "@/components/EmptyState";
 
 
 // Records screen for managing pet health records, including listing, filtering, adding, editing, and deleting records.
 export default function Records() {
   const { t } = useTranslation();
+  const { confirm, notice } = useDialog();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -53,18 +56,16 @@ export default function Records() {
     }, [load]),
   );
 
-  function confirmDelete(record: HealthRecord) {
-    Alert.alert(t("records.confirmDeleteTitle"), t("records.confirmDeleteBody", { title: record.title }), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("common.delete"),
-        style: "destructive",
-        onPress: async () => {
-          await deleteRecord(record.id);
-          load();
-        },
-      },
-    ]);
+  async function confirmDelete(record: HealthRecord) {
+    const ok = await confirm({
+      title: t("records.confirmDeleteTitle"),
+      message: t("records.confirmDeleteBody", { title: record.title }),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteRecord(record.id);
+    load();
   }
 
   async function handleExport(format: "zip" | "pdf") {
@@ -72,7 +73,7 @@ export default function Records() {
     try {
       await exportRecords(currentPet.id, format);
     } catch (err) {
-      Alert.alert(t("records.exportFailed"), errorMessage(err));
+      notice(t("records.exportFailed"), errorMessage(err));
     }
   }
 
@@ -146,7 +147,7 @@ export default function Records() {
       {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
 
       {!loading && sorted.length === 0 ? (
-        <Text className="text-muted">{t("records.empty")}</Text>
+        <EmptyState icon="document-text-outline" text={t("records.empty")} />
       ) : null}
 
       {sorted.map((r) => (

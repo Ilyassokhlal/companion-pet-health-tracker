@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, Pressable, Text, View, type AlertButton } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { usePets } from "@/context/PetContext";
 import { uploadPhoto, deletePhoto } from "@/api/pets";
+import { useDialog, type Choice } from "@/components/ui/DialogProvider";
 import type { Pet } from "@/types";
 import type { PhotoUpload } from "@/api/records";
 import { errorMessage } from "@/errors";
@@ -18,7 +19,7 @@ type Props = {
   interactive?: boolean;
 };
 
-// A pet's avatar component that supports uploading and removing photos via a native alert menu.
+// A pet's avatar component that supports uploading and removing photos via a themed action sheet.
 export default function PetPhoto({
   pet,
   size = "h-14 w-14",
@@ -27,6 +28,7 @@ export default function PetPhoto({
 }: Props) {
   const { t } = useTranslation();
   const { refresh } = usePets();
+  const { choose, notice } = useDialog();
   const [busy, setBusy] = useState(false);
 
   async function upload(asset: ImagePicker.ImagePickerAsset) {
@@ -40,7 +42,7 @@ export default function PetPhoto({
       await uploadPhoto(pet.id, file);
       await refresh();
     } catch (err) {
-      Alert.alert(t("photoMenu.uploadFailed"), errorMessage(err));
+      notice(t("photoMenu.uploadFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -57,19 +59,24 @@ export default function PetPhoto({
       await deletePhoto(pet.id);
       await refresh();
     } catch (err) {
-      Alert.alert(t("photoMenu.removeFailed"), errorMessage(err));
+      notice(t("photoMenu.removeFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
-  function openMenu() {
-    const buttons: AlertButton[] = [{ text: t("photoMenu.choose"), onPress: pick }];
+  // The actions array runs parallel to the choices, so the index the sheet returns needs no arithmetic
+  // and the trailing Cancel simply has nothing to run.
+  async function openMenu() {
+    const actions: (() => void)[] = [pick];
+    const choices: Choice[] = [{ label: t("photoMenu.choose") }];
     if (pet.photo_filename) {
-      buttons.push({ text: t("photoMenu.remove"), style: "destructive", onPress: remove });
+      choices.push({ label: t("photoMenu.remove"), variant: "danger" });
+      actions.push(remove);
     }
-    buttons.push({ text: t("common.cancel"), style: "cancel" });
-    Alert.alert(t("photoMenu.petTitle", { name: pet.name }), undefined, buttons);
+    choices.push({ label: t("common.cancel"), variant: "secondary" });
+    const picked = await choose(t("photoMenu.petTitle", { name: pet.name }), choices);
+    if (picked !== null) actions[picked]?.();
   }
 
   const avatar = pet.photo_filename ? (

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, ScrollView, Text, TextInput, View } from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -14,11 +15,13 @@ import { formatWeight, weightUnit, toKg } from "@/units";
 import { errorMessage } from "@/errors";
 import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
+import EmptyState from "@/components/EmptyState";
 
 
 // Weight tracking screen for the current pet.
 export default function Weight() {
   const { t } = useTranslation();
+  const { notice } = useDialog();
   const { currentPet, refresh } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -71,7 +74,7 @@ export default function Weight() {
       await refresh();
       load();
     } catch (err) {
-      Alert.alert(errorMessage(err));
+      notice(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -111,7 +114,7 @@ export default function Weight() {
         </View>
 
         {weighed.length === 0 ? (
-          <Text className="text-muted">{t("weightTracking.empty")}</Text>
+          <EmptyState icon="scale-outline" text={t("weightTracking.empty")} />
         ) : (
           [...weighed].reverse().map((r, index, list) => {
             // list is newest first, so the previous weigh-in is the NEXT item along.

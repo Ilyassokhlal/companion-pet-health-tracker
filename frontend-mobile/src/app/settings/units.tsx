@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, FlatList, I18nManager, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { FlatList, I18nManager, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,6 +20,7 @@ type Picker = "currency" | "language";
 // This screen allows the user to select their preferred unit system (metric or imperial), currency, and language.
 export default function Units() {
   const { t } = useTranslation();
+  const { confirm } = useDialog();
   const { user, refreshUser } = useAuth();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
@@ -45,21 +47,19 @@ export default function Units() {
     await save({ language: code as LanguageCode });
     const nextRTL = code === "ar";
     if (nextRTL === I18nManager.isRTL) return;
-    Alert.alert(t("settings.preferences.restartTitle"), t("settings.preferences.restartBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("settings.preferences.restartNow"),
-        onPress: async () => {
-          I18nManager.forceRTL(nextRTL);
-          try {
-            await Updates.reloadAsync();
-          } catch {
-            // If reloadAsync fails, the app will need to be restarted manually. The preference is already saved.
-            setError(t("errors.generic"));
-          }
-        },
-      },
-    ]);
+    const ok = await confirm({
+      title: t("settings.preferences.restartTitle"),
+      message: t("settings.preferences.restartBody"),
+      confirmLabel: t("settings.preferences.restartNow"),
+    });
+    if (!ok) return;
+    I18nManager.forceRTL(nextRTL);
+    try {
+      await Updates.reloadAsync();
+    } catch {
+      // If reloadAsync fails, the app will need to be restarted manually. The preference is already saved.
+      setError(t("errors.generic"));
+    }
   }
 
   function choose(code: string) {

@@ -1,13 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -21,6 +15,7 @@ import SwipeTabs from "@/components/SwipeTabs";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { errorMessage } from "@/errors";
+import EmptyState from "@/components/EmptyState";
 
 type Palette = ReturnType<typeof themeColors>;
 
@@ -46,6 +41,7 @@ interface Turn {
 
 export default function Chat() {
   const { t } = useTranslation();
+  const { confirm } = useDialog();
   const { currentPet } = usePets();
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
@@ -155,36 +151,32 @@ export default function Chat() {
     }
   }
 
-  function confirmDeleteTurn(turn: Turn) {
+  async function confirmDeleteTurn(turn: Turn) {
     if (turn.id === undefined) return;
     const id = turn.id;
-    Alert.alert(t("chat.confirmDeleteTitle"), t("chat.confirmDeleteBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("common.delete"),
-        style: "destructive",
-        onPress: async () => {
-          await deleteMessage(id);
-          load();
-        },
-      },
-    ]);
+    const ok = await confirm({
+      title: t("chat.confirmDeleteTitle"),
+      message: t("chat.confirmDeleteBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteMessage(id);
+    load();
   }
 
-  function confirmClear() {
+  async function confirmClear() {
     if (!currentPet) return;
     const petId = currentPet.id;
-    Alert.alert(t("chat.confirmClearTitle"), t("chat.confirmClearBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("chat.clear"),
-        style: "destructive",
-        onPress: async () => {
-          await clearMessages(petId);
-          load();
-        },
-      },
-    ]);
+    const ok = await confirm({
+      title: t("chat.confirmClearTitle"),
+      message: t("chat.confirmClearBody"),
+      confirmLabel: t("chat.clear"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await clearMessages(petId);
+    load();
   }
 
   if (!currentPet) {
@@ -246,9 +238,7 @@ export default function Chat() {
         ) : null}
 
         {turns.length === 0 ? (
-          <Text className="text-muted">
-            {t("chat.empty", { name: currentPet.name })}
-          </Text>
+          <EmptyState icon="chatbubbles-outline" text={t("chat.empty", { name: currentPet.name })} />
         ) : null}
 
         {turns.map((turn, idx) => (

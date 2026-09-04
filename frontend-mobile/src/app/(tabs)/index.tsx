@@ -2,7 +2,8 @@ import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
-import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -125,6 +126,7 @@ function FormSheet({
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const { confirm } = useDialog();
   const { pets, currentPet, setCurrentPet, loading, refresh, addPetOpen, setAddPetOpen } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
@@ -201,23 +203,17 @@ export default function Dashboard() {
     load();
   }
 
-  function confirmDelete() {
+  async function confirmDelete() {
     if (!currentPet) return;
-    Alert.alert(
-      t("dashboard.deleteTitle", { name: currentPet.name }),
-      t("dashboard.deleteBody"),
-      [
-        { text: t("common.cancel"), style: "cancel" },
-        {
-          text: t("common.delete"),
-          style: "destructive",
-          onPress: async () => {
-            await deletePet(currentPet.id);
-            await refresh();
-          },
-        },
-      ],
-    );
+    const ok = await confirm({
+      title: t("dashboard.deleteTitle", { name: currentPet.name }),
+      message: t("dashboard.deleteBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deletePet(currentPet.id);
+    await refresh();
   }
 
   if (loading) {

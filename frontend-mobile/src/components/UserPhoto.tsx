@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, Pressable, Text, View, type AlertButton } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { useAuth } from "@/auth/AuthContext";
 import { uploadMyPhoto, deleteMyPhoto } from "@/api/auth";
+import { useDialog, type Choice } from "@/components/ui/DialogProvider";
 import type { PhotoUpload } from "@/api/records";
 import { errorMessage } from "@/errors";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
-// The signed-in user's avatar. Same actions as the web's hover menu, but driven by a native Alert
+// The signed-in user's avatar. Same actions as the web's hover menu, but driven by a themed sheet.
 // A phone has no hover state to reveal an overlay with.
 export default function UserPhoto() {
   const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
+  const { choose, notice } = useDialog();
   const [busy, setBusy] = useState(false);
 
   async function upload(asset: ImagePicker.ImagePickerAsset) {
@@ -28,7 +30,7 @@ export default function UserPhoto() {
       await uploadMyPhoto(file);
       await refreshUser();
     } catch (err) {
-      Alert.alert(t("photoMenu.uploadFailed"), errorMessage(err));
+      notice(t("photoMenu.uploadFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -46,19 +48,23 @@ export default function UserPhoto() {
       await deleteMyPhoto();
       await refreshUser();
     } catch (err) {
-      Alert.alert(t("photoMenu.removeFailed"), errorMessage(err));
+      notice(t("photoMenu.removeFailed"), errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
-  function openMenu() {
-    const buttons: AlertButton[] = [{ text: t("photoMenu.choose"), onPress: pick }];
+  // The actions array runs parallel to the choices, so the index the sheet returns needs no arithmetic and the trailing Cancel simply has nothing to run.
+  async function openMenu() {
+    const actions: (() => void)[] = [pick];
+    const choices: Choice[] = [{ label: t("photoMenu.choose") }];
     if (user?.photo_filename) {
-      buttons.push({ text: t("photoMenu.remove"), style: "destructive", onPress: remove });
+      choices.push({ label: t("photoMenu.remove"), variant: "danger" });
+      actions.push(remove);
     }
-    buttons.push({ text: t("common.cancel"), style: "cancel" });
-    Alert.alert(t("photoMenu.userTitle"), undefined, buttons);
+    choices.push({ label: t("common.cancel"), variant: "secondary" });
+    const picked = await choose(t("photoMenu.userTitle"), choices);
+    if (picked !== null) actions[picked]?.();
   }
 
   if (!user) return null;

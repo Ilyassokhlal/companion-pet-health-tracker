@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -14,9 +15,11 @@ import { distanceUnit, formatDistance, formatDuration, fromKm, toKm } from "@/un
 import { errorMessage } from "@/errors";
 import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
+import EmptyState from "@/components/EmptyState";
 
 export default function Walks() {
   const { t } = useTranslation();
+  const { confirm } = useDialog();
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { currentPet } = usePets();
@@ -95,19 +98,17 @@ export default function Walks() {
     }
   }
 
-  function confirmDelete(walk: Walk) {
-    Alert.alert(t("walks.confirmDeleteTitle"), t("walks.confirmDeleteBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("common.delete"),
-        style: "destructive",
-        onPress: async () => {
-          await deleteWalk(walk.id);
-          setEditing(null);
-          load();
-        },
-      },
-    ]);
+  async function confirmDelete(walk: Walk) {
+    const ok = await confirm({
+      title: t("walks.confirmDeleteTitle"),
+      message: t("walks.confirmDeleteBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteWalk(walk.id);
+    setEditing(null);
+    load();
   }
 
   if (!currentPet) {
@@ -132,7 +133,7 @@ export default function Walks() {
         </Pressable>
 
         {walks.length === 0 ? (
-          <Text className="text-muted">{t("walks.empty")}</Text>
+          <EmptyState icon="walk-outline" text={t("walks.empty")} />
         ) : (
           walks.map((walk) => (
             <Pressable

@@ -150,7 +150,7 @@
       "howOften": "Häufigkeit",
       "weekly": "Jede Woche am Sonntag",
       "daily": "Täglich",
-      "push": "Mein Telefon über die heutigen Aufgaben benachrichtigen",
+      "push": "Mein Telefon täglich benachrichtigen",
       "timezone": "Zeitzone",
       "arrival": "Alle Benachrichtigungen werden in dieser Zeitzone um 6 Uhr morgens gesendet.",
       "verifyFirst": "Bestätigen Sie Ihre E-Mail-Adresse, um Erinnerungen zu aktivieren.",
@@ -176,7 +176,7 @@
     },
     "feeding": {
       "title": "Fütterungserinnerungen",
-      "note": "Die Erinnerung wird zu jeder geplanten Fütterungszeit ausgelöst, wenn keine Fütterung aufgezeichnet wurde. Sie ist unabhängig von der täglichen Zusammenfassung.",
+      "note": "Meldet sich zu jeder Fütterungszeit, wenn nichts erfasst wurde. Unabhängig von den täglichen Erinnerungen.",
       "push": "Push-Benachrichtigung",
       "email": "E-Mail"
     }
@@ -405,7 +405,7 @@
     "to": "Bis",
     "selectedCount": "{{count}} ausgewählt",
     "download": "Herunterladen",
-    "confirmDelete": "{{count}} Fotos löschen?",
+    "confirmDeleteOne": "Dieses Foto löschen?",
     "limitReached": "Sie können bis zu {{max}} Fotos auswählen.",
     "savedToLibrary": "In Ihren Fotos gespeichert."
   },

@@ -140,7 +140,7 @@
       "restartTitle": "需要重启",
       "restartBody": "阿拉伯语会改变布局方向。Companion 需要重启才能应用。",
       "restartNow": "重启",
-      "note": "电子邮件和提醒仍以英文发送。",
+      "note": "所有数据均以公制存储。此设置只改变显示和输入方式。",
       "chooseCurrency": "选择货币",
       "chooseLanguage": "选择语言"
     },
@@ -150,7 +150,7 @@
       "howOften": "频率",
       "weekly": "每周日",
       "daily": "每天",
-      "push": "通过手机通知提醒我今天需要完成的任务",
+      "push": "每天通知我的手机",
       "timezone": "时区",
       "arrival": "所有通知都会根据此时区在早上 6 点发送。",
       "verifyFirst": "请验证您的电子邮件地址以启用提醒。",
@@ -176,7 +176,7 @@
     },
     "feeding": {
       "title": "喂食提醒",
-      "note": "在计划的每个喂食时间，如果没有记录喂食，系统就会发送提醒。它与每日摘要相互独立。",
+      "note": "每个喂食时间若未记录，会提醒你。与每日提醒分开。",
       "push": "推送通知",
       "email": "电子邮件"
     }
@@ -405,7 +405,7 @@
     "to": "到",
     "selectedCount": "已选择 {{count}} 张",
     "download": "下载",
-    "confirmDelete": "删除 {{count}} 张照片？",
+    "confirmDeleteOne": "删除这张照片？",
     "limitReached": "最多可以选择 {{max}} 张照片。",
     "savedToLibrary": "已保存到您的照片中。"
   },

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -19,6 +20,7 @@ import { themeColors } from "@/theme/palette";
 import { errorMessage } from "@/errors";
 import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
+import EmptyState from "@/components/EmptyState";
 
 const STATUS_CLASS: Record<SlotStatus["status"], string> = {
   met: "text-muted",
@@ -37,6 +39,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 // a date and a time now — it used to stamp the current moment with no way to correct it.
 export default function Feeding() {
   const { t } = useTranslation();
+  const { confirm, notice } = useDialog();
   const insets = useSafeAreaInsets();
   const { currentPet } = usePets();
   const { theme, accent } = useTheme();
@@ -110,7 +113,7 @@ export default function Feeding() {
       setTimeOpen(false);
       load();
     } catch (err) {
-      Alert.alert(errorMessage(err));
+      notice(errorMessage(err));
     } finally {
       setBusy(false);
     }
@@ -132,24 +135,22 @@ export default function Feeding() {
       setLogOpen(false);
       load();
     } catch (err) {
-      Alert.alert(errorMessage(err));
+      notice(errorMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
-  function confirmDeleteLog(entry: FeedingLog) {
-    Alert.alert(t("feeding.confirmDeleteTitle"), t("feeding.confirmDeleteBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("common.delete"),
-        style: "destructive",
-        onPress: async () => {
-          await deleteFeeding(entry.id);
-          load();
-        },
-      },
-    ]);
+  async function confirmDeleteLog(entry: FeedingLog) {
+    const ok = await confirm({
+      title: t("feeding.confirmDeleteTitle"),
+      message: t("feeding.confirmDeleteBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteFeeding(entry.id);
+    load();
   }
 
   if (!currentPet) {
@@ -213,7 +214,7 @@ export default function Feeding() {
 
         <Text className="mb-3 text-lg font-semibold text-fg">{t("feeding.history")}</Text>
         {log.length === 0 ? (
-          <Text className="text-muted">{t("feeding.empty")}</Text>
+          <EmptyState icon="restaurant-outline" text={t("feeding.empty")} />
         ) : (
           log.map((entry) => (
             <Pressable

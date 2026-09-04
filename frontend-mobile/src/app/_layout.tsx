@@ -9,6 +9,7 @@ import { View } from 'react-native';
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { PetProvider } from '@/context/PetContext';
 import { ThemeProvider as AppThemeProvider, useTheme as useAppTheme } from '@/theme/ThemeContext';
+import DialogProvider from '@/components/ui/DialogProvider';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -57,7 +58,9 @@ function ThemedRoot() {
         <AuthProvider>
           <PetProvider>
             <ThemeProvider value={navTheme}>
-              <RootNavigator />
+              <DialogProvider>
+                <RootNavigator />
+              </DialogProvider>
             </ThemeProvider>
           </PetProvider>
         </AuthProvider>

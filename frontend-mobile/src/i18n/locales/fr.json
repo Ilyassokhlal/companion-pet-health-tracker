@@ -140,7 +140,7 @@
       "restartTitle": "Redémarrage nécessaire",
       "restartBody": "L'arabe change le sens de la mise en page. Companion doit redémarrer pour l'appliquer.",
       "restartNow": "Redémarrer",
-      "note": "Les e-mails et les rappels sont encore envoyés en anglais.",
+      "note": "Toutes les données sont stockées en système métrique. Ce réglage ne change que leur affichage et leur saisie.",
       "chooseCurrency": "Choisir une devise",
       "chooseLanguage": "Choisir une langue"
     },
@@ -150,7 +150,7 @@
       "howOften": "Fréquence",
       "weekly": "Chaque semaine, le dimanche",
       "daily": "Tous les jours",
-      "push": "Notifier mon téléphone des tâches à effectuer aujourd'hui",
+      "push": "Notifier mon téléphone chaque jour",
       "timezone": "Fuseau horaire",
       "arrival": "Toutes les notifications sont envoyées à 6 h dans ce fuseau horaire.",
       "verifyFirst": "Vérifiez votre adresse e-mail pour activer les rappels.",
@@ -176,7 +176,7 @@
     },
     "feeding": {
       "title": "Rappels de repas",
-      "note": "Le rappel se déclenche à chaque heure de repas programmée lorsqu'aucun repas n'a été enregistré. Il est indépendant du récapitulatif quotidien.",
+      "note": "Vous alerte à chaque heure de repas si rien n'a été enregistré. Distinct des rappels quotidiens.",
       "push": "Notification push",
       "email": "E-mail"
     }
@@ -405,7 +405,7 @@
     "to": "Au",
     "selectedCount": "{{count}} sélectionnées",
     "download": "Télécharger",
-    "confirmDelete": "Supprimer {{count}} photos ?",
+    "confirmDeleteOne": "Supprimer cette photo ?",
     "limitReached": "Vous pouvez sélectionner jusqu'à {{max}} photos.",
     "savedToLibrary": "Enregistré dans vos photos."
   },

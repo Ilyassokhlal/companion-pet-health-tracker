@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import { Alert, Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router, useFocusEffect } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ import { themeColors } from "@/theme/palette";
 import DateField from "@/components/ui/DateField";
 import SwipeTabs from "@/components/SwipeTabs";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
+import EmptyState from "@/components/EmptyState";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
@@ -23,6 +25,7 @@ const MAX_SELECTION = 10;
 
 export default function Photos() {
   const { t } = useTranslation();
+  const { confirm, notice } = useDialog();
   const { currentPet } = usePets();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
@@ -95,7 +98,7 @@ export default function Photos() {
     setChosen((current) => {
       if (current.includes(id)) return current.filter((x) => x !== id);
       if (current.length >= MAX_SELECTION) {
-        Alert.alert(t("photos.limitReached", { max: MAX_SELECTION }));
+        notice(t("photos.limitReached", { max: MAX_SELECTION }));
         return current;
       }
       return [...current, id];
@@ -117,10 +120,10 @@ export default function Photos() {
     try {
       const outcome = await savePhotoToLibrary(photo);
       if (outcome === "saved") {
-        Alert.alert(t("photos.savedToLibrary"));
+        notice(t("photos.savedToLibrary"));
       }
     } catch (err) {
-      Alert.alert((err as Error).message);
+      notice((err as Error).message);
     } finally {
       setBusy(false);
     }
@@ -133,50 +136,44 @@ export default function Photos() {
       await downloadPhotos(currentPet.id, chosen);
       exitSelection();
     } catch (err) {
-      Alert.alert((err as Error).message);
+      notice((err as Error).message);
     } finally {
       setBusy(false);
     }
   }
 
   // Confirm and execute the bulk delete action for the selected photos.
-  function confirmBulkDelete() {
-    Alert.alert(t("photos.confirmDelete", { count: chosen.length }), undefined, [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          setBusy(true);
-          try {
-            for (const id of chosen) {
-              await deleteRecordPhoto(id);
-            }
-            exitSelection();
-          } catch (err) {
-            Alert.alert((err as Error).message);
-          } finally {
-            setBusy(false);
-            load();
-          }
-        },
-      },
-    ]);
+  async function confirmBulkDelete() {
+    const ok = await confirm({
+      title: t("photos.confirmDelete", { count: chosen.length }),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    setBusy(true);
+    try {
+      for (const id of chosen) {
+        await deleteRecordPhoto(id);
+      }
+      exitSelection();
+    } catch (err) {
+      notice((err as Error).message);
+    } finally {
+      setBusy(false);
+      load();
+    }
   }
 
-  function confirmDelete(photo: GalleryPhoto) {
-    Alert.alert("Delete photo", "This photo will be permanently removed.", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          await deleteRecordPhoto(photo.id);
-          setSelected(null);
-          load();
-        },
-      },
-    ]);
+  async function confirmDelete(photo: GalleryPhoto) {
+    const ok = await confirm({
+      title: t("photos.confirmDeleteOne"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteRecordPhoto(photo.id);
+    setSelected(null);
+    load();
   }
 
   if (!currentPet) {
@@ -291,10 +288,10 @@ export default function Photos() {
       <View className="px-4">
         {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
         {!loading && photos.length === 0 ? (
-          <Text className="text-muted">{t("photos.empty")}</Text>
+          <EmptyState icon="images-outline" text={t("photos.empty")} />
         ) : null}
         {!loading && photos.length > 0 && months.length === 0 ? (
-          <Text className="text-muted">{t("photos.noMatch")}</Text>
+          <EmptyState icon="funnel-outline" text={t("photos.noMatch")} />
         ) : null}
       </View>
 

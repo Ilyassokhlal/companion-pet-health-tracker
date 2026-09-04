@@ -140,7 +140,7 @@
       "restartTitle": "Restart required",
       "restartBody": "Arabic changes the layout direction. Companion needs to restart to apply it.",
       "restartNow": "Restart",
-      "note": "Emails and reminders are still sent in English.",
+      "note": "All data is stored in metric. This setting only changes how it is shown and entered.",
       "chooseCurrency": "Choose a currency",
       "chooseLanguage": "Choose a language"
     },
@@ -150,7 +150,7 @@
       "howOften": "How often",
       "weekly": "Weekly, on Sunday",
       "daily": "Every day",
-      "push": "Notify my phone about what is due today",
+      "push": "Notify my phone daily",
       "timezone": "Timezone",
       "arrival": "Everything arrives at 6am in this timezone.",
       "verifyFirst": "Verify your email to enable reminders.",
@@ -176,7 +176,7 @@
     },
     "feeding": {
       "title": "Feeding reminders",
-      "note": "Fires at each scheduled feeding time when nothing has been logged for it. Separate from the daily reminder digest.",
+      "note": "Alerts you at each feeding time when nothing has been logged. Separate from the daily reminders.",
       "push": "Push notification",
       "email": "Email"
     }
@@ -405,7 +405,7 @@
     "to": "To",
     "selectedCount": "{{count}} selected",
     "download": "Download",
-    "confirmDelete": "Delete {{count}} photos?",
+    "confirmDeleteOne": "Delete this photo?",
     "limitReached": "You can select up to {{max}} photos.",
     "savedToLibrary": "Saved to your photos."
   },

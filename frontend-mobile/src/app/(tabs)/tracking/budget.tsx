@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
@@ -21,6 +22,7 @@ import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import EmptyState from "@/components/EmptyState";
 
 // The bar fills toward the pet's monthly limit. The server decides the status, this only picks a colour.
 // The different bar statuses and their corresponding CSS classes.
@@ -48,6 +50,7 @@ function monthLabel(month: string): string {
 export default function Budget() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const { confirm } = useDialog();
   const { user } = useAuth();
   const { currentPet, refresh } = usePets();
   const currency = user?.currency ?? "USD";
@@ -157,19 +160,17 @@ export default function Budget() {
     }
   }
 
-  function confirmDelete(expense: Expense) {
-    Alert.alert(t("budget.confirmDeleteTitle"), t("budget.confirmDeleteBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      {
-        text: t("common.delete"),
-        style: "destructive",
-        onPress: async () => {
-          await deleteExpense(expense.id);
-          setEditing(null);
-          load();
-        },
-      },
-    ]);
+  async function confirmDelete(expense: Expense) {
+    const ok = await confirm({
+      title: t("budget.confirmDeleteTitle"),
+      message: t("budget.confirmDeleteBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (!ok) return;
+    await deleteExpense(expense.id);
+    setEditing(null);
+    load();
   }
 
   if (!currentPet) {
@@ -288,7 +289,7 @@ export default function Budget() {
         </Pressable>
 
         {expenses.length === 0 ? (
-          <Text className="text-muted">{t("budget.empty")}</Text>
+          <EmptyState icon="wallet-outline" text={t("budget.empty")} />
         ) : (
           expenses.map((expense) => (
             <Pressable

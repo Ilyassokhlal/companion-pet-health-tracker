@@ -140,7 +140,7 @@
       "restartTitle": "Es necesario reiniciar",
       "restartBody": "El árabe cambia la dirección del diseño. Companion debe reiniciarse para aplicarlo.",
       "restartNow": "Reiniciar",
-      "note": "Los correos y los recordatorios todavía se envían en inglés.",
+      "note": "Todos los datos se guardan en sistema métrico. Este ajuste solo cambia cómo se muestran y se introducen.",
       "chooseCurrency": "Elegir moneda",
       "chooseLanguage": "Elegir idioma"
     },
@@ -150,7 +150,7 @@
       "howOften": "Frecuencia",
       "weekly": "Cada semana, los domingos",
       "daily": "Todos los días",
-      "push": "Notificar a mi teléfono las tareas pendientes de hoy",
+      "push": "Notificar a mi teléfono cada día",
       "timezone": "Zona horaria",
       "arrival": "Todas las notificaciones se envían a las 6:00 en esta zona horaria.",
       "verifyFirst": "Verifica tu dirección de correo electrónico para activar los recordatorios.",
@@ -176,7 +176,7 @@
     },
     "feeding": {
       "title": "Recordatorios de alimentación",
-      "note": "El recordatorio se activa a cada hora de comida programada cuando no se ha registrado ninguna comida. Es independiente del resumen diario.",
+      "note": "Te avisa a cada hora de comida si no se ha registrado nada. Independiente de los recordatorios diarios.",
       "push": "Notificación push",
       "email": "Correo electrónico"
     }
@@ -405,7 +405,7 @@
     "to": "Hasta",
     "selectedCount": "{{count}} seleccionadas",
     "download": "Descargar",
-    "confirmDelete": "¿Eliminar {{count}} fotos?",
+    "confirmDeleteOne": "¿Eliminar esta foto?",
     "limitReached": "Puedes seleccionar hasta {{max}} fotos.",
     "savedToLibrary": "Guardado en tus fotos."
   },

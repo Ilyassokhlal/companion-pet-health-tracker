@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { useDialog } from "@/components/ui/DialogProvider";
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -13,6 +14,7 @@ import { errorMessage } from "@/errors";
 // rest of the settings UI.
 export default function DeleteAccountForm() {
   const { t } = useTranslation();
+  const { confirm: ask } = useDialog();
   const { logout } = useAuth();
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
@@ -25,11 +27,14 @@ export default function DeleteAccountForm() {
     setError("");
   }
 
-  function confirm() {
-    Alert.alert(t("account.delete.title"), t("account.delete.confirmBody"), [
-      { text: t("common.cancel"), style: "cancel" },
-      { text: t("common.delete"), style: "destructive", onPress: run },
-    ]);
+  async function confirm() {
+    const ok = await ask({
+      title: t("account.delete.title"),
+      message: t("account.delete.confirmBody"),
+      confirmLabel: t("common.delete"),
+      destructive: true,
+    });
+    if (ok) run();
   }
 
   async function run() {
