@@ -5,7 +5,7 @@ import type { TFunction } from "i18next";
 import { listEvents, completeEvent } from "../api/events";
 import { listRecords } from "../api/records";
 import { useAuth } from "../auth/AuthContext";
-import { formatMoney, formatWeight } from "../units";
+import { formatWeight } from "../units";
 import type { HealthRecord, ScheduledEvent } from "../types";
 import PetForm from "../components/PetForm";
 import RecordForm from "../components/RecordForm";
@@ -21,6 +21,7 @@ import { listWalks } from "../api/walks";
 import type { Walk } from "../types";
 import { getExpenseSummary } from "../api/expenses";
 import type { ExpenseSummary } from "../types";
+import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel } from "../components/DashboardPanels";
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
 // Takes t as an argument because a module-level function cannot call the hook, and the plural forms come from i18next rather than a ternary.
@@ -98,7 +99,7 @@ export default function Dashboard() {
 
   useEffect(loadEvents, [loadEvents]);
 
-  // The pet's records, needed only for the weight arrow. Kept separate from the events load so the event flows do not have to care about records.
+  // The pet's records, needed for the weight arrow and the trend chart.
   const loadRecords = useCallback(() => {
     if (!currentPet) {
       setRecords([]);
@@ -108,7 +109,7 @@ export default function Dashboard() {
   }, [currentPet]);
 
   useEffect(loadRecords, [loadRecords]);
-  
+
   // Loads the pet's walks if both the user and the pet have walk tracking enabled.
   // The walks are only relevant if both the user and the pet have walk tracking enabled.
   const loadWalks = useCallback(() => {
@@ -118,7 +119,7 @@ export default function Dashboard() {
     }
     listWalks(currentPet.id).then(setWalks).catch(console.error);
   }, [currentPet, user?.walk_tracking_enabled]);
-  
+
   useEffect(loadWalks, [loadWalks]);
 
   // Loads the current pet's expense summary for the current month. This is used to display the pet's spending status on the dashboard.
@@ -178,6 +179,7 @@ export default function Dashboard() {
   const todayStr = new Date().toLocaleDateString("en-CA");
   const due = events.filter(e => e.kind !== "Appointment");
   const scheduled = events.filter(e => e.kind === "Appointment");
+  const walksOn = Boolean(user?.walk_tracking_enabled && currentPet.walk_tracking_enabled);
 
   // The newest Weight record against the one before it, for the arrow beside the current weight. Null when there are fewer than two, or when the weight has not moved.
   const weighed = records
@@ -191,112 +193,113 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-8">
-      <div className="flex flex-wrap items-center gap-4">
-        <PetPhoto pet={currentPet} />
-        <h1 className="text-2xl font-bold">{currentPet.name}</h1>
-        <div className="flex gap-2">
-          <Button onClick={() => setShowForm("edit")} className="inline-flex items-center gap-2">
-            <Pencil size={16} />
-            {t("common.edit")}
-          </Button>
-          <Button variant="danger" onClick={() => setConfirmingDelete(true)} className="inline-flex items-center gap-2">
-            <Trash2 size={16} />
-            {t("common.delete")}
-          </Button>
+      {/* The identity card. Spending and walked-today used to live in the facts grid below and made it
+          grow from four cells to six as trackers were switched on; both now have their own panel. */}
+      <div className="rounded-xl border border-border bg-surface p-6 shadow-soft">
+        <div className="flex flex-wrap items-center gap-4">
+          <PetPhoto pet={currentPet} />
+          <h1 className="text-2xl font-bold">{currentPet.name}</h1>
+          <div className="flex gap-2">
+            <Button onClick={() => setShowForm("edit")} className="inline-flex items-center gap-2">
+              <Pencil size={16} />
+              {t("common.edit")}
+            </Button>
+            <Button variant="danger" onClick={() => setConfirmingDelete(true)} className="inline-flex items-center gap-2">
+              <Trash2 size={16} />
+              {t("common.delete")}
+            </Button>
+          </div>
         </div>
-      </div>
-      <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
-        <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
-        <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
-        {currentPet.sex && (
+        <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
+          <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
+          <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
+          {currentPet.sex && (
+            <div>
+              <dt className="text-sm text-muted">{t("petForm.sex")}</dt>
+              <dd>
+                {t(`petForm.${currentPet.sex}`)}
+                {currentPet.neutered && ` · ${currentPet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}`}
+              </dd>
+            </div>
+          )}
           <div>
-            <dt className="text-sm text-muted">{t("petForm.sex")}</dt>
+            <dt className="text-sm text-muted">{t("dashboard.weight")}</dt>
             <dd>
-              {t(`petForm.${currentPet.sex}`)}
-              {currentPet.neutered && ` · ${currentPet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}`}
-            </dd>
-          </div>
-        )}
-        {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled && (
-          <div>
-            <dt className="text-sm text-muted">{t("dashboard.walkedToday")}</dt>
-            <dd>{walks[0]?.date === todayStr ? t("dashboard.yes") : t("dashboard.notYet")}</dd>
-          </div>
-        )}
-        {summary && (summary.limit !== null || summary.total > 0) && (
-          <div>
-            <dt className="text-sm text-muted">{t("dashboard.spentThisMonth")}</dt>
-            <dd className={summary.status === "over" ? "text-danger" : summary.status === "warning" ? "text-warning" : ""}>
-              {formatMoney(summary.total, summary.currency)}
-              {summary.limit !== null && (
-                <span className="ml-2 text-sm text-muted">{t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}</span>
+              {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("dashboard.notSet")}
+              {weightChange !== null && (
+                <span className="ml-2 text-sm text-muted">
+                  {weightChange > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightChange), unitSystem)}
+                </span>
               )}
             </dd>
           </div>
-        )}
-        <div>
-          <dt className="text-sm text-muted">{t("dashboard.weight")}</dt>
-          <dd>
-            {currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("dashboard.notSet")}
-            {weightChange !== null && (
-              <span className="ml-2 text-sm text-muted">
-                {weightChange > 0 ? "↑" : "↓"} {formatWeight(Math.abs(weightChange), unitSystem)}
-              </span>
+        </dl>
+      </div>
+
+      {/* Left half is what the pet needs from you; right half is what the pet's data looks like. */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-2 lg:items-start">
+        <div className="space-y-6">
+          {(currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0) && (
+            <section className="bg-surface border border-border rounded-xl p-6 shadow-soft">
+              {currentPet.dietary_restrictions.length > 0 && (
+                <div>
+                  <h2 className="text-sm text-muted mb-2">{t("petForm.dietary")}</h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {currentPet.dietary_restrictions.map((item) => (
+                      <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {currentPet.disabilities.length > 0 && (
+                <div className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
+                  <h2 className="text-sm text-muted mb-2">{t("petForm.disabilities")}</h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {currentPet.disabilities.map((item) => (
+                      <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
+          <section className="bg-surface border border-border rounded-xl p-6 shadow-soft">
+            <h2 className="text-lg font-semibold mb-3">{t("dashboard.due")}</h2>
+            {due.length === 0 ? (
+              <p className="text-muted">{t("dashboard.nothingDue")}</p>
+            ) : (
+              due.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
             )}
-          </dd>
-        </div>
-      </dl>
-      {(currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0) && (
-        <section className="mt-6 bg-surface border border-border rounded-xl p-6 shadow-soft">
-          {currentPet.dietary_restrictions.length > 0 && (
-            <div>
-              <h2 className="text-sm text-muted mb-2">{t("petForm.dietary")}</h2>
-              <ul className="flex flex-wrap gap-2">
-                {currentPet.dietary_restrictions.map((item) => (
-                  <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+          </section>
+          <section className="bg-surface border border-border rounded-xl p-6 shadow-soft">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h2 className="text-lg font-semibold">{t("dashboard.scheduled")}</h2>
+              <Button variant="secondary" onClick={() => setScheduleOpen(true)} className="inline-flex items-center gap-2">
+                <CalendarPlus size={16} />
+                {t("dashboard.schedule")}
+              </Button>
             </div>
-          )}
-          {currentPet.disabilities.length > 0 && (
-            <div className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
-              <h2 className="text-sm text-muted mb-2">{t("petForm.disabilities")}</h2>
-              <ul className="flex flex-wrap gap-2">
-                {currentPet.disabilities.map((item) => (
-                  <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </section>
-      )}
-      <section className="mt-8 bg-surface border border-border rounded-xl p-6 shadow-soft">
-        <h2 className="text-lg font-semibold mb-3">{t("dashboard.due")}</h2>
-        {due.length === 0 ? (
-          <p className="text-muted">{t("dashboard.nothingDue")}</p>
-        ) : (
-          due.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
-        )}
-      </section>
-      <section className="mt-6 bg-surface border border-border rounded-xl p-6 shadow-soft">
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-lg font-semibold">{t("dashboard.scheduled")}</h2>
-          <Button variant="secondary" onClick={() => setScheduleOpen(true)} className="inline-flex items-center gap-2">
-            <CalendarPlus size={16} />
-            {t("dashboard.schedule")}
-          </Button>
+            {scheduled.length === 0 ? (
+              <p className="text-muted">{t("dashboard.nothingScheduled")}</p>
+            ) : (
+              scheduled.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
+            )}
+          </section>
         </div>
-        {scheduled.length === 0 ? (
-          <p className="text-muted">{t("dashboard.nothingScheduled")}</p>
-        ) : (
-          scheduled.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
-        )}
-      </section>
+
+        <div className="space-y-6">
+          {summary && <SpendPanel summary={summary} />}
+          <WeightPanel records={records} unitSystem={unitSystem} />
+          {walksOn && <ExercisePanel walks={walks} unitSystem={unitSystem} />}
+          <PhotoPanel petId={currentPet.id} />
+        </div>
+      </div>
+
       <Modal open={showForm === "edit"} title={t("dashboard.editPet", { name: currentPet.name })} onClose={() => setShowForm(null)}>
         <PetForm key={currentPet.id} pet={currentPet} onDone={() => setShowForm(null)} />
       </Modal>

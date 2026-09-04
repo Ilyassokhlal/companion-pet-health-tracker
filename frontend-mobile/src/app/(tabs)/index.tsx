@@ -25,6 +25,7 @@ import { getExpenseSummary } from "@/api/expenses";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
+import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel } from "@/components/DashboardPanels";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 // t is passed in because a module-level function cannot call the hook, and the plural forms come from i18next.
@@ -331,9 +332,7 @@ export default function Dashboard() {
         <Field label={t("dashboard.species")} value={currentPet.species} />
         <Field label={t("dashboard.breed")} value={currentPet.breed ?? t("common.notSet")} />
         <Field label={t("dashboard.age")} value={formatAge(currentPet.birth_date, t)} />
-        {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
-          <Field label={t("dashboard.walkedToday")} value={walks[0]?.date === todayStr ? t("dashboard.yes") : t("dashboard.notYet")} />
-        ) : null}
+
         {slots.length > 0 ? (
           <Field
             label={t("dashboard.feeding")}
@@ -368,25 +367,7 @@ export default function Dashboard() {
               : undefined
           }
         />
-        {summary && (summary.limit !== null || summary.total > 0) ? (
-          <View className="mb-4 w-1/2">
-            <Text className="text-sm text-muted">{t("dashboard.spentThisMonth")}</Text>
-            <Text
-              className={
-                summary.status === "over"
-                  ? "text-danger"
-                  : summary.status === "warning"
-                    ? "text-warning"
-                    : "text-fg"
-              }
-            >
-              {formatMoney(summary.total, summary.currency)}
-              {summary.limit !== null ? (
-                <Text className="text-sm text-muted"> {t("budget.of", { limit: formatMoney(summary.limit, summary.currency) })}</Text>
-              ) : null}
-            </Text>
-          </View>
-        ) : null}
+
       </View>
 
       {dietary.length > 0 || disabilities.length > 0 ? (
@@ -462,6 +443,13 @@ export default function Dashboard() {
           )}
         </View>
       )}
+
+      {summary ? <SpendPanel summary={summary} /> : null}
+      <WeightPanel records={records} unitSystem={unitSystem} />
+      {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
+        <ExercisePanel walks={walks} unitSystem={unitSystem} />
+      ) : null}
+      <PhotoPanel petId={currentPet.id} />
 
       <FormSheet visible={addPetOpen || showForm === "edit"} onClose={closeForm}>
         {showForm === "edit" ? (
