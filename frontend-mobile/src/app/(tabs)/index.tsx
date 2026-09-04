@@ -18,14 +18,14 @@ import { formatDate } from "@/dates";
 import SwipeTabs from "@/components/SwipeTabs";
 import { listRecords } from "@/api/records";
 import { useAuth } from "@/auth/AuthContext";
-import { formatMoney, formatWeight } from "@/units";
+import { formatWeight } from "@/units";
 import { listWalks } from "@/api/walks";
 import { feedingStatus } from "@/api/feeding";
 import { getExpenseSummary } from "@/api/expenses";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
-import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel, PetBadges } from "@/components/DashboardPanels";
+import { SpendPanel, WeightPanel, ExercisePanel, FeedingPanel, PhotoPanel, PetBadges } from "@/components/DashboardPanels";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 // t is passed in because a module-level function cannot call the hook, and the plural forms come from i18next.
@@ -264,10 +264,6 @@ export default function Dashboard() {
     weightChange = change === 0 ? null : change;
   }
 
-  // Absent rather than empty when the server predates these columns — an older backend returns a pet object without them at all, and calling .length on that is what crashes the screen.
-  const dietary = currentPet.dietary_restrictions ?? [];
-  const disabilities = currentPet.disabilities ?? [];
-
   return (
     <SwipeTabs>
     <View className="flex-1">
@@ -307,58 +303,50 @@ export default function Dashboard() {
         </Pressable>
       </View>
 
-      <View className="flex-row items-center justify-between">
-        <PetPhoto pet={currentPet} size="h-20 w-20" textSize="text-3xl" />
-        <Text numberOfLines={1} className="ms-3 flex-1 text-3xl font-bold text-fg">
-          {currentPet.name}
-        </Text>
-        <View className="ms-3 shrink-0 flex-row gap-2">
-          <Pressable
-            onPress={openEdit}
-            className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
-          >
-            <Text className="text-sm font-medium text-on-primary">{t("common.edit")}</Text>
-          </Pressable>
-          <Pressable
-            onPress={confirmDelete}
-            className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
-          >
-            <Text className="text-sm font-medium text-white">{t("common.delete")}</Text>
-          </Pressable>
+      {/* The identity card, matching web: photo, name and actions, with the pet's data beneath them.
+        Boxing it stops the fields floating loose on the background above a column of cards.
+        The negative bottom margin absorbs the last field row's mb-4 so the card's inner padding stays even. */}
+      <View className="rounded-xl border border-border bg-surface p-5">
+        <View className="flex-row items-center justify-between">
+          <PetPhoto pet={currentPet} size="h-20 w-20" textSize="text-3xl" />
+          <Text numberOfLines={1} className="ms-3 flex-1 text-3xl font-bold text-fg">
+            {currentPet.name}
+          </Text>
+          <View className="ms-3 shrink-0 flex-row gap-2">
+            <Pressable
+              onPress={openEdit}
+              className="rounded-full bg-primary px-3 py-1.5 active:opacity-70"
+            >
+              <Text className="text-sm font-medium text-on-primary">{t("common.edit")}</Text>
+            </Pressable>
+            <Pressable
+              onPress={confirmDelete}
+              className="rounded-full bg-danger px-3 py-1.5 active:opacity-70"
+            >
+              <Text className="text-sm font-medium text-white">{t("common.delete")}</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        <View className="-mb-4 mt-6 flex-row flex-wrap">
+          <Field label={t("dashboard.species")} value={currentPet.species} />
+          <Field label={t("dashboard.breed")} value={currentPet.breed ?? t("common.notSet")} />
+          <Field label={t("dashboard.age")} value={formatAge(currentPet.birth_date, t)} />
+          <Field
+            label={t("dashboard.weight")}
+            value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
+            hint={
+              weightChange !== null
+                ? `${weightChange > 0 ? "↑" : "↓"} ${formatWeight(Math.abs(weightChange), unitSystem)}`
+                : undefined
+            }
+          />
+          <PetBadges pet={currentPet} />
         </View>
       </View>
 
-      <View className="mt-6 flex-row flex-wrap">
-        <Field label={t("dashboard.species")} value={currentPet.species} />
-        <Field label={t("dashboard.breed")} value={currentPet.breed ?? t("common.notSet")} />
-        <Field label={t("dashboard.age")} value={formatAge(currentPet.birth_date, t)} />
-
-        {slots.length > 0 ? (
-          <Field
-            label={t("dashboard.feeding")}
-            value={
-              slots.some((s) => s.status === "missed")
-                ? t("dashboard.missed", { count: slots.filter((s) => s.status === "missed").length })
-                : slots.some((s) => s.status === "due")
-                  ? t("feeding.status.due")
-                  : t("dashboard.onTrack")
-            }
-          />
-        ) : null}
-        <Field
-          label={t("dashboard.weight")}
-          value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
-          hint={
-            weightChange !== null
-              ? `${weightChange > 0 ? "↑" : "↓"} ${formatWeight(Math.abs(weightChange), unitSystem)}`
-              : undefined
-          }
-        />
-        <PetBadges pet={currentPet} />
-      </View>
-
       {dueDismissed ? null : (
-        <View className="mt-8 rounded-xl border border-border bg-surface p-5">
+        <View className="mt-4 rounded-xl border border-border bg-surface p-5">
           <View className="mb-3 flex-row items-center justify-between">
             <Text className="text-lg font-semibold text-fg">{t("dashboard.due")}</Text>
             <Pressable onPress={() => setDueDismissed(true)} className="active:opacity-70">
@@ -374,7 +362,7 @@ export default function Dashboard() {
       )}
 
       {scheduledDismissed ? null : (
-        <View className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <View className="mt-4 rounded-xl border border-border bg-surface p-5">
           <View className="mb-3 flex-row items-center justify-between">
             <Text className="text-lg font-semibold text-fg">{t("dashboard.scheduled")}</Text>
             <View className="flex-row items-center gap-3">
@@ -408,6 +396,7 @@ export default function Dashboard() {
       {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
         <ExercisePanel walks={walks} unitSystem={unitSystem} />
       ) : null}
+      <FeedingPanel slots={slots} />
 
       <FormSheet visible={addPetOpen || showForm === "edit"} onClose={closeForm}>
         {showForm === "edit" ? (

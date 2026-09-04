@@ -6,7 +6,7 @@ import Svg, { Polygon, Polyline } from "react-native-svg";
 
 import { BASE_URL } from "@/api/client";
 import { listPetPhotos } from "@/api/records";
-import type { ExpenseSummary, GalleryPhoto, HealthRecord, Pet, Walk } from "@/types";
+import type { ExpenseSummary, GalleryPhoto, HealthRecord, Pet, SlotStatus, Walk } from "@/types";
 import { formatMoney, formatWeight, formatDistance, formatDuration } from "@/units";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
@@ -224,7 +224,7 @@ export function PetBadges({ pet }: { pet: Pet }) {
   const colors = themeColors(theme, accent);
 
   return (
-    <View className="w-full flex-row flex-wrap gap-2">
+    <View className="mb-4 w-full flex-row flex-wrap gap-2">
       {pet.sex ? (
         <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1">
           <Ionicons name={pet.sex === "male" ? "male" : "female"} size={13} color={colors.muted} />
@@ -251,5 +251,46 @@ export function PetBadges({ pet }: { pet: Pet }) {
         </View>
       ) : null}
     </View>
+  );
+}
+
+// Text color for each slot status in the feeding schedule. Only what needs attention carries colour: a met slot is settled and an upcoming one is not yet actionable, so both stay muted and the checkmark is what tells them apart.
+const SLOT_TEXT: Record<SlotStatus["status"], string> = {
+  met: "text-muted",
+  due: "text-warning",
+  missed: "text-danger",
+  upcoming: "text-muted",
+};
+
+// Feeding panel for the pet's scheduled feeding times. Displays the status of each feeding slot and highlights any missed feedings.
+export function FeedingPanel({ slots }: { slots: SlotStatus[] }) {
+  const { t } = useTranslation();
+  const { theme, accent } = useTheme();
+  const colors = themeColors(theme, accent);
+
+  if (slots.length === 0) return null;
+
+  const missed = slots.filter((s) => s.status === "missed").length;
+
+  return (
+    <Pressable onPress={() => router.navigate("/tracking/feeding")} className={`mt-4 ${CARD}`}>
+      <View className="flex-row flex-wrap items-baseline justify-between gap-2">
+        <Text className="text-sm text-muted">{t("dashboard.feeding")}</Text>
+        <Text className={`text-sm ${missed > 0 ? "font-semibold text-danger" : "text-muted"}`}>
+          {missed > 0 ? t("dashboard.missed", { count: missed }) : t("dashboard.onTrack")}
+        </Text>
+      </View>
+      <View className="mt-3 flex-row flex-wrap gap-2">
+        {slots.map((slot) => (
+          <View
+            key={slot.time}
+            className="flex-row items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1"
+          >
+            {slot.status === "met" ? <Ionicons name="checkmark" size={13} color={colors.muted} /> : null}
+            <Text className={`text-sm ${SLOT_TEXT[slot.status]}`}>{slot.time.slice(0, 5)}</Text>
+          </View>
+        ))}
+      </View>
+    </Pressable>
   );
 }
