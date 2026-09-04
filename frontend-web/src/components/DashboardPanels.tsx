@@ -45,11 +45,10 @@ export function SpendPanel({ summary }: { summary: ExpenseSummary }) {
   );
 }
 
-// Inline SVG rather than a charting library: one polyline and one filled polygon is the whole chart,
-// and no dependency ships for it. vector-effect keeps the stroke even after the viewBox is stretched.
+// Inline SVG for the weight trend chart: one polyline for the line and one filled polygon for the area under the line.
 const W = 300;
-const H = 120;
-const PAD = 12;
+const H = 300;
+const PAD = 24;
 
 export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; unitSystem: string }) {
   const { t } = useTranslation();
@@ -85,7 +84,7 @@ export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; 
         <p className="mt-3 text-sm text-muted">{t("dashboard.needTwoWeights")}</p>
       ) : (
         <>
-          <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 h-32 w-full text-primary" preserveAspectRatio="none">
+          <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 aspect-square w-full text-primary" preserveAspectRatio="none">
             <polygon
               points={`${points[0].x},${H} ${path} ${points[points.length - 1].x},${H}`}
               fill="currentColor"
@@ -187,7 +186,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
       {photos.length === 0 ? (
         <p className="mt-3 text-sm text-muted">{t("dashboard.noPhotos")}</p>
       ) : (
-        <div className="relative mt-3 h-44 overflow-hidden rounded-lg bg-ink">
+        <div className="relative mt-3 aspect-square overflow-hidden rounded-lg bg-ink">
           {photos.map((photo, i) => (
             <img
               key={photo.id}

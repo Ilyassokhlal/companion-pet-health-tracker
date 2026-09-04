@@ -12,7 +12,7 @@ import RecordForm from "../components/RecordForm";
 import EventForm from "../components/EventForm";
 import Modal from "../components/ui/Modal";
 import { deletePet } from "../api/pets";
-import { Pencil, Trash2, Check, CalendarPlus } from "lucide-react";
+import { Pencil, Trash2, Check, CalendarPlus, Mars, Venus, Accessibility, Utensils } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
@@ -193,13 +193,37 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-8">
-      {/* The identity card. Spending and walked-today used to live in the facts grid below and made it
-          grow from four cells to six as trackers were switched on; both now have their own panel. */}
+      {/* The identity card. Sex, disabilities and diet are badges beside the name rather than a
+          separate section, which is what fills the empty space to the right of the photo. */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-soft">
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-start gap-5">
           <PetPhoto pet={currentPet} />
-          <h1 className="text-2xl font-bold">{currentPet.name}</h1>
-          <div className="flex gap-2">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-bold">{currentPet.name}</h1>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {currentPet.sex && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1 text-sm">
+                  {currentPet.sex === "male" ? <Mars size={14} /> : <Venus size={14} />}
+                  {t(`petForm.${currentPet.sex}`)}
+                  {currentPet.neutered && ` · ${currentPet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}`}
+                </span>
+              )}
+              {currentPet.disabilities.length > 0 && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/40 bg-warning/10 px-3 py-1 text-sm text-warning">
+                  <Accessibility size={14} />
+                  {currentPet.disabilities.join(", ")}
+                </span>
+              )}
+              {currentPet.dietary_restrictions.length > 0 && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1 text-sm">
+                  <Utensils size={14} />
+                  {currentPet.dietary_restrictions.join(", ")}
+                </span>
+              )}
+            </div>
+          </div>
+          {/* ms-auto pins these to the far edge, and it mirrors under RTL where "right" would not. */}
+          <div className="flex gap-2 ms-auto">
             <Button onClick={() => setShowForm("edit")} className="inline-flex items-center gap-2">
               <Pencil size={16} />
               {t("common.edit")}
@@ -210,19 +234,10 @@ export default function Dashboard() {
             </Button>
           </div>
         </div>
-        <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
           <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
           <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
           <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
-          {currentPet.sex && (
-            <div>
-              <dt className="text-sm text-muted">{t("petForm.sex")}</dt>
-              <dd>
-                {t(`petForm.${currentPet.sex}`)}
-                {currentPet.neutered && ` · ${currentPet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}`}
-              </dd>
-            </div>
-          )}
           <div>
             <dt className="text-sm text-muted">{t("dashboard.weight")}</dt>
             <dd>
@@ -237,37 +252,12 @@ export default function Dashboard() {
         </dl>
       </div>
 
-      {/* Left half is what the pet needs from you; right half is what the pet's data looks like. */}
+      {/* Left is what the pet needs from you, right is what its data looks like. Anything that only
+          appears when a tracker is on goes to the BOTTOM of its column, so switching one on never
+          pushes the permanent panels around. */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2 lg:items-start">
         <div className="space-y-6">
-          {(currentPet.dietary_restrictions.length > 0 || currentPet.disabilities.length > 0) && (
-            <section className="bg-surface border border-border rounded-xl p-6 shadow-soft">
-              {currentPet.dietary_restrictions.length > 0 && (
-                <div>
-                  <h2 className="text-sm text-muted mb-2">{t("petForm.dietary")}</h2>
-                  <ul className="flex flex-wrap gap-2">
-                    {currentPet.dietary_restrictions.map((item) => (
-                      <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {currentPet.disabilities.length > 0 && (
-                <div className={currentPet.dietary_restrictions.length > 0 ? "mt-4" : ""}>
-                  <h2 className="text-sm text-muted mb-2">{t("petForm.disabilities")}</h2>
-                  <ul className="flex flex-wrap gap-2">
-                    {currentPet.disabilities.map((item) => (
-                      <li key={item} className="rounded-full bg-ink border border-border px-3 py-1 text-sm">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </section>
-          )}
+          {summary && <SpendPanel summary={summary} />}
           <section className="bg-surface border border-border rounded-xl p-6 shadow-soft">
             <h2 className="text-lg font-semibold mb-3">{t("dashboard.due")}</h2>
             {due.length === 0 ? (
@@ -290,12 +280,11 @@ export default function Dashboard() {
               scheduled.map(e => <EventRow key={e.id} event={e} todayStr={todayStr} onDone={handleDone} />)
             )}
           </section>
+          {walksOn && <ExercisePanel walks={walks} unitSystem={unitSystem} />}
         </div>
 
         <div className="space-y-6">
-          {summary && <SpendPanel summary={summary} />}
           <WeightPanel records={records} unitSystem={unitSystem} />
-          {walksOn && <ExercisePanel walks={walks} unitSystem={unitSystem} />}
           <PhotoPanel petId={currentPet.id} />
         </div>
       </div>

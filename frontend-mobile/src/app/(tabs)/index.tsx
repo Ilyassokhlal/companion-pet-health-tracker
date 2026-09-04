@@ -25,7 +25,7 @@ import { getExpenseSummary } from "@/api/expenses";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
-import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel } from "@/components/DashboardPanels";
+import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel, PetBadges } from "@/components/DashboardPanels";
 
 // Formats a pet's age: days under one month, months under one year, then years.
 // t is passed in because a module-level function cannot call the hook, and the plural forms come from i18next.
@@ -308,8 +308,8 @@ export default function Dashboard() {
       </View>
 
       <View className="flex-row items-center justify-between">
-        <PetPhoto pet={currentPet} />
-        <Text numberOfLines={1} className="ms-3 flex-1 text-2xl font-bold text-fg">
+        <PetPhoto pet={currentPet} size="h-20 w-20" textSize="text-3xl" />
+        <Text numberOfLines={1} className="ms-3 flex-1 text-3xl font-bold text-fg">
           {currentPet.name}
         </Text>
         <View className="ms-3 shrink-0 flex-row gap-2">
@@ -345,19 +345,6 @@ export default function Dashboard() {
             }
           />
         ) : null}
-        {currentPet.sex ? (
-          <Field
-            label={t("petForm.sex")}
-            value={t(`petForm.${currentPet.sex}`)}
-            hint={
-              currentPet.neutered
-                ? currentPet.sex === "male"
-                  ? t("petForm.neutered")
-                  : t("petForm.spayed")
-                : undefined
-            }
-          />
-        ) : null}
         <Field
           label={t("dashboard.weight")}
           value={currentPet.weight !== null ? formatWeight(currentPet.weight, unitSystem) : t("common.notSet")}
@@ -367,37 +354,8 @@ export default function Dashboard() {
               : undefined
           }
         />
-
+        <PetBadges pet={currentPet} />
       </View>
-
-      {dietary.length > 0 || disabilities.length > 0 ? (
-        <View className="rounded-xl border border-border bg-surface p-5">
-          {dietary.length > 0 ? (
-            <View>
-              <Text className="mb-2 text-sm text-muted">{t("petForm.dietary")}</Text>
-              <View className="flex-row flex-wrap gap-2">
-                {dietary.map((item) => (
-                  <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
-                    <Text className="text-sm text-fg">{item}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          ) : null}
-          {disabilities.length > 0 ? (
-            <View className={dietary.length > 0 ? "mt-4" : ""}>
-              <Text className="mb-2 text-sm text-muted">{t("petForm.disabilities")}</Text>
-              <View className="flex-row flex-wrap gap-2">
-                {disabilities.map((item) => (
-                  <View key={item} className="rounded-full border border-border bg-ink px-3 py-1">
-                    <Text className="text-sm text-fg">{item}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          ) : null}
-        </View>
-      ) : null}
 
       {dueDismissed ? null : (
         <View className="mt-8 rounded-xl border border-border bg-surface p-5">
@@ -446,10 +404,10 @@ export default function Dashboard() {
 
       {summary ? <SpendPanel summary={summary} /> : null}
       <WeightPanel records={records} unitSystem={unitSystem} />
+      <PhotoPanel petId={currentPet.id} />
       {user?.walk_tracking_enabled && currentPet.walk_tracking_enabled ? (
         <ExercisePanel walks={walks} unitSystem={unitSystem} />
       ) : null}
-      <PhotoPanel petId={currentPet.id} />
 
       <FormSheet visible={addPetOpen || showForm === "edit"} onClose={closeForm}>
         {showForm === "edit" ? (

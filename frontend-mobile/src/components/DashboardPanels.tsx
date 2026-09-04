@@ -6,10 +6,11 @@ import Svg, { Polygon, Polyline } from "react-native-svg";
 
 import { BASE_URL } from "@/api/client";
 import { listPetPhotos } from "@/api/records";
-import type { ExpenseSummary, GalleryPhoto, HealthRecord, Walk } from "@/types";
+import type { ExpenseSummary, GalleryPhoto, HealthRecord, Pet, Walk } from "@/types";
 import { formatMoney, formatWeight, formatDistance, formatDuration } from "@/units";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import { Ionicons } from "@expo/vector-icons";
 
 // The four dashboard panels, matching the web ones. Each navigates to the page that owns its data,
 // so the dashboard summarises and the section screens do the work.
@@ -27,7 +28,7 @@ const BAR: Record<string, string> = {
 export function SpendPanel({ summary }: { summary: ExpenseSummary }) {
   const { t } = useTranslation();
   return (
-    <Pressable onPress={() => router.navigate("/tracking/budget")} className={`mb-4 ${CARD}`}>
+    <Pressable onPress={() => router.navigate("/tracking/budget")} className={`mt-4 ${CARD}`}>
       <View className="flex-row flex-wrap items-baseline justify-between gap-2">
         <Text className="text-sm text-muted">{t("dashboard.spentThisMonth")}</Text>
         <Text className={`text-sm ${summary.status === "over" ? "font-semibold text-danger" : "text-muted"}`}>
@@ -57,8 +58,8 @@ export function SpendPanel({ summary }: { summary: ExpenseSummary }) {
 // This is the only reason the module was added, and it is why the mobile dashboard needs a build
 // rather than an OTA update.
 const W = 300;
-const H = 120;
-const PAD = 12;
+const H = 300;
+const PAD = 24;
 
 export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; unitSystem: string }) {
   const { t } = useTranslation();
@@ -84,7 +85,7 @@ export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; 
   const path = points.map((p) => `${p.x},${p.y}`).join(" ");
 
   return (
-    <Pressable onPress={() => router.navigate("/tracking/weight")} className={`mb-4 ${CARD}`}>
+    <Pressable onPress={() => router.navigate("/tracking/weight")} className={`mt-4 ${CARD}`}>
       <View className="flex-row flex-wrap items-baseline justify-between gap-2">
         <Text className="text-sm text-muted">{t("dashboard.weightTrend")}</Text>
         {values.length > 0 ? (
@@ -98,7 +99,7 @@ export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; 
         <Text className="mt-3 text-sm text-muted">{t("dashboard.needTwoWeights")}</Text>
       ) : (
         <>
-          <View className="mt-3 h-32 w-full">
+          <View className="mt-3 aspect-square w-full">
             <Svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
               <Polygon
                 points={`${points[0].x},${H} ${path} ${points[points.length - 1].x},${H}`}
@@ -148,7 +149,7 @@ export function ExercisePanel({ walks, unitSystem }: { walks: Walk[]; unitSystem
   const peak = Math.max(...days.map((d) => d.minutes), 1);
 
   return (
-    <Pressable onPress={() => router.navigate("/tracking/walks")} className={`mb-4 ${CARD}`}>
+    <Pressable onPress={() => router.navigate("/tracking/walks")} className={`mt-4 ${CARD}`}>
       <Text className="text-sm text-muted">{t("dashboard.exercise")}</Text>
 
       {totalMinutes === 0 ? (
@@ -195,7 +196,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
   }, [photos.length]);
 
   return (
-    <Pressable onPress={() => router.navigate("/photos")} className={`mb-4 ${CARD}`}>
+    <Pressable onPress={() => router.navigate("/photos")} className={`mt-4 ${CARD}`}>
       <View className="flex-row flex-wrap items-baseline justify-between gap-2">
         <Text className="text-sm text-muted">{t("nav.photos")}</Text>
         {photos.length > 0 ? <Text className="text-sm text-muted">{photos.length}</Text> : null}
@@ -204,7 +205,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
       {photos.length === 0 ? (
         <Text className="mt-3 text-sm text-muted">{t("dashboard.noPhotos")}</Text>
       ) : (
-        <View className="mt-3 h-44 overflow-hidden rounded-lg bg-ink">
+        <View className="mt-3 aspect-square overflow-hidden rounded-lg bg-ink">
           <Image
             source={{ uri: `${BASE_URL}/photos/${photos[index].filename}` }}
             resizeMode="cover"
@@ -213,5 +214,42 @@ export function PhotoPanel({ petId }: { petId: number }) {
         </View>
       )}
     </Pressable>
+  );
+}
+
+// PetBadges component displays badges for a pet's sex, disabilities, and dietary restrictions.
+export function PetBadges({ pet }: { pet: Pet }) {
+  const { t } = useTranslation();
+  const { theme, accent } = useTheme();
+  const colors = themeColors(theme, accent);
+
+  return (
+    <View className="w-full flex-row flex-wrap gap-2">
+      {pet.sex ? (
+        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1">
+          <Ionicons name={pet.sex === "male" ? "male" : "female"} size={13} color={colors.muted} />
+          <Text className="text-sm text-fg">
+            {t(`petForm.${pet.sex}`)}
+            {pet.neutered ? ` · ${pet.sex === "male" ? t("petForm.neutered") : t("petForm.spayed")}` : ""}
+          </Text>
+        </View>
+      ) : null}
+      {pet.disabilities.length > 0 ? (
+        // Amber, not red — red is reserved for delete. Eight-digit hex because mobile cannot use Tailwind opacity modifiers when vars() supplies the colour.
+        <View
+          style={{ borderColor: `${colors.warning}66`, backgroundColor: `${colors.warning}1A` }}
+          className="flex-row items-center gap-1.5 rounded-full border px-3 py-1"
+        >
+          <Ionicons name="accessibility" size={13} color={colors.warning} />
+          <Text className="text-sm text-warning">{pet.disabilities.join(", ")}</Text>
+        </View>
+      ) : null}
+      {pet.dietary_restrictions.length > 0 ? (
+        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-ink px-3 py-1">
+          <Ionicons name="restaurant-outline" size={13} color={colors.muted} />
+          <Text className="text-sm text-fg">{pet.dietary_restrictions.join(", ")}</Text>
+        </View>
+      ) : null}
+    </View>
   );
 }

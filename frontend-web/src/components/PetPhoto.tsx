@@ -51,7 +51,7 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
   return (
     <div className="relative">
 
-      <div className="group relative w-32 h-32">
+      <div className="group relative w-40 h-40">
         {pet.photo_filename ? (
           <img
             src={`${import.meta.env.VITE_API_URL}/photos/${pet.photo_filename}`}
