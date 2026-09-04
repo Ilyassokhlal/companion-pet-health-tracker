@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
@@ -8,8 +8,9 @@ import Button from "../components/ui/Button";
 import { Trash2 } from "lucide-react";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 
-// The page opens on the newest exchange, so it only fetches the tail of the conversation.
-// Older messages arrive in larger chunks, since by then the user is deliberately reading back.
+// This is a reading page, not the conversation, so it runs newest first: the top of the page is the
+// most recent exchange and older ones arrive below as you read down. Nothing here needs to preserve
+// scroll position, because appending grows the page downward and leaves the reader where they are.
 const INITIAL = 10;
 const PAGE = 20;
 
@@ -17,18 +18,14 @@ const PAGE = 20;
 export default function ChatHistory() {
   const { t } = useTranslation();
   const { currentPet } = usePets();
+  // Held newest first, which is display order. The API always answers oldest first, so every page
+  // it returns is reversed on arrival.
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [hasMore, setHasMore] = useState(false);
   const [loadingOlder, setLoadingOlder] = useState(false);
   const [pendingDelete, setPendingDelete] = useState<number | null>(null);
   const [confirmingClear, setConfirmingClear] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const endRef = useRef<HTMLDivElement>(null);
-  // Set immediately after a fresh load so the layout effect knows to jump to the newest message.
-  const jumpToEnd = useRef(false);
-  // Page height captured before older messages are prepended, so the view can be held in place.
-  const heightBeforePrepend = useRef<number | null>(null);
 
   // Load the newest slice of the conversation for the current pet
   const load = useCallback(() => {
@@ -40,9 +37,8 @@ export default function ChatHistory() {
     setLoading(true);
     listMessages(currentPet.id, { limit: INITIAL })
       .then((rows) => {
-        setMessages(rows);
+        setMessages([...rows].reverse());
         setHasMore(rows.length === INITIAL);
-        jumpToEnd.current = true;
       })
       .finally(() => setLoading(false));
   }, [currentPet]);
@@ -51,28 +47,14 @@ export default function ChatHistory() {
     load();
   }, [load]);
 
-  // Two different scroll behaviours, and they must not fight each other: a fresh load lands on the
-  // newest message, while prepending older ones has to leave the reader exactly where they were.
-  // Prepending grows the page upward, so without this the view would jump backwards in time.
-  useLayoutEffect(() => {
-    if (jumpToEnd.current) {
-      jumpToEnd.current = false;
-      endRef.current?.scrollIntoView({ block: "end" });
-      return;
-    }
-    if (heightBeforePrepend.current !== null) {
-      window.scrollBy(0, document.documentElement.scrollHeight - heightBeforePrepend.current);
-      heightBeforePrepend.current = null;
-    }
-  }, [messages]);
-
   async function loadOlder() {
     if (!currentPet || messages.length === 0) return;
     setLoadingOlder(true);
-    heightBeforePrepend.current = document.documentElement.scrollHeight;
     try {
-      const older = await listMessages(currentPet.id, { limit: PAGE, before: messages[0].id });
-      setMessages((prev) => [...older, ...prev]);
+      // Newest first means the oldest message loaded is the LAST one, and that is what pages back.
+      const oldest = messages[messages.length - 1];
+      const older = await listMessages(currentPet.id, { limit: PAGE, before: oldest.id });
+      setMessages((prev) => [...prev, ...[...older].reverse()]);
       setHasMore(older.length === PAGE);
     } finally {
       setLoadingOlder(false);
@@ -107,17 +89,12 @@ export default function ChatHistory() {
   }
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="text-2xl font-bold mb-4">{t("chatHistory.title")}</h1>
-      <Button variant="danger" onClick={() => setConfirmingClear(true)} className="mb-4 flex items-center gap-1.5">
-        <Trash2 size={16} />{t("chatHistory.clearAll")}
-      </Button>
-      {hasMore && (
-        <div className="mb-4 flex justify-center">
-          <Button variant="secondary" onClick={loadOlder} disabled={loadingOlder}>
-            {loadingOlder ? t("common.loading") : t("chatHistory.loadOlder")}
-          </Button>
-        </div>
-      )}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface px-5 py-4">
+        <h1 className="text-2xl font-bold text-fg">{t("chatHistory.title")}</h1>
+        <Button variant="danger" onClick={() => setConfirmingClear(true)} className="flex items-center gap-1.5 whitespace-nowrap">
+          <Trash2 size={16} />{t("chatHistory.clearAll")}
+        </Button>
+      </div>
       <div className="space-y-4">
         {messages.map((m) => (
           <div key={m.id} className="bg-surface border border-border rounded-xl p-5 shadow-soft">
@@ -159,8 +136,14 @@ export default function ChatHistory() {
             )}
           </div>
         ))}
-        <div ref={endRef} />
       </div>
+      {hasMore && (
+        <div className="mt-4 flex justify-center">
+          <Button variant="secondary" onClick={loadOlder} disabled={loadingOlder}>
+            {loadingOlder ? t("common.loading") : t("chatHistory.loadOlder")}
+          </Button>
+        </div>
+      )}
       <ConfirmDialog
         open={pendingDelete !== null}
         title={t("chatHistory.deleteMessage")}
