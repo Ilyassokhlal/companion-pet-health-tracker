@@ -104,15 +104,15 @@ export default function Tracking() {
           <Pressable
             key={row.href}
             onPress={() => router.navigate(row.href)}
-            className={`flex-row items-start gap-4 rounded-xl border border-border bg-surface p-5 active:opacity-70 ${
+            className={`flex-row items-start gap-5 rounded-xl border border-border bg-surface p-7 active:opacity-70 ${
               index > 0 ? "mt-4" : ""
             }`}
           >
             <View
               style={{ backgroundColor: `${colors.primary}1A` }}
-              className="h-11 w-11 items-center justify-center rounded-lg"
+              className="h-14 w-14 items-center justify-center rounded-xl"
             >
-              <Ionicons name={row.icon} size={22} color={colors.primary} />
+              <Ionicons name={row.icon} size={28} color={colors.primary} />
             </View>
             <View className="min-w-0 flex-1">
               <Text className="text-lg font-semibold text-fg">{t(`tracking.${row.key}`)}</Text>

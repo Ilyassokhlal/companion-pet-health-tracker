@@ -88,15 +88,15 @@ export default function Tracking() {
   return (
     <div className="p-4 sm:p-8">
       {/* Two columns, so the four cards sit as a 2x2 and every card is the same size. */}
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         {rows.map((row) => (
           <Link
             key={row.to}
             to={row.to}
-            className="group flex items-start gap-4 rounded-xl border border-border bg-surface p-5 transition hover:border-primary"
+            className="group flex min-h-40 items-start gap-5 rounded-xl border border-border bg-surface p-7 transition hover:border-primary"
           >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition group-hover:bg-primary/20">
-              <row.Icon size={22} />
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary/20">
+              <row.Icon size={28} />
             </span>
             <div className="min-w-0">
               <p className="text-lg font-semibold text-fg">{t(`tracking.${row.key}`)}</p>
