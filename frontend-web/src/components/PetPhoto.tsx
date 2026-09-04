@@ -56,17 +56,17 @@ export default function PetPhoto({ pet }: { pet: Pet }) {
           <img
             src={`${import.meta.env.VITE_API_URL}/photos/${pet.photo_filename}`}
             alt={pet.name}
-            className="w-32 h-32 rounded-full object-cover ring-1 ring-border"
+            className="w-40 h-40 rounded-full object-cover ring-1 ring-border"
           />
         ) : (
-          <div className="w-32 h-32 rounded-full bg-surface border border-border flex items-center justify-center text-4xl text-muted">
+          <div className="w-40 h-40 rounded-full bg-surface border border-border flex items-center justify-center text-5xl text-muted">
             {pet.name.charAt(0).toUpperCase()}
           </div>
         )}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           disabled={uploading}
-          className="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white"
+          className="absolute inset-0 w-40 h-40 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white"
         >
           <Camera size={22} />
         </button>
