@@ -114,7 +114,7 @@ export default function Records() {
             filter === "All" ? "bg-primary" : "border border-border bg-surface"
           }`}
         >
-          <Text className="text-sm text-fg">{t("common.all")} ({records.length})</Text>
+          <Text className={`text-sm ${filter === "All" ? "text-on-primary" : "text-fg"}`}>{t("common.all")} ({records.length})</Text>
         </Pressable>
         {RECORD_TYPES.map((type) => (
           <Pressable
@@ -124,7 +124,7 @@ export default function Records() {
               filter === type ? "bg-primary" : "border border-border bg-surface"
             }`}
           >
-            <Text className="text-sm text-fg">
+            <Text className={`text-sm ${filter === type ? "text-on-primary" : "text-fg"}`}>
               {t(`recordTypes.${type}`)} ({records.filter((r) => r.record_type === type).length})
             </Text>
           </Pressable>
