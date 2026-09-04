@@ -47,8 +47,8 @@ export function SpendPanel({ summary }: { summary: ExpenseSummary }) {
 
 // Inline SVG for the weight trend chart: one polyline for the line and one filled polygon for the area under the line.
 const W = 300;
-const H = 300;
-const PAD = 24;
+const H = 120;
+const PAD = 12;
 
 export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; unitSystem: string }) {
   const { t } = useTranslation();
@@ -84,7 +84,7 @@ export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; 
         <p className="mt-3 text-sm text-muted">{t("dashboard.needTwoWeights")}</p>
       ) : (
         <>
-          <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 aspect-square w-full text-primary" preserveAspectRatio="none">
+          <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 h-32 w-full text-primary" preserveAspectRatio="none">
             <polygon
               points={`${points[0].x},${H} ${path} ${points[points.length - 1].x},${H}`}
               fill="currentColor"

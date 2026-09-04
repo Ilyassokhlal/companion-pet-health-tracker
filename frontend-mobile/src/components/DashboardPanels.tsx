@@ -58,8 +58,8 @@ export function SpendPanel({ summary }: { summary: ExpenseSummary }) {
 // This is the only reason the module was added, and it is why the mobile dashboard needs a build
 // rather than an OTA update.
 const W = 300;
-const H = 300;
-const PAD = 24;
+const H = 120;
+const PAD = 12;
 
 export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; unitSystem: string }) {
   const { t } = useTranslation();
@@ -99,7 +99,7 @@ export function WeightPanel({ records, unitSystem }: { records: HealthRecord[]; 
         <Text className="mt-3 text-sm text-muted">{t("dashboard.needTwoWeights")}</Text>
       ) : (
         <>
-          <View className="mt-3 aspect-square w-full">
+          <View className="mt-3 h-32 w-full">
             <Svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
               <Polygon
                 points={`${points[0].x},${H} ${path} ${points[points.length - 1].x},${H}`}
