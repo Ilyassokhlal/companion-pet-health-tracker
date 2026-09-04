@@ -1,4 +1,8 @@
 {
+  "landing": {
+    "title": "Companion : le suivi santé de votre animal",
+    "tagline": "Suivez les dossiers de santé de votre animal, fixez des échéances, recevez des rappels et obtenez des réponses fiables à vos questions."
+  },
   "errors": {
     "generic": "Une erreur est survenue. Veuillez réessayer.",
     "validation": "Veuillez vérifier les informations saisies.",
@@ -144,7 +148,7 @@
       "restartTitle": "Redémarrage nécessaire",
       "restartBody": "L'arabe change le sens de la mise en page. Companion doit redémarrer pour l'appliquer.",
       "restartNow": "Redémarrer",
-      "note": "Les poids sont toujours stockés en kilogrammes — ceci ne change que leur affichage et leur saisie. Les e-mails et les rappels sont encore envoyés en anglais."
+      "note": "Toutes les données sont stockées en système métrique. Ce réglage ne change que leur affichage et leur saisie.",
     },
     "reminders": {
       "title": "Rappels",
@@ -152,7 +156,7 @@
       "howOften": "Fréquence",
       "weekly": "Chaque semaine, le dimanche",
       "daily": "Chaque jour",
-      "push": "Notifier mon téléphone de ce qui est à faire aujourd'hui",
+      "push": "Notifier mon téléphone chaque jour",
       "timezone": "Fuseau horaire",
       "arrival": "Tout arrive à 6 h dans ce fuseau horaire.",
       "verifyFirst": "Vérifiez votre e-mail pour activer les rappels."
@@ -176,7 +180,7 @@
     },
     "feeding": {
       "title": "Rappels de repas",
-      "note": "Se déclenche à chaque heure de repas prévue si rien n'a été enregistré. Indépendant du récapitulatif quotidien.",
+      "note": "Vous alerte à chaque heure de repas si rien n'a été enregistré. Distinct des rappels quotidiens.",
       "push": "Notification push",
       "email": "E-mail"
     }

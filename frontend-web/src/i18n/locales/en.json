@@ -1,4 +1,8 @@
 {
+  "landing": {
+    "title": "Companion: Your Pet's Health Tracker",
+    "tagline": "Keep track of your pet's health records, set due dates, receive reminders, and get grounded answers to your pet care questions."
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "validation": "Please check the details you entered.",
@@ -144,7 +148,7 @@
       "restartTitle": "Restart required",
       "restartBody": "Arabic changes the layout direction. Companion needs to restart to apply it.",
       "restartNow": "Restart",
-      "note": "Weights are always stored in kilograms — this only changes how they are shown and entered. Emails and reminders are still sent in English."
+      "note": "All data is stored in metric. This setting only changes how it is shown and entered.",
     },
     "reminders": {
       "title": "Reminders",
@@ -152,7 +156,7 @@
       "howOften": "How often",
       "weekly": "Weekly, on Sunday",
       "daily": "Every day",
-      "push": "Notify my phone about what is due today",
+      "push": "Notify my phone daily",
       "timezone": "Timezone",
       "arrival": "Everything arrives at 6am in this timezone.",
       "verifyFirst": "Verify your email to enable reminders."
@@ -176,7 +180,7 @@
     },
     "feeding": {
       "title": "Feeding reminders",
-      "note": "Fires at each scheduled feeding time when nothing has been logged for it. Separate from the daily reminder digest.",
+      "note": "Alerts you at each feeding time when nothing has been logged. Separate from the daily reminders.",
       "push": "Push notification",
       "email": "Email"
     }

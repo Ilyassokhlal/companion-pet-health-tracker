@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import LanguagePicker from "../components/LanguagePicker";
 
 export default function Login() {
     const { t } = useTranslation();
@@ -28,7 +29,8 @@ export default function Login() {
       }
     }
       return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center">
+      <LanguagePicker />
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 p-8 bg-surface border border-border rounded-lg">
         <h1 className="text-2xl font-bold text-center">{t("auth.login.title")}</h1>
         <Input

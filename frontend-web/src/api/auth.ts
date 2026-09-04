@@ -2,9 +2,16 @@ import { apiFetch, setToken } from "./client";
 import type { TokenResponse, User } from "../types";
 
 
+// Sets the device's preferred language in localStorage. This will be used as the primary language for the application unless overridden by the user's account settings.
+export function setDeviceLanguage(code: string): void {
+  localStorage.setItem("language", code);
+}
+
 // navigator.language gives things like "fr-CA" or "zh-Hans-CN"; the backend only accepts the seven base codes in its Literal, so we match on the primary subtag and fall back to English if no match is found.
 export function detectLanguage(): string {
   const supported = ["en", "fr", "es", "de", "ar", "ru", "zh"];
+  const chosen = localStorage.getItem("language");
+  if (chosen && supported.includes(chosen)) return chosen;
   for (const tag of navigator.languages ?? [navigator.language]) {
     const base = tag.split("-")[0].toLowerCase();
     if (supported.includes(base)) return base;

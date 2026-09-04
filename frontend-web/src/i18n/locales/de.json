@@ -1,4 +1,8 @@
 {
+  "landing": {
+    "title": "Companion: die Gesundheitsakte Ihres Haustiers",
+    "tagline": "Behalten Sie die Gesundheitsdaten Ihres Haustiers im Blick, setzen Sie Fälligkeiten, erhalten Sie Erinnerungen und fundierte Antworten auf Ihre Fragen."
+  },
   "errors": {
     "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "validation": "Bitte überprüfen Sie die eingegebenen Informationen.",
@@ -144,7 +148,7 @@
       "restartTitle": "Neustart erforderlich",
       "restartBody": "Arabisch ändert die Layoutrichtung. Companion muss neu starten, um sie anzuwenden.",
       "restartNow": "Neu starten",
-      "note": "Gewichte werden immer in Kilogramm gespeichert — diese Einstellung ändert nur ihre Anzeige und Eingabe. E-Mails und Erinnerungen werden weiterhin auf Englisch versendet."
+      "note": "Alle Daten werden metrisch gespeichert. Diese Einstellung ändert nur ihre Anzeige und Eingabe.",
     },
     "reminders": {
       "title": "Erinnerungen",
@@ -152,7 +156,7 @@
       "howOften": "Häufigkeit",
       "weekly": "Jede Woche, sonntags",
       "daily": "Täglich",
-      "push": "Mein Handy über die heutigen Aufgaben benachrichtigen",
+      "push": "Mein Telefon täglich benachrichtigen",
       "timezone": "Zeitzone",
       "arrival": "Alle Benachrichtigungen werden um 6 Uhr morgens entsprechend dieser Zeitzone zugestellt.",
       "verifyFirst": "Bestätigen Sie Ihre E-Mail-Adresse, um Erinnerungen zu aktivieren."
@@ -176,7 +180,7 @@
     },
     "feeding": {
       "title": "Fütterungserinnerungen",
-      "note": "Die Erinnerung wird zu jeder geplanten Fütterungszeit ausgelöst, wenn keine Fütterung erfasst wurde. Sie ist unabhängig von der täglichen Zusammenfassung.",
+      "note": "Meldet sich zu jeder Fütterungszeit, wenn nichts erfasst wurde. Unabhängig von den täglichen Erinnerungen.",
       "push": "Push-Benachrichtigung",
       "email": "E-Mail"
     }

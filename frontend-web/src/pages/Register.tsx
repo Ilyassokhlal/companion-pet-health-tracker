@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import LanguagePicker from "../components/LanguagePicker";
 
 
 // The Register component provides a user registration form. It manages the state for username, email, password, error messages, and submission status. Upon form submission, it calls the register function from the authentication context and navigates to the dashboard on success or displays an error message on failure.
@@ -31,7 +32,8 @@ export default function Register() {
       }
     }
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center">
+      <LanguagePicker />
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 p-8 bg-surface border border-border rounded-lg">
         <h1 className="text-2xl font-bold text-center">{t("auth.register.title")}</h1>
         <Input

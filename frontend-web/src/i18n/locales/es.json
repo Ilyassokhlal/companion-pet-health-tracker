@@ -1,4 +1,8 @@
 {
+  "landing": {
+    "title": "Companion: el seguimiento de salud de tu mascota",
+    "tagline": "Lleva el historial de salud de tu mascota, fija fechas de vencimiento, recibe recordatorios y obtén respuestas fundamentadas a tus dudas."
+  },
   "errors": {
     "generic": "Se ha producido un error. Inténtalo de nuevo.",
     "validation": "Comprueba la información introducida.",
@@ -144,7 +148,7 @@
       "restartTitle": "Es necesario reiniciar",
       "restartBody": "El árabe cambia la dirección del diseño. Companion debe reiniciarse para aplicarlo.",
       "restartNow": "Reiniciar",
-      "note": "Los pesos siempre se almacenan en kilogramos; esta opción solo cambia cómo se muestran y se introducen. Los correos y los recordatorios todavía se envían en inglés."
+      "note": "Todos los datos se guardan en sistema métrico. Este ajuste solo cambia cómo se muestran y se introducen.",
     },
     "reminders": {
       "title": "Recordatorios",
@@ -152,7 +156,7 @@
       "howOften": "Frecuencia",
       "weekly": "Cada semana, los domingos",
       "daily": "Todos los días",
-      "push": "Enviarme una notificación al teléfono con las tareas pendientes de hoy",
+      "push": "Notificar a mi teléfono cada día",
       "timezone": "Zona horaria",
       "arrival": "Todo llega a las 6:00 según esta zona horaria.",
       "verifyFirst": "Verifica tu correo electrónico para activar los recordatorios."
@@ -176,7 +180,7 @@
     },
     "feeding": {
       "title": "Recordatorios de alimentación",
-      "note": "Se activa a cada hora de comida programada si no se ha registrado ninguna comida. Es independiente del resumen diario.",
+      "note": "Te avisa a cada hora de comida si no se ha registrado nada. Independiente de los recordatorios diarios.",
       "push": "Notificación push",
       "email": "Correo electrónico"
     }
