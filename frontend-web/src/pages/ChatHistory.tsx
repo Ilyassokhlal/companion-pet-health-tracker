@@ -5,7 +5,8 @@ import { usePets } from "../context/PetContext";
 import { listMessages, deleteMessage, clearMessages } from "../api/chat";
 import type { ChatMessage } from "../types";
 import Button from "../components/ui/Button";
-import { Trash2 } from "lucide-react";
+import { Trash2, MessageSquare } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 
 // This is a reading page, not the conversation, so it runs newest first: the top of the page is the
@@ -85,7 +86,7 @@ export default function ChatHistory() {
     return <div className="p-8">{t("common.loading")}</div>;
   }
   if (messages.length === 0) {
-    return <div className="p-8 text-muted">{t("chatHistory.empty")}</div>;
+    return <EmptyState icon={MessageSquare} text={t("chatHistory.empty")} />;
   }
   return (
     <div className="p-4 sm:p-8">

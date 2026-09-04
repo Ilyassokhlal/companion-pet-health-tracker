@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Wallet } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import { usePets } from "../context/PetContext";
 import { useAuth } from "../auth/AuthContext";
 import { listExpenses, createExpense, updateExpense, deleteExpense, getExpenseSummary } from "../api/expenses";
@@ -250,7 +251,7 @@ export default function Budget() {
 
       {error && <p className="mb-4 text-sm text-danger">{error}</p>}
       {loading && <p className="text-muted">{t("common.loading")}</p>}
-      {!loading && expenses.length === 0 && <p className="text-muted">{t("budget.empty")}</p>}
+      {!loading && expenses.length === 0 && <EmptyState icon={Wallet} text={t("budget.empty")} />}
 
       <div className="flex flex-col gap-3">
         {expenses.map((expense) => (

@@ -6,7 +6,8 @@ import Modal from "../components/ui/Modal";
 import { usePets } from "../context/PetContext";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
-import { Plus, Download, Pencil, Trash2 } from "lucide-react";
+import { Plus, Download, Pencil, Trash2, FileText } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 import { useAuth } from "../auth/AuthContext";
@@ -107,7 +108,7 @@ export default function Records() {
       </Modal>
       {loading && <p className="text-muted">{t("common.loading")}</p>}
       {!loading && filteredRecords.length === 0 && (
-        <p className="text-muted">{t("records.empty")}</p>
+        <EmptyState icon={FileText} text={t("records.empty")} />
       )}
       {[...filteredRecords].sort((a, b) => b.date.localeCompare(a.date)).map(r => (
         <div key={r.id} className="bg-surface border border-border rounded-xl p-5 mb-3 shadow-soft">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus } from "lucide-react";
+import { Plus, Scale } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import { usePets } from "../context/PetContext";
 import { useAuth } from "../auth/AuthContext";
 import { listRecords, createRecord } from "../api/records";
@@ -92,7 +93,7 @@ export default function TrackingWeight() {
       {loading && <p className="text-muted">{t("common.loading")}</p>}
 
       {!loading && records.length === 0 ? (
-        <p className="text-muted">{t("weightTracking.empty")}</p>
+        <EmptyState icon={Scale} text={t("weightTracking.empty")} />
       ) : (
         records.map((record, index) => {
           // Calculate the change in weight compared to the previous record.

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Utensils } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import { usePets } from "../context/PetContext";
 import {
   listFeedingTimes, createFeedingTime, deleteFeedingTime,
@@ -175,7 +176,7 @@ export default function Feeding() {
 
       <h2 className="mb-3 text-lg font-semibold">{t("feeding.history")}</h2>
       {log.length === 0 ? (
-        <p className="text-muted">{t("feeding.empty")}</p>
+        <EmptyState icon={Utensils} text={t("feeding.empty")} />
       ) : (
         log.map((entry) => (
           <div key={entry.id} className="mb-3 flex items-start justify-between rounded-xl border border-border bg-surface p-4">

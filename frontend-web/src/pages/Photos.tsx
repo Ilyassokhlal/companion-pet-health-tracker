@@ -5,7 +5,8 @@ import { usePets } from "../context/PetContext";
 import { listPetPhotos, deleteRecordPhoto, downloadPhoto, downloadPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { GalleryPhoto, RecordType } from "../types";
-import { X, Trash2, SlidersHorizontal, Download, Check } from "lucide-react";
+import { X, Trash2, SlidersHorizontal, Download, Check, Images, ImageOff } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import { formatDateLong, dateLocale } from "../dates";
 
 // The server refuses more than ten ids, so the UI must not let you pick an eleventh.
@@ -144,7 +145,7 @@ export default function Photos() {
         return <p className="text-muted">{t("common.loading")}</p>;
     }
     if (photos.length === 0) {
-        return <p className="text-muted">{t("photos.empty")}</p>;
+        return <EmptyState icon={Images} text={t("photos.empty")} />;
     }
     return (
       <div className="p-4 sm:p-8">
@@ -265,7 +266,7 @@ export default function Photos() {
         )}
 
         {months.length === 0 ? (
-          <p className="text-muted">{t("photos.noMatch")}</p>
+          <EmptyState icon={ImageOff} text={t("photos.noMatch")} />
         ) : (
           months.map(([key, items]) => (
             <section key={key}>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Footprints } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 import { usePets } from "../context/PetContext";
 import { useAuth } from "../auth/AuthContext";
 import { listWalks, createWalk, updateWalk, deleteWalk } from "../api/walks";
@@ -113,7 +114,7 @@ export default function Walks() {
 
       {error && <p className="mb-4 text-sm text-danger">{error}</p>}
       {loading && <p className="text-muted">{t("common.loading")}</p>}
-      {!loading && walks.length === 0 && <p className="text-muted">{t("walks.empty")}</p>}
+      {!loading && walks.length === 0 && <EmptyState icon={Footprints} text={t("walks.empty")} />}
 
       <div className="flex flex-col gap-3">
         {walks.map((walk) => (
