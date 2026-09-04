@@ -379,7 +379,12 @@
     "overdue": "已逾期：",
     "done": "完成",
     "deleteTitle": "删除 {{name}}？",
-    "deleteBody": "其健康记录、照片和聊天记录也将被删除。此操作无法撤销。"
+    "deleteBody": "其健康记录、照片和聊天记录也将被删除。此操作无法撤销。",
+    "weightTrend": "体重趋势",
+    "needTwoWeights": "记录两次称重即可查看趋势",
+    "exercise": "本周运动",
+    "noWalksWeek": "本周暂无记录",
+    "noPhotos": "暂无照片"
   },
   "verifyBanner": {
     "title": "验证您的电子邮件地址",

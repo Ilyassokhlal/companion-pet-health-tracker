@@ -355,7 +355,12 @@
     "completeRecord": "Complete record",
     "scheduleSomething": "Schedule something",
     "deleteTitle": "Delete {{name}}?",
-    "deleteBody": "Their health records, photos and chat history are deleted too. This cannot be undone."
+    "deleteBody": "Their health records, photos and chat history are deleted too. This cannot be undone.",
+    "weightTrend": "Weight trend",
+    "needTwoWeights": "Log two weigh-ins to see a trend",
+    "exercise": "Exercise this week",
+    "noWalksWeek": "Nothing logged this week",
+    "noPhotos": "No photos yet"
   },
   "verifyBanner": {
     "title": "Verify your email address",

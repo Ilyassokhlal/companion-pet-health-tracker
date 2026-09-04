@@ -186,7 +186,7 @@
     "records": "Registros",
     "tracking": "Seguimiento",
     "photos": "Fotos",
-    "chat": "Historial de conversaciones",
+    "chat": "Historial",
     "settings": "Configuración",
     "logout": "Cerrar sesión",
     "logoutMobile": "Cerrar sesión",
@@ -355,7 +355,12 @@
     "completeRecord": "Completar registro",
     "scheduleSomething": "Programar algo",
     "deleteTitle": "¿Eliminar {{name}}?",
-    "deleteBody": "También se eliminarán sus registros de salud, fotos e historial de conversaciones. Esta acción no se puede deshacer."
+    "deleteBody": "También se eliminarán sus registros de salud, fotos e historial de conversaciones. Esta acción no se puede deshacer.",
+    "weightTrend": "Evolución del peso",
+    "needTwoWeights": "Registra dos pesajes para ver la evolución",
+    "exercise": "Actividad esta semana",
+    "noWalksWeek": "Nada registrado esta semana",
+    "noPhotos": "Aún no hay fotos"
   },
   "verifyBanner": {
     "title": "Verifica tu dirección de correo electrónico",

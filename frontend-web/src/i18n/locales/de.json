@@ -355,7 +355,12 @@
     "completeRecord": "Aufzeichnung abschließen",
     "scheduleSomething": "Aufgabe planen",
     "deleteTitle": "{{name}} löschen?",
-    "deleteBody": "Die Gesundheitsaufzeichnungen, Fotos und der Chatverlauf werden ebenfalls gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+    "deleteBody": "Die Gesundheitsaufzeichnungen, Fotos und der Chatverlauf werden ebenfalls gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "weightTrend": "Gewichtsverlauf",
+    "needTwoWeights": "Erfassen Sie zwei Wiegevorgänge für einen Verlauf",
+    "exercise": "Bewegung diese Woche",
+    "noWalksWeek": "Diese Woche nichts erfasst",
+    "noPhotos": "Noch keine Fotos"
   },
   "verifyBanner": {
     "title": "Bestätigen Sie Ihre E-Mail-Adresse",

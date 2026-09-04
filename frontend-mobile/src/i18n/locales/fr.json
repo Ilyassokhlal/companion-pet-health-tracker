@@ -281,7 +281,7 @@
     "records": "Dossiers",
     "tracking": "Suivi",
     "photos": "Photos",
-    "chat": "Chat"
+    "chat": "Historique"
   },
   "weightTracking": {
     "current": "Actuel",
@@ -379,7 +379,12 @@
     "overdue": "En retard : ",
     "done": "Terminé",
     "deleteTitle": "Supprimer {{name}} ?",
-    "deleteBody": "Ses dossiers de santé, ses photos et son historique de chat seront également supprimés. Cette action est irréversible."
+    "deleteBody": "Ses dossiers de santé, ses photos et son historique de chat seront également supprimés. Cette action est irréversible.",
+    "weightTrend": "Évolution du poids",
+    "needTwoWeights": "Enregistrez deux pesées pour voir l'évolution",
+    "exercise": "Activité cette semaine",
+    "noWalksWeek": "Rien enregistré cette semaine",
+    "noPhotos": "Aucune photo"
   },
   "verifyBanner": {
     "title": "Vérifiez votre adresse e-mail",

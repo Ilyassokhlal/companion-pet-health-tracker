@@ -186,7 +186,7 @@
     "records": "Dossiers",
     "tracking": "Suivi",
     "photos": "Photos",
-    "chat": "Historique des conversations",
+    "chat": "Historique",
     "settings": "Paramètres",
     "logout": "Déconnexion",
     "logoutMobile": "Se déconnecter",
@@ -355,7 +355,12 @@
     "completeRecord": "Compléter le dossier",
     "scheduleSomething": "Planifier quelque chose",
     "deleteTitle": "Supprimer {{name}} ?",
-    "deleteBody": "Ses dossiers de santé, photos et historique de conversation sont également supprimés. Cette action est irréversible."
+    "deleteBody": "Ses dossiers de santé, photos et historique de conversation sont également supprimés. Cette action est irréversible.",
+    "weightTrend": "Évolution du poids",
+    "needTwoWeights": "Enregistrez deux pesées pour voir l'évolution",
+    "exercise": "Activité cette semaine",
+    "noWalksWeek": "Rien enregistré cette semaine",
+    "noPhotos": "Aucune photo"
   },
   "verifyBanner": {
     "title": "Vérifiez votre adresse e-mail",

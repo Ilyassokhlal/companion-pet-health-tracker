@@ -18,6 +18,8 @@ const navItems = [
 ];
 
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
+// The desktop nav appears at lg, not md: at 768px the longest translations had nowhere to go, and letting the strip
+// scroll sideways was worse than simply using the menu in that band.
 export default function Header() {
     const { t } = useTranslation();
     const { user, logout } = useAuth();
@@ -28,7 +30,7 @@ export default function Header() {
                 <NavLink to="/dashboard" className="text-xl sm:text-2xl font-bold truncate">
                     <PawPrint size={22} className="inline me-2 -mt-1" /> Companion
                 </NavLink>
-                <nav className="hidden md:flex min-w-0 gap-4 overflow-x-auto">
+                <nav className="hidden lg:flex gap-4">
                     {navItems.filter((item) => item.to !== "/settings").map((item) => (
                         <NavLink
                             key={item.to}
@@ -44,7 +46,7 @@ export default function Header() {
             <PetSelector />
 
             <div className="flex flex-1 min-w-0 items-center justify-end gap-2 sm:gap-4">
-                <div className="hidden md:flex min-w-0 items-center gap-2">
+                <div className="hidden lg:flex min-w-0 items-center gap-2">
                     {user?.photo_filename ? (
                         <img
                             src={`${import.meta.env.VITE_API_URL}/photos/${user.photo_filename}`}
@@ -60,17 +62,17 @@ export default function Header() {
                 </div>
                 <NavLink
                     to="/settings"
-                    className={({ isActive }) => `hidden md:flex shrink-0 items-center gap-1.5 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
+                    className={({ isActive }) => `hidden lg:flex shrink-0 items-center gap-1.5 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
                 >
                     <SettingsIcon size={16} />
                     {t("nav.settings")}
                 </NavLink>
-                <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden md:block">
+                <Button variant="secondary" onClick={logout} className="px-3 py-1 hidden lg:block">
                     {t("nav.logout")}
                 </Button>
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden shrink-0 text-muted hover:text-fg"
+                    className="lg:hidden shrink-0 text-muted hover:text-fg"
                     aria-label={t("nav.menu")}
                 >
                     {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -78,7 +80,7 @@ export default function Header() {
             </div>
 
             {menuOpen && (
-                <nav className="md:hidden absolute top-full inset-x-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
+                <nav className="lg:hidden absolute top-full inset-x-0 bg-surface border-b border-border flex flex-col p-4 gap-3 z-50">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.to}

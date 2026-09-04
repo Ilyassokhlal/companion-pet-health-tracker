@@ -281,7 +281,7 @@
     "records": "Registros",
     "tracking": "Seguimiento",
     "photos": "Fotos",
-    "chat": "Chat"
+    "chat": "Historial"
   },
   "weightTracking": {
     "current": "Actual",
@@ -379,7 +379,12 @@
     "overdue": "Atrasado: ",
     "done": "Hecho",
     "deleteTitle": "¿Eliminar a {{name}}?",
-    "deleteBody": "También se eliminarán sus registros de salud, fotos e historial de chat. Esta acción no se puede deshacer."
+    "deleteBody": "También se eliminarán sus registros de salud, fotos e historial de chat. Esta acción no se puede deshacer.",
+    "weightTrend": "Evolución del peso",
+    "needTwoWeights": "Registra dos pesajes para ver la evolución",
+    "exercise": "Actividad esta semana",
+    "noWalksWeek": "Nada registrado esta semana",
+    "noPhotos": "Aún no hay fotos"
   },
   "verifyBanner": {
     "title": "Verifica tu dirección de correo electrónico",
