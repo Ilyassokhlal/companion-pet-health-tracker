@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -234,10 +235,7 @@ export default function Feeding() {
         )}
       </ScrollView>
 
-      <Modal visible={timeOpen} animationType="slide" transparent onRequestClose={() => setTimeOpen(false)}>
-        <View className="flex-1 justify-end bg-black/70">
-          <View className="max-h-[88%] rounded-t-2xl border-t border-border bg-ink p-5">
-            <ScrollView>
+      <FormModal visible={timeOpen} onClose={() => setTimeOpen(false)}>
               <Text className="mb-4 text-lg font-semibold text-fg">{t("feeding.addTime")}</Text>
 
               <Text className="mb-2 text-sm text-muted">{t("feeding.time")}</Text>
@@ -276,15 +274,9 @@ export default function Feeding() {
                 />
                 <Button label={t("common.cancel")} variant="secondary" onPress={() => setTimeOpen(false)} />
               </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+      </FormModal>
 
-      <Modal visible={logOpen} animationType="slide" transparent onRequestClose={() => setLogOpen(false)}>
-        <View className="flex-1 justify-end bg-black/70">
-          <View className="max-h-[88%] rounded-t-2xl border-t border-border bg-ink p-5">
-            <ScrollView keyboardShouldPersistTaps="handled">
+      <FormModal visible={logOpen} onClose={() => setLogOpen(false)}>
               <Text className="mb-4 text-lg font-semibold text-fg">{t("feeding.logTitle")}</Text>
 
               <View className="mb-3">
@@ -345,13 +337,10 @@ export default function Feeding() {
               <TextInput value={notes} onChangeText={setNotes} className={`mb-4 ${input}`} />
 
               <View className="gap-2">
-                <Button label={t("feeding.logButton")} onPress={addFeeding} loading={busy} />
+                <Button label={t("feeding.logNow")} onPress={addFeeding} loading={busy} />
                 <Button label={t("common.cancel")} variant="secondary" onPress={() => setLogOpen(false)} />
               </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+      </FormModal>
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -154,9 +155,7 @@ export default function Walks() {
         )}
       </ScrollView>
 
-      <Modal visible={editing !== null} animationType="slide" transparent onRequestClose={() => setEditing(null)}>
-        <View className="flex-1 justify-end bg-black/70">
-          <View className="rounded-t-2xl border-t border-border bg-ink p-5">
+      <FormModal visible={editing !== null} onClose={() => setEditing(null)}>
             <Text className="mb-4 text-lg font-semibold text-fg">
               {editing === "new" ? t("walks.log") : t("walks.edit")}
             </Text>
@@ -204,9 +203,7 @@ export default function Walks() {
                 </Pressable>
               ) : null}
             </View>
-          </View>
-        </View>
-      </Modal>
+      </FormModal>
     </View>
   );
 }

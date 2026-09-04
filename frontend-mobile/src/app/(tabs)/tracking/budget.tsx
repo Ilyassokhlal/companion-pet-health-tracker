@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -308,10 +309,7 @@ export default function Budget() {
         )}
       </ScrollView>
 
-      <Modal visible={editing !== null} animationType="slide" transparent onRequestClose={() => setEditing(null)}>
-        <View className="flex-1 justify-end bg-black/70">
-          <View className="max-h-[88%] rounded-t-2xl border-t border-border bg-ink p-5">
-            <ScrollView>
+      <FormModal visible={editing !== null} onClose={() => setEditing(null)}>
               <Text className="mb-4 text-lg font-semibold text-fg">
                 {editing === "new" ? t("budget.log") : t("budget.edit")}
               </Text>
@@ -396,10 +394,7 @@ export default function Budget() {
                   </Pressable>
                 ) : null}
               </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+      </FormModal>
     </View>
   );
 }

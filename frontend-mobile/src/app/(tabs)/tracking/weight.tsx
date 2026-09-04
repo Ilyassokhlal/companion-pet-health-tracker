@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Modal, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, ScrollView, Text, TextInput, View } from "react-native";
+import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 
@@ -137,10 +138,7 @@ export default function Weight() {
         )}
       </ScrollView>
 
-      <Modal visible={formOpen} animationType="slide" transparent onRequestClose={() => setFormOpen(false)}>
-        <View className="flex-1 justify-end bg-black/70">
-          <View className="max-h-[88%] rounded-t-2xl border-t border-border bg-ink p-5">
-            <ScrollView keyboardShouldPersistTaps="handled">
+      <FormModal visible={formOpen} onClose={() => setFormOpen(false)}>
               <Text className="mb-4 text-lg font-semibold text-fg">{t("weightTracking.add")}</Text>
 
               <View className="mb-3">
@@ -161,10 +159,7 @@ export default function Weight() {
                 <Button label={t("common.save")} onPress={save} loading={saving} />
                 <Button label={t("common.cancel")} variant="secondary" onPress={() => setFormOpen(false)} />
               </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+      </FormModal>
     </View>
   );
 }
