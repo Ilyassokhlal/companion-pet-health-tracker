@@ -148,7 +148,7 @@
       "restartTitle": "需要重启",
       "restartBody": "阿拉伯语会改变布局方向。Companion 需要重启才能应用。",
       "restartNow": "重启",
-      "note": "所有数据均以公制存储。此设置只改变显示和输入方式。",
+      "note": "所有数据均以公制存储。此设置只改变显示和输入方式。"
     },
     "reminders": {
       "title": "提醒",

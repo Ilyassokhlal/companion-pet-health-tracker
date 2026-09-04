@@ -148,7 +148,7 @@
       "restartTitle": "Es necesario reiniciar",
       "restartBody": "El árabe cambia la dirección del diseño. Companion debe reiniciarse para aplicarlo.",
       "restartNow": "Reiniciar",
-      "note": "Todos los datos se guardan en sistema métrico. Este ajuste solo cambia cómo se muestran y se introducen.",
+      "note": "Todos los datos se guardan en sistema métrico. Este ajuste solo cambia cómo se muestran y se introducen."
     },
     "reminders": {
       "title": "Recordatorios",

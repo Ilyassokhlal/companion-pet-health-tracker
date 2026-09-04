@@ -148,7 +148,7 @@
       "restartTitle": "Neustart erforderlich",
       "restartBody": "Arabisch ändert die Layoutrichtung. Companion muss neu starten, um sie anzuwenden.",
       "restartNow": "Neu starten",
-      "note": "Alle Daten werden metrisch gespeichert. Diese Einstellung ändert nur ihre Anzeige und Eingabe.",
+      "note": "Alle Daten werden metrisch gespeichert. Diese Einstellung ändert nur ihre Anzeige und Eingabe."
     },
     "reminders": {
       "title": "Erinnerungen",

@@ -148,7 +148,7 @@
       "restartTitle": "Restart required",
       "restartBody": "Arabic changes the layout direction. Companion needs to restart to apply it.",
       "restartNow": "Restart",
-      "note": "All data is stored in metric. This setting only changes how it is shown and entered.",
+      "note": "All data is stored in metric. This setting only changes how it is shown and entered."
     },
     "reminders": {
       "title": "Reminders",

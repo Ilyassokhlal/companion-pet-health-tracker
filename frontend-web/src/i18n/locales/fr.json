@@ -148,7 +148,7 @@
       "restartTitle": "Redémarrage nécessaire",
       "restartBody": "L'arabe change le sens de la mise en page. Companion doit redémarrer pour l'appliquer.",
       "restartNow": "Redémarrer",
-      "note": "Toutes les données sont stockées en système métrique. Ce réglage ne change que leur affichage et leur saisie.",
+      "note": "Toutes les données sont stockées en système métrique. Ce réglage ne change que leur affichage et leur saisie."
     },
     "reminders": {
       "title": "Rappels",
