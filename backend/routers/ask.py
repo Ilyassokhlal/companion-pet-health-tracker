@@ -26,8 +26,11 @@ def ingest_corpus(current_user: User = Depends(get_current_user)):
     return rag.ingest()
 
 def _gate_query(question: str, pet) -> str:
-    """Query used to decide whether the question is in scope at all."""
-    return re.sub(rf"\b{re.escape(pet.name)}\b", pet.species, question, flags=re.IGNORECASE)
+    """Query used to decide whether the question is in scope at all.
+
+    Replace the pet's name with its species to ensure proper context matching in retrieval queries."""
+    pattern = rf"\b{re.escape(pet.name)}\b" if pet.name.isascii() else re.escape(pet.name)
+    return re.sub(pattern, pet.species, question, flags=re.IGNORECASE)
 
 
 def _retrieval_query(question: str, pet) -> str:
@@ -180,6 +183,9 @@ def ask(
 
     # Determine if the question is in scope and retrieve relevant chunks from ChromaDB
     retrieval_question = _with_context(question, history)
+    # Swap the pet's name for its species before translation to ensure proper context matching. This helps the retrieval system understand the question in the context of the pet's species rather than its specific name.
+    # This ensures that the retrieval query is aligned with the pet's species context rather than its specific name.
+    retrieval_question = _gate_query(retrieval_question, pet)
     # The corpus is English and MiniLM is English-trained, so a non-English question has to be rendered in English
     # before it is measured against the threshold. The prompt below still receives the question exactly as the user typed it.
     retrieval_question = rag.translate_to_english(retrieval_question, current_user.language)
