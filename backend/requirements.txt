@@ -19,3 +19,6 @@ resend==2.35.0
 APScheduler==3.11.3
 tzdata==2026.1
 fpdf2==2.8.8
+onnxruntime==1.29.0
+tokenizers==0.23.1
+numpy==2.4.6

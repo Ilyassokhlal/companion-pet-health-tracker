@@ -4,12 +4,16 @@ import re
 import anthropic
 import chromadb
 from config import settings
+from embeddings import E5EmbeddingFunction
 from pydantic import BaseModel
 from utils.exceptions import InternalException, ServiceUnavailableException
 
 # ChromaDB setup
 client = chromadb.PersistentClient(path=settings.CHROMA_PATH)
-collection = client.get_or_create_collection(settings.COLLECTION_NAME)
+collection = client.get_or_create_collection(
+    settings.COLLECTION_NAME,
+    embedding_function=E5EmbeddingFunction(),
+)
 
 # Claude API client — reads ANTHROPIC_API_KEY from the environment
 claude = anthropic.Anthropic()
@@ -49,7 +53,7 @@ Rules:
 9. Keep the answer under 150 words.
 """
 
-# Claude needs the language spelled out; the app stores ISO codes.
+# Claude needs the language spelled out. This dictionary maps ISO codes to full language names.
 LANGUAGE_NAMES = {
     "en": "English",
     "fr": "French",

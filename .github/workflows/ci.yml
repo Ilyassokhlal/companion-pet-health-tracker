@@ -35,10 +35,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download the E5 embedding model
+        run: |
+          mkdir -p "$RUNNER_TEMP/e5-small"
+          curl -fsSL -o "$RUNNER_TEMP/e5-small/model.onnx" "https://huggingface.co/intfloat/multilingual-e5-small/resolve/614241f622f53c4eeff9890bdc4f31cfecc418b3/onnx/model.onnx"
+          curl -fsSL -o "$RUNNER_TEMP/e5-small/tokenizer.json" "https://huggingface.co/intfloat/multilingual-e5-small/resolve/614241f622f53c4eeff9890bdc4f31cfecc418b3/onnx/tokenizer.json"
+
       - name: Run tests
         working-directory: backend
         env:
           TEST_DATABASE_URL: postgresql+psycopg://companion:companion@localhost:5432/companion_test
+          EMBEDDING_MODEL_DIR: ${{ runner.temp }}/e5-small
         run: python -m pytest tests/ -v
 
   lint:
