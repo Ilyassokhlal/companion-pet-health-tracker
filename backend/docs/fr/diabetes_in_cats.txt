@@ -1,0 +1,47 @@
+Diabète félin
+Le diabète félin est un trouble endocrinien qui entraîne une hyperglycémie. La grande majorité des chats diabétiques sont touchés par le diabète de type 2, provoqué par un manque de production d'insuline par les cellules β des îlots de Langerhans. La prise en charge consiste en une alimentation diététique adaptée et un traitement à base d'insuline.
+
+Diabète félin - Épidémiologie
+Selon l'étude de Prahl et al., le diabète touche 1 chat sur 80.
+
+Diabète félin - Épidémiologie
+Selon Ohlund et al., l'âge médian de l'animal lors du diagnostic est de 10,7 ans et l'âge médian de la population à risque est de 5,5 ans. Le Burmese, le Bleu russe, le Norvégien, l'European shorthair et l'abyssin sont des races prédisposées. Le risque augmente avec l'âge avant de diminuer.
+
+Diabète félin - Étiologie
+L'obésité est un facteur de risque de survenue de diabète chez le chat, car il favorise l'insulino-résistance. L'hyperthyroïdie, les infections urinaires et l'insuffisance rénale chronique sont également des facteurs favorisants. Plusieurs affections peuvent provoquer un diabète : pancréatite, acromégalie, maladie de Cushing.
+
+Diabète félin - Physiologie
+Trois types de diabète existent chez le chat. Le diabète de type 1 ou insulino-dépendant ou diabète juvénile désigne l'absence totale de production d'insuline par le pancréas dès la naissance et peut évoluer vers un diabète de type 2. Le diabète de type 2 ou diabète gras ou diabète insulinorésistant est le plus courant chez le chat. Il se traduit par une absence de réponse à l'insuline de la part des cellules ou d'une activité réduite de l'insuline. Il s'accompagne d'une insulinémie normale ou supérieure. Le diabète de type 2 peut évoluer en diabète de type 1 si une amylose se développe, provoquant une destruction des îlots de Langerhans.
+
+Diabète félin - Symptômes
+Les symptômes deviennent apparents lorsque le taux de glucose dans le sang atteint 2,8 g/l ou 16 mmol/l, ce qui correspond au taux de réabsorption rénale du glucose. Le chat boit et urine davantage (polyurie-polydipsie), a tendance à davantage manger (polyphagie, hyperphagie) tout en maigrissant. Une hépatomégalie peut aussi être observée. Sa glycémie est supérieure à 1,8 à 2,8 g/l et il présente aussi une glycosurie.
+
+Diabète félin - Symptômes
+Le chat peut devenir plantigrade lorsque l'hyperglycémie entraîne une neuropathie périphérique.
+
+Diabète félin - Diagnostic
+Le diagnostic se base sur les signes cliniques, et le dosage du glucose dans le sang et les urines. Il faut veiller à ne pas provoquer du stress chez l'animal, ce qui peut causer une élévation de la glycémie à cause du stress. Il est possible de réaliser un dosage de fructosamine pour mettre en évidence une hyperglycémie de stress. Un dosage de l'hormone T4 et un autre de d'IGF-1 sont également possibles.
+
+Diabète félin - Diagnostic
+Il est recommandé de réaliser un bilan complet afin de mesure l'évolution de la maladie par la suite.
+
+Diabète félin - Prise en charge
+L'objectif de la prise en charge n'est pas de restaurer une glycémie normale mais d'éviter les manifestations du diabète et leurs conséquences délétères sur les organes. La rémission survient dans une partie des cas. La prise en charge est rigoureuse et englobe alimentation spécifique, insulinothérapie et suivi vétérinaire fréquent notamment pendant l'établissement du traitement.
+
+Diabète félin - Alimentation
+Le régime du chat diabétique doit être riche en protéines et pauvre en glucides, ce qui permet une diminution de l'hyperglycémie après les repas. L'alimentation doit être de préférence pauvre en sucres et en amidon pour l'alimentation sèche, et l'alimentation humide est à privilégier. Le premier objectif est l'amaigrissement lent et progressif du chat lorsqu'il est obèse. Selon Géraldine Blanchard, un aliment à la densité calorique élevée et moins riche en fibres doit être privilégié si l'animal est maigre, alors que chez un animal en surpoids, l'aliment sera riche en fibres et en protéines. L'animal doit être nourri en plusieurs fois dans la journée et la quantité d'aliment doit être contrôlée.
+
+Diabète félin - Traitement médicamenteux
+Le traitement consiste en une insulinothérapie. Au début du traitement, plusieurs semaines sont nécessaires pour établir un nouvel équilibre et stabiliser l'animal. Administrée une à deux fois par jour, la dose dépend de l'animal et doit être ajustée régulièrement. Un surdosage d'insuline est susceptible d'entraîner une hypoglycémie, ce qui nécessite de diminuer la dose d'un tiers, tandis qu'une absence d'effet peut conduit à augmenter la dose, sans dépasser 1 UI / kg d'animal. Chaque changement de dosage de l'insuline ne peut être évalué qu'au bout de deux à trois semaines de traitement.
+
+Diabète félin - Traitement médicamenteux
+Les antidiabétiques oraux existent : sulfonylurées, biguanines, thiazolidinediones, rimonabant. Certains présentent des effets indésirables, ont une efficacité limitée ou ont été retirés du marché en France.
+
+Diabète félin - Traitement médicamenteux
+En 2023, la Food and Drug Administration autorise la mise sur le marché d'un médicament oral à base de bexagliflozine servant à améliorer le contrôle glycémique chez les chats atteints de diabète sucré. Ce traitement est uniquement destiné aux chats n'ayant pas déjà été traités par insuline.
+
+Diabète félin - Suivi et évolution
+Après quinze jours de traitement, il est possible de faire un examen clinique et une mesure de la glycémie pour évaluer l'effet et l'évolution du diabète. La rémission peut survenir dans les six premiers mois de traitement lorsque la glycémie est rapidement contrôlée et semble plus courante lorsque le chat est âgé ou a reçu un traitement à base de glucocorticoïdes. Il est alors possible de diminuer graduellement le traitement à base d'insuline, tout en conservant l'alimentation spécifique. La récidive est cependant possible. Les autres chats doivent bénéficier d'un traitement à vie.
+
+Diabète félin - Prévention
+La prévention passe essentiellement par éviter l'obésité chez l'animal ; un suivi du poids et une sensibilisation du propriétaire au diabète par l'équipe vétérinaire est donc nécessaire.

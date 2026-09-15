@@ -1,0 +1,113 @@
+Leptospirose
+Les leptospiroses sont des maladies infectieuses, de gravité variable, dues à des bactéries du genre Leptospira, ordre des spirochètes.
+
+Leptospirose
+Ce sont des anthropozoonoses, c'est-à-dire des maladies communes aux humains et aux animaux (mammifères). Les réservoirs principaux sont les rongeurs sauvages (porteurs sains), puis les chiens et les animaux de rente (porc, chevaux, bovins...). Ces animaux excrètent les bactéries pathogènes dans leur urine qui contamine le sol et les eaux, source directe ou indirecte des infections humaines (activités en eaux douces ou usées). Il n'existe pas de transmission interhumaine.
+
+Leptospirose
+La maladie se retrouve partout dans le monde, plus souvent en zone tropicale humide. En France métropolitaine, elle est relativement peu fréquente chez les humains (autour de 0,5 cas par cent mille habitants et par an), alors qu'en France d'outre-mer elle est beaucoup plus fréquente (jusqu'à 150 cas par cent mille habitants en Nouvelle-Calédonie).
+
+Leptospirose
+La grande variété des signes cliniques, la diversité des organes touchés, l'absence ou la lenteur de biologie spécifique rendent le diagnostic difficile. Il existe un traitement antibiotique efficace, y compris sur les formes graves. La vaccination des humains n'est recommandée que pour des risques professionnels, au cas par cas. Chez le chien, la vaccination contre la leptospirose fait en revanche partie des principales recommandées.
+
+Leptospirose - Réservoirs
+En 1915, le japonais Miyajima retrouve le leptospire d'Inada et Ido chez le rat, qui est alors considéré comme le réservoir des leptospires. Après la Première Guerre mondiale, en Europe, 40 % des reins du rat gris Rattus norvegicus sont porteurs de leptospires virulents pour l'homme, seuls 8 % du rat noir Rattus rattus en portaient. Les petits rongeurs apparaissent comme des porteurs sains. Des études montrent qu'ils représentent 30 à 40 % de la population des rongeurs des villes ou des champs : au Japon, 39,5 % des campagnols Microtus montebelli , en Grande-Bretagne jusqu'à 41 % des rats, de même en Australie, avec le rat indigène Rattus culmorum.
+
+Leptospirose - Réservoirs
+En 1931, Klarenbeek découvre L. canicola chez le chien. De proche en proche, en étudiant des cas humains, on découvre de nouvelles contaminations par de nouveaux variants de leptospire et de nouveaux réservoirs : porc, bœuf, renard.., et on a d'abord cru que chaque leptospire avait son propre réservoir. En fait, certains leptospires sont plus fréquemment associés à une espèce animale particulière, mais toutes les espèces de mammifères peuvent être infectées par tout leptospire pathogène.
+
+Leptospirose - Réservoirs
+Le réservoir des Leptospira est principalement le rat et les rongeurs sauvages, puis le chien et le porc. De nombreux autres mammifères peuvent être porteurs : ragondins, furets, renards, chevaux, bovins, porcins, chats. Les rats sont le réservoir préférentiel de L. Icterohaemorrhagiae, les souris (Mus musculus) de L. Ballum, les campagnols de L. Grippotyphosa... les chauves-souris de L. Cynopteri et L. wollfi. Généralement, les animaux infectés sont des porteurs sains qui hébergent des leptospires dans leurs tubules rénaux. Durant leur vie entière, ces animaux éliminent des leptospires dans leurs urines en contaminant le sol et l'eau.
+
+Leptospirose - Leptospirose animale
+Chez les animaux domestiques, le chien et le porc sont les plus sensibles, ils peuvent être porteurs ou malades, et transmettre indirectement la maladie à l'homme, comme la fièvre des porchers (L. Pomona).
+
+Leptospirose - Leptospirose animale
+L'homme et ses animaux domestiques apparaissent comme des hôtes accidentels, venant s'interposer dans un cycle sauvage naturel leptospires-micromammifères-sols humides.
+
+Leptospirose - Leptospirose animale
+Outre la transmission environnementale comme chez l'homme, il existe chez l'animal d'autres modes de transmission possibles : in utero (de la mère au fœtus), sexuelle, allaitement maternel.
+
+Leptospirose - Leptospirose canine
+Elle est due classiquement à Leptospira canicola, mais aussi à L. interrogans icterohæemorrhagiæ, L. Australis, L. pomona, L. grippotyphosa... Les chiens s'infectent par voie cutanée ou muqueuse à partir de l'urine fraîchement émise par un autre chien.
+
+Leptospirose - Leptospirose canine
+Le chien malade présente rapidement une fièvre accompagnée de violents vomissements, sous deux formes :
+
+Leptospirose - Leptospirose canine
+Dans la maladie de Stuttgart (typhus du chien ou gastro-entérite hémorragique), la fièvre est sévère, avec prostration intense, suivie de signes hémorragiques. En l'absence de traitement, le chien meurt dans les 24 heures.
+
+Leptospirose - Leptospirose canine
+Dans la maladie de Weil (forme ictéro-hémorragique, comme chez l'homme), la fièvre et l'abattement sont moins violents, mais les vomissements restent incessants. Après quelques jours, une atteinte hépatique se manifeste par un ictère flamboyant (jaunisse intense) suivi par des troubles hémorragiques et rénaux. À partir de là, le chien succombe en trois à six jours.
+
+Leptospirose - Leptospirose canine
+Chez les chiens survivants, la maladie évolue vers des formes subaiguës ou chroniques (atteintes hépatiques ou rénales). Il existe aussi des formes moins fréquentes (atteintes pulmonaires, oculaires, nerveuses, musculaires...). Ces chiens, guéris ou pas, peuvent continuer d'excréter des leptospires dans les urines de façon prolongée (des mois à des années).
+
+Leptospirose - Leptospirose canine
+Il existe un vaccin vétérinaire, très utilisé pour les chiens, dirigé contre L. canicola et L. icterohæmorrhagiæ. Toutefois cette vaccination n'empêche pas l'état de porteur sain, et ne protège pas forcément contre les autres leptospiroses. Elle se fait annuellement chez le chien, voire tous les 6 mois chez les chiens exposés. Ce vaccin peut être associé à d'autres : du bivalent (leptospirose et rage) jusqu'à l'hexavalent (contre 6 maladies du chien). De nouveaux vaccins protègent contre jusqu'à quatre sérogroupes : L. interrogans canicola, L. interrogans icterohaemorrhagiae, L. interrogans australis et L. kirscheneri grippotyphosa.
+
+Leptospirose - Autres
+Chez les bovins et les ovins la leptospirose peut entrainer des pertes économiques pour l'éleveur (troubles de la reproduction du bétail, baisse de production de lait...). En France, une étude de 2014 montre que les sérovars les plus fréquents à cette date, chez les chiens et les bovins, sont L. Australis et L. Grippotyphosa. Les moutons sont le réservoir préférentiel de L. hardjo et L. Pomona.
+
+Leptospirose - Autres
+Chez les chevaux, la leptospirose se manifeste par des complications oculaires (inflammations).
+
+Leptospirose - Prévention
+En France, la leptospirose est reconnue au tableau des maladies professionnelles (no 19A régime général, no 5 régime agricole), pour les personnes travaillant dans les cadres suivants :
+
+Leptospirose - Prévention
+curage et/ou entretien de canaux, étangs, lacs, rivières, voies navigables, berges ;
+
+Leptospirose - Prévention
+travail dans les égouts, sur certains postes exposés des stations d'épuration ;
+
+Leptospirose - Prévention
+certaines activités en eaux douces (pêcheurs et plongeurs professionnels, gardes-pêche) ;
+
+Leptospirose - Mesures générales et individuelles
+La prévention générale repose sur les campagnes de dératisation.
+
+Leptospirose - Mesures générales et individuelles
+Les recommandations individuelles sont l'évitement du contact de plaies cutanées avec l'eau, la protection par combinaisons, gants, bottes et lunettes.
+
+Leptospirose - Mesures générales et individuelles
+Dans des situations particulières à haut risque d'exposition sur une courte période (compétition sportive en eau douce, rafteurs, randonneurs en rizières, secouristes en zone d'inondation ou de tremblement de terre, militaires en mission...), une antibiothérapie prophylactique peut être proposée.
+
+Leptospirose - Mesures générales et individuelles
+Pour les activités de loisirs habituelles en eau douce (baignade, pêche, sports nautiques...) les mesures préventives individuelles semblent illusoires (inapplicables). Seule l'information du grand public sur les risques et la maladie, permettrait une prise en charge médicalisée plus précoce des cas déclarés.
+
+Leptospirose - France
+Le vaccin disponible en France a été mis au point au cours des années 1970 par l'Institut Pasteur à la demande des délégués du personnel des égouts de Paris (29 cas et 3 décès par leptospirose de 1951 à 1979 chez les égoutiers de Paris). Il s'agit du spirolept, suspension de 200 millions d'unités de leptospires (L. interrogans sérovar icterohæmorrhagiæ) inactivés par le formol. Il ne protège que contre ce sérotype qui représente les formes les plus graves de la maladie, et 25-30 % (France métropolitaine) à 40-50 % (France outre-mer) des leptospiroses.
+
+Leptospirose - France
+Son efficacité est bonne, mais de courte durée (2 ans). Le schéma vaccinal est 2 injections à 15 jours d'intervalle, un rappel 4 à 6 mois plus tard, puis tous les 2 ans si l'exposition persiste. C'est un vaccin injectable par voie sous-cutanée (injection lente). Il n'existe pas de données pour les enfants et les femmes enceintes (utilisation déconseillée pendant la grossesse).
+
+Leptospirose - France
+Cette vaccination est proposée par le médecin du travail, au cas par cas, après évaluation individualisée du risque. Cette proposition se fait après mise en œuvre des autres mesures de prévention, informations sur les comportements à risques, la maladie et le vaccin.
+
+Leptospirose - France
+Dans le calendrier vaccinal 2025 (France, ministère de la Santé), cette vaccination peut être proposée aussi en population générale pratiquant de façon régulière et durable des loisirs à risques (activités en eau douce et sports de nature en milieu humide).
+
+Leptospirose - Médecine vétérinaire
+Dans les années 2020, les chiens sont généralement vaccinés contre quatre sérogroupes :
+
+Leptospirose - Médecine vétérinaire
+L. interrogans sérogroupe Icterohaemorrhagiae, sérovar Icterohaemorrhagiae ou Copenhageni ;
+
+Leptospirose - Médecine vétérinaire
+L. interrogans sérogroupe Australis, sérovar Australis ou Bratislava ;
+
+Leptospirose - Médecine vétérinaire
+L. kirschneri sérogroupe Grippotyphosa, sérovar Grippotyphosa ou Bananal/Lianguang.
+
+Leptospirose
+Le cadre One Health, ou « Une seule santé », souligne la collaboration interdisciplinaire entre les professionnels de santé, les vétérinaires, les spécialistes des sciences de l’environnement et les décideurs afin d’améliorer la prévention et la réponse aux flambées épidémiques.
+
+Leptospirose - Transmission
+Les bactéries du genre Leptospira se rencontrent principalement chez les mammifères, mais l’infection a également été mise en évidence chez des animaux à sang froid tels que les grenouilles, serpents, tortues et crapauds. On ignore s’il existe des réservoirs d’infection humaine. Les rats, les souris et les taupes sont d’importants hôtes primaires, mais d’autres mammifères — notamment les chiens, cerfs, lapins, hérissons, bovins, moutons, porcs, ratons laveurs, opossums et mouffettes — peuvent aussi être porteurs de la maladie. En Afrique, divers hôtes sauvages ont été identifiés comme porteurs, dont la mangouste rayée, le renard d’Égypte, le cerf rusa et les musaraignes. On connaît divers mécanismes permettant aux animaux de se contaminer entre eux. Les chiens peuvent lécher, sur l’herbe ou le sol, l’urine d’un animal infecté, ou boire dans une flaque contaminée. Des chiens domestiques vivant exclusivement à l’intérieur ont contracté la leptospirose, apparemment après avoir léché l’urine de souris infectées dans la maison. La leptospirose peut aussi se transmettre par le sperme d’animaux infectés. Les bactéries peuvent être constamment présentes dans l’urine animale et y persister pendant des années.
+
+Leptospirose - Autres animaux
+Les animaux présentent également des manifestations cliniques semblables à celles de l’humain. Chez le chien, les signes cliniques peuvent apparaître dans les 5 à 15 jours. La période d’incubation peut être prolongée chez le chat. Chez les bovins, la leptospirose peut provoquer des avortements après 2 à 12 semaines, et chez les porcs après 1 à 4 semaines d’infection. La maladie tend à être plus bénigne chez les hôtes réservoirs. Les organes le plus souvent touchés sont les reins, le foie et l’appareil reproducteur, mais d’autres organes peuvent l’être. Chez le chien, les signes cliniques aigus comprennent la fièvre, la perte d’appétit, les frissons, les douleurs musculaires, la faiblesse et des symptômes urinaires. Vomissements, diarrhée et douleurs abdominales peuvent aussi être présents. Des pétéchies et des ecchymoses peuvent s’observer sur les muqueuses. Une hémorragie pulmonaire peut également être observée chez le chien. Dans les formes chroniques, le chien atteint peut ne présenter aucun symptôme. Chez les animaux morts de leptospirose, les reins peuvent être tuméfiés, ponctués de taches grises et blanches, marbrés ou cicatriciels. Le foie peut être augmenté de volume et comporter des zones de nécrose cellulaire. Des pétéchies et des ecchymoses peuvent se retrouver dans divers organes. Une inflammation des vaisseaux sanguins, une inflammation du cœur, des méninges qui recouvrent le cerveau et la moelle épinière, ainsi qu’une uvéite sont également possibles. L’uvéite récidivante équine (URE ; ERU) est la maladie la plus fréquemment associée à l’infection par Leptospira chez le cheval en Amérique du Nord et peut entraîner la cécité. L’URE est une maladie auto-immune dans laquelle des anticorps dirigés contre les protéines LruA et LruB de Leptospira réagissent de façon croisée avec des protéines de l’œil. Des leptospires vivantes peuvent être isolées de l’humeur aqueuse ou du corps vitré de nombreux chevaux atteints d’URE associée à Leptospira. Le risque de décès ou d’invalidité chez les animaux infectés varie selon l’espèce et l’âge. Chez les porcs et bovins adultes, les signes reproducteurs sont les manifestations les plus fréquentes de leptospirose. Jusqu’à 40 % des vaches peuvent avorter spontanément. Les animaux plus jeunes développent généralement une maladie plus grave. Environ 80 % des chiens peuvent survivre avec un traitement, mais le taux de survie diminue si les poumons sont atteints.
+
+Leptospirose - Autres animaux
+Des vaccins contre la leptospirose sont disponibles pour des animaux tels que les porcs, les chiens, les bovins, les moutons et les chèvres. Les vaccins destinés aux bovins contiennent généralement les sérovars Hardjo et Pomona de Leptospira ; chez le chien, ils contiennent généralement les sérovars Icterohaemorrhagiae et Canicola. Les vaccins contenant plusieurs sérovars sont moins efficaces chez les bovins que ceux contenant un seul sérovar, mais les vaccins multivalents continuent d’être commercialisés. L’isolement des animaux infectés et les antibiotiques prophylactiques sont également efficaces pour prévenir la transmission de la leptospirose entre animaux. La maîtrise de l’environnement et l’assainissement réduisent aussi les taux de transmission.

@@ -1,0 +1,56 @@
+# Атрибуция корпуса
+
+Все документы этого корпуса взяты из русской Википедии и распространяются по
+лицензии CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+Текст получен через API MediaWiki, очищен от разметки и переформатирован так,
+чтобы каждому абзацу предшествовали название статьи и её раздела.
+Оставлены только разделы, относящиеся к здоровью животных.
+
+Некоторых тем в русской Википедии нет вовсе. Для них текст статьи английской Википедии
+переведён на русский; он по-прежнему атрибутирован исходной английской статье, ссылка
+на которую приведена ниже, и распространяется по той же лицензии. Так ассистент может
+отвечать на одни и те же вопросы на любом языке.
+
+По той же причине каждый файл, у которого есть английский аналог, содержит вслед за
+русским текстом полный перевод на русский соответствующего английского текста,
+атрибутированный исходной английской статье. Весь корпус на русском, и ничего из
+английской версии не потеряно.
+
+| Файл | Статья-источник |
+|---|---|
+| `aging_in_dogs.txt` | [Собака](https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0) + [Aging in dogs](https://en.wikipedia.org/wiki/Aging_in_dogs) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `canine_distemper.txt` | [Чума собак](https://ru.wikipedia.org/wiki/%D0%A7%D1%83%D0%BC%D0%B0_%D1%81%D0%BE%D0%B1%D0%B0%D0%BA) + [Canine distemper](https://en.wikipedia.org/wiki/Canine_distemper) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `canine_hip_dysplasia.txt` | [Дисплазия тазобедренного сустава](https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D1%81%D0%BF%D0%BB%D0%B0%D0%B7%D0%B8%D1%8F_%D1%82%D0%B0%D0%B7%D0%BE%D0%B1%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE_%D1%81%D1%83%D1%81%D1%82%D0%B0%D0%B2%D0%B0) + [Canine hip dysplasia](https://en.wikipedia.org/wiki/Canine_hip_dysplasia) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `canine_influenza.txt` | [Собачий грипп](https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B1%D0%B0%D1%87%D0%B8%D0%B9_%D0%B3%D1%80%D0%B8%D0%BF%D0%BF) + [Canine influenza](https://en.wikipedia.org/wiki/Canine_influenza) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `carnivore_protoparvovirus_1.txt` | [Панлейкопения](https://ru.wikipedia.org/wiki/%D0%9F%D0%B0%D0%BD%D0%BB%D0%B5%D0%B9%D0%BA%D0%BE%D0%BF%D0%B5%D0%BD%D0%B8%D1%8F) + [Carnivore protoparvovirus 1](https://en.wikipedia.org/wiki/Carnivore_protoparvovirus_1) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `cat_behavior.txt` | [Поведение кошки](https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BE%D1%88%D0%BA%D0%B8) + [Cat behavior](https://en.wikipedia.org/wiki/Cat_behavior) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `cat_food.txt` | [Кошачий корм](https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%88%D0%B0%D1%87%D0%B8%D0%B9_%D0%BA%D0%BE%D1%80%D0%BC) + [Cat food](https://en.wikipedia.org/wiki/Cat_food) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `cat_health.txt` | [Кошка](https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%88%D0%BA%D0%B0) + [Cat health](https://en.wikipedia.org/wiki/Cat_health) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `dermatophytosis.txt` | [Трихофития](https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B8%D1%85%D0%BE%D1%84%D0%B8%D1%82%D0%B8%D1%8F) + [Dermatophytosis](https://en.wikipedia.org/wiki/Dermatophytosis) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `diabetes_in_cats.txt` | [Сахарный диабет у кошек](https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D1%85%D0%B0%D1%80%D0%BD%D1%8B%D0%B9_%D0%B4%D0%B8%D0%B0%D0%B1%D0%B5%D1%82_%D1%83_%D0%BA%D0%BE%D1%88%D0%B5%D0%BA) |
+| `dirofilaria_immitis.txt` | [Dirofilaria immitis](https://ru.wikipedia.org/wiki/Dirofilaria_immitis) + [Dirofilaria immitis](https://en.wikipedia.org/wiki/Dirofilaria_immitis) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `dog_behavior.txt` | [Собака](https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0) + [Dog behavior](https://en.wikipedia.org/wiki/Dog_behavior) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `dog_food.txt` | [Собачий корм](https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B1%D0%B0%D1%87%D0%B8%D0%B9_%D0%BA%D0%BE%D1%80%D0%BC) + [Dog food](https://en.wikipedia.org/wiki/Dog_food) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `dog_health.txt` | [Болезни собак](https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D0%B8_%D1%81%D0%BE%D0%B1%D0%B0%D0%BA) + [Dog health](https://en.wikipedia.org/wiki/Dog_health) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `feline_calicivirus.txt` | [Калицивироз](https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%BB%D0%B8%D1%86%D0%B8%D0%B2%D0%B8%D1%80%D0%BE%D0%B7) + [Feline calicivirus](https://en.wikipedia.org/wiki/Feline_calicivirus) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `feline_immunodeficiency_virus.txt` | [Вирус иммунодефицита кошек](https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D1%80%D1%83%D1%81_%D0%B8%D0%BC%D0%BC%D1%83%D0%BD%D0%BE%D0%B4%D0%B5%D1%84%D0%B8%D1%86%D0%B8%D1%82%D0%B0_%D0%BA%D0%BE%D1%88%D0%B5%D0%BA) + [Feline immunodeficiency virus](https://en.wikipedia.org/wiki/Feline_immunodeficiency_virus) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `feline_leukemia_virus.txt` | [Вирус лейкоза кошачьих](https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D1%80%D1%83%D1%81_%D0%BB%D0%B5%D0%B9%D0%BA%D0%BE%D0%B7%D0%B0_%D0%BA%D0%BE%D1%88%D0%B0%D1%87%D1%8C%D0%B8%D1%85) + [Feline leukemia virus](https://en.wikipedia.org/wiki/Feline_leukemia_virus) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `feline_lower_urinary_tract_disease.txt` | [Мочекаменная болезнь кошек](https://ru.wikipedia.org/wiki/%D0%9C%D0%BE%D1%87%D0%B5%D0%BA%D0%B0%D0%BC%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D0%B1%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8C_%D0%BA%D0%BE%D1%88%D0%B5%D0%BA) + [Feline lower urinary tract disease](https://en.wikipedia.org/wiki/Feline_lower_urinary_tract_disease) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `flea.txt` | [Блохи](https://ru.wikipedia.org/wiki/%D0%91%D0%BB%D0%BE%D1%85%D0%B8) + [Flea](https://en.wikipedia.org/wiki/Flea) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `hyperthyroidism.txt` | [Гипертиреоз](https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%BF%D0%B5%D1%80%D1%82%D0%B8%D1%80%D0%B5%D0%BE%D0%B7) + [Hyperthyroidism](https://en.wikipedia.org/wiki/Hyperthyroidism) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `kitten.txt` | [Котёнок](https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%82%D1%91%D0%BD%D0%BE%D0%BA), [Кошка](https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%88%D0%BA%D0%B0) + [Kitten](https://en.wikipedia.org/wiki/Kitten) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `leptospirosis.txt` | [Лептоспироз](https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BF%D1%82%D0%BE%D1%81%D0%BF%D0%B8%D1%80%D0%BE%D0%B7) + [Leptospirosis](https://en.wikipedia.org/wiki/Leptospirosis) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `neutering.txt` | [Кастрация](https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F) + [Neutering](https://en.wikipedia.org/wiki/Neutering) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `obesity_in_pets.txt` | [Ожирение у домашних животных](https://ru.wikipedia.org/wiki/%D0%9E%D0%B6%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D1%83_%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D1%85_%D0%B6%D0%B8%D0%B2%D0%BE%D1%82%D0%BD%D1%8B%D1%85) + [Obesity in pets](https://en.wikipedia.org/wiki/Obesity_in_pets) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `puppy.txt` | [Собака](https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0) + [Puppy](https://en.wikipedia.org/wiki/Puppy) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `rabies.txt` | [Бешенство](https://ru.wikipedia.org/wiki/%D0%91%D0%B5%D1%88%D0%B5%D0%BD%D1%81%D1%82%D0%B2%D0%BE) + [Rabies](https://en.wikipedia.org/wiki/Rabies) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `rabies_vaccine.txt` | [Вакцина против вируса бешенства](https://ru.wikipedia.org/wiki/%D0%92%D0%B0%D0%BA%D1%86%D0%B8%D0%BD%D0%B0_%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2_%D0%B2%D0%B8%D1%80%D1%83%D1%81%D0%B0_%D0%B1%D0%B5%D1%88%D0%B5%D0%BD%D1%81%D1%82%D0%B2%D0%B0) + [Rabies vaccine](https://en.wikipedia.org/wiki/Rabies_vaccine) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `toxocara_canis.txt` | [Токсокароз](https://ru.wikipedia.org/wiki/%D0%A2%D0%BE%D0%BA%D1%81%D0%BE%D0%BA%D0%B0%D1%80%D0%BE%D0%B7) + [Toxocara canis](https://en.wikipedia.org/wiki/Toxocara_canis) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `veterinary_medicine.txt` | [Ветеринария](https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B0%D1%80%D0%B8%D1%8F) + [Veterinary medicine](https://en.wikipedia.org/wiki/Veterinary_medicine) — дополнение, переведённое с английского, чтобы ничего из английской версии не потерялось |
+| `canine_parvovirus.txt` | [Canine parvovirus](https://en.wikipedia.org/wiki/Canine_parvovirus) — переведено с английского; в русской Википедии нет статьи о парвовирусном энтерите собак |
+| `diabetes_in_dogs.txt` | [Diabetes in dogs](https://en.wikipedia.org/wiki/Diabetes_in_dogs) — переведено с английского; по-русски описан только диабет кошек (см. diabetes_in_cats.txt) |
+| `feline_infectious_peritonitis.txt` | [Feline infectious peritonitis](https://en.wikipedia.org/wiki/Feline_infectious_peritonitis) — переведено с английского; нет русской статьи об инфекционном перитоните кошек |
+| `gastric_dilatation_volvulus.txt` | [Gastric dilatation volvulus](https://en.wikipedia.org/wiki/Gastric_dilatation_volvulus) — переведено с английского; нет русской статьи о завороте желудка у собак |
+| `kennel_cough.txt` | [Kennel cough](https://en.wikipedia.org/wiki/Kennel_cough) — переведено с английского; нет русской статьи о питомниковом кашле |
+| `vaccination_of_dogs.txt` | [Vaccination of dogs](https://en.wikipedia.org/wiki/Vaccination_of_dogs) — переведено с английского; «Вакцинация» — о вакцинации людей; в статье «Собака» нет такого раздела |
+| `veterinary_dentistry.txt` | [Veterinary dentistry](https://en.wikipedia.org/wiki/Veterinary_dentistry) — переведено с английского; нет русской статьи о ветеринарной стоматологии |

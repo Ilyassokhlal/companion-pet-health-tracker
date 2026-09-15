@@ -1,0 +1,182 @@
+Péritonite infectieuse féline
+La péritonite infectieuse féline (PIF) est une maladie infectieuse des félidés due au coronavirus félin (FCoV), dont le pronostic est presque toujours fatal sans traitement.
+
+Péritonite infectieuse féline
+La PIF est une réinfection aggravée du FCoV. Le FCoV a normalement un tropisme pour les cellules intestinales et provoque une maladie relativement bénigne.
+
+Péritonite infectieuse féline
+En présence d'anticorps facilitants, le FCoV (alors appelé FECV Feline Enteric CoronaVirus), induit une péritonite infectieuse féline et développe un tropisme pour les globules blancs macrophages où le virus se reproduit. La réponse immunitaire cause une réaction fortement inflammatoire dans les tissus environnants. L’incidence de la maladie est de 1 pour 5 000 ménages où vivent un ou deux chats[réf. nécessaire].
+
+Péritonite infectieuse féline - Transmission et infection
+La prévalence du FCoV est très importante, en particulier lorsque de nombreux chats cohabitent. La contamination se fait par ingestion (transmission féco-orale) ou inhalation. Les fèces constituent la source la plus fréquente ; des surfaces contaminées telles que la vaisselle et les tissus peuvent également être incriminés.
+
+Péritonite infectieuse féline - Transmission et infection
+La plupart des chats infectés par le FCoV ne développent aucun signe clinique, si ce n’est une diarrhée légère. Pour contracter une PIF, il faut que le chat soit réinfecté par le FCoV ou qu'il ait été vacciné contre le FCoV avec un virus inactivé ou un vaccin ciblant la seule protéine S. Si le taux d'anticorps est très élevé, les anticorps sont neutralisants. Lorsque le taux d'anticorps baisse, la balance entre anticorps neutralisants et facilitants s'inverse, et le chat risque une réinfection aggravée.
+
+Péritonite infectieuse féline - Anticorps neutralisants
+En temps normal, les anticorps contre la protéine S ou spike du virus neutralisent le FCoV. Une fois opsonisés (c'est-à-dire « enrobés ») par des anticorps, les résidus de virus sont phagocytés par des globules blancs (les macrophages) via les récepteurs Fc. Un récepteur Fc est une protéine transmembranaire présente à la surface des globules blancs.
+
+Péritonite infectieuse féline - Anticorps facilitants
+Les anticorps ciblant la séquence d’acides aminés IVGAITAVN du FCoV, située aux codons 767-776 de la protéine S, ne sont pas neutralisants mais facilitants. Une fois opsonisés par des anticorps facilitants, les FCoV non neutralisés sont absorbés par les globules blancs. Le problème est que le FCoV est un coronavirus capable de se reproduire dans les macrophages. En présence d’anticorps facilitants, le FCoV perd son tropisme intestinal et développe un tropisme pour les macrophages où il se réplique activement. Ce qui dégénère en péritonite infectieuse féline (PIF).
+
+Péritonite infectieuse féline - Anticorps facilitants
+À noter que le chat peut contracter une PIF après avoir contracté le coronavirus canin (CCoV). Les anticorps facilitants du CCoV correspondent à la séquence IVGAMTSIN située aux codons 753-762 de la protéine S. La séquence IVGAMTSIN du CCoV reconnaît la séquence IVGAITAVN du FCoV, et génère donc des anticorps facilitants chez le chat.
+
+Péritonite infectieuse féline - Anticorps facilitants
+Le risque de contracter une PIF est accru chez les chats très jeunes ou très vieux, ou encore chez les sujets immunodéprimés (atteints de leucose par exemple). Aussi, un facteur stressant, tel qu'une opération chirurgicale, peut contribuer au développement de la maladie.
+
+Péritonite infectieuse féline - Signes cliniques
+La maladie peut prendre deux formes différentes : sèche ou humide. Cette dernière, représentant 60 à 70 % des cas, connait une évolution plus rapide.
+
+Péritonite infectieuse féline - Forme sèche
+La PIF sèche se manifeste par un manque d’appétit accompagné de fièvre et d’un ictère. Le chat présente généralement des signes oculaires ou neurologiques. Il peut par exemple montrer des difficultés à marcher et se tenir debout, ou encore devenir aveugle.
+
+Péritonite infectieuse féline - Forme sèche
+Les symptômes neurologiques se présentent dans la forme sèche ou humide[réf. nécessaire] lorsque le virus traverse la barrière hémato-encéphalique. À partir de ce moment, la maladie évolue rapidement. Le félin perd petit à petit sa motricité, provoquant au départ une asthénie, puis, une paralysie. En ce cas, le tractus intestinal pourrait être ralenti au début, puis absent. Si la paralysie apparaît, on observe d'abord une constipation puis rapidement, l'incapacité à déféquer. Idem pour le système urinaire, on peut observer une rétention d'urine et un globe vésical au niveau de la vessie. Dans les deux cas, le chat cesse d'aller dans sa litière car il ne ressent plus l'envie d’uriner.
+
+Péritonite infectieuse féline - Forme sèche
+En résumé, les symptômes intestinaux et urinaires peuvent être confondus avec d'autres maladies félines mais lorsqu'ils sont accompagnés de plusieurs signes cliniques neurologiques, ils peuvent contribuer à poser le diagnostic.
+
+Péritonite infectieuse féline - Forme humide
+La PIF humide est caractérisée par l’accumulation de liquide dans les cavités : abdomen (ascite) ou thorax (épanchement pleural). L'accumulation de liquide peut causer des difficultés respiratoires (dyspnée). Comme pour la forme sèche, le sujet perd l’appétit et développe fièvre et ictère. L'amaigrissement est fréquent.
+
+Péritonite infectieuse féline - Diagnostic
+Les symptômes de la PIF ne sont pas circonscrits à cette maladie, ce qui peut rendre le diagnostic malaisé. Pour la forme sèche, une hyperglobunémie polyclonale associée à une anémie non régénérative peuvent orienter le diagnostic. Une sérologie positive au coronavirus n'est pas indicative de la maladie. La forme humide se manifeste par la présence d'un épanchement pleural ou abdominal caractéristique : exsudat aseptique de couleur jaune citrin présentant un taux protéique supérieur à 25 g/L et une densité supérieure à 1,025. Le diagnostic peut être confirmé post-mortem par une analyse histologique des tissus biologiques.
+
+Péritonite infectieuse féline - Traitement
+Il n’existait aucun traitement officiellement autorisé contre la PIF, jusqu'à l'autorisation de mise sur le marché du GS-441524. Les soins étaient alors essentiellement symptomatiques (traitement de la fièvre et des difficultés respiratoires), du moins aussi longtemps qu’une certaine qualité de vie peut être assurée. Le vétérinaire pouvait prescrire de la prednisolone ou d’autres médicaments immunosuppresseurs, sauf en cas d’infections concomitantes. La forme humide est généralement d’évolution très rapide par rapport aux formes dites « sèches » (sans effusions abdominales ou pleurales).
+
+Péritonite infectieuse féline - Traitement
+Quelques cas de rémissions par interféron oméga félin (en) ont été rapportés.
+
+Péritonite infectieuse féline - Traitement
+L’isolement n’est pas nécessaire car la forme mutée du coronavirus ne se trouve que dans les macrophages et n’est pas excrétée.
+
+Péritonite infectieuse féline - Traitement
+Le GS-441524, prodrogue du Remdésivir — les deux brevetés par le laboratoire Gilead Sciences, le second en particulier pour le traitement des formes graves de la Covid-19 — s'est révélé efficace lors d'un essai clinique où il a permis de guérir la grande majorité des chats malades. Ce traitement est désormais autorisé sur le marché. Le détenteur du brevet (Gilead) n'avait jusqu'à présent pas l'intention de céder les droits d'exploitation de la molécule pour développer un médicament vétérinaire.
+
+Péritonite infectieuse féline - Immunostimulants
+Les immunostimulants sont des médicaments qui augmentent l'activité du système immunitaire contre le virus. Les médicaments les plus courants de cette classe pour le traitement de la PIF sont l'interféron félin recombinant oméga (Virbagen Omega, Virbac) ou l'interféron humain alpha-2b. Comme le système immunitaire finit par cibler la version humaine parce qu'il s'agit d'un antigène étranger, la version féline de l'interféron félin est plus efficace.
+
+Péritonite infectieuse féline - Médicaments anti-inflammatoires
+Un médicament anti-inflammatoire contre la PIF est recommandé.
+
+Péritonite infectieuse féline - Médicaments anti-inflammatoires
+Les médicaments immunosuppresseurs affaiblissent le système immunitaire afin de réduire l'inflammation. Le principal médicament immunosuppresseur utilisé dans la PIF est la prednisolone, un corticostéroïde. Il n'existe pas d'études contrôlées par placebo montrant que la prednisolone est meilleure que d'autres médicaments anti-inflammatoires.
+
+Péritonite infectieuse féline - Vaccination
+Il n'existe pas de vaccin efficace contre le FCoV. La vaccination par ADN avec des plasmides codant des protéines du FCoV ne génère pas d'immunité. Au contraire, il a été observé que les anticorps dirigés contre la protéine d'adhésion FIPV exacerbent la maladie.
+
+Péritonite infectieuse féline - La prévention
+Les chatons sont protégés de l'infection par les anticorps dérivés de la mère jusqu'à ce qu'ils soient sevrés, généralement vers l'âge de 5 à 7 semaines ; il est donc possible d'empêcher les chatons d'être infectés en les éloignant des sources d'infection. Cependant, le FCoV est un virus très contagieux et une telle prophylaxie nécessite des pratiques d'hygiène strictes.
+
+Péritonite infectieuse féline - Dans le film
+Le film Aeris, réalisé en 2018 par Paul Castro Jr et Eli Miller, avec Frank Diehl, Arabella Oz et Betsy Aidem, raconte l'histoire d'un chaton né avec la PIF, acheté dans une animalerie, et les douze jours que ses propriétaires passent avec lui. Le film a été primé au Garden State Film Festival 2018 dans la catégorie des courts-métrages, et a remporté le Golden Kahuna aux Honolulu Film Awards 2018.
+
+Péritonite infectieuse féline
+La péritonite infectieuse féline (PIF) correspond à une réponse immunitaire fréquente et aberrante chez les chats infectés par le coronavirus félin (FCoV).
+
+Péritonite infectieuse féline
+La péritonite infectieuse féline est une maladie immunitaire virale et mortelle causée par la mutation du FCoV. Le FCoV est un virus courant présent chez la plupart des chats, mais seuls quelques-uns (moins de 10 %) développent une PIF à la suite d’une mutation du coronavirus. Lorsqu’un chat développe une PIF, il peut présenter une forme humide ou sèche du virus, toutes deux conduisant finalement à la mort.
+
+Péritonite infectieuse féline
+Le FCoV est un virus du tractus gastro-intestinal. La plupart des infections sont soit asymptomatiques, soit responsables de diarrhées, surtout chez les chatons, lorsque les anticorps maternels diminuent entre 5 et 7 semaines d’âge. Le virus est une mutation du coronavirus entérique félin (FECV). Depuis l’intestin, le virus subit très brièvement une phase systémique avant de retourner dans l’intestin, où il est excrété dans les fèces.
+
+Péritonite infectieuse féline
+La pathogenèse de la PIF est complexe. Un consensus général veut que les FIPV résultent de mutations leur permettant de pénétrer ou de se répliquer avec plus de succès dans les monocytes (un type de globules blancs). De nombreux aspects des interactions virus-hôte qui influencent la maladie demeurent cependant incertains, notamment les facteurs qui déterminent la forme de la maladie (humide ou sèche), son issue (mort ou résistance) et la susceptibilité de l’hôte.
+
+Péritonite infectieuse féline
+Les scientifiques n’ont pas encore expliqué pourquoi seuls quelques chats développent la maladie, bien que des recherches portent sur l’existence d’un lien génétique qui augmenterait, chez le chat, le risque que le FCoV évolue en PIF.
+
+Péritonite infectieuse féline
+Les données sont insuffisantes pour affirmer que la PIF en tant que telle se transmet de chat à chat, bien que cela puisse expliquer de rares mini-épidémies de PIF. Le virus FCoV est transmissible de chat à chat.
+
+Péritonite infectieuse féline
+Bien que le virus se propage par le FCoV, seul un faible pourcentage de chats développe une PIF. Elle est plus fréquente chez les chats de moins de deux ans, mais un petit nombre de chats gériatriques développent également la maladie. Les scientifiques ont commencé à étudier le lien génétique qui pourrait amener le FCoV à muter en PIF. L’âge a été étudié dans le cadre de la génétique, car le système immunitaire mûrit avec l’âge des chats.
+
+Péritonite infectieuse féline
+Une étude portant sur 59 chats infectés par la PIF a révélé que, contrairement au FCoV, les fèces des chats infectés par la PIF n’étaient pas infectieuses pour des chats de laboratoire par voie oronasale. Le FCoV est courant dans les lieux où de grands groupes de chats sont hébergés ensemble en intérieur (tels que les chatteries d’élevage, les refuges pour animaux, etc.). Le virus est excrété dans les fèces, et les chats sont infectés lorsqu’ils l’ingèrent ou l’inhalent, généralement en partageant des bacs à litière ou par l’utilisation de pelles à litière ou de brosses contaminées, qui transmettent des particules microscopiques de litière infectée à des chatons et chats non infectés. Le FCoV peut également être transmis par différents liquides corporels. Le virus se propage facilement par contact direct entre chats. Le mode de propagation le plus courant est la salive, car la plupart des foyers comptant plusieurs chats partagent des gamelles d’eau et de nourriture. Un autre mode majeur de propagation est le toilettage ou les bagarres. Lorsqu’un chat infecté toilette un chat sain, il laisse sa salive contaminée sur le pelage. Plus tard, lorsque le chat sain se toilette, il ingère cette salive contaminée et est alors infecté.
+
+Péritonite infectieuse féline
+Deux aspects de la PIF ont été identifiés et examinés selon la façon dont ils font muter le virus. Les facteurs examinés comprennent également la génétique de l’hôte, les causes environnementales et la race. Les scientifiques étudient aussi les gènes de la protéine Spike et les NSP.
+
+Péritonite infectieuse féline - Signes cliniques
+Il existe deux formes principales de PIF : effusive (humide) et non effusive (sèche). Bien que les deux soient mortelles, la forme effusive est la plus fréquente (60 à 70 % de tous les cas) et évolue plus rapidement que la forme non effusive.
+
+Péritonite infectieuse féline - Signes cliniques
+Le signe clinique caractéristique de la PIF effusive est l’accumulation de liquide dans l’abdomen ou le thorax, qui peut entraîner des difficultés respiratoires. Parmi les autres symptômes figurent le manque d’appétit, la fièvre, la perte de poids, l’ictère et la diarrhée.
+
+Péritonite infectieuse féline - Signes cliniques
+À ce stade de la maladie, du liquide se forme et s’accumule dans certaines zones du corps. On l’observe le plus souvent dans les poumons et l’abdomen. Lorsque le liquide s’accumule dans le thorax, les chats ont des difficultés à respirer car la pression autour des poumons augmente. Le liquide peut aussi remplir l’abdomen, qui devient distendu ou gonflé. Pour évacuer ce liquide, un vétérinaire utilise une aiguille et met le félin sous sédation, car son retrait peut soulager l’inconfort et les difficultés respiratoires. Toutefois, ce n’est qu’une solution temporaire, car les cavités finiront par se remplir de nouveau de liquide à mesure que la maladie progresse.
+
+Péritonite infectieuse féline - Signes cliniques
+La PIF sèche se manifeste également par un manque d’appétit, de la fièvre, un ictère, de la diarrhée et une perte de poids, mais sans accumulation de liquide. Un chat atteint de PIF sèche présente généralement des signes oculaires ou neurologiques. Il peut par exemple avoir du mal à se lever ou à marcher et devenir progressivement paralysé sur le plan fonctionnel. La perte de vision est une autre issue possible de la maladie.
+
+Péritonite infectieuse féline - Signes cliniques
+À ce stade, l’accumulation de liquide est faible voire absente, par comparaison avec la forme « humide » de la maladie. À la place, l’inflammation survient dans la forme sèche et peut toucher plusieurs organes et régions du corps, tels que le cerveau, le foie, les yeux et les intestins. Elle provoque de nombreux symptômes cliniques variés. Ce stade touche aussi le système nerveux, entraînant des symptômes neurologiques. Le traitement de ces symptômes peut varier et vise davantage la maladie dans son ensemble, car, une fois qu’elle progresse, celle-ci est presque toujours mortelle.
+
+Péritonite infectieuse féline - Diagnostic
+Mesurez le rapport albumine/globulines dans l’épanchement : s’il est supérieur à 0,8, la PIF est exclue ; s’il est inférieur à 0,4, la PIF est un diagnostic possible, mais non certain.
+
+Péritonite infectieuse féline - Diagnostic
+Examinez les cellules de l’épanchement : si elles sont principalement des lymphocytes (un type de globules blancs), la PIF est exclue du diagnostic.
+
+Péritonite infectieuse féline - Diagnostic
+Antécédents : le chat a eu l’occasion d’être infecté par le FCoV, par exemple s’il provient d’une chatterie d’élevage ou d’un refuge, ou si un chaton ou un chat de race pure a récemment été introduit dans le foyer.
+
+Péritonite infectieuse féline - Diagnostic
+Signes cliniques : le chat est devenu anorexique ou mange moins que d’habitude ; il a perdu du poids ou n’a pas réussi à en prendre ; il présente une fièvre d’origine inconnue, des signes intraoculaires ou un ictère.
+
+Péritonite infectieuse féline - Diagnostic
+Sérologie : le chat présente un titre élevé d’anticorps anti-FCoV ; ce paramètre doit être utilisé avec prudence en raison de la forte prévalence du FCoV dans les chatteries d’élevage et les refuges.
+
+Péritonite infectieuse féline - Diagnostic
+La PIF non effusive peut être exclue si le chat est séronégatif, à condition que le test d’anticorps ait une excellente sensibilité. Dans une étude comparant divers tests de détection d’anticorps anti-FCoV réalisables sur place et disponibles dans le commerce, le FCoV Immunocomb (Biogal) présentait une sensibilité de 100 % ; le test rapide immunochromatographique (RIM) Speed F-Corona (Virbac), de 92,4 % ; et le test RIM FASTest de la péritonite infectieuse féline (MegaCor Diagnostik), de 84,6 %.
+
+Péritonite infectieuse féline - Diagnostic
+Le diagnostic de la PIF au moyen des outils disponibles donne des résultats précis, essentiels au traitement et à la rémission de la PIF.
+
+Péritonite infectieuse féline - Traitement
+La PIF étant une maladie à médiation immunitaire, le traitement se divise en deux catégories : l’action directe contre le virus lui-même et la modulation de la réponse immunitaire.
+
+Péritonite infectieuse féline - GS-441524 et remdésivir
+Un médicament expérimental appelé GS-441524 a été utilisé dans un essai de terrain portant sur 31 chats. Après 25 jours, cinq chats étaient morts, huit avaient été guéris mais avaient ensuite rechuté, et 18 avaient été guéris sans rechute ultérieure. Les huit chats ayant rechuté ont été traités de nouveau, certains avec des doses plus élevées. Parmi ces huit chats, un est mort et sept ont été guéris, ce qui signifie que 25 des 31 chats ont finalement été guéris de la PIF. Cette étude est considérée comme très prometteuse.
+
+Péritonite infectieuse féline - GS-441524 et remdésivir
+Chez des chats naturellement infectés, un taux de guérison supérieur à 80 % a été observé avec le traitement par GS-441524 dans plusieurs études et dans des programmes de traitement menés dans des pays où le médicament est autorisé.
+
+Péritonite infectieuse féline - GS-441524 et remdésivir
+Dans plusieurs pays, les comprimés oraux de GS-441524 (ainsi que sa prodrogue injectable, le remdésivir) sont devenus légalement accessibles aux vétérinaires pour le traitement de la PIF chez les chats, notamment en Australie, aux Pays-Bas, au Royaume-Uni (depuis août 2021) et aux États-Unis (2024).
+
+Péritonite infectieuse féline - GC376
+Un médicament antiviral expérimental appelé GC376 a été utilisé dans un essai de terrain portant sur 20 chats : sept chats sont entrés en rémission, tandis que 13 ont initialement répondu au traitement mais ont rechuté et ont été euthanasiés. Ce médicament n’était pas encore disponible dans le commerce en 2017.
+
+Péritonite infectieuse féline - Molnupiravir
+Face à une épidémie de FCoV-23 très létale dans l’État insulaire de Chypre, le gouvernement a libéré, le 8 août 2023, 80 000 comprimés de molnupiravir anti-COVID provenant de son stock national de COVID-19, afin de résoudre la crise du coronavirus félin de manière plus rentable.
+
+Péritonite infectieuse féline - Molnupiravir
+Les immunostimulants sont des médicaments qui rendent le système immunitaire plus actif contre le virus. Les médicaments les plus courants de cette classe pour traiter la PIF sont soit l’interféron oméga félin recombinant (Virbagen Omega, Virbac), soit l’interféron humain
+
+Péritonite infectieuse féline - Molnupiravir
+alpha-2b. Comme la version humaine finit par être ciblée par le système immunitaire en tant qu’antigène étranger, la version féline de l’interféron félin est plus efficace.
+
+Péritonite infectieuse féline - Molnupiravir
+Un immunostimulant polyprénylique expérimental (PI) est fabriqué par Sass and Sass et testé par le Dr Al Legendre, qui a décrit une survie supérieure à un an chez trois chats diagnostiqués d’une PIF et traités avec ce médicament. Dans une étude de terrain ultérieure portant sur 60 chats atteints de PIF non effusive traités par PI, 52 chats (87 %) sont morts avant 200 jours, mais huit ont survécu plus de 200 jours après le début du traitement par PI et quatre d’entre eux ont survécu au-delà de 300 jours.
+
+Péritonite infectieuse féline - Molnupiravir
+Les médicaments immunosuppresseurs freinent le système immunitaire et contribuent à réduire l’inflammation. Le médicament immunosuppresseur de référence pour la PIF est la prednisolone, un corticostéroïde. Il n’existe aucun essai contrôlé par placebo montrant que la prednisolone est supérieure à d’autres anti-inflammatoires.
+
+Péritonite infectieuse féline - Molnupiravir
+Il peut être difficile d’arrêter la propagation de la PIF, surtout lorsqu’un seul traitement approuvé par la FDA est disponible aux États-Unis. Il est donc important d’agir de manière proactive et de tenter de prévenir la PIF avant que la maladie ne puisse amorcer ses ravages destructeurs. La prévention de la PIF diffère également selon l’établissement ou l’environnement où vit le chat.
+
+Péritonite infectieuse féline - Molnupiravir
+Dans les refuges et les lieux où un grand nombre de chats sont confinés, la prévention est essentielle, puisqu’il suffit d’un seul chat pour déclencher une réaction en chaîne et propager la PIF. La prévention comprend : le dépistage des anticorps, l’enrichissement environnemental pour diminuer le stress, ainsi que plusieurs bacs à litière régulièrement nettoyés pour éviter la propagation par les matières fécales.
+
+Péritonite infectieuse féline - Molnupiravir
+La désinfection est également essentielle pour arrêter la propagation de la PIF. Les particules de FCoV peuvent être désinfectées avec des produits tels que de l’eau de Javel diluée, la lumière UV et la chaleur.
+
+Péritonite infectieuse féline - Molnupiravir
+Il n’existe pas de vaccin efficace contre le FIPV. La vaccination ADN avec des plasmides codant les protéines du FIPV n’a pas permis de produire une immunité. Au contraire, il a été observé que les anticorps contre la protéine Spike du FIPV exacerbent la maladie.
+
+Péritonite infectieuse féline - Molnupiravir
+Le film Aeris, réalisé en 2018 par Paul Castro Jr. et Aly Miller, avec Frank Deal, Arabella Oz et Betsy Aidem, raconte l’histoire d’un chaton né avec la PIF, acheté dans une animalerie, et les douze jours que ses propriétaires passent avec lui. Le film a reçu un prix au Garden State Film Festival 2018 dans la catégorie du court métrage narratif et a remporté un Gold Kahuna aux Honolulu Film Awards 2018.

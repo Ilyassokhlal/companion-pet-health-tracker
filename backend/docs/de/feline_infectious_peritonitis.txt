@@ -1,0 +1,245 @@
+Feline infektiöse Peritonitis
+Die feline infektiöse Peritonitis (FIP) ist eine durch das Feline Coronavirus ausgelöste Infektionskrankheit, die ausschließlich Katzen (Felidae) befällt. Der Name leitet sich von der häufigsten klinischen Manifestation, einer Bauchfellentzündung (Peritonitis) ab. Allerdings kann auch lediglich das Brustfell betroffen sein, weshalb selten auch der Name Feline infektiöse Polyserositis verwendet wird. Außerdem kann ein Krankheitsbild ohne jede Beteiligung der Serosa (Auskleidung der Körperhöhlen) auftreten. Die Erkrankung tritt weltweit auf. Kommt es einmal zu einer klinischen Manifestation der Erkrankung, endet diese in aller Regel tödlich. Seit 2016 bzw. 2018 gibt es zwei neue experimentelle Wirkstoffe (GC376 und GS-441524), die in mehreren Studien erfolgreich zur Behandlung von FIP eingesetzt wurden. GS-441524 kann als formula magistralis auch legal zur kausalen Therapie eingesetzt werden.
+
+Feline infektiöse Peritonitis - Ursache und Epidemiologie
+Die Ursache für die FIP ist ein hoch virulentes Coronavirus. Das heute als Felines Coronavirus (FCoV) bezeichnete Virus wurde bis Ende der 1990er Jahre in zwei verschiedene Viren unterteilt: Das wenig virulente, sogenannte Feline Enterale Coronavirus (FECV) und das stark virulente Feline Infektiöse Peritonitis-Virus (FIPV). Letzteres ist aber lediglich eine Mutation des „FECV“ innerhalb des Trägertieres. Beide werden gegenwärtig als Subtyp bzw. Isolat der Virusspezies Alphacoronavirus 1 klassifiziert. Das FIPV ist antigenetisch verwandt mit dem Coronavirus 229E des Menschen und den Coronaviren von Schwein und Hund. Nicht verwandt ist es mit dem Coronavirus OC43 des Menschen und den Coronaviren von Rind und Maus.
+
+Feline infektiöse Peritonitis - Ursache und Epidemiologie
+Die Mutation besteht aus einer Deletion im viralen Gen 3C, welche allerdings nicht immer an derselben Stelle stattfindet. Begünstigt wird die Veränderung durch das ungenaue Arbeiten der viralen RNA-Polymerase, durch die es bei der Replikation zu einem falsch eingebauten Nukleotid pro 1.000 bis 10.000 Nukleotiden kommt. Bei einer Gesamtlänge der Virus-RNA von etwa 30.000 Nukleotiden sind also bereits drei Mutationen im Erbgut des Virus pro Replikation „normal“.
+
+Feline infektiöse Peritonitis - Ursache und Epidemiologie
+Das FCoV kommt weltweit vor, aber nur bei etwa 5–10 Prozent der seropositiven (infizierten) Hauskatzen bricht die FIP-Erkrankung aus. Bezogen auf die gesamte Katzenpopulation hat die FIP eine Vorkommenshäufigkeit (Prävalenz) von 1–2 Prozent. Es werden serologisch zwei Virustypen unterschieden, wobei der vor allem in Europa und den USA auftretende Typ 1 in Zellkulturen vermehrbar ist, was mit dem vor allem in Japan auftretenden Typ 2 nicht möglich ist.
+
+Feline infektiöse Peritonitis - Ursache und Epidemiologie
+Die Inkubationszeit beträgt vermutlich bis zu vier Monate. Bereits am zweiten Tag nach der Infektion scheiden die Tiere das Virus über Kot, Nasensekret und Speichel aus. Die Virusausscheidung kann lebenslang anhalten. Die Übertragung des zunächst ungefährlichen Virus erfolgt vor allem durch Kontakt mit infiziertem Kot oder über verunreinigte Gegenstände. Auch eine Maul-zu-Maul- oder Maul-zu-Nase-Übertragung ist möglich. In der Umgebung ist das Virus bis zu eine Woche infektiös. Überdies können Menschen das Virus transportieren und auf die Katze übertragen. Oft infizieren virustragende Katzenmütter ihre Feten bereits während der Trächtigkeit. Die Übertragung der bereits mutierten Form spielt vermutlich keine Rolle bei der Verbreitung der Krankheit.
+
+Feline infektiöse Peritonitis - Ursache und Epidemiologie
+Prinzipiell sind alle Katzenarten und Altersgruppen für FIP empfänglich. Am häufigsten befällt die Erkrankung Tiere im Alter von sechs Monaten bis fünf Jahren und ältere Tiere ab 14 Jahren. Da wild lebende Katzen meist Einzelgänger ohne feste Kotplätze sind, sind Wildtiere deutlich seltener infiziert. Eingefangene verwilderte Hauskatzen sind zu etwa 10 Prozent seropositiv, nach wenigen Wochen in einem Tierheim dagegen fast 90 Prozent der Tiere. Bei Großkatzen sind ebenfalls besonders größere Bestände in Zoos gefährdet, Leoparden gelten als besonders empfänglich.
+
+Feline infektiöse Peritonitis - Pathogenese und Formen
+Die Pathogenese der Erkrankung ist bislang nicht vollständig geklärt. Die Mutation der zunächst harmlosen FCoV-Variante in die sogenannten „FIP-Viren“ erfolgt im Darm und kann Jahre nach der Infektion erfolgen. Mit der Mutation erlangt das Virus die Fähigkeit, sich an Ribosomen der Fresszellen des Abwehrsystems (Monozyten und Makrophagen) zu binden und sich in diesen zu vermehren (Replikation). Durch die Virusvermehrung kommt es zum Zerfall der Fresszellen und die freiwerdenden Viruspartikel werden von anderen Fresszellen aufgenommen, wodurch sich das Virus im Körper ausbreitet. Durch die Abgabe von Zellbotenstoffen kommt es zur Aktivierung der die Blutgefäße auskleidenden Zellen (Endothelzellen) und damit zu einer Entzündung. Bestimmte Zellbotenstoffe führen auch zum Zelltod weiterer Abwehrzellen wie den Lymphozyten. Die nichtmutierte Variante vermehrt sich dagegen vorwiegend in den Darmepithelzellen des Leerdarms.
+
+Feline infektiöse Peritonitis - Pathogenese und Formen
+Man nimmt heute an, dass ob und in welcher Form die Krankheit letztendlich auftritt, vom Immunstatus des Einzeltieres abhängig ist.
+
+Feline infektiöse Peritonitis - Pathogenese und Formen
+Bei einem Teil der Tiere bricht die Erkrankung trotz erfolgter Virusmutation aufgrund einer starken zellvermittelten Immunreaktion nicht aus. Das Immunsystem ist dadurch in der Lage, die infizierten Blutzellen unter Kontrolle zu halten. Diese Tiere bleiben ohne klinische Symptome, scheiden aber als latente Virusträger dieses weiter aus. Bei einem Teil der Tiere wird auch eine vollständige Viruselimination vermutet, wodurch sie allerdings für Neuinfektionen wieder empfänglich sind.
+
+Feline infektiöse Peritonitis - Pathogenese und Formen
+Klinisch manifest wird eine FIP vermutlich erst bei Störungen des Immunsystems, z. B. durch Stress oder andere Erkrankungen, die zu einer stärkeren Virusvermehrung im Darm führen. Einen Einfluss auf die Pathogenese hat die Bildung von Antikörpern, denn diese können das Virus nicht neutralisieren. Mit vermehrter Antikörperbildung werden auch vermehrt Makrophagen aktiviert, in denen es damit zu einer weiteren Virusvermehrung kommt. Das Paradoxon, dass die eigentlich zur Bekämpfung der Krankheitserreger gebildeten Antikörper zu einer Verschlimmerung der Krankheit führen („antikörperabhängige Verstärkung der Virusinfektion“, engl. antibody-dependent enhancement), wird auch bei Viruskrankheiten des Menschen (z. B. AIDS, Denguefieber) beobachtet. Dieses antibody-dependent enhancement spielt aber vermutlich nur bei experimentellen Infektionen eine Rolle.
+
+Feline infektiöse Peritonitis - Pathogenese und Formen
+In der Vergangenheit wurde die Erkrankung in zwei Hauptformen („feuchte“ und „trockene Form“) untergliedert. Die Grenzen zwischen beiden Hauptformen sind jedoch fließend, nahezu jedes erkranktes Tier zeigt Komponenten beider Erscheinungsformen, von denen eine temporär dominieren kann. Daher wird diese Untergliederung in der neueren Literatur zunehmend als obsolet betrachtet.
+
+Feline infektiöse Peritonitis - „Feuchte Form“
+Bei einer schwachen zellvermittelten Immunantwort kommt es zu einer anhaltenden Virusvermehrung im Blut (Virämie) und zur massiven Bildung von Immunkomplexen, zur Aktivierung des Komplementsystems und von Fresszellen (Makrophagen). Dies führt zu einer Blutgefäßentzündung (Vaskulitis) und zu einer lymphoplasmazellulären Perivaskulitis (durch Lymphozyten und Plasmazellen gekennzeichnete Entzündung in der Umgebung der Blutgefäße) der serösen Häute, die zu einem Gewebsuntergang (Nekrose) führt. Einige Autoren sind allerdings der Meinung, dass es sich bei den Veränderungen um eine echte granulomatöse Vaskulitis und Perivaskulitis, also eine durch Fresszellen dominierte Entzündung der Gefäße und deren Umgebung handelt. Die lymphoplasmazelluläre Perivaskulitis stellt dann ein Spätstadium dar. Makroskopisch stellen sich diese Entzündungsherde als weißliche Knötchen dar. Durch die Entzündung kommt es auch zu einem Austritt von Serum und Proteinen in die Körperhöhlen und zu Fibrinablagerungen auf inneren Organen.
+
+Feline infektiöse Peritonitis - „Trockene Form“
+Bei der „trockenen Form“ dominieren größere Knoten, die vorwiegend innerhalb der Organe entstehen. Es handelt sich dabei um verschmolzene Entzündungsherde, die wie bei der feuchten Form aus einer Vaskulitis/Perivaskulitis entstehen. Sie werden gelegentlich auch als „granulomatöse“ Veränderungen bezeichnet, es handelt sich aber nicht um eine echte granulomatöse Entzündung. Die Flüssigkeitsaustritte sind bei dieser Form nicht anzutreffen. Man nimmt an, dass sich diese Form bei einer weniger stark geschwächten zellvermittelten Immunantwort entwickelt und sie eine mildere, protrahierte Verlaufsform darstellt. Sie macht etwa 17 Prozent der FIP-Fälle aus, allerdings ist hier aufgrund der schweren Diagnostizierbarkeit (s. u.) mit einer erheblichen Dunkelziffer zu rechnen.
+
+Feline infektiöse Peritonitis - Symptome
+Eine klinisch manifeste FIP beginnt mit verminderter Futteraufnahme (Anorexie), Abmagerung sowie wiederkehrendem, therapieresistentem Fieber. Die weiteren Symptome sind von der Form der Ausprägung abhängig, wobei fließende Übergänge zwischen beiden Formen auftreten können. Die Unterteilung in feuchte und trockene Form ist strenggenommen eine Beschreibung der makroskopischen Befunde. Mikroskopisch bilden beide Formen meist ein identisches Bild aus.
+
+Feline infektiöse Peritonitis - „Feuchte Form“
+Die klassische „feuchte Form“ äußert sich in Flüssigkeitsansammlungen in der Bauchhöhle (Bauchwassersucht, Aszites) oder in der Brusthöhle (Pleuraerguss). Die Flüssigkeitsansammlungen in der Bauchhöhle können als Umfangsvermehrung mit Fluktuation meist klinisch diagnostiziert werden. Flüssigkeitsansammlungen in der Brusthöhle können zu schwerer Atemnot führen. Eine Punktion liefert eine gelbliche, fadenziehende, viskose Flüssigkeit. Die Tatsache, dass es sich hierbei um ein proteinreiches Exsudat handelt, welches in seiner Erscheinungsform recht typisch ist, ist ein wesentliches diagnostisches Kriterium.
+
+Feline infektiöse Peritonitis - „Trockene Form“
+Die „trockene Form“ äußert sich in knotigen Veränderungen, vor allem im Bauchraum. Auch das Gehirn, die Augen, die Organe der Brusthöhle oder lediglich die Haut können betroffen sein. Je nach Organlokalisation können Gelbsucht, Augenerkrankungen (Uveitis, Hornhautveränderungen [„Hammelfettpräzipitate“], Blutungen oder Fibrinansammlungen in der vorderen Augenkammer, Retinitis), Blutarmut oder neurologische Erscheinungen (Krämpfe, Anfälle, Orientierungslosigkeit, Augenzittern, Lähmungen) auftreten.
+
+Feline infektiöse Peritonitis - Diagnose
+Ein klinischer Anfangsverdacht ist bei jedem Fieber bei einer jüngeren Katze (jünger als sechs Jahre) gegeben, das nicht auf Antibiotika anspricht.
+
+Feline infektiöse Peritonitis - Diagnose
+Flüssigkeitsansammlungen in den Körperhöhlen („feuchte Form“) sowie ein vermehrter Gehalt an Globulinen im Blut (Hyperglobulinämie) sind bereits deutliche Indizien. Bestimmte Veränderungen des Blutbildes (mittlere bis schwere Anämie, Neutrophilie und Leukopenie) sind weitere Verdachtsmomente.
+
+Feline infektiöse Peritonitis - Diagnose
+Goldstandard zum Nachweis einer FIP ist der immunhistochemische Nachweis des Coronavirus in Gewebsmakrophagen. Alle anderen Verfahren sind zwar weniger invasiv, haben aber eine zum Teil deutlich geringere Aussagekraft. Folgende labordiagnostische Testmethoden sind möglich:
+
+Feline infektiöse Peritonitis - Diagnose
+Rivalta-Probe: Durch eine Punktion wird Flüssigkeit aus einer betroffenen Körperhöhle entnommen. In einem Reagenzglas versetzt man destilliertes Wasser mit einem Tropfen Eisessig und gibt einen Tropfen des Punktats hinzu. Bei einer Infektion mit FIP löst sich der Tropfen nicht auf und sinkt nach unten. Ein negatives Testergebnis schließt eine FIP fast mit Sicherheit aus (Spezifität 98 Prozent), während ein positiver Test sie zwar wahrscheinlich macht, nicht aber beweist. Die Sensitivität beträgt nach neueren Untersuchungen nur 52 Prozent. Eine positive Rivaltaprobe kann auch bei eitriger Serositis und bei durch Tumoren bedingten Ergüssen auftreten. Die Sensitivität ist bei jungen Katzen höher, wenn man auch ältere Tiere untersucht, sinkt sie auf 65,5 Prozent.
+
+Feline infektiöse Peritonitis - Diagnose
+Antikörpernachweis im Punktat: Der Nachweis von Antikörpern in den Punktaten mittels Antikörperfärbung hat eine Sensitivität und Spezifität von etwa 85 Prozent.
+
+Feline infektiöse Peritonitis - Diagnose
+Antigennachweis in Makrophagen: Bei der feuchten Form kann aus dem Zentrifugat des Punktats ein Ausstrich angefertigt und mit einem Anti-Coronavirus-Konjugat versetzt werden. Die Sensitivität dieses Nachweisverfahrens wird je nach Studie mit 68–95 Prozent angegeben. Die Spezifität wurde in der Literatur lange mit 100 Prozent angegeben, eine aktuelle Studie lieferte jedoch drei falsch-positive Ergebnisse bei Katzen mit herzbedingtem Erguss (Spezifität 93 Prozent).
+
+Feline infektiöse Peritonitis - Diagnose
+Albumin-Globulin-Quotient: Die Bestimmung des Quotienten aus Albumin- und Globulin-Konzentration im Blut kann ebenfalls einen Hinweis auf die Erkrankung geben. Bei Quotienten kleiner als 1 besteht ein FIP-Verdacht, Werte unter 0,6 gelten als nahezu diagnostisch. Allerdings gibt es erhebliche Schwankungen hinsichtlich Sensitivität und Spezifität in Abhängigkeit von der Größe des Quotienten. Bei einem Quotienten von 0,9 liegt die Sensitivität bei 89 Prozent, die Spezifität bei 76 Prozent. Liegt der Wert unter 0,6, beträgt die Sensitivität nur noch 48 Prozent, die Spezifität hingegen bei 99 Prozent.
+
+Feline infektiöse Peritonitis - Diagnose
+Hohe Spiegel des sauren Alpha1-Glykoproteins, einem Akute-Phase-Protein, sind hinweisend für eine FIP.
+
+Feline infektiöse Peritonitis - Diagnose
+Antikörpernachweis im Blut: Ein positiver indirekter Antikörpernachweis im Blut ist nicht eindeutig. Er sagt nur aus, dass die Katze mit dem Coronavirus Kontakt hatte, auch wenn es sich nur um die harmlose Variante handelte. Die Sensitivität liegt bei 85 Prozent, die Spezifität allerdings nur bei 57 Prozent. Ein positiver Test mit einem Titer von kleiner als 1:1600 erhöht zwar die Spezifität auf etwa 98 Prozent, reduziert allerdings die Sensitivität auf 33 Prozent.
+
+Feline infektiöse Peritonitis - Diagnose
+Antigen-Antikörper-Komplex-Nachweis im Blut: Der Nachweis von Antigen-Antikörper-Komplexen mittels ELISA hat nur eine Sensitivität von etwa 50 Prozent, die Spezifität liegt bei 91 Prozent.
+
+Feline infektiöse Peritonitis - Diagnose
+FCoV-RT-PCR: Über ein RT-PCR-Verfahren lässt Coronavirus-RNA und damit eine Virämie nachweisen. Die Sensitivität liegt bei Untersuchung von Blut bei etwa 15 Prozent, bei Untersuchung von mononukleären Zellen bei 29 Prozent. Die Spezifität beträgt 86–100 Prozent. Die Nachweis von Virus-RNA ermöglicht keine Unterscheidung zwischen harmlosen und mutierten Coronaviren. Bei der RT-PCR aus Ergussflüssigkeit sind Sensitivität und Spezifität dagegen hoch (> 90 Prozent). Der Nachweis im Kot dient nur der Erkennung von Coronavirusausscheidern, für die Diagnose der Erkrankung ist er ungeeignet.
+
+Feline infektiöse Peritonitis - Diagnose
+Eine Kombination verschiedener Verfahren erhöht die diagnostische Aussagekraft. Eine Bestimmung der durch Hämolyse freigesetzten Lactatdehydrogenase (ein Enzym, das Laktat in Pyruvat umwandelt) kann einen weiteren Hinweis auf die Erkrankung geben, ebenso die Bestimmung der bei Katzen meist durch FIP verursachten Erhöhung des Bauchspeicheldrüsenenzyms alpha-Amylase.
+
+Feline infektiöse Peritonitis - Diagnose
+Während ein Antigennachweis im Erguss als beweisend gilt, ist die „trockene Form“ nur schwierig nachzuweisen. Die Nachweismethoden 4–8 sind ebenfalls möglich, allerdings gilt bislang nur der pathohistologische Nachweis als aussagekräftig für das Vorhandensein der FIP. Dabei ist der immunhistochemische Antigennachweis an formalinfixiertem Gewebe sensitiver als an frischem Gewebe. Es gibt FIP-Katzen ohne jegliche Veränderungen dieser Parameter als auch Tiere, die trotz markanter Abweichungen dieser Parameter keine FIP haben. Ein Nachweis der Antikörper in Gewebsproben (Bioptat) von Lunge, Leber, Niere und Lymphknoten gilt als beweisend, es gibt aber Kreuzreaktionen mit der harmlosen FCoV-Variante und anderen Coronaviren (Canines Coronavirus, TGE-Virus), für die Katzen zwar prinzipiell empfänglich sind, aber die keine FIP auslösen. Ein PCR-Virusnachweis in Geweben ist ebenfalls kommerziell erhältlich.
+
+Feline infektiöse Peritonitis - Diagnose
+Seit 2012 gibt es eine Nachweismethode, die eine eindeutige molekularbiologische Charakterisierung der beiden Coronavirus-Varianten verspricht. Hierbei werden mittels PCR Mutationen in zwei Spike-Proteinen nachgewiesen, die mit der mutierten Variante und damit der FIP in direkter Beziehung stehen. Dieser Test ist seit 2013 auch kommerziell verfügbar und kann an Punktaten von Ergüssen, Liquor cerebrospinalis und Kammerwasser sowie an EDTA-Blut erfolgen.
+
+Feline infektiöse Peritonitis - Differentialdiagnose
+Bei der recht typischen feuchten Form müssen andere Ursachen für eine Bauchwassersucht und/oder einen Pleuraerguss ausgeschlossen werden. Hierzu zählen vor allem eine Herzerkrankung, Proteinmangel im Blut (Hypoproteinämie), Stauungsergüsse durch Tumorerkrankungen, Blutungen oder eine bakterielle Pleuritis bzw. Peritonitis; seltener eine Streptotrichose (früher für eine Pilzerkrankung gehaltene eitrige bakterielle Pleuritis, die Flüssigkeit ist hier aber bräunlich-trüb) oder eine Ruptur des Ductus thoracicus (Chylothorax). Ein Großteil dieser Erkrankungen kann aufgrund des hierdurch bedingten relativ geringen Proteingehaltes des Ergusses (Transsudat) sowie durch das Fehlen von Tumorzellen oder Bakterien recht einfach ausgeschlossen werden.
+
+Feline infektiöse Peritonitis - Differentialdiagnose
+Bei therapieresistentem Fieber oder knotigen Veränderungen müssen Feline Leukämie, Immundefizienzsyndrom der Katzen, Panleukopenie, Lymphosarkome, Yersiniose und die Tyzzersche Krankheit in Betracht gezogen werden.
+
+Feline infektiöse Peritonitis - Therapie und Prophylaxe
+Eine klinisch manifeste FIP führt ohne spezifische Behandlung binnen weniger Wochen zum Tod, vor allem jüngere Tiere mit der „feuchten Form“ haben eine geringe Überlebenszeit. Die mittlere Überlebenszeit beträgt neun Tage, 95 Prozent der erkrankten Tiere sterben innerhalb eines Jahres. Es kann also eine von 20 Katzen durchaus noch länger als ein Jahr leben, so dass eine Einschläferung nicht unmittelbar angezeigt ist. FIP ist jedoch mittlerweile häufig heilbar.
+
+Feline infektiöse Peritonitis - Antivirale Therapie
+2018 wurde in einer Studie von Niels C. Pedersen an 31 Katzen das antivirale Mittel GS-441524 eingesetzt, dem eigentlich wirksamen Hauptmetabolit von Remdesivir, und damit vielversprechende Behandlungserfolge bei Katzen mit natürlich vorkommender FIP zeigten. In einer Münchner Studie aus dem Jahr 2021 konnten alle 18 Tiere mit diesem Wirkstoff geheilt werden, wobei sich der Wirkstoff als gut verträglich erwies. Als Therapiekontrolle eignet sich der Serumspiegel des sauren Alpha1-Glykoproteins. In einer 2024 publizierten Studie starben 20 % der mit GS-441524 behandelten Tiere, meist in den ersten 10 Tagen nach Behandlungsbeginn. Die Behandlungsdauer muss individuell angepasst werden, meist reichen 42 Tage aus. Eine mögliche Nebenwirkung von GS-441524 ist eine Nierenschädigung durch Kristallablagerungen. Weitere potentielle Nebenwirkungen sind Durchfall und Erbrechen. Rückfälle wurden bei erfolgreicher Behandlung im Studienzeitraum von einem Jahr nicht beobachtet. Der Einsatz von Remdesivir kann bei eingeschränkter Motorik des Magen-Darm-Kanals erwogen werden, da dieser Wirkstoff injiziert werden kann. Die Behandlung mit Remdesivir ist der mit GS-441524 ebenbürtig.
+
+Feline infektiöse Peritonitis - Antivirale Therapie
+In einer japanischen Studie wurde mit Molnupiravir ein ähnlich guter Behandlungserfolg wie mit GS-441524 erzielt, hier starben 13,6 % der Patienten in der Anfangsphase. Allerdings bleiben die Globulinmengen länger erhöht, was auf eine länger anhaltende immunologische Stimulation durch das Virus zurückzuführen sein könnte. Zudem ist der Wirkstoff potentiell mutagen. Experimentell konnte auch in einer Studie aus dem Jahr 2016 in mehreren Fällen eine Heilung mit GC376, einem Hemmstoff der viralen 3C-like Protease (3CLpro), erreicht werden. Dieser Wirkstoff ist jedoch noch nicht allgemein verfügbar. Hinweise, dass sich eine zusätzlich zur immunsuppressiven Therapie durchgeführte Behandlung mit felinem Interferon vorteilhaft auf die Überlebenszeit auswirken kann, konnten in einer Studie von 2006 nicht bestätigt werden. Ein Therapieversuch kann mit hochdosierten Glucocorticoiden, eventuell in Kombination mit dem Thromboxansynthase-Inhibitor Ozagrel unternommen werden. Gegen bakterielle Sekundärinfektionen ist ein Antibiotikum angezeigt.
+
+Feline infektiöse Peritonitis - Antivirale Therapie
+Hauptproblem der Behandlung mit GS-441524 oder GC376 ist, dass diese Wirkstoffe in der EU nicht zugelassen sind. Lediglich die Prodrug Remdesivir ist als Humanarzneimittel zugelassen, jedoch aktuell nicht für tiermedizinische Zwecke verfügbar. Da aber eine Apotheke in Frankreich GS-441524-haltige Präparate (Paste oder Suspension) zubereitet, können diese als sogenannte formula magistralis gemäß Artikel 112 Abs. 1 Buchst. c der Verordnung (EU) 2019/6 über Tierarzneimittel verschrieben und in der gesamten EU eingesetzt werden.
+
+Feline infektiöse Peritonitis - Vorbeugung
+Die Impfung gegen FIP wird kontrovers diskutiert. Prinzipielles Problem ist hierbei, dass eine systemisch applizierte Vakzine (Impfstoff) bei den verwendeten Stämmen die Gefahr der Entstehung einer FIP durch das Impfvirus in sich birgt, das Impfvirus mit dem Feldvirus vermengt werden kann und sich infektionsverstärkende Antikörper bilden. Das Ziel des verfügbaren Impfstoffes ist daher die Erzeugung einer lokalen Immunantwort auf zellulärer Ebene und auf Basis von lokalem IgA im Bereich der Eintrittspforte der Viren im Nasen-Rachenbereich. Daher wird die Vakzine in die Nase eingetropft. Die lediglich lokale Wirkung der Vakzine ist hierbei dadurch gewährleistet, da sich der Impfstamm nur bei einer Temperatur von 31 °C vermehren kann. Bei bereits FCoV-positiven Tieren (auch durch die harmlose Variante) versagt das Prinzip der Impfung. Sie ist daher nur bedingt zu empfehlen. Sinnvoll ist sie bei seronegativen Katzen in größeren Beständen sowie einzeln in Wohnungen gehaltenen Tieren, die durch zufälligen Kontakt mit eingeschlepptem Virusmaterial (z. B. Kot an den Schuhen der Besitzer) infolge des massiven „Virusloads“ in ihrer Immunantwort überfordert wären. Die Schutzwirkung des Impfstoffs (Primucell FIP) erbrachte in klinischen Studien sehr unterschiedliche Resultate. Je nach Studie wurde eine Effizienz zwischen 0 (für keine Schutzwirkung) und 75 Prozent angegeben.
+
+Feline infektiöse Peritonitis - Vorbeugung
+Den Versuch, die Ausbreitung der harmlosen Ausgangsvariante des Virus zu verhindern, verfolgt das Konzept des Early Weaning (engl., frühes Absetzen), das 1992 von Addie & Jarrett vorgestellt wurde. Hierbei wird die trächtige Mutterkatze zwei Wochen vor der Geburt von anderen Katzen isoliert und die Geburt und Jungkatzenaufzucht strikten Hygienebedingungen unterworfen. Mit fünf bis sechs Wochen werden die Kätzchen von der Mutter abgesetzt und von ihr getrennt, weil sie nur bis zu diesem Zeitpunkt durch mütterliche Antikörper geschützt sind und danach von ihr das Virus übertragen bekommen könnten. Im Gegensatz zu Erfolgen in Großbritannien, bei denen alle Jungkatzen anschließend FCoV-seronegativ waren, ließ sich dieses Resultat in einer deutschen Studie nicht reproduzieren.
+
+Feline infektiöse Peritonitis - Vorbeugung
+Eine praktikablere Strategie besteht in der Verminderung des Infektionsdruckes innerhalb des Katzenbestandes. Das Prinzip besteht darin, die potentiell krankmachenden FCo-Viren lediglich so weit wie möglich auszudünnen und ist mit einfachen hygienischen Methoden bereits durchführbar. Als mögliche Maßnahmen werden empfohlen:
+
+Feline infektiöse Peritonitis - Vorbeugung
+Aufstellen möglichst vieler Kotkisten, welche mehrmals täglich gereinigt werden sollten
+
+Feline infektiöse Peritonitis - Vorbeugung
+wenn möglich Verwendung immer der gleichen Trink- und Futtergefäße und deren tägliche Reinigung
+
+Feline infektiöse Peritonitis - Vorbeugung
+Muttertiere 2 Wochen vor dem Wurf aus der Gruppe entfernen und separate Aufzucht der Jungtiere.
+
+Feline infektiöse Peritonitis - Geschichte
+Die FIP wurde ab 1954 vermehrt in den USA beobachtet, obwohl Einzelberichte vermutlicher FIP-Fälle sich bereits ab 1914 finden lassen. 1963 verfasste Jean Holzworth erstmals eine ausführlichere Arbeit, 1966 wiesen Wolfe und Griesemer den infektiösen Charakter der Erkrankung nach und gaben eine detailliertere Beschreibung. 1968 wurde von Zook et al. bei experimentell mit der Krankheit infizierten Katzen das Virus erstmals elektronenmikroskopisch nachgewiesen. Die Tatsache, dass es sich bei dem Erreger um ein Coronavirus handelt, wurde seit 1970 vermutet, jedoch erst 1976 gelang der Nachweis des Erregers (Osterhaus et al.) und seine Vermehrung in einer Zellkultur (Pedersen). Ab 1977 wurde der Erreger zunächst „FIP-Virus“ (FIPV) genannt. 1979 wurde der erste ELISA-Test zum Nachweis von Antikörpern entwickelt. 1981 beschrieben Pedersen et al. erstmals das weit verbreitete Vorkommen des felinen enteralen Coronavirus (FECV) und zeigten die große Ähnlichkeit zum FIPV. 1987 stellte Pedersen die Hypothese auf, dass FECV und FIPV ein gemeinsames Virusspektrum darstellen und sich lediglich hinsichtlich ihrer Virulenz unterscheiden. 1998 gelang seiner Arbeitsgruppe (Vennema et al.) der Nachweis, dass das FIPV lediglich eine Mutation des FECV darstellt. Ab 2000 setzte sich der Begriff Felines Coronavirus (FCoV) als Erregerbezeichnung durch.
+
+Feline infektiöse Peritonitis - Geschichte
+Erste experimentelle Versuche zur Impfstoffentwicklung gehen auf die frühen 1980er Jahre zurück. Versuche mit verschiedenen Impfstämmen (heterologes Virus, 1979, 1984, 1988; homologes virulentes Virus, 1983; homologes attenuiertes Virus, 1983; Vaccinia-Virus-Rekombinanten, 1990, 1992) brachten keine nachweisbare Schutzwirkung und führten sogar zu Impferkrankungen, welche sich teilweise im Sinne einer antikörperabhängigen Immunverstärkung (siehe oben) manifestierten. Der erste sichere kommerzielle Impfstoff wurde 1991 von Pfizer hergestellt.
+
+Feline infektiöse Peritonitis - Geschichte
+Mit dem Auftreten des Schweren Akuten Atemwegssyndroms (SARS) und der 2003 gemachten Entdeckung, dass es sich beim Erreger um ein Coronavirus handelt, kamen das FCoV und andere tierische Coronaviren in den Verdacht, für diese schwere Atemwegserkrankung des Menschen verantwortlich zu sein. Das FCoV zeigt in der Nukleotidsequenz große Übereinstimmungen zum SARS-Virus. Diese Vermutungen haben sich jedoch nicht bestätigt.
+
+Feline infektiöse Peritonitis - Geschichte
+Im Dezember 2023 wurde bekannt, dass auf Zypern tausende Katzen an einer FIP-Variante starben, die durch ein felines Coronavirus-23 (FCoV-23) genannte Rekombinante des ursprünglichen Felinen Coronavirus (FCoV) und des Hunde-Coronavirus (Canines Coronavirus, CCoV) verursacht wird. Als Medikation zeigten sich die Mittel Molnupiravir und GS-441524 offenbar erfolgreich. Die Krankheit hatte sich zu diesem Zeitpunkt bereits nach England ausgebreitet.
+
+Feline infektiöse Peritonitis
+Die feline infektiöse Peritonitis (FIP) ist eine häufige, fehlgeleitete Immunreaktion von Katzen auf eine Infektion mit dem felinen Coronavirus (FCoV).
+
+Feline infektiöse Peritonitis
+Die feline infektiöse Peritonitis ist eine virale, tödlich verlaufende Immunerkrankung, die durch mutiertes FCoV verursacht wird. FCoV ist ein häufiges Virus, das bei den meisten Katzen vorkommt, doch nur wenige (weniger als 10 %) entwickeln durch eine Mutation des Coronavirus eine FIP. Erkrankt eine Katze an FIP, kann sie eine feuchte oder eine trockene Form entwickeln, die beide letztlich zum Tod führen.
+
+Feline infektiöse Peritonitis
+FCoV ist ein Virus des Magen-Darm-Trakts. Die meisten Infektionen verlaufen symptomlos oder verursachen Durchfall, besonders bei Kätzchen, wenn die maternalen Antikörper im Alter von 5 bis 7 Wochen abnehmen. Das Virus ist eine Mutation des felinen enteralen Coronavirus (FECV). Vom Darm aus durchläuft das Virus sehr kurz eine systemische Phase, bevor es in den Darm zurückkehrt, wo es mit dem Kot ausgeschieden wird.
+
+Feline infektiöse Peritonitis
+Die Pathogenese der FIP ist komplex. Allgemein wird angenommen, dass FIP-Viren (FIPV) durch Mutationen entstehen, die es ihnen ermöglichen, in Monozyten (eine Art weißer Blutkörperchen) einzudringen oder sich darin erfolgreicher zu vermehren. Viele Aspekte der Wechselwirkungen zwischen Virus und Wirt, die die Krankheit beeinflussen, sind jedoch weiterhin unklar, etwa die Faktoren, die die Krankheitsform (feucht oder trocken), den Ausgang (Tod oder Resistenz) und die Empfänglichkeit des Wirts bestimmen.
+
+Feline infektiöse Peritonitis
+Wissenschaftler können noch nicht erklären, warum nur wenige Katzen an der Krankheit erkranken; untersucht wurde jedoch, ob es eine genetische Verknüpfung gibt, die das Risiko einer Katze erhöht, aus FCoV eine FIP zu entwickeln.
+
+Feline infektiöse Peritonitis
+Es fehlen Belege dafür, dass FIP als solche von Katze zu Katze übertragbar ist, auch wenn dies seltene kleine FIP-Ausbrüche erklären könnte. Das Virus FCoV ist von Katze zu Katze übertragbar.
+
+Feline infektiöse Peritonitis
+Obwohl das Virus über FCoV verbreitet wird, entwickelt nur ein kleiner Prozentsatz der Katzen eine FIP. Sie tritt häufiger bei Katzen unter zwei Jahren auf, wobei auch eine kleine Zahl geriatrischer Katzen erkrankt. Wissenschaftler haben begonnen, die genetische Verknüpfung zu erforschen, die dazu führen könnte, dass FCoV zu FIP mutiert. Bei der Untersuchung der Genetik wurde auch das Alter berücksichtigt, da das Immunsystem von Katzen mit dem Alter reift.
+
+Feline infektiöse Peritonitis
+Eine Studie an 59 mit FIP infizierten Katzen ergab, dass der Kot von FIP-infizierten Katzen im Gegensatz zu FCoV für Laborkatzen auf oronasalem Weg nicht infektiös war. FCoV ist häufig an Orten, an denen große Gruppen von Katzen gemeinsam in Innenräumen gehalten werden (etwa Zuchten, Tierheime usw.). Das Virus wird mit dem Kot ausgeschieden, und Katzen infizieren sich durch Aufnahme oder Einatmen des Virus, meist über gemeinsame Katzentoiletten oder über verunreinigte Streuschaufeln oder Bürsten, die mikroskopisch kleine infizierte Streupartikel auf nicht infizierte Kätzchen und Katzen übertragen. FCoV kann auch über verschiedene Körperflüssigkeiten übertragen werden. Das Virus verbreitet sich leicht durch direkten Kontakt zwischen Katzen. Am häufigsten erfolgt die Übertragung über Speichel, da in den meisten Mehrkatzenhaushalten Futter- und Wassernäpfe geteilt werden. Ein weiterer wichtiger Übertragungsweg ist gegenseitige Fellpflege oder Kämpfe. Wenn eine infizierte Katze eine gesunde Katze putzt, hinterlässt sie ihren infizierten Speichel im Fell. Wenn sich die gesunde Katze später selbst putzt, nimmt sie den infizierten Speichel auf und infiziert sich.
+
+Feline infektiöse Peritonitis
+Zwei FIP-Typen wurden identifiziert und danach untersucht, wie sie das Virus mutieren lassen. Untersucht wurden auch Faktoren wie die Genetik des Wirts, Umweltursachen und Rasse. Ein weiteres Forschungsfeld sind die Spike-Gene und die Nichtstrukturproteine (NSPs).
+
+Feline infektiöse Peritonitis - Klinische Anzeichen
+Es gibt zwei Hauptformen der FIP: die effusive (feuchte) und die nicht effusive (trockene). Beide verlaufen tödlich, doch die effusive Form ist häufiger (60–70 % aller Fälle) und schreitet schneller voran als die nicht effusive Form.
+
+Feline infektiöse Peritonitis - Klinische Anzeichen
+Das kennzeichnende klinische Anzeichen der effusiven FIP ist die Ansammlung von Flüssigkeit in Bauch- oder Brusthöhle, die Atemnot verursachen kann. Weitere Symptome sind Appetitlosigkeit, Fieber, Gewichtsverlust, Gelbsucht und Durchfall.
+
+Feline infektiöse Peritonitis - Klinische Anzeichen
+In diesem Krankheitsstadium bildet sich Flüssigkeit, die sich in Körperbereichen ansammelt, am häufigsten in Lunge und Bauch. Sammelt sich Flüssigkeit im Brustkorb, bekommen Katzen Atemnot, weil der Druck auf die Lunge steigt. Flüssigkeit kann sich auch im Bauch ansammeln und zu einem aufgetriebenen oder geschwollenen Bauch führen. Um diese Flüssigkeit abzulassen, sediert der Tierarzt die Katze und punktiert mit einer Nadel, da die Entfernung der Flüssigkeit Beschwerden und Atemnot lindern kann. Dies ist jedoch nur eine vorübergehende Lösung, da sich die Körperhöhlen mit fortschreitender Krankheit schließlich wieder mit Flüssigkeit füllen.
+
+Feline infektiöse Peritonitis - Klinische Anzeichen
+Auch die trockene FIP zeigt sich mit Appetitlosigkeit, Fieber, Gelbsucht, Durchfall und Gewichtsverlust, jedoch ohne Flüssigkeitsansammlung. Typischerweise zeigt eine Katze mit trockener FIP Augen- oder neurologische Symptome. So kann die Katze Schwierigkeiten beim Aufstehen oder Laufen bekommen und mit der Zeit funktionell gelähmt werden. Auch Sehverlust ist eine mögliche Folge der Krankheit.
+
+Feline infektiöse Peritonitis - Klinische Anzeichen
+In diesem Stadium sammelt sich im Vergleich zur „feuchten“ Form kaum oder gar keine Flüssigkeit an. Stattdessen kommt es bei der trockenen Form zu Entzündungen, die mehrere Organe und Körperbereiche betreffen können, etwa Gehirn, Leber, Augen und Darm. Dies verursacht sehr unterschiedliche klinische Symptome. Dieses Stadium betrifft auch das Nervensystem und verursacht neurologische Symptome. Die Behandlung dieser Symptome ist unterschiedlich und zielt eher auf die Krankheit insgesamt, da diese im fortgeschrittenen Stadium fast immer tödlich verläuft.
+
+Feline infektiöse Peritonitis - Diagnose
+Das Albumin-Globulin-Verhältnis im Erguss messen: Liegt es über 0,8, ist FIP ausgeschlossen; liegt es unter 0,4, ist FIP eine mögliche, aber nicht sichere Diagnose.
+
+Feline infektiöse Peritonitis - Diagnose
+Die Zellen im Erguss untersuchen: Handelt es sich überwiegend um Lymphozyten (eine Art weißer Blutkörperchen), ist FIP als Diagnose ausgeschlossen.
+
+Feline infektiöse Peritonitis - Diagnose
+Vorgeschichte: Die Katze hatte Gelegenheit, sich mit FCoV zu infizieren, etwa weil sie aus einer Zucht oder einem Tierheim stammt oder kürzlich ein Rassekätzchen oder eine Rassekatze in den Haushalt aufgenommen wurde.
+
+Feline infektiöse Peritonitis - Diagnose
+Klinische Anzeichen: Die Katze frisst nicht mehr oder weniger als sonst, hat Gewicht verloren oder nimmt nicht zu, hat Fieber unbekannter Ursache, zeigt intraokuläre Veränderungen oder Gelbsucht.
+
+Feline infektiöse Peritonitis - Diagnose
+Serologie: Die Katze hat einen hohen Antikörpertiter gegen FCoV; dieser Parameter ist wegen der hohen Verbreitung von FCoV in Zuchten und Tierheimen mit Vorsicht zu verwenden.
+
+Feline infektiöse Peritonitis - Diagnose
+Eine nicht effusive FIP kann als Diagnose ausgeschlossen werden, wenn die Katze seronegativ ist, sofern der Antikörpertest eine ausgezeichnete Sensitivität hat. In einer Studie, die verschiedene handelsübliche FCoV-Antikörpertests für die Praxis verglich, hatte der FCoV Immunocomb (Biogal) eine Sensitivität von 100 %, der immunchromatographische Schnelltest (RIM) Speed F-Corona (Virbac) von 92,4 % und der RIM-Test FASTest feline infectious peritonitis (MegaCor Diagnostik) von 84,6 %.
+
+Feline infektiöse Peritonitis - Diagnose
+Die Diagnose der FIP mit den verfügbaren Mitteln liefert genaue Ergebnisse, die für die Behandlung und Remission der FIP unerlässlich sind.
+
+Feline infektiöse Peritonitis - Behandlung
+Da die FIP eine immunvermittelte Erkrankung ist, gliedert sich die Behandlung in zwei Bereiche: die direkte Bekämpfung des Virus selbst und die Modulation der Immunantwort.
+
+Feline infektiöse Peritonitis - GS-441524 und Remdesivir
+Ein experimentelles Medikament namens GS-441524 wurde in einem Feldversuch an 31 Katzen eingesetzt. Nach 25 Tagen waren fünf Katzen gestorben, acht geheilt und anschließend rückfällig geworden, und 18 geheilt ohne späteren Rückfall. Die acht rückfälligen Katzen wurden erneut behandelt, einige mit höheren Dosen. Von diesen acht starb eine und sieben wurden geheilt, sodass letztlich 25 der 31 Katzen von der FIP geheilt wurden. Diese Studie gilt als sehr vielversprechend.
+
+Feline infektiöse Peritonitis - GS-441524 und Remdesivir
+Bei natürlich infizierten Katzen wurde in mehreren Studien und in Behandlungsprogrammen in Ländern, in denen das Medikament legal ist, eine Genesungsrate von über 80 % unter GS-441524 beobachtet.
+
+Feline infektiöse Peritonitis - GS-441524 und Remdesivir
+In mehreren Ländern wurden orale GS-441524-Tabletten (und sein injizierbares Prodrug Remdesivir) für Tierärzte zur Behandlung der FIP bei Katzen legal verfügbar, zum Beispiel in Australien, den Niederlanden, dem Vereinigten Königreich (seit August 2021) und den Vereinigten Staaten (2024).
+
+Feline infektiöse Peritonitis - GC376
+Ein experimentelles antivirales Medikament namens GC376 wurde in einem Feldversuch an 20 Katzen eingesetzt: Sieben Katzen erreichten eine Remission, und 13 Katzen sprachen zunächst an, erlitten jedoch einen Rückfall und wurden eingeschläfert. Das Medikament ist (Stand 2017) noch nicht im Handel erhältlich.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Angesichts eines Ausbruchs des hochletalen FCoV-23 im Inselstaat Zypern gab die Regierung am 8. August 2023 80.000 Tabletten des COVID-Medikaments Molnupiravir aus ihrem nationalen COVID-19-Vorrat frei, um die Krise um das feline Coronavirus kostengünstiger zu bewältigen.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Immunstimulanzien sind Medikamente, die das Immunsystem aktiver gegen das Virus machen. Die gebräuchlichsten Medikamente dieser Klasse zur Behandlung der FIP sind entweder rekombinantes felines Interferon omega (Virbagen Omega, Virbac) oder humanes Interferon
+
+Feline infektiöse Peritonitis - Molnupiravir
+alfa-2b. Da die menschliche Variante als Fremdantigen vom Immunsystem angegriffen wird, ist die feline Variante, das feline Interferon, wirksamer.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Ein experimentelles Polyprenyl-Immunstimulans (PI) wird von Sass and Sass hergestellt und von Dr. Al Legendre getestet, der bei drei an FIP erkrankten und mit dem Medikament behandelten Katzen ein Überleben von über 1 Jahr beschrieb. In einer anschließenden Feldstudie an 60 mit PI behandelten Katzen mit nicht effusiver FIP starben 52 Katzen (87 %) vor dem 200. Tag, doch acht Katzen überlebten mehr als 200 Tage ab Beginn der PI-Behandlung, und vier davon überlebten mehr als 300 Tage.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Immunsuppressiva dämpfen das Immunsystem und helfen, Entzündungen zu verringern. Das Immunsuppressivum der Wahl bei FIP ist Prednisolon, ein Kortikosteroid. Es gibt keine placebokontrollierten Studien, die zeigen, dass Prednisolon besser ist als andere Entzündungshemmer.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Die Ausbreitung der FIP zu stoppen kann schwierig sein, zumal es in den Vereinigten Staaten nur eine bekannte, von der FDA zugelassene Behandlung gibt. Deshalb ist es wichtig, vorausschauend zu handeln und FIP vorzubeugen, bevor die Krankheit ihre zerstörerische Wirkung entfalten kann. Die Vorbeugung hängt auch von der Einrichtung oder Umgebung der Katze ab.
+
+Feline infektiöse Peritonitis - Molnupiravir
+In Tierheimen und an Orten mit vielen auf engem Raum gehaltenen Katzen ist Vorbeugung unerlässlich, da schon eine Katze eine Kettenreaktion und die Ausbreitung der FIP auslösen kann. Zur Vorbeugung gehören Antikörpertests, Umweltanreicherung zur Stressverringerung und mehrere regelmäßig gereinigte Katzentoiletten, um eine Übertragung über den Kot zu verhindern.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Auch die Desinfektion ist ein Schlüsselfaktor, um die Ausbreitung der FIP zu stoppen. FCoV-Partikel lassen sich mit Mitteln wie verdünnter Bleiche, UV-Licht und Hitze abtöten.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Es gibt keinen wirksamen Impfstoff gegen FIPV. Eine DNA-Impfung mit Plasmiden, die FIPV-Proteine kodieren, erzeugte keine Immunität. Vielmehr wurde beobachtet, dass Antikörper gegen das Spike-Protein des FIPV die Krankheit verschlimmern.
+
+Feline infektiöse Peritonitis - Molnupiravir
+Der Film Aeris aus dem Jahr 2018 von Paul Castro Jr. und Aly Miller, mit Frank Deal, Arabella Oz und Betsy Aidem, handelt von einem mit FIP geborenen Kätzchen, das in einer Zoohandlung gekauft wird, und den zwölf Tagen, die seine Besitzer mit ihm verbringen. Der Film wurde 2018 beim Garden State Film Festival in der Kategorie Kurzspielfilm ausgezeichnet und gewann 2018 bei den Honolulu Film Awards einen Gold Kahuna.

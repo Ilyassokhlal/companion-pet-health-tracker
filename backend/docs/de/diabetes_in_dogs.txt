@@ -1,0 +1,266 @@
+Caniner Diabetes mellitus
+Caniner Diabetes mellitus ist der medizinische Fachbegriff für die Zuckerkrankheit (Diabetes mellitus) beim Haushund (lateinisch canis ‚Hund‘). In der Umgangssprache werden auch die Begriffe Hundediabetes für die Krankheit und Zuckerhund für einen erkrankten Hund verwendet. Die Anfangssymptome sind vermehrter Durst bei vermehrtem Harnabsatz sowie Abmagerung trotz erhöhter Nahrungsaufnahme. Die Zuckerkrankheit bedarf bei Hunden praktisch immer einer lebenslangen Gabe von Insulin, ist aber gut beherrschbar.
+
+Caniner Diabetes mellitus - Häufigkeit
+Wie beim Menschen, so nimmt beim Hund die Anzahl der Zuckerkranken zu. Es ist jedoch unklar, ob die Krankheitshäufigkeit real ansteigt oder ob die Erkrankung durch die verbesserte Diagnostik in der Tierarztpraxis nur häufiger erkannt wird. Man schätzt, dass etwa 0,3 bis 1 % der Gesamtpopulation der Haushunde an Diabetes mellitus erkrankt ist. Neben dem Hyperadrenokortizismus ist die Zuckerkrankheit die häufigste Hormonstörung des Hundes. Bis vor einigen Jahren erkrankten mehr weibliche Tiere, heute ist das Geschlechtsverhältnis ausgeglichener – vermutlich, da Hündinnen verstärkt und früher kastriert werden.
+
+Caniner Diabetes mellitus - Formen
+Die Einteilung des caninen Diabetes mellitus wird in der Fachliteratur unterschiedlich gehandhabt. Prinzipiell lässt sich die Erkrankung in den insulinabhängigen (engl.: insulin-dependent diabetes mellitus, IDDM) und nichtinsulinabhängigen (engl.: non-insulin-dependent diabetes mellitus, NIDDM) einteilen. Grundsätzlich können auch beim Hund alle Formen der Zuckerkrankheit auftreten. In der Praxis wird jedoch fast ausschließlich der insulinabhängige Diabetes mellitus (Typ-I-Diabetes entsprechend der DDG-Einteilung) beobachtet, der nichtinsulinabhängige (Typ-II-Diabetes) – also eine Insulin-Resistenz der peripheren Insulin-Zielzellen – im Gegensatz zu Mensch und Katze so gut wie nie.
+
+Caniner Diabetes mellitus - Formen
+Beim primären Diabetes mellitus mit absolutem Insulinmangel (Typ-I-Diabetes) arbeiten die insulinproduzierenden β-Zellen der Langerhans-Inseln der Bauchspeicheldrüse nicht mehr oder nicht mehr ausreichend. Die Ursachen sind nicht vollständig geklärt, es handelt sich vermutlich um ein Zusammenspiel genetischer Disposition mit äußeren Faktoren wie infektiöse, toxische oder entzündliche Schädigungen. Sie führen zu einer Antikörperbildung gegen verschiedene Anteile der Langerhans-Inseln und letztlich zu einer Zerstörung der β-Zellen. Er macht beim Hund mehr als die Hälfte der Fälle aus, entwickelt sich aber, im Gegensatz zum Menschen, vorwiegend bei erwachsenen Tieren.
+
+Caniner Diabetes mellitus - Formen
+Der sogenannte sekundäre Diabetes mellitus (Typ-III-Diabetes des Menschen) entsteht als Folgeerkrankung. Man spricht auch von ‚anderen spezifischen Typen‘ des Diabetes. Zu den möglichen Ursachen gehören eine Bauchspeicheldrüsenentzündung (Pankreatitis), ein Pankreastumor, eine Nebennierenüberfunktion (Cushing-Syndrom), eine Schilddrüsenunterfunktion (Hypothyreose) oder eine übersteigerte Ausschüttung des Wachstumshormons (Hypersomatotropismus). Außerdem kann ein sekundärer Diabetes mellitus durch die Verabreichung diabetogener Medikamente (Glucocorticoide, Wachstumshormon, Gestagene) ausgelöst werden. Am häufigsten tritt dieser Diabetes-Typ im Diöstrus bei unkastrierten Hündinnen auf. Hierbei stimuliert das von den Eierstöcken ausgeschüttete Progesteron die Bildung des Wachstumshormons, welches als Gegenspieler von Insulin wirkt, da es die Bindung dieses Hormons an den Insulinrezeptor verhindert. Selten tritt eine Progesteron-abhängiger Diabetes mellitus, ähnlich dem Schwangerschaftsdiabetes der Frau, auch in der Trächtigkeit auf.
+
+Caniner Diabetes mellitus - Formen
+Sowohl primärer als auch sekundärer Diabetes mellitus sind beim Hund, im Gegensatz zur Katze, in der Regel irreversibel. Sehr selten können aber auch Remissionen auftreten.
+
+Caniner Diabetes mellitus - Risikofaktoren
+Es existieren verschiedene genetische und auch umweltbedingte Faktoren, die das Auftreten eines Diabetes beim Hund begünstigen können. Übergewicht scheint das Krankheitsrisiko nur wenig zu beeinflussen. Die Spaziergangshäufigkeit und -dauer beeinflussen das Risiko nicht, hingegen kann es durch regelmäßige sportliche Aktivität verringert werden. Bei der Fütterung erhöhen selbst zubereitete Diäten im Vergleich mit Trockenfutter das Risiko, dasselbe gilt für eine häufige Gabe von Leckerli. Darüber hinaus haben Hunde unter 22,7 kg Körpergewicht im Vergleich zu größeren Hunden ein erhöhtes Risiko, ältere Hunde sind häufiger betroffen als junge und unkastrierte Hündinnen häufiger als Rüden. Die meisten Neuerkrankungen treten im Alter von fünf bis zwölf Jahren auf.
+
+Caniner Diabetes mellitus - Risikofaktoren
+Rassen mit einem hohen Diabetesrisiko (Relatives Risiko > 5) sind Samojede und Cairn Terrier. Ein mäßig erhöhtes Risiko (RR 2–5) besteht bei Pudel, Border Terrier, English Setter, Dackel, Langhaarcollie, Border Collie, Schnauzer, Yorkshire Terrier und Bichon Frisé. Rassen mit unterdurchschnittlichem Risiko (RR < 0,7) sind Deutscher Boxer, Weimaraner, Deutscher Schäferhund, Staffordshire Bullterrier, Golden Retriever und English Springer Spaniel.
+
+Caniner Diabetes mellitus - Pathophysiologie
+Im Gegensatz zum Diabetes des Menschen ist der canine Diabetes überwiegend durch Insulinmangel bedingt (Typ I), Diabetes durch Insulinresistenz (Typ II) ist bei Hunden sehr selten. Mit dem Insulinmangel kann Traubenzucker (Glucose) nicht mehr in den Zellen verwertet werden. Zudem treten Störungen im Fett- und Aminosäurestoffwechsel auf. Infolge der gestörten Verwertbarkeit der Glucose, die durch die Aufnahme über die Nahrung und durch Synthese in der Leber im Körper vorkommt, reichert sie sich zunächst im Blut an (Hyperglykämie). Ab einem gewissen Grenzwert – der Nierenschwelle von etwa 180 mg/dl bzw. 10 mmol/l – wird die Rückgewinnungskapazität in den Nierenkanälchen überschritten, und es kommt zur Zuckerausscheidung im Harn (Glucosurie). Infolge der osmotischen Wirkung der Glucose wird auch vermehrt Wasser über den Harn ausgeschieden, die Urinmenge steigt also an (Polyurie). Der erhöhte Wasserverlust wird durch eine vermehrte Wasseraufnahme (Polydipsie) ausgeglichen. Der Glucosemangel im Gehirn, speziell im Sättigungszentrum im Hypothalamus, führt zu Hunger und gesteigerter Nahrungsaufnahme (Polyphagie). Infolge der gestörten Glucoseverwertung versucht der Körper, den Energiemangel durch Abbau von Proteinen (vor allem aus der Muskulatur) und Fett zu kompensieren. Dies führt zu Abmagerung (Inanition, Kachexie).
+
+Caniner Diabetes mellitus - Pathophysiologie
+Bei längerem Bestehen eines Insulinmangels kann es zu einer weiteren Stoffwechselentgleisung, der sogenannten Ketoazidose, kommen. Infolge des gesteigerten Fettabbaus werden vermehrt Fettsäuren freigesetzt, die vom Körper nicht mehr im Zitronensäurezyklus verwertet werden können, sondern in der β-Oxidation zu Ketokörpern umgewandelt werden. Da Ketokörper einen sauren pH-Wert haben, kommt es zu einer Übersäuerung (Azidose). Die überschüssigen Ketokörper können ebenfalls über den Urin ausgeschieden werden (Ketonurie) und verstärken infolge ihres osmotischen Effekts die Polyurie. Eine ausgeprägte Ketoazidose ist ein lebensbedrohlicher Zustand.
+
+Caniner Diabetes mellitus - Pathophysiologie
+Ein weiterer wichtiger pathogenetischer Faktor ist die Glucose- und Lipotoxizität. Hierunter versteht man einen programmierten Zelltod der β-Zellen der Bauchspeicheldrüse infolge hoher Blutzucker- und Blutfettwerte. Dies führt zu einem fortschreitenden Verlust an insulinproduzierenden Zellen und damit zu einer Abnahme der Insulinsekretion auch beim Typ II- und Typ III-Diabetes.
+
+Caniner Diabetes mellitus - Klinische Erscheinungen
+Eine Zuckerkrankheit bleibt zunächst häufig unbemerkt, falls nicht bei Routineuntersuchungen ein erhöhter Blutzuckerspiegel entdeckt wird. Klinische Symptome treten erst auf, wenn es zu einer Glukoseausscheidung über den Harn (Glukosurie) oder zu einer Ketoazidose kommt. Typische Symptome einer klinisch manifesten Zuckerkrankheit sind übermäßige Flüssigkeitsaufnahme (Polydipsie), vermehrter Harnabsatz (Polyurie), stark erhöhte Futteraufnahme (Polyphagie) und Gewichtsverlust.
+
+Caniner Diabetes mellitus - Klinische Erscheinungen
+Werden diese Anfangssymptome übersehen, können sekundäre Symptome vorherrschen. Oft wird vom Besitzer als erstes Symptom ein nachlassendes Sehvermögen festgestellt, was auf eine Diabetes-induzierte Linsentrübung zurückzuführen ist. Dabei wird die auch vermehrt im Kammerwasser auftretende Glukose in der Linse durch das Enzym Aldose-Reduktase in Sorbitol umgesetzt, welches sich dort anreichert und aufgrund des osmotischen Wassereinstroms zum Grauen Star (Katarakt) führt.
+
+Caniner Diabetes mellitus - Klinische Erscheinungen
+Nicht selten wird ein Diabetes mellitus erst bei einer manifesten Ketoazidose bemerkt. Hier ist das Allgemeinbefinden stark gestört, die Tiere können abgeschlagen oder sogar komatös sein.
+
+Caniner Diabetes mellitus - Klinische Erscheinungen
+Bei einem Progesteron-bedingten Diabetes mellitus kann dieser auch mit einer Pyometra verbunden sein.
+
+Caniner Diabetes mellitus - Diagnostik
+Die Kriterien für die Diagnose des Diabetes mellitus sind in der Veterinärmedizin nicht einheitlich. Um einen Konsens für die diagnostischen Kriterien bei Hunden (und auch Katzen) festzulegen, haben die European Society of Veterinary Endocrinology (ESVE) und die Society of Comparative Endocrinology (SCE) unter Einbeziehung internationaler Experten das Projekt ALIVE (Agreeing Language in Veterinary Endocrinology) gestartet. Die diagnostischen Kriterien für Hunde lauten:
+
+Caniner Diabetes mellitus - Diagnostik
+Ein nüchterner oder nicht nüchterner Blutzuckerwert von ≥ 200 mg/dl (11,1 mmol/l) mit klassischen klinischen Anzeichen einer Hyperglykämie (ohne andere plausible Ursache) oder einer hyperglykämischen Krise;
+
+Caniner Diabetes mellitus - Diagnostik
+Ein Nüchtern-Blutzuckerwert zwischen 126 mg/dl (7 mmol/l) und 200 mg/dl (11,1 mmol/l) mit oder ohne klinische Anzeichen einer Hyperglykämie oder hyperglykämischen Krise, sofern eine stressbedingte Hyperglykämie ausgeschlossen werden kann (in unsicheren Fällen sollten die Veränderungen im Blutzuckerspiegel durch wiederholte Messungen bestätigt werden);
+
+Caniner Diabetes mellitus - Diagnostik
+Neben der Bestimmung des Blutzuckerspiegels kann die Bestimmung des Fructosamingehalts sinnvoll sein, z. B. wenn klinische Anzeichen fehlen. Auch für das Langzeitmanagement des Diabetes ist die Messung des Fructosamin-Ausgangswertes sinnvoll. Bei neu diagnostizierten diabetischen Hunden liegt der Fructosamingehalt im Regelfall bei über 400 µmol/l. Eventuell kann auch eine Glukosetoleranztest durchgeführt werden, wobei bei Hunden dieser meist durch intravenöse Verabreichung einer Glucoselösung realisiert wird.
+
+Caniner Diabetes mellitus - Diagnostik
+Ein Nachweis von Glucose im Urin ist nicht beweisend, da er auch bei nierenkranken Hunden auftreten kann. Einen Hinweis auf einen Diabetes mellitus gibt der Glucosenachweis im Urin jedoch, wenn gleichzeitig das spezifische Gewicht des Urins hoch ist oder gleichzeitig Ketokörper im Urin auftreten.
+
+Caniner Diabetes mellitus - Diagnostik
+Zur weiteren Abklärung sollte ein Blutbild, Blutchemie, eine Urinuntersuchung einschließlich Urinkultur und bei intakten Hündinnen eine Progesteron-Bestimmung oder eine Vaginalzytologie durchgeführt werden. Die Bestimmung des IFG-1 ist bei Verdacht auf einen Progesteron-abhängigen Diabetes sinnvoll.
+
+Caniner Diabetes mellitus - Diagnostik
+Differentialdiagnostisch müssen andere Ursachen für einen Blutzuckeranstieg und Zucker im Urin abgeklärt werden. Dazu gehören vorangegangene Nahrungsaufnahme, Cushing-Syndrom oder Glukokortikoid-Gabe, Nierenerkrankungen einschließlich Fanconi-Syndrom und Leptospirose. Bei der Schilddrüsenunterfunktion des Hundes oder einem Multiplen Myelom kann Fructosamin erhöht sein.
+
+Caniner Diabetes mellitus - Behandlung
+Der Ersatz der insulinproduzierenden Langerhans-Inseln durch eine Inselzelltransplantation kommt bei Hunden nicht in Frage, obwohl diese Prozedur erstmals 1891 von Oskar Minkowski bei einem Hund durchgeführt wurde. Dieses Verfahren ist auch in der Humanmedizin immer noch im experimentellen Stadium und wird sich aufgrund der hohen Kosten wohl kaum in der Tiermedizin etablieren. Der canine Diabetes mellitus wird immer durch die Zufuhr von Insulin therapiert. Die orale Gabe von Antidiabetika ist beim Hund nicht indiziert.
+
+Caniner Diabetes mellitus - Behandlung
+Die European Society of Veterinary Endocrinology gibt folgende Behandlungsziele vor:
+
+Caniner Diabetes mellitus - Behandlung
+Bei unkastrierten Hündinnen ist die Kastration (Ovariohysterektomie) als erste Maßnahme zu empfehlen, da die Bildung von Progesteron während des Metöstrus oder Diöstrus zur Destabilisierung der Erkrankung führt und infolge des induzierten Insulin-Gegenspielers Somatotropin eine korrekte Einstellung auf Insulin nicht möglich ist. Im Idealfall, der allerdings nur selten eintritt, verschwinden die Symptome der Erkrankung mit der Entfernung der Eierstöcke, und es besteht kein weiterer Behandlungsbedarf. Beim sehr seltenen Trächtigkeitsdiabetes verschwinden die Diabetes-Symptome mit der Geburt innerhalb von drei Wochen. Bei sehr hohen Werten in der Frühträchtigkeit ist eine Insulinbehandlung bis zur Geburt sinnvoll, meist gelingt hier aber keine gute Einstellung.
+
+Caniner Diabetes mellitus - Behandlung
+Wird eine Insulintherapie begonnen, so wird in der Einstellungsphase durch die allmähliche Steigerung der Insulinmenge zunächst die erforderliche Insulindosis ermittelt. Dosiserhöhungen erfolgen dabei in Abständen von fünf bis sieben Tagen, um dem Organismus Zeit zu geben, sich anzupassen.
+
+Caniner Diabetes mellitus - Behandlung
+Etwa eine Woche nach Therapiebeginn wird eine Blutglukosekurve erstellt. Empfohlen werden dabei Messungen des Blutzuckerspiegels alle zwei Stunden in einem Zeitraum von 12 Stunden (Tagesprofil). Für Hunde, wie auch für Katzen, gibt es hierfür spezielle Glukometer. Das Erstellen der Kurve gibt Aufschluss darüber, ob die Insulindosis ausreichend hoch ist und die Insulinwirkung lange genug anhält sowie auch, ob eine Überdosierung vorliegt. Im weiteren Verlauf erfolgen regelmäßige Kontrolluntersuchungen.
+
+Caniner Diabetes mellitus - Behandlung
+Bis der Hund richtig eingestellt ist, kann es mehrere Wochen dauern. Als Spanne für die Nüchternblutglukose gilt, dass 270 mg/dl (15 mmol/l) nicht über- und 90 mg/dl (5 mmol/l) nicht unterschritten werden sollten.[A] Laut European Society of Veterinary Endocrinology ist ein bestimmtes Behandlungsergebnis aber nicht an einen allgemeinen spezifischen Zielwert der Blutglukose gebunden. Der Therapieerfolg lässt sich mit folgenden Herangehensweisen beurteilen:
+
+Caniner Diabetes mellitus - Behandlung
+Systematische und standardisierte Bewertung der klassischen klinischen Anzeichen, idealerweise durch ein Scoring-System
+
+Caniner Diabetes mellitus - Behandlung
+Bewertung der glykämischen Parameter in Blut, Interstitium und/oder Urin
+
+Caniner Diabetes mellitus - Behandlung
+Der Graue Star als typische Folge der Zuckerkrankheit beim Hund kann medikamentös nicht beeinflusst, sondern nur durch Entfernen der Linse behoben werden.
+
+Caniner Diabetes mellitus - Insulin-Präparate
+In Deutschland sind zwei Insulinpräparate für Hunde zugelassen: ein mittellang wirksames, sogenanntes Intermediärinsulin vom Schwein (porcines Lente-Insulin, Handelsname Caninsulin von MSD Intervet) sowie seit 2019 zusätzlich ein rekombinant hergestelltes Langzeitinsulin (Protamin-Zink-Insulin, Handelsname ProZinc von Boehringer Ingelheim Vetmedica).
+
+Caniner Diabetes mellitus - Insulin-Präparate
+Das Insulin des Schweines ist strukturell mit dem des Hundes identisch. Da Caninsulin 35 % amorphes und 65 % kristallines Zinkinsulin enthält, hat es zwei Aktivitätsmaxima, nämlich nach 3 und nach 6–8 Stunden, der Nadir tritt mit etwa 8 Stunden auf. Die Wirkung hält etwa 14 Stunden an, Caninsulin wird daher zweimal täglich verabreicht. Die Mehrzahl der Hunde lässt sich mit Caninsulin gut einstellen. Für Caninsulin ist zur einfacheren Verabreichung auch ein Pen (Handelsname Vetpen) erhältlich. Wirkt Intermediärinsulin bei einem Individuum zu kurz, ist der Blutzuckerspiegel über längere Abschnitte eines Tages zu hoch und der Hund zeigt weiterhin vermehrtes Trinken und Urinieren. Wirkt Intermediärinsulin bei einem Individuum zu lang, kommt es im Überlappungsbereich zu einer Unterzuckerung und eventuell zu einem Somogyi-Effekt. Beide Zustände können nur über ein Tagesprofil oder eine kontinuierliche Blutzuckermessung erkannt werden und erfordern den Wechsel auf ein anderes Insulin.
+
+Caniner Diabetes mellitus - Insulin-Präparate
+Protamin-Zink-Insulin ist ein Komplex aus rekombinantem humanem Insulin, Protamin und Zink. Durch die Komplexbildung soll das Insulin im Körper des Hundes langsamer freigesetzt und die Wirkdauer auf ca. 24 Stunden erhöht werden. Studien zeigen, dass bei vielen diabetischen Hunden die Gabe einer Dosis pro Tag ausreicht, um den Blutzuckerspiegel zu kontrollieren und klinische Anzeichen des Diabetes zu minimieren.
+
+Caniner Diabetes mellitus - Insulin-Präparate
+Nach den arzneimittelrechtlichen Vorschriften dürfen andere Präparate nur im Sinne eines Therapienotstandes (Off-Label-Use), also bei ausbleibender oder ungenügender Wirkung oder Unverträglichkeit, angewendet werden. In diesen Fällen können auch Humaninsuline verwendet werden. Insulin glargin (Handelsname Lantus) wirkt beim Hund etwa 12 Stunden und muss daher ebenfalls zweimal täglich verabreicht werden. Der Nadir tritt nach zwei Stunden auf. Bisherige Studien zeigen, dass die Einstellungsqualität etwas schlechter als mit Caninsulin ist. Insulin detemir (Handelsname Levemir) wird vor allem bei Hunden eingesetzt, bei denen Caninsulin schlecht wirkt. Es hat beim Hund eine Wirkungsdauer von 14 Stunden, so dass es zweimal täglich verabreicht werden muss. Hier besteht allerdings im Überlappungsbereich beider Injektionen die Gefahr der Unterzuckerung.
+
+Caniner Diabetes mellitus - Insulin-Präparate
+Bei einem komplizierten Krankheitsverlauf können individuell abgestimmte Kombinationen aus langwirksamen und kurzwirksamen Insulinen eingesetzt werden.
+
+Caniner Diabetes mellitus - Unterstützende Maßnahmen
+Die Fütterung einer ballaststoffreichen Nahrung mit komplexen Kohlenhydraten sorgt für eine langsamere und gleichmäßigere Glucoseaufnahme im Darm. Bei untergewichtigen Patienten kann aber eine rohfaserarme Diät sinnvoll sein. Treten hohe Blutfettwerte, Fettleber oder eine Pankreatitis auf, sollte die Ration fettarm sein. Futterart, Futtermenge und Fütterungszeit sollten möglichst gleichbleibend sein. Der Fütterungszeitpunkt ist so zu wählen, dass das Insulin bereits in der Blutbahn ist, wenn es zur Glucoseaufnahme in das Blut kommt. Bei Verwendung von Caninsulin ist eine Fütterung 30 Minuten vor der Insulingabe optimal. Bei zweimaliger Insulinanwendung am Tag sind auch zwei Mahlzeiten sinnvoll. Bei einmal-täglicher Insulingabe, die allerdings selten zu einer guten Einstellung führt, sollte eine zweite Fütterung zum Zeitpunkt des Nadirs erfolgen.
+
+Caniner Diabetes mellitus - Unterstützende Maßnahmen
+Mit ProZinc ist es möglich, den Hund mit nur einer Insulingabe pro Tag gut einzustellen. Der Hund kann zweimal täglich gefüttert werden, das Insulin wird dann morgens zeitgleich mit der ersten Fütterung oder direkt anschließend verabreicht. Die zweite Fütterung sollte etwa neun bis zehn Stunden später erfolgen.
+
+Caniner Diabetes mellitus - Unterstützende Maßnahmen
+Minimierung von physischem und psychischem Stress (z. B. keine ungewohnte körperliche Belastung).
+
+Caniner Diabetes mellitus - Unterstützende Maßnahmen
+Außerdem müssen weitere eventuell vorliegende Grundkrankheiten ausgeschlossen bzw. behandelt werden. Auch Begleitkrankheiten müssen diagnostiziert und behandelt werden, da sie die Wirksamkeit des verabreichten Insulins senken können. 21 % der an Diabetes mellitus erkrankten Hunde entwickeln eine meist subklinische Harnblasenentzündung.
+
+Caniner Diabetes mellitus - Insulinresistenz
+Als Insulinresistenz bezeichnet man den Zustand, wenn mit einer Insulintherapie keine oder keine ausreichende Senkung des Blutzuckers erreicht werden kann. Lässt sich durch eine zweimal tägliche Dosis von 1,5 I.E./kg Körpermasse der Blutzuckerspiegel nicht unter 300 mg/dl senken, spricht dies für eine Insulinresistenz. Hierbei müssen zunächst Anwendungsfehler (falsche Injektionstechnik, falsche Dosierung, unwirksam gewordenes Insulin, Fütterung) ausgeschlossen sowie eventuell wegen anderer Erkrankungen verabreichte Diabetes-auslösende Medikamente wie Glucocorticoide oder Megestrol abgeklärt werden. Häufigste Ursachen für eine Insulinresistenz sind andere Erkrankungen wie ein Cushing-Syndrom, bakterielle Infektionen, Schilddrüsenunterfunktion, Herz-, Leber- und Nierenerkrankungen sowie Bauchspeicheldrüsenentzündungen. Nur in etwa 5 % der Fälle werden Antikörper gegen das verabreichte Insulin gebildet, dann sollte ein anderes Insulin verwendet werden.
+
+Caniner Diabetes mellitus - Home Monitoring
+Wie in der Humanmedizin kann auch beim Hund ein Home Monitoring, d. h. die Kontrolle der Zuckerwerte zu Hause mit einem Blutzucker-Messgerät, durchgeführt werden. Das Verfahren ist bei Hunden zwar nicht so essentiell wie bei Katzen, in der Insulineinstellungsphase aber auf jeden Fall empfehlenswert.
+
+Caniner Diabetes mellitus - Home Monitoring
+Hierbei wird von einem Blutstropfen mit einem Blutzuckermessgerät der Blutzuckerwert bestimmt, optimal mit mehreren Messungen (Tagesprofil). Dieses Home Monitoring hat den großen Vorteil, dass eine drohende Unterzuckerung frühzeitig erkannt wird. Außerdem kann die Insulinbehandlung besser auf den individuellen Alltag abgestimmt werden. Das Home-Monitoring ist einfach und von jedem Hundebesitzer erlernbar. Es sollte bei gut eingestellten Hunden einmal alle zwei Wochen durchgeführt werden. Eine tierärztliche Kontrolle ist alle drei bis vier Monate empfehlenswert.
+
+Caniner Diabetes mellitus - Unterzuckerung
+Auch bei einem gut eingestellten Hund kann es zu einer Unterzuckerung (Hypoglykämie), d. h. zu einem zu niedrigen Blutzuckerwert, kommen. Die Anzeichen dafür sind starker Hunger, Unruhe, Zittern, Bewegungsstörungen (Zuckungen) bis hin zum Koma. Eine Unterzuckerung ist immer ein Notfall und muss sofort behoben werden.
+
+Caniner Diabetes mellitus - Unterzuckerung
+Einflößen einer Zuckerlösung (Traubenzucker, Honig oder Glukosesirup) in das Maul,
+
+Caniner Diabetes mellitus - Unterzuckerung
+Gabe eines Würfelzuckers oder von Traubenzucker unter die Zunge,
+
+Caniner Diabetes mellitus - Unterzuckerung
+Sollten diese Maßnahmen nicht zum Erfolg führen, ist eine umgehende Vorstellung beim Tierarzt unumgänglich.
+
+Caniner Diabetes mellitus
+Diabetes mellitus ist eine Krankheit, bei der die Betazellen des endokrinen Pankreas entweder kein Insulin mehr bilden oder es nicht mehr in ausreichender Menge für den Bedarf des Körpers herstellen können. Sie ist die häufigste Erkrankung des endokrinen Pankreas.
+
+Caniner Diabetes mellitus
+Die Erkrankung ist behandelbar und muss weder die Lebenserwartung des Tieres verkürzen noch seine Lebensqualität beeinträchtigen. Unbehandelt kann sie zu Grauem Star, zunehmender Schwäche der Beine (Neuropathie), Mangelernährung, Ketoazidose, Dehydrierung und Tod führen. Diabetes betrifft vor allem Hunde mittleren und höheren Alters, doch es gibt auch juvenile Fälle. Der typische Diabetespatient beim Hund ist bei der Diagnose weiblich, mittleren Alters und übergewichtig.
+
+Caniner Diabetes mellitus
+Die Zahl der Hunde mit diagnostiziertem Diabetes mellitus hat sich in dreißig Jahren verdreifacht. Nach den Überlebensraten aus etwa derselben Zeit überlebten nur 50 % die ersten 60 Tage nach der Diagnose und wurden anschließend erfolgreich zu Hause behandelt. Heute haben behandelte diabetische Hunde dieselbe Lebenserwartung wie nicht diabetische Hunde gleichen Alters und Geschlechts.
+
+Caniner Diabetes mellitus
+Der Typ-1-Diabetes, manchmal „juveniler Diabetes“ genannt, wird durch die Zerstörung der Betazellen der Bauchspeicheldrüse verursacht. Er wird auch als insulinabhängiger Diabetes bezeichnet, das heißt, Injektionen von körperfremdem Insulin müssen das Insulin ersetzen, das die Bauchspeicheldrüse nicht mehr in ausreichender Menge bilden kann. Typ 1 ist die häufigste Diabetesform beim Hund und betrifft etwa 0,34 % der Hunde.
+
+Caniner Diabetes mellitus
+Auch bei Hunden kann sich ein Trächtigkeitsdiabetes entwickeln. Er lässt sich durch Verhaltens- und Fütterungsmaßnahmen verhindern. Auch Diabetes insipidus, der nichts mit dem Blutzucker zu tun hat, sondern auf einem Mangel an antidiuretischem Hormon oder einer Resistenz dagegen beruht, kommt bei Hunden vor.
+
+Caniner Diabetes mellitus
+Insulinmangeldiabetes oder primärer Diabetes: bezeichnet die Zerstörung der Betazellen der Bauchspeicheldrüse und deren Unfähigkeit, Insulin zu bilden.
+
+Caniner Diabetes mellitus
+Insulinresistenzdiabetes oder sekundärer Diabetes: beschreibt eine Insulinresistenz, die durch andere Erkrankungen oder durch hormonelle Medikamente verursacht wird.
+
+Caniner Diabetes mellitus
+Dass Betazellen zerstört werden, ist bekannt, doch nicht alle dahinterstehenden Prozesse. Der primäre Diabetes des Hundes ähnelt dem Typ-1-Diabetes des Menschen in der Unfähigkeit, Insulin zu bilden, und im Bedarf an Insulinersatz von außen, doch das Ziel der Autoantikörper beim Diabetes des Hundes ist noch nicht identifiziert. Rasse- und Behandlungsstudien lieferten einige Hinweise auf einen genetischen Zusammenhang. Studien haben Belege dafür erbracht, dass der Diabetes des Hundes ähnlich wie sein menschliches Gegenstück, der Typ-1-Diabetes, einen saisonalen Zusammenhang hat und einen „Lebensstil“-Faktor, wobei die Pankreatitis eine eindeutige Ursache ist. Diese Befunde deuten darauf hin, dass bei der Krankheit des Hundes Umwelt- und Ernährungsfaktoren beteiligt sind. Übergewicht beim Hund verursacht den entsprechenden Diabetes, der auch als caniner Diabetes bezeichnet wird (Hoeing 2014).
+
+Caniner Diabetes mellitus
+Es kommt selten vor, aber es ist möglich, dass ein Pankreatitisschub beim Hund den endokrinen Teil des Organs wieder so aktiviert, dass er erneut Insulin bilden kann. Eine akute Pankreatitis kann einen vorübergehenden (transienten) Diabetes verursachen, am ehesten durch eine Schädigung der Betazellen des endokrinen Teils. Eine auf einen Pankreatitisschub folgende Insulinresistenz kann danach noch einige Zeit anhalten. Eine Pankreatitis kann das endokrine Pankreas so stark schädigen, dass der Diabetes dauerhaft wird.
+
+Caniner Diabetes mellitus
+Diese Liste der Risikofaktoren für Diabetes beim Hund stammt aus der 2007 veröffentlichten genetischen Rassestudie. Ihre Kategorie „neutrales Risiko“ ist so zu verstehen, dass die Belege nicht ausreichen, um der Hunderasse genetisch ein hohes, mittleres oder niedriges Risiko für die Krankheit zuzuordnen. Alle Risikoangaben beruhen ausschließlich auf entdeckten genetischen Faktoren.
+
+Caniner Diabetes mellitus
+Der Körper nutzt Glucose als Energiequelle. Ohne Insulin kann Glucose nicht in die Zellen gelangen, wo sie für diesen und andere anabole („aufbauende“) Zwecke wie die Synthese von Glykogen, Proteinen und Fettsäuren verwendet würde. Insulin verhindert außerdem aktiv den Abbau (Katabolismus) von Glykogen und Fett. Fehlt ausreichend Insulin, beschleunigt sich dieser Abbauprozess; das ist der Mechanismus, durch den Fett statt Glucose verstoffwechselt wird und Ketone entstehen.
+
+Caniner Diabetes mellitus
+Da die Glucose, die normalerweise in die Zellen gelangt, dies ohne Insulin nicht kann, sammelt sie sich im Blut an, was als Hyperglykämie oder hoher Blutzuckerspiegel sichtbar wird. Die Nierenkanälchen können Glucose normalerweise zurückresorbieren, sind aber mit der anfallenden Glucosemenge überfordert. An diesem Punkt, der Nierenschwelle, tritt die überschüssige Glucose in den Urin über (Glukosurie), wo sie bei Harnzuckertests nachweisbar ist. Die Polyurie, also das zu häufige Urinieren, verursacht über einen osmotischen Vorgang die Polydipsie, das übermäßige Trinken. Obwohl es einen Glucoseüberschuss gibt, kann die Glucose ohne Insulin nicht in die Zellen gelangen. Die Zellen können sich deshalb nicht aus ihrer normalen Glucosequelle ernähren. Der Körper beginnt, zu diesem Zweck Fett zu verwenden, was zu Gewichtsverlust führt; der Vorgang ähnelt dem Verhungern.
+
+Caniner Diabetes mellitus - Symptome
+häufiges und/oder übermäßiges Urinieren, als Polyurie bezeichnet, sodass der Hund oft auch nachts zum Urinieren hinausgelassen werden muss,
+
+Caniner Diabetes mellitus - Symptome
+Manchmal ist das erste Anzeichen von Diabetes, das der Halter bemerkt, dass sein Hund erblindet ist (durch die Bildung von Grauem Star in den Augen) oder erbricht, nicht frisst, lethargisch und schwach ist (durch Ketoazidose).
+
+Caniner Diabetes mellitus - Symptome
+Obwohl die Symptome des Diabetes mellitus wie häufiges Urinieren, Durst, gesteigerter Appetit und Bewegungsunlust leicht zu erkennen sind, muss der Hund regelmäßig auf die Krankheit hin kontrolliert werden. Das Körpergewicht des Hundes sollte alle zwei Wochen mit einer Waage bestimmt werden. Als Teil des Fütterungsmanagements zur Erhaltung eines durchschnittlichen Körpergewichts sollten außerdem der tägliche Kalorienbedarf des Hundes und sein BCS ermittelt werden. Auch die Proteinaufnahme des Hundes sollte berücksichtigt und zweimal im Monat überprüft werden.
+
+Caniner Diabetes mellitus - Symptome
+Auch der Blutdruck des Hundes sollte ständig und täglich kontrolliert werden, um künftige Probleme vorherzusehen. Der Blutzuckerspiegel kann mit einem Blutzuckermessgerät kontrolliert werden, um den Glucosespiegel im Körper des Hundes zu überprüfen.
+
+Caniner Diabetes mellitus - Symptome
+Eine frühe Diagnose und Behandlung kann die Häufigkeit von Komplikationen wie Grauem Star und Neuropathie verringern. Da Hunde insulinabhängig sind, sind orale Antidiabetika, die ein funktionsfähiges endokrines Pankreas mit insulinbildenden Betazellen voraussetzen, unwirksam. Diabetische Hunde benötigen eine Insulintherapie, die lebenslang fortgesetzt werden muss.
+
+Caniner Diabetes mellitus - Symptome
+Während der ersten Einstellung und danach in regelmäßigen Abständen wird beurteilt, wie gut die Insulindosis den Blutzucker kontrolliert. Dies geschieht mit einer Reihe von Blutzuckermessungen, der sogenannten Blutzuckerkurve. Über einen Zeitraum von 12 oder 24 Stunden werden in Abständen von ein bis zwei Stunden Blutproben entnommen und untersucht. Die Ergebnisse werden meist zur leichteren Auswertung in ein Diagramm übertragen und zur Beurteilung mit den Fütterungs- und Injektionszeiten verglichen. Die Kurve gibt Aufschluss über die Wirkung des Insulins beim Tier. Sie dient dazu, die Insulindosis anzupassen, den niedrigsten und höchsten Blutzuckerwert zu bestimmen, die Wirkdauer des Insulins zu ermitteln und bei anhaltender Hyperglykämie zu klären, ob die Ursache eine zu niedrige Insulindosis oder ein Somogyi-Effekt ist, bei dem der Blutzucker zunächst hypoglykämische Werte erreicht und dann durch die gegenregulatorischen Hormone des Körpers auf hyperglykämische Werte getrieben wird. Die Kurven liefern auch Hinweise auf eine Insulinresistenz, die durch andere Medikamente als Insulin oder durch andere Erkrankungen als Diabetes verursacht sein kann, die sich durch weitere Untersuchungen feststellen lassen.
+
+Caniner Diabetes mellitus - Symptome
+Weitere Tests zur Beurteilung der Diabeteseinstellung sind Blutuntersuchungen auf Fructosamin und glykiertes Hämoglobin (GHb), die besonders dann nützlich sein können, wenn Stress eine Rolle spielen könnte. Während Angst oder Stress die Ergebnisse von Blut- oder Harnzuckertests beeinflussen können, messen diese beiden Tests glykierte Proteine, die davon nicht beeinflusst werden. Der Fructosamintest gibt Auskunft über die Blutzuckereinstellung in einem Zeitraum von etwa 2 bis 4 Wochen, der GHb-Test über einen Zeitraum von 2 bis 4 Monaten. Jeder dieser Tests hat eigene Grenzen und Nachteile, und keiner soll Blutzuckermessungen und -kurven ersetzen, sondern die daraus gewonnenen Informationen ergänzen. Während HbA1c-Tests beim Menschen ein gängiges Diagnoseverfahren für Diabetes sind, ist ein A1C-Test für Katzen und Hunde erst seit Kurzem erhältlich. Das Produkt heißt A1CARE und wird von Baycom Diagnostics angeboten.
+
+Caniner Diabetes mellitus - Symptome
+Ein diabetisches Tier gilt als eingestellt, wenn sein Blutzucker regelmäßig in einem akzeptablen Bereich bleibt. Akzeptable Werte liegen bei Hunden zwischen 5 und 10 mmol/L bzw. 90 bis 180 mg/dL. Der Bereich ist bei diabetischen Tieren weiter als bei nicht diabetischen, weil Insulininjektionen die Genauigkeit einer funktionierenden Bauchspeicheldrüse nicht nachbilden können.
+
+Caniner Diabetes mellitus - Symptome
+Die übliche Form dieser Behandlung ist ein mittellang wirkendes Basalinsulin mit Fütterung und Insulingabe alle 12 Stunden, wobei die Insulininjektion nach der Mahlzeit erfolgt. Die am häufigsten verwendeten mittellang wirkenden Insuline sind NPH, auch Isophan genannt, und Caninsulin, auch als Vetsulin bekannt, ein Lente-Insulin vom Schwein. Obwohl der übliche Diabetesablauf feste Fütterungszeiten mit anschließender Insulinspritze vorsieht, können auch Hunde, die sich nicht an dieses Muster halten, zufriedenstellend eingestellt werden. Die meisten Hunde benötigen keine Basal-Bolus-Insulininjektionen; ein Behandlungsprotokoll mit gleichbleibendem Kaloriengehalt und gleichbleibender Zusammensetzung des Futters sowie festen Fütterungs- und Injektionszeiten passt meist gut zum gewählten mittellang wirkenden Insulin.
+
+Caniner Diabetes mellitus - Symptome
+Da Lantus und Protamin-Zink-Insulin (PZI) bei Hunden unzuverlässig wirken, werden sie selten zur Behandlung des Diabetes beim Hund eingesetzt. Bei manchen Hunden wurde Rinderinsulin verwendet, besonders im Vereinigten Königreich. Pfizer Animal Health stellte Ende 2010 alle drei Arten seiner tierärztlichen Rinderinsuline Insuvet ein und empfahl, die Patienten auf Caninsulin umzustellen. Der ursprüngliche Inhaber der Insulinmarke, Schering-Plough Animal Health, beauftragte Wockhardt UK mit der Herstellung. Wockhardt UK produziert seit einiger Zeit Rinder- und Schweineinsuline für den Humanarzneimittelmarkt.
+
+Caniner Diabetes mellitus - Symptome
+Die meisten im Handel erhältlichen Diätfutter für Diabetes sind reich an Ballaststoffen und komplexen Kohlenhydraten und haben nachgewiesene therapeutische Wirkungen. Ein Hauptanliegen ist es, das Tier zum Fressen zu bringen oder dabei zu halten, da die Gabe der verordneten Insulinmenge davon abhängt, dass es ganze Mahlzeiten frisst. Wird keine Mahlzeit gefressen, besteht dennoch ein Bedarf an einer Basaldosis Insulin, die den Grundbedarf des Körpers unabhängig von der Nahrung deckt. Wird nur ein Teil der Mahlzeit gefressen, muss die Insulindosis verringert werden. Informationen zu Basal- und reduzierter Insulindosis sollten für den Bedarfsfall Teil der ersten Gespräche zwischen Tierarzt und Halter über den Diabetes sein.
+
+Caniner Diabetes mellitus - Symptome
+Es ist möglich, den Diabetes ohne Futterumstellung einzustellen. Frisst das Tier ein verordnetes Diätfutter nicht, ist es nicht im Interesse des Hundes, darauf zu bestehen; der zusätzliche Insulinbedarf durch die Fütterung eines nicht verschreibungspflichtigen Futters liegt meist bei 2–4 %. Halbfeuchtes Futter sollte gemieden werden, da es meist viel Zucker enthält. Da diabetische Hunde zu Pankreatitis und Hyperlipidämie neigen, kann ein fettarmes Futter helfen, diese Komplikationen zu begrenzen oder zu vermeiden. Ein nicht verschreibungspflichtiges Futter mit „fester Rezeptur“ wäre wegen seiner gleichbleibenden Zubereitung geeignet. Futter mit fester Rezeptur enthält genaue Mengen der Zutaten, sodass sich die Chargen kaum oder gar nicht unterscheiden. Futter mit „offener Rezeptur“ enthält die auf dem Etikett genannten Zutaten, deren Menge jedoch schwanken kann, wobei die garantierte Analyse auf der Packung eingehalten werden muss. Diese Schwankungen können die Diabeteseinstellung beeinflussen. Verschreibungspflichtige Futter haben eine feste Rezeptur, während die meisten nicht verschreibungspflichtigen eine offene Rezeptur haben, sofern der Hersteller nichts anderes angibt.
+
+Caniner Diabetes mellitus - Symptome
+Die Verwendung eines preiswerten Blutzuckermessgeräts und Blutzuckermessungen zu Hause können helfen, gefährliche Insulinüberdosierungen zu vermeiden, und ein besseres Bild davon geben, wie gut die Erkrankung eingestellt ist.
+
+Caniner Diabetes mellitus - Symptome
+Eine Studie von 2003 an Haltern diabetischer Hunde, die neu mit Blutzuckermessungen zu Hause begannen, ergab, dass 85 % von ihnen die Messungen erfolgreich durchführen und langfristig fortsetzen konnten. Eine Erhöhung der Insulindosis allein aufgrund eines einzigen Blutzuckerwerts sollte vermieden werden; auch wenn die Ergebnisse höher als gewünscht sind, sollten weitere Informationen wie der niedrigste Blutzuckerwert (Nadir) vorliegen, um eine mögliche Hypoglykämie zu verhindern.
+
+Caniner Diabetes mellitus - Symptome
+Harnteststreifen sollten nicht als einzige Grundlage für Insulinanpassungen verwendet werden, da sie nicht genau genug sind. Harnzuckerteststreifen zeigen ein negatives Ergebnis, bis die Nierenschwelle von 10 mmol/L bzw. 180 mg/dL über eine gewisse Zeit erreicht oder überschritten wird. Der Bereich negativer Messwerte ist recht breit und reicht von normalen oder fast normalen Blutzuckerwerten ohne Hypoglykämiegefahr (Euglykämie) bis zu niedrigen Blutzuckerwerten (Hypoglykämie), bei denen eine Behandlung nötig wäre. Da der Urin normalerweise mehrere Stunden in der Blase verbleibt, geben Harntests den Glucosespiegel im Blut zum Zeitpunkt des Tests nicht genau wieder.
+
+Caniner Diabetes mellitus - Symptome
+Für Menschen hergestellte Blutzuckermessgeräte messen mit Hunde- und Katzenblut meist genau, außer im niedrigen Blutzuckerbereich (<80 mg/dL; <4,44 mmol/L). In diesem Bereich kann der Größenunterschied zwischen menschlichen und tierischen roten Blutkörperchen zu ungenauen Messwerten führen. Blutzuckermessgeräte für Menschen wurden erfolgreich bei Haustieren eingesetzt, lange bevor Geräte für Tiere hergestellt wurden. Eine Studie von 2009 verglich die Messwerte beider Gerätearten direkt mit denen eines Chemieanalysegeräts. Die Werte keines der beiden Geräte stimmten genau mit denen des Analysegeräts überein, doch die Abweichungen waren im Vergleich zu den Analyseergebnissen bei beiden klinisch nicht bedeutsam. Alle Messwerte von Blutzuckermessgeräten sollten mit Laborwerten derselben Probe verglichen werden, um ihre Genauigkeit zu bestimmen.
+
+Caniner Diabetes mellitus - Symptome
+Einige Tierärzte setzen eine kontinuierliche Glukoseüberwachung als Teil des Behandlungsplans ein (2019). Für Menschen bestimmte Sensoren wie der Freestyle Libre von Abbott können angebracht werden und messen den Glucosespiegel direkt, sodass tägliche Harn- oder Blutkontrollen entfallen.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Ketone im Urin oder Blut, nachgewiesen mit Harnteststreifen oder einem Blutketon-Messgerät, können auf den Beginn einer diabetischen Ketoazidose (DKA) hinweisen, eines gefährlichen und oft rasch tödlichen Zustands, der durch hohe Glucosespiegel (Hyperglykämie) und niedrige Insulinspiegel in Verbindung mit bestimmten anderen systemischen Belastungen verursacht wird. Eine DKA lässt sich aufhalten, wenn sie früh erkannt wird.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Ketone werden von der Leber im Rahmen des Fettstoffwechsels gebildet und kommen bei Nichtdiabetikern oder gut eingestellten Diabetikern normalerweise nicht in messbarer Menge in Urin oder Blut vor. Der Körper nutzt normalerweise Glucose als Brennstoff und kann dies bei ausreichenden Insulinspiegeln auch tun. Steht Glucose wegen eines unbehandelten oder schlecht behandelten Diabetes oder einiger anderer, davon unabhängiger Erkrankungen nicht als Energiequelle zur Verfügung, beginnt der Körper stattdessen Fett zur Energiegewinnung zu nutzen. Wenn der Körper Fett statt Glucose zur Energiegewinnung nutzt, entstehen Ketone, die sich in Urin- oder Blutproben messen lassen.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Ketonprobleme, die über den Bereich „Spuren oder leicht“ hinausgehen, erfordern sofortige medizinische Behandlung; sie können nicht zu Hause behandelt werden. Die tierärztliche Versorgung einer Ketose oder Ketoazidose kann intravenöse (IV) Infusionen gegen die Dehydrierung und bei Bedarf zum Ersatz verlorener Elektrolyte umfassen, intravenös oder intramuskulär gegebenes kurz wirksames Insulin zur Senkung des Blutzuckers sowie abgemessene Mengen Glucose oder Zwangsfütterung, damit der Stoffwechsel wieder Glucose statt Fett als Energiequelle nutzt.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Bei der Untersuchung des Urins auf Ketone sollte die Probe möglichst frisch sein. Ketone verflüchtigen sich schnell, sodass bei älterem Urin ein falsch negatives Ergebnis möglich ist. Die Dose mit den Harnteststreifen enthält eine Anleitung und Farbtabellen, die zeigen, wie sich die Farbe des Streifens je nach Keton- oder Glucosegehalt des Urins nach 15 (Ketone – Ketostix) bzw. 30 (Glucose – Ketodiastix) Sekunden verändert. Das Ablesen der Farben zu diesen Zeitpunkten ist wichtig, da die Farben weiter nachdunkeln und ein späteres Ablesen ein falsches Ergebnis liefert. Das Messen der Zeit mit dem Sekundenzeiger einer Uhr ist genauer als Mitzählen.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Derzeit gibt es nur ein Blutzuckermessgerät für den Heimgebrauch, das mit speziellen Teststreifen auch Ketone im Blut misst: das Precision Xtra von Abbott. Außerhalb der USA ist dieses Gerät als Precision, Optium oder Xceed bekannt. Die Blutketon-Teststreifen sind sehr teuer; die Preise beginnen bei etwa 50 US-Dollar für zehn Streifen. Am wahrscheinlichsten werden Harnteststreifen verwendet – entweder solche, die nur Ketone messen, oder solche, die Glucose und Ketone im Urin messen. Die obige Tabelle ist ein Leitfaden dafür, wann Ketone vorhanden sein können.
+
+Caniner Diabetes mellitus - Ketone – Ketoazidose
+Das nicht ketotische hyperosmolare Syndrom (auch hyperglykämisches hyperosmolares Syndrom genannt) ist eine seltene, aber äußerst schwere Komplikation des unbehandelten Diabetes beim Hund und ein medizinischer Notfall. Es teilt mit der Ketoazidose die Symptome extreme Hyperglykämie, Dehydrierung und Lethargie; da noch etwas Insulin im Körper vorhanden ist, beginnt der Körper nicht, Fett als Energiequelle zu nutzen, und es werden keine Ketone gebildet. Es steht nicht genug Insulin für eine ausreichende Glucoseaufnahme zur Verfügung, aber genug, um die Ketonbildung zu verhindern. Die Dehydrierung ist beim NHS ausgeprägter als bei der diabetischen Ketoazidose. Krampfanfälle und Koma sind möglich. Die Behandlung ähnelt der der Ketoazidose, mit dem Unterschied, dass beim NHS Blutzucker und Flüssigkeitshaushalt langsamer normalisiert werden müssen als bei der DKA; bei zu schneller Behandlung kann ein Hirnödem entstehen.
+
+Caniner Diabetes mellitus - Dehydrierung
+Flüssigkeitsverluste des Körpers werden in zwei Hauptarten unterteilt: messbare (sensible) und nicht messbare (insensible). Messbar heißt, dass sie sich auf irgendeine Weise erfassen lassen; Erbrechen, Urinieren und Kotabsatz gelten als messbare Verluste, weil sie gemessen werden können. Ein Beispiel für einen nicht messbaren Verlust ist die Atmung, denn dabei geht zwar Flüssigkeit verloren, ihre Menge lässt sich aber nicht messen. Bei einem Zustand wie Fieber lässt sich der Flüssigkeitsverlust mit einer Formel berechnen, die für jedes Grad über der normalen Körpertemperatur 7 % hinzurechnet, sodass er als messbarer Verlust gilt.
+
+Caniner Diabetes mellitus - Dehydrierung
+Eine Kontrolle von Zahnfleisch und Haut des Tieres kann auf eine Dehydrierung hinweisen: Bei Dehydrierung wird das Zahnfleisch klebrig und trocken, und die Haut schnellt nach dem Zusammendrücken nicht schnell zurück. Wird die Haut am Rücken angehoben, fällt sie bei einem dehydrierten Tier nicht schnell zurück. Bei schwerer Dehydrierung (Verlust von 10–12 % der Körperflüssigkeit) bleibt die hochgezogene Haut stehen und geht nicht zurück. In diesem Stadium kann das Tier in einen Schock fallen; eine Dehydrierung von 12 % oder mehr ist ein akuter medizinischer Notfall. Der hypovolämische Schock ist ein lebensbedrohlicher Zustand, bei dem das Herz wegen des Flüssigkeitsverlusts nicht genug Blut in den Körper pumpen kann.
+
+Caniner Diabetes mellitus - Dehydrierung
+Eine Dehydrierung kann die Aufnahme von subkutan gespritztem Insulin verändern, sodass sowohl Hyperglykämie als auch Hypoglykämie möglich sind; sie kann auch zu falsch negativen oder falsch positiven Ergebnissen bei Harnketontests führen. Hyperglykämie bedeutet ein höheres Dehydrierungsrisiko.
+
+Caniner Diabetes mellitus - Behandlungskomplikationen
+Eine Hypoglykämie, also ein zu niedriger Blutzucker, kann trotz sorgfältiger Behandlung auftreten, da sich der Insulinbedarf ohne Vorwarnung ändern kann. Häufige Ursachen einer Hypoglykämie sind vermehrte oder ungeplante Bewegung, Krankheit oder Wechselwirkungen mit Medikamenten, die die Insulinwirkung verstärken. Erbrechen und Durchfall können eine Hypoglykämie auslösen, durch Dehydrierung oder einfach durch zu viel Insulin bei zu wenig richtig verdautem Futter. Symptome einer Hypoglykämie müssen ernst genommen und umgehend behandelt werden. Da eine schwere Hypoglykämie tödlich sein kann, ist es besser, einen Verdachtsfall zu behandeln, als auf Anzeichen einer tatsächlichen Hypoglykämie nicht schnell zu reagieren. Dr. Audrey Cook ging in ihrem Artikel über Diabetes mellitus von 2007 auf dieses Thema ein: „Hypoglykämie ist tödlich, Hyperglykämie nicht. Halter müssen klar verstehen, dass zu viel Insulin töten kann und dass sie einen Tierarzt anrufen oder die Dosis halbieren sollten, wenn sie Bedenken hinsichtlich des Befindens oder Appetits ihres Tieres haben. Weisen Sie Halter an, sofort Futter anzubieten, wenn das Tier schwach ist oder sich seltsam verhält.“
+
+Caniner Diabetes mellitus - Behandlungskomplikationen
+Die erfolgreiche Behandlung einer Hypoglykämie zu Hause hängt davon ab, die Symptome früh zu erkennen und schnell zu handeln. Wird versucht, ein krampfendes oder bewusstloses Tier zum Schlucken zu bringen, kann es sich an Futter oder Flüssigkeit verschlucken. Außerdem besteht die Gefahr, dass das Material aspiriert wird (in die Lunge gelangt, statt geschluckt zu werden). Krampfanfälle oder Bewusstlosigkeit wegen niedriger Blutzuckerwerte sind medizinische Notfälle.
+
+Caniner Diabetes mellitus - Behandlungskomplikationen
+Bei den ersten Anzeichen einer möglichen Hypoglykämie sollte Futter angeboten werden. Verweigert das Tier es, sollte eine Zuckerlösung (Maissirup, Honig, Pfannkuchensirup usw.) auf den Finger gegeben und auf das Zahnfleisch oder unter die Zunge (sublingual) gerieben werden. Die Lösung muss auf diese Weise gegeben werden, um eine Aspiration zu verhindern. Intervet empfiehlt, unabhängig von der Größe des Hundes einen Esslöffel Zuckerlösung auf das Zahnfleisch zu reiben. Eine andere Formel bei Hypoglykämie ist 1 Gramm Glucose pro Kilogramm (2,2 lb) Körpergewicht des Tieres. Da Zucker schnell wirkt, sollte innerhalb von ein bis zwei Minuten eine Reaktion zu sehen sein.
+
+Caniner Diabetes mellitus - Behandlungskomplikationen
+Honig, Sirup oder Zucker wirken als einfache Kohlenhydrate schnell und lassen den Blutzucker steigen, doch der Anstieg hält nicht lange an, da der Körper sie schnell abbaut. Wird, sobald das Tier fressen kann, etwas mit komplexen Kohlenhydraten gefüttert, wird verhindert, dass auf den schnellen Blutzuckeranstieg durch die Zuckerlösung eine erneute Hypoglykämie folgt. Komplexe Kohlenhydrate werden langsamer abgebaut und erhöhen den Blutzucker erst einige Zeit nach dem Fressen. Es sollte eine kleine Mahlzeit gegeben und das Tier tierärztlich untersucht werden, um festzustellen, ob eine weitere Behandlung nötig ist. Die Behandlung einer schweren Hypoglykämie ähnelt der beim diabetischen Menschen: Glucose- oder Glukagoninfusionen je nach Schweregrad. Neben der medikamentösen Behandlung kann zur Vorbeugung eines Diabetesanfalls auch der Lebensstil des Hundes angepasst werden. Im Rahmen des Verhaltensmanagements bei Diabetes werden körperliche Aktivitäten für den Hund wie Homöopathie, Spazierengehen und Schwimmen empfohlen, weil sie zum Erhalt der Gewebe beitragen. Auch das Fütterungsmanagement ist wichtig, um Diabetesanfällen vorzubeugen. Es kann fettarme Futtermittel, komplexe Kohlenhydrate, die die Glucoseaufnahme verlangsamen, Protein und Ballaststoffe umfassen.
