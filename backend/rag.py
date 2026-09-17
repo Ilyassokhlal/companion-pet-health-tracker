@@ -221,15 +221,10 @@ def retrieve(question: str, n_results: int, max_distance: float):
 
 
 def get_confidence(chunks):
-    """Determine confidence level based on the best distance score."""
+    """Determine confidence level based on the best distance score. Every chunk here already passed the threshold."""
     if not chunks:
         return "none"
-    best = chunks[0].distance
-    if best < 0.7:
-        return "high"
-    if best < 1.2:
-        return "medium"
-    return "low"
+    return "high" if chunks[0].distance < 0.7 else "medium"
 
 def generate(messages, lang: str | None = None):
     """Stream the answer from Claude token by token, in the owner's language."""

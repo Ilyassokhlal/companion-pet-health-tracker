@@ -130,12 +130,11 @@ def test_record_lifecycle(client, pet):
 
 
 def test_ask_declines_when_corpus_is_empty(client, pet):
-    """When the pet has no records, /ask should return a 400 error indicating that the corpus is empty."""
-    # Ensure the pet has no records
+    """With nothing indexed, /ask declines with the no-information reply instead of calling Claude."""
     headers, pet_data = pet
     pet_id = pet_data["id"]
 
-    # Add a record to ensure /ask can proceed
+    # Ask a question while the corpus is still empty
     r = client.post("/ask", json={"pet_id": pet_id, "question": "What should I feed my pet?"}, headers=headers)
 
     # Check that the response indicates no sources were found

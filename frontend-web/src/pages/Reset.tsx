@@ -15,7 +15,6 @@ export default function Reset() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // if (!token) -> render "That link is missing its token." with a Link to /forgot
   if (!token) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
