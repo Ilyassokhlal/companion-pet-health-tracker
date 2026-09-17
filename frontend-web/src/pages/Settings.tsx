@@ -29,86 +29,109 @@ export default function Settings() {
   const toggle = (panel: Panel) => setEditing(editing === panel ? null : panel);
 
   return (
-    <div className="p-4 sm:p-8 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-2xl lg:max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">{t("settingsPage.title")}</h1>
 
-      <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
-        <h2 className="text-lg font-semibold mb-4">{t("settingsPage.account")}</h2>
-        <div className="mb-6 flex justify-center">
-          <UserPhoto />
+      {/* Two fixed stacks on wide screens, so a panel that grows only pushes down the panels under it in its own column.
+          Below lg the stacks dissolve (contents) and the order classes restore the single-column sequence. */}
+      <div className="grid gap-x-6 lg:grid-cols-2 lg:items-start">
+        <div className="contents lg:block">
+          <div className="order-1 lg:order-none">
+            <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6">
+              <h2 className="text-lg font-semibold mb-4">{t("settingsPage.account")}</h2>
+              <div className="mb-6 flex justify-center">
+                <UserPhoto />
+              </div>
+              <dl className="space-y-3 text-sm">
+                <div className="flex justify-between gap-4 items-center">
+                  <dt className="text-muted shrink-0">{t("settingsPage.username")}</dt>
+                  <dd className="flex items-center gap-3 min-w-0">
+                    <span className="truncate">{user.username}</span>
+                    <Button
+                      variant={editing === "username" ? "secondary" : "primary"}
+                      onClick={() => toggle("username")}
+                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
+                    >
+                      {editing === "username" ? <X size={14} /> : <Pencil size={14} />}
+                      {editing === "username" ? t("common.cancel") : t("settingsPage.update")}
+                    </Button>
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-4 items-center">
+                  <dt className="text-muted shrink-0">{t("settingsPage.email")}</dt>
+                  <dd className="flex items-center gap-3 min-w-0">
+                    <span className="truncate">{user.email}</span>
+                    <Button
+                      variant={editing === "email" ? "secondary" : "primary"}
+                      onClick={() => toggle("email")}
+                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
+                    >
+                      {editing === "email" ? <X size={14} /> : <Pencil size={14} />}
+                      {editing === "email" ? t("common.cancel") : t("settingsPage.update")}
+                    </Button>
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-4 items-center">
+                  <dt className="text-muted shrink-0">{t("settingsPage.password")}</dt>
+                  <dd className="flex items-center gap-3">
+                    <span>••••••••</span>
+                    <Button
+                      variant={editing === "password" ? "secondary" : "primary"}
+                      onClick={() => toggle("password")}
+                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
+                    >
+                      {editing === "password" ? <X size={14} /> : <Pencil size={14} />}
+                      {editing === "password" ? t("common.cancel") : t("settingsPage.update")}
+                    </Button>
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted">{t("settingsPage.memberSince")}</dt>
+                  <dd>{new Date(user.created_at).toLocaleDateString(dateLocale())}</dd>
+                </div>
+              </dl>
+
+              {editing === "username" && (
+                <div className="mt-6 pt-6 border-t border-border">
+                  <ChangeUsernameForm />
+                </div>
+              )}
+              {editing === "email" && (
+                <div className="mt-6 pt-6 border-t border-border">
+                  <ChangeEmailForm />
+                </div>
+              )}
+              {editing === "password" && (
+                <div className="mt-6 pt-6 border-t border-border">
+                  <ChangePasswordForm />
+                </div>
+              )}
+            </section>
+          </div>
+          <div className="order-3 lg:order-none">
+            <ReminderSettings />
+          </div>
+          <div className="order-5 lg:order-none">
+            <WalkSettings />
+          </div>
         </div>
-        <dl className="space-y-3 text-sm">
-          <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">{t("settingsPage.username")}</dt>
-            <dd className="flex items-center gap-3 min-w-0">
-              <span className="truncate">{user.username}</span>
-              <Button
-                variant={editing === "username" ? "secondary" : "primary"}
-                onClick={() => toggle("username")}
-                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
-              >
-                {editing === "username" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "username" ? t("common.cancel") : t("settingsPage.update")}
-              </Button>
-            </dd>
-          </div>
-          <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">{t("settingsPage.email")}</dt>
-            <dd className="flex items-center gap-3 min-w-0">
-              <span className="truncate">{user.email}</span>
-              <Button
-                variant={editing === "email" ? "secondary" : "primary"}
-                onClick={() => toggle("email")}
-                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
-              >
-                {editing === "email" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "email" ? t("common.cancel") : t("settingsPage.update")}
-              </Button>
-            </dd>
-          </div>
-          <div className="flex justify-between gap-4 items-center">
-            <dt className="text-muted shrink-0">{t("settingsPage.password")}</dt>
-            <dd className="flex items-center gap-3">
-              <span>••••••••</span>
-              <Button
-                variant={editing === "password" ? "secondary" : "primary"}
-                onClick={() => toggle("password")}
-                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 text-sm"
-              >
-                {editing === "password" ? <X size={14} /> : <Pencil size={14} />}
-                {editing === "password" ? t("common.cancel") : t("settingsPage.update")}
-              </Button>
-            </dd>
-          </div>
-          <div className="flex justify-between gap-4">
-            <dt className="text-muted">{t("settingsPage.memberSince")}</dt>
-            <dd>{new Date(user.created_at).toLocaleDateString(dateLocale())}</dd>
-          </div>
-        </dl>
 
-        {editing === "username" && (
-          <div className="mt-6 pt-6 border-t border-border">
-            <ChangeUsernameForm />
+        <div className="contents lg:block">
+          <div className="order-2 lg:order-none">
+            <AppearanceSettings />
           </div>
-        )}
-        {editing === "email" && (
-          <div className="mt-6 pt-6 border-t border-border">
-            <ChangeEmailForm />
+          <div className="order-7 lg:order-none">
+            <PreferencesSettings />
           </div>
-        )}
-        {editing === "password" && (
-          <div className="mt-6 pt-6 border-t border-border">
-            <ChangePasswordForm />
+          <div className="order-4 lg:order-none">
+            <WeightSettings />
           </div>
-        )}
-      </section>
+          <div className="order-6 lg:order-none">
+            <FeedingSettings />
+          </div>
+        </div>
+      </div>
 
-      <AppearanceSettings />
-      <ReminderSettings />
-      <WeightSettings />
-      <WalkSettings />
-      <FeedingSettings />
-      <PreferencesSettings />
       <DeleteAccountForm />
     </div>
   );
