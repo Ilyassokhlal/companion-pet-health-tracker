@@ -406,6 +406,7 @@
     "selectedCount": "已选择 {{count}} 张",
     "download": "下载",
     "confirmDeleteOne": "删除这张照片？",
+    "confirmDelete": "删除 {{count}} 张照片？",
     "limitReached": "最多可以选择 {{max}} 张照片。",
     "savedToLibrary": "已保存到您的照片中。"
   },

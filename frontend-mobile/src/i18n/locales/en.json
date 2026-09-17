@@ -406,6 +406,7 @@
     "selectedCount": "{{count}} selected",
     "download": "Download",
     "confirmDeleteOne": "Delete this photo?",
+    "confirmDelete": "Delete {{count}} photos?",
     "limitReached": "You can select up to {{max}} photos.",
     "savedToLibrary": "Saved to your photos."
   },

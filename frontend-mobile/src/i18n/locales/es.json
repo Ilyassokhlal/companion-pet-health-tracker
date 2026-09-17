@@ -406,6 +406,7 @@
     "selectedCount": "{{count}} seleccionadas",
     "download": "Descargar",
     "confirmDeleteOne": "¿Eliminar esta foto?",
+    "confirmDelete": "¿Eliminar {{count}} fotos?",
     "limitReached": "Puedes seleccionar hasta {{max}} fotos.",
     "savedToLibrary": "Guardado en tus fotos."
   },
