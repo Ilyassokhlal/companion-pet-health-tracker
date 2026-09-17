@@ -14,6 +14,10 @@ services:
   backend:
     build: ./backend
     env_file: .env
+    environment:
+      # Caddy is the only thing that can reach the backend, so uvicorn may trust the client address it forwards.
+      # Without this every request appears to come from Caddy and the rate limits are shared by all users.
+      FORWARDED_ALLOW_IPS: "*"
     depends_on:
       db:
         condition: service_healthy
