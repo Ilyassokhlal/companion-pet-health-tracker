@@ -123,8 +123,7 @@ def load_sources(docs_dir: str) -> dict[str, dict]:
 
 def ingest(docs_dir: str | None = None) -> dict:
     """Index every .txt in the docs directory."""
-    # Only the English corpus is indexed: every question is translated to English before it is matched.
-    docs_dir = docs_dir or os.path.join(settings.DOCS_DIRECTORY, "en")
+    docs_dir = docs_dir or settings.DOCS_DIRECTORY
     if not os.path.exists(docs_dir):
         raise InternalException(f"Docs directory not found: {docs_dir}")
 
