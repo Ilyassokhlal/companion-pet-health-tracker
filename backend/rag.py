@@ -1,19 +1,16 @@
+import json
 import os
 import re
 
 import anthropic
 import chromadb
 from config import settings
-from embeddings import E5EmbeddingFunction
 from pydantic import BaseModel
 from utils.exceptions import InternalException, ServiceUnavailableException
 
 # ChromaDB setup
 client = chromadb.PersistentClient(path=settings.CHROMA_PATH)
-collection = client.get_or_create_collection(
-    settings.COLLECTION_NAME,
-    embedding_function=E5EmbeddingFunction(),
-)
+collection = client.get_or_create_collection(settings.COLLECTION_NAME)
 
 # Claude API client — reads ANTHROPIC_API_KEY from the environment
 claude = anthropic.Anthropic()
@@ -53,7 +50,7 @@ Rules:
 9. Keep the answer under 150 words.
 """
 
-# Claude needs the language spelled out. This dictionary maps ISO codes to full language names.
+# Claude needs the language spelled out; the app stores ISO codes.
 LANGUAGE_NAMES = {
     "en": "English",
     "fr": "French",
@@ -80,8 +77,27 @@ def _system_prompt(lang: str | None) -> str:
 # Minimum number of characters for a chunk
 MIN_CHUNK_CHARS = 60
 
-# A translated question is short, so this only has to cover one sentence.
-TRANSLATE_MAX_TOKENS = 200
+# The reply is a small JSON object around one translated question.
+TRANSLATE_MAX_TOKENS = 400
+
+# The corpus is English, so every question is matched in English. The same call names the language the question was
+# written in, because the answer follows what the owner typed rather than the app setting, and reports the pet's name.
+TRANSLATION_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "language": {"type": "string", "enum": [*LANGUAGE_NAMES, "other"]},
+        "pet_name_as_written": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+        "english": {"type": "string"},
+    },
+    "required": ["language", "pet_name_as_written", "english"],
+    "additionalProperties": False,
+}
+
+TRANSLATION_INSTRUCTIONS = """You prepare a pet owner's question for a search over English veterinary reference articles.
+The message gives the owner's pet (its species and the name stored in the app) and the question. Return:
+- language: the language the question is written in, as one of the listed codes, or "other". If an earlier question is repeated before the new one, use the language of the last one.
+- pet_name_as_written: if the question refers to the pet by its name, copy that word exactly as it appears in the question, in whatever spelling, script or grammatical form it takes (a transliteration such as a Cyrillic spelling, or a declined form). Otherwise null. A word that only resembles the name but is used with its ordinary meaning is not the name.
+- english: the question in English, or unchanged if it is already in English. Write the pet's name exactly as it is stored; never translate it as an ordinary word."""
 
 # Functions for RAG operations
 def chunk_document(text: str) -> list[str]:
@@ -107,7 +123,8 @@ def load_sources(docs_dir: str) -> dict[str, dict]:
 
 def ingest(docs_dir: str | None = None) -> dict:
     """Index every .txt in the docs directory."""
-    docs_dir = docs_dir or settings.DOCS_DIRECTORY
+    # Only the English corpus is indexed: every question is translated to English before it is matched.
+    docs_dir = docs_dir or os.path.join(settings.DOCS_DIRECTORY, "en")
     if not os.path.exists(docs_dir):
         raise InternalException(f"Docs directory not found: {docs_dir}")
 
@@ -146,33 +163,35 @@ def ingest(docs_dir: str | None = None) -> dict:
     return {"documents": len({m["source"] for m in metadatas}), "chunks": len(documents)}
 
 
-def translate_to_english(question: str, lang: str | None) -> str:
-    """Render a question in English so it can be matched against the English corpus.
+def translate_question(question: str, fallback: str | None, pet_name: str, species: str) -> tuple[str, str, str | None]:
+    """Return the question in English, the language it was written in, and the pet's name as written in it.
 
-    The corpus is embedded with Chroma's English-trained MiniLM, so a French question scores past
-    the distance threshold and the caller falls back to "no information" before Claude is reached.
-    Translating the question is far cheaper than re-embedding 946+ chunks and re-tuning 1.2.
+    The app language is only a default, since someone can run the app in Russian and type in English. The name matters because swapping it for the species is plain string matching, which cannot see "Флэш" or "Флэша" for a pet stored as Flash. A reported name is only trusted if it really occurs in the question.
 
-    Returns the question unchanged on any failure — a translation outage should degrade retrieval,
-    not take /ask down with it.
+    Returns the question unchanged, in the app language, on any failure, a translation outage should degrade retrieval, not take /ask down with it.
     """
-    if not lang or lang == "en":
-        return question
+    default = fallback if fallback in LANGUAGE_NAMES else "en"
     try:
         message = claude.messages.create(
             model=settings.MODEL_NAME,
             max_tokens=TRANSLATE_MAX_TOKENS,
             temperature=0,
-            system=(
-                "Translate the user's message into English. Reply with the translation and nothing else. no preamble,"
-                "no quotation marks, no explanation. If the message is already in English, repeat it unchanged."
-            ),
-            messages=[{"role": "user", "content": question}],
+            system=TRANSLATION_INSTRUCTIONS,
+            messages=[{
+                "role": "user",
+                "content": f"PET: a {species} whose name is stored as {pet_name}\n\nQUESTION:\n{question}",
+            }],
+            output_config={"format": {"type": "json_schema", "schema": TRANSLATION_SCHEMA}},
         )
-        text = "".join(block.text for block in message.content if block.type == "text").strip()
-        return text or question
+        reply = json.loads(next(block.text for block in message.content if block.type == "text"))
     except Exception:
-        return question
+        return question, default, None
+
+    lang = reply["language"] if reply["language"] in LANGUAGE_NAMES else default
+    written = reply["pet_name_as_written"]
+    if not written or written.casefold() not in question.casefold():
+        written = None
+    return reply["english"].strip() or question, lang, written
 
 
 def retrieve(question: str, n_results: int, max_distance: float):

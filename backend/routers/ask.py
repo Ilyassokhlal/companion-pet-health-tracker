@@ -25,17 +25,20 @@ def ingest_corpus(current_user: User = Depends(get_current_user)):
     """Ingest the reference corpus into ChromaDB."""
     return rag.ingest()
 
-def _gate_query(question: str, pet) -> str:
+def _gate_query(question: str, pet, aliases: tuple[str, ...] = ()) -> str:
     """Query used to decide whether the question is in scope at all.
 
-    Replace the pet's name with its species to ensure proper context matching in retrieval queries."""
-    pattern = rf"\b{re.escape(pet.name)}\b" if pet.name.isascii() else re.escape(pet.name)
-    return re.sub(pattern, pet.species, question, flags=re.IGNORECASE)
+    Replace the pet's name with its species to ensure proper context matching in retrieval queries. Aliases are other
+    ways the name was written in this question, such as a transliteration the translation step reported."""
+    for name in (pet.name, *aliases):
+        pattern = rf"\b{re.escape(name)}\b" if name.isascii() else re.escape(name)
+        question = re.sub(pattern, pet.species, question, flags=re.IGNORECASE)
+    return question
 
 
-def _retrieval_query(question: str, pet) -> str:
+def _retrieval_query(question: str, pet, aliases: tuple[str, ...] = ()) -> str:
     """Query used to pick chunks — the species suffix keeps dog and cat material apart."""
-    return f"{_gate_query(question, pet)} {pet.species}"
+    return f"{_gate_query(question, pet, aliases)} {pet.species}"
 
 
 # A follow-up like "how often?" carries nothing retrievable on its own. Below this many words the previous question is prepended, so the gate and retrieval have something to match on.
@@ -186,14 +189,16 @@ def ask(
     # Swap the pet's name for its species before translation to ensure proper context matching. This helps the retrieval system understand the question in the context of the pet's species rather than its specific name.
     # This ensures that the retrieval query is aligned with the pet's species context rather than its specific name.
     retrieval_question = _gate_query(retrieval_question, pet)
-    # The corpus is English and MiniLM is English-trained, so a non-English question has to be rendered in English
-    # before it is measured against the threshold. The prompt below still receives the question exactly as the user typed it.
-    retrieval_question = rag.translate_to_english(retrieval_question, current_user.language)
-    in_scope = rag.retrieve(_gate_query(retrieval_question, pet), 1, settings.CONFIDENCE_THRESHOLD)
-    chunks = rag.retrieve(_retrieval_query(retrieval_question, pet), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
+    # The corpus is English, so the question is matched in English and answered in the language it was written in. The
+    # translation also reports the pet's name as written, which catches spellings the swap above cannot see.
+    # The prompt below still receives the question exactly as the user typed it.
+    english, lang, written_name = rag.translate_question(retrieval_question, current_user.language, pet.name, pet.species)
+    aliases = (written_name,) if written_name else ()
+    in_scope = rag.retrieve(_gate_query(english, pet, aliases), 1, settings.CONFIDENCE_THRESHOLD)
+    chunks = rag.retrieve(_retrieval_query(english, pet, aliases), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []
 
     if not chunks:
-        answer = t("ask.noAnswer", current_user.language)
+        answer = t("ask.noAnswer", lang)
         save_message(pet.id, "assistant", answer, [])
         return JSONResponse(
             status_code=200,
@@ -215,7 +220,7 @@ def ask(
             seen.add(key)
             sources.append({"title": chunk.title, "section": chunk.section, "url": chunk.link})
         try:
-            for token in rag.generate(messages, current_user.language):
+            for token in rag.generate(messages, lang):
                 parts.append(token)
                 yield json.dumps({"token": token}) + "\n"
             yield json.dumps({"meta": {

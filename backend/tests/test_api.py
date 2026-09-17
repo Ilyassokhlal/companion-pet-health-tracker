@@ -193,7 +193,7 @@ def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
     pet_id = pet_data["id"]
 
     # Ask a question using the /ask endpoint
-    r = client.post("/ask", json={"pet_id": pet_id, "question": "What should I feed my pet?"}, headers=headers)
+    r = client.post("/ask", json={"pet_id": pet_id, "question": "Should my cat eat wet food?"}, headers=headers)
 
     # Check that the response contains the expected tokens and sources
     assert r.status_code == 200

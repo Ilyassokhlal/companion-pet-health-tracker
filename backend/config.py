@@ -14,7 +14,7 @@ class Settings:
 
     # RAG configuration
     MAX_RESULTS: int = int(os.environ.get("MAX_RESULTS", "5"))
-    CONFIDENCE_THRESHOLD: float = float(os.environ.get("CONFIDENCE_THRESHOLD", "1.2"))
+    CONFIDENCE_THRESHOLD: float = float(os.environ.get("CONFIDENCE_THRESHOLD", "0.91"))
 
     # Application settings
     APP_NAME: str = "Companion API"
