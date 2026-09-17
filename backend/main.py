@@ -8,6 +8,7 @@ from config import settings
 from database import SessionLocal
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from routers import ask, auth, devices, events, expenses, feedings, messages, pets, records, walks
@@ -59,7 +60,9 @@ app = FastAPI(
     title="Companion API",
     description="API for managing users, their pets, and their pets' health records",
     version="3.5.0",
-    lifespan=lifespan
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
 )
 
 # Allow the React dev server (and later the deployed frontends) to call this API
@@ -102,6 +105,17 @@ app.include_router(expenses.router)
 def root():
     """Landing response for the API root."""
     return {"message": "Companion API is running. Visit /docs for the interactive documentation."}
+
+# Swagger UI and ReDoc, served with a relative spec URL. FastAPI's defaults point at /openapi.json, which behind Caddy's /api prefix lands on the React app instead of the backend. "openapi.json" resolves next to the page wherever it is served.
+@app.get("/docs", include_in_schema=False)
+def swagger_docs():
+    """Interactive API documentation."""
+    return get_swagger_ui_html(openapi_url="openapi.json", title=f"{app.title} - Swagger UI")
+
+@app.get("/redoc", include_in_schema=False)
+def redoc_docs():
+    """Read-only API reference."""
+    return get_redoc_html(openapi_url="openapi.json", title=f"{app.title} - ReDoc")
 
 # Health check endpoint
 @app.get("/health", tags=["Health"])
