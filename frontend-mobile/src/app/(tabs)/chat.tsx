@@ -203,9 +203,9 @@ export default function Chat() {
         {turns.length > 0 ? (
           <Pressable
             onPress={confirmClear}
-            className="ms-3 shrink-0 rounded-full border border-danger bg-surface px-3 py-1.5 active:opacity-70"
+            className="ms-3 shrink-0 rounded-full bg-danger px-3 py-1.5 active:opacity-70"
           >
-            <Text className="text-sm font-medium text-danger">{t("chat.clear")}</Text>
+            <Text className="text-sm font-medium text-white">{t("chat.clear")}</Text>
           </Pressable>
         ) : null}
       </View>
@@ -254,7 +254,7 @@ export default function Chat() {
             ) : turn.role === "assistant" ? (
               <Markdown style={markdownStyles}>{turn.content}</Markdown>
             ) : (
-              <Text className="text-fg">{turn.content}</Text>
+              <Text className="text-on-primary">{turn.content}</Text>
             )}
 
             {turn.sources && turn.sources.length > 0 ? (
@@ -289,7 +289,7 @@ export default function Chat() {
           disabled={streaming}
           className={`justify-center rounded-lg px-5 ${streaming ? "bg-surface" : "bg-primary"}`}
         >
-          <Text className="font-semibold text-fg">{t("chat.send")}</Text>
+          <Text className={`font-semibold ${streaming ? "text-fg" : "text-on-primary"}`}>{t("chat.send")}</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
