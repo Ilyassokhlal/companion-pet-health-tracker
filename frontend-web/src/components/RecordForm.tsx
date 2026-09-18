@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { createRecord, updateRecord, uploadRecordPhotos } from "../api/records";
+import { createRecord, deleteRecordPhoto, MAX_PHOTO_MB, updateRecord, uploadRecordPhotos } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { HealthRecord, RecordType } from "../types";
 import { useAuth } from "../auth/AuthContext";
@@ -8,6 +8,7 @@ import { fromKg, toKg, weightUnit } from "../units";
 import { errorMessage } from "../errors";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
+import PhotoThumb from "./PhotoThumb";
 
 interface Props {
   petId: number;
@@ -33,6 +34,25 @@ export default function RecordForm({ petId, record, onDone }: Props) {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  // The record's existing photos the owner marked for removal. Nothing is deleted until Save.
+  const [removing, setRemoving] = useState<number[]>([]);
+  const [deleted, setDeleted] = useState<number[]>([]);
+  // Set once the record exists, so retrying after a failed upload updates it instead of creating a second copy.
+  const [savedId, setSavedId] = useState<number | null>(record?.id ?? null);
+
+  const existing = (record?.photos ?? []).filter((p) => !deleted.includes(p.id));
+
+  const addFiles = (picked: File[]) => {
+    const limit = MAX_PHOTO_MB * 1024 * 1024;
+    const tooBig = picked.filter((f) => f.size > limit);
+    if (tooBig.length > 0) {
+      setError(t("errors.image_too_large", { name: tooBig.map((f) => f.name).join(", "), max: MAX_PHOTO_MB }));
+    }
+    setFiles((prev) => [...prev, ...picked.filter((f) => f.size <= limit)]);
+  };
+
+  const toggleRemoving = (photoId: number) =>
+    setRemoving((prev) => (prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,11 +67,17 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       weight_kg: recordType === "Weight" && weight ? toKg(parseFloat(weight), unitSystem) : null,
     };
     try {
-      const saved = record
-        ? await updateRecord(record.id, payload)
+      const saved = savedId !== null
+        ? await updateRecord(savedId, payload)
         : await createRecord(petId, payload);
+      setSavedId(saved.id);
+      for (const photoId of removing.filter((id) => !deleted.includes(id))) {
+        await deleteRecordPhoto(photoId);
+        setDeleted((prev) => [...prev, photoId]);
+      }
       if (files.length > 0) {
         await uploadRecordPhotos(saved.id, files);
+        setFiles([]);
       }
       onDone(true);
     } catch (err) {
@@ -126,15 +152,44 @@ export default function RecordForm({ petId, record, onDone }: Props) {
           onChange={(e) => setNextDueDate(e.target.value)}
         />
       </div>
+      {existing.length > 0 && (
+        <div>
+          <p className="text-sm text-muted mb-1">{t("recordForm.attached")}</p>
+          <div className="flex flex-wrap gap-2">
+            {existing.map((p) => {
+              const marked = removing.includes(p.id);
+              return (
+                <div key={p.id} className="w-20">
+                  <PhotoThumb
+                    photo={p}
+                    className={`h-20 w-20 rounded-lg border border-border object-cover transition ${marked ? "opacity-30" : ""}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => toggleRemoving(p.id)}
+                    className={`mt-1 w-full text-xs hover:brightness-125 ${marked ? "text-muted" : "text-danger"}`}
+                  >
+                    {marked ? t("recordForm.keep") : t("recordForm.removeFile")}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
       <div>
         <label className="block text-sm text-muted mb-1">{t("recordForm.photos")}</label>
         <input
           type="file"
           multiple
           accept="image/jpeg,image/png,image/webp"
-          onChange={(e) => setFiles((prev) => [...prev, ...Array.from(e.target.files ?? [])])}
+          onChange={(e) => {
+            addFiles(Array.from(e.target.files ?? []));
+            e.target.value = "";
+          }}
           className="text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-on-primary file:cursor-pointer hover:file:bg-primary-hover"
         />
+        <p className="mt-1 text-xs text-muted">{t("recordForm.photoLimit", { max: MAX_PHOTO_MB })}</p>
         {files.length > 0 && (
           <ul className="mt-2 text-sm text-muted space-y-1">
             {files.map((f, i) => (

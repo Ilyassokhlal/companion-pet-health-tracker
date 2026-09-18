@@ -7,10 +7,10 @@ from database import get_db
 from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
 from models.models import Expense, Feeding, FeedingTime, HealthRecord, Pet, RecordPhoto, User, Walk
 from schemas.record import GalleryPhoto, RecordCreate, RecordPhotoResponse, RecordResponse, RecordUpdate
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.export import export_zip, records_to_pdf
-from utils.photos import delete_photo_file, read_photo, save_photo
+from utils.photos import delete_photo_file, read_photo, read_upload, store_photo
 from utils.scheduling import sync_followup_event
 from utils.security import get_current_user
 from utils.weight import sync_pet_weight
@@ -33,6 +33,7 @@ def list_records(pet_id: int, db: Session = Depends(get_db), current_user: User 
     # Return the health records for the pet, sorted by date (newest first) and creation time (newest first).
     return (
         db.query(HealthRecord)
+        .options(selectinload(HealthRecord.photos))
         .filter(HealthRecord.pet_id == pet.id)
         .order_by(HealthRecord.date.desc(), HealthRecord.created_at.desc())
         .all()
@@ -119,11 +120,18 @@ def upload_record_photos(record_id: int, files: list[UploadFile] = File(...), db
     if not record:
         raise NotFoundException("HealthRecord", record_id)
 
-    photos = []
-    for file in files:
-        name = save_photo(file)
-        photo = RecordPhoto(record_id=record.id, filename=name)
-        photos.append(photo)
+    # Check every file before storing any, so one oversized photo rejects the batch without leaving the others on disk.
+    uploads = [(file.filename or "", read_upload(file)) for file in files]
+    stored: list[str] = []
+    try:
+        for name, data in uploads:
+            stored.append(store_photo(data, name))
+    except Exception:
+        for filename in stored:
+            delete_photo_file(filename)
+        raise
+
+    photos = [RecordPhoto(record_id=record.id, filename=filename) for filename in stored]
     db.add_all(photos)
     db.commit()
     for photo in photos:

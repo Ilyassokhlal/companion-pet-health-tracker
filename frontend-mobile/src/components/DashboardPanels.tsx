@@ -208,6 +208,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
         <View className="mt-3 aspect-square overflow-hidden rounded-lg bg-ink">
           <Image
             source={{ uri: `${BASE_URL}/photos/${photos[index].filename}` }}
+            resizeMethod="resize"
             resizeMode="cover"
             style={{ width: "100%", height: "100%" }}
           />

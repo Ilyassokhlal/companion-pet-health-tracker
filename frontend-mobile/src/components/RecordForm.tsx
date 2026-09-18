@@ -5,8 +5,9 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import DateField from "@/components/ui/DateField";
+import PhotoThumb from "@/components/PhotoThumb";
 import * as ImagePicker from "expo-image-picker";
-import { createRecord, updateRecord, uploadRecordPhotos } from "@/api/records";
+import { createRecord, deleteRecordPhoto, MAX_PHOTO_MB, updateRecord, uploadRecordPhotos } from "@/api/records";
 import type { PhotoUpload } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { HealthRecord, RecordType } from "@/types";
@@ -39,16 +40,33 @@ export default function RecordForm({ petId, record, onDone }: Props) {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<PhotoUpload[]>([]);
+  // The record's existing photos the owner marked for removal. Nothing is deleted until Save.
+  const [removing, setRemoving] = useState<number[]>([]);
+  const [deleted, setDeleted] = useState<number[]>([]);
+  // Set once the record exists, so retrying after a failed upload updates it instead of creating a second copy.
+  const [savedId, setSavedId] = useState<number | null>(record?.id ?? null);
 
-  function addAsset(asset: ImagePicker.ImagePickerAsset) {
-    setFiles((prev) => [
-      ...prev,
-      {
+  const existing = (record?.photos ?? []).filter((p) => !deleted.includes(p.id));
+
+  function addAssets(assets: ImagePicker.ImagePickerAsset[]) {
+    const limit = MAX_PHOTO_MB * 1024 * 1024;
+    const picked = assets.map((asset) => ({
+      upload: {
         uri: asset.uri,
         name: asset.fileName ?? `photo-${Date.now()}.jpg`,
         type: asset.mimeType ?? "image/jpeg",
       },
-    ]);
+      tooBig: asset.fileSize !== undefined && asset.fileSize > limit,
+    }));
+    const tooBig = picked.filter((p) => p.tooBig).map((p) => p.upload.name);
+    if (tooBig.length > 0) {
+      setError(t("errors.image_too_large", { name: tooBig.join(", "), max: MAX_PHOTO_MB }));
+    }
+    setFiles((prev) => [...prev, ...picked.filter((p) => !p.tooBig).map((p) => p.upload)]);
+  }
+
+  function toggleRemoving(photoId: number) {
+    setRemoving((prev) => (prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]));
   }
 
   async function takePhoto() {
@@ -58,7 +76,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       return;
     }
     const result = await ImagePicker.launchCameraAsync({ quality: 0.7 });
-    if (!result.canceled) result.assets.forEach(addAsset);
+    if (!result.canceled) addAssets(result.assets);
   }
 
   async function pickPhotos() {
@@ -67,7 +85,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       mediaTypes: ["images"],
       quality: 0.7,
     });
-    if (!result.canceled) result.assets.forEach(addAsset);
+    if (!result.canceled) addAssets(result.assets);
   }
 
   async function handleSubmit() {
@@ -82,11 +100,17 @@ export default function RecordForm({ petId, record, onDone }: Props) {
       weight_kg: recordType === "Weight" && weight ? toKg(parseFloat(weight), unitSystem) : null,
     };
     try {
-      const saved = record
-        ? await updateRecord(record.id, payload)
+      const saved = savedId !== null
+        ? await updateRecord(savedId, payload)
         : await createRecord(petId, payload);
+      setSavedId(saved.id);
+      for (const photoId of removing.filter((id) => !deleted.includes(id))) {
+        await deleteRecordPhoto(photoId);
+        setDeleted((prev) => [...prev, photoId]);
+      }
       if (files.length > 0) {
         await uploadRecordPhotos(saved.id, files);
+        setFiles([]);
       }
       onDone(true);
     } catch (err) {
@@ -151,6 +175,30 @@ export default function RecordForm({ petId, record, onDone }: Props) {
 
       <DateField label={t("recordForm.nextDue")} value={nextDueDate} onChange={setNextDueDate} clearable />
 
+      {existing.length > 0 ? (
+        <View>
+          <Text className="mb-1 text-sm text-muted">{t("recordForm.attached")}</Text>
+          <View className="flex-row flex-wrap gap-2">
+            {existing.map((p) => {
+              const marked = removing.includes(p.id);
+              return (
+                <View key={p.id} className="w-20">
+                  <PhotoThumb
+                    photo={p}
+                    className={`h-20 w-20 rounded-lg border border-border ${marked ? "opacity-30" : ""}`}
+                  />
+                  <Pressable onPress={() => toggleRemoving(p.id)} className="mt-1 py-1">
+                    <Text className={`text-center text-xs ${marked ? "text-muted" : "text-danger"}`}>
+                      {marked ? t("recordForm.keep") : t("recordForm.removeFile")}
+                    </Text>
+                  </Pressable>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+      ) : null}
+
       <View>
         <Text className="mb-1 text-sm text-muted">{t("recordForm.photos")}</Text>
         <View className="flex-row gap-2">
@@ -167,6 +215,7 @@ export default function RecordForm({ petId, record, onDone }: Props) {
             <Text className="text-center text-fg">{t("recordForm.choose")}</Text>
           </Pressable>
         </View>
+        <Text className="mt-1 text-xs text-muted">{t("recordForm.photoLimit", { max: MAX_PHOTO_MB })}</Text>
         {files.map((f, i) => (
           <View key={f.uri} className="mt-2 flex-row items-center justify-between">
             <Text numberOfLines={1} className="flex-1 text-sm text-muted">

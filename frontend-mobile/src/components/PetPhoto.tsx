@@ -80,7 +80,7 @@ export default function PetPhoto({
   }
 
   const avatar = pet.photo_filename ? (
-    <Image source={{ uri: `${BASE}/photos/${pet.photo_filename}` }} className={`${size} rounded-full`} />
+    <Image source={{ uri: `${BASE}/photos/${pet.photo_filename}` }} resizeMethod="resize" className={`${size} rounded-full`} />
   ) : (
     <View className={`${size} items-center justify-center rounded-full border border-border bg-surface`}>
       <Text className={`${textSize} font-bold text-fg`}>{pet.name.charAt(0).toUpperCase()}</Text>

@@ -122,6 +122,7 @@ export interface HealthRecord {
   next_due_date: string | null;
   weight_kg: number | null;
   created_at: string;
+  photos: RecordPhoto[];
 }
 
 // The kinds of scheduled event the backend can produce.
@@ -164,6 +165,7 @@ export interface RecordPhoto {
   id: number;
   record_id: number;
   filename: string;
+  thumbnail: string;
   created_at: string;
 }
 
@@ -172,6 +174,7 @@ export interface GalleryPhoto {
   id: number;
   record_id: number;
   filename: string;
+  thumbnail: string;
   record_title: string;
   record_date: string;
   record_type: RecordType;

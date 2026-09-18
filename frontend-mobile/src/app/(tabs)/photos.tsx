@@ -17,6 +17,7 @@ import DateField from "@/components/ui/DateField";
 import SwipeTabs from "@/components/SwipeTabs";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import EmptyState from "@/components/EmptyState";
+import PhotoThumb from "@/components/PhotoThumb";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
@@ -315,8 +316,8 @@ export default function Photos() {
                 onLongPress={() => (selecting ? toggleChosen(p.id) : startSelection(p.id))}
                 className="w-1/3 p-1"
               >
-                <Image
-                  source={{ uri: `${BASE}/photos/${p.filename}` }}
+                <PhotoThumb
+                  photo={p}
                   className={`aspect-square w-full rounded-lg border ${picked ? "border-primary opacity-60" : "border-border"} ${selecting && !picked && atLimit ? "opacity-40" : ""}`}
                 />
                 {selecting ? (
@@ -348,6 +349,7 @@ export default function Photos() {
             <Pressable onPress={() => {}}>
               <Image
                 source={{ uri: `${BASE}/photos/${selected.filename}` }}
+                resizeMethod="resize"
                 resizeMode="contain"
                 className="h-96 w-full"
               />

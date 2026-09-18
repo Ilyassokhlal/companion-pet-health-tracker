@@ -2,7 +2,8 @@ from datetime import date as date_type
 from datetime import datetime
 
 from models.models import RecordType
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, computed_field
+from utils.photos import thumbnail_name
 
 
 # Schemas for the health record endpoints
@@ -60,6 +61,22 @@ class RecordUpdate(BaseModel):
         examples=[27.2])
 
 
+class RecordPhotoResponse(BaseModel):
+    """One photo attached to a health record."""
+    id: int
+    record_id: int
+    filename: str
+    created_at: datetime
+
+    @computed_field
+    @property
+    def thumbnail(self) -> str:
+        """The small copy the grids load."""
+        return thumbnail_name(self.filename)
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class RecordResponse(BaseModel):
     """Schema for returning health record data"""
     id: int
@@ -71,6 +88,8 @@ class RecordResponse(BaseModel):
     next_due_date: date_type | None = None
     weight_kg: float | None = None
     created_at: datetime
+    # The record's photos, so an edit form can show and remove them.
+    photos: list[RecordPhotoResponse] = []
 
     model_config = ConfigDict(
         from_attributes = True,
@@ -89,16 +108,6 @@ class RecordResponse(BaseModel):
         }
     )
 
-class RecordPhotoResponse(BaseModel):
-    """One photo attached to a health record."""
-    id: int
-    record_id: int
-    filename: str
-    created_at: datetime
-
-    model_config = ConfigDict(from_attributes=True)
-
-
 class GalleryPhoto(BaseModel):
     """A photo plus the record it belongs to, for the Photos page."""
     id: int
@@ -107,3 +116,9 @@ class GalleryPhoto(BaseModel):
     record_title: str
     record_date: date_type
     record_type: RecordType
+
+    @computed_field
+    @property
+    def thumbnail(self) -> str:
+        """The small copy the grids load."""
+        return thumbnail_name(self.filename)

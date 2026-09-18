@@ -6,7 +6,10 @@ import { withCache } from "../cache";
 import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
-export type RecordCreate = Omit<HealthRecord, "id" | "pet_id" | "created_at">;
+export type RecordCreate = Omit<HealthRecord, "id" | "pet_id" | "created_at" | "photos">;
+
+// Mirrors the backend's MAX_PHOTO_MB, so an oversized file is caught before anything is sent.
+export const MAX_PHOTO_MB = 20;
 export type RecordUpdate = Partial<RecordCreate>;
 
 // Fetch all health records for a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of HealthRecord objects.

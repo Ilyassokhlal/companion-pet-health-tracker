@@ -44,7 +44,7 @@ class Settings:
 
     # Photo storage settings
     PHOTO_DIR: str = os.environ.get("PHOTO_DIR", "/data/photos")
-    MAX_PHOTO_MB: int = int(os.environ.get("MAX_PHOTO_MB", "5"))
+    MAX_PHOTO_MB: int = int(os.environ.get("MAX_PHOTO_MB", "20"))
 
 settings = Settings()
 

@@ -74,7 +74,7 @@ export default function UserPhoto() {
 
       <Pressable onPress={openMenu} disabled={busy}>
         {user.photo_filename ? (
-          <Image source={{ uri: `${BASE}/photos/${user.photo_filename}` }} className="h-24 w-24 rounded-full" />
+          <Image source={{ uri: `${BASE}/photos/${user.photo_filename}` }} resizeMethod="resize" className="h-24 w-24 rounded-full" />
         ) : (
           <View className="h-24 w-24 items-center justify-center rounded-full border border-border bg-surface">
             <Text className="text-2xl font-bold text-fg">{user.username.charAt(0).toUpperCase()}</Text>

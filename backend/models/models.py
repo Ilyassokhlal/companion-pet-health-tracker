@@ -114,7 +114,7 @@ class HealthRecord(Base):
     pet: Mapped["Pet"] = relationship(back_populates="records")
 
     # Relationship to RecordPhoto model
-    photos: Mapped[list["RecordPhoto"]] = relationship(back_populates="record", cascade="all, delete-orphan")
+    photos: Mapped[list["RecordPhoto"]] = relationship(back_populates="record", cascade="all, delete-orphan", order_by="RecordPhoto.id")
 
 
 # RecordPhoto model

@@ -17,7 +17,7 @@
     "email_unchanged": "هذا هو عنوان بريدك الإلكتروني بالفعل.",
     "empty_question": "أدخل سؤالًا أولًا.",
     "event_already_completed": "تم وضع علامة على هذا العنصر كمكتمل بالفعل.",
-    "image_too_large": "هذه الصورة كبيرة جدًا.",
+    "image_too_large": "حجم كبير جدًا (أكثر من {{max}} ميغابايت): {{name}}",
     "incorrect_password": "كلمة المرور غير صحيحة.",
     "invalid_credentials": "عنوان البريد الإلكتروني أو كلمة المرور غير صحيحة.",
     "invalid_link": "هذا الرابط غير صالح.",
@@ -30,7 +30,7 @@
     "session_expired": "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.",
     "too_many_photos": "لقد حددت عددًا كبيرًا جدًا من الصور.",
     "unsupported_export_format": "تنسيق التصدير هذا غير مدعوم.",
-    "unsupported_image_type": "نوع الصورة هذا غير مدعوم."
+    "unsupported_image_type": "صورة غير مدعومة (JPEG أو PNG أو WebP): {{name}}"
   },
   "common": {
     "username": "اسم المستخدم",
@@ -242,6 +242,9 @@
     "takePhoto": "التقاط صورة",
     "choose": "اختيار",
     "removeFile": "حذف",
+    "attached": "الصور المرفقة",
+    "photoLimit": "حتى {{max}} ميغابايت لكل صورة.",
+    "keep": "إبقاء",
     "add": "إضافة سجل",
     "cameraDenied": "يلزم السماح باستخدام الكاميرا لالتقاط صورة."
   },

@@ -7,6 +7,7 @@ import { RECORD_TYPES } from "../types";
 import type { GalleryPhoto, RecordType } from "../types";
 import { X, Trash2, SlidersHorizontal, Download, Check, Images, ImageOff } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import PhotoThumb from "../components/PhotoThumb";
 import { formatDateLong, dateLocale } from "../dates";
 
 // The server refuses more than ten ids, so the UI must not let you pick an eleventh.
@@ -282,8 +283,8 @@ export default function Photos() {
                       onClick={() => (selecting ? toggleChosen(p.id) : setSelected(p))}
                       className="relative"
                     >
-                      <img
-                        src={`${import.meta.env.VITE_API_URL}/photos/${p.filename}`}
+                      <PhotoThumb
+                        photo={p}
                         className={`aspect-square w-full object-cover rounded-lg border transition ${picked ? "border-primary opacity-60" : "border-border hover:opacity-80"} ${selecting && !picked && atLimit ? "opacity-40" : ""}`}
                       />
                       {selecting && (

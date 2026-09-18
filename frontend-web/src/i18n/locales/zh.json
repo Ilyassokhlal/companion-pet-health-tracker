@@ -21,7 +21,7 @@
     "email_unchanged": "这已经是您的电子邮件地址。",
     "empty_question": "请先输入问题。",
     "event_already_completed": "此项目已经标记为完成。",
-    "image_too_large": "此图片太大。",
+    "image_too_large": "文件过大（超过 {{max}} MB）：{{name}}",
     "incorrect_password": "密码错误。",
     "invalid_credentials": "电子邮件地址或密码错误。",
     "invalid_link": "此链接无效。",
@@ -34,7 +34,7 @@
     "session_expired": "您的会话已过期。请重新登录。",
     "too_many_photos": "您选择的照片太多。",
     "unsupported_export_format": "不支持此导出格式。",
-    "unsupported_image_type": "不支持此图片类型。"
+    "unsupported_image_type": "不支持的图片格式（JPEG、PNG 或 WebP）：{{name}}"
   },
   "common": {
     "username": "用户名",
@@ -250,7 +250,10 @@
     "description": "描述（可选）",
     "nextDue": "下次日期（可选）",
     "photos": "照片（可选）",
-    "removeFile": "删除"
+    "removeFile": "删除",
+    "attached": "已附加的照片",
+    "photoLimit": "每张照片最大 {{max}} MB。",
+    "keep": "保留"
   },
   "petForm": {
     "name": "名称",

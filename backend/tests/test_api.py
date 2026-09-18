@@ -2,6 +2,7 @@
 path, where an empty Chroma collection triggers the refusal branch before any request."""
 
 import io
+import os
 import zipfile
 from datetime import date, datetime, timedelta, timezone
 
@@ -9,8 +10,20 @@ import pytest
 import rag
 from config import settings
 from models.models import User
+from PIL import Image
+from utils.photos import read_photo
 from utils.reminders import send_due_reminders
 from utils.weight import next_checkin_date
+
+
+def _jpeg(width: int = 4, height: int = 3, orientation: int | None = None) -> bytes:
+    """A real JPEG, optionally carrying an EXIF rotation flag the way phone cameras write one."""
+    buffer = io.BytesIO()
+    exif = Image.Exif()
+    if orientation:
+        exif[0x0112] = orientation
+    Image.new("RGB", (width, height), "orange").save(buffer, "JPEG", exif=exif)
+    return buffer.getvalue()
 
 
 def test_health_check(client):
@@ -216,7 +229,7 @@ def test_record_photos_are_isolated_between_users(client, auth, pet):
     record_id = r.json()["id"]
 
     # Upload a photo for the record
-    r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", b"fake-bytes", "image/jpeg")}, headers=headers_a)
+    r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", _jpeg(), "image/jpeg")}, headers=headers_a)
     assert r.status_code == 201
     photo_id = r.json()[0]["id"]
 
@@ -254,6 +267,44 @@ def test_photo_upload_rejects_bad_type_and_oversize(client, pet):
     # Attempt to upload a photo with an invalid file type or an oversized file, expecting a 400 Bad Request response.
     r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", b"x" * (settings.MAX_PHOTO_MB * 1024 * 1024 + 1), "image/jpeg")}, headers=headers)
     assert r.status_code == 400
+    assert r.json()["code"] == "image_too_large"
+    assert r.json()["params"] == {"name": "x.jpg", "max": settings.MAX_PHOTO_MB}
+
+
+def test_photo_upload_shrinks_rotates_and_makes_a_thumbnail(client, pet):
+    """A large sideways phone photo is stored upright, capped at 2560 px, with a grid thumbnail beside it."""
+    headers, pet_data = pet
+    r = client.post(f"/pets/{pet_data['id']}/records", json={"title": "Scan", "record_type": "Symptom", "date": "2024-01-01"}, headers=headers)
+    record_id = r.json()["id"]
+
+    # 4000 x 3000 stored sideways; orientation 6 means "rotate 90 degrees to display"
+    r = client.post(f"/records/{record_id}/photos", files={"files": ("wide.jpg", _jpeg(4000, 3000, orientation=6), "image/jpeg")}, headers=headers)
+    assert r.status_code == 201
+    photo = r.json()[0]
+    assert photo["thumbnail"] == photo["filename"].replace(".jpg", "_thumb.jpg")
+
+    with Image.open(os.path.join(settings.PHOTO_DIR, photo["filename"])) as stored:
+        assert stored.size == (1920, 2560)
+    with Image.open(os.path.join(settings.PHOTO_DIR, photo["thumbnail"])) as thumb:
+        assert max(thumb.size) == 400
+
+    # the record now carries its photos, which is what lets an edit form list them
+    records = client.get(f"/pets/{pet_data['id']}/records", headers=headers).json()
+    assert [p["id"] for p in records[0]["photos"]] == [photo["id"]]
+
+
+def test_a_rejected_batch_stores_nothing(client, pet):
+    """One unreadable file in a batch rejects the whole request and leaves no stray files behind."""
+    headers, pet_data = pet
+    r = client.post(f"/pets/{pet_data['id']}/records", json={"title": "Batch", "record_type": "Symptom", "date": "2024-01-01"}, headers=headers)
+    record_id = r.json()["id"]
+    before = set(os.listdir(settings.PHOTO_DIR))
+
+    files = [("files", ("good.jpg", _jpeg(), "image/jpeg")), ("files", ("broken.jpg", b"not an image", "image/jpeg"))]
+    r = client.post(f"/records/{record_id}/photos", files=files, headers=headers)
+    assert r.status_code == 400
+    assert r.json()["params"]["name"] == "broken.jpg"
+    assert set(os.listdir(settings.PHOTO_DIR)) == before
 
 
 def test_gate_query_replaces_only_whole_words():
@@ -310,7 +361,7 @@ def test_avatar_upload_and_removal(client, auth):
     """Uploading sets photo_filename; deleting clears it and 400s when there is none."""
     headers = auth()
 
-    r = client.post("/auth/me/photo", headers=headers, files={"file": ("a.jpg", b"fake-bytes", "image/jpeg")})
+    r = client.post("/auth/me/photo", headers=headers, files={"file": ("a.jpg", _jpeg(), "image/jpeg")})
     assert r.status_code == 200
     assert r.json()["photo_filename"].endswith(".jpg")
 
@@ -561,9 +612,10 @@ def test_photo_zip_contains_exactly_the_selected_photos(client, pet):
     r = client.post(f"/pets/{p['id']}/records", json={"title": "Vet Visit", "record_type": "Vet Visit", "date": "2024-03-04"}, headers=headers)
     record_id = r.json()["id"]
 
-    r = client.post(f"/records/{record_id}/photos", files=[("files", ("a.jpg", b"first-bytes", "image/jpeg")), ("files", ("b.png", b"second-bytes", "image/png"))], headers=headers)
+    r = client.post(f"/records/{record_id}/photos", files=[("files", ("a.jpg", _jpeg(), "image/jpeg")), ("files", ("b.jpg", _jpeg(6, 4), "image/jpeg"))], headers=headers)
     assert r.status_code == 201
-    ids = [photo["id"] for photo in r.json()]
+    stored = r.json()
+    ids = [photo["id"] for photo in stored]
 
     r = client.get(f"/pets/{p['id']}/photos/download", params={"ids": ids}, headers=headers)
     assert r.status_code == 200
@@ -574,7 +626,8 @@ def test_photo_zip_contains_exactly_the_selected_photos(client, pet):
     assert len(names) == 2
     # The record's date and title name the entries, not the stored UUIDs.
     assert all(name.startswith("2024-03-04-Vet Visit-") for name in names)
-    assert sorted(archive.read(n) for n in names) == sorted([b"first-bytes", b"second-bytes"])
+    # Uploads are re-encoded on the way in, so the archive must match what was stored rather than what was sent.
+    assert sorted(archive.read(n) for n in names) == sorted(read_photo(photo["filename"]) for photo in stored)
 
 
 def test_photo_zip_refuses_a_photo_belonging_to_another_user(client, auth, pet):
@@ -582,7 +635,7 @@ def test_photo_zip_refuses_a_photo_belonging_to_another_user(client, auth, pet):
     headers_a, pet_a = pet
     r = client.post(f"/pets/{pet_a['id']}/records", json={"title": "Vaccination", "record_type": "Vaccination", "date": "2024-01-01"}, headers=headers_a)
     record_id = r.json()["id"]
-    r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", b"fake-bytes", "image/jpeg")}, headers=headers_a)
+    r = client.post(f"/records/{record_id}/photos", files={"files": ("x.jpg", _jpeg(), "image/jpeg")}, headers=headers_a)
     photo_id = r.json()[0]["id"]
 
     headers_b = auth(username="userb", email="userb@example.com")

@@ -21,7 +21,7 @@
     "email_unchanged": "That is already your email address.",
     "empty_question": "Type a question first.",
     "event_already_completed": "That is already marked as done.",
-    "image_too_large": "That image is too large.",
+    "image_too_large": "Too large (over {{max}} MB): {{name}}",
     "incorrect_password": "Incorrect password.",
     "invalid_credentials": "Incorrect email or password.",
     "invalid_link": "That link is not valid.",
@@ -34,7 +34,7 @@
     "session_expired": "Your session has expired. Please sign in again.",
     "too_many_photos": "You have selected too many photos.",
     "unsupported_export_format": "That export format is not supported.",
-    "unsupported_image_type": "That image type is not supported."
+    "unsupported_image_type": "Not a supported image (JPEG, PNG or WebP): {{name}}"
   },
   "common": {
     "username": "Username",
@@ -250,7 +250,10 @@
     "description": "Description (optional)",
     "nextDue": "Next Due Date (optional)",
     "photos": "Photos (optional)",
-    "removeFile": "remove"
+    "removeFile": "remove",
+    "attached": "Attached photos",
+    "photoLimit": "Up to {{max}} MB per photo.",
+    "keep": "keep"
   },
   "petForm": {
     "name": "Name",

@@ -17,7 +17,7 @@
     "email_unchanged": "Esta ya es tu dirección de correo electrónico.",
     "empty_question": "Escribe primero una pregunta.",
     "event_already_completed": "Este elemento ya está marcado como completado.",
-    "image_too_large": "Esta imagen es demasiado grande.",
+    "image_too_large": "Demasiado grande (más de {{max}} MB): {{name}}",
     "incorrect_password": "Contraseña incorrecta.",
     "invalid_credentials": "El correo electrónico o la contraseña son incorrectos.",
     "invalid_link": "Este enlace no es válido.",
@@ -30,7 +30,7 @@
     "session_expired": "Tu sesión ha caducado. Vuelve a iniciar sesión.",
     "too_many_photos": "Has seleccionado demasiadas fotos.",
     "unsupported_export_format": "Este formato de exportación no es compatible.",
-    "unsupported_image_type": "Este tipo de imagen no es compatible."
+    "unsupported_image_type": "Imagen no compatible (JPEG, PNG o WebP): {{name}}"
   },
   "common": {
     "username": "Nombre de usuario",
@@ -242,6 +242,9 @@
     "takePhoto": "Hacer una foto",
     "choose": "Elegir",
     "removeFile": "Eliminar",
+    "attached": "Fotos adjuntas",
+    "photoLimit": "Hasta {{max}} MB por foto.",
+    "keep": "Conservar",
     "add": "Añadir registro",
     "cameraDenied": "Se necesita permiso para usar la cámara para hacer una foto."
   },

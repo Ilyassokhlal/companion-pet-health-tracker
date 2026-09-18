@@ -30,6 +30,7 @@ export default function DashboardHeader() {
         {user.photo_filename ? (
           <Image
             source={{ uri: `${BASE}/photos/${user.photo_filename}` }}
+            resizeMethod="resize"
             className="h-9 w-9 rounded-full"
           />
         ) : (
