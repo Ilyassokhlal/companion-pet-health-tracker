@@ -189,7 +189,7 @@ export default function ChatFAB() {
                             <span key={i}>
                               {i > 0 && ", "}
                               <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                {s.title}
+                                {s.section ? `${s.title} — ${s.section}` : s.title}
                               </a>
                             </span>
                           ))}

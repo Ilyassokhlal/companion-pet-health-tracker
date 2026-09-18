@@ -128,7 +128,7 @@ export default function ChatHistory() {
                         rel="noopener noreferrer"
                         className="text-primary hover:underline"
                       >
-                        {s.title} — {s.section}
+                        {s.section ? `${s.title} — ${s.section}` : s.title}
                       </a>
                     </li>
                   ))}

@@ -264,7 +264,7 @@ export default function Chat() {
                   <Pressable key={i} onPress={() => WebBrowser.openBrowserAsync(s.url)}>
                     <Text className="text-xs text-primary">
                       {i > 0 ? ", " : ""}
-                      {s.title}
+                      {s.section ? `${s.title} — ${s.section}` : s.title}
                     </Text>
                   </Pressable>
                 ))}
