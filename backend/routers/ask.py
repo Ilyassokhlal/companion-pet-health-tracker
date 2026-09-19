@@ -19,12 +19,6 @@ from utils.security import get_current_user
 
 router = APIRouter(tags=["Ask"])
 
-# Router for ask-related endpoints
-@router.post("/ingest")
-def ingest_corpus(current_user: User = Depends(get_current_user)):
-    """Ingest the reference corpus into ChromaDB."""
-    return rag.ingest()
-
 def _gate_query(question: str, pet, aliases: tuple[str, ...] = ()) -> str:
     """Query used to decide whether the question is in scope at all.
 

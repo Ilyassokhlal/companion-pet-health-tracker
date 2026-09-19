@@ -185,7 +185,7 @@ backend, so the API and Postgres cannot be reached from outside the host.
 
 The web app and its API share one origin, so the browser makes no cross-origin requests and CORS
 does not apply in production. The Android app sends no `Origin` header, so CORS never applies to
-it either. Neither client is special to the backend: both are ordinary consumers of the same 60
+it either. Neither client is special to the backend: both are ordinary consumers of the same 59
 endpoints.
 
 ChromaDB runs in-process inside the backend, and its index lives on the `app_data` volume next to
@@ -385,7 +385,7 @@ Login is by email. Usernames are for display and need not be unique.
 
 ## API
 
-The API has 60 endpoints. Interactive documentation is at **http://localhost/api/docs** locally
+The API has 59 endpoints. Interactive documentation is at **http://localhost/api/docs** locally
 and **https://mycompanion.pet/api/docs** on the live site, with ReDoc at `/api/redoc`.
 
 <details>
@@ -478,7 +478,6 @@ Each has a thumbnail beside it, named after the photo with `_thumb.jpg` in place
 | GET | `/pets/{pet_id}/messages` | Optional `limit` and `before` page backwards through the history |
 | DELETE | `/messages/{message_id}` | |
 | DELETE | `/pets/{pet_id}/messages` | Clears a pet's history |
-| POST | `/ingest` | Re-indexes the corpus |
 
 ### Other
 | Method | Path | Notes |
@@ -525,8 +524,15 @@ nephrology scores very well for "my cat's kidney problem" and gives the wrong an
 **Chunking.** One chunk per paragraph, at least 60 characters long. Every paragraph starts with a
 heading that names its article, and its section when it belongs to one (`Article - Section`), so
 each chunk knows where it came from and the heading words count toward its embedding. Titles and
-URLs are read from `backend/docs/ATTRIBUTION.md` at index time, which lets a citation link to the
-exact section of its source article.
+URLs are read from `backend/docs/ATTRIBUTION.md` at index time, which lets a citation link to
+the exact section of its source article.
+
+The backend indexes the corpus on its first start, while the collection is empty. After changing
+the corpus, re-index it by hand:
+
+```bash
+docker compose exec backend python -c "import rag; print(rag.ingest())"
+```
 
 **Translation.** Every question first goes through one Claude call that returns structured JSON:
 the question in English, the language it was written in and the pet's name as the question
