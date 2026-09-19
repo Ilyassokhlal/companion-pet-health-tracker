@@ -16,12 +16,12 @@
 > tag, along with the README that describes it.
 
 A multi-user pet health record system. Owners keep each pet's vaccinations, vet visits,
-medications and symptoms in one place, attach photos to any record, schedule appointments, and
+medications and symptoms in one place, attach photos to any record, schedule appointments and
 track weight, walks, feeding and spending. An AI assistant answers care questions from a curated
-veterinary reference corpus, grounded in that pet's own records, in whichever of seven languages
-the question is asked. Due dates turn into email and push reminders sent at 6am in each owner's
-own timezone. The same account works on the web and in the Android app, against one API and one
-database.
+veterinary reference corpus, grounded in that pet's own profile and records, in whichever of
+seven languages the question is asked. Due dates turn into email and push reminders, sent in the
+morning in the owner's own timezone. The same account works on the web and in the Android app,
+against one API and one database.
 
 ---
 
@@ -76,7 +76,7 @@ database.
 
 ![A single photo](screenshots/V3.5/Web/photo-one.png)
 
-**The chat opens over any page**
+**The chat opens over any signed-in page**
 
 ![Chat over a page](screenshots/V3.5/Web/chat-over-page.png)
 
@@ -84,9 +84,9 @@ database.
 
 ![Chat with sources](screenshots/V3.5/Web/chat.png)
 
-**Chat in Arabic**
+**The app in Arabic, laid out right to left**
 
-![Chat in Arabic](screenshots/V3.5/Web/chat-arabic.png)
+![The app in Arabic](screenshots/V3.5/Web/chat-arabic.png)
 
 **Settings**
 
@@ -125,12 +125,16 @@ database.
 
 ## Features
 
+**Pets.** An account can hold several dogs and cats, each with a profile: breed, birth date, sex,
+neutered status, weight, dietary restrictions and allergies, and disabilities. The assistant is
+given that profile with every question it answers.
+
 **Records and photos.** Seven record types: vaccination, vet visit, medication, weight, symptom,
 grooming and training. Any record can carry photos, and they can be added or removed later from
 the same form. Uploads can be JPEG, PNG or WebP, up to 20 MB each. The server turns each one
-upright, scales it to at most 2560 pixels on its long side, saves it as a JPEG without the
-original's metadata (including any GPS location), and makes a 400-pixel thumbnail for the grids.
-The gallery groups photos by month, filters them by record type, and downloads up to ten at once
+upright, scales it to at most 2,560 pixels on its long side, saves it as a JPEG without the
+original's metadata (including any GPS location) and makes a 400-pixel thumbnail for the grids.
+The gallery groups photos by month, filters them by record type and downloads up to ten at once
 as a zip.
 
 **Scheduling.** Appointments are entered directly. A record's next due date becomes a follow-up,
@@ -142,16 +146,18 @@ Completing any of these creates the matching record and opens it for editing.
 - **Weight** is charted from the pet's weight records, in kilograms or pounds.
 - **Walks** are logged by hand, with a duration and an optional distance.
 - **Feeding** is a daily schedule of feeding times. Each logged meal is matched to the nearest
-  one, and a feeding time with no meal logged sends a reminder.
+  one, and a feeding time with no meal logged can send a reminder.
 - **Budget** measures each month's expenses against the pet's spending limit, across seven
   categories: food, vet, medication, grooming, supplies, insurance and other. An expense can be
   linked to a health record, and it keeps the currency it was entered in.
 
-**Chat.** Questions about a pet can be asked from any page on the web, or from the Chat tab on
-Android. Answers come from the reference corpus and the pet's own records, with links to their
-sources. See [RAG pipeline](#rag-pipeline).
+**Chat.** Questions about a pet can be asked from any signed-in page on the web, or from the Chat
+tab on Android, and the web keeps past conversations on their own page. Answers come from the
+reference corpus and the pet's own profile and records, with links to their sources. See
+[RAG pipeline](#rag-pipeline).
 
-**Export.** A pet's full data as a zip of CSV files, or its health record as a PDF.
+**Export.** A pet's records, walks, feedings and expenses as a zip of CSV files, or its records,
+walks and feeding schedule as a PDF.
 
 **Languages.** English, French, Spanish, German, Arabic, Russian and Chinese (Simplified), in
 both clients and in the emails and push notifications the server sends. Arabic switches both
@@ -173,7 +179,7 @@ backend, so the API and Postgres cannot be reached from outside the host.
 
 | Service | Role |
 |---|---|
-| `frontend` | Caddy: TLS, the static React build, and the `/api` reverse proxy |
+| `frontend` | Caddy: TLS, the static React build and the `/api` reverse proxy |
 | `backend` | FastAPI: REST API, JWT auth, RAG orchestration, reminder scheduler |
 | `db` | PostgreSQL 17 |
 
@@ -206,7 +212,7 @@ new certificate, and Let's Encrypt issues at most five for the same domain per w
 | API | FastAPI, Pydantic v2, SQLAlchemy 2, Alembic |
 | Database | PostgreSQL 17 |
 | Vector store | ChromaDB (`all-MiniLM-L6-v2` embeddings) |
-| LLM | Claude Haiku 4.5 via the Anthropic API |
+| LLM | Claude Haiku 4.5 via the Claude API |
 | Email | Resend |
 | Push | Expo push service |
 | Scheduling | APScheduler |
@@ -240,10 +246,10 @@ two functions talk to Claude: `rag.generate`, a generator that yields text chunk
 For the Vite dev server or the mobile app, additionally:
 
 - Node 24
-- An [Expo](https://expo.dev) account, and an Android device or emulator, for the mobile app
+- An [Expo](https://expo.dev) account and an Android device or emulator, for the mobile app
 
 Email is optional for local development. The app runs without it, but verification, password
-reset and email reminders do nothing.
+reset and every reminder do nothing, since reminders only go to verified addresses.
 
 ---
 
@@ -255,8 +261,8 @@ cd companion-pet-health-tracker
 cp .env.example .env
 ```
 
-Fill in `.env`: at minimum `SECRET_KEY`, `POSTGRES_PASSWORD`, the same password in place of
-`CHANGEME` inside `DATABASE_URL`, and `ANTHROPIC_API_KEY`. Leave `SITE_ADDRESS` empty, so Caddy
+Fill in `.env`: at minimum `SECRET_KEY`, `ANTHROPIC_API_KEY` and `POSTGRES_PASSWORD`, plus the
+same password in place of `CHANGEME` inside `DATABASE_URL`. Leave `SITE_ADDRESS` empty, so Caddy
 serves plain HTTP on port 80.
 
 ```bash
@@ -324,13 +330,13 @@ All settings live in `.env`. `.env.example` lists every key.
 | `MODEL_NAME` | Default `claude-haiku-4-5`. Used for answers and for question translation. |
 | `RESEND_API_KEY` / `MAIL_FROM` | Outbound email. `MAIL_FROM` must be on a domain verified with Resend. |
 | `EMAIL_LOGO_URL` | Optional. The logo in outbound email; defaults to `FRONTEND_URL/icon.png`. |
-| `CHROMA_PATH` / `COLLECTION_NAME` | Where the vector index is stored, and its name |
+| `CHROMA_PATH` / `COLLECTION_NAME` | The vector index's location and name |
 | `MAX_RESULTS` | How many corpus chunks go into each prompt. Default 5. |
 | `CONFIDENCE_THRESHOLD` | The scope gate. Default 0.91. Read [RAG pipeline](#rag-pipeline) before changing it. |
 | `DOCS_DIRECTORY` | The corpus to index. Default `./docs`. |
 | `PHOTO_DIR` / `MAX_PHOTO_MB` | Photo storage path and the per-file upload limit. Default limit 20. |
-| `REMINDER_HOUR` / `REMINDER_LEAD_DAYS` | The local hour reminders go out (default 6), and how many days ahead the weekly email looks (default 7) |
-| `TIMEZONE` | Fallback for users who haven't chosen one |
+| `REMINDER_HOUR` / `REMINDER_LEAD_DAYS` | The local hour reminders go out (default 6) and how many days ahead the weekly email looks (default 7) |
+| `TIMEZONE` | Fallback for users who have not chosen one |
 | `DEBUG` | Prints the loaded configuration at startup |
 | `FRONTEND_URL` | Where links in emails point. The example points at the Vite dev server; use `http://localhost` when running only the containers, and the live domain in production. |
 | `CORS_ORIGINS` | Comma-separated origins allowed to call the API directly |
@@ -365,12 +371,12 @@ users ──┬──< pets ──┬──< health_records ──< record_photo
 | `walks` | Logged walks |
 | `feeding_times` | Each pet's daily feeding schedule |
 | `feedings` | Logged meals |
-| `expenses` | Amount, category, currency, and an optional link to a record |
+| `expenses` | Amount, category, currency and an optional link to a record |
 | `chat_messages` | Questions and answers, with each answer's sources as JSON |
 | `device_tokens` | One row per app install that has accepted push notifications |
 
 The two exceptions point at `health_records` and are set to null instead of cascading: an
-expense's linked record, and the record an event produced when it was completed. Deleting a
+expense's linked record and the record an event produced when it was completed. Deleting a
 record keeps the expense and the completed event.
 
 Login is by email. Usernames are for display and need not be unique.
@@ -379,8 +385,8 @@ Login is by email. Usernames are for display and need not be unique.
 
 ## API
 
-60 endpoints. Interactive documentation at **http://localhost/api/docs** locally, or
-**https://mycompanion.pet/api/docs** on the live site, with ReDoc at `/api/redoc`.
+The API has 60 endpoints. Interactive documentation is at **http://localhost/api/docs** locally
+and **https://mycompanion.pet/api/docs** on the live site, with ReDoc at `/api/redoc`.
 
 <details>
 <summary><b>Swagger UI screenshots</b></summary>
@@ -422,7 +428,7 @@ Login is by email. Usernames are for display and need not be unique.
 |---|---|---|
 | GET / POST | `/pets/{pet_id}/records` | |
 | PATCH / DELETE | `/records/{record_id}` | |
-| GET | `/pets/{pet_id}/export?format=zip\|pdf` | Zip of CSVs, or a PDF health record |
+| GET | `/pets/{pet_id}/export?format=zip\|pdf` | Zip of CSVs, or a PDF |
 
 ### Photos
 | Method | Path | Notes |
@@ -432,8 +438,8 @@ Login is by email. Usernames are for display and need not be unique.
 | GET | `/pets/{pet_id}/photos` | The gallery, with each photo's record |
 | GET | `/pets/{pet_id}/photos/download` | Up to ten photos as one zip |
 
-Image files are served as static assets from `/photos/<filename>` under unguessable UUID names,
-each with a `<name>_thumb.jpg` thumbnail beside it.
+Image files are served as static assets from `/photos/<filename>` under unguessable UUID names.
+Each has a thumbnail beside it, named after the photo with `_thumb.jpg` in place of its extension.
 
 ### Events
 | Method | Path | Notes |
@@ -456,7 +462,7 @@ each with a `<name>_thumb.jpg` thumbnail beside it.
 | DELETE | `/feeding-times/{feeding_time_id}` | |
 | GET / POST | `/pets/{pet_id}/feedings` | Logged meals |
 | PATCH / DELETE | `/feedings/{feeding_id}` | |
-| GET | `/pets/{pet_id}/feeding-status` | Today's feeding times, fed or not |
+| GET | `/pets/{pet_id}/feeding-status` | Each of today's feeding times as met, due, missed or upcoming |
 
 ### Budget
 | Method | Path | Notes |
@@ -488,7 +494,7 @@ account. Otherwise the previous user would keep receiving that phone's reminders
 
 Per client address: register 5 a minute, login 10 a minute, email verification 10 a minute,
 resending verification 3 an hour, forgotten password 3 an hour, password reset 10 an hour,
-changing email or password 5 an hour, deleting the account 5 an hour, and `/ask` 10 a minute.
+changing email or password 5 an hour, deleting the account 5 an hour and `/ask` 10 a minute.
 
 ### `/ask` response format
 
@@ -502,27 +508,28 @@ The endpoint streams `application/x-ndjson`, one JSON object per line:
 
 `confidence` is `high` when the nearest chunk is closer than 0.7, and `medium` otherwise.
 
-Out-of-scope questions never reach the model. They return a plain JSON object instead of a
-stream, `{"answer": "...", "sources": [], "confidence": "none"}`, so clients check the response's
-content type before parsing.
+Out-of-scope questions are never answered by the model. They return a plain JSON object instead
+of a stream, `{"answer": "...", "sources": [], "confidence": "none"}`, so clients check the
+response's content type before parsing.
 
 ---
 
 ## RAG pipeline
 
-**Corpus.** 35 plain-text documents, about 80,000 words in 1,000 chunks, covering vaccination
-schedules, parasites, dental care, nutrition, life stages, common canine and feline conditions,
-and emergency care. It is in English and covers dogs and cats only. Human-medicine material was
-filtered out, because a passage about human nephrology scores very well for "my cat's kidney
-problem" and gives the wrong answer for a cat.
+**Corpus.** Thirty-five plain-text documents, about 80,000 words in 1,000 chunks, covering
+vaccination, parasites, dental care, nutrition and obesity, puppies, kittens and ageing,
+behaviour, neutering, and common canine and feline diseases. It is in English and covers dogs
+and cats only. Human-medicine material was filtered out, because a passage about human
+nephrology scores very well for "my cat's kidney problem" and gives the wrong answer for a cat.
 
-**Chunking.** One chunk per paragraph, at least 60 characters long. Every paragraph starts with
-its own `Article - Section` heading, so each chunk knows where it came from and the heading words
-count toward its embedding. Titles and URLs are read from `backend/docs/ATTRIBUTION.md` at index
-time, which lets a citation link to the exact section of its source article.
+**Chunking.** One chunk per paragraph, at least 60 characters long. Every paragraph starts with a
+heading that names its article, and its section when it belongs to one (`Article - Section`), so
+each chunk knows where it came from and the heading words count toward its embedding. Titles and
+URLs are read from `backend/docs/ATTRIBUTION.md` at index time, which lets a citation link to the
+exact section of its source article.
 
 **Translation.** Every question first goes through one Claude call that returns structured JSON:
-the question in English, the language it was written in, and the pet's name as the question
+the question in English, the language it was written in and the pet's name as the question
 wrote it. The corpus is English, so the search runs in English, and the answer is written in the
 language of the question. That can differ from the app's language, since someone can run the app
 in Russian and type in English; the app language is only the fallback. If the call fails, the
@@ -530,12 +537,12 @@ question goes on unchanged in the app language, so an outage weakens the search 
 the chat down.
 
 **Name swap.** Before the search, the pet's name is replaced with its species. `"why is Flash
-coughing?"` scores **1.244** and would be refused, because the embedding model reads "Flash" as a
-camera flash or lightning. As `"why is Dog coughing?"` it scores **0.537**. The swap is plain
-string matching, so it cannot see a transliteration such as "Флэш" or a declined form such as
-"Флэша". That is why the translation call is given the stored name and asked how the question
-wrote it. The reported spelling is swapped as well, once it has been confirmed to appear in the
-question.
+coughing?"` scores **1.244** and would be refused, because to the embedding model "Flash" is an
+ordinary word with nothing to do with a pet. As `"why is Dog coughing?"` it scores **0.537**.
+The swap is plain string matching, so it cannot see a transliteration such as "Флэш" or a
+declined form such as "Флэша". That is why the translation call is given the stored name and
+asked how the question wrote it. The reported spelling is swapped as well, once it has been
+confirmed to appear in the question.
 
 **Scope gate.** The gate asks for the single nearest chunk and refuses the question when that
 chunk is further away than `CONFIDENCE_THRESHOLD`, 0.91. Distances from a 24-question English
@@ -544,11 +551,11 @@ probe:
 | Question type | Nearest distance |
 |---|---|
 | Pet questions the corpus covers | 0.372 to 0.816 |
-| Pet-related, but off topic | 1.012 to 1.198 |
+| Pet-related but off topic | 1.012 to 1.198 |
 | Unrelated | 1.471 to 1.791 |
 
-A refused question never reaches the model. The owner gets a fixed reply in the question's
-language.
+A refused question is never sent to the model for an answer. The owner gets a fixed reply in the
+question's language.
 
 **Retrieval.** Once a question passes the gate, a second query picks the chunks for the prompt.
 It adds the species at the end, which keeps dog and cat material apart: `"What should I feed my
@@ -566,27 +573,27 @@ The model always receives the question exactly as the owner typed it, in their l
 search queries are rewritten.
 
 **Conversation memory.** A question is not answered in isolation. Up to 25 prior messages for
-that pet, from the last seven days, are sent as conversation turns ahead of the current one. Cost
-is dominated by answers rather than turn count, since a question is around 15 tokens and an
-answer 300 or more, so answers are truncated on a sliding scale: the two most recent keep 1,200
-characters and older ones keep 300, which is enough to identify what a topic was. Questions are
-never truncated. That keeps history at roughly 1,500 tokens instead of 3,800, and stops it
-competing with the retrieved corpus for the model's attention.
+that pet, from the last seven days, are sent as conversation turns ahead of the current one.
+Answers are far longer than questions and dominate the cost, so they are truncated on a sliding
+scale: the two most recent keep 1,200 characters and older ones keep 300, which is enough to
+identify what a topic was. Questions are never truncated. However long the earlier answers were,
+the history carries at most 5,400 characters of them, so it stays small next to the retrieved
+corpus instead of competing with it for the model's attention.
 
-Memory alone does not make follow-ups work, because the scope gate runs first and a three-word
-question retrieves nothing. A question under six words is therefore expanded with the previous
-one for the search only. The model still receives what the owner actually typed, and resolves
-the reference from the turns it now has.
+Memory alone does not make follow-ups work, because the scope gate runs first and a follow-up
+such as "how often?" retrieves nothing on its own. A question under six words is therefore
+expanded with the previous one for the search only. The model still receives what the owner
+actually typed and resolves the reference from the turns it now has.
 
 **Guardrails.**
 
 1. A system prompt that separates CONTEXT (general veterinary material) from PET (this animal's
    details and records), forbids stating anything about the pet that its records do not show,
    and forbids diagnosis.
-2. The scope gate: an out-of-scope question never reaches the model.
+2. The scope gate: an out-of-scope question is never answered by the model.
 3. A medical disclaimer rendered by the apps, not requested from the model, so it cannot be
-   left out or reworded. It sits in the footer of every web page and on the Android sign-in and
-   registration screens.
+   left out or reworded. On the web it sits on the landing page and in the footer of every
+   signed-in page; on Android, on the sign-in and registration screens.
 
 ---
 
@@ -597,17 +604,20 @@ check-ins.
 
 The scheduler runs **hourly**, not daily. Each run picks out the owners for whom it is currently
 `REMINDER_HOUR` (6am by default) in their own timezone, because a single daily job can only ever
-be 6am in one place. Owners choose their timezone in Settings, and the browser's zone is the
+be 6am in one place. Owners choose their timezone in Settings, and the device's timezone is the
 default at registration.
 
-- **Email** goes to verified addresses with reminders on. Each owner chooses weekly, sent on
-  Sundays and covering everything due within `REMINDER_LEAD_DAYS`, or daily, covering what is due
-  today or overdue.
-- **Push** notifications go out daily for anything due today or overdue, to every device the
-  owner has registered.
-- **Feeding reminders** come from a second job that runs every 15 minutes. At each feeding time
-  with no meal logged yet, the owner gets an email, a push notification or both, depending on
-  their settings.
+Every kind of reminder, push notifications included, goes only to owners who have verified their
+email address.
+
+- **Email** goes to owners with reminders on. Each owner chooses weekly, sent on Sundays and
+  covering everything due within `REMINDER_LEAD_DAYS`, or daily, covering what is due today or
+  overdue.
+- **Push** notifications go daily to owners with push on, for anything due today or overdue, on
+  every device they have registered.
+- **Feeding reminders** are off until the owner turns them on. A second job runs every 15
+  minutes, and at each feeding time with no meal logged yet it sends an email, a push notification
+  or both, depending on the owner's settings.
 
 Emails and push notifications are written in each owner's app language. `utils/push.py` sends
 through Expo's push service, which delivers through FCM on Android and APNs on iOS. Tokens Expo
@@ -621,10 +631,10 @@ An Android client in `frontend-mobile/`, built with React Native and Expo. It ta
 API as the web app and shares no code with it. It has five tabs (Dashboard, Records, Tracking,
 Photos and Chat), with Settings behind the gear in the dashboard header.
 
-Three things it does that the web cannot: receive push reminders, take photos with the camera,
-and show cached data offline. The account, the pet list and records are cached after each
-successful fetch and shown with a banner when the network is unavailable. The session token is
-kept in the device's secure storage.
+Three things it does that the web app does not: receive push reminders, offer a camera button in
+the record form and show cached data offline. The account, the pet list and records are cached
+after each successful fetch and shown with a banner when the network is unavailable. The session
+token is kept in the device's secure storage.
 
 To run it, create `frontend-mobile/.env`:
 
@@ -634,10 +644,10 @@ EXPO_PUBLIC_USE_RN_FETCH=1
 ```
 
 The API address must be one the phone can reach, such as your computer's address on the local
-network, with the development override publishing port 8000. There is no `/api` prefix locally;
-Caddy adds and strips that only in production. `EXPO_PUBLIC_USE_RN_FETCH=1` keeps React Native's
-own `fetch` as the global, because Expo's rejects the multipart file parts that photo uploads
-send.
+network, with the development override publishing port 8000. Port 8000 is the backend itself, so
+there is no `/api` prefix; that prefix belongs to Caddy, which strips it before passing requests
+on. `EXPO_PUBLIC_USE_RN_FETCH=1` keeps React Native's own `fetch` as the global, because Expo's
+rejects the multipart file parts that photo uploads send.
 
 ```bash
 cd frontend-mobile
@@ -663,7 +673,7 @@ Production runs this same Compose file on one server.
    Caddy then obtains and renews its own certificate from Let's Encrypt.
 3. Run `docker compose up -d --build`.
 
-To update, `git pull` and run `docker compose up -d --build` again. The frontend needs the
+To update, run `git pull` and then `docker compose up -d --build` again. The frontend needs the
 rebuild because its bundle is built into the image, and migrations run on every backend start.
 
 Never copy `docker-compose.override.yml` to the server. Compose would load it automatically,
@@ -673,15 +683,17 @@ publish Postgres and run uvicorn with `--reload`.
 
 ## Testing
 
-```bash
-docker compose exec backend python -m pytest tests -v
-```
-
-54 tests against a real PostgreSQL database. The suite creates and drops every table for each
-test, so it uses a separate `companion_test` database:
+The suite has 54 tests and runs against a real Postgres database. It creates and drops every
+table for each test, so it needs a separate `companion_test` database. Create it once:
 
 ```bash
 docker compose exec db psql -U companion -d postgres -c "CREATE DATABASE companion_test OWNER companion;"
+```
+
+Then run the suite:
+
+```bash
+docker compose exec backend python -m pytest tests -v
 ```
 
 Email, push notifications and question translation are stubbed by autouse fixtures. One test
@@ -720,7 +732,7 @@ frontend-web/
     auth/             AuthContext
     context/          PetContext, the current pet shared across pages
     theme/            theme, accent and background pattern
-    i18n/             i18next setup and the seven catalogs
+    i18n/             i18next setup and the seven catalogues
     components/       layout, forms, settings panels, ChatFAB
     components/ui/    Button, Input, Modal, ConfirmDialog
     pages/            Landing, Login, Register, Verify, Forgot, Reset,
@@ -737,7 +749,7 @@ frontend-mobile/
   src/api/            the same resource modules, ported
   src/components/     forms, settings panels, tab bar, UI primitives
   src/theme/          theme, accent and background pattern
-  src/i18n/           i18next setup and the seven catalogs
+  src/i18n/           i18next setup and the seven catalogues
   eas.json            build profiles
 ```
 
@@ -745,9 +757,9 @@ frontend-mobile/
 
 ## Known limitations
 
-- **Sessions are 7-day JWTs,** kept in `localStorage` on the web. There is no refresh-token flow.
-  Changing the password ends every existing session, because each token carries a fingerprint of
-  the password hash.
+- **Sessions are JWTs with no refresh-token flow,** kept in `localStorage` on the web. They last
+  7 days with the example settings. Changing the password ends every existing session, because
+  each token carries a fingerprint of the password hash.
 - **The reminder scheduler runs in-process.** Two backend replicas would send everything twice;
   it needs its own service before scaling out.
 - **Photos are protected by unguessable filenames, not authorisation.** Anyone holding a URL can
@@ -771,7 +783,7 @@ frontend-mobile/
 starts without it, but answers and question translation both need it.
 
 **`password authentication failed for user "companion"`.** The password inside `DATABASE_URL`
-doesn't match `POSTGRES_PASSWORD`. `POSTGRES_PASSWORD` only takes effect when the database
+does not match `POSTGRES_PASSWORD`. `POSTGRES_PASSWORD` only takes effect when the database
 volume is first created, so changing it later means `docker compose down`, then removing the
 `db_data` volume, which deletes the data. `docker volume ls` shows its full name, prefixed with
 the project folder's name.
@@ -782,7 +794,7 @@ container's environment. Use `docker compose up -d --force-recreate` instead.
 **The frontend shows old code.** `VITE_API_URL` and the whole bundle are baked in at build time.
 Rebuild with `docker compose up -d --build frontend`.
 
-**No emails arrive.** Sends are background tasks that log their errors instead of raising them.
+**No emails arrive.** A failed send is logged, never raised, so nothing in the app shows it.
 Check `docker compose logs backend` for the real failure, and confirm `MAIL_FROM` is on a domain
 verified with Resend.
 
@@ -792,8 +804,8 @@ verified with Resend.
 
 All corpus documents derive from English Wikipedia, licensed under
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Text was extracted via the
-MediaWiki API, stripped of markup, and reformatted so each paragraph carries its article and
-section heading. Per-file source links are in `backend/docs/ATTRIBUTION.md`.
+MediaWiki API, stripped of markup and reformatted so each paragraph starts with a heading naming
+where it came from. Per-file source links are in `backend/docs/ATTRIBUTION.md`.
 
 ---
 
