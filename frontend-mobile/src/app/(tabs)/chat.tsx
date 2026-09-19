@@ -260,11 +260,11 @@ export default function Chat() {
             {turn.sources && turn.sources.length > 0 ? (
               <View className="mt-2 flex-row flex-wrap items-baseline">
                 <Text className="text-xs text-muted">{t("chat.sources")}</Text>
-                {turn.sources.map((s, i) => (
+                {turn.sources.map((s, i, all) => (
                   <Pressable key={i} onPress={() => WebBrowser.openBrowserAsync(s.url)}>
                     <Text className="text-xs text-primary">
-                      {i > 0 ? ", " : ""}
                       {s.section ? `${s.title} — ${s.section}` : s.title}
+                      {i < all.length - 1 ? ", " : ""}
                     </Text>
                   </Pressable>
                 ))}
