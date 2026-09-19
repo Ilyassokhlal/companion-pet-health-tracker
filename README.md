@@ -171,7 +171,7 @@ background patterns (none, paws, bones, fish, mixed), saved per device.
 
 ## Architecture
 
-![Architecture](screenshots/V3.5/architecture.png)
+![Architecture](screenshots/architecture.png)
 
 Three Compose services on one internal Docker network. In production only 80 and 443 are
 published. Caddy terminates TLS, serves the built React app and reverse-proxies `/api/*` to the
