@@ -35,7 +35,7 @@ against one API and one database.
 
 | Dashboard | Tracking | Chat |
 |---|---|---|
-| <img src="screenshots/V3.5/Mobile/dashboard.jpg" alt="Dashboard" width="260"> | <img src="screenshots/V3.5/Mobile/tracking.jpg" alt="Tracking" width="260"> | <img src="screenshots/V3.5/Mobile/chat-with-reference.jpg" alt="Chat answer with sources" width="260"> |
+| <img src="screenshots/V3.5/Mobile/dashboard.jpg" alt="Dashboard" width="260"> | <img src="screenshots/V3.5/Mobile/tracking.jpg" alt="Tracking" width="260"> | <img src="screenshots/V3.5/Mobile/chat.jpg" alt="Chat" width="260"> |
 
 <details>
 <summary><b>More web screenshots</b></summary>
@@ -84,9 +84,9 @@ against one API and one database.
 
 ![Chat with sources](screenshots/V3.5/Web/chat.png)
 
-**The app in Arabic, laid out right to left**
+**Asked in Arabic, answered in Arabic, with the app still in English**
 
-![The app in Arabic](screenshots/V3.5/Web/chat-arabic.png)
+![A question and answer in Arabic](screenshots/V3.5/Web/chat-arabic.png)
 
 **Settings**
 
@@ -107,17 +107,17 @@ against one API and one database.
 |---|---|---|
 | <img src="screenshots/V3.5/Mobile/feeding.jpg" alt="Feeding" width="260"> | <img src="screenshots/V3.5/Mobile/budget.jpg" alt="Budget" width="260"> | <img src="screenshots/V3.5/Mobile/photos.jpg" alt="Photos" width="260"> |
 
-| Follow-up question | Its sources | Push reminders |
+| Its sources | Follow-up question | The follow-up's sources |
 |---|---|---|
-| <img src="screenshots/V3.5/Mobile/chat-follow-up.jpg" alt="Follow-up question" width="260"> | <img src="screenshots/V3.5/Mobile/chat-follow-up-reference.jpg" alt="Follow-up answer with sources" width="260"> | <img src="screenshots/V3.5/Mobile/phone-notifications.jpg" alt="Push reminders" width="260"> |
+| <img src="screenshots/V3.5/Mobile/chat-reference.jpg" alt="Answer with sources" width="260"> | <img src="screenshots/V3.5/Mobile/chat-follow-up.jpg" alt="Follow-up question" width="260"> | <img src="screenshots/V3.5/Mobile/chat-follow-up-reference.jpg" alt="Follow-up answer with sources" width="260"> |
 
-| Settings | Account | Appearance |
+| Push reminders | Settings | Account |
 |---|---|---|
-| <img src="screenshots/V3.5/Mobile/settings.jpg" alt="Settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-account.jpg" alt="Account settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-appearance.jpg" alt="Appearance settings" width="260"> |
+| <img src="screenshots/V3.5/Mobile/phone-notifications.jpg" alt="Push reminders" width="260"> | <img src="screenshots/V3.5/Mobile/settings.jpg" alt="Settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-account.jpg" alt="Account settings" width="260"> |
 
-| Units and language | Notifications and tracking | |
+| Appearance | Units and language | Notifications and tracking |
 |---|---|---|
-| <img src="screenshots/V3.5/Mobile/settings-units-language.jpg" alt="Units and language settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-notifications-tracking.jpg" alt="Notification and tracking settings" width="260"> | |
+| <img src="screenshots/V3.5/Mobile/settings-appearance.jpg" alt="Appearance settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-units-language.jpg" alt="Units and language settings" width="260"> | <img src="screenshots/V3.5/Mobile/settings-notifications-tracking.jpg" alt="Notification and tracking settings" width="260"> |
 
 </details>
 
