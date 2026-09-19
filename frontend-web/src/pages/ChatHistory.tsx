@@ -110,11 +110,11 @@ export default function ChatHistory() {
               </button>
             </div>
             {m.role === "assistant" ? (
-              <div className="prose-invert space-y-2 [&_ul]:list-disc [&_ul]:ps-5 [&_h2]:font-semibold [&_h3]:font-semibold">
+              <div dir="auto" className="prose-invert space-y-2 [&_ul]:list-disc [&_ul]:ps-5 [&_h2]:font-semibold [&_h3]:font-semibold">
                 <ReactMarkdown>{m.content}</ReactMarkdown>
               </div>
             ) : (
-              <p className="text-muted">{m.content}</p>
+              <p dir="auto" className="text-muted">{m.content}</p>
             )}
             {m.sources && m.sources.length > 0 && (
               <div className="mt-2">

@@ -172,11 +172,11 @@ export default function ChatFAB() {
               <div key={idx} className={`flex ${turn.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${turn.role === "user" ? "bg-primary text-on-primary" : "bg-ink border border-border text-fg"}`}>
                   {turn.role === "user" ? (
-                    <span>{turn.content}</span>
+                    <span dir="auto">{turn.content}</span>
                   ) : (
                     <>
                       {turn.content ? (
-                        <div className="[&_ul]:list-disc [&_ul]:ps-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
+                        <div dir="auto" className="[&_ul]:list-disc [&_ul]:ps-5 [&_p]:mb-2 [&_h2]:font-semibold [&_h3]:font-semibold [&_strong]:text-fg">
                           <ReactMarkdown>{turn.content}</ReactMarkdown>
                         </div>
                       ) : (
