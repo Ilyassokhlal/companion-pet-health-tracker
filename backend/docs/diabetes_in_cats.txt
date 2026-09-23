@@ -1,0 +1,128 @@
+Diabetes in cats
+Feline diabetes mellitus is a chronic disease in cats whereby either insufficient insulin response or insulin resistance leads to persistently high blood glucose concentrations. Diabetes affects up to 1 in 230 cats, and may be becoming increasingly common. Diabetes is less common in cats than in dogs. The condition is treatable, and if treated properly the cat can experience a normal life expectancy. In cats with type 2 diabetes, prompt effective treatment may lead to diabetic remission, in which the cat no longer needs injected insulin. Untreated, the condition leads to increasingly weak legs in cats and eventually to malnutrition, ketoacidosis and/or dehydration, and death.
+
+Diabetes in cats
+Type 1 diabetes, in which the immune system attacks the pancreas, is "extremely rare" in cats, unlike in dogs and humans.
+
+Diabetes in cats
+Type 2 diabetes is responsible for 80–95% of diabetic cases. They are generally severely insulin dependent by the time symptoms are diagnosed. Glipizide for T2DM are not known to be effective in cats, unlike in humans.
+
+Diabetes in cats
+Gestational diabetes, which occurs in humans and dogs, has never been found in cats.
+
+Diabetes in cats
+Insulin resistance and diabetes in cats can also have a component of hypersomatotropism (an excess of growth hormone, also leading to acromegaly) and hyperadrenocorticism. In some cats, cancer causes the loss of pancreatic islets.
+
+Diabetes in cats - Symptoms
+Cats will generally show a gradual onset of the disease over a few weeks or months, and it may escape notice for even longer.
+
+Diabetes in cats - Symptoms
+The first outward symptoms are sudden weight loss (or occasionally gain) accompanied by polydipsia and polyuria. Polyphagia or anorexia may be observed. Neuropathy in the hind legs may cause the cat to develop a plantigrade stance, walking on its hocks rather than its toes. The front legs may develop a corresponding palmigrade stance, with the cat standing on its "palms" rather than its toes.
+
+Diabetes in cats - Symptoms
+A fasting glucose blood test will normally be suggestive of diabetes at this point. The same home blood test monitors used in humans are also used on cats, usually by obtaining blood from the ear edges or paw pads. As the disease progresses, ketone bodies will be present in the urine, which can be detected with the same urine strips used for testing human urine.
+
+Diabetes in cats - Symptoms
+In the final stages, the cat starts wasting, with the body breaking down its own fat and muscle to survive. Lethargy/limpness and acetone-smelling breath are acute symptoms of ketoacidosis and/or dehydration and constitute a medical emergency.
+
+Diabetes in cats - Diabetic emergencies
+Too little insulin over time can cause tissue starvation, as glucose cannot reach the brain or body. In combination with dehydration, fasting, infection, or other body stresses, the condition may progress to diabetic ketoacidosis, a medical emergency with a high fatality rate that cannot be treated at home. Symptoms include lethargy, a fruit-like smell of the breath or urine, shortness of breath, and an increase in thirst. Emergency care includes fluid therapy, insulin, management of presenting symptoms and 24-hour hospitalization.
+
+Diabetes in cats - Complications
+The back legs may become weak and the gait may become stilted or wobbly owing to diabetic neuropathy, which is caused by damage to the myelin sheath of the peripheral nerves due to glucose toxicity and cell starvation, which are in turn caused by chronic hyperglycemia. Most common in cats, the back legs become weaker until the cat displays a plantigrade stance, standing on its hocks instead of on its toes as normal. The cat may also have trouble walking and jumping and may need to sit down after a few steps. Neuropathy sometimes heals on its own within 6–10 weeks once blood sugar is regulated.
+
+Diabetes in cats - Causes
+The signs of diabetes are caused by a persistently high blood glucose concentration, which may be caused by either insufficient insulin or by a lack of response to insulin. Most cats have a type of diabetes similar to human type 2 diabetes, with β-cell dysfunction and insulin resistance. Factors which contribute to insulin resistance include obesity and endocrine diseases such as acromegaly. Acromegaly affects 20–30% of diabetic cats; it can be diagnosed by measuring the concentration of insulin-like growth factor-1 (IGF-1) in the blood.
+
+Diabetes in cats - Causes
+Quite frequently, a cat which is under stress because it has been transported in a car and/ or brought to a veterinarian will experience an artificial temporary spike in blood glucose levels called "stress hyperglycemia" which will subside after a few hours. This spike, however, will not affect the cat's blood fructosamine levels, which are therefore often a better measure of overall blood sugar.
+
+Diabetes in cats - Management
+Diabetes is a condition which can be treated, but it is invariably lethal if ignored. Early diagnosis and treatment by a qualified veterinarian can help in preventing nerve damage, and, in rare cases, may even lead to remission. Diabetic cats do best with long-lasting twice-daily injections of insulin such as glargine (which as of 2022 is available worldwide as a synthetic generic drug) combined with a low carbohydrate diet. Because diabetes is a disease of carbohydrate metabolism, a move to a primarily protein and fat diet reduces the occurrence and recurrence of hyperglycemia.
+
+Diabetes in cats - Diet
+Diet is a critical component of treatment and is in some cases effective on its own following treatment with insulin. For example, a recent mini-study showed that many diabetic cats stopped needing insulin after changing to a low carbohydrate diet. The rationale is that a low-carbohydrate diet reduces the amount of insulin needed and keeps the variation in blood sugar low and easier to predict. Additionally, research indicates that feeding cats low-carbohydrate meals increases their chances of obtaining diabetic remission by four times. Also, fats and proteins are metabolized slower than carbohydrates, reducing dangerous blood sugar peaks right after meals. Cats are obligate carnivores and must consume meat to survive, as their bodies are unable to produce certain amino acids such as taurine and arginine, and cannot process many of the nutrients that meat has from other dietary sources. It is recommended to see a veterinary professional to discuss the specific dietary needs a cat with diabetes needs to manage their diabetes while also ensuring they do not develop other health issues related to malnutrition.
+
+Diabetes in cats - Medications
+Oral medications like Glipizide that stimulate the pancreas, promoting insulin release (or in some cases, reduce glucose production), are less and less used in cats, and these drugs may be completely ineffective if the pancreas is not working. These drugs have also been shown in some studies to damage the pancreas further or to cause liver damage. Some owners are reluctant to switch from pills to insulin injections, but the fear is unjustified; the difference in cost and convenience is minor (most cats are easier to inject than to pill), and injections are more effective at treating the disease.
+
+Diabetes in cats - Medications
+Bexagliflozin (Bexacat) was approved for medical use in the United States in December 2022. It is the first sodium-glucose cotransporter 2 (SGLT2) inhibitor new animal drug approved by the US Food and Drug Administration (FDA) in any animal species. Velagliflozin (Senvelgo), another SGLT2 inhibitor, was approved for medical use in the United States in August 2023 by the FDA. SGLT2 inhibitors are not insulin, nor do they help a diabetic cat's cells use glucose for energy. SGLT2 inhibitors lowers blood glucose levels by excreting glucose through the kidneys. Both medications are prescription only and are given orally (by mouth) once daily. Cats that have been previously treated with long-term insulin therapy, are currently on long-term insulin therapy, or has other underlying health conditions should not take these medications.
+
+Diabetes in cats - Insulin
+The method usually employed is a dose of slow-acting insulin twice daily to keep the blood sugar within a recommended range for the entire day. With this method, it is important for the cat to avoid large meals or high-carbohydrate food. Meals may also be timed to coincide with peak insulin activity. Once-daily doses are not recommended, since insulin usually metabolizes faster in cats than in humans or dogs. For example, an insulin brand that lasts 24 hours in people may only be effective for about 12 in a cat.
+
+Diabetes in cats - Insulin
+Cats may be treated with animal insulin (bovine-based insulin is most similar to cat insulin) or with human synthetic insulin. The best choice of insulin brand and type varies from animal to animal and may require some trial and error. The human synthetic insulin, Humulin N /Novolin N/ NPH, is usually a poor choice for cats, since cats metabolize insulin about twice as fast. The Lente and Ultralente versions were popular for feline use until summer 2005, when they were discontinued.
+
+Diabetes in cats - Insulin
+Until the early 1990s, the most recommended type for pets was bovine/porcine-derived PZI, but that type was phased out over the 1990s and is now difficult to find in many countries. There are sources in the US and UK, and many vets are now starting to recommend them again for pets, but they have been discontinued by most manufacturers as of 2007-2008. A new synthetic PZI analogue called ProZinc is now available.
+
+Diabetes in cats - Insulin
+Caninsulin (known in the US as Vetsulin) is a brand of porcine-based insulin approved for cats which is available with a veterinarian's prescription. According to the manufacturer's website, the insulin's action profile in cats was similar to that of NPH insulin, and it lowered blood sugar quickly, but for only about 6–8 hours. Vetsulin was recalled in the US in November 2009 due to inconsistent strength; it was available again as of April 2013.
+
+Diabetes in cats - Insulin
+Two ultra-slow time-release synthetic human insulins became available in 2004 and 2005, generically known as insulin detemir (Levemir) and insulin glargine (Lantus). Studies have had good results with insulin glargine in cats. Follow-up research  shows that Levemir can be used with a similar protocol and that either insulin on this protocol can lead uncomplicated feline cases to remission, with the most success being in cats who start on these protocols as soon as possible after diagnosis.
+
+Diabetes in cats - Dosage and regulation
+Cats may have their mealtimes strictly scheduled and planned to match with injection times, especially when on insulin with a pronounced peak action like Caninsulin/Vetsulin or Humulin N. If the cat free-feeds and normally eats little bits all day or night, it may be best to use a very slow-acting insulin to keep a constant level of blood glucose. Some veterinarians still use the outdated recommendation of using Humulin "N" or NPH insulin for cats, which is very fast-acting for most cats. The slower-acting Lente and Ultralente (Humulin L and Humulin U) insulins were discontinued in 2005, so most cats are treated with either the veterinary PZI insulins or the new full-day analogs glargine (Lantus) and detemir (Levemir).
+
+Diabetes in cats - Dosage and regulation
+The first goal is to regulate the cat's blood glucose by keeping the blood glucose values in a comfortable range for the cat during most of the day. This may take a few weeks to achieve.
+
+Diabetes in cats - Dosage and regulation
+The most successful documented method is tight regulation with Lantus or Levemir.
+
+Diabetes in cats - Dosage and regulation
+Chronic overdose masked by Somogyi: A dose that is too high may cause a Somogyi rebound, which can look like a need for more insulin. This condition can continue for days or weeks.
+
+Diabetes in cats - Dosage and regulation
+High-carbohydrate cat food: Many commercial foods (especially "light" foods) are very high in carbohydrates. The extra carbohydrates keep the cat's blood sugar high. In general, canned foods are lower in carbohydrates than dry foods, and canned "kitten" foods lower still. Diabetes in cats can be better regulated and even sometimes reversed with a low-carbohydrate diet.
+
+Diabetes in cats - Dosage and regulation
+Inappropriate insulin: Different brands and types of insulin have idiosyncratic effects on different cats. With some dosages, the insulin may not last long enough for the cat. Testing blood sugar more frequently can determine if the insulin is controlling the blood sugar concentration throughout the day.
+
+Diabetes in cats - Blood sugar guidelines
+Absolute numbers vary between pets, and with meter calibrations. Glucometers made for humans are generally accurate using feline blood except when reading lower ranges of blood glucose (<80 mg/dl–4.44 mmol/L). At this point the size difference in human and animal red blood cells can create inaccurate readings.
+
+Diabetes in cats - Somogyi rebound
+Too much insulin may result in a contradictory increase of blood glucose. This "Somogyi effect" is often noted by cat owners who monitor their cat's blood glucose at home. Any time the blood glucose level drops too far to hypoglycemia, the body may defensively dump glucose (converted from glycogen in the liver), as well as hormones epinephrine and cortisol, into the bloodstream. The glycogen raises the blood glucose, while the other hormones may make the cat insulin-resistant for a time. If the body has no glycogen reserves, there will be no rebound effect and the cat will just be hypoglycemic.
+
+Diabetes in cats - Somogyi rebound
+Rebound hyperglycemia occurs rarely in cats treated with glargine in a protocol aiming for tight control of blood glucose concentrations.
+
+Diabetes in cats - Hypoglycemia
+An acute hypoglycemic episode (very low blood sugar) can happen to even careful pet owners, since cats' insulin requirements sometimes change without warning. The symptoms include depression/lethargy, confusion/dizziness, loss of excretory/bladder control, vomiting, and then loss of consciousness and/or seizures. Immediate treatment includes administering honey or corn syrup by rubbing on the gums of the cat (even if unconscious, but not if in seizures). Symptomatic hypoglycemia in cats is a medical emergency and the cat will require professional medical attention. The honey/corn syrup should continue to be administered on the way to the vet, as every minute without blood sugar causes brain damage.
+
+Diabetes in cats - Hypoglycemia
+A cat with hypoglycemia according to a human-calibrated blood glucose meter (<2.2 mmol/L or 40 mg/dL), but with no symptoms, should be fed as soon as possible. Hypoglycemic cats that refuse to eat can be force-fed honey or corn syrup until they stabilize, though this may not be done if the animal is unconscious or having a seizure, as the liquid is likely to enter the animal's lungs and cause choking and asphyxiation.
+
+Diabetes in cats - Hypoglycemia
+Mild hypoglycemic episodes can go unnoticed or leave evidence such as urine pools outside the litter box. In these cases the blood sugar will probably appear paradoxically high upon the next test hours later, since the cat's body will react to the low blood sugar by stimulating the liver to release stored glycogen.
+
+Diabetes in cats - Remission
+Remission occurs when a cat no longer requires treatment for diabetes and has normal blood glucose concentrations for at least a month.
+
+Diabetes in cats - Remission
+Approximately one in four cats with type 2-like diabetes achieves remission. Some studies have reported a higher remission rate than this, which may in part be due to intensive monitoring that is impractical outside of a research environment. Research studies have implicated a variety of factors in successful remission; in general, the following factors increase the likelihood of remission:
+
+Diabetes in cats - Remission
+Treatment includes insulin glargine administered twice daily
+
+Diabetes in cats - Remission
+The cat is monitored frequently during the first few months of treatment
+
+Diabetes in cats - Remission
+The cat eats a diet low in carbohydrates and high in protein.
+
+Diabetes in cats - Remission
+Cats may present with type 2 (insulin-resistant) diabetes, at least at first, but hyperglycemia and amyloidosis, left untreated, will damage the pancreas over time and progress to insulin-dependent diabetes.
+
+Diabetes in cats - Remission
+Glipizide and similar oral diabetic medicines designed for type 2 diabetic humans have been shown to increase amyloid production and amyloidosis and therefore may reduce likelihood of remission.
+
+Diabetes in cats - Remission
+Approximately one-third of cats who achieve remission will later relapse.
+
+Diabetes in cats - Epidemiology
+Diabetes is rare in cats younger than five years old. Typically, affected cats are obese. Burmese cats in Europe and Australia have increased risk of developing diabetes; American Burmese cats do not have this increased risk due to genetic differences between American Burmese and Burmese in other parts of the world.

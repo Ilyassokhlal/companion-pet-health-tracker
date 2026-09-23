@@ -1,0 +1,56 @@
+Microchip implant (animal)
+A microchip implant is an identifying integrated circuit placed under the skin of an animal. The chip, about the size of a large grain of rice, uses passive radio-frequency identification (RFID) technology, and is also known as a PIT (passive integrated transponder) tag. Standard pet microchips are typically 11–13 mm long (approximately 1⁄2 inch) and 2 mm in diameter.
+
+Microchip implant (animal)
+Externally attached microchips such as RFID ear tags are commonly used to identify farm and ranch animals, with the exception of horses. Some external microchips can be read with the same scanner used with implanted chips.
+
+Microchip implant (animal)
+Animal shelters, animal control officers and veterinarians routinely look for microchips to return lost pets quickly to their owners, avoiding expenses for housing, food, medical care, outplacing and euthanasia. Many shelters place chips in all outplaced animals.
+
+Microchip implant (animal)
+Microchips are also used by kennels, breeders, brokers, trainers, registries, rescue groups, humane societies, clinics, farms, stables, animal clubs and associations, researchers, and pet stores.
+
+Microchip implant (animal) - Usage
+Since their first use in the mid-1980s, microchips have allowed innovative investigations into numerous biological traits of animals. The tiny, coded markers implanted into individual animals allow assessment of growth rates, movement patterns, and survival patterns for many species in a manner more reliable than traditional approaches of externally marking animals for identification. Microchips have also been used to confirm the identity of pets and protected species that have been illegally removed from the wild.
+
+Microchip implant (animal) - Usage
+Microchips can be implanted by a veterinarian or at a shelter. After checking that the animal does not already have a chip, the vet or technician injects the chip with a syringe and records the chip's unique ID. No anesthetic is required, as it is a simple procedure and causes little discomfort; the pain is minimal and short-lived. In dogs and cats, chips are usually inserted below the skin at the back of the neck between the shoulder blades on the dorsal midline. According to one reference, continental European pets get the implant in the left side of the neck. The chip can often be felt under the skin. Thin layers of connective tissue form around the implant and hold it in place.
+
+Microchip implant (animal) - Usage
+Horses are microchipped on the left side of the neck, halfway between the poll and withers and approximately one inch below the midline of the mane, into the nuchal ligament. Studies on horses show swelling and increased sensitivity take approximately three days to resolve.  A test scan ensures correct operation.
+
+Microchip implant (animal) - Usage
+Birds are implanted in their breast muscles. Proper restraint is necessary so the operation requires either two people (an avian veterinarian and a veterinary technician) or general anesthesia.
+
+Microchip implant (animal) - Usage
+Some shelters and vets designate themselves as the primary contact to remain informed about possible problems with the animals they place. The form is sent to a registry, who may be the chip manufacturer, distributor or an independent entity such as a pet recovery service. Some countries have a single official national database. For a fee, the registry typically provides 24-hour, toll-free telephone service for the life of the pet. Some veterinarians leave registration to the owner, usually done online, but a chip without current contact information is essentially useless.
+
+Microchip implant (animal) - Usage
+The owner receives a registration certificate with the chip ID and recovery service contact information. The information can also be imprinted on a collar tag worn by the animal. Like an automobile title, the certificate serves as proof of ownership and is transferred with the animal when it is sold or traded; an animal without a certificate could be stolen. There are some privacy concerns regarding the use of microchips.
+
+Microchip implant (animal) - Usage
+Authorities and shelters examine strays for chips, providing one of the aforementioned recovery services with the ID number, description and location so that the recovery service may notify the owner, a contact, or veterinarians in the area. If the pet is wearing the collar tag, the finder does not need a chip reader to contact the registry because a rescuer can simply read the ID number and phone number (or website) to provide to the registry. An owner can also report a missing pet to the recovery service, as vets look for chips in new animals and check with the recovery service to see if it has been reported lost or stolen.
+
+Microchip implant (animal) - Usage
+Many veterinarians scan an animal's chip on every visit to verify correct operation. Some use the chip ID as their database index and print it on receipts, test results, vaccination certifications and other records.
+
+Microchip implant (animal) - Usage
+Some veterinary tests and procedures require positive identification of the animal, and a microchip may be acceptable for this purpose as an alternative to a tattoo.
+
+Microchip implant (animal) - Usage
+Some pet doors can be programmed to be activated by the microchips of specific animals, allowing only certain animals to use the door.
+
+Microchip implant (animal) - Pets
+There are multiple reasons for the use of the microchips on pets as a documentation device, which are also advantages of microchips regarding information collection. The three major reasons for microchip implantation are delocalization, recording, domestication and showing proof of ownership. For example, with a feline microchip, delocalization shows that a registered cat is one that society is aware of and the cat has a position in the social order of animals. Recording shows that the microchip helps authorized people review and monitor cats in a certain region by referring to the database; thus the registry and the implanted microchips transform cats into social objects.
+
+Microchip implant (animal) - Reported adverse reactions
+Adverse event reporting for animal microchips has been inconsistent. RFID chips are used in animal research, and at least three studies conducted since the 1990s have reported tumors at the site of implantation in laboratory mice and rats. The UK's Veterinary Medicines Directorate (VMD) assumed the task of adverse event reporting for animal microchips there in April 2014. Mandatory adverse event reporting went into effect in the UK in February 2015. The first report was issued for the period of April 2014 through December 2015. Mandatory microchip implant of dogs went into effect in April 2016. Data sets for 2016 through 2018 have become available. Adverse reactions to microchip implants may include infection, rejection, mass and tumor formation or death, but the risk of adverse reactions is very low. Sample sizes, in rodents and dogs in particular, have been small, and so conclusive evidence has been limited.
+
+Microchip implant (animal) - Reported adverse reactions
+Noted veterinary associations have responded with continued support for the microchip implant procedures as reasonably safe for cats and dogs, pointing to rates of serious complications on the order of one in a million in the UK, which has a system for tracking such adverse reactions and has chipped over 3.7 million pet dogs. A 2011 study found no safety concerns for microchipped animals with RFID chips undergoing MRI at one Tesla magnetic field strength. In 2011 a microchip-associated fibrosarcoma was reported found in the neck of a 9-year old, neutered-male cat. Histological examination was consistent with postinjection sarcoma, but all prior vaccinations occurred in the hindlegs.
+
+Microchip implant (animal) - Reported adverse reactions
+The microchip is implanted in the subcutaneous tissues causing an inflammatory response until scar tissue develops around the microchip. Studies on horses are used as the basis for short inflammatory response claims, while procedures on done on small kittens and puppies. People have reported swelling and bruising at the time of the implant with itching and pinching sensations for up to two years. The broader impacts on inflammatory disorders and cancer have not been determined and most of the health risks that were defined in the FDA Guidance developed for human implants should be considered.  Adverse event reporting in the US can be made by the pet owner or a veterinarian to the FDA.
+
+Microchip implant (animal) - Reported adverse reactions
+The estimate for the total cat and dog population of the UK is 16 million with 8.5 million dogs subject to mandatory microchip implant. The population of dogs implanted prior to mandatory adverse event reporting February 2015 was between 60% (February 2013) and 86% (April 2016). Approximately 95% are reported to be implanted as of April 2017.

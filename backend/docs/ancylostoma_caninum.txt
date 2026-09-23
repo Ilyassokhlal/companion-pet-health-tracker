@@ -1,0 +1,53 @@
+Ancylostoma caninum
+Ancylostoma caninum is a species of nematode known as a hookworm, which principally infects the small intestine of dogs.  The result of A. caninum infection ranges from asymptomatic cases to death of the dog; better nourishment, increasing age, prior A. caninum exposure, or vaccination are all linked to improved survival.  Other hosts include carnivores such as wolves, foxes, and cats, with a small number of cases having been reported in humans.
+
+Ancylostoma caninum
+Warm and moist conditions are important to allow survival of A. caninum during the free-living stages of its lifecycle, so it is largely restricted to temperate, tropical, and subtropical regions.  In parts of the world where these climatic requirements are met such as Sri Lanka, Southeast Asia, and Malaysia, A. caninum is the main cause of hookworm disease in canines.
+
+Ancylostoma caninum - Transmission via the environment
+Eggs are excreted from the host in the feces and typically hatch within a day on moist, warm soil into larvae with a non-living cuticle layer.  By 4–5 days, the larvae have moulted twice and are now able to infect a host.  Migration occurs from the feces into the surrounding soil.  Two routes of infection from the environment exist.  The first route involves penetration of skin at hair follicles or sweat glands, especially between the footpads where contact with soil is frequent and the skin is thinner than otherwise.  Secretion of a protease by A. caninum is thought to aid this process.  The larvae then migrate through the dermis of the skin, enter the circulatory system and are carried to the lungs.  A. caninum larvae exit the blood at the lungs, move from the alveoli up through the trachea and are swallowed to end up in the intestine.
+
+Ancylostoma caninum - Transmission via the environment
+The second and more common route to the small intestine is by direct ingestion of A. caninum by the host, but the subsequent process is identical in either case.  During this third stage of the larva, male or female reproductive organs become established.  Larvae of this stage have been shown to secrete a molecule (Ac-asp-2) related to venom allergens in response to host-specific signals; this is thought to have a possible role in helping with the infection process.  A third and final moulting occurs, resulting in the mature form of A. caninum, which then feeds on mucosa and blood of the small intestinal wall.  The trigger of feeding is understood to be a receptor-mediated response; however, the detail of this process has yet to be established.  Sexual reproduction also occurs in the intestine to produce a further round of eggs to complete the cycle.   Females are thought to produce a pheromone which attracts males and are able to lay about 10,000 eggs per day.
+
+Ancylostoma caninum - Direct transmission
+Direct transmission between hosts is also possible.  Larvae having accessed through the skin may avoid exit via the lungs and remain in circulation for transport around the body.  At the uterine artery of a pregnant female, the larvae are able to cross the placenta to cause prenatal infection of foetuses.  Larvae of an infected foetus move to the liver until birth, when migration continues with movement to the intestine via the circulation and lungs as previously described.  Alternatively, A. caninum larvae evading exit from the circulation at the lungs may instead be carried to the mammary glands and transmitted from the mother in her colostrum or milk to her pups; infection then proceeds in an identical manner as infection by ingestion from the environment.  Infected mothers have been found to only rarely give prenatal transmission to pups, while the likelihood of causing transmission via the lactational route during nursing is much higher.
+
+Ancylostoma caninum - Damage during migration to intestine
+A. caninum larvae cause damage to the host at the point of entry through the skin, leaving a wound vulnerable to secondary infections.  As the larvae migrate through the skin, an inflammatory response, dermatitis, is often stimulated, which can be exacerbated in hosts which have hypersensitive responses.  Further damage is caused when the larvae leave the circulation and enter the lung, with the amount of damage dependent on the extent of the infection; pneumonia and coughing are common consequences.
+
+Ancylostoma caninum - Damage once in intestine
+Once in the gut, A. caninum attaches to and ingests the mucosal lining along with some consumption of blood; up to 0.1 ml in 24hrs.  In a 24hr period A. caninum typically feeds from six sites.  This damage to the mucosa compromises the body's defences and can result in secondary infections by microbes.  A group of anticoagulant proteins called A. caninum anticoagulant proteins (AcAPs), which inhibit a range of blood coagulation factors such as Xa, are used by A. caninum to help in the feeding process by preventing clotting and increasing blood loss.  These AcAPs are among the most powerful natural anticoagulants that exist and are a key reason for anemia being caused and blood being observed in the faeces of infected hosts.  Blood losses peak just prior to egg production by the females because this is when their requirements for food are greatest; the amount that they are eating is also peaking, so maximal damage to the intestine is being caused.
+
+Ancylostoma caninum - Diagnosis
+Analysis of faeces is the definitive method by which a suspected A. caninum infection is confirmed.  The faeces are sampled and examined microscopically for the characteristic ovular, thin-shelled eggs of A. caninum.  Absence of eggs in faeces does not rule out infection; a significant delay of at least 5 weeks exists between initial infection and excretion of eggs in the faeces (larvae must fully mature and reproduce before eggs can be laid).  In fact, pups frequently die before passing of eggs in the faeces begins.  Using the number of eggs in stool samples as an indicator of the extent of infestation requires care to be taken because females have been shown to produce fewer eggs when the overall number of worms increases.
+
+Ancylostoma caninum - Diagnosis
+Signs and symptoms expected to be observed are lethargy, weight loss, weakness, roughness of the hair coat, and pale mucous membranes indicative of anemia.  Well-fed, older dogs with smaller infestations may present few or even none of these symptoms.  Diarrhoea is rare, but stools are typically black due to the blood-derived haemoglobin present in them.
+
+Ancylostoma caninum - Diagnosis
+The disease resulting from such A. caninum infection is referred to by the general term "hookworm disease" or the more specific terms "ancylostomiasis" and "ancylostomosis,"  which recognise the genus of the causative nematode.
+
+Ancylostoma caninum - Prevention and control
+A clean environment minimises the risk of A. caninum infection; this can include regularly washed concrete or gravel in kennels instead of soil.  Females are typically checked prior to using them for breeding purposes for nematodes such as A. caninum and birth and suckling can be restricted to sanitised areas to lower the risk of health complications to the pups.  When infection of a pregnant dog is known or suspected fenbendazole or ivermectin can be administered to the female to help avoid transmission to the pups.
+
+Ancylostoma caninum - Prevention and control
+Canines have been seen to develop significant resistance to A. caninum naturally with age; this protection develops faster in and fully mature females show substantially greater resistance than fully mature dogs.  Specifically the age-related resistance means A. caninum takes longer to reach sexual maturity in older animals and fewer larvae fully develop.
+
+Ancylostoma caninum - Vaccination
+Numerous vaccines have been developed with varying success against A. caninum.  Use of an enzyme important in the worm's feeding process is popular, with one example being AcCP2, a protease, which, when used to vaccinate dogs, gives a strong antibody response, a lowering of numbers of eggs found in stools and a decrease in intestinal worm size.  These effects are attributed to reduced AcCP2 activity upon antibody binding.  A similar approach has been taken using another A. caninum digestive enzyme, AcGST1, but it failed to give statistically significant results in dogs.
+
+Ancylostoma caninum - Vaccination
+An alternative approach has been to disrupt the migratory ability of A. caninum; this was done successfully using the AcASP1 protein of A. caninum, which gives an increase in antibody levels of all subclasses, as well as a reduced worm burden.  Other studies using the same vaccine have shown 79% reduction of worm burden resulting from this approach.
+
+Ancylostoma caninum - Vaccination
+Animals with prior exposure to A. caninum show enhanced resistance, but careful removal of all worms from the previous infection results in loss of this resistance.  Studies in mice show resistance due to past exposure can protect against otherwise lethal worm doses and that this is a general form of resistance – defense is offered against subsequent infections via either mouth or skin.
+
+Ancylostoma caninum - Medication
+Drugs used in treatment of A. caninum infections of dogs include: dichlorvos, fenbendazole, flubendazole, mebendazole, nitroscanate, piperazine, pyrantel, milbemycin, moxidectin, diethylcarbamazine, oxibendazole,  and ivermectin.
+
+Ancylostoma caninum - In humans
+In inappropriate hosts such as humans, A. caninum is able to enter the skin, but cannot proceed into the circulation and on to the intestine; instead, the disease dermal larva migrans results, caused by movement of the nematode within the skin and which can persist for several months without intervention.
+
+Ancylostoma caninum - In humans
+While access to the intestine is not possible via this route, it can occur via ingestion; in a report of 93 enteritis cases in northern Queensland, Australia, which were possibly caused by A. caninum infection, all those interviewed described behaviour consistent with A. caninum exposure and a colonoscopy of one patient gave positive identification of an adult A. caninum worm.  Since then, work has shown A. caninum can easily go unnoticed or fail to be preserved in specimens, making the true incidence of infection in humans likely to be higher than is officially recorded.

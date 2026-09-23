@@ -6,14 +6,21 @@ sublicense, or sell any part of this software, in whole or in part, without prio
 written permission from the copyright holder.
 
 
-EXCEPTION — reference corpus
+EXCEPTION: reference corpus
 
-The plain-text documents in backend/docs/ are derived from English Wikipedia and
-remain licensed under Creative Commons Attribution-ShareAlike 4.0 International
-(CC BY-SA 4.0). They are not covered by the terms above. Per-file sources are
-listed in backend/docs/ATTRIBUTION.md.
+The plain text documents in backend/docs/ are not covered by the terms above.
+Each file's source is listed in backend/docs/ATTRIBUTION.md, and each kind of
+document carries its own terms:
 
-https://creativecommons.org/licenses/by-sa/4.0/
+* Documents derived from English Wikipedia articles, written by Wikipedia
+  contributors, remain licensed under CC BY-SA 4.0.
+* Documents taken from the websites of the FDA Center for Veterinary Medicine and
+  the CDC are works of the United States government and are in the public domain
+  in the United States.
+* The guides written for this project, the files whose names start with guide_,
+  are Copyright (c) 2026 Ilias OKHLAL and licensed under CC BY-SA 4.0.
+
+CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,

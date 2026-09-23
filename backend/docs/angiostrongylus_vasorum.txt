@@ -1,0 +1,68 @@
+Angiostrongylus vasorum
+Angiostrongylus vasorum, also known as French heartworm, is a species of parasitic nematode in the family Metastrongylidae. It causes the disease canine angiostrongylosis in dogs. It is not zoonotic, that is, it cannot be transmitted to humans.
+
+Angiostrongylus vasorum - Life cycle
+The life cycle begins when L3 larvae are ingested by a definitive host, primarily the fox or dog. This can be through eating mollusc (intermediate hosts), frogs (paraentenic hosts), or from food infected with slime from the slugs or snails. The L3 larvae migrate to the mesenteric lymph nodes and molt to L4, and L5. The L5 larvae migrate through the portal circulation and through the liver and the adults end up at the pulmonary artery or right side of the heart.
+
+Angiostrongylus vasorum - Life cycle
+The adults then mate and produce eggs. The eggs move to the alveolar capillaries via the circulation and hatch to L1 larvae. The L1 larvae burrow though the alveolar and are then coughed up and swallowed. L1 larvae are therefore passed in the feces of infected canids.
+
+Angiostrongylus vasorum - Life cycle
+The L1 larvae infect intermediate hosts (primarily slugs and snails) by penetrating the foot of the mollusc and develop to L3 within.
+
+Angiostrongylus vasorum - Life cycle
+Adult worms can live for 2 years. The pre-patent period is 6–10 weeks.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+Cardio-respiratory signs are one clinical symptom. Chronic, coughing, exercise intolerance, dyspnea and tachypnea in young dogs is due to blood vessels being blocked by adults, eggs and larvae.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+The parasite also causes coagulopathies. Hematomas and prolonged bleeding are as a result of thrombocytopenia (a decrease in the number of platelets in the blood). Clotting factors V and VIII are also reduced. Hypochromic anemia is another symptom, also used in diagnosis and is due to the parasite interfering with hemoglobin synthesis.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+Angiostrongylus vasorum also causes neurological damage. These present as ataxia, paresis, loss of vision, behavioral changes and seizures. All these symptoms are as a direct result of CNS hemorrhages.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+Diagnosis is made from a combination of clinical signs and tests.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+Imaging can show lung lesions in the peripheral lobes. Blood tests, showing eosinophilia, poor clotting ability and speed as well as hypochromic anemia all point towards a diagnosis. Some cases may also have hypercalcemia the cause of this unknown but may relate to granulomatous inflammation and macrophage production of alpha 1 hydroxylase. Fecal examination using the Baerman technique are unreliable, as egg output is irregular and the pre-patent period of the parasite is relatively long. However this test is more sensitive than a fecal smear examination. Multiple samples help reduce the risk of a false negative but should not be relied upon.
+
+Angiostrongylus vasorum - Pathology and diagnosis
+Post mortem examination can also reveal the causative agent to be Angiosrongylus vasorum. Again, lung lesions (looking for mottled lungs) are seen. Subcutaneous hematomas and enlarged blood vessels are common. Another sign is endocarditis of the right side of the heart and the tricuspid valve.
+
+Angiostrongylus vasorum - Hosts
+The natural intermediate hosts of Angiostrongylus vasorum are land slugs, land snails and freshwater snails. Angiostrongylus vasorum shows little host specificity in its intermediate host.
+
+Angiostrongylus vasorum - Hosts
+Natural definitive hosts are domestic dogs and various other carnivores include:
+
+Angiostrongylus vasorum - Hosts
+Angiostrongylus vasorum lives in the right ventricle of the heart and the pulmonary artery. The infection can be fatal in dogs.
+
+Angiostrongylus vasorum - Hosts
+Experimental intermediate hosts of Angiostrongylus vasorum include:
+
+Angiostrongylus vasorum - Hosts
+slugs: Arion vulgaris (referred as Arion lusitanicus), Arion hortensis, Deroceras reticulatum, Limax flavus, Laevicaulis alte.
+
+Angiostrongylus vasorum - Hosts
+land snails: Achatina fulica, Arianta arbustorum, Bradybaena similaris, Cepaea nemoralis, Cochlodina laminata, Eceparypha physana, Helix pomatia, Cornu aspersum, Prosopeas javanicum, Subulina octona, Succinea putris.
+
+Angiostrongylus vasorum - Hosts
+Experimental definitive hosts of Angiostrongylus vasorum include:
+
+Angiostrongylus vasorum - Distribution
+The native area (enzootic) of Angiostrongylus vasorum is Western Europe (United Kingdom, Ireland, France, Spain).
+
+Angiostrongylus vasorum - Distribution
+Up to 23% of foxes are infected in southeast England. 5% of patent infected dogs are clinically healthy. There is a correlation between high fox incidence and domestic dog incidence, leading to the assumption that the fox is an important wildlife reservoir of this parasite.
+
+Angiostrongylus vasorum - Distribution
+Larvae of the first stage were found in Australia, Argentina and Greece.
+
+Angiostrongylus vasorum - Distribution
+It has also been reported from South America: Brazil and Colombia, but molecular analysis revealed that Angiostrongylus vasorum from Brazil has a different genotype. Thus it is possible that it is a different species in Brazil and in elsewhere in South America.
+
+Angiostrongylus vasorum - Treatment and prevention
+In Europe imidacloprid 10%/moxidectin 2.5% is approved for treatment and prevention of Angiostrongylus vasorum in dogs.  For treatment of infected dogs, a single dose should be administered. A further veterinary examination 30 days after treatment is recommended as some animals may require a second treatment.  In endemic areas, monthly application will prevent angiostrongylosis and patent infection with Angiostrongylus vasorum.

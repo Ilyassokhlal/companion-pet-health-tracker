@@ -1,0 +1,74 @@
+Dog skin disorders
+Skin disorders are among the most common health problems in dogs, and have many causes. The condition of a dog's skin and coat is also an important indicator of its general health. Skin disorders of dogs vary from acute, self-limiting problems to chronic or long-lasting problems requiring life-time treatment. Skin disorders may be primary or secondary (due to scratching, itch) in nature, making diagnosis complicated.
+
+Dog skin disorders - Immune-mediated skin disorders
+Skin disease may result from deficiency or overactivity of immune responses. In cases where there are insufficient immune responses, the disease is usually described by the secondary disease that results. Examples include increased susceptibility to demodectic mange and recurrent skin infections, such as Malassezia infection or bacterial infections. Increased but harmful immune responses can be divided into hypersensitivity disorders such as atopic dermatitis and autoimmune disorders (autoimmunity), such as pemphigus and discoid lupus erythematosus.
+
+Dog skin disorders - Atopic dermatitis
+Atopy is a hereditary and chronic (lifelong) allergic skin disease. Signs usually begin between 6 months and 3 years of age, with some breeds of dog, such as the Golden Retriever, showing signs at an earlier age. Dogs with atopic dermatitis are itchy, especially around the eyes, muzzle, ears and feet. In severe cases, the irritation is generalised. If the allergens are seasonal, the signs of irritation are similarly seasonal. Many dogs with house dust mite allergy have perennial disease. Some of the allergens associated with atopy in dogs include pollens of trees, grasses and weeds, as well as molds and house dust mites. Ear and skin infections by the bacteria Staphylococcus pseudintermedius and the yeast Malassezia pachydermatis are commonly secondary to atopic dermatitis.
+
+Dog skin disorders - Atopic dermatitis
+Dogs with the condition often present with erythema. The axillae, ventral abdomen, distal extremities, inner pinnae; and periocular, perioral, and perianal regions are commonly affected. Pruritus and inflammation may result in self-induced alopecia and excoriation. Otitis externa is present in half of all dogs with atopic dermatitis.
+
+Dog skin disorders - Atopic dermatitis
+Food allergy can be associated with identical signs and some authorities consider food allergy to be a type of atopic dermatitis. Food allergy can be identified through the use of elimination diet trials in which a novel or hydrolysed protein diet is used for a minimum of 6 weeks.
+
+Dog skin disorders - Atopic dermatitis
+Diagnosis of atopic dermatitis is by elimination of other causes of irritation, including fleas, mites, and other parasites, such as Cheyletiella and lice. Allergies to aeroallergens can be identified using intradermal allergy testing and/or blood testing (allergen-specific IgE ELISA).
+
+Dog skin disorders - Atopic dermatitis
+Treatment includes avoidance of the offending allergens if possible, but for most dogs this is not practical or effective. Other treatments modulate the adverse immune response to allergens and include antihistamines, steroids, ciclosporin, and immunotherapy (a process in which allergens are injected to try to induce tolerance). In many cases, shampoos, medicated wipes and ear cleaners are needed to try to prevent the return of infections.
+
+Dog skin disorders - Atopic dermatitis
+These treatments have been known to cause difficulty among owners. However, a study in Veterinary Dermatology used Pulsar to analyse Twitter posts spanning 2009 to 2022, tracking shifts in public sentiment around canine pruritus treatments following the launch of oclacitinib (Apoquel®) in 2013 and lokivetmab (CYTOPOINT®) in 2015. The research found a 15.8% increase in positive sentiment and a 6.7% decrease in negative sentiment over the study period, indicating a measurable shift in how dog owners publicly discuss itch management following the availability of these targeted therapies.
+
+Dog skin disorders - Autoimmune skin diseases
+Pemphigus foliaceus is the most common autoimmune disease of the dog. Blisters in the epidermis rapidly break to form crusts and erosions, most often affecting the face and ears initially, but in some cases spreading to include the whole body. The paw pads can be affected, causing marked hyperkeratosis (thickening of the pads with scale). Other autoimmune diseases include bullous pemphigoid and epidermolysis bullosa acquisita.
+
+Dog skin disorders - Autoimmune skin diseases
+Treatment of autoimmune skin diseases in dogs requires methods to reduce the abnormal immune response; steroids, azathioprine and other drugs are used as immunosuppressive agents.
+
+Dog skin disorders - Hot spots
+A hot spot, or acute moist dermatitis, is an acutely inflamed and infected area of skin irritation created and made worse by a dog licking and biting at itself. A hot spot can manifest and spread rapidly in a matter of hours, as secondary Staphylococcus infection causes the top layers of the skin to break down and pus becomes trapped in the hair. Hot spots can be treated with corticosteroid medications and oral or topical antibiotic applications, as well as clipping hair from around the lesion. Underlying causes include flea allergy dermatitis or other allergic skin diseases. Dogs with thick undercoats are most susceptible to developing hot spots.
+
+Dog skin disorders - Acral lick granulomas
+Lick granulomas are raised, usually ulcerated areas on a dog's extremity caused by the dog's own incessant, compulsive licking. Compulsive licking is defined as licking in excess of that required for standard grooming or exploration, and represents a change in the animal's typical behavior and interferes with other activities or functions (e.g., eating, drinking, playing, interacting with people) and cannot easily be interrupted.
+
+Dog skin disorders - Infectious skin diseases
+Infectious skin diseases of dogs include contagious and non-contagious infections or infestations. Contagious infections include parasitic, bacterial, fungal and viral skin diseases.
+
+Dog skin disorders - Infectious skin diseases
+One of the most common contagious parasitic skin diseases is Sarcoptic mange (scabies). Another is mange caused by Demodex mites (Demodicosis), though this form of mange is not contagious. Another contagious infestation is caused by a mite, Cheyletiella. Dogs can be infested with contagious lice.
+
+Dog skin disorders - Infectious skin diseases
+Other ectoparasites, including flea and tick infestations are not considered directly contagious but are acquired from an environment where other infested hosts have established the parasite's life cycle.
+
+Dog skin disorders - Infectious skin diseases
+Ringworm is a fungal infection that can be contagious to other dogs as well as humans. It is one of the most frequent skin diseases. A dog can become infected by direct contact with another infected dog, brushing up against a surface that an infected dog has touched, as well as coming in contact with species of ringworm that live in the soil. Ringworm is round, or ringed in shape. Symptoms of ringworm can include hair loss on the sections of the infected area(s), itchiness (may or may not occur), Ringworm tends to occur more in puppies than adult dogs. Ringworm is not a life-threatening condition but a veterinarian visit is usually needed in order to confirm the diagnosis and be prescribed a topical or oral medication for the ringworm.
+
+Dog skin disorders - Infectious skin diseases
+Non-contagious skin infections can result when normal bacterial or fungal skin flora is allowed to proliferate and cause skin disease. Common examples in dogs include Staphylococcus intermedius pyoderma, and Malassezia dermatitis caused by overgrowth of Malassezia pachydermatis.
+
+Dog skin disorders - Infectious skin diseases
+Alabama rot, which is believed to be caused by E. coli toxins, also causes skin lesions and eventual kidney failure in 25% of cases.
+
+Dog skin disorders - Hereditary and developmental skin diseases
+Some diseases are inherent abnormalities of skin structure or function. These include seborrheic dermatitis, ichthyosis, skin fragility syndrome (Ehlers-Danlos), hereditary canine follicular dysplasia and hypotrichosis, such as color dilution alopecia.
+
+Dog skin disorders - Hereditary and developmental skin diseases
+Juvenile cellulitis, also known as puppy strangles, is a skin disease of puppies of unknown etiology, which most likely has a hereditary component related to the immune system.
+
+Dog skin disorders - Hereditary and developmental skin diseases
+Lupoid dermatosis is a hereditary autosomal recessive disease that has been identified in the German Shorthaired Pointer and the Hungarian Vizsla. Clinical signs typically onset before one year of age. Dogs with the condition have a poor life expectancy and are often euthanised after diagnosis. Clinical signs include: facial erythema, crusting and scaling, skin lesions, lameness, ulcers, and disfiguration: it progresses to joint pain and azoospermia in males and disruption of the oestrous cycle in females.
+
+Dog skin disorders - Cutaneous manifestations of internal diseases
+Some systemic diseases can become symptomatic as a skin disorder. These include many endocrine (hormonal) abnormalities, such as hypothyroidism, Cushing's syndrome (hyperadrenocorticism), and tumors of the ovaries or testicles.
+
+Dog skin disorders - Essential fatty acids
+Many canine skin disorders can have a basis in poor nutrition. The supplementation of both omega fatty acids 3 and 6 have been shown to mediate the inflammatory skin response seen in chronic diseases. Omega 3 fatty acids are increasingly being used to treat pruritic, irritated skin. A group of dogs supplemented with omega 3 fatty acids (660 mg/kg [300 mg/lb] of body weight/d) not only improved the condition of their pruritus, but showed an overall improvement in skin condition. Furthermore, diets lacking in essential fatty acids usually present as matted and unkept fur as the first sign of a deficiency. Eicosapentaenoic acid (EPA), a well known omega 3, works by preventing the synthesis of another omega metabolite known as arachidonic acid. Arachidonic acid is an omega 6, making it pro-inflammatory. Though not always the case, omega 6 fatty acids promote inflammation of the skin, which in turn reduces overall appearance and health. There are skin benefits of both these lipids, as a deficiency in omega 6 leads to a reduced ability to heal and a higher risk of infection, which also diminishes skin health. Lipids in general benefit skin health of dogs, as they nourish the epidermis and retain moisture to prevent dry, flaky skin.
+
+Dog skin disorders - Vitamins
+Vitamins are one of many of the nutritional factors that change the outward appearance of a dog. The fat soluble vitamins A and E play a critical role in maintaining skin health. Vitamin A, which can also be supplemented as beta-carotene, prevents the deterioration of epithelial tissues associated with chronic skin diseases and aging. A deficiency in vitamin A can lead to scaly of skin and other dermatitis-related issues like alopecia. Vitamin E is an antioxidant. Vitamin E neutralizes free radicals that accumulate in highly proliferative cells like skin and prevent the deterioration of fibrous tissue caused by these ionized molecules. There are also a couple of water-soluble vitamins that contribute to skin health. Riboflavin (B2) is a cofactor to the metabolism of carbohydrates and when deficient in the diet leads to cracked, brittle skin. Biotin (B7) is another B vitamin that, when deficient, leads to alopecia.
+
+Dog skin disorders - Minerals
+Minerals have many roles in the body, which include acting as beneficial antioxidants. Selenium is an essential nutrient, that should be present in trace amounts in the diet. Like other antioxidants, selenium acts as a cofactor to neutralize free radicals. Other minerals act as essential cofactors to biological processes relating to skin health. Zinc plays a crucial role in protein synthesis, which aids in maintaining elasticity of skin. By including zinc in the diet it will not only aid in the development of collagen and wound healing, but it will also prevent the skin from becoming dry and flaky. Copper is involved in multiple enzymatic pathways. In dogs, a deficiency in copper results in incomplete keratinization leading to dry skin and hypopigmentation. The complicated combination of trace minerals in the diet are a key component of skin health and a part of a complete and balanced diet.

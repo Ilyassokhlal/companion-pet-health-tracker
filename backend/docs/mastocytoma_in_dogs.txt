@@ -1,0 +1,113 @@
+Mastocytoma in dogs
+A mastocytoma in dogs (or mast cell tumor in dogs) is a neoplasm (neoplasia) originating from mast cells in the domestic dog, which occurs mainly in the skin and subcutis. Mastocytoma are not only extremely common in dogs, but also tend to be much more malignant in them than in other animal species. The average survival time for malignant tumors is only four months, whereas for benign tumors it is over two years.
+
+Mastocytoma in dogs
+Mast cells are cells of the immune system that play a role in the innate immune response. They produce a number of biologically active substances, including primarily histamine. Mastocytoma account for about one-fifth of all skin tumors in dogs. They present as nodules or raised patches, and about one-fifth of affected animals have ulcers and bleeding in the stomach and duodenum. Metastasis in malignant mastocytoma occur primarily in lymph nodes, liver, spleen, and bone marrow. Any lump in the skin or subcutaneous tissue can be a mastocytoma. Detection is only possible by taking tissue with a fine needle (fine needle biopsy) followed by staining and microscopic examination (cytopathology).
+
+Mastocytoma in dogs
+Although the classifications according to the clinical appearances and cell appearance in cytodiagnostics give indications of the biological behavior (benign or malignant) and thus the prospect of cure, this tumor disease is unpredictable and should be treated at an early stage. The treatment of choice is complete surgical removal, possibly combined with radiotherapy or chemotherapy. Tumors for which surgical removal is not possible or only incompletely possible can also be treated with tyrosine kinase inhibitors.
+
+Mastocytoma in dogs
+Mastocytoma are also more common in domestic horses, ferrets, and domestic cats, but usually behave benignly in these species. In other animal species and in humans, mastocytomas are very rare.
+
+Mastocytoma in dogs - Occurrence and origin
+Mastocytomas in dogs occur mainly in the skin and subcutaneous tissue. Very rarely, they are found in internal organs such as the small intestine, the mucosa of the mouth, the nasal mucosa or the conjunctiva. About 20% of all skin tumors and 6% of all tumors in dogs are mastocytomas. They occur more frequently in some breeds: German Boxer and related short-headed breeds, Golden Retriever, Beagle, Irish Setter, Dachshund and Bernese Mountain Dog. There is no dependence on the sex of the animal. The median age of affected dogs is eight years, but a mastocytoma can develop in dogs as young as four months old or at a very advanced age.
+
+Mastocytoma in dogs - Occurrence and origin
+In humans, a number of mutations and chromosomal alterations are known to lead to pathological proliferation of mast cells (mastocytoses). Mutations of the gene for the stem cell factor receptor (c-KIT) lead to prolonged cell life and increased formation of new mast cells. The D816V mutation is the most common of these c-KIT mutations and occurs in 80% of patients with mastocytosis. However, there are also mastocytosis patients without alterations in the stem cell factor receptor. In total, there are over 20 known chromosomal alterations in humans that can lead to mastocytosis, with chromosomes 2, 7, 12, 13, 14, and X being most commonly affected.
+
+Mastocytoma in dogs - Occurrence and origin
+In dogs, c-KIT alterations also appear to play a role. Both increased gene expression and a mutation with phosphorylation of the stem cell factor receptor leading to activation without binding of the stem cell factor (ligand-independent) can occur. More than 30 such mutations are now known, the most common of which is a duplication (tandem mutation) of exon 11, which encodes the portion of the stem cell factor receptor located directly on the inside of the cell membrane (juxtamembrane domain). However, mastocytomas without c-KIT mutations also occur in dogs; in contrast to US studies, almost no relevant c-KIT mutations were even detected in mastocytomas of German dogs. Whether this was coincidental or methodological or reflects genetic differences in breeding lines needs to be clarified by further investigations. The causes for the clustered occurrence of mastocytoma in dogs are so far unexplained, presumably there are several causes (multifactorial events).
+
+Mastocytoma in dogs - Clinical image
+Mastocytomas of the skin present as nodules (papules), raised patches (plaques), or nodules (nodus), which may be superficially ulcerated. Their consistency ranges from soft to coarse-nodular. Locally, redness and itching may occur (Darier's sign). Occasionally, satellite nodules occur, i.e., metastasis of the tumor via lymphatic vessels into neighboring skin areas; in about 10% of cases, multiple mastocytomas are formed from the outset (primary multiplicity).
+
+Mastocytoma in dogs - Clinical image
+Mastocytomas can form daughter tumors (metastases) to the (regional) lymph nodes responsible for the area as well as to other organs such as the liver, spleen, and bone marrow; other locations are very rare.[9] The metastasis rate for benign mastocytomas is less than 10%; for malignant tumors, it is more than 50%.
+
+Mastocytoma in dogs - Clinical image
+Even without the formation of daughter tumors, a mastocytoma can trigger severe general disorders (paraneoplastic syndrome). These are triggered by the release of inflammatory mediators and cytokines. The production of heparin by the mast cells can lead to an increased tendency to bleed, and as a result of the production of fibroblast-inhibiting cytokines (especially FGF-2), to the disruption of wound healing processes. In about one fifth of the dogs with a mastocytoma, feeding instability, vomiting, tarry stools and anemia occur as a result of gastric or duodenal ulcers, in autopsies such ulcers are even detected in more than 80% of patients. About 80% of the dogs with such ulcers are euthanized due to poor general condition. In particularly severe cases, these ulcers can lead to a life-threatening gastric or intestinal rupture. In addition, a clinical picture reminiscent of a malignant disease of the hematopoietic system can occur. This systemic mastocytosis is observed mainly in animals in which a mastocytoma has previously been removed. It is accompanied by lassitude, aversion to feeding, vomiting, weight loss, pallor, and enlargement of the liver and spleen.
+
+Mastocytoma in dogs - Clinical image
+According to the clinical picture, mastocytomas are classified into four stages according to the criteria of the World Health Organization:
+
+Mastocytoma in dogs - Diagnostics
+A visual or palpatory diagnosis is not possible, since neither appearance nor consistency allow differentiation from other skin tumors.
+
+Mastocytoma in dogs - Diagnostics
+The diagnostic tool of choice is fine needle biopsy, since sufficient cells can be obtained from mastocytomas. In the cytological preparation, mast cells can be distinguished relatively easily from other cell types on the basis of their granules, although certain rapid staining solutions stain mast cell granules only unreliably, and cells of poorly differentiated mastocytomas may contain very few granules.
+
+Mastocytoma in dogs - Diagnostics
+Changes are rarely observed in the blood count; occasionally, an increase in a subtype of white blood cells (eosinophilia) may occur. In systemic mastocytosis, a decrease in white blood cells (leukopenia) often occurs. Circulating mast cells in the blood are usually not observed.
+
+Mastocytoma in dogs - Diagnostics
+According to the histopathological cellular pattern, mastocytomas in dogs are classified into different grades. The most widely used classification of mastocytomas is based on the scheme of Patnaik and coworkers from 1984:
+
+Mastocytoma in dogs - Diagnostics
+However, a 2011 study challenges this classification. Identical specimens of 95 mastocytomas, of which the outcome of the disease was also known, were sent to 28 pathologists in 16 different institutions. While the agreement between the different investigators was 75% for grade 3 tumors, it was less than 63% for grades 1 and 2, and the predictions derived from them also showed little agreement with the outcome of the disease. Kiupel and coworkers therefore proposed a new system with only two grades: low-grade and high-grade. Tumors are judged to be high-grade (high grade, malignant) if one or more of the following criteria are met in ten fields of view at high magnification (objective 40x):
+
+Mastocytoma in dogs - Diagnostics
+at least three abnormal nuclei (retractions, segmentation, irregular shape)
+
+Mastocytoma in dogs - Diagnostics
+Nucleus enlargement (karyomegaly, the nucleus diameters of 10% of mast cells vary at least twofold).
+
+Mastocytoma in dogs - Diagnostics
+The median survival time was four months in animals with high-grade mastocytomas, whereas it was over two years in animals with low-grade mastocytomas. In addition, recurrences and metastases were significantly more frequent in high-grade mastocytomas. Furthermore, there seems to be a correlation between the type of c-KIT mutation on the one hand and the biological behavior or tumor grade on the other hand.  Immunohistochemical detection of cell division markers such as Ki-67 or the argyrophilic nucleolus organizer region (AgNOR) also shows correlations with the biological behavior of mastocytomas. More than 23 Ki-67-positive cells per cm2 or more than four AgNOR per nucleus are considered to be prognostically unfavorable.
+
+Mastocytoma in dogs - Diagnostics
+Thus, the biological behavior of mastocytomas in dogs is highly variable and only predictable to a limited extent, which is why the term mastocytoma is preferable to the terms mastocytoma (benign) and mastosarcoma (malignant) in dogs. The clinical stage, histopathological grade, c-KIT expression pattern, and cell division markers provide clues but do not allow precise conclusions. Apparently, mastocytomas in dogs are molecularly heterogeneous neoplasms. Mastocytomas  in the German Boxer, one of the most commonly affected breeds, usually show a benign course. The localization of the tumor also seems to play a role. For example, mastocytomas of the toes, perineum, groin, and mucous membranes are more prone to metastasis than those of other regions. In contrast, mastocytomas of the conjunctiva are rarely prone to recurrence or metastasis, regardless of grade. Apparently, epigenetic factors, immediate environmental conditions (microenvironment), vascularization, and growth factors may influence biological behavior.
+
+Mastocytoma in dogs - Diagnostics
+Differentially, any other skin tumor of the dog can be considered: In the skin especially histiocytomas, basaliomas, melanomas and T-cell lymphomas, in the subcutis especially lipomas, hemangiopericytomas and hemangiosarcomas. However, the differentiation of these tumors hardly causes any problems in cytodiagnostics.
+
+Mastocytoma in dogs - Treatment
+Although the classifications based on clinical appearances and cellular appearance in cytodiagnostics provide clues to the biological behavior, a mastocytoma remains unpredictable and is potentially to be considered malignant. The first-line treatment method is surgical removal of the tumor at the earliest possible stage. Concomitant chemotherapy and radiation may be necessary, especially if complete removal is not possible or unsafe for anatomic reasons. For inoperable tumors, treatment with tyrosine kinase inhibitors may be attempted. In general, the prospect of cure is best in well-differentiated mastocytomas (low-grade or grade 1) and in animals without general signs (substages a). Young dogs (<1 year of age) also have a better prognosis than older dogs.
+
+Mastocytoma in dogs - Surgery
+Surgical removal (resection) should be performed as early as possible, i.e. before lymph nodes or even other organs are affected (stage 1). Mastocytomas have a pseudocapsule of compressed tumor cells and usually fine extensions into the surrounding tissue that extend beyond the palpable tumor tissue. For this reason, a safe distance of about 3 cm beyond the palpable margin is recommended. Removal is performed, even in the case of mastocytomas in the subcutaneous tissue, with the entire skin and in depth, including the subcutaneous fascia. On the limbs, it can be difficult to close the resulting skin defect, so skin grafting may also be necessary. Biopsies should be taken from the margins and the remaining tissue in depth (tumor bed) to check for the presence of residual tumor tissue.
+
+Mastocytoma in dogs - Surgery
+Particularly on the limbs, these basic tumor surgery rules cannot always be fully implemented because this would result in the loss of nerves, vessels and tendons, so that amputation must also be considered. In some circumstances, the use of H₁- and H₂-receptor antagonists prior to surgery may attempt to reduce tumor size. The administration of these agents is also indicated in cases of incomplete excision to reduce the number of tumor cells (cytoreductive resection), as the procedure may lead to degranulation of mast cells and consequent release of inflammatory factors.
+
+Mastocytoma in dogs - Surgery
+For well-differentiated mastocytomas smaller than 5 cm, the prospect of cure (prognosis) is very good with proper surgical excision, but poor for recurrence. Therefore, planning the surgical approach at the time of initial surgery is crucial. For tumors smaller than 2.5 cm, survival is very high, even for high-grade tumors.
+
+Mastocytoma in dogs - Radiotherapy
+Radiation therapy is mainly used as an adjuvant therapy for mastocytomas that cannot be completely removed and is considered the treatment of choice. Mast cells are very sensitive to ionizing radiation. For grade 2 mastocytomas, various studies show freedom from disease after one year in about 95% of patients, and between the second and fifth year after treatment in about 90% of patients. For grade 3 tumors without lymph node involvement, the one-year survival rate in one study was 71%. Radiation therapy can also be used as a neoadjuvant or palliative treatment, as it usually leads to significant shrinkage of the tumor. A study of brachytherapy for grade 2 and 3 tumors after surgical excision also showed good success and good tolerability.
+
+Mastocytoma in dogs - Chemotherapy
+Various agents are used for chemotherapy. Glucocorticoids have a direct inhibitory effect on the proliferation of mast cells. Direct injection into the tumor is no longer recommended, but systemic administration is often combined with the administration of cytostatic drugs. The cytostatic agents used are vinca alkaloids such as vinblastine, cyclophosphamide, hydroxycarbamide, doxorubicin, mitoxantrone, and L-asparaginase, although combinations of different agents are more promising. According to the 2012 European consensus paper, chemotherapy is always indicated when the tumor has already spread throughout the body or when neither reoperation nor radiation are possible in cases of incomplete surgical removal.
+
+Mastocytoma in dogs - Chemotherapy
+Hydroxycarbamide responded in 28% of treated dogs in one study, and 4% (two animals) showed complete cure (complete remission). Side effects were primarily blood count changes such as anemia and neutropenia. The combination of hydroxycarbamide with prednisolone in incompletely removed grade 2 tumors resulted in death from liver failure in two cases; of the remaining dogs, all survived the first year and 77% survived the second year. With the combination of hydroxycarbamide, vinblastine, and prednisolone, a response rate of 65% was achieved in unremovable or incompletely removable mastocytomas, and the median survival time was significantly higher in grade 2 than in grade 3 tumors (954 versus 190 days). Side effects (neutropenia, increase in liver enzymes) were moderate.
+
+Mastocytoma in dogs - Tyrosine kinase inhibitors
+In the meantime, with the tyrosine kinase inhibitors, there are active substances that act specifically on the stem cell receptor of the mast cells. Since 2009, two tyrosine kinase inhibitors - masitinib (trade name Masivet) and toceranib (trade name Palladia) - have been approved for the treatment of mastocytomas in dogs in the EU.
+
+Mastocytoma in dogs - Tyrosine kinase inhibitors
+Masitinib is approved for the treatment of unresectable grade 2 and 3 (or high-grade) mastocytomas with c-KIT mutation. Side effects are primarily vomiting, diarrhea, neutropenia, anemia, and proteinuria, but most are mild. Median survival increased from 75 to 118 days in a study of dogs with grade 2 and 3 tumors without metastases, and to 253 days when the agent was used for initial treatment.
+
+Mastocytoma in dogs - Tyrosine kinase inhibitors
+Toceranib has multiple targets (multitarget drug): It acts not only at the stem cell receptor but also at the vascular (VEGF) and platelet-derived growth factor (PDGF) receptors, making it applicable to mastocytomas without a c-KIT mutation. Side effects are similar to those of masitinib, but occur very frequently and are severe in over one-third of animals.
+
+Mastocytoma in dogs - Tyrosine kinase inhibitors
+There is also positive experience with the tyrosine kinase inhibitor imatinib, which is approved for human medicine.
+
+Mastocytoma in dogs - Stelfonta (tigilanol tiglate injection)
+In 2020, FDA approved a non-surgical treatment called STELFONTA (tigilanol tiglate injection) for the treatment of all grades of non-metastatic mast cell tumors.  Injected directly into the tumor, Stelfonta has a targeted mode of action to destroy mast cell tumors, evident within hours. Stelfonta activates protein kinase C and causes necrosis of tumor cells by damaging blood vessels.
+
+Mastocytoma in dogs - Stelfonta (tigilanol tiglate injection)
+Post marketing data mirrors the pivotal study, achieving a 75% complete response rate with a single injection, or 88% with up to two injections.  89% of dogs have no tumor recurrence at the site of Stelfonta treatment at 12 months.
+
+Mastocytoma in dogs - Stelfonta (tigilanol tiglate injection)
+Stelfonta is also approved for treatment of canine mast cell tumors by the EMA, VMD, APVMA and Swissmedic.  The treatment is accompanied by the administration of an antihistamine, a corticosteroid, and an analgesic.
+
+Mastocytoma in dogs - Mastocytomas in other animal species
+Mastocytomas are also relatively common in horses, cats, and ferrets, although less so than in dogs. In the domestic horse, they occur primarily in older animals in the head and neck region and lower limb sections. The recurrence rate is low with proper surgical removal. In the domestic cat, mastocytomas of the skin are mostly benign. Histologic grading, as in the dog, has not been shown to be useful. Surgical excision is also the treatment of choice in the cat, in combination with radiation if resection is incomplete. If numerous mastocytomas occur, palliative treatment with glucocorticoids may also be attempted. A special form of mastocytoma occurs in Siamese cats. Here, the mast cells resemble histiocytes and collections of lymphocytes and eosinophilic granulocytes are interspersed in the tumor. In older cats, mastocytomas occasionally occur in the small intestine and can lead to intestinal intussusception or perforation and exhibit aggressive biological behavior. In ferrets, mastocytomas account for approximately 16% of skin tumors, but also usually behave benignly.
+
+Mastocytoma in dogs - Mastocytomas in other animal species
+In other mammals, mastocytomas are very rare. There are single case reports in domestic cattle, domestic donkeys, domestic pigs, llamas, Richardson's gopher, hamsters and African hedgehogs. In mice, spontaneous mastocytomas are very rare, but the mouse mast tumor cell line P 815 is widely used in research.
+
+Mastocytoma in dogs - Mastocytomas in other animal species
+In birds and reptiles, mastocytomas are very rare; isolated cases have been described in the domestic chicken, the chain snake, and a Galápagos giant tortoise.

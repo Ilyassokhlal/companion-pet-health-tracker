@@ -1,0 +1,44 @@
+Mange
+Mange (, MAYNJ) is a type of skin disease caused by parasitic mites. Because various species of mites also infect plants, birds and reptiles, the term "mange", or colloquially "the mange", suggesting poor condition of the skin and fur due to the infection, is sometimes reserved for pathological mite-infestation of mammals. Thus, mange includes mite-associated skin disease in domestic mammals (cats and dogs), in livestock (such as sheep scab), and in wild mammals (for example, foxes, coyotes, cougars, Tasmanian devils, and wombats). Severe mange caused by mites has been observed in wild bears. Since mites belong to the arachnid subclass Acari (also called Acarina), another term for mite infestation is acariasis.
+
+Mange
+Parasitic mites that cause mange in mammals embed themselves in either skin or hair follicles in the animal, depending upon their genus. Sarcoptes spp. burrow into skin, while Demodex spp. live in follicles.
+
+Mange
+In humans, these two types of mite infections, which would be known as "mange" in furry mammals, are instead known respectively as scabies and demodicosis.
+
+Mange - Demodectic mange
+Also called demodicosis or red mange, demodectic mange is caused by a sensitivity to and overpopulation of Demodex spp. The two types of demodectic mange are localized and generalized. Localized consists of four spots or less.  Demodex is not zoonotic and is not transferable across species. Each host species has its own species of Demodex. For example, dogs are hosts to Demodex canis and cats are hosts to Demodex cati.  A type of demodectic infection in humans is known, but is less commonly symptomatic. See Demodex folliculorum.
+
+Mange - Sarcoptic mange
+Sarcoptic mange, also known as canine scabies, is a highly contagious infestation of Sarcoptes scabiei var. canis, a burrowing mite. The canine sarcoptic mite can also infest cats, pigs, horses, sheep, and various other species. The human analog of burrowing mite infection, due to a closely related species, is called scabies (the "seven-year itch").
+
+Mange - Sarcoptic mange
+Burrowing mites are in the family Sarcoptidae. They dig into and through the skin, causing intense itching from an allergic reaction to the mite's feces, and crusting that can quickly become infected. Hair loss and crusting frequently appear first on elbows and ears. Skin damage can occur from the dog's intense scratching and biting. Secondary skin infection is also common. Dogs with chronic sarcoptic mange are often in poor condition, and in both animals and humans, immune suppression from starvation or any other disease causes this type of mange to develop into a highly crusted form in which the burden of mites is far higher than that in initially-healthy individuals.
+
+Mange - Diagnosis
+Veterinarians usually attempt diagnosis with skin scrapings from multiple areas, which are then examined under a microscope for mites. Sarcoptes mites, because they may be present in relatively low numbers, and because they are often removed by dogs chewing at themselves, may be difficult to demonstrate. As a result, diagnosis in sarcoptic mange is often based on symptoms rather than actual confirmation of the presence of mites. A common and simple way of determining if a dog has mange is if it displays what is called a "pedal-pinna reflex", which is when the dog moves one of its hind legs in a scratching motion as the ear is being manipulated and scratched gently by the examiner; because the mites proliferate on the ear margins in nearly all cases at some point, this method works over 95% of the time. It is helpful in cases where all symptoms of mange are present but no mites are observed with a microscope. The test is also positive in animals with ear mites, an ear canal infection caused by a different but closely related mite (treatment is often the same). In some countries, an available serologic test may be useful in diagnosis.
+
+Mange - Diagnosis
+In wildlife various methods are employed to detect and diagnose sarcoptic mange.
+
+Mange - Treatment
+Affected dogs are sometimes isolated from other dogs and their bedding, and places they have occupied must be thoroughly cleaned. Other dogs in contact with a diagnosed case should be evaluated and treated. A number of parasitical treatments are useful in treating canine scabies. Sulfurated lime (a mixture of calcium polysulfides) rinses applied weekly or biweekly are effective (the concentrated form for use on plants as a fungicide must be diluted 1:16 or 1:32 for use on animal skin).
+
+Mange - Treatment
+Selamectin is licensed for treatment in dogs by veterinary prescription in several countries; it is applied as a dose directly to the skin, once per month (the drug does not wash off). A related and older drug ivermectin is also effective and can be given by mouth for two to four weekly treatments or until two negative skin scrapings are achieved. Oral ivermectin is not safe to use on some collie-like herding dogs, however, due to possible homozygous MDR1 (P-glycoprotein) mutations that increase its toxicity by allowing it into the brain. Ivermectin injections are also effective and given either weekly or every two weeks in one to four doses, although the same MDR1 dog restrictions apply.
+
+Mange - Treatment
+Affected cats can be treated with fipronil and milbemycin oxime.
+
+Mange - Treatment
+Topical 0.01% ivermectin in oil (Acarexx) has been reported to be effective in humans, and all mite infections in many types of animals (especially in ear mite infections where the animal cannot lick the treated area), and is so poorly absorbed that systemic toxicity is less likely in these sites. Nevertheless, topical ivermectin has not been well enough tested to be approved for this use in dogs, and is theoretically much more dangerous in zones where the animal can potentially lick the treated area. Selamectin applied to the skin (topically) has some of the same theoretical problems in collies and MDR1 dogs as ivermectin, but it has nevertheless been approved for use for all dogs provided that the animal can be observed for eight hours after the first monthly treatment.  Topical permethrin is effective against human scabies , but may be of limited efficacy in dogs , and it is toxic to cats.
+
+Mange - Treatment
+Afoxolaner (oral treatment with a chewable tablet containing afoxolaner 2.27% w/w) has been shown to be efficient against both sarcoptic and demodectic mange in dogs.
+
+Mange - Treatment
+Free-ranging wombats are commonly treated topically with moxidectin by wildlife carers in Australia, because it poses a low risk.
+
+Mange - Treatment
+Sarcoptic mange is transmissible to humans who come into prolonged contact with infested animals, and is distinguished from human scabies by its distribution on skin surfaces covered by clothing. For treatment of sarcoptic infection in humans, see scabies. For demodetic infection in humans, which is not as severe as it is in animals with thicker coats (such as dogs), see Demodex folliculorum.

@@ -1,0 +1,74 @@
+Canine leishmaniasis
+Canine leishmaniasis (LEESH-ma-NIGH-ah-sis) is a zoonotic disease (see human leishmaniasis) caused by Leishmania parasites transmitted by the bite of an infected phlebotomine sandfly. There have been no documented cases of leishmaniasis transmission from dogs to humans. Canine leishmaniasis was first identified in Europe in 1903, and in 1940, 40% of all dogs in Rome were determined to be positive for leishmaniasis. Traditionally thought of as a disease only found near the Mediterranean basin, 2008 research claims new findings are evidence that canine leishmaniasis is currently expanding in continental climate areas of northwestern Italy, far from the recognized disease-endemic areas along the Mediterranean coasts. Cases of leishmaniasis began appearing in North America in 2000, and, as of 2008, Leishmania-positive foxhounds have been reported in 22 U.S. states and two Canadian provinces.
+
+Canine leishmaniasis - Forms and symptoms
+Especially if there are other leishmania lesions, such as hair loss, on the same leg.
+
+Canine leishmaniasis - Cause
+Numerous strains and subgenus strains of Leishmania exist; with sandfly genome projects still underway, strains are still being discovered.
+
+Canine leishmaniasis - Cause
+In the Old World, leishmaniasis transmitted by sandflies of the genus Phlebotomus documented in dogs are:
+
+Canine leishmaniasis - Cause
+L. infantum  (began appearing dogs in the United States in 2000)
+
+Canine leishmaniasis - Cause
+New World leishmaniasis strains are spread by Lutzomyia; however, research speculates the North American sandfly could be capable of spreading, but this is to date unconfirmed.  Dogs are known reservoirs of L. infantum, and the spread of disease from dog to dog has been confirmed in the United States.
+
+Canine leishmaniasis - Cause
+Suspected causes of canine visceral leishmaniasis are geographic variants of the Leishmania donovani complex, including L. infantum, L. chagasi and L. donovani.
+
+Canine leishmaniasis - Cause
+The Mexicana (L. mexicana, L. amazonensis, L. venezuelensis, and L. pifanoi) and Viannia (L. braziliensis, L. guyanensis, L. panamensis and L. peruviana) strains are not commonly found in dogs. Subgenus Viannia strains are found only in Central and South America, all of which cause leishmaniasis in humans.
+
+Canine leishmaniasis - Transmission
+Traditionally, canine transmission is directly from sandfly to dog.  Cases in the United States have proven L. infantum transmission from dog to dog by direct contamination with blood and secretions, as well as transplacentally from an infected bitch to her pups.  This mode of transmission seems to be unique to the L. infantum Mon1 strain found in the United States. Although in utero transmission is likely the predominant method of disease spread amount the L. infantum Mon1 strain, it is still a viable parasite (has not lost virulence factors associated with sandfly-uptake) which can be transmitted via sandfly bite. A Brazilian study of 63 puppies from 18 L. donovani-infected parents found no evidence of congenital or transplacental infection.
+
+Canine leishmaniasis - Diagnosis
+In the United States, certain breed clubs are strongly recommending screening for Leishmania, especially in imported breeding stock from endemic locations. For reasons yet unidentified the Foxhound and Neapolitan Mastiff seem to be predisposed or at higher risk for disease. The Italian Spinone Club of America is also requesting all breeders and owners to submit samples for testing; the club reported 150 Spinone Italiano dogs have tested positive in the United States.
+
+Canine leishmaniasis - Diagnosis
+In the United States, the following veterinary colleges and government bodies assist with testing and treatment of Leishmania-positive dogs:
+
+Canine leishmaniasis - Diagnosis
+Centers for Disease Control and Prevention on Leishmaniasis in dogs
+
+Canine leishmaniasis - Diagnosis
+North Carolina State University College of Veterinary Medicine
+
+Canine leishmaniasis - Diagnosis
+Diagnostic testing includes molecular biology and genetic techniques which provide high accuracy and high sensitivity/specificity. The most commonly employed methods in medical laboratories include Enzyme-Linked Immunosorbent Assays, aka ELISA (among other serological assays) and DNA amplification via Polymerase Chain Reaction (PCR).
+
+Canine leishmaniasis - Diagnosis
+The Polymerase Chain Reaction (PCR) method for detecting Leishmania DNA is a highly sensitive and specific test, producing accurate results in a relatively short amount of time.
+
+Canine leishmaniasis - Diagnosis
+A study completed in which Foxhounds were tested using PCR showed that approximately 20% of the tested dogs were positive for leishmaniasis; the same population tested with serological/antibody assays showed only 5% positive.
+
+Canine leishmaniasis - Diagnosis
+Diagnosis can be complicated by false positives caused by the leptospirosis vaccine and false negatives caused by testing methods lacking sufficient sensitivity.
+
+Canine leishmaniasis - Prevention
+In areas where the known vector is a sandfly, deltamethrin collars worn by the dogs has been proven to be 86% effective.  The sandfly is most active at dusk and dawn; keeping dogs indoors during those peak times will help minimize exposure.
+
+Canine leishmaniasis - Prevention
+Unfortunately, there is no one answer for leishmaniasis prevention, nor will one vaccine cover multiple species.  "Different virulence factors have been identified for distinct Leishmania species, and there are profound differences in the immune mechanisms that mediate susceptibility/resistance to infection and in the pathology associated with disease."
+
+Canine leishmaniasis - Prevention
+In 2003, Fort Dodge Wyeth released the Leshmune vaccine in Brazil for L. donovani (also referred to as kala-azar in Brazil).  Studies indicated up to 87% protection. Most common side effects from the vaccine have been noted as anorexia and local swelling.
+
+Canine leishmaniasis - Prevention
+The president of the Brazil Regional Council of Veterinary Medicine, Marcia Villa, warned since vaccinated dogs develop antibodies, they can be difficult to distinguish from asymptomatic, infected dogs.
+
+Canine leishmaniasis - Prevention
+Studies also indicate the Leshmune vaccine may be reliable in treating L. chagasi, and a possible treatment for dogs already infected with L. donovani. Vaccination and immunotherapy may also be a treatment for ongoing L. infantum infection in dogs.
+
+Canine leishmaniasis - Treatment
+Currently, no cure exists for canine leishmaniasis, but various treatment options are available in different countries.   Treatment is best coordinated with veterinary research hospitals. Treatment does vary by geographic area, strain of infection and exhibited symptoms.  Dogs can be asymptomatic for years.  Most common treatments include:
+
+Canine leishmaniasis - Research directions
+In the United States, research examining the Foxhound and Neapolitan Mastiff is scheduled to continue into 2011 at the University of Iowa.  The goals of this project are to screen for the presence of the Leishmania parasite DNA and to be a stepping stone to future research of T-cell function with the hopes of understanding canine leishmaniasis as a model for better understanding human leishmaniasis.
+
+Canine leishmaniasis - Research directions
+Also in the United States, the CDC is monitoring Italian Spinones, with no end date indicated on sample submissions.

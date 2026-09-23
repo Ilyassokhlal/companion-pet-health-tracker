@@ -19,39 +19,6 @@ Systemic effects impact various organs. For instance, bacteremia resulting from 
 Veterinary dentistry - Gingivitis
 Gingivitis is the initial phase of periodontal disease, characterized by inflammation of the gums caused by bacterial plaque. However, it can be prevented and reversed. It typically presents as a thin red line along the gum edges and may include symptoms such as swollen gums, bad breath, plaque, and tartar buildup. The first clinical indication of gingivitis is bleeding during probing, chewing, or brushing.
 
-Veterinary dentistry - Signs and symptoms of oral disease
-The main signs of oral disease include:
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Halitosis
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Broken or discoloured teeth
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Changes in eating behaviour
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Rubbing or pawing at the face
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Ptyalism
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Bleeding from the mouth
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Inability or unwillingness to open or close the mouth
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Change in temperament
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Morbidity
-
-Veterinary dentistry - Signs and symptoms of oral disease
-Weight loss
-
 Veterinary dentistry - Diagnosis
 Many pet owners are often unaware that their pets have dental issues, which is why checking the oral cavity should be included in every physical checkup conducted by the veterinarian. The latest Canine Preventive Healthcare Guidelines and Feline Preventive Healthcare Guidelines from the American Animal Hospital Association (AAHA) and AVMA emphasize the importance of dental care as part of the evaluation during annual veterinary visits. A conscious animal's oral examination can provide limited insight, while a complete oral assessment can only be performed under general anesthesia. These evaluations should take place at least once a year to detect any concerns and maintain optimal oral health.
 
@@ -71,16 +38,7 @@ Veterinary dentistry - Radiography
 Investigation of the pathology affecting both the oral soft and hard tissues, such as tumors and fractures.
 
 Veterinary dentistry - Radiography
-Assessment of dysfunction in the temporomandibular joint.
-
-Veterinary dentistry - Radiography
 Analysis of crown/root pathology, which includes tooth resorptive lesions, fractures of the crown or root, additional roots, or dilacerated roots.
-
-Veterinary dentistry - Radiography
-Comparison of sites before and after tooth extractions.
-
-Veterinary dentistry - Radiography
-Root canal treatment.
 
 Veterinary dentistry - Radiography
 Oligodontia (the absence of most teeth) or the presence of supernumerary (extra) teeth.
@@ -126,15 +84,6 @@ Level bite – end-to-end bite of the incisors. Genetically is a degree of progn
 
 Veterinary dentistry - Other malocclusions
 Wry mouth – refers to a variety of unilateral occlusal abnormalities. Genetically only affects one quadrant of the mandible or maxilla, such as one segment of the jaw being disproportionately sized relative to the other half.
-
-Veterinary dentistry - Other malocclusions
-Oligodontia – only a few teeth are present
-
-Veterinary dentistry - Other malocclusions
-Anodontia – congenital absence of teeth
-
-Veterinary dentistry - Other malocclusions
-Hypodontia – one or a few teeth are missing
 
 Veterinary dentistry - Other malocclusions
 Polydontia – presence of more teeth than is normal (supernumerary teeth)

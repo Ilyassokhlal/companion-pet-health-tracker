@@ -1,0 +1,218 @@
+Feline hyperthyroidism
+Feline hyperthyroidism is an endocrine disorder in which the thyroid gland produces too much thyroid hormone. Hyperthyroidism is the most common endocrinopathy of cats. The complete pathogenesis is not fully understood.
+
+Feline hyperthyroidism - Background
+In 1979 the first clinical report of a cat with hyperthyroidism was reported. More studies and greater awareness would follow and today hyperthyroidism is a common condition in small animal practice. Whether that is due to increased prevalence or better testing is not entirely agreed upon.
+
+Feline hyperthyroidism - Background
+A study in 1987 transplanted thyroid tissue from affected cats into nude mice. The mice were administered levothyroxine, which suppresses thyroid-stimulating hormone. The thyroid cells remained in the hyperthyroid state. This study helped provide evidence for thyroid dysfunction as the cause rather than thyroid stimulation.
+
+Feline hyperthyroidism - Causes
+The majority of cases of hyperthyroidism in cats are the result of benign tumours. The most commonly identified abnormalities of the thyroid gland in hyperthyroid cases are follicular cell adenoma and multinodular adenomatous hyperplasia. 1% to 3% of feline hyperthyroid cases are caused by malignant tumours. These are not always able to be distinguished from benign tumours.
+
+Feline hyperthyroidism - Causes
+It is believed that the cause of hyperthyroidism is multifactorial. Studies have identified different mutations as causing thyroid cell autonomy.
+
+Feline hyperthyroidism - Iodine
+Excessive iodine administration has been hypothesised as causing thyrotoxicosis in cats, as it does in humans; however, cats have been shown in multiple long-term studies to be able to regulate their levels of thyroid hormone within safe ranges when administered iodine. Iodide intake and its effects are unknown.
+
+Feline hyperthyroidism - Iodine
+Iodine amounts in cat food vary by as much as a factor of 30. Low, high, and variable iodine diets have been hypothesised as a cause of feline hyperthyroidism.
+
+Feline hyperthyroidism - Soy isoflavones
+Soy is often used in commercial cat food diets as a vegetable protein. In one study more than half of commercial cat foods surveyed contained soy isoflavones. Genistein and daidzein, both of which occur in soybeans, inhibit the enzymes thyroid peroxidase and thyroxine 5-deiodinase. This causes decreased thyroxine and triiodothyronine concentrations. In response to decreased triiodothyronine levels the body will produce more thyroid-stimulating hormone to normalise triiodothyronine levels, this has been shown to result in increased thyroxine levels. In addition these effects are heightened when a cat is suffering from iodine deficiency. However, further research is needed to confirm a link between soy isoflavones and hyperthyroidism.
+
+Feline hyperthyroidism - Goitrogens
+Goitrogens are chemicals that disrupt thyroid hormone production. Chemicals such as bisphenol A and polybrominated diphenyl ethers have been shown to exist in indoor cats at heightened levels and are hypothesised to be a potential cause of hyperthyroidism. Bisphenol A is common in canned cat foods, although no association between it and hyperthyroidism has currently been demonstrated. Polybrominated diphenyl ethers (PBDEs) are often used as fire retardants and are known to be a goitrogen; however, levels of these chemicals have been shown to be the same in euthyroid cats as hyperthyroid cats. No association has been proven in a study for the association between PBDEs and hyperthyroidism.
+
+Feline hyperthyroidism - Signs and symptoms
+Hyperthyroidism is a disease that slowly progresses and symptoms are very subtle at first. It can take up to two years from onset of symptoms for a diagnosis of hyperthyroidism to be made.
+
+Feline hyperthyroidism - Signs and symptoms
+The most common symptom is weight loss, occurring in 98% of hyperthyroid cases. Other symptoms that occur more than 50% of the time, include: a palpable thyroid gland (91%); polyphagia (81%), without obesity; restlessness (76%); tachycardia (66%); polydipsia and polyuria (60%); emesis; and cardiac murmur (53%).
+
+Feline hyperthyroidism - Signs and symptoms
+Less common symptoms include: diarrhoea (33%), increased volume of faeces (31%), anorexia (26%), polypnoea (25%), myasthenia (25%), muscle tremors (18%), congestive heart failure (12%), excessive nail growth (12%), and dyspnoea (11%).
+
+Feline hyperthyroidism - Signs and symptoms
+Systolic hypertension is reported in 10-15% of cats that have been diagnosed with hyperthyroidism. Some normotensive hyperthyroid cats develop hypertension after having their hyperthyroidism treated. The reasons for this are not currently known.
+
+Feline hyperthyroidism - Signs and symptoms
+Cachexia is a possible symptom in hyperthyroid cats but due to improved screening and diagnostics it is less common for a cat to become cachectic before starting treatment.
+
+Feline hyperthyroidism - Signs and symptoms
+Ventroflexion of the head is a rare symptom observed in hyperthyroid cats but the last case report is from 1994. Due to the rarity the pathogenesis behind this is not known.
+
+Feline hyperthyroidism - Signs and symptoms
+Cardiac conditions have become less common over the years in hyperthyroid cats due to earlier diagnosis and improved treatment. The most common cardiovascular issues are tachyarrhythmias, cardiac murmurs, and gallop rhythms. The cause of these conditions is due to how triiodothyronine increases cardiac output.
+
+Feline hyperthyroidism - Signs and symptoms
+Thyroid cysts can occur in cases of adenoma, adenomatous hyperplasia, or carcinoma. These cysts have a high concentration of thyroxine. Cysts should not be treated with radioactive iodine and instead be surgically removed.
+
+Feline hyperthyroidism - Signs and symptoms
+Symptoms of hyperadrenocorticism can occur in hyperthyroid cats. Adrenocorticotropic hormone levels are raised in some hyperthyroid cats and some studies have documented acromegaly in hyperthyroid cats.
+
+Feline hyperthyroidism - Risk factors
+Multiple case control studies have looked at diet and hyperthyroidism. These studies have found associations between commercial diets and hyperthyroidism. Other risk factors identified include non-Siamese related breeds, lack of outdoor access, flea medication, pesticides, certain cat litters, female sex, sleeping on the floor, organic fertiliser, human baby food, carpet cleaners, natural gas, lack of deworming, and a fish diet. These mixed results suggest a multifactoral cause with diet being having an important role.
+
+Feline hyperthyroidism - Age of onset
+The age of onset has been reported to be between 4–22 years with an average of 13 years, with some individual cases occurring in cats below the age of 4 years. More than 95% of cases occur in cats 8 years and older.
+
+Feline hyperthyroidism - Diagnosis
+Testing for hyperthyroidism is routine for elderly cats and standard blood tests that can be performed in clinic allow for measurement of serum thyroxine levels. With this advancement diagnosis is often made before clinical signs are well noticeable and severe.
+
+Feline hyperthyroidism - Diagnosis
+Diagnosing hyperthyroid cats is not just to confirm the presence of the condition but also what symptoms are present. For example, more serious cardiac conditions require special treatment compared to a cat without any serious cardiac abnormalities. Cats with hyperthyroidism should have a complete blood count test, a biochemistry profile of blood serum, urinalysis, measurement of thyroxine serum levels, thoracic radiography, and measurement of blood pressure. If heart disease is suspected electrocardiography and echocardiography should be performed.
+
+Feline hyperthyroidism - Diagnosis
+Measurement serum thyroxine levels is the best method of confirming hyperthyroidism. Measurement of serum concentrations triiodothyronine are not useful for diagnosing hyperthyroidism and neither is measurement of serum thyroid-stimulating hormone levels. Thyroxine levels on their own should not be used to diagnose hyperthyroidism: if a patient is displaying no symptoms of hyperthyroidism but test results show heightened serum thyroxine levels the possibility of other causes such as an error in the test have to be considered and excluded before establishing a diagnosis.
+
+Feline hyperthyroidism - Complete blood count
+Common findings of a complete blood count on a hyperthyroid cat include a small increase in packed cell volume (40-50%), macrocytosis (20%), and Heinz bodies. Anaemia is rare. Increased erythrocyte count is due to thyroid hormone stimulating erythropoietin secretion. Leukocytes and thrombocytes usually have normal results, some changes may occur but these are not specific and are not consistent.
+
+Feline hyperthyroidism - Serum chemistry
+The most commonly noticed change in serum chemistry is a non-major increase in liver enzymes. More than 90% of hyperthyroid cats have an increase in either serum concentration of alanine aminotransferase and alkaline phosphatase, with more than 75% of cats having an increase in both. These increases are small and typically below 500 IU/L. Higher increases may be due to hepatic disease, although many other conditions can cause an increase in liver enzymes.
+
+Feline hyperthyroidism - Serum chemistry
+Fructosamine concentrations are lowered by serum protein metabolism, which is increased in hyperthyroid cats. Fructosamine concentrations are significantly lower in hyperthyroid cats, with half of hyperthyroid cats having levels outside the reference range. Following treatment for hyperthyroidism these concentrations rise to normal levels. Diabetes mellitus also affects fructosamine concentration and this should not be relied on in diabetic cats. Hyperglycaemia can occur in hyperthyroid cats independent of diabetes mellitus. Frucotsamine measurement cannot reliably differentiate non-diabetes related hyperglycaemia.
+
+Feline hyperthyroidism - Blood urea and creatinine
+In roughly 10% of hyperthyroid cats serum creatinine levels are increased to the point of azotaemia. In 10-20% of cats increased serum concentration of blood urea nitrogen is observed. Although the prevalence of hyperthyroid cats with chronic kidney disease is higher than this due to how hyperthyroidism results in an increase to the glomerular filtration rate. Most cats with chronic kidney disease and hyperthyroidism have the kidney disease go undiagnosed until after treatment for hyperthyroidism has begun. Between 15% and 49% of non-azotaemic hyperthyroid cats will develop azotaemia following treatment for hyperthyroidism. Further complicating the diagnosis is the shared symptoms between the conditions. It is not currently known whether the effects of hyperthyroidism cause or worsen renal disease. Chronic kidney disease is not an uncommon condition in elderly cats further complicating determination of a relationship between the two conditions.
+
+Feline hyperthyroidism - Urinalysis
+Common abnormalities found during urinalysis of hyperthyroid cats include: decreased urine specific gravity, proteinuria, symptoms of urinary tract infections, and ketonuria.
+
+Feline hyperthyroidism - Urinalysis
+Decreases to urine specific gravity are likely not the result of hyperthyroidism but instead due to chronic kidney disease. In a 2009 study most cats that had been treated for hyperthyroidism with radioactive iodine did not have changes to urine specific gravity levels.
+
+Feline hyperthyroidism - Urinalysis
+Proteinuria is reported in 75–80% of cats with hyperthyroidism. Likely causes of this are glomerular hyperfiltration and glomerular hypertension, and structural changes in the glomerular filtration barrier.
+
+Feline hyperthyroidism - Radiography
+Thoracic radiographs do not help diagnose hyperthyroidism, instead they help diagnose concurrent illnesses like thoracic neoplasia. If respiratory distress, tachypnoea, tachycardia, arrhythmia, or heart murmur are observed then thoracic radiographs should be taken. Congestive heart failure is uncommon. The most common finding is cardiomegaly.
+
+Feline hyperthyroidism - Echocardiography
+The most common echocardiographic abnormalities in hyperthyroid cats is hypertrophy of the left ventricular caudal wall and interventricular septum. The effects of thyroid hormone are known and explain most cardiac abnormalities; however, one study found only 37% of hyperthyroid cats to have an echocardiographic abnormality, with 32% having abnormalities following treatment.
+
+Feline hyperthyroidism - Clinical examination
+Multiple clinical signs that support a diagnosis can be observed in hyperthyroid cats during a clinical exam. The most useful symptoms for this is weight loss with concurrent polyphagia and tachycardia.
+
+Feline hyperthyroidism - Clinical examination
+A goitre is swelling from an enlarged thyroid gland. This does not occur in all cases of hyperthyroidism, even those caused by adenoma; however it occurs in most cases and is a common way to support a hyperthyroid diagnosis caused by adenoma. Other conditions can cause a cervical mass that may resemble a goitre.
+
+Feline hyperthyroidism - Thyrotropin-releasing hormone stimulation
+Following a test for blood serum thyroxine levels thyrotropin-releasing hormone can be administered to cats intravenously and after 4 hours another blood test can be taken to measure thyroxine serum levels. If the thyroxine levels have increased this indicates the cat is euthyroid but if levels remain stagnant it suggests hyperthyroidism. This test is rarely performed due to side effects. The most common side effects being: emesis, tachypnoea, and defaecation.
+
+Feline hyperthyroidism - Scintigraphy
+Scintigraphy helps to show information on the thyroid gland and tumours affecting it. It is useful for identifying the size of the tumour, whether it is unilateral or bilateral, and how much radiation is required for treatment. Iodine-131, Iodine-123, and technetium-99m pertechnetate are all used for this. Pertechnetate is the most commonly used due its low cost, quick uptake, and short half-life. Scintigraphy can also be used to confirm hyperthyroidism when clinical symptoms are present but serum thyroxine levels remain within reference. Drugs such as methimazole and anaesthetics can influence results if not discontinued before scintigraphy.
+
+Feline hyperthyroidism - Ultrasonography
+Ultrasonography is an alternative option to scintigraphy. Ultrasounds provide less information than scintigraphy but is easier and cheaper to conduct. Ultrasonography allows for the state of the thyroid gland to be evaluated and for an estimation of the volume but does not allow for evaluation of tissue.
+
+Feline hyperthyroidism - Differential diagnosis
+Polyphagia and weight loss are two concurrent symptoms that have multiple causes, including: diabetes mellitus, malnutrition, malabsorption, and maldigestion. If these symptoms occur serum thyroxine levels should be tested to confirm or exclude a diagnosis of hyperthyroidism.
+
+Feline hyperthyroidism - Carcinoma
+Thyroid carcinoma has largely the same symptoms as benign tumours. Hypercalcaemia may be seen in a patient with carcinoma. Symptoms that may be identified via radiography include: cardiomegaly, signs of congestive heart failure, signs of pulmonary metastasis, and mediastinal masses. The only way to definitively diagnose a thyroid carcinoma is via histopathological examination of the affected tissue. If treatment has failed thyroid carcinoma should be considered as a possibility.
+
+Feline hyperthyroidism - Treatment
+Hyperthyroidism can be either managed with anti-thyroid drugs or restricting iodine intake, or it can be treated with radioactive iodine or thyroidectomy for a permanent solution. Choice of treatment depends on a multitude of factors including cost, availability of the treatments, and age and health of the patient. In areas where available, radioactive iodine treatment is the preferred method of treating hyperthyroidism due to the low risks and high efficacy.
+
+Feline hyperthyroidism - Surgery
+Surgery is a cheaper option than radioactive iodine treatment and does not require any equipment not found in a standard veterinary clinic. It also results in a quicker decrease in thyroid hormone levels. Surgery however can be more risky to elderly cats given the increased risk of anaesthetic complication. A bad surgery can result in nerve damage or failure to fully remove all the abnormal tissue. It may also result in iatrogenic hypothyroidism and hypoparathyroidism.
+
+Feline hyperthyroidism - Surgery
+Surgery has become a less common treatment option with improvement of access to radioactive iodine treatment and due to risks. Risks include: ectopic tissue being leftover, hypothyroidism, hypoparathyroidism. Less often laryngeal nerve damage and Horner's syndrome may occur. These risks can be prevented with a more experienced surgeon and proper imaging of the thyroid gland before removal.
+
+Feline hyperthyroidism - Surgery
+Thyroidectomy allows for shorter hospitalisation time and for histopathological evaluation of neoplastic tissue. Thyroidectomy is not recommended when the disease is bilateral.
+
+Feline hyperthyroidism - Surgery
+Alternative treatments should be prioritised in case of cardiac, electrolyte, and renal dyscrasias.
+
+Feline hyperthyroidism - Surgery
+Rates of hypocalcaemia following bilateral thyroidectomy range from 6–82% depending on the study and technique used. Mild hypocalcaemia often occurs as a result of an oedema and calcium depletion. This mild hypocalcaemia typically resolves after several weeks. Severe hypocalcaemia is due to iatrogenic hypoparathyroidism and poses a long term risk to patients. Symptoms include: anorexia, restless behaviour, muscle spasms, muscle tremors, tetany, and convulsion. Calcium and dihydrotachysterol can be used to treat hypocalcaemia with quick results. Ergocalciferol is a cheaper alternative that is sometimes used but is not recommended due to risk of hypercalcaemia
+
+Feline hyperthyroidism - Surgery
+Following unilateral thyroidectomy thyroxine levels may fall into the hypothyroid reference range. Thyroid function will return within 1–3 months and thyroid hormone supplements are not required. Supplementation retards the growth of the thyroid tissue and will prevent the patient from reaching a euthyroid state.
+
+Feline hyperthyroidism - Surgery
+Whilst iatrogenic hypothyroidism following a bilateral thyroidectomy is more common it does not always occur and should not be treated unless either clinical symptoms of hypothyroidism or signs of renal disease observed, or if it persists more than 3 months after the procedure.
+
+Feline hyperthyroidism - Surgery
+Thyroidectomy should be used for suspected carcinomata as it allows for histopathological examination of the tissue. Even when all visible neoplastic tissue is removed the carcinoma may reoccur, thus it is imperative to evaluate following the thyroidectomy. If carcinoma reoccurs radioactive iodine treatment should be undertaken.
+
+Feline hyperthyroidism - Anti-thyroid drugs
+Anti-thyroid drugs are a cheap option that does not require any form of hospital treatment as the medication can be given orally at home; however, the drugs must be given b.i.d., although this can be reduced to q.d. after a month, and success relies on owner compliance. Anti-thyroid drugs do not address the underlying thyroid issues and has several side effects such as anorexia, emesis, lethargy, thrombocytopaenia, granulocytopaenia, and hepatopathy.
+
+Feline hyperthyroidism - Anti-thyroid drugs
+The three main anti-thyroid drugs, known as thioureylenes, are methimazole, carbimazole, and propylthiouracil. Carbimazole is converted to methimazole by the body. These drugs concentrate within the thyroid gland and inhibit the ability of iodide and iodothyronines to form thyroxine and triiodothyronine which prevents thyroid synthesis. These drugs do not affect thyroid hormone that has already been produced.
+
+Feline hyperthyroidism - Anti-thyroid drugs
+Of these drugs propylthiouracil is not recommended due to the common side effects including anorexia, emesis, lethargy, immune-mediated haemolytic anaemia, and thrombocytopaenia.
+
+Feline hyperthyroidism - Anti-thyroid drugs
+Thioureylenes should not be used in patients with thyroid carcinoma; these drugs increase the release of thyroid-stimulating hormone, which aggravates growth of the tumour. The drugs themselves do not do anything to control the growth of tumours. The exception to this may be to stabilise symptoms before radioactive iodine treatment or thyroidectomy.
+
+Feline hyperthyroidism - Methimazole
+Methimazole restores thyroxine levels to normal and resolves most hyperthyroid symptoms. This allows for the assessment of renal function before starting permanent treatment of the hyperthyroidism. Methimazole can also be used to stabilise patients with severe hyperthyroidism prior to surgery or radioactive iodine treatment. Methimazole is less effective in cats with more serious goitres and carcinomata.
+
+Feline hyperthyroidism - Methimazole
+Methimazole may also be applied topically to the pinnae. Topical application reduces gastrointestinal side effects but can result in erythema and inflammation of the pinnae, this can be treated with glucocorticoids. Topical methimazole is easier to apply for owners but more expensive than oral methimazole.
+
+Feline hyperthyroidism - Methimazole
+Between 10 and 25% of cats receiving methimazole will have mild side effects. These usually develop within the first 4–8 weeks and rarely develop beyond this. The most common side effects are anorexia, emesis, and lethargy. The side effects typically resolve either on their own or following a decrease in the dosage. Treatment is ceased in the event of gastrointestinal symptoms and not restarted until they have resolved. Gastrointestinal side effects are more common in cats receiving oral rather than topical treatment. Other mild side effects include haematological condition: eosinophilia, leukopaenia, and lymphocytosis occur at rates of 15% for oral and 5% for topical. These mild conditions do not require any cessation of methimazole.
+
+Feline hyperthyroidism - Methimazole
+Less common side effects include self-induced excoriation which occurs in 2–3% of cats receiving oral treatment and rarely in cats receiving topical treatment. Methimazole should be ceased in these cats and alternative treatments should be pursued for these cats. 3–9% of cats experience severe haematological reactions such as severe thrombocytopaenia alongside haemorrhage, and neutropaenia alongside pyrexia, anorexia, and infection. Any serious blood dyscrasia requires treatment to be immediately stopped and alternative treatments need to be considered. Myasthenia gravis is rare and has only been reported in cats treated orally. The understanding of it and its relation to methimazole is unknown but the immunomodulatory effects of the drug have been suspected as a cause.
+
+Feline hyperthyroidism - Methimazole
+Symptoms of hypothyroidism are rare but cats with biochemical levels of thyroid hormone that falls into the hypothyroid range is common. Iatrogenic hypothyroidism presents an increased risk of azotaemia and any cat with iatrogenic hypothyroidism should have doses reduced and close monitoring following this.
+
+Feline hyperthyroidism - Methimazole
+Iopanoic acid has been investigated for use in cats that experience adverse effects to thioureylenes but studies have found it to have minimal impact on symptoms of hyperthyroidism.
+
+Feline hyperthyroidism - Carbimazole
+Carbimazole is quickly transformed to methimazole after absorption or in the gastrointestinal tract. No studies compare the two but evidence suggests lower rates of adverse effects with no reports of severe blood disorders.
+
+Feline hyperthyroidism - Radioactive iodine
+Radioactive iodine treatment results in quick decrease of thyroid hormone, does not require any anaesthetic or surgery, and in most cases is a single treatment. The disadvantages of radioactive iodine is the cost, the availability of it, and the local period a cat needs to stay in a specialised hospital as the radioactivity wears off. The success rate of radioactive iodine treatment is very high at around 95%.
+
+Feline hyperthyroidism - Radioactive iodine
+Radioactive iodine is administered either intravenously or subcutaneously. The iodine gets transported to neoplastic and hyperplastic thyroid tissue. 40–90% of the iodine is excreted via defecation and urination. Gamma rays and beta particles are emitted and these particles cause follicular cells to die off. The beta particles do not affect the parathyroid gland or any other part of the body due to their movement being limited to less than 2mm. The atrophied thyroid tissue will return to regular production of thyroid hormone which avoids the risk of iatrogenic hypothyroidism with other treatment options. In one study after 4 years 84% of cats were euthyroid and 4% were hypothyroid.
+
+Feline hyperthyroidism - Radioactive iodine
+Thyroid carcinomata are uncommon but difficult to diagnose and require higher dosage to treat. Necrosis may occur following treatment if there is a lot of neoplastic tissue. This risk can be mitigated with surgery, although surgery itself carries risk. High radiation dosage often results in permanent hypothyroidism.
+
+Feline hyperthyroidism - Radioactive iodine
+Thioureylenes induce radioresistance in humans which limits the effectiveness of radioactive iodine treatment. There is no evidence to support for this theory in felines; however, it is still recommended that anti-thyroid drugs should be discontinued for a week or two before starting treatment.
+
+Feline hyperthyroidism - Iodine intake
+Limiting the iodine intake of a hyperthyroid cat is a cheap and easy way to manage hyperthyroidism and can be done by the owner with ease; however, it is not always effective, cats may refuse food or find other sources of iodine. The long term effects of this treatment are not currently known.
+
+Feline hyperthyroidism - Iodine intake
+In one unpublished study 96% of cats being treated with a diet of less than 0.2 mg/kg of iodine were euthyroid by 180 days. Most failures were attributed to cats having an alternative source of iodine. The long term effects of an iodine diet are not currently known. Iodine limited diets present an alternative for owners with financial issues and in cats with concurrent illness that would make other options more dangerous.
+
+Feline hyperthyroidism - Concurrent renal disease
+Concurrent renal disease is not uncommon in hyperthyroid cats and renal disease can complicate treatment for hyperthyroidism. The two symptoms may mask the serum levels used to diagnose the other condition. Some estimates have up to 40% of hyperthyroid cats having chronic kidney disease.
+
+Feline hyperthyroidism - Concurrent renal disease
+Because of the increased heart rate and decreased vascular resistance in hyperthyroid cats, hyperthyroid cats also have increased renal plasma flow and an increased glomerular filtration rate. When hyperthyroidism is treated these decrease and an increase of serum creatinine often occurs, which may cause azotaemia and in some cases renal failure. In one study 15% of cats with treated hyperthyroidism developed azotaemia.
+
+Feline hyperthyroidism - Concurrent renal disease
+There are ways to try and measure if a cat will develop renal disease following hyperthyroidism but these do not accurately predict azotaemia and renal disease. Thus the best practice is to trial methimazole then measure serum biochemistry and analyse urine before starting permanent hyperthyroid treatment (radioactive iodine and thyroidectomy).
+
+Feline hyperthyroidism - Concurrent renal disease
+When cats have renal disease and hyperthyroidism dietary or drug related treatments are used to minimise hyperthyroid symptoms without hastening renal failure.
+
+Feline hyperthyroidism - Post-treatment
+Following treatment patients should receive a follow up after 1 month, 3 months, 6 months, and 12 months. A physical examination should be carried out alongside serum biochemistry and measurement of serum thyroxine levels to confirm the cat is no longer hyperthyroid and to diagnose iatrogenic hypothyroidism.
+
+Feline hyperthyroidism - Prognosis
+Between 93 and 95% of cats treated with radioactive iodine become euthyroid without further need for treatment. Reasons for failing to achieve euthyroidism can be due to adenoma, adenomatous hyperplasia, carcinoma, or an error in the administration of the treatment.
+
+Feline hyperthyroidism - Prognosis
+Rarely some cats will redevelop hyperthyroidism up to 6 years after treatment, this is likely due to new foci caused by new mutations in the tissue than any failure of treatment.
+
+Feline hyperthyroidism - Prognosis
+The average age of death for a cat that has received radioactive iodine treatment for hyperthyroidism is 15 years. Studies have found survival times of between 417 days and 2 years for all cats receiving any form of treatment.

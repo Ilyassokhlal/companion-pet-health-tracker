@@ -1,0 +1,47 @@
+Feline coronavirus
+Feline coronavirus (FCoV) is a positive-stranded RNA virus that infects cats worldwide. It is a coronavirus of the species Alphacoronavirus suis, which includes canine coronavirus (CCoV) and porcine transmissible gastroenteritis coronavirus (TGEV). FCoV has two different forms: feline enteric coronavirus (FECV), which infects the intestines, and feline infectious peritonitis virus (FIPV), which causes the disease feline infectious peritonitis (FIP).
+
+Feline coronavirus
+Feline coronavirus is typically shed in faeces by healthy cats, and transmitted by the fecal-oral route to other cats.  In environments with multiple cats, the transmission rate is much higher compared to single-cat environments. The virus is insignificant until mutations cause it to be transformed from FECV to FIPV. FIPV causes feline infectious peritonitis, for which treatment is generally symptomatic and palliative only. The drug GS-441524 shows promise as an antiviral treatment for FIP, but at the moment it still requires further research. The drug GC376 is also being studied and developed.
+
+Feline coronavirus - Prevalence
+Feline coronavirus is found in cat populations around the world. The only known exceptions are on the Falkland Islands and the Galapagos, where studies found no occurrences of FCoV antibodies in cats tested.
+
+Feline coronavirus - Feline enteric coronavirus (FECV)
+Feline enteric coronavirus is responsible for an infection of the mature gastrointestinal epithelial cells (see also enterocytes, brush border, microvilli, villi). This intestinal infection has few outward signs, and is usually chronic. The virus is excreted in the feces of the healthy carrier, and can be detected by polymerase chain reaction (PCR) of feces or by PCR testing of rectal samples.
+
+Feline coronavirus - Feline enteric coronavirus (FECV)
+Cats living in groups can infect each other with different strains of the virus during visits to a communal litter tray. Some cats are resistant to the virus and can avoid infection or even becoming carriers, while others may become FECV carriers.
+
+Feline coronavirus - Feline infectious peritonitis virus (FIPV) and Feline infectious peritonitis
+The virus becomes feline infectious peritonitis virus (FIPV) when random errors occur in the virus infecting an enterocyte, causing the virus to mutate from FECV to FIPV.
+
+Feline coronavirus - Feline infectious peritonitis virus (FIPV) and Feline infectious peritonitis
+In their pre-domestication natural state, cats are solitary animals and do not share space (hunting areas, rest areas, defecation sites, etc.). Domestic cats living in a group therefore have a much higher epidemiological risk of mutation. After this mutation, the FCoV acquires a tropism for macrophages, while losing intestinal tropism.
+
+Feline coronavirus - Feline infectious peritonitis virus (FIPV) and Feline infectious peritonitis
+In a large group of cats, n, the epidemiological risk of mutation (E) is higher and expressed theoretically as: E = n2 −n. A house hosting 2 cats therefore has risk of mutation E = 2. When 4 kittens (6 cats in total) are born into this house, the risk increases from 2 to 30 (62−6). Overcrowding increases the risk of mutation and conversion from FECV to FIPV, which constitutes a major risk factor for the development of feline infectious peritonitis (FIP) cases. FIP has been shown to develop in cats whose immunity is low; such as younger kittens, old cats, immunosuppression due to viral—FIV (feline immunodeficiency virus) and/or FeLV (feline leukemia virus) and stress, including the stress of separation and adoption.
+
+Feline coronavirus - Feline infectious peritonitis virus (FIPV) and Feline infectious peritonitis
+Infection of macrophages by FIPV is responsible for development of a fatal granulomatous vasculitis, or FIP (see granuloma).  Development of FIP depends on two factors: virus mutation and low immunity where virus mutation depends on the rate of mutation of FECV to FIPV and the immune status depends on the age, the genetic pool and the stress level. High immune status will be more effective at slowing down the virus.
+
+Feline coronavirus - Colostrum
+Other molecules from colostrum and cat milk, could also bear this coverage: lactoferrin, lactoperoxidase, lysozyme, rich proline polypeptide — PRP and alpha-lactalbumine. Lactoferrin has many properties that make it a very good candidate for this anti-coronavirus activity:
+
+Feline coronavirus - Colostrum
+The lactoferrin anti-viral activity is sialic-acid–dependent.
+
+Feline coronavirus - Colostrum
+The structures of the polypeptide chain and carbohydrate moieties of bovine lactoferrin (bLF) are well established. bLF consists of a 689-amino acid polypeptide chain to which complex and high-mannose-type glycans are linked.
+
+Feline coronavirus - Other components
+Many oligosaccharides (glycan) which are known for their anti-viral properties which is thought to be primarily due to their inhibition of pathogen binding to host cell ligands.
+
+Feline coronavirus - Other components
+Many cytokines (interferon, etc.), whose role by oro-mucosal route seems very important.
+
+Feline coronavirus - Other components
+Sialic acid: during lactation, neutralizing oligo-saccharides binding sialic acid decreases when it binds increasingly to glycoproteins. (The APN is a glycoprotein.) The anti-viral effect of lactoferrin is increased by the removal of sialic acid.
+
+Feline coronavirus - Other protective factors
+Other assumptions may help to explain this resistance to FCoV infections by kittens. In the first weeks of life, APN could be immature because highly manno-glycosylated. The spikes of CoV could then not be bound. Factors in breastmilk may inhibit the synthesis of fANP by enterocytes, as already described with fructose or sucrose.

@@ -1,0 +1,122 @@
+Pancreatitis (veterinary)
+Pancreatitis is a common condition in cats and dogs. Pancreatitis is inflammation of the pancreas that can occur in two very different forms. Acute pancreatitis is sudden, while chronic pancreatitis is characterized by recurring or persistent form of pancreatic inflammation. Cases of both can be considered mild or severe. It is currently undecided whether chronic pancreatitis is a distinct disease or a form of acute pancreatitis. Other forms such as auto-immune and hereditary pancreatitis are presumed to occur but the existence of these forms has not been proven.
+
+Pancreatitis (veterinary)
+Pancreatitis occurs in approximately 0.8% of dogs and 0.6% of cats. Severe pancreatitis is often fatal.
+
+Pancreatitis (veterinary) - Background
+The pancreas is composed of two sections: the smaller endocrine portion, which is responsible for producing hormones such as insulin, somatostatin, and glucagon, and the larger, exocrine portion, which produces enzymes needed for the digestion of food. Acinar cells make up 82% of the total pancreas; these cells are responsible for the production of the digestive enzymes.
+
+Pancreatitis (veterinary) - Pathogenesis
+The pathogenesis of pancreatitis is not well understood. Both genetic and environmental factors are involved in developing pancreatitis. In most acute pancreatitis cases there is premature activation and retention of zymogens of the acinar cells. These zymogens become pancreatic enzymes. Activated enzymes will get into the pancreatic tissue and later the peritoneal cavity and circulation.  The effects of this include: interstitial oedema, necrosis of the acinar cells, haemorrhage, and necrosis of the peripancreatic fat; these trigger an inflammatory response from neutrophils and macrophages. The aetiology behind this disruption is unknown.
+
+Pancreatitis (veterinary) - Pathophysiology
+Pancreatitis is caused by autodigestion of the pancreas thought to begin with an increase in secretion of pancreatic enzymes in response to a stimulus, which can be any source from table scraps to getting into the garbage to drugs, toxins, and trauma. The digestive enzymes are released too quickly and begin acting on the pancreas instead of the food they normally digest. Once the process cascades, inflammatory mediators and free radicals are released and pancreatitis develops, causing amplification of the process.
+
+Pancreatitis (veterinary) - Causes
+The aetiology of pancreatitis in cats and dogs is unknown in the majority of cases. The amount of described causes for dogs is low and even lesser for cats. The causes of pancreatitis in humans is vastly different from that of cats and dogs. Two studies have suggested that hypertriglyceridaemia is a cause of pancreatitis in the Miniature Schnauzer; however, there is no evidence of this as a cause in other breeds. Another study has identified mutations of the SPINK1 gene in the Miniature Schnauzer as being associated with pancreatitis; however, another study found no association between SPINK1 mutations and pancreatitis, it instead demonstrated that the mutations were common amongst Schnauzers.
+
+Pancreatitis (veterinary) - Causes
+Iatrogenic pancreatitis is caused by certain drugs. The most common drugs that cause iatrogenic pancreatitis are potassium bromide, phenobarbital, L-asparaginase, azathioprine, and meglumine antimonate.
+
+Pancreatitis (veterinary) - Causes
+Suspected causes of pancreatitis in cats includes: abdominal trauma, ischaemia, acute hypercalcaemia, organophosphate toxicity, pancreatic tumour, and pancreatic ductal obstruction.
+
+Pancreatitis (veterinary) - Causes
+Glucocorticoids were once considered a cause of pancreatitis in both dogs and humans. Better understanding of both pancreatitis and glucocorticoids has led to this belief disappearing. Glucocorticoids are not considered a risk factor for pancreatitis anymore.
+
+Pancreatitis (veterinary) - Clinical signs
+Clinical symptoms of pancreatitis vary. Some animals will be asymptomatic or just have mild anorexia whilst others will have serious symptoms such as cardiac problems. Most symptoms are not directly caused by pancreatitis itself.
+
+Pancreatitis (veterinary) - Clinical signs
+One study found the most common symptoms of pancreatitis in dogs to be: lethargy (88%), anorexia (86%), emesis (83%), and abdominal pain (59%).
+
+Pancreatitis (veterinary) - Clinical signs
+Symptoms common in cats with pancreatitis include: anorexia (63–97%), dehydration (33–96%), lethargy (28–100%), emesis (35–76%), pallor (30%), icterus (16–24%), weight loss (20–61%), and diarrhoea (11–33%).
+
+Pancreatitis (veterinary) - Clinical signs
+Symptoms of severe pancreatitis in cats includes: disseminated intravascular coagulation, pulmonary thromboembolism, cardiovascular shock, and organ failure. Pancreatitis is a common cause of disseminated intravascular coagulation and thromboembolism in the cat. Two studies found 26% of cats with disseminated intravascular coagulation and 11.8% with pulmonary thromboembolism had pancreatitis.
+
+Pancreatitis (veterinary) - Clinical signs
+Acute pancreatitis can trigger a build-up of fluid, particularly in abdominal and thoracic (chest) areas, acute kidney injury, and cause inflammation in arteries and veins.  The inflammation triggers the body's clotting factors, possibly depleting them to the point of spontaneous bleeding. This form can be fatal in animals and in humans. Severe acute pancreatitis also causes cardiovascular shock, disseminated intravascular coagulation, systemic inflammatory response syndrome, and organ failure. Dehydration is observed in nearly all dogs with severe acute pancreatitis.
+
+Pancreatitis (veterinary) - Clinical signs
+Serious and severe symptoms that are not uncommon include: hypokalaemia, hyponatraemia, and hypochloraemia. Hyperkalaemia, hypernatraemia, and hypocalcaemia are reported but rare.
+
+Pancreatitis (veterinary) - Clinical signs
+Pancreatitis can result in exocrine pancreatic insufficiency, if the organ's acinar cells are permanently damaged; the pancreatic enzymes then need replacement with pancrelipase or similar products.  The damage can also extend into the endocrine portion of the pancreas, resulting in diabetes mellitus. Whether the diabetes is transient or permanent depends on the severity of the damage to the endocrine pancreas beta cells.
+
+Pancreatitis (veterinary) - Clinical signs
+Extrahepatic biliary duct obstruction has been reported in both the cat and dog. The pancreas —being inflamed— compresses the bile duct which leads to biliary system distension and icterus.
+
+Pancreatitis (veterinary) - Risk factors
+Although various causes of dog pancreatitis are known, such as drugs, fatty diet, trauma, etc., the pathophysiology is very complex. Pancreatitis can be idiopathic; no real causation factor can be found. Obese  animals as well as animals fed a diet high in fat may be more prone to developing acute and chronic pancreatitis. Certain breeds of dogs are considered predisposed to developing pancreatitis including Miniature Schnauzers, Cocker Spaniels, and some terrier breeds. Miniature Schnauzers as a breed tend toward developing hyperlipidemia, an excess of circulating fats in the blood. The breed that appears to be at risk for the acute form of pancreatitis is the Yorkshire Terrier, while Labrador Retrievers and Miniature Poodles seem to have a decreased risk for the acute form of the disease.  Genetics may play a part in the risk factor. Certain cat breeds may have a predisposition. Dogs suffering from diabetes mellitus, Cushing's disease (hyperadrenocorticism), hypothyroidism, and epilepsy have been reported to have an increased risk but no there is a lack of evidence to support a link between the conditions and pancreatitis. Diabetes and hypothyroidism are also associated with hyperlipidemia. Those with other types of gastrointestinal conditions and dogs that have had previous pancreatitis attacks are also at increased risk for the disorder.
+
+Pancreatitis (veterinary) - Risk factors
+In cats, a study found an association with inflammatory bowel disease and cholangitis with pancreatitis. Triaditis is a medical condition/term for when a cat has all three conditions. 50–67% of cats with pancreatitis have triaditis. In cats with cholangitis 50–80% have pancreatitis. The cause of this and the relationship between the conditions is not understood.
+
+Pancreatitis (veterinary) - Age of onset
+Pancreatitis can occur at any age but most animals with pancreatitis are middle-aged to elderly.
+
+Pancreatitis (veterinary) - Diagnosis
+Histopathological methods of diagnosis have been reported to diagnose up to 90% of clinically healthy dogs and 65% of cats with pancreatitis. Histopathology is not recommended for the diagnosis of pancreatitis on its own.
+
+Pancreatitis (veterinary) - Diagnosis
+Complete blood count, serum biochemistry, and urinalysis are not helpful for diagnosing pancreatitis; however, they are useful to exclude differential diagnosis and confirm comorbidities.
+
+Pancreatitis (veterinary) - Diagnosis
+Haemotological findings that can occur include: anaemia, leukopaenia, and thrombocytopaenia. These are not indicative of pancreatitis but instead symptoms of it.
+
+Pancreatitis (veterinary) - Pancreatic lipase assay
+Pancreatic lipase is an enzyme produced by the acinar cells of the pancreas. This makes measurement of it the most effective way to diagnose pancreatitis. Pancreatic lipase immunoreactivity assays are the most accurate type of assay for this. The sensitivity for  these assays are quite accurate.
+
+Pancreatitis (veterinary) - Serum amylase and lipase activities
+Serum amylase and lipase activities are not a useful indicator for pancreatitis as it can be synthesised by non-pancreatic tissue and the tests cannot distinguish the tissue origin. In one study 50% of dogs with increased amylase and lipase activities did not have any other evidence of pancreatitis. In cats the test has little to no clinical use.
+
+Pancreatitis (veterinary) - Trypsin-like immunoreactivity
+Serum trypsin-like immunoreactivity assays measure the amount of trypsinogen and trypsin in the serum. The tests are different for cats and dogs. In dogs results indicative of pancreatitis may also be caused by renal failure and enteropathies. In cats low sensitivity and other conditions—gastrointestinal diseases, azotemia—that produce similar results mean it is not a useful tool for diagnosis of pancreatitis.
+
+Pancreatitis (veterinary) - Radiography
+The majority of cats and dogs with pancreatitis show no abnormalities on radiographs. Instead radiography serves as a way to diagnose or exclude other conditions. Findings possible in animals with pancreatitis include:f increased opacity of soft tissue, a decrease in serosal detail in the cranial right abdomen, gastric displacement, duodenum displacement, ascites, and a cranial abdominal mass.
+
+Pancreatitis (veterinary) - Ultrasound
+Ultrasonography of the abdomen is the best method of diagnosing pancreatitis in cats and dogs. Due to advances in ultrasonography it is a routine procedure for diagnosing pancreatitis. Hypoechoic areas within the pancreas, an increase in echogenicity of the mesentery around the pancreas, and pancreatic abnormalities are all common ultrasonographic findings in cases of pancreatitis. Some patients with pancreatitis will not present with any ultrasonographic abnormalities.
+
+Pancreatitis (veterinary) - Pathology
+Tissue samples should be collected from pancreatic lesions that can be seen during surgery. These lesions may include peripancreatic fat necrosis, pancreatic haemorrhage, and pancreatic congestion. Lesions are not always present and cannot always be distinguished from nodular hyperplasia and neoplasia.
+
+Pancreatitis (veterinary) - Pathology
+Histopathology can differentiate acute and chronic pancreatitis. Pancreatic fibrosis and acinar atrophy suggest chronic instead of acute pancreatitis.
+
+Pancreatitis (veterinary) - Cytology
+Cytological examination of the pancreas can be done with fine needle aspiration. This is less invasive than histopathology. FNA can differentiate acute pancreatitis, on a smear there will be hypercellularity and degraded neutrophils.
+
+Pancreatitis (veterinary) - Treatment
+Due to the unknown aetiology treatment is supportive and based on what symptoms the animal shows. Underlying conditions such as infections, toxicity, and endocrinopathies, etc. should be treated.
+
+Pancreatitis (veterinary) - Fluid therapy
+Severe pancreatitis can cause dehydration and hypovolaemia, this can be treated with intravenous fluid therapy. When the patient has hypoalbuminaemia or hypotension colloid fluids should be used instead of crystalloid fluids that are normally used.
+
+Pancreatitis (veterinary) - Feeding
+Historically it was believed withholding food was beneficial, this is no longer the case. Current practice is to provide enteral and parenteral alimentation. Jejunal feeding is the preferred method for this.
+
+Pancreatitis (veterinary) - Feeding
+Jejunostomy feeding tubes can be inserted following either a laparoscopy or laparotomy
+
+Pancreatitis (veterinary) - Plasma transfusion
+Frozen plasma transfusion is a controversial treatment for pancreatitis in dogs. There is little supportive evidence it helps, with one study finding dogs treated with plasma transfusion to have worse outcomes, although the study did not control for treatment and did not randomise the groups.
+
+Pancreatitis (veterinary) - Analgesia
+Pancreatitis causes pain which can be responsible for numerous side effects, including: anorexia, decreased blood flow to abdominal organs, tachycardia, and catabolism. Analgesia should be given to all patients with pancreatitis. Opioids are usually required. The most common analgesics for pancreatitis are: buprenorphine, fentanyl, hydromorphone morphine, lidocaine, and ketamine.
+
+Pancreatitis (veterinary) - Antiemesis
+Antiemesis is important in treating pancreatitis; maropitant (cerenia) is the drug of choice for treating emesis in pancreatitis cases. Maropitant is very safe and effective and may also have analgesic and anti-inflammatory effects which leads to it be the main drug for treating nausea and emesis in patients with pancreatitis.
+
+Pancreatitis (veterinary) - Hyporexia
+Patients with pancreatitis often develop anorexia from nausea, whilst treating nausea resolves the anorexia patients are still often hyporexic. An orexigenic will help resolve hyporexia. Capromorelin is the preferred treatment in both cats and dogs. Mirtazapine is another good option for cats and can be used in dogs.
+
+Pancreatitis (veterinary) - Surgery
+Surgery is only required in a few instances, namely: correction of biliary obstruction, feeding tube placement, and diagnostic peritoneal lavage. A laparoscopy allows for most of these procedures.
+
+Pancreatitis (veterinary) - Postpancreatitis management
+A low-fat diet is indicated. The use of drugs that are known to have an association with pancreatitis should be avoided. Some patients benefit from the use of pancreatic enzymes on a supplemental basis.  One study indicated that 57% dogs followed for six months after an acute pancreatitis attack, either continued to exhibit inflammation of the organ or had decreased acinar cell function, though they had no pancreatitis symptoms.

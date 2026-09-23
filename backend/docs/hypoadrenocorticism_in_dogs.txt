@@ -1,0 +1,101 @@
+Hypoadrenocorticism in dogs
+Hypoadrenocorticism in dogs, or, as it is known in people, Addison's disease, is an endocrine system disorder that occurs when the adrenal glands fail to produce enough hormones for normal function. The adrenal glands secrete glucocorticoids such as cortisol and mineralocorticoids such as aldosterone; when proper amounts of these are not produced, the metabolic and electrolyte balance is upset. Mineralocorticoids control the amount of potassium, sodium, and water in the body. Hypoadrenocorticism is fatal if left untreated.
+
+Hypoadrenocorticism in dogs
+The most common cause of inadequate adrenal production is idiopathic adrenocortical atrophy. All causes for hypoadrenocorticism are not yet known. The usual causes are genetic, often related to autoimmune disorders, where the body attacks and kill its own tissue ("immune mediated destruction"). Other cases are caused by various disease processes, including failure of the pituitary gland to secrete ACTH, the hormone which stimulates the adrenal production of cortisol.
+
+Hypoadrenocorticism in dogs
+Hypoadrenocorticism is more frequent in dogs than in humans; in fact, it may occur one hundred times more often in the canine population. It mostly affects young to middle-aged female dogs, as the average age at diagnosis being four years old (although it has been found in puppies and dogs up to twelve years old). About seventy percent of dogs that are diagnosed with hypoadrenocorticism are female. Hypoadrenocorticism is still relatively uncommon or underdiagnosed in dogs. Statistics gathered from a large veterinary hospital placed the number at 0.36 dogs per 1000. For an average veterinary practice with two veterinarians and 1500 canine patients, this would mean an average of one diagnosis of the disease each year.
+
+Hypoadrenocorticism in dogs - Signs and symptoms
+The most common clinical manifestations are related to mental status and gastrointestinal function; they include lethargy, anorexia, vomiting, weight loss, and weakness. Additional findings may include dehydration, bradycardia, weak femoral pulses, abdominal pain, lack of appetite, tremors or shaking, muscle weakness, low body temperature, collapse, and pain in the hindquarters. Polyuria and polydipsia, diarrhea, and shivering are occasionally reported.
+
+Hypoadrenocorticism in dogs - Signs and symptoms
+Hypoglycemia can also be present, and initially may be confused with a seizure disorder or an insulin-secreting pancreatic tumor (insulinoma).  Hypoadrenocorticism may also be misdiagnosed as food poisoning, parvovirus enteritis, gastric volvulus, or spinal/joint problems, earning this disease nicknames like "the Great Mimic" and "the Great Imitator". It is possible not to see any signs of the disease until 90% of the adrenal cortex is no longer functioning.
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+If hyponatremia (low sodium) and hyperkalemia (high potassium) are severe, the resulting hypovolemia, prerenal azotemia, and cardiac arrhythmias may result in an Addisonian crisis. In severe cases, the patient may be presented in shock and moribund. Addisonian crisis must be differentiated from other life-threatening disorders such as diabetic ketoacidosis, necrotizing pancreatitis, and septic peritonitis.
+
+Hypoadrenocorticism in dogs - Causes
+The adrenal glands are located above the kidneys. The adrenal outer layer, or cortex, has three layers; each produces a specific type of steroid.
+
+Hypoadrenocorticism in dogs - Primary
+Primary adrenocortical insufficiency is the more common form of hypoadrenocorticism. All layers of the adrenal gland stop functioning; the problem is with the adrenal gland. This causes a deficiency of both mineralocorticoid and glucocorticoid secretion. Most cases are classified as idiopathic, although immune-mediated adrenocortical destruction is a likely cause. Bilateral destruction of the adrenal cortex by neoplasia (e.g. lymphosarcoma), granulomatous disease, or arterial thrombosis can also cause primary adrenocortical insufficiency. The destruction is progressive, although variable in rate, ultimately leading to complete loss of adrenocorotical function. A partial deficiency syndrome may occur initially, with signs manifested only during times of stress (e.g., boarding, travel, surgery).
+
+Hypoadrenocorticism in dogs - Secondary
+In secondary hypoadrenocorticism the problem is not in the adrenal gland but in the pituitary gland. Usually, the anterior portion of the pituitary gland produces a hormone, adrenocorticotropic hormone (ACTH), that signals the zona fasciculata and zona reticularis to produce their steroids. When the pituitary is unable to produce ACTH, these zones stop production of their hormones. The zona glomerulosa is not controlled by ACTH, and remains able to produce a normal amount of mineralocorticoids. A dog with secondary hypoadrenocorticism only needs to have medication to replace the glucocorticoid steroid cortisol. One dog in every 42 diagnosed with hypoadrenocorticism has the secondary form of the disease where mineralocorticoid production remains intact.
+
+Hypoadrenocorticism in dogs - Secondary
+Secondary adrenocortical insufficiency involves only a deficiency of glucocorticoid secretion. Destructive lesions (e.g. neoplasia, inflammation) in the pituitary gland or hypothalamus and chronic administration of exogenous glucocorticoids or megestrol acetate (cats) are the most common causes.
+
+Hypoadrenocorticism in dogs - Drug induced
+Drug induced (iatrogenic) hypoadrenocorticism is caused during abrupt cessation of a steroid medication. During steroid treatment, the adrenal glands do not function fully. The body senses the levels of the exogenous steroids in the system and therefore does not signal for additional production. The usual protocol for stopping steroid medications is not to eliminate them suddenly, but to withdraw from them gradually in a "tapering off" process, which allows the production to adjust to normal. If steroids are abruptly withdrawn, the dormant adrenal glands may not able to reactivate, and the body will need to have its adrenal glucocorticoid hormones replaced by medication.
+
+Hypoadrenocorticism in dogs - Diagnosis
+Hypoadrenocorticism is often tentatively diagnosed on the basis of history, physical findings, clinical pathology, and, for primary adrenal insufficiency, characteristic electrolyte abnormalities.
+
+Hypoadrenocorticism in dogs - Diagnosis
+Clinical pathology - Abnormalities may be identified on hematology, biochemistry and urinalysis. Elevated concentrations of potassium (hyperkalemia), and low sodium and chloride values (hyponatremia and hypochloremia) are the classic electrolyte alterations. The sodium/potassium ratio often is <27 (normal is between 27:1 and 40:1) and maybe <20 in animals with primary adrenal insufficiency. However, not all dogs have an abnormal electrolyte ratio during an Addisonian episode.
+
+Hypoadrenocorticism in dogs - Diagnosis
+ECG - The severity of the ECG abnormalities correlates with the severity of the hyperkalemia. Therefore, the ECG can be used to identify and estimate the severity of hyperkalemia and to monitor changes in serum potassium during therapy.
+
+Hypoadrenocorticism in dogs - Diagnosis
+Diagnostic imaging - Abdominal ultrasound may reveal small adrenal glands, suggesting adrenocortical atrophy. However, finding normal-sized adrenal glands does not rule out hypoadrenocorticism. Rarely, megaesophagus is evident on radiographs.
+
+Hypoadrenocorticism in dogs - Diagnosis
+ACTH stimulation test - Confirmation requires evaluation of an ACTH stimulation test. Baseline plasma cortisol and urine cortisol/Cr ratios are unreliable for confirming the diagnosis. One major diagnostic criterion is abnormally decreased post-ACTH plasma cortisol. Normal plasma cortisol after ACTH stimulation rules out adrenal insufficiency. The only accurate test for hypoadrenocorticism is an ACTH stimulation test; however, any administration of a steroid other than dexamethasone will invalidate this test. Carry out test by:
+
+Hypoadrenocorticism in dogs - Diagnosis
+Measuring serum cortisol before and after administration of ACTH gel or synthetic ACTH
+
+Hypoadrenocorticism in dogs - Diagnosis
+Normal dogs generally have post stimulation cortisol levels > 10 ug/dl.
+
+Hypoadrenocorticism in dogs - Diagnosis
+Post stimulation levels < 2 ug/dl is considered diagnostic and most Addison's patients are < 1 ug/dl.
+
+Hypoadrenocorticism in dogs - Diagnosis
+The ACTH stimulation test does not distinguish between primary and secondary hypoadrenocorticism, or adrenocortical destruction caused by mitotane overdose. Differentiation between primary and secondary hypoadrenocorticism can be made by periodically measuring serum electrolytes, baseline endogenous ACTH, or possibly serum or plasma aldosterone during the ACTH stimulation test. While most corticosteroid drugs will invalidate the results of an ACTH test, dexamethasone may be used in the event of an Addison's emergency without fear of compromising the results of the test.
+
+Hypoadrenocorticism in dogs - Diagnosis
+In general, hypoadrenocorticism is underdiagnosed in dogs, and one must have a clinical suspicion of it as an underlying disorder for many presenting complaints. Females are overrepresented (~70% of cases), and the disease often appears in middle age (four to seven years), although any age or gender may be affected. Dogs with hypoadrenocorticism may also have one of several autoimmune disorders. Because it is an endocrine disorder, they may also have neuropathy and some endocrine-related eye diseases.
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+If deterioration of the adrenal glands progresses far enough, a dog may experience an Addisonian crisis, an acute episode during which potassium levels increase (hyperkalemia), disrupting normal functions of the heart. Arrhythmia can result and blood pressure may drop to dangerously low levels, while the dog's kidneys may cease to function properly. Some 35% of canine Addison's cases are diagnosed as the result of an Addisonian crisis. It is a medical emergency.
+
+Hypoadrenocorticism in dogs - Whipworms
+Dogs with infected with the whipworm Trichuris trichiura can exhibit low sodium and high potassium values, as is seen in hypoadrenocorticism; however, their ACTH values are normal.
+
+Hypoadrenocorticism in dogs - Pacific Rim
+Breeds that began in the Pacific Rim, among them Akitas and Shiba Inus, tend to have higher potassium values in laboratory test, and elevated levels are not abnormal. Dogs who do not have hypoadrenocorticism have normal values on ACTH tests.
+
+Hypoadrenocorticism in dogs - Treatment
+Aggressiveness of therapy depends on the clinical status of the patient and the nature of the insufficiency (glucocorticoid, mineralocorticoid, or both). Many dogs and cats with primary adrenal insufficiency are presented in Addisonian crisis and require immediate, aggressive therapy. In contrast, secondary insufficiency often has a chronic course.
+
+Hypoadrenocorticism in dogs - Treatment
+Hypoadrenocorticism is treated with oral daily administration of fludrocortisone (trade name Florinef) or a monthly injection of desoxycorticosterone pivalate, DOCP (Percorten-V or Zycortal)  and daily prednisone or prednisolone. One drug is needed to supplement mineralcortidoids and the other to supplement corticosteroids. This effectively replaces what the adrenal cortex is failing to produce. Routine blood work is necessary in the initial stages until a maintenance dose is established. Most of the medications used in the therapy of hypoadrenocorticism cause excessive thirst and urination. It is absolutely vital to provide fresh drinking water for a canine with this disorder.
+
+Hypoadrenocorticism in dogs - Treatment
+If the owner knows about an upcoming stressful situation (shows, traveling etc.), the animals generally need an increased dose of prednisone (2-4 times maintenance) to help deal with the added stress. Avoidance of stress is important for dogs with hypoadrenocorticism. Physical illness also stresses the body and may mean that the medication(s) need to be adjusted during this time. Most dogs with hypoadrenocorticism have an excellent prognosis after proper stabilization and treatment.
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+Treatment is directed towards (1) correcting hypotension, hypovolemia, electrolyte imbalances, and metabolic acidosis; (2) improving vascular integrity, and (3) providing an immediate source of glucocorticoids. Rapid correction of hypovolemia is the first priority.
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+Restoring blood volume is vital to correcting hypotension, hypovolemia, and addressing electrolyte and metabolic imbalances. This is achieved by the rapid administration of fluids. This helps to correct hyponatremia, restore perfusion to organs, and reduce hyperkalemia through increased GFR and dilution effects. Further treatment of hyperkalemia is addressed if necessary. Often, the fluid therapy can sufficiently address hyperkalemia, but in the presence of significant cardiac abnormalities, the addition of calcium gluconate may be necessary in addition to glucose, insulin, or bicarb to promote intracellular shift of potassium.
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+Most patients show dramatic improvement within 24 to 48 hours of appropriate fluid and glucocorticoid therapy. Over the ensuing 2 to 4 days, a gradual transition from IV fluids to oral water and food is undertaken, and maintenance mineralocorticoid and glucocorticoid therapy is initiated. Failure to make this transition smoothly should raise suspicion of insufficient glucocorticoid supplementation, concurrent endocrinopathy (e.g. hypothyroidism), or concurrent illness (especially renal damage).
+
+Hypoadrenocorticism in dogs - Addisonian crisis
+It is important that after the crisis is corrected that the patient is put on a maintenance therapy of corticosteroids and mineralocorticoids.
+
+Hypoadrenocorticism in dogs - Epidemiology
+Hypoadrenocorticism is typically a disease of young to middle-aged female dogs, although Standard Poodles and Bearded Collies of both sexes are prone to the condition.
+
+Hypoadrenocorticism in dogs - Epidemiology
+Hypoadrenocorticism is an inherited disease in the following breeds (and therefore a higher proportion of dogs within these breeds are affected, compared to other breeds):
+
+Hypoadrenocorticism in dogs - Epidemiology
+Springer Spaniels: English Springer Spaniel and Welsh Springer Spaniel

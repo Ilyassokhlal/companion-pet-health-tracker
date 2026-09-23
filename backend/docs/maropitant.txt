@@ -1,0 +1,50 @@
+Maropitant
+Maropitant , sold under the brand name Cerenia among others, when used as maropitant citrate (USAN), is a neurokinin-1 (NK1) receptor antagonist developed by Zoetis specifically for the treatment of motion sickness and vomiting in dogs. It was approved by the FDA in 2007, for use in dogs and in 2012, for cats.
+
+Maropitant
+Maropitant mildly reduces intra-procedural inhaled anesthesia dose requirements but does not confer analgesia itself.
+
+Maropitant - Veterinary uses
+Injectable maropitant is used in dogs to treat and prevent acute vomiting; tablets are used for preventing vomiting from a variety of causes, though it requires a higher dose to prevent vomiting from motion sickness. The injectable version is also licensed for preventing and treating acute vomiting in cats.
+
+Maropitant - Veterinary uses
+Maropitant is effective in treating vomiting from a variety of causes, including gastroenteritis, chemotherapy, and kidney failure; when given beforehand, it can prevent vomiting caused by using an opioid as a premedication. Some have claimed that maropitant is better at treating vomiting than nausea, pointing to cats with chronic kidney disease who, when receiving maropitant, had a reduction in vomiting but no corresponding increase in appetite.
+
+Maropitant - Veterinary uses
+Maropitant has been used in acute cases of rapid or labored breathing to prevent vomiting that could lead to aspiration pneumonia. It has been given in combination with a benzodiazepine to cats prior to stressful events (such as a veterinary visit) to possibly relieve hypersensitivity.
+
+Maropitant - Veterinary uses
+When compared to other antiemetics, maropitant has similar or greater effectiveness to chlorpromazine and metoclopramide for  centrally mediated vomiting induced by apomorphine or xylazine. It works better than chlorpromazine and metoclopramide for vomiting peripherally induced induced with syrup of ipecac. Unlike dimenhydrinate and acepromazine, which are used for motion sickness, maropitant does not cause sedation.
+
+Maropitant - Veterinary uses
+Maropitant has been used as an adjunct treatment in severe bronchitis due to its weak anti-inflammatory effects. It alleviates visceral pain and has been found to reduce the amount of general anesthesia (both sevoflurane and isoflurane) needed in some operations.
+
+Maropitant - Veterinary uses
+Some believe that maropitant can be used in rabbits and guinea pigs to relieve pain caused by ileus (impaired bowel movements), though it lacks antiemetic effects in rabbits, who cannot vomit.
+
+Maropitant - Veterinary uses
+Maropitant is given orally, subcutaneously, and intravenously.
+
+Maropitant - Contraindications
+Maropitant is only indicated for dogs at least 16 weeks old, as some very young puppies suffered bone marrow hypoplasia (incomplete development ). It should also be used with caution in animals with suspected GI obstruction or toxin ingestion, as it can mask symptoms, thereby delaying the diagnosis.
+
+Maropitant - Contraindications
+It is not recommended to give maropitant for more than five consecutive days, as it tends to accumulate in the body due to one of the liver enzymes responsible for its metabolism, CYP2D15, becoming saturated. However, there have been studies where beagles who were given maropitant for two weeks in a row showed no signs of toxicity.
+
+Maropitant - Contraindications
+Because maropitant is metabolized by the liver, caution should be taken when giving it to dogs with liver dysfunction. Caution should also be taken when giving it with other drugs that are also highly protein-bound, such as NSAIDs, anticonvulsants, and some behavior-modifying drugs; such drugs compete with maropitant for binding to plasma proteins, increasing the concentration of unbound maropitant in the blood. Maropitant should also not be used with calcium channel antagonists (used to treat high blood pressure) or in animals with heart disease, as it has a slight affinity for calcium and potassium channels.
+
+Maropitant - Side effects
+Maropitant is safer than other antiemetics used in veterinary medicine, in part because of its high specificity for its target and thus not binding to other receptors in the central nervous system. Side effects in dogs and cats include hypersalivation, diarrhea, loss of appetite, and vomiting. Eight percent of dogs taking maropitant at doses meant to prevent motion sickness vomited right after, likely due to the local effects maropitant had on the gastrointestinal tract. Small amounts of food beforehand can prevent such post-administration vomiting.
+
+Maropitant - Side effects
+One of the most common side effects of subcutaneous administration is moderate to severe pain at the injection site. Although the manufacturer recommends keeping maropitant at room temperature, many people have noted that keeping it in the fridge reduces the sting upon injection. Only unbound maropitant causes pain – it is normally formulated with beta-cyclodextrin to increase solubility; at cooler temperatures, more of the maropitant remains bound to the cyclodextrin, leaving less maropitant unbound.
+
+Maropitant - Side effects
+While there is no pain related to the intravenous administration of maropitant, pushing a dose in too quickly can temporarily reduce blood pressure.
+
+Maropitant - Side effects
+Fewer than 1 in 10,000 dogs and cats experience anaphylactic reactions.
+
+Maropitant - Overdose
+Signs of maropitant overdose include lethargy, irregular or labored breathing, lack of muscle coordination, and tremors. Overdose of the oral formulation can cause salivation and nasal discharge, while overdose of intravenous maropitant can sometimes lead to reddish urine. The LD50 is high, being over 2,000 mg/kg for oral maropitant in rats.

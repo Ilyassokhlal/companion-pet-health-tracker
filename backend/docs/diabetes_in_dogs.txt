@@ -13,76 +13,100 @@ Type 1 diabetes, sometimes called "juvenile diabetes", is caused by destruction 
 Diabetes in dogs
 Gestational diabetes can develop in dogs as well. It can be prevented by behavioral and dietary management. Diabetes insipidus, which has nothing to do with blood sugar, but is a condition of insufficient antidiuretic hormone or resistance to it, also exists in dogs.
 
-Diabetes in dogs
+Diabetes in dogs - Classification and causes
+At present, there is no international standard classification of diabetes in dogs. Commonly used terms are:
+
+Diabetes in dogs - Classification and causes
 Insulin deficiency diabetes or primary diabetes, which refers to the destruction of the beta cells of the pancreas and their inability to produce insulin.
 
-Diabetes in dogs
+Diabetes in dogs - Classification and causes
 Insulin resistance diabetes or secondary diabetes, which describes the resistance to insulin caused by other medical conditions or by hormonal drugs.
 
-Diabetes in dogs
+Diabetes in dogs - Classification and causes
 While the occurrence of beta cell destruction is known, all of the processes behind it are not. Canine primary diabetes mirrors type 1 human diabetes in the inability to produce insulin and the need for exogenous replacement of it, but the target of canine diabetes autoantibodies has yet to be identified. Breed and treatment studies have been able to provide some evidence of a genetic connection. Studies have furnished evidence that canine diabetes has a seasonal connection not unlike its human Type 1 diabetes counterpart, and a "lifestyle" factor, with pancreatitis being a clear cause. This evidence suggests that the disease in dogs has some environmental and dietary factors involved. Canine obesity causes the corresponding diabetes in dogs also known as canine diabetes (Hoeing 2014).
 
-Diabetes in dogs
+Diabetes in dogs - Classification and causes
+Secondary diabetes may be caused by use of steroid medications, the hormones of estrus, acromegaly, (spaying can resolve the diabetes), pregnancy, or other medical conditions such as Cushing's disease. In such cases, it may be possible to treat the primary medical problem and revert the animal to non-diabetic status. Returning to non-diabetic status depends on the amount of damage the pancreatic insulin-producing beta cells have sustained.
+
+Diabetes in dogs - Classification and causes
 It happens rarely, but it is possible for a pancreatitis attack to activate the endocrine portion of the organ back into being capable of producing insulin once again in dogs. It is possible for acute pancreatitis to cause a temporary, or transient diabetes, most likely due to damage to the endocrine portion's beta cells. Insulin resistance that can follow a pancreatitis attack may last for some time thereafter. Pancreatitis can damage the endocrine pancreas to the point where the diabetes is permanent.
 
-Diabetes in dogs
+Diabetes in dogs - Genetic susceptibility of certain breeds
 This list of risk factors for canine diabetes is taken from the genetic breed study that was published in 2007. Their "neutral risk" category should be interpreted as insufficient evidence that the dog breed genetically shows a high, moderate, or a low risk for the disease. All risk information is based only on discovered genetic factors.
 
-Diabetes in dogs
+Diabetes in dogs - Gene therapy
+In February 2013 scientists successfully cured type 1 diabetes in dogs using a pioneering gene therapy.
+
+Diabetes in dogs - Pathogenesis
 The body uses glucose for energy. Without insulin, glucose is unable to enter the cells where it will be used for this and other anabolic ("building up") purposes, such as the synthesis of glycogen, proteins, and fatty acids. Insulin is also an active preventor of the breakdown or catabolism of glycogen and fat. The absence of sufficient insulin causes this breaking-down process to be accelerated; it is the mechanism behind metabolizing fat instead of glucose and the appearance of ketones.
 
-Diabetes in dogs
+Diabetes in dogs - Pathogenesis
 Since the glucose that normally enters the cells is unable to do so without insulin, it begins to build up in the blood where it can be seen as hyperglycemia or high blood glucose levels. The tubules of the kidneys are normally able to re-absorb glucose, but they are unable to handle and process the amount of glucose they are being presented with. At this point, which is called the renal threshold, the excess glucose spills into the urine (glycosuria), where it can be seen in urine glucose testing. It is the polyuria, or over-frequent urination, which causes polydipsia, or excessive water consumption, through an osmotic process. Even though there is an overabundance of glucose, the lack of insulin does not allow it to enter the cells. As a result, they are not able to receive nourishment from their normal glucose source. The body begins using fat for this purpose, causing weight loss; the process is similar to that of starvation.
+
+Diabetes in dogs - Symptoms
+The main symptoms which occur in nearly all dogs with diabetes mellitus are:
+
+Diabetes in dogs - Symptoms
+excessive water consumption; this condition is often called polydipsia.
 
 Diabetes in dogs - Symptoms
 frequent and/or excessive urination, known as polyuria, often requiring the dog to be let outside to urinate during the night,
 
 Diabetes in dogs - Symptoms
+abnormal increase in appetite, a condition known as polyphagia.,
+
+Diabetes in dogs - Symptoms
+weight loss; dogs with diabetes may also suffer from severe weight loss, weakness, anorexia and blindness.
+
+Diabetes in dogs - Symptoms
 Sometimes, the first sign of diabetes noticed by the owner may be that their dog either has become blind (due to the formation of cataracts in the eyes), or has vomiting, anorexia, lethargy and weakness (due to ketoacidosis).
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Checkups
 Although the symptoms of diabetes mellitus such as frequent urination, thirstiness, greater appetites and inactiveness are easily visible, frequent checking of the dog for the disease is required. The dog's body weight should be determined and calculated once every two weeks using weight scale. The daily caloric requirement by the dog's body and BCS should also be determined using a scale as part of dietary management in maintaining average body weight. The protein intake by the dog should also be considered and checked twice a month.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Checkups
 Blood pressure of the dog should also be constantly and daily checked in order to predict any future occurrence. The blood sugar level may also be checked using glucometer to check the glucose level in the body of the dog.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Management
 Early diagnosis and treatment can reduce the incidence of complications such as cataracts and neuropathy. Since dogs are insulin dependent, oral diabetes drugs, which require a functional endocrine pancreas with beta cells capable of producing insulin, are ineffective. Diabetic dogs require insulin therapy, which must be continued for life.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Management
+The goal of treatment is to regulate blood glucose using insulin and some probable diet and daily routine changes. The process may take a few weeks or many months and is similar as in type 1 diabetic humans. The aim is to keep the blood glucose values in an acceptable range. The commonly recommended dosing method is by "starting low and going slow" as indicated for people with diabetes.
+
+Diabetes in dogs - Management
 During the initial process of regulation and periodically thereafter, the effectiveness of the insulin dose at controlling blood glucose is evaluated. This is done by a series of blood glucose tests called a curve. Blood samples are taken and tested at intervals of one to two hours over a 12- or 24-hour period. The results are generally transferred into graph form for easier interpretation. They are compared against the feeding and insulin injection times for judgment. The curve provides information regarding the action of the insulin in the animal. It is used to determine insulin dose adjustments, determine lowest and highest blood glucose levels, discover insulin duration and, in the case of continued hyperglycemia, whether the cause is insufficient insulin dose or Somogyi rebound, where blood glucose levels initially reach hypoglycemic levels and are brought to hyperglycemic ones by the body's counterregulatory hormones. Curves also provide evidence of insulin resistance which may be caused by medications other than insulin or by disorders other than diabetes which further testing can help identify.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Management
 Other diagnostic tests to determine the level of diabetic control are fructosamine and glycated hemoglobin (GHb) blood tests which can be useful especially if stress may be a factor. While anxiety or stress may influence the results of blood or urine glucose tests, both of these tests measure glycated proteins, which are not affected by them. Fructosamine testing provides information about blood glucose control for an approximate 2- to 4-week period, while GHb tests measure a 2- to 4-month period. Each of these tests has its own limitations and drawbacks and neither are intended to be replacements for blood glucose testing and curves, but are to be used to supplement the information gained from them. While HbA1c tests are a common diagnostic for diabetes in humans, only recently has an A1C test become available for cats and dogs. The product is called A1CARE and is available from Baycom Diagnostics.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Management
 The diabetic pet is considered regulated when its blood glucose levels remain within an acceptable range on a regular basis. Acceptable levels for dogs are between 5 and 10 mmol/L or 90 to 180 mg/dL. The range is wider for diabetic animals than non-diabetics, because insulin injections cannot replicate the accuracy of a working pancreas.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Insulin therapy
 The general form of this treatment is an intermediate-acting basal insulin with a regimen of food and insulin every 12 hours, with the insulin injection following the meal. The most commonly used intermediate-acting insulins are NPH, also referred to as isophane, or Caninsulin, also known as Vetsulin, a porcine Lente insulin. While the normal diabetes routine is timed feedings with insulin shots following the meals, dogs unwilling to adhere to this pattern can still attain satisfactory regulation. Most dogs do not require basal/bolus insulin injections; treatment protocol regarding consistency in the diet's calories and composition along with the established feeding and injection times is generally a suitable match for the chosen intermediate-acting insulin.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Insulin therapy
 With Lantus and protamine zinc insulin (PZI) being unreliable in dogs, they are rarely used to treat canine diabetes. Bovine insulin has been used as treatment for some dogs, particularly in the UK. Pfizer Animal Health discontinued of all three types of its veterinary Insuvet bovine insulins in late 2010 and suggested patients be transitioned to Caninsulin. The original owner of the insulin brand, Schering-Plough Animal Health, contracted Wockhardt UK to produce them. Wockhardt UK has produced both bovine and porcine insulins for the human pharmaceutical market for some time.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Diet
 Most of the commercially available prescription diabetes foods are high in fiber, complex carbohydrates, and have proven therapeutic results. One primary concern is getting or keeping the animal eating, as use of the prescribed amount of insulin is dependent on eating full meals. When no meal is eaten, there is still a need for a basal dosage of insulin, which supplies the body's needs without taking food into consideration. Eating a partial meal means a reduction in insulin dose. Basal and reduced insulin dose information should be part of initial doctor–client diabetes discussions in case of need.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Diet
 It is possible to regulate diabetes without any diet change. If the animal will not eat a prescribed diet, it is not in the dog's best interest to insist on it; the amount of additional insulin required because a non-prescription diet is being fed is generally between 2–4%. Semi moist foods should be avoided as they tend to contain a lot of sugars. Since dogs with diabetes are prone to pancreatitis and hyperlipidemia, feeding a low-fat food may help limit or avoid these complications. A non-prescription food with a "fixed formula" would be suitable because of the consistency of its preparation. Fixed formula foods contain precise amounts of their ingredients so batches or lots do not vary much if at all. "Open formula" foods contain the ingredients shown on the label but the amount of them can vary, however they must meet the guaranteed analysis on the package. These changes may have an effect on the control of diabetes. Prescription foods are fixed formulas, while most non-prescription ones are open formula unless the manufacturer states otherwise.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Glucometers and urine test strips
 The use of an inexpensive glucometer and blood glucose testing at home can help avoid dangerous insulin overdoses and can provide a better picture of how well the condition is managed.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Glucometers and urine test strips
 A 2003 study of canine diabetes caregivers who were new to testing blood glucose at home found 85% of them were able to both succeed at testing and to continue it on a long-term basis. Using only one blood glucose reading as the reason for an insulin dose increase is to be avoided; while the results may be higher than desired, further information, such as the lowest blood glucose reading or nadir, should be available to prevent possible hypoglycemia.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Glucometers and urine test strips
 Urine strips are not recommended to be used as the sole factor for insulin adjustments as they are not accurate enough. Urine glucose testing strips have a negative result until the renal threshold of 10 mmol/L or 180 mg/dL is reached or exceeded for a period of time. The range of negative reading values is quite wide-covering normal or close to normal blood glucose values with no danger of hypoglycemia (euglycemia) to low blood glucose values (hypoglycemia) where treatment would be necessary. Because urine is normally retained in the bladder for a number of hours, the results of urine testing are not an accurate measurement of the levels of glucose in the bloodstream at the time of testing.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Glucometers and urine test strips
 Glucometers made for humans are generally accurate using canine and feline blood except when reading lower ranges of blood glucose (<80 mg/dL), (<4.44 mmol/L). It is at this point where the size difference in human vs animal red blood cells can create inaccurate readings. Glucometers for humans were successfully used with pets long before animal-oriented meters were produced. A 2009 study directly compared readings from both types of glucometers to those of a chemistry analyzer. Neither glucometer's readings exactly matched those of the analyzer, but the differences of both were not clinically significant when compared to analyzer results. All glucometer readings need to be compared to same sample laboratory values to determine accuracy.
 
-Diabetes in dogs - Symptoms
+Diabetes in dogs - Glucometers and urine test strips
 Some veterinarians are using continuous monitoring as part of the dog's treatment plan (2019). Sensors intended for humans, e.g. Abbot labs Freestyle Libre, can be applied and provide direct measurement of glucose levels eliminating the need for daily urine or blood checks.
 
 Diabetes in dogs - Ketones – ketoacidosis
@@ -100,7 +124,7 @@ When testing urine for ketones, the sample needs to be as fresh as possible. Ket
 Diabetes in dogs - Ketones – ketoacidosis
 At present, there is only one glucometer available for home use that tests blood for ketones using special strips for that purpose–Abbott's Precision Xtra. This meter is known as Precision, Optium, or Xceed outside of the US. The blood ketone test strips are very expensive; prices start at about US$50 for ten strips. It is most likely urine test strips–either ones that test only for ketones or ones that test for both glucose and ketones in urine would be used. The table above is a guide to when ketones may be present.
 
-Diabetes in dogs - Ketones – ketoacidosis
+Diabetes in dogs - Nonketotic hyperosmolar syndrome
 Nonketotic hyperosmolar syndrome (also known as hyperglycemic hyperosmolar syndrome) is a rare but extremely serious complication of untreated canine diabetes, which is a medical emergency. It shares the symptoms of extreme hyperglycemia, dehydration, and lethargy with ketoacidosis; because there is some insulin in the system, the body does not begin to turn to using fat as its energy source and there is no ketone production. There is not sufficient insulin available to the body for proper uptake of glucose, but there is enough to prevent ketone formation. The problem of dehydration in NHS is more profound than in diabetic ketoacidosis. Seizures and coma are possible. Treatment is similar to that of ketoacidosis, with the exceptions being that NHS requires that the blood glucose levels and rehydration be normalized at a slower rate than for DKA; cerebral edema is possible if the treatment progresses too rapidly.
 
 Diabetes in dogs - Dehydration
@@ -112,14 +136,23 @@ A check of the pet's gums and skin can indicate dehydration; gums become tacky a
 Diabetes in dogs - Dehydration
 Dehydration can change the way subcutaneous insulin is absorbed, so either hyperglycemia or hypoglycemia are possible; dehydration can also cause false negative or positive urine ketone test results. Hyperglycemia means more of a risk for dehydration.
 
-Diabetes in dogs - Treatment complications
+Diabetes in dogs - Hypoglycemia
 Hypoglycemia, or low blood glucose, can happen even with care, since insulin requirements can change without warning. Some common reasons for hypoglycemia include increased or unplanned exercise, illness, or medication interactions, where another medication potentiates the effects of the insulin. Vomiting and diarrhea episodes can bring on a hypoglycemia reaction, due to dehydration or simply a case of too much insulin and not enough properly digested food. Symptoms of hypoglycemia need to be taken seriously and addressed promptly. Since serious hypoglycemia can be fatal, it is better to treat a suspected incident than to fail to respond quickly to the signs of actual hypoglycemia. Dr. Audrey Cook addressed the issue in her 2007 article on diabetes mellitus: "Hypoglycemia is deadly; hyperglycemia is not. Owners must clearly understand that too much insulin can kill, and that they should call a veterinarian or halve the dose if they have any concerns about a pet's well-being or appetite. Tell owners to offer food immediately if the pet is weak or is behaving strangely."
 
-Diabetes in dogs - Treatment complications
+Diabetes in dogs - Clinical signs
+loss of excretory or bladder control (sudden house accident)
+
+Diabetes in dogs - Clinical signs
+vomiting, and then loss of consciousness and possible seizures
+
+Diabetes in dogs - Clinical signs
 Successful home treatment of a hypoglycemia event depends on being able to recognize the symptoms early and responding quickly with treatment. Trying to make a seizing or unconscious animal swallow can cause choking on the food or liquid. There is also a chance that the materials could be aspirated (enter the lungs instead of being swallowed). Seizures or loss of consciousness because of low blood glucose levels are medical emergencies.
 
-Diabetes in dogs - Treatment complications
+Diabetes in dogs - Treatment
 Food should be offered at the first signs of possible hypoglycemia. If the animal refuses it, a sugar solution (corn syrup, honey, pancake syrup, etc.) should be poured on the finger and rubbed on its gums or under the tongue (sublingually). The solution must be applied this way to prevent possible aspiration of it. Intervet suggests one tablespoon of a sugar solution rubbed onto the gums, regardless of the size of the dog. Another hypoglycemia formula is 1 gram of glucose for every kilogram (2.2 lb) of the animal's body weight. Since sugar acts quickly, a response should be seen within a minute or two.
 
-Diabetes in dogs - Treatment complications
+Diabetes in dogs - Treatment
 Honey, syrup, or sugar, as simple carbohydrates, act rapidly and will make the blood glucose rise, but the rise will not last very long, as they are broken down quickly by the body. Feeding something containing complex carbohydrates when the pet is able to eat will make sure another hypoglycemia event does not overtake the rapid rise in blood glucose levels from the sugar solution. Complex carbohydrates take longer to be broken down by the body, so they do not raise blood glucose levels until some time after being eaten. A small meal should be fed and the animal taken for medical evaluation to determine if further treatment is needed. Treatment of a serious hypoglycemia episode is similar to that of diabetic humans: using glucose or glucagon infusions, depending on severity. A part from the medicinal way, lifestyle management of the dog can also be considered when preventing a diabetes attack on the dog. Physical exercising activities such as homeopathy2, walking and swimming of the dog are suggested under behavioral management in treating diabetes because it results in tissue preservation. Dietary management in food service is also essential in preventing diabetes attack. A dietary management may include low fat content foods, complex carbohydrates that aid in slowing down glucose absorption, protein and fiber.
+
+Diabetes in dogs - Epidemiology
+The prevalence of diabetes mellitus in the dog ranges between 0.32% and 1.33%.

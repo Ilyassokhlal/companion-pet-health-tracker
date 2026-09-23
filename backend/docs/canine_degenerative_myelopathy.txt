@@ -1,0 +1,59 @@
+Canine degenerative myelopathy
+Canine degenerative myelopathy, also known as chronic degenerative radiculomyelopathy, is an incurable, progressive disease of the canine spinal cord that is similar in many ways to amyotrophic lateral sclerosis (ALS). Onset is typically after the age of 7 years and it is seen most frequently in the German Shepherd dog, Pembroke Welsh Corgi, and boxer dog, though the disorder is strongly associated with a gene mutation in SOD1 that has been found in 43 breeds as of 2008, including the Wire Fox Terrier, Chesapeake Bay Retriever, Rhodesian Ridgeback, and Cardigan Welsh Corgi. Progressive weakness and incoordination of the rear limbs are often the first signs seen in affected dogs, with progression over time to complete paralysis. Myelin is an insulating sheath around neurons in the spinal cord.  One proposed cause of degenerative myelopathy is that the immune system attacks this sheath, breaking it down.  This results in a loss of communication between nerves in lower body of the animal and the brain.
+
+Canine degenerative myelopathy - Testing
+The Orthopedic Foundation for Animals has a DNA saliva test to screen for the mutated gene that has been seen in dogs with degenerative myelopathy. Now that a test is available the disease can be bred out of breeds with a high preponderance. The test is only recommended for predisposed breeds, but can be performed on DNA from any dog on samples collected through swabbing the inside of the animal's cheek with a sterile cotton swab or through venipuncture.
+
+Canine degenerative myelopathy - Testing
+The test determines whether the mutated copy of SOD1 is present in the DNA sample submitted. It must be interpreted with caution by a veterinary clinician in combination with the animal's clinical signs and other lab test results.
+
+Canine degenerative myelopathy - Testing
+Normal / Normal (N/N, or 'clear'): The dog does not have the mutation and is extremely unlikely to develop degenerative myelopathy. There have been cases, however, in which dogs that tested clear were found to have DM upon necropsy.
+
+Canine degenerative myelopathy - Testing
+Normal / Abnormal (N/A or 'carrier'): The dog has one mutated copy of the gene (is heterozygous) and is a carrier but will not have degenerative myelopathy though there has now been some cases of heterozygous carriers developing DM. It will be possible for it to pass the mutation to offspring. A thorough examination of the dog's pedigree and DNA testing should be undertaken prior to breeding a dog with this result.
+
+Canine degenerative myelopathy - Testing
+Abnormal / Abnormal (A/A or 'At Risk'): The dog has two copies (is homozygous) for the mutation and is at risk for degenerative myelopathy.
+
+Canine degenerative myelopathy - Genetics
+Breeding risks for degenerative myelopathy can be calculated using the Punnett Square:
+
+Canine degenerative myelopathy - Genetics
+If both parents are clear (N/N) then all of the puppies will be clear.
+
+Canine degenerative myelopathy - Genetics
+If one parent is a carrier (N/A) and one is clear (N/N) each puppy has a 50% chance of being clear and a 50% chance of being a carrier.
+
+Canine degenerative myelopathy - Genetics
+If both parents are carriers (N/A) each puppy has a 25% chance of being clear (N/N), 50% chance of being a carrier (N/A), and 25% chance of being affected and carrier (A/A)
+
+Canine degenerative myelopathy - Genetics
+If one parent is clear (N/N) and one parent is affected (A/A) then all puppies will be carriers (N/A)
+
+Canine degenerative myelopathy - Genetics
+If one parent is a carrier (N/A) and one is at risk (A/A) each puppy has a 50% chance of being a carrier(N/A) and 50% chance of being affected and carrier (A/A)
+
+Canine degenerative myelopathy - Genetics
+If both parents are at risk (A/A) then all puppies will be affected and carrier (A/A)
+
+Canine degenerative myelopathy - Symptoms
+Degenerative myelopathy initially affects the back legs and causes muscle weakness and loss, and lack of coordination.  These cause a staggering effect that may appear to be arthritis. The dog may drag one or both rear paws when it walks. This dragging can cause the nails of one foot to be worn down.  The condition may lead to extensive paralysis of the back legs. As the disease progresses, the animal may display symptoms such as incontinence and has considerable difficulties with both balance and walking. If allowed to progress, the animal will show front limb involvement and extensive muscle atrophy and paralysis.  Eventually cranial nerve or respiratory muscle involvement necessitates euthanasia or long term palliative care.
+
+Canine degenerative myelopathy - Symptoms
+Progression of the disease is generally slow but highly variable. The animal could be crippled within a few months, or may survive as long as three years or more.
+
+Canine degenerative myelopathy - Causes
+The etiology of this disease is unknown. Recent research has shown that a mutation in the SOD1 gene is a risk factor for developing degenerative myelopathy in several breeds. Mutations in SOD1 are also associated with familial amyotrophic lateral sclerosis (Lou Gehrig's disease) in people. More than 100 SOD1 gene mutations are involved in human familial amyotrophic lateral sclerosis (ALS), and the pathologic spinal lesions of ALS are similar to those of canine DM, making canine DM a potentially useful animal model of ALS.
+
+Canine degenerative myelopathy - Causes
+Known causes of spinal cord dysfunction should be excluded before accepting the diagnosis of degenerative myelopathy;  disc disease (protrusions) or spinal cord tumors can cause compression of the spinal cord with similar signs to degenerative myelopathy.
+
+Canine degenerative myelopathy - Treatment
+Degenerative myelopathy is an irreversible, progressive disease that cannot currently be cured. There are no treatments to currently stop the disease. A 2020 study suggested that laser therapy can slow the progression of disease.
+
+Canine degenerative myelopathy - Exercise
+Exercise has been recommended to maintain the dog's ability to walk. Physiotherapy may prolong the length of time that the dog remains mobile and increase survival time. Canine hydrotherapy (swimming) may be more useful than walking. Use of a belly sling or hand-held harness allows the handler the ability to support the dog's hind legs for exercising or going up and down stairs. A 2-wheel dog cart, or "dog wheelchair" can allow the dog to remain active and maintain its quality of life once signs of weakness or paralysis of the hind limbs is detected.
+
+Canine degenerative myelopathy - Prognosis
+The prognosis for the disease is generally poor. Aggressive therapy may be used to combat the disease, but even this puts the life expectancy at only around 14 months. It is recommended to put the dog to sleep at around 12 months, to prevent unnecessary suffering that comes from the disease. Some dogs have lived for many years with the disease, with one female boxer even living for 11 years. Without treatment, survival is around 3 months. The disease progresses rapidly without treatment, but this option arguably comes with less suffering. The dog begins to realize it is ill during the late stages. Some dogs have even appeared to be combating the disease on their own, walking on their own and doing exercise. The record survival without treatment is 14 years.

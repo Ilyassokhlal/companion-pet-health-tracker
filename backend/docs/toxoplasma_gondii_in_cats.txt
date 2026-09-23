@@ -1,0 +1,8 @@
+Toxoplasma gondii - Sexual reproduction in the feline definitive host
+When a feline is infected with T. gondii (e.g. by consuming an infected mouse carrying the parasite's tissue cysts), the parasite survives passage through the stomach, eventually infecting epithelial cells of the cat's small intestine. Inside these intestinal cells, the parasites undergo sexual development and reproduction, producing millions of thick-walled, zygote-containing cysts known as oocysts. Felines are the only definitive host because they lack expression of the enzyme delta-6-desaturase (D6D) in their intestine. This enzyme converts linoleic acid; the absence of expression allows systemic linoleic acid accumulation. Recent findings showed that this excess of linoleic acid is essential for T. gondii sexual reproduction.
+
+Toxoplasma gondii - Feline shedding of oocysts
+Infected epithelial cells eventually rupture and release oocysts into the intestinal lumen, whereupon they are shed in the cat's feces. Oocysts can then spread to soil, water, food, or anything potentially contaminated with the feces. Highly resilient, oocysts can survive and remain infective for many months in cold and dry climates.
+
+Toxoplasma gondii - Feline shedding of oocysts
+Ingestion of oocysts by humans or other warm-blooded animals is one of the common routes of infection. Humans can be exposed to oocysts by, for example, consuming unwashed vegetables or contaminated water, or by handling the feces (litter) of an infected cat. Although cats can also be infected by ingesting oocysts, they are much less sensitive to oocyst infection than are intermediate hosts.

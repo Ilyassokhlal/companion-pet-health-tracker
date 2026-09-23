@@ -26,10 +26,13 @@ class SourceChunk(BaseModel):
 
     @property
     def link(self) -> str:
-        """Return a deep link to the cited section, if available."""
+        """Return a deep link to the cited section. Only Wikipedia builds its anchors from the section heading, so any
+        other site gets a link to the page itself."""
         if not self.url:
             return ""
-        return f"{self.url}#{self.section.replace(' ', '_')}" if self.section else self.url
+        if self.section and "wikipedia.org/wiki/" in self.url:
+            return f"{self.url}#{self.section.replace(' ', '_')}"
+        return self.url
 
 # RAG Logic
 SYSTEM_PROMPT = """You are a knowledgeable assistant helping a pet owner understand their pet's health.
@@ -48,6 +51,7 @@ Rules:
 7. Never give a diagnosis.
 8. For a symptom question, cover: likely causes, what to watch for, and when it warrants a vet visit.
 9. Keep the answer under 150 words.
+10. Never state a price, fee or cost figure, and never recommend a particular insurer, clinic or brand. Costs and insurance cover vary by country, clinic and policy, so for a question about cost, say so and suggest asking the clinic for an estimate.
 """
 
 # Claude needs the language spelled out; the app stores ISO codes.
@@ -69,7 +73,7 @@ def _system_prompt(lang: str | None) -> str:
         return SYSTEM_PROMPT
     return (
         f"{SYSTEM_PROMPT}"
-        f"10. Write the entire answer in {name}. CONTEXT and PET are supplied in English; "
+        f"11. Write the entire answer in {name}. CONTEXT and PET are supplied in English; "
         f"translate whatever you use from them rather than quoting the English.\n"
     )
 
@@ -77,11 +81,13 @@ def _system_prompt(lang: str | None) -> str:
 # Minimum number of characters for a chunk
 MIN_CHUNK_CHARS = 60
 
+# A paragraph can end with "SOURCE: Title | url" to cite its own source instead of the file's ATTRIBUTION row. The project written guides use it where one paragraph draws on a different article from the next.
+SOURCE_PREFIX = "SOURCE: "
+
 # The reply is a small JSON object around one translated question.
 TRANSLATE_MAX_TOKENS = 400
 
-# The corpus is English, so every question is matched in English. The same call names the language the question was
-# written in, because the answer follows what the owner typed rather than the app setting, and reports the pet's name.
+# The corpus is English, so every question is matched in English. The same call names the language the question was written in, because the answer follows what the owner typed rather than the app setting, and reports the pet's name.
 TRANSLATION_SCHEMA = {
     "type": "object",
     "properties": {
@@ -97,15 +103,23 @@ TRANSLATION_INSTRUCTIONS = """You prepare a pet owner's question for a search ov
 The message gives the owner's pet (its species and the name stored in the app) and the question. Return:
 - language: the language the question is written in, as one of the listed codes, or "other". If an earlier question is repeated before the new one, use the language of the last one.
 - pet_name_as_written: if the question refers to the pet by its name, copy that word exactly as it appears in the question, in whatever spelling, script or grammatical form it takes (a transliteration such as a Cyrillic spelling, or a declined form). Otherwise null. A word that only resembles the name but is used with its ordinary meaning is not the name.
-- english: the question in English, or unchanged if it is already in English. Write the pet's name exactly as it is stored; never translate it as an ordinary word."""
+- english: the question in English. Translate faithfully: keep every animal the question mentions as it is written (a question about a cat stays about a cat even when the pet is a dog), and never add the pet's name or anything else the question does not say. Where the question uses the pet's name, copy the stored name exactly, in the same spelling and script, even when the rest of the question is translated, and never translate it as an ordinary word. Write any short or informal name of an illness in full, for example parvo as canine parvovirus, bloat as gastric dilatation volvulus, pyo as pyometra and Lyme as Lyme disease. Apart from that, leave a question that is already in English unchanged."""
 
 # Functions for RAG operations
 def chunk_document(text: str) -> list[str]:
     """Split a document into paragraph chunks and dropping stubs."""
     return [p.strip() for p in text.split("\n\n") if len(p.strip()) >= MIN_CHUNK_CHARS]
 
+def split_source(chunk: str) -> tuple[str, dict]:
+    """Take a trailing SOURCE line off a chunk, returning the text and the citation it named (empty if none)."""
+    *body, last = chunk.split("\n")
+    if body and last.startswith(SOURCE_PREFIX):
+        title, _, url = last[len(SOURCE_PREFIX):].partition(" | ")
+        return "\n".join(body), {"title": title.strip(), "url": url.strip()}
+    return chunk, {}
+
 def load_sources(docs_dir: str) -> dict[str, dict]:
-    """Map each filename to its Wikipedia title and URL, parsed from ATTRIBUTION.md."""
+    """Map each filename to its source title and URL, parsed from ATTRIBUTION.md."""
 
     attribution_path = os.path.join(docs_dir, "ATTRIBUTION.md")
     if not os.path.exists(attribution_path):
@@ -135,11 +149,13 @@ def ingest(docs_dir: str | None = None) -> dict:
         with open(os.path.join(docs_dir, filename), "r", encoding="utf-8") as f:
             chunks = chunk_document(f.read())
         for i, chunk in enumerate(chunks):
+            chunk, cited = split_source(chunk)
             ids.append(f"{filename}-{i}")
             documents.append(chunk)
             heading = chunk.split("\n")[0]
-            section = heading.split(" - ", 1)[1] if " - " in heading else ""
-            info = sources.get(filename, {})
+            # A paragraph citing its own source is not a section of that source, so it gets no section
+            section = heading.split(" - ", 1)[1] if " - " in heading and not cited else ""
+            info = cited or sources.get(filename, {})
             metadatas.append({
                 "source": filename,
                 "chunk_index": i,

@@ -1,0 +1,44 @@
+Grape toxicity in dogs
+The consumption of grapes and raisins presents a potential health threat to dogs.  Their toxicity to dogs can cause the animal to develop acute kidney injury (the sudden development of kidney failure) with anuria (a lack of urine production).  The phenomenon was first identified by the Animal Poison Control Center (APCC), run by the American Society for the Prevention of Cruelty to Animals (ASPCA).  Approximately 140 cases were seen by the APCC in the year from April 2003 to April 2004, with 50 developing symptoms and seven dying.
+
+Grape toxicity in dogs
+One theory of the mechanism of toxicity is the tartaric acid or tartrate content in grapes. This is based on the observation that dogs show similar symptoms and pathological findings after consuming cream of tartar or tamarind.
+
+Grape toxicity in dogs
+It is not clear that the observed cases of kidney failure following ingestion are due to grapes only. Clinical findings suggest raisin and grape ingestion can be fatal, but the mechanism of toxicity is still considered unknown.
+
+Grape toxicity in dogs - Pathology
+The most common pathological finding is proximal renal tubular necrosis.  In some cases, an accumulation of an unidentified golden-brown pigment was found within renal epithelial cells.
+
+Grape toxicity in dogs - Cause
+The reason some dogs develop kidney failure following ingestion of grapes and raisins is not known as of 2015. Types of grapes involved include both seedless and seeded, store-bought and homegrown, and grape pressings from wineries.  A mycotoxin is suspected to be involved, but none has been found in grapes or raisins ingested by affected dogs.  The dose-response relationship has not been determined, but one study estimated 3 g/kg or greater for grapes or raisins.
+
+Grape toxicity in dogs - Cause
+A 2024 review identified a relationship between grape ingestion and illness, though the specific type or quantity of grapes that cause toxicity remains unclear. Grape ingestion commonly leads to gastrointestinal and/or renal issues, with treatment depending on the symptoms; outcomes can vary. The author does not favor any particular explanation of toxicity but merely lists them.
+
+Grape toxicity in dogs - Tartrate theory
+An April 2021 letter to the editor of JAVMA hypothesized that the tartaric acid in grapes could be the cause. This is because the authors saw two cases of cream of tartar ingestion, both with similar clinical findings, and the autopsied one with similar histological findings.
+
+Grape toxicity in dogs - Tartrate theory
+A 2022 article expands on the letter with detailed reports of the 2 aforementioned cases of cream of tartar ingestion and 4 new cases of tamarind ingestion. Again, clinical findings were similar. Tamarind is known to contain  8%–18% tartaric acid, much more than the up to 2% (typically 0.35%–1.1%) found in grapes. The authors believe that the assignment of tartaric acid as the culprit also explains the relative lack of incidents from dogs consuming commercial grape juice, jam, and wine, as these go through a process to remove tartrates.
+
+Grape toxicity in dogs - Tartrate theory
+Precisely how tartrate can damage the dog kidney to cause proximal tubular necrosis is unclear. Maleic acid causes a similar finding and is believed to selectively inhibit NaK-ATPase activity and/or deplete ATP in the proximal tubules. A 2023 study have observed tartaric acid toxicity in kidney cells of dogs, but not in human kidney cells. Blocking the OAT1 on the dog cells reduces this toxicity by preventing the cell from taking up tartaric acid. Transfecting the human version of OAT4 into the kidney cells also reduces toxicity. Based on these observations, toxicity seems to be due to a lower expression of OAT4 in dogs.
+
+Grape toxicity in dogs - Clinical signs and diagnosis
+Vomiting and diarrhea are often the first clinical signs of grape or raisin toxicity.  They often develop within a few hours of ingestion.  Pieces of grapes or raisins may be present in the vomitus or stool.  Further symptoms include weakness, not eating, increased drinking, and abdominal pain. Acute kidney failure develops within 48 hours of ingestion.  A blood test may reveal increases in blood urea nitrogen (BUN), creatinine, phosphorus, and calcium.
+
+Grape toxicity in dogs - Treatment
+Emesis (induction of vomiting) is the generally recommended treatment if a dog has eaten grapes or raisins within the past two hours. A veterinarian may use an emetic such as  apomorphine to cause the dog to vomit. Further treatment may involve the use of activated charcoal to adsorb remaining toxins in the gastrointestinal tract and intravenous fluid therapy in the first 48 hours following ingestion to induce diuresis and help to prevent acute kidney failure. Vomiting is treated with antiemetics and the stomach is protected from uremic gastritis (damage to the stomach from increased BUN) with H2 receptor antagonists. BUN, creatinine, calcium, phosphorus, sodium, and potassium levels are closely monitored. Dialysis of the blood (hemodialysis) and peritoneal dialysis can be used to support the kidneys if anuria develops. Oliguria (decreased urine production) can be treated with dopamine or furosemide to stimulate urine production.
+
+Grape toxicity in dogs - Treatment
+The prognosis is guarded in any dog developing symptoms of toxicosis. A negative prognosis has been associated with oliguria or anuria, weakness, difficulty walking, and severe hypercalcemia (increased blood calcium levels). In cases where an animal is azotaemic the survival rate is approx. 50%.
+
+Grape toxicity in dogs - In related animals
+Among pet animals, the domestic cat is relatively related to dogs by both being carnivorans. It is disputed whether grapes are toxic to cats: a 2016 review and a 2022 ASPCA blog post lists grapes and raisins as non-toxic to cats, but PetMD.com lists it as toxic.
+
+Grape toxicity in dogs - In related animals
+According to the Merck Veterinary Manual, there exist unpublished anecdotal reports of toxicity in cats and ferrets, two carnivorans.
+
+Grape toxicity in dogs - In related animals
+Members of genus Canis known to eat grapes include the coyote and the golden jackal.

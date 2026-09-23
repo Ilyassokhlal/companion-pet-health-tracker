@@ -1,0 +1,32 @@
+Malassezia pachydermatis
+Malassezia pachydermatis is a zoophilic yeast in the division Basidiomycota. It was first isolated in 1925 by Fred Weidman, and it was named pachydermatis (Greek for 'thick-skin') after the original sample taken from an Indian rhinoceros (Rhinocerosus unicornis) with severe exfoliative dermatitis. Within the genus Malassezia, M. pachydermatis is most closely related to the species M. furfur.  A commensal fungus, it can be found within the microflora of healthy mammals such as humans, cats and dogs, However, it is capable of acting as an opportunistic pathogen under special circumstances and has been seen to cause skin and ear infections, most often occurring in canines.
+
+Malassezia pachydermatis - Description
+Malassezia pachydermatis is a bottle-shaped, non-lipid dependent lipophilic yeast in the genus Malassezia.  Colonies are cream or yellowish in colour, smooth to wrinkled and convex with a margin possessing a slightly lobed appearance.  Cells are ovoidal in shape and range in size from 3.0–6.5 x 2.5 μm. Colonies grow via unipolar budding, and hyphae are rarely seen in culture.
+
+Malassezia pachydermatis - Description
+Optimal growth occurs at 30–37 °C (86–99 °F) with maturation occurring in five days. It is the only species of Malassezia capable of growing without the presence of fatty acids. Although it is not lipid-dependent, its growth is enhanced by the presence of lipids. Its DNA is characterized by a 56% guanine-cytosine content.
+
+Malassezia pachydermatis - Pathogenicity
+Within infected tissues, this yeast produces several enzymes such as proteinase, phospholipase, hyaluronidase and chondroitin-sulphatase. Proteinase and phospholipase  are also released in infections involving Candida albicans and have been found to contribute to its virulence by inducing pores into host cell membranes, which eventually lead to their loss of function. For this reason it has been suggested that these enzymes may also serve a function in the pathogenicity of M. pachydermatis. However, pathogenicity in this species has yet to be associated with any specific genotypic and phenotypic traits.
+
+Malassezia pachydermatis - Pathogenicity
+Malassezia pachydermatis in its pathogenic form can be found colonizing a variety of animals such as rhinoceroses, sea lions, black bears and domesticated cats. It is however most commonly associated with canine ear and skin infections.
+
+Malassezia pachydermatis - Canine infection
+Malessezia pachydermatis is an important pathogen in veterinary medicine. It has been known to become pathogenic to its host causing otitis and seborrhoeic dermatitis. First associated with canine otitis externa in 1955 by Benght A. Gustafson, this yeast has since become an important pathogen especially in the study of small animal medicine. Symptoms include excessive scratching, head shaking, odour, and reddish-brown waxy deposits within the ear canal. Malassezia pachydermatis caused canine seborrhoeic dermatitis was first discovered by Dufait in 1975 and may be characterized by symptoms ranging from dandruff to scaly lesions. At infection sites sebaceous secretions are increased. Differences to susceptibility can be seen across breeds for example, increased infection among the West Highland White Terrier has been attributed to  a genetic abnormality.
+
+Malassezia pachydermatis - Canine infection
+Low pH environments have been associated with antimicrobial activity and dogs have among the highest skin pH levels of any domesticated animal. Malassezia pachydermatis is most commonly isolated from areas of the skin and ears with higher pH levels. Therefore canine colonization may occur more readily due to the skins increased alkalinity. Samples have been collected from the ears, skin, vagina, and  anal sacs. Canine infection often co-occurs with atopy and other allergic disorders. In contrast, felines are rarely infected by M. pachydermatis but when Malassezia spp. dermatitis does occur, it is not typically associated with any other conditions.
+
+Malassezia pachydermatis - Detection
+Malassezia pachydermatis can be distinguished from other species in the genus by its ability to grow on Sabouraud agar. Cotton ear swabs, adhesive tape methods, skin scrapings, and biopsy can be used to collect samples that are analysed via microscopy or culturing techniques, however, under-diagnoses may occur due to an increase in the number of days culture may require to develop and discrepancies in laboratory techniques.
+
+Malassezia pachydermatis - Detection
+While M. pachydermatis is routinely detected by swabbing of external areas of canine ears, its presence within the deeper portions of the ear canal is associated with infection.
+
+Malassezia pachydermatis - Treatment
+Antifungal medications such as imidazole derivatives, nystatin and natamycin may be used to treat infections. The former functions by weakening the fungal cell wall, while the latter two disrupt permeability of the plasma membrane. In canine infection causing otitis externa the ear canal may be cleaned using an ear cleansing solution often paired with the removal of surrounding hair.
+
+Malassezia pachydermatis - Treatment
+Separation of biotypes as well as treatment has proven successful using killer yeast strains such as Pichia anomala. In these studies by Coutinho et al., M. pachydermatis was isolated from canine skin swabs and otic secretions which were then exposed to toxin producing killer yeast strains that inhibited M. pachydermatis growth.

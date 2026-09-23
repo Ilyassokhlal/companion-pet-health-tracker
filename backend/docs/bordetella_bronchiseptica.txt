@@ -1,0 +1,23 @@
+Bordetella bronchiseptica
+Bordetella bronchiseptica is a small, gram-negative, rod-shaped bacterium of the genus Bordetella. It can cause infectious bronchitis in dogs and other animals, but rarely infects humans. Closely related to B. pertussis—the obligate human pathogen that causes pertussis (whooping cough); B. bronchiseptica can persist in the environment for extended periods.
+
+Bordetella bronchiseptica - Pathogenesis
+Humans are not natural carriers of B. bronchiseptica, which typically infects the respiratory tracts of smaller mammals (cats, dogs, rabbits, etc.). People are more likely to be infected by B. pertussis or B. parapertussis. Unlike B. pertussis, B. bronchiseptica is generally resistant to macrolide antibiotics. It is also generally resistant to cephalosporins. Some human cases have been successfully treated with trimethoprim/sulfamethoxazole and fluoroquinolones.
+
+Bordetella bronchiseptica - Pathogenesis
+B. bronchiseptica does not express pertussis toxin, which is one of the characteristic virulence factors of B. pertussis, but it has the genes to do so, highlighting the close evolutionary relationship between the two species.
+
+Bordetella bronchiseptica - Veterinary pathogenesis
+In veterinary medicine, B. bronchiseptica leads to a range of pathologies in different hosts. It is a serious disease of dogs, pigs, and rabbits, and has been seen in cats, horses, and seals. A PCR test for the pathogen exists.
+
+Bordetella bronchiseptica - Veterinary pathogenesis
+In pigs, B. bronchiseptica and Pasteurella multocida act synergistically to cause atrophic rhinitis, a disease resulting in arrested growth and distortion of the turbinates in the nasal terminus (snout).
+
+Bordetella bronchiseptica - Veterinary pathogenesis
+In dogs, B. bronchiseptica causes acute tracheobronchitis, which typically has a harsh, honking cough. Kennel cough can also be caused by canine adenovirus-2 or canine parainfluenza virus or a combination of pathogens.
+
+Bordetella bronchiseptica - Veterinary pathogenesis
+In rabbits, B. bronchiseptica is often found in the nasal tract.  It is often assumed to cause a nearly asymptomatic infection known as snuffles, but the causative agent for that disease is Pasteurella multocida; B. bronchiseptica often co-infects the nasal passage at the same time.
+
+Bordetella bronchiseptica - Veterinary pathogenesis
+Cats infected with B. bronchiseptica have been seen with tracheobronchitis, conjunctivitis, and rhinitis (upper respiratory tract infection - URI), mandibular lymphadenopathy, and pneumonia. However, URI in cats can also be caused by herpesvirus, calicivirus, Mycoplasma species, or Chlamydia psittaci. An intranasal vaccine exists for cats.
