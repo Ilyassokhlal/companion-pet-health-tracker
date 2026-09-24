@@ -49,6 +49,51 @@ def _with_context(question: str, history: list[dict]) -> str:
             return f"{turn['content']} {question}"
     return question
 
+
+# The embedding model knows nothing about brand names, so a product the question names is also matched on its active ingredients, which is what the corpus articles are written about. Every pair comes from docs/guide_product_names.txt.
+BRAND_INGREDIENTS = {
+    "Bravecto": "fluralaner",
+    "Credelio": "lotilaner",
+    "NexGard": "afoxolaner",
+    "NexGard Spectra": "afoxolaner and milbemycin oxime",
+    "Simparica": "sarolaner",
+    "Simparica Trio": "sarolaner and moxidectin",
+    "Revolution": "selamectin",
+    "Stronghold": "selamectin",
+    "Revolution Plus": "selamectin and sarolaner",
+    "Stronghold Plus": "selamectin and sarolaner",
+    "Frontline": "fipronil",
+    "Advocate": "imidacloprid and moxidectin",
+    "Heartgard": "ivermectin",
+    "Iverhart": "ivermectin",
+    "Interceptor": "milbemycin oxime",
+    "Sentinel": "milbemycin oxime",
+    "ProHeart": "moxidectin",
+    "Apoquel": "oclacitinib",
+    "Cytopoint": "lokivetmab",
+    "Librela": "bedinvetmab",
+    "Solensia": "frunevetmab",
+    "Rimadyl": "carprofen",
+    "Metacam": "meloxicam",
+    "Onsior": "robenacoxib",
+    "Galliprant": "grapiprant",
+    "Vetmedin": "pimobendan",
+    "Vetoryl": "trilostane",
+    "Lysodren": "mitotane",
+    "Florinef": "fludrocortisone",
+    "Percorten": "desoxycorticosterone pivalate",
+    "Zycortal": "desoxycorticosterone pivalate",
+    "Cerenia": "maropitant",
+}
+# Longest first, so "Simparica Trio" is matched before "Simparica". A brand already followed by a bracket is left alone.
+BRAND_PATTERN = re.compile(r"\b(" + "|".join(re.escape(brand) for brand in sorted(BRAND_INGREDIENTS, key=len, reverse=True)) + r")\b(?!\s*\()", re.IGNORECASE)
+INGREDIENTS_BY_BRAND = {brand.lower(): ingredients for brand, ingredients in BRAND_INGREDIENTS.items()}
+
+
+def _with_ingredients(question: str) -> str:
+    """Name the active ingredients after each brand the question mentions. Retrieval only."""
+    return BRAND_PATTERN.sub(lambda m: f"{m.group(0)} ({INGREDIENTS_BY_BRAND[m.group(0).lower()]})", question)
+
 def _format_age(birth_date) -> str:
     """Age in days under a month, months under a year, then years — matching both clients."""
     today = date.today()
@@ -187,6 +232,7 @@ def ask(
     # translation also reports the pet's name as written, which catches spellings the swap above cannot see.
     # The prompt below still receives the question exactly as the user typed it.
     english, lang, written_name = rag.translate_question(retrieval_question, current_user.language, pet.name, pet.species)
+    english = _with_ingredients(english)
     aliases = (written_name,) if written_name else ()
     in_scope = rag.retrieve(_gate_query(english, pet, aliases), 1, settings.CONFIDENCE_THRESHOLD)
     chunks = rag.retrieve(_retrieval_query(english, pet, aliases), settings.MAX_RESULTS, settings.CONFIDENCE_THRESHOLD) if in_scope else []

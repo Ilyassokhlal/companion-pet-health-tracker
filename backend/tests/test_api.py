@@ -404,6 +404,14 @@ def test_short_follow_up_inherits_the_previous_question():
     assert _with_context("how often should a dog get the rabies vaccine", [{"role": "user", "content": "what vaccines does my dog need"}, {"role": "assistant", "content": "..."}]) == "how often should a dog get the rabies vaccine"
     assert _with_context("how often?", []) == "how often?"
 
+def test_brand_names_get_their_ingredients():
+    """The search knows nothing about brand names, so a brand is matched on its active ingredients as well."""
+    from routers.ask import _with_ingredients
+
+    assert _with_ingredients("Is Bravecto safe for my dog?") == "Is Bravecto (fluralaner) safe for my dog?"
+    assert _with_ingredients("is simparica trio ok") == "is simparica trio (sarolaner and moxidectin) ok"
+    assert _with_ingredients("Is Bravecto (fluralaner) safe?") == "Is Bravecto (fluralaner) safe?"
+    assert _with_ingredients("My dog ate grapes") == "My dog ate grapes"
 
 @pytest.fixture(autouse=True)
 def pinned_reminder_hour(monkeypatch):

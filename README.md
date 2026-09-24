@@ -521,7 +521,7 @@ the response's content type before parsing.
 
 ## RAG pipeline
 
-**Corpus.** 272 plain text documents, about 333,000 words in 4,835 chunks, all about the health
+**Corpus.** 272 plain text documents, about 333,000 words in 4,837 chunks, all about the health
 and care of dogs and cats. They come from three kinds of source:
 
 * **224 Wikipedia articles**, trimmed to the sections that matter for dogs and cats.
@@ -565,10 +565,12 @@ in Russian and type in English. The app language is only the fallback.
 
 The call is told to translate faithfully. Every animal stays as written, so a question about a
 cat stays about a cat when the pet is a dog, and nothing the owner did not write is added. It also
-writes short names of illnesses in full, because the search matches wording: "Is parvo curable?"
-scores **0.963** and would be refused, while "Is canine parvovirus curable?" scores **0.394**. If
-the call fails, the question goes on unchanged in the app language, so an outage weakens the
-search without taking the chat down.
+writes short names of illnesses and procedures in full, such as parvo or getting a pet fixed,
+because the search matches wording: "Is parvo curable?" scores **0.963** and would be refused,
+while "Is canine parvovirus curable?" scores **0.394**. Brand names of medicines come out in their
+usual English spelling, so "Бравекто" becomes "Bravecto" for the brand table below. If the call
+fails, the question goes on unchanged in the app language, so an outage weakens the search
+without taking the chat down.
 
 **Name swap.** Before the search, the pet's name is replaced with its species. `"why is Flash
 coughing?"` scores **1.160** and would be refused, because to the embedding model "Flash" is an
@@ -578,6 +580,13 @@ declined form such as "Флэша". That is why the translation call is given th
 asked how the question wrote it. The reported spelling is swapped as well, once it has been
 confirmed to appear in the question.
 
+**Brand names.** Product names mean nothing to the embedding model either: "Is Cytopoint safe?"
+scores **0.978** and would be refused. A table of 32 brands in `routers/ask.py`, taken from the
+brand names guide in the corpus, writes each brand's active ingredients after it in the search
+query, and "Is Cytopoint (lokivetmab) safe?" scores **0.573**. The table is fixed on purpose.
+Asked to add ingredients itself, the translation call gave Simparica the ingredients of a
+different product.
+
 **Scope gate.** The gate asks for the single nearest chunk and refuses the question when that
 chunk is further away than `CONFIDENCE_THRESHOLD`, 0.91. These are the nearest distances for the
 question bank the corpus was built against, 402 questions in scope and 93 out of scope across all
@@ -585,18 +594,18 @@ seven languages, as the gate sees them after translation:
 
 | Question type | Questions | Median | Range |
 |---|---|---|---|
-| In scope, English | 246 | 0.66 | 0.20 to 0.95 |
+| In scope, English | 246 | 0.66 | 0.20 to 0.91 |
 | In scope, the other six languages | 156 | 0.64 | 0.25 to 0.89 |
 | Pet related but off topic, English | 15 | 0.92 | 0.69 to 1.14 |
-| Human health, English | 25 | 1.18 | 0.75 to 1.40 |
+| Human health, English | 25 | 1.18 | 0.75 to 1.39 |
 | Unrelated, English | 29 | 1.54 | 0.98 to 1.73 |
-| Out of scope, the other six languages | 24 | 1.37 | 1.15 to 1.58 |
+| Out of scope, the other six languages | 24 | 1.37 | 0.87 to 1.58 |
 
-At 0.91, 401 of the 402 questions in scope pass. The one refused is "How much does it cost to spay
-a cat?", at 0.95. Ten of the 93 out of scope questions get through, all of them in English, such
-as "What's a good name for a puppy?" and "I was bitten by a dog, do I need a tetanus shot?".
-Stopping all ten would take a threshold of 0.69, which would also refuse 154 of the 402 real pet
-questions.
+At 0.91, all 402 questions in scope pass. Eleven of the 93 out of scope questions get through.
+Ten are in English, such as "What's a good name for a puppy?" and "I was bitten by a dog, do I
+need a tetanus shot?". The eleventh is an Arabic question about a son's fever, which the
+translation turns into a question about the dog. Stopping all eleven would take a threshold of
+0.69, which would also refuse 153 of the 402 real pet questions.
 
 A refused question is never sent to the model for an answer. The owner gets a fixed reply in the
 question's language.
@@ -733,7 +742,7 @@ publish Postgres and run uvicorn with `--reload`.
 
 ## Testing
 
-The suite has 56 tests and runs against a real Postgres database. It creates and drops every
+The suite has 57 tests and runs against a real Postgres database. It creates and drops every
 table for each test, so it needs a separate `companion_test` database. Create it once:
 
 ```bash
@@ -748,9 +757,10 @@ docker compose exec backend python -m pytest tests -v
 
 Email, push notifications and question translation are stubbed by autouse fixtures. One test
 indexes two small documents and stubs the answer. The other `/ask` tests run before it, against
-an empty collection, and take the refusal branch. Two more cover the corpus plumbing: a
-paragraph that cites its own source on a `SOURCE` line, and section anchors on Wikipedia links
-only. The suite never calls Claude, Resend or Expo, so it costs nothing to run.
+an empty collection, and take the refusal branch. Three more cover the search plumbing: a
+paragraph that cites its own source on a `SOURCE` line, section anchors on Wikipedia links only,
+and brand names gaining their active ingredients. The suite never calls Claude, Resend or Expo,
+so it costs nothing to run.
 
 CI runs on every push: the backend suite against a `postgres:17` service container, `ruff`, a
 Docker build of both images, and type checking and linting for both clients.
@@ -821,8 +831,8 @@ frontend-mobile/
   degrades to `?`. The zip export keeps it intact.
 * **The search matches wording, not meaning.** The corpus is English and covers dogs and cats
   only, and a question worded far from every paragraph is refused even when the answer is there.
-  "Can worms spread to kids?" scores 0.92 and is refused, although the Toxocara canis article
-  explains how people catch dog roundworm.
+  A brand missing from the table in `routers/ask.py` means nothing to the search, so a question
+  that names only that brand can be refused.
 * **No pagination for records and photos.** They load in full, which is fine for hundreds but
   not thousands.
 * **Chat history is per pet, not per conversation.** There are no separate threads, so the
