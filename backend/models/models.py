@@ -1,5 +1,5 @@
 import enum
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from datetime import time as time_type
 
 from database import Base
@@ -17,6 +17,8 @@ class RecordType(str, enum.Enum):
     GROOMING = "Grooming"
     TRAINING = "Training"
 
+# Length of the free trial every new account starts with. One month, counted as 30 days.
+TRIAL_DAYS = 30
 
 # User model
 class User(Base):
@@ -41,6 +43,14 @@ class User(Base):
     currency: Mapped[str] = mapped_column(String(3), nullable=False, server_default="USD")
     photo_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    # Premium. Access is worked out from these fields on every check, never stored as one state. A new account gets TRIAL_DAYS from signup, and registration shortens that for an email that already had its trial.
+    trial_ends_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=lambda: datetime.now() + timedelta(days=TRIAL_DAYS))
+    # "purchased" (kept in step with RevenueCat) or "granted" (from the command line). None means never premium.
+    premium_source: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # When premium ends. Empty with premium_source "granted" means lifetime.
+    premium_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    # The last trial end warning sent (7, 3 or 1 days before), so each one goes out once.
+    trial_warning_sent: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
@@ -263,3 +273,17 @@ class Expense(Base):
 
     pet: Mapped["Pet"] = relationship(back_populates="expenses")
     record: Mapped["HealthRecord | None"] = relationship()
+
+
+# An email that already had its free month, kept as a keyed hash and never as the address itself. Written when an account is deleted or changes its email, read at registration, and removed a year after it was written.
+class TrialFingerprint(Base):
+    __tablename__ = "trial_fingerprints"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    email_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False, index=True)
+    # Trial days a returning account gets back. Only above zero when an account was deleted during its trial.
+    days_left: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # "deleted" or "email_changed"
+    reason: Mapped[str] = mapped_column(String(20), nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
