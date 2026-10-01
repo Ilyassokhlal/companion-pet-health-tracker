@@ -11,6 +11,7 @@ import rag
 from config import settings
 from models.models import User
 from PIL import Image
+from utils.access import GRANTED, LOCKED, PREMIUM, TRIAL, access_state, has_full_access, trial_days_left
 from utils.photos import read_photo
 from utils.reminders import send_due_reminders
 from utils.weight import next_checkin_date
@@ -412,6 +413,49 @@ def test_brand_names_get_their_ingredients():
     assert _with_ingredients("is simparica trio ok") == "is simparica trio (sarolaner and moxidectin) ok"
     assert _with_ingredients("Is Bravecto (fluralaner) safe?") == "Is Bravecto (fluralaner) safe?"
     assert _with_ingredients("My dog ate grapes") == "My dog ate grapes"
+
+
+def test_access_follows_the_trial_grants_and_purchases():
+    """Access is worked out from the stored fields at a given moment, so every state and edge can be checked without waiting a month."""
+    from types import SimpleNamespace
+
+    now = datetime(2026, 10, 1, 12, 0)
+    ended = now - timedelta(days=40)
+
+    def account(**fields):
+        return SimpleNamespace(**{"trial_ends_at": now + timedelta(days=1), "premium_source": None, "premium_expires_at": None} | fields)
+
+    # The trial is open until the moment it ends, then the account locks
+    assert access_state(account(), now) == TRIAL
+    assert access_state(account(trial_ends_at=now), now) == LOCKED
+    assert access_state(account(trial_ends_at=ended), now) == LOCKED
+
+    # A grant with no end date is lifetime, and one with an end date runs out like anything else
+    assert access_state(account(trial_ends_at=ended, premium_source="granted"), now) == GRANTED
+    assert access_state(account(trial_ends_at=ended, premium_source="granted", premium_expires_at=now + timedelta(days=5)), now) == GRANTED
+    assert access_state(account(trial_ends_at=ended, premium_source="granted", premium_expires_at=now - timedelta(days=5)), now) == LOCKED
+
+    # A purchase lasts until its end date, and one without an end date never counts
+    assert access_state(account(trial_ends_at=ended, premium_source="purchased", premium_expires_at=now + timedelta(days=5)), now) == PREMIUM
+    assert access_state(account(trial_ends_at=ended, premium_source="purchased", premium_expires_at=now - timedelta(seconds=1)), now) == LOCKED
+    assert access_state(account(trial_ends_at=ended, premium_source="purchased"), now) == LOCKED
+
+    # Buying during the trial makes the account premium straight away
+    assert access_state(account(premium_source="purchased", premium_expires_at=now + timedelta(days=30)), now) == PREMIUM
+
+    assert has_full_access(account(), now)
+    assert not has_full_access(account(trial_ends_at=ended), now)
+
+
+def test_trial_days_left_counts_the_last_day_as_one():
+    """The trial warnings and the deleted account fingerprint both read this, so a last partial day still counts."""
+    from types import SimpleNamespace
+
+    now = datetime(2026, 10, 1, 12, 0)
+    assert trial_days_left(SimpleNamespace(trial_ends_at=now + timedelta(days=30)), now) == 30
+    assert trial_days_left(SimpleNamespace(trial_ends_at=now + timedelta(hours=3)), now) == 1
+    assert trial_days_left(SimpleNamespace(trial_ends_at=now), now) == 0
+    assert trial_days_left(SimpleNamespace(trial_ends_at=now - timedelta(days=2)), now) == 0
 
 @pytest.fixture(autouse=True)
 def pinned_reminder_hour(monkeypatch):
