@@ -15,11 +15,12 @@ from schemas.feeding import (
     SlotStatus,
 )
 from sqlalchemy.orm import Session
+from utils.access import require_access_to_write
 from utils.exceptions import DuplicateException, NotFoundException
 from utils.feeding import pet_slots, satisfied_slots, slot_status, to_minutes
 from utils.security import get_current_user
 
-router = APIRouter(tags=["Feeding"])
+router = APIRouter(tags=["Feeding"], dependencies=[Depends(require_access_to_write)])
 
 
 def _get_owned_pet(pet_id: int, db: Session, current_user: User) -> Pet:

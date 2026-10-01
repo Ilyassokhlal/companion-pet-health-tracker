@@ -9,9 +9,18 @@ from datetime import date, datetime, timedelta, timezone
 import pytest
 import rag
 from config import settings
-from models.models import User
+from models.models import QuestionUsage, User
 from PIL import Image
-from utils.access import GRANTED, LOCKED, PREMIUM, TRIAL, access_state, has_full_access, trial_days_left
+from utils.access import (
+    GRANTED,
+    LOCKED,
+    PREMIUM,
+    TRIAL,
+    TRIAL_QUESTIONS_PER_DAY,
+    access_state,
+    has_full_access,
+    trial_days_left,
+)
 from utils.photos import read_photo
 from utils.reminders import send_due_reminders
 from utils.weight import next_checkin_date
@@ -457,6 +466,54 @@ def test_trial_days_left_counts_the_last_day_as_one():
     assert trial_days_left(SimpleNamespace(trial_ends_at=now), now) == 0
     assert trial_days_left(SimpleNamespace(trial_ends_at=now - timedelta(days=2)), now) == 0
 
+
+def test_locked_account_can_read_and_delete_but_not_add_or_change(client, pet, db, monkeypatch):
+    """After the trial, reading, exporting, settings and deleting stay open. Adding, changing and asking need premium."""
+    monkeypatch.setattr("rag.retrieve", lambda *args, **kwargs: [])
+    headers, pet_data = pet
+    user = db.query(User).one()
+    user.trial_ends_at = datetime.now() - timedelta(days=1)
+    db.commit()
+
+    r = client.post("/pets", json={"name": "Rex", "species": "dog"}, headers=headers)
+    assert r.status_code == 403
+    assert r.json()["code"] == "subscription_required"
+    assert client.patch(f"/pets/{pet_data['id']}", json={"name": "Tom"}, headers=headers).status_code == 403
+    assert client.post("/ask", json={"pet_id": pet_data["id"], "question": "Why is my cat sneezing?"}, headers=headers).status_code == 403
+
+    assert client.get("/pets", headers=headers).status_code == 200
+    assert client.get(f"/pets/{pet_data['id']}/export", headers=headers).status_code == 200
+    assert client.patch("/auth/me", json={"language": "fr"}, headers=headers).status_code == 200
+    assert client.delete(f"/pets/{pet_data['id']}", headers=headers).status_code == 204
+
+    # A grant unlocks everything again
+    user.premium_source = "granted"
+    db.commit()
+    assert client.post("/pets", json={"name": "Rex", "species": "dog"}, headers=headers).status_code == 201
+
+
+def test_trial_questions_stop_at_the_daily_allowance(client, pet, db, monkeypatch):
+    """A trial account gets TRIAL_QUESTIONS_PER_DAY questions, counted apart from the chat. Premium has no limit."""
+    monkeypatch.setattr("rag.retrieve", lambda *args, **kwargs: [])
+    headers, pet_data = pet
+    user = db.query(User).one()
+    db.add_all([QuestionUsage(user_id=user.id) for _ in range(TRIAL_QUESTIONS_PER_DAY)])
+    db.commit()
+
+    question = {"pet_id": pet_data["id"], "question": "Why is my cat sneezing?"}
+    r = client.post("/ask", json=question, headers=headers)
+    assert r.status_code == 429
+    assert r.json()["code"] == "trial_question_limit"
+
+    # Deleting the chat does not give the questions back
+    assert client.delete(f"/pets/{pet_data['id']}/messages", headers=headers).status_code == 204
+    assert client.post("/ask", json=question, headers=headers).status_code == 429
+
+    user.premium_source = "granted"
+    db.commit()
+    assert client.post("/ask", json=question, headers=headers).status_code == 200
+    assert db.query(QuestionUsage).count() == TRIAL_QUESTIONS_PER_DAY + 1
+
 @pytest.fixture(autouse=True)
 def pinned_reminder_hour(monkeypatch):
     """The .env sets REMINDER_HOUR, but these tests pin it to 6 AM."""
@@ -541,6 +598,18 @@ def test_push_is_independent_of_the_email_toggle(client, pet, db, no_email, no_p
     assert _reminders(no_email) == []
     assert len(no_push) == 1
     assert "GammaEvent" in no_push[0]["body"]
+
+def test_locked_accounts_get_no_reminders(client, pet, db, no_email):
+    """Reminders stop with the lockout. The trial end warnings tell the owner so in advance."""
+    headers, pet_data = pet
+    _schedule(client, headers, pet_data["id"], "AlphaEvent", "2026-08-30")
+    user = _prepare_user(db, frequency="daily")
+    user.trial_ends_at = datetime.now() - timedelta(days=1)
+    db.commit()
+
+    today = date(2026, 8, 30)
+    assert send_due_reminders(db, today, _at_six_utc(today)) == 0
+    assert _reminders(no_email) == []
 
 
 def test_no_channel_fires_outside_the_reminder_hour(client, pet, db, no_email, no_push):

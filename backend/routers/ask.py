@@ -7,17 +7,18 @@ from config import settings
 from database import get_db
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse, StreamingResponse
-from models.models import ChatMessage, HealthRecord, User
+from models.models import ChatMessage, HealthRecord, QuestionUsage, User
 from routers.records import _get_owned_pet
 from schemas.ask import AskRequest
 from sqlalchemy.orm import Session
+from utils.access import check_question_allowance, require_access_to_write
 from utils.exceptions import BadRequestException
 from utils.i18n import t
 from utils.limiter import limiter
 from utils.messages import save_message
 from utils.security import get_current_user
 
-router = APIRouter(tags=["Ask"])
+router = APIRouter(tags=["Ask"], dependencies=[Depends(require_access_to_write)])
 
 def _gate_query(question: str, pet, aliases: tuple[str, ...] = ()) -> str:
     """Query used to decide whether the question is in scope at all.
@@ -216,6 +217,10 @@ def ask(
 
     # Retrieve the pet and its health records
     pet = _get_owned_pet(payload.pet_id, db, current_user)
+    # A trial account has a daily allowance. Every question counts, answered or refused, and the tally is kept apart from the chat so deleting messages can't reset it.
+    check_question_allowance(db, current_user)
+    db.add(QuestionUsage(user_id=current_user.id))
+    db.commit()
     history = _recent_turns(pet.id, db)
     save_message(pet.id, "user", question)
     records = db.query(HealthRecord).filter(HealthRecord.pet_id == pet.id).all()

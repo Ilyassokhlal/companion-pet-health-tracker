@@ -3,10 +3,11 @@ from fastapi import APIRouter, Depends, Response
 from models.models import Pet, User, Walk
 from schemas.walk import WalkCreate, WalkResponse, WalkUpdate
 from sqlalchemy.orm import Session
+from utils.access import require_access_to_write
 from utils.exceptions import NotFoundException
 from utils.security import get_current_user
 
-router = APIRouter(tags=["Walks"])
+router = APIRouter(tags=["Walks"], dependencies=[Depends(require_access_to_write)])
 
 
 # Helper functions for ensuring ownership of pets and walks. The function ensures the pet belongs to the current user, raising a 404 if not.

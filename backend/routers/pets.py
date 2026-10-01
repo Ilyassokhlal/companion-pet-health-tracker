@@ -5,13 +5,14 @@ from fastapi import APIRouter, Depends, File, Response, UploadFile
 from models.models import Pet, User
 from schemas.pet import PetCreate, PetResponse, PetUpdate
 from sqlalchemy.orm import Session
+from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.photos import delete_photo_file, save_photo
 from utils.security import get_current_user
 from utils.weight import sync_checkin
 
 # Router setup
-router = APIRouter(prefix="/pets", tags=["Pets"])
+router = APIRouter(prefix="/pets", tags=["Pets"], dependencies=[Depends(require_access_to_write)])
 
 
 # Pet endpoints

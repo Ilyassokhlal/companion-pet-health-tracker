@@ -1,13 +1,25 @@
 import math
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
-from models.models import User
+from config import settings
+from fastapi import Depends, Request
+from models.models import QuestionUsage, User
+from sqlalchemy.orm import Session
+from utils.exceptions import ForbiddenException, TooManyRequestsException
+from utils.security import get_current_user
 
 # What an account can do right now. Worked out from its stored fields on every check and never saved, so it can't go out of date.
 TRIAL = "trial"
 PREMIUM = "premium"
 GRANTED = "granted"
 LOCKED = "locked"
+
+# Questions a trial account can ask per day, counted from midnight in its own timezone. Premium has no limit.
+TRIAL_QUESTIONS_PER_DAY = 30
+
+# Reading and deleting never need premium: a locked account keeps its own data and can always remove it.
+_OPEN_METHODS = {"GET", "HEAD", "OPTIONS", "DELETE"}
 
 
 def access_state(user: User, now: datetime | None = None) -> str:
@@ -33,3 +45,38 @@ def trial_days_left(user: User, now: datetime | None = None) -> int:
     """Return the whole days of trial left, rounded up so the last day counts as one. Zero once the trial has ended."""
     now = now or datetime.now()
     return max(0, math.ceil((user.trial_ends_at - now).total_seconds() / 86400))
+
+
+def require_access_to_write(request: Request, current_user: User = Depends(get_current_user)) -> None:
+    """Router dependency: once the account is locked, refuse anything that adds or changes data. Reads and deletes always pass."""
+    if request.method not in _OPEN_METHODS and not has_full_access(current_user):
+        raise ForbiddenException(
+            "Companion Premium is needed to add or change anything. Your data stays readable and exportable.",
+            code="subscription_required",
+        )
+
+
+def _start_of_local_day(user: User, now: datetime) -> datetime:
+    """Midnight today in the user's timezone, as a naive server time comparable with the stored timestamps."""
+    try:
+        zone = ZoneInfo(user.timezone)
+    except Exception:
+        zone = ZoneInfo(settings.TIMEZONE)
+    midnight = now.astimezone(zone).replace(hour=0, minute=0, second=0, microsecond=0)
+    return midnight.astimezone().replace(tzinfo=None)
+
+
+def questions_today(db: Session, user: User, now: datetime | None = None) -> int:
+    """Count the questions the account has asked since midnight in its own timezone."""
+    since = _start_of_local_day(user, now or datetime.now())
+    return db.query(QuestionUsage).filter(QuestionUsage.user_id == user.id, QuestionUsage.created_at >= since).count()
+
+
+def check_question_allowance(db: Session, user: User) -> None:
+    """Refuse a trial account's question once today's allowance is used. Premium and granted accounts have no limit."""
+    if access_state(user) == TRIAL and questions_today(db, user) >= TRIAL_QUESTIONS_PER_DAY:
+        raise TooManyRequestsException(
+            f"You've used all {TRIAL_QUESTIONS_PER_DAY} of today's free trial questions. The count resets at midnight.",
+            code="trial_question_limit",
+            limit=TRIAL_QUESTIONS_PER_DAY,
+        )

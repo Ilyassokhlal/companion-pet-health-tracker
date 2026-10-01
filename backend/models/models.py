@@ -287,3 +287,12 @@ class TrialFingerprint(Base):
     reason: Mapped[str] = mapped_column(String(20), nullable=False)
     expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# One row per question asked, written by /ask and kept apart from the chat, so deleting messages can't reset the trial's daily allowance. The admin dashboard reads it too.
+class QuestionUsage(Base):
+    __tablename__ = "question_usage"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)

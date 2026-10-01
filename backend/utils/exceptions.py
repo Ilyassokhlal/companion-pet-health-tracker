@@ -53,6 +53,20 @@ class UnauthorizedException(AppException):
     def __init__(self, detail: str = "Not authenticated", code: str | None = None, **params):
         super().__init__(detail=detail, status_code=401, code=code, **params)
 
+class ForbiddenException(AppException):
+    """Signed in, but not allowed to do this (403)"""
+    code = "forbidden"
+
+    def __init__(self, detail: str = "Not allowed", code: str | None = None, **params):
+        super().__init__(detail=detail, status_code=403, code=code, **params)
+
+class TooManyRequestsException(AppException):
+    """A limit has been reached (429)"""
+    code = "too_many_requests"
+
+    def __init__(self, detail: str = "Too many requests", code: str | None = None, **params):
+        super().__init__(detail=detail, status_code=429, code=code, **params)
+
 class ServiceUnavailableException(AppException):
     """An upstream dependency is unreachable (503)"""
     code = "service_unavailable"

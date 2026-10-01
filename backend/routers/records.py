@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
 from models.models import Expense, Feeding, FeedingTime, HealthRecord, Pet, RecordPhoto, User, Walk
 from schemas.record import GalleryPhoto, RecordCreate, RecordPhotoResponse, RecordResponse, RecordUpdate
 from sqlalchemy.orm import Session, selectinload
+from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.export import export_zip, records_to_pdf
 from utils.photos import delete_photo_file, read_photo, read_upload, store_photo
@@ -16,7 +17,7 @@ from utils.security import get_current_user
 from utils.weight import sync_pet_weight
 
 # Router setup
-router = APIRouter(tags=["Health Records"])
+router = APIRouter(tags=["Health Records"], dependencies=[Depends(require_access_to_write)])
 
 # Helper function to get a pet owned by the current user more efficiently
 def _get_owned_pet(pet_id: int, db: Session, current_user: User) -> Pet:

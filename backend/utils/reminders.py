@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
 from config import settings
 from models.models import FeedingTime, Pet, ScheduledEvent, User
 from sqlalchemy.orm import Session
+from utils.access import has_full_access
 from utils.feeding import pet_slots, satisfied_slots, to_minutes
 from utils.i18n import t
 from utils.mailer import send_email, send_reminder_email
@@ -57,6 +58,9 @@ def send_due_reminders(db: Session, today: date, instant: datetime | None = None
     for data in users_to_events.values():
         user = data["user"]
         events = data["events"]
+        # A locked account gets no reminders. The trial end warnings tell the owner so in advance.
+        if not has_full_access(user):
+            continue
 
         try:
             tz = ZoneInfo(user.timezone)
@@ -109,6 +113,8 @@ def send_feeding_reminders(db: Session, instant: datetime | None = None) -> int:
 
     for feeding_time, pet, user in rows:
         if not (user.feeding_email_enabled or user.feeding_push_enabled):
+            continue
+        if not has_full_access(user):
             continue
         local = moment.astimezone(ZoneInfo(user.timezone or "UTC"))
         if (local.hour, local.minute) != (feeding_time.time.hour, feeding_time.time.minute):

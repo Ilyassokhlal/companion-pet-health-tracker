@@ -20,6 +20,7 @@ from schemas.user import (
 )
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
 from utils.limiter import limiter
 from utils.mailer import (
@@ -261,7 +262,7 @@ def update_me(payload: UserUpdateRequest, db: Session = Depends(get_db), current
     return current_user
 
 
-@router.post("/me/photo", response_model=UserResponse)
+@router.post("/me/photo", response_model=UserResponse, dependencies=[Depends(require_access_to_write)])
 def upload_my_photo(file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Attach or replace the signed-in user's avatar."""
     name = save_photo(file)

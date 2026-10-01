@@ -6,11 +6,12 @@ from models.models import EventKind, HealthRecord, Pet, RecordType, ScheduledEve
 from schemas.event import EventCreateRequest, EventResponse, EventUpdateRequest
 from schemas.record import RecordResponse
 from sqlalchemy.orm import Session, joinedload
+from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.security import get_current_user
 from utils.weight import is_tracked, next_checkin_date
 
-router = APIRouter(tags=["Scheduled Events"])
+router = APIRouter(tags=["Scheduled Events"], dependencies=[Depends(require_access_to_write)])
 
 
 def _get_owned_event(event_id: int, db: Session, current_user: User) -> ScheduledEvent:

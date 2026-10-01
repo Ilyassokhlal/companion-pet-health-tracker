@@ -14,10 +14,11 @@ from schemas.expense import (
     ExpenseUpdate,
 )
 from sqlalchemy.orm import Session
+from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.security import get_current_user
 
-router = APIRouter(tags=["Budget"])
+router = APIRouter(tags=["Budget"], dependencies=[Depends(require_access_to_write)])
 
 # Threshold for triggering a warning when a pet's spending approaches its monthly budget.
 WARNING_RATIO = 0.8
