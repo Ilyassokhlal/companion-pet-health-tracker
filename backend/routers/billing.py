@@ -1,12 +1,17 @@
 import hmac
 
+import stripe
 from config import settings
 from database import get_db
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, Header, Request
 from models.models import User
+from schemas.billing import CheckoutRequest
 from sqlalchemy.orm import Session
-from utils.billing import sync_premium
-from utils.exceptions import ServiceUnavailableException, UnauthorizedException
+from starlette.concurrency import run_in_threadpool
+from utils.access import PREMIUM, access_state
+from utils.billing import report_stripe_purchase, stripe_client, sync_premium
+from utils.exceptions import BadRequestException, ServiceUnavailableException, UnauthorizedException
+from utils.security import get_current_user
 
 # No lockout dependency here: a locked account must still be able to subscribe.
 router = APIRouter(prefix="/billing", tags=["Billing"])
@@ -29,3 +34,71 @@ def revenuecat_webhook(payload: dict, authorization: str | None = Header(default
         if user and not sync_premium(db, user):
             # A 5xx makes RevenueCat retry later, up to five times
             raise ServiceUnavailableException("RevenueCat could not be reached.", code="billing_unavailable")
+
+
+# Web purchases use Stripe's hosted checkout page, so card details never reach this server.
+@router.post("/checkout")
+def create_checkout(payload: CheckoutRequest, current_user: User = Depends(get_current_user)):
+    """Start a Stripe checkout for Companion Premium and return the URL to send the user to."""
+    if access_state(current_user) == PREMIUM:
+        raise BadRequestException("This account already has Companion Premium.", code="already_premium")
+    price = settings.STRIPE_PRICE_MONTHLY if payload.plan == "monthly" else settings.STRIPE_PRICE_YEARLY
+    params = {
+        "mode": "subscription",
+        "line_items": [{"price": price, "quantity": 1}],
+        "client_reference_id": str(current_user.id),
+        "automatic_tax": {"enabled": True},
+        "success_url": f"{settings.FRONTEND_URL}/premium?checkout=success",
+        "cancel_url": f"{settings.FRONTEND_URL}/premium?checkout=cancelled",
+    }
+    if current_user.stripe_customer_id:
+        params["customer"] = current_user.stripe_customer_id
+        # Stripe Tax needs the customer's address. Checkout collects it and saves it back to the customer.
+        params["customer_update"] = {"address": "auto"}
+    else:
+        params["customer_email"] = current_user.email
+    session = stripe_client().v1.checkout.sessions.create(params=params)
+    return {"url": session.url}
+
+
+# Managing or cancelling a web subscription happens on Stripe's hosted billing portal. Phone subscriptions are managed in the store.
+@router.post("/portal")
+def create_portal(current_user: User = Depends(get_current_user)):
+    """Open Stripe's billing portal for the account's web subscription and return its URL."""
+    if not current_user.stripe_customer_id:
+        raise BadRequestException("This account has no web subscription to manage.", code="no_web_subscription")
+    session = stripe_client().v1.billing_portal.sessions.create(
+        params={"customer": current_user.stripe_customer_id, "return_url": f"{settings.FRONTEND_URL}/premium"}
+    )
+    return {"url": session.url}
+
+
+def _record_checkout(db: Session, checkout) -> None:
+    """Save the Stripe customer on the account, report the subscription to RevenueCat, then sync premium straight away."""
+    user_id = checkout.get("client_reference_id")
+    subscription_id = checkout.get("subscription")
+    if not (user_id and str(user_id).isdigit() and subscription_id):
+        return
+    user = db.get(User, int(user_id))
+    if user is None:
+        return
+    user.stripe_customer_id = checkout.get("customer")
+    db.commit()
+    if not report_stripe_purchase(str(user.id), subscription_id):
+        # A 5xx makes Stripe retry the webhook later
+        raise ServiceUnavailableException("RevenueCat could not be reached.", code="billing_unavailable")
+    sync_premium(db, user)
+
+
+# Stripe calls this when a web checkout completes. From then on RevenueCat tracks the subscription through its own Stripe connection.
+@router.post("/stripe", include_in_schema=False)
+async def stripe_webhook(request: Request, stripe_signature: str | None = Header(default=None), db: Session = Depends(get_db)):
+    """Verify Stripe's signature on the raw body, then hand a completed checkout over to RevenueCat."""
+    payload = await request.body()
+    try:
+        event = stripe_client().construct_event(payload, stripe_signature, settings.STRIPE_WEBHOOK_SECRET)
+    except (ValueError, stripe.SignatureVerificationError) as e:
+        raise BadRequestException("Invalid Stripe signature.", code="invalid_webhook") from e
+    if event["type"] == "checkout.session.completed":
+        await run_in_threadpool(_record_checkout, db, event["data"]["object"])
+    return {"received": True}

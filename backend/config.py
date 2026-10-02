@@ -48,9 +48,21 @@ class Settings:
 
     # Premium billing. RevenueCat is the source of truth for paid status: it calls the webhook, and the backend reads the account's entitlement back from its API.
     REVENUECAT_SECRET_KEY: str = os.environ.get("REVENUECAT_SECRET_KEY", "")
+
     # The exact Authorization header value set on the webhook in RevenueCat's dashboard. Empty rejects every webhook call.
     REVENUECAT_WEBHOOK_AUTH: str = os.environ.get("REVENUECAT_WEBHOOK_AUTH", "")
     REVENUECAT_ENTITLEMENT: str = os.environ.get("REVENUECAT_ENTITLEMENT", "premium")
+
+    # RevenueCat's public API key for its Stripe app, used to report each web purchase.
+    REVENUECAT_STRIPE_PUBLIC_KEY: str = os.environ.get("REVENUECAT_STRIPE_PUBLIC_KEY", "")
+
+    # Web payments go through Stripe's hosted checkout. The two price IDs are the monthly and yearly Companion Premium prices.
+    STRIPE_SECRET_KEY: str = os.environ.get("STRIPE_SECRET_KEY", "")
+    STRIPE_PRICE_MONTHLY: str = os.environ.get("STRIPE_PRICE_MONTHLY", "")
+    STRIPE_PRICE_YEARLY: str = os.environ.get("STRIPE_PRICE_YEARLY", "")
+    
+    # Signing secret of the webhook endpoint created in Stripe for /billing/stripe. Empty rejects every Stripe webhook call.
+    STRIPE_WEBHOOK_SECRET: str = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
 settings = Settings()
 

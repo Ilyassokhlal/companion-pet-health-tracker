@@ -5,6 +5,7 @@ import httpx
 from config import settings
 from models.models import User
 from sqlalchemy.orm import Session
+from stripe import StripeClient
 
 logger = logging.getLogger(__name__)
 
@@ -67,3 +68,24 @@ def resync_purchased(db: Session) -> int:
     """Daily safety net for a lost webhook: re-read every account with a purchase on record. Returns how many were synced."""
     users = db.query(User).filter(User.premium_source == "purchased").all()
     return sum(sync_premium(db, user) for user in users)
+
+
+def stripe_client() -> StripeClient:
+    """A Stripe API client, made per call so it always uses the current key."""
+    return StripeClient(settings.STRIPE_SECRET_KEY)
+
+
+def report_stripe_purchase(app_user_id: str, subscription_id: str) -> bool:
+    """Tell RevenueCat about a subscription bought through Stripe, so it tracks it for this account from now on. Returns False when RevenueCat can't be reached."""
+    try:
+        r = httpx.post(
+            f"{REVENUECAT_API}/receipts",
+            headers={"X-Platform": "stripe", "Authorization": f"Bearer {settings.REVENUECAT_STRIPE_PUBLIC_KEY}"},
+            json={"app_user_id": app_user_id, "fetch_token": subscription_id},
+            timeout=15,
+        )
+        r.raise_for_status()
+    except httpx.HTTPError:
+        logger.warning("Reporting Stripe subscription %s to RevenueCat failed", subscription_id, exc_info=True)
+        return False
+    return True

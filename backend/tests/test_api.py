@@ -511,6 +511,73 @@ def test_entitlement_mirrors_revenuecat_without_overriding_lifetime_grants():
     apply_entitlement(lifetime, {"expires_date": "2020-01-01T00:00:00Z"})
     assert access_state(lifetime) == GRANTED
 
+def test_checkout_opens_stripe_even_for_a_locked_account(client, auth, db, monkeypatch):
+    """A locked account must be able to subscribe. The session carries the account id, the chosen price and Stripe Tax."""
+    from types import SimpleNamespace
+
+    headers = auth()
+    user = db.query(User).one()
+    user.trial_ends_at = datetime.now() - timedelta(days=1)
+    db.commit()
+    monkeypatch.setattr(settings, "STRIPE_PRICE_YEARLY", "price_yearly")
+    created = []
+
+    def create(params):
+        created.append(params)
+        return SimpleNamespace(url="https://checkout.stripe.test/session")
+
+    fake = SimpleNamespace(v1=SimpleNamespace(checkout=SimpleNamespace(sessions=SimpleNamespace(create=create))))
+    monkeypatch.setattr("routers.billing.stripe_client", lambda: fake)
+
+    r = client.post("/billing/checkout", json={"plan": "yearly"}, headers=headers)
+    assert r.status_code == 200
+    assert r.json()["url"] == "https://checkout.stripe.test/session"
+    assert created[0]["line_items"] == [{"price": "price_yearly", "quantity": 1}]
+    assert created[0]["client_reference_id"] == str(user.id)
+    assert created[0]["customer_email"] == user.email
+    assert created[0]["automatic_tax"] == {"enabled": True}
+
+    assert client.post("/billing/checkout", json={"plan": "weekly"}, headers=headers).status_code == 422
+    assert client.post("/billing/portal", headers=headers).json()["code"] == "no_web_subscription"
+
+    # Someone already paying can't start a second subscription
+    user.premium_source = "purchased"
+    user.premium_expires_at = datetime.now() + timedelta(days=30)
+    db.commit()
+    assert client.post("/billing/checkout", json={"plan": "monthly"}, headers=headers).json()["code"] == "already_premium"
+
+
+def test_stripe_webhook_hands_the_purchase_to_revenuecat(client, auth, db, monkeypatch):
+    """A completed checkout saves the Stripe customer and reports the subscription to RevenueCat. A bad signature is refused."""
+    from types import SimpleNamespace
+
+    import stripe
+
+    auth()
+    user = db.query(User).one()
+    event = {"type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(user.id), "customer": "cus_test", "subscription": "sub_test"}}}
+
+    def construct_event(payload, signature, secret):
+        if signature != "good":
+            raise stripe.SignatureVerificationError("bad signature", signature)
+        return event
+
+    monkeypatch.setattr("routers.billing.stripe_client", lambda: SimpleNamespace(construct_event=construct_event))
+    reported = []
+    monkeypatch.setattr("routers.billing.report_stripe_purchase", lambda app_user_id, subscription_id: reported.append((app_user_id, subscription_id)) or True)
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: {"expires_date": "2030-01-01T00:00:00Z"})
+
+    assert client.post("/billing/stripe", content=b"{}", headers={"Stripe-Signature": "forged"}).status_code == 400
+    assert client.post("/billing/stripe", content=b"{}", headers={"Stripe-Signature": "good"}).status_code == 200
+    assert reported == [(str(user.id), "sub_test")]
+    db.refresh(user)
+    assert user.stripe_customer_id == "cus_test"
+    assert access_state(user) == PREMIUM
+
+    # If RevenueCat can't be reached, the 503 makes Stripe retry later
+    monkeypatch.setattr("routers.billing.report_stripe_purchase", lambda app_user_id, subscription_id: False)
+    assert client.post("/billing/stripe", content=b"{}", headers={"Stripe-Signature": "good"}).status_code == 503
+
 
 def test_locked_account_can_read_and_delete_but_not_add_or_change(client, pet, db, monkeypatch):
     """After the trial, reading, exporting, settings and deleting stay open. Adding, changing and asking need premium."""

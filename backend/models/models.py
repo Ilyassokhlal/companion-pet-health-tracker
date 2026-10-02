@@ -51,6 +51,8 @@ class User(Base):
     premium_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     # The last trial end warning sent (7, 3 or 1 days before), so each one goes out once.
     trial_warning_sent: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # Set by the first web checkout. Opens Stripe's billing portal, and lets account deletion cancel a web subscription.
+    stripe_customer_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
