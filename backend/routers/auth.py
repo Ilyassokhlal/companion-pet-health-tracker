@@ -22,7 +22,14 @@ from schemas.user import (
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from utils.access import require_access_to_write
-from utils.exceptions import BadRequestException, DuplicateException, NotFoundException, UnauthorizedException
+from utils.billing import cancel_renewals
+from utils.exceptions import (
+    BadRequestException,
+    DuplicateException,
+    NotFoundException,
+    ServiceUnavailableException,
+    UnauthorizedException,
+)
 from utils.limiter import limiter
 from utils.mailer import (
     send_email_changed_email,
@@ -243,6 +250,12 @@ def delete_account(request: Request, payload: DeleteAccountRequest, db: Session 
     """Permanently delete the signed-in user and everything they own."""
     if not verify_password(payload.password, current_user.hashed_password):
         raise UnauthorizedException("Incorrect password.", code="incorrect_password")
+    # Deleting must never leave a subscription charging, so the account stays until every renewal is stopped.
+    if not cancel_renewals(current_user):
+        raise ServiceUnavailableException(
+            "Your subscription could not be stopped right now, so nothing was deleted. Try again in a few minutes.",
+            code="renewal_not_stopped",
+        )
     remember_trial(db, current_user.email, days_to_give_back(current_user), "deleted")
     db.delete(current_user)
     delete_photo_file(current_user.photo_filename)

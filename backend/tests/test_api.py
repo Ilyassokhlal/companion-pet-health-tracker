@@ -578,6 +578,104 @@ def test_stripe_webhook_hands_the_purchase_to_revenuecat(client, auth, db, monke
     monkeypatch.setattr("routers.billing.report_stripe_purchase", lambda app_user_id, subscription_id: False)
     assert client.post("/billing/stripe", content=b"{}", headers={"Stripe-Signature": "good"}).status_code == 503
 
+def test_deleting_a_paying_account_stops_its_web_and_google_renewals(client, auth, db, monkeypatch):
+    """Paid periods run out without renewing and an unpaid web invoice ends now. If a payment service can't be reached, nothing is deleted."""
+    from types import SimpleNamespace
+
+    headers = auth()
+    user = db.query(User).one()
+    user.premium_source = "purchased"
+    user.premium_expires_at = datetime.now() + timedelta(days=30)
+    user.stripe_customer_id = "cus_test"
+    db.commit()
+    user_id = user.id
+
+    web = [
+        SimpleNamespace(id="sub_paid", status="active", cancel_at_period_end=False),
+        SimpleNamespace(id="sub_unpaid", status="past_due", cancel_at_period_end=False),
+        SimpleNamespace(id="sub_over", status="canceled", cancel_at_period_end=False),
+    ]
+    updated, cancelled = [], []
+    subscriptions = SimpleNamespace(
+        list=lambda params: SimpleNamespace(auto_paging_iter=lambda: iter(web)),
+        update=lambda sub_id, params: updated.append((sub_id, params)),
+        cancel=lambda sub_id: cancelled.append(sub_id),
+    )
+    monkeypatch.setattr("utils.billing.stripe_client", lambda: SimpleNamespace(v1=SimpleNamespace(subscriptions=subscriptions)))
+
+    google = {
+        "renewing": {"store": "play_store", "store_transaction_id": "GPA.1", "expires_date": "2030-01-01T00:00:00Z"},
+        "stopped": {"store": "play_store", "store_transaction_id": "GPA.2", "expires_date": "2030-01-01T00:00:00Z", "unsubscribe_detected_at": "2026-01-01T00:00:00Z"},
+        "expired": {"store": "play_store", "store_transaction_id": "GPA.3", "expires_date": "2020-01-01T00:00:00Z"},
+        "web": {"store": "stripe", "store_transaction_id": "sub_paid", "expires_date": "2030-01-01T00:00:00Z"},
+    }
+    posted = []
+    monkeypatch.setattr("utils.billing.httpx.post", lambda url, **kwargs: posted.append(url) or SimpleNamespace(raise_for_status=lambda: None))
+
+    monkeypatch.setattr("utils.billing.fetch_subscriber", lambda app_user_id: None)
+    r = client.request("DELETE", "/auth/me", json={"password": "password"}, headers=headers)
+    assert r.status_code == 503
+    assert r.json()["code"] == "renewal_not_stopped"
+    assert db.query(User).count() == 1
+
+    monkeypatch.setattr("utils.billing.fetch_subscriber", lambda app_user_id: {"subscriptions": google})
+    assert client.request("DELETE", "/auth/me", json={"password": "password"}, headers=headers).status_code == 204
+    assert ("sub_paid", {"cancel_at_period_end": True}) in updated
+    assert {sub_id for sub_id, _ in updated} == {"sub_paid"}
+    assert set(cancelled) == {"sub_unpaid"}
+    assert posted == [f"https://api.revenuecat.com/v1/subscribers/{user_id}/subscriptions/GPA.1/cancel"]
+
+
+def test_restore_moves_a_running_web_subscription_onto_a_returning_account(client, auth, db, monkeypatch):
+    """Only a verified email can claim the subscription paid with it, and never one that another account still holds."""
+    from types import SimpleNamespace
+
+    import stripe
+
+    headers = auth()
+    other = client.post("/auth/register", json={"username": "other", "email": "other@example.com", "password": "password"})
+    assert other.status_code == 201
+    db.query(User).filter(User.username == "other").one().stripe_customer_id = "cus_taken"
+    user = db.query(User).filter(User.username == "testuser").one()
+    db.commit()
+
+    customers = [SimpleNamespace(id="cus_taken"), SimpleNamespace(id="cus_old")]
+    asked = []
+
+    def list_customers(params):
+        asked.append(params["email"])
+        return SimpleNamespace(auto_paging_iter=lambda: iter(customers))
+
+    def list_subscriptions(params):
+        return SimpleNamespace(auto_paging_iter=lambda: iter([SimpleNamespace(id=f"sub_of_{params['customer']}", status="active")]))
+
+    fake = SimpleNamespace(v1=SimpleNamespace(customers=SimpleNamespace(list=list_customers), subscriptions=SimpleNamespace(list=list_subscriptions)))
+    monkeypatch.setattr("utils.billing.stripe_client", lambda: fake)
+    reported = []
+    monkeypatch.setattr("routers.billing.report_stripe_purchase", lambda app_user_id, subscription_id: reported.append((app_user_id, subscription_id)) or True)
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: {"expires_date": "2030-01-01T00:00:00Z"})
+
+    assert client.post("/billing/restore", headers=headers).json()["code"] == "email_not_verified"
+    user.email_verified = True
+    db.commit()
+
+    assert client.post("/billing/restore", headers=headers).status_code == 204
+    assert asked[-1] == "testuser@example.com"
+    assert reported == [(str(user.id), "sub_of_cus_old")]
+    db.refresh(user)
+    assert user.stripe_customer_id == "cus_old"
+    assert access_state(user) == PREMIUM
+
+    customers.clear()
+    assert client.post("/billing/restore", headers=headers).json()["code"] == "nothing_to_restore"
+
+    def unreachable(params):
+        raise stripe.APIConnectionError("Stripe is down")
+
+    fake.v1.customers.list = unreachable
+    assert client.post("/billing/restore", headers=headers).status_code == 503
+
+
 def test_deleting_during_the_trial_gives_the_days_back_to_a_returning_email(client, auth, db):
     """A deleted account leaves its remaining trial days for the same email, matched in any upper or lower case. A new email gets a full month."""
     headers = auth()
@@ -635,7 +733,7 @@ def test_fingerprints_are_forgotten_after_a_year(client, db):
     r = client.post("/auth/register", json={"username": "old", "email": "old@example.com", "password": "password"})
     assert r.json()["returning_trial_days"] is None
     assert purge_expired_fingerprints(db) == 1
-    
+
 
 def test_locked_account_can_read_and_delete_but_not_add_or_change(client, pet, db, monkeypatch):
     """After the trial, reading, exporting, settings and deleting stay open. Adding, changing and asking need premium."""

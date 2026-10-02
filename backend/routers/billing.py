@@ -9,8 +9,9 @@ from schemas.billing import CheckoutRequest
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
 from utils.access import PREMIUM, access_state
-from utils.billing import report_stripe_purchase, stripe_client, sync_premium
-from utils.exceptions import BadRequestException, ServiceUnavailableException, UnauthorizedException
+from utils.billing import report_stripe_purchase, running_stripe_subscriptions, stripe_client, sync_premium
+from utils.exceptions import BadRequestException, ForbiddenException, ServiceUnavailableException, UnauthorizedException
+from utils.limiter import limiter
 from utils.security import get_current_user
 
 # No lockout dependency here: a locked account must still be able to subscribe.
@@ -71,6 +72,34 @@ def create_portal(current_user: User = Depends(get_current_user)):
         params={"customer": current_user.stripe_customer_id, "return_url": f"{settings.FRONTEND_URL}/premium"}
     )
     return {"url": session.url}
+
+# A web payer who deleted their account and came back gets the subscription that is still running. Phone purchases are restored by the app through the store.
+@router.post("/restore", status_code=204)
+@limiter.limit("5/hour")
+def restore_purchase(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Find a running web subscription paid with this account's email and move it onto this account."""
+    if not current_user.email_verified:
+        # Anyone can sign up with any address, so only a verified one can claim the subscription paid with it.
+        raise ForbiddenException("Verify your email to restore a purchase.", code="email_not_verified")
+    found = None
+    try:
+        for customer_id, subscription_id in running_stripe_subscriptions(current_user.email):
+            owner = db.query(User).filter(User.stripe_customer_id == customer_id).first()
+            # Never move a subscription away from another account that still exists
+            if owner is None or owner.id == current_user.id:
+                found = customer_id, subscription_id
+                break
+    except stripe.StripeError as e:
+        raise ServiceUnavailableException("Stripe could not be reached.", code="billing_unavailable") from e
+    if found is None:
+        raise BadRequestException("No web subscription was found for this email.", code="nothing_to_restore")
+    customer_id, subscription_id = found
+    # RevenueCat moves the subscription from the deleted account's id to this one
+    if not report_stripe_purchase(str(current_user.id), subscription_id):
+        raise ServiceUnavailableException("RevenueCat could not be reached.", code="billing_unavailable")
+    current_user.stripe_customer_id = customer_id
+    db.commit()
+    sync_premium(db, current_user)
 
 
 def _record_checkout(db: Session, checkout) -> None:
