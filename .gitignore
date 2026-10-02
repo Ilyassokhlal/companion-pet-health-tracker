@@ -8,6 +8,8 @@ env/
 
 # Environment
 .env
+.env.*
+!.env.example
 
 # Data
 *.db
