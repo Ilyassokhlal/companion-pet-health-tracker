@@ -18,6 +18,7 @@ from utils.billing import resync_purchased
 from utils.exceptions import AppException
 from utils.limiter import limiter
 from utils.reminders import send_due_reminders, send_feeding_reminders
+from utils.trial_fingerprints import purge_expired_fingerprints
 
 
 # Scheduler for sending reminders
@@ -44,6 +45,11 @@ def _run_premium_resync():
     with SessionLocal() as db:
         resync_purchased(db)
 
+# Scheduler entry point for erasing trial fingerprints once they are a year old
+def _run_fingerprint_purge():
+    with SessionLocal() as db:
+        purge_expired_fingerprints(db)
+
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -58,6 +64,7 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
     scheduler.add_job(_run_feeding_reminders, "cron", minute="0,15,30,45", id="feeding_reminders")
     scheduler.add_job(_run_premium_resync, "cron", hour=4, minute=30, id="premium_resync")
+    scheduler.add_job(_run_fingerprint_purge, "cron", hour=4, minute=45, id="fingerprint_purge")
     scheduler.start()
     yield
     scheduler.shutdown()

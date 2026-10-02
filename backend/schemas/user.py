@@ -91,6 +91,11 @@ class TokenResponse(BaseModel):
         }
     )
 
+class RegisterResponse(TokenResponse):
+    """Schema for the signup response."""
+    # Set when this email already had its free month, so the app can say so: the trial days the new account starts with, which can be 0.
+    returning_trial_days: int | None = None
+
 class VerifyRequest(BaseModel):
     """Schema for verifying a user's email."""
     token: str

@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from zoneinfo import available_timezones
 
 from config import settings
@@ -12,6 +12,7 @@ from schemas.user import (
     ForgotPasswordRequest,
     LoginRequest,
     RegisterRequest,
+    RegisterResponse,
     ResetPasswordRequest,
     TokenResponse,
     UserResponse,
@@ -39,6 +40,7 @@ from utils.security import (
     password_fingerprint,
     verify_password,
 )
+from utils.trial_fingerprints import claim_trial, days_to_give_back, remember_trial
 from utils.weight import sync_checkin
 
 # Router for authentication-related endpoints
@@ -46,7 +48,7 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 # Authentication endpoints for user registration, login, and retrieving the current user
-@router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED,
+@router.post("/register", response_model=RegisterResponse, status_code=status.HTTP_201_CREATED,
     responses={
         422: {"description": "Validation Error"},
         409: {"description": "Email already registered"},
@@ -70,6 +72,10 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
         timezone=payload.timezone or settings.TIMEZONE,
         language=payload.language or "en",
     )
+    # An email that already had its free month gets no new one. Deleted during the trial, it gets back the days that were left.
+    returning_trial_days = claim_trial(db, payload.email)
+    if returning_trial_days is not None:
+        user.trial_ends_at = datetime.now() + timedelta(days=returning_trial_days)
 
     db.add(user)
     try:
@@ -86,9 +92,10 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
     verify_token = create_purpose_token(user.id, "verify", timedelta(hours=24))
     background_tasks.add_task(send_verification_email, user.email, verify_token, user.language)
 
-    return{
+    return {
         "access_token": token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "returning_trial_days": returning_trial_days,
     }
 
 
@@ -131,6 +138,8 @@ def verify_email(request: Request, payload: VerifyRequest, db: Session = Depends
         raise NotFoundException("User", user_id)
     if user.pending_email:
         claimed = user.pending_email
+        # The trial moves with the account, so the old address can't start another one for a year.
+        remember_trial(db, user.email, 0, "email_changed")
         user.email = claimed
         user.pending_email = None
         user.email_verified = True
@@ -234,6 +243,7 @@ def delete_account(request: Request, payload: DeleteAccountRequest, db: Session 
     """Permanently delete the signed-in user and everything they own."""
     if not verify_password(payload.password, current_user.hashed_password):
         raise UnauthorizedException("Incorrect password.", code="incorrect_password")
+    remember_trial(db, current_user.email, days_to_give_back(current_user), "deleted")
     db.delete(current_user)
     delete_photo_file(current_user.photo_filename)
     for pet in current_user.pets:
