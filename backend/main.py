@@ -11,9 +11,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from routers import ask, auth, devices, events, expenses, feedings, messages, pets, records, walks
+from routers import ask, auth, billing, devices, events, expenses, feedings, messages, pets, records, walks
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from utils.billing import resync_purchased
 from utils.exceptions import AppException
 from utils.limiter import limiter
 from utils.reminders import send_due_reminders, send_feeding_reminders
@@ -38,6 +39,11 @@ def _run_feeding_reminders():
     with SessionLocal() as db:
         send_feeding_reminders(db)
 
+# Scheduler entry point for the daily premium re-check, the safety net for a lost payment webhook
+def _run_premium_resync():
+    with SessionLocal() as db:
+        resync_purchased(db)
+
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -51,6 +57,7 @@ async def lifespan(app: FastAPI):
     scheduler = BackgroundScheduler(timezone=settings.TIMEZONE)
     scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
     scheduler.add_job(_run_feeding_reminders, "cron", minute="0,15,30,45", id="feeding_reminders")
+    scheduler.add_job(_run_premium_resync, "cron", hour=4, minute=30, id="premium_resync")
     scheduler.start()
     yield
     scheduler.shutdown()
@@ -99,6 +106,7 @@ app.include_router(events.router)
 app.include_router(walks.router)
 app.include_router(feedings.router)
 app.include_router(expenses.router)
+app.include_router(billing.router)
 
 # Root endpoint for introduction and redirection to documentation
 @app.get("/", include_in_schema=False)

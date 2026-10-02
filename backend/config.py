@@ -46,6 +46,12 @@ class Settings:
     PHOTO_DIR: str = os.environ.get("PHOTO_DIR", "/data/photos")
     MAX_PHOTO_MB: int = int(os.environ.get("MAX_PHOTO_MB", "20"))
 
+    # Premium billing. RevenueCat is the source of truth for paid status: it calls the webhook, and the backend reads the account's entitlement back from its API.
+    REVENUECAT_SECRET_KEY: str = os.environ.get("REVENUECAT_SECRET_KEY", "")
+    # The exact Authorization header value set on the webhook in RevenueCat's dashboard. Empty rejects every webhook call.
+    REVENUECAT_WEBHOOK_AUTH: str = os.environ.get("REVENUECAT_WEBHOOK_AUTH", "")
+    REVENUECAT_ENTITLEMENT: str = os.environ.get("REVENUECAT_ENTITLEMENT", "premium")
+
 settings = Settings()
 
 # Print configuration on startup (useful for debugging)

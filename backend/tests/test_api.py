@@ -467,6 +467,51 @@ def test_trial_days_left_counts_the_last_day_as_one():
     assert trial_days_left(SimpleNamespace(trial_ends_at=now - timedelta(days=2)), now) == 0
 
 
+def test_revenuecat_webhook_syncs_premium_from_revenuecat(client, auth, db, monkeypatch):
+    """The webhook re-reads the account from RevenueCat instead of trusting the event, and rejects calls without the configured header."""
+    auth()
+    user = db.query(User).one()
+    monkeypatch.setattr(settings, "REVENUECAT_WEBHOOK_AUTH", "Bearer test-webhook")
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: {"expires_date": "2030-01-01T00:00:00Z", "grace_period_expires_date": None})
+    body = {"api_version": "1.0", "event": {"type": "INITIAL_PURCHASE", "app_user_id": str(user.id), "aliases": [str(user.id)]}}
+
+    assert client.post("/billing/revenuecat", json=body).status_code == 401
+    assert client.post("/billing/revenuecat", json=body, headers={"Authorization": "Bearer wrong"}).status_code == 401
+    assert client.post("/billing/revenuecat", json=body, headers={"Authorization": "Bearer test-webhook"}).status_code == 204
+    db.refresh(user)
+    assert user.premium_source == "purchased"
+    assert access_state(user) == PREMIUM
+
+    # When RevenueCat can't be reached nothing changes, and the 503 makes RevenueCat retry later
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: None)
+    assert client.post("/billing/revenuecat", json=body, headers={"Authorization": "Bearer test-webhook"}).status_code == 503
+    db.refresh(user)
+    assert access_state(user) == PREMIUM
+
+
+def test_entitlement_mirrors_revenuecat_without_overriding_lifetime_grants():
+    """Grace keeps a purchase open, a refund ends it at once, and a lifetime grant from the command line is never touched."""
+    from types import SimpleNamespace
+
+    from utils.billing import apply_entitlement
+
+    def account(**fields):
+        return SimpleNamespace(**{"trial_ends_at": datetime.now() - timedelta(days=60), "premium_source": None, "premium_expires_at": None} | fields)
+
+    buyer = account()
+    apply_entitlement(buyer, {"expires_date": "2020-01-01T00:00:00Z", "grace_period_expires_date": "2099-01-01T00:00:00Z"})
+    assert buyer.premium_source == "purchased"
+    assert access_state(buyer) == PREMIUM
+
+    apply_entitlement(buyer, {})
+    assert access_state(buyer) == LOCKED
+
+    lifetime = account(premium_source="granted")
+    apply_entitlement(lifetime, {})
+    apply_entitlement(lifetime, {"expires_date": "2020-01-01T00:00:00Z"})
+    assert access_state(lifetime) == GRANTED
+
+
 def test_locked_account_can_read_and_delete_but_not_add_or_change(client, pet, db, monkeypatch):
     """After the trial, reading, exporting, settings and deleting stay open. Adding, changing and asking need premium."""
     monkeypatch.setattr("rag.retrieve", lambda *args, **kwargs: [])
