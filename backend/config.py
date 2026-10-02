@@ -51,7 +51,7 @@ class Settings:
 
     # The exact Authorization header value set on the webhook in RevenueCat's dashboard. Empty rejects every webhook call.
     REVENUECAT_WEBHOOK_AUTH: str = os.environ.get("REVENUECAT_WEBHOOK_AUTH", "")
-    REVENUECAT_ENTITLEMENT: str = os.environ.get("REVENUECAT_ENTITLEMENT", "premium")
+    REVENUECAT_ENTITLEMENT: str = os.environ.get("REVENUECAT_ENTITLEMENT", "companion_premium")
 
     # RevenueCat's public API key for its Stripe app, used to report each web purchase.
     REVENUECAT_STRIPE_PUBLIC_KEY: str = os.environ.get("REVENUECAT_STRIPE_PUBLIC_KEY", "")
@@ -60,7 +60,7 @@ class Settings:
     STRIPE_SECRET_KEY: str = os.environ.get("STRIPE_SECRET_KEY", "")
     STRIPE_PRICE_MONTHLY: str = os.environ.get("STRIPE_PRICE_MONTHLY", "")
     STRIPE_PRICE_YEARLY: str = os.environ.get("STRIPE_PRICE_YEARLY", "")
-    
+
     # Signing secret of the webhook endpoint created in Stripe for /billing/stripe. Empty rejects every Stripe webhook call.
     STRIPE_WEBHOOK_SECRET: str = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
