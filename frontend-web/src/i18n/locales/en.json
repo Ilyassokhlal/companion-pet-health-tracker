@@ -11,6 +11,7 @@
       "trialOver": "Your free month has ended.",
       "ended": "Your Companion Premium has ended.",
       "active": "Companion Premium is active, paid up to {{date}}.",
+      "activeEnding": "Companion Premium is active until {{date}} and won't renew.",
       "lifetime": "You have Companion Premium for life.",
       "grantedUntil": "You have Companion Premium until {{date}}."
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "Your free month ends in {{days}}",
+    "premiumEndingTitle": "Your Companion Premium ends in {{days}}",
     "endingBody": "After that Companion becomes read only. You can still view and export everything, but adding, tracking, questions and reminders stop.",
     "trialOverTitle": "Your free month has ended",
     "endedTitle": "Your Companion Premium has ended",

@@ -11,6 +11,7 @@
       "trialOver": "您的免费月已结束。",
       "ended": "您的 Companion Premium 已到期。",
       "active": "Companion Premium 已启用，已付费至 {{date}}。",
+      "activeEnding": "Companion Premium 有效期至 {{date}}，且不会续订。",
       "lifetime": "您拥有终身 Companion Premium。",
       "grantedUntil": "您的 Companion Premium 有效期至 {{date}}。"
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "您的免费月将在 {{days}}后结束",
+    "premiumEndingTitle": "您的 Companion Premium 将在 {{days}}后结束",
     "endingBody": "之后 Companion 将变为只读模式。您仍可查看和导出所有内容，但添加、记录、提问和提醒都会停止。",
     "trialOverTitle": "您的免费月已结束",
     "endedTitle": "您的 Companion Premium 已到期",

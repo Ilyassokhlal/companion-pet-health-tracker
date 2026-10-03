@@ -3,10 +3,10 @@ import { Clock, Lock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 
-// The banner counts down the last week of the free month, the same week the warning emails start.
+// The banner counts down the last week before the account locks, the same week the warning emails start.
 const WARN_DAYS = 7;
 
-// Shows the end of the free month coming, then stays for good once the account is locked, saying plainly what still works and what has stopped.
+// Shows the end of the free month, or of a plan that won't renew, coming. Then stays for good once the account is locked, saying plainly what still works and what has stopped.
 export default function PremiumBanner() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -15,16 +15,14 @@ export default function PremiumBanner() {
   // The subscribe screen explains all of this itself
   if (!user || pathname === "/premium") return null;
   const locked = user.access === "locked";
-  const ending = user.access === "trial" && user.trial_days_left <= WARN_DAYS;
+  const ending = !locked && user.days_until_locked !== null && user.days_until_locked <= WARN_DAYS;
   if (!locked && !ending) return null;
 
-  const days = t("dashboard.days", { count: user.trial_days_left });
+  const days = t("dashboard.days", { count: user.days_until_locked ?? 0 });
   // An account that had premium and lost it has nothing to do with the free month any more
-  const title = !locked
-    ? t("premiumBanner.endingTitle", { days })
-    : user.premium_expires_at
-      ? t("premiumBanner.endedTitle")
-      : t("premiumBanner.trialOverTitle");
+  const title = locked
+    ? (user.premium_expires_at ? t("premiumBanner.endedTitle") : t("premiumBanner.trialOverTitle"))
+    : (user.access === "trial" ? t("premiumBanner.endingTitle", { days }) : t("premiumBanner.premiumEndingTitle", { days }));
 
   return (
     <div className={`border-s-4 px-4 sm:px-6 py-3 ${locked ? "border-danger bg-danger/10" : "border-warning bg-warning/10"}`} role="status">

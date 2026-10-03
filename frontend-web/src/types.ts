@@ -67,6 +67,8 @@ export interface User {
   trial_days_left: number;
   premium_expires_at: string | null;
   has_web_subscription: boolean;
+  // Days until the account locks if nothing changes: the trial, a premium that won't renew, or a timed grant. Null when it won't lock.
+  days_until_locked: number | null;
 }
 
 // What an account can do right now. Locked means read only: viewing, exporting and deleting still work.

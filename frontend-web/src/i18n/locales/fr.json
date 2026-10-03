@@ -11,6 +11,7 @@
       "trialOver": "Votre mois gratuit est terminé.",
       "ended": "Votre abonnement Companion Premium est terminé.",
       "active": "Companion Premium est actif, payé jusqu'au {{date}}.",
+      "activeEnding": "Companion Premium est actif jusqu'au {{date}} et ne sera pas renouvelé.",
       "lifetime": "Vous avez Companion Premium à vie.",
       "grantedUntil": "Vous avez Companion Premium jusqu'au {{date}}."
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "Votre mois gratuit se termine dans {{days}}",
+    "premiumEndingTitle": "Votre abonnement Companion Premium se termine dans {{days}}",
     "endingBody": "Ensuite, Companion passe en lecture seule. Vous pourrez toujours tout consulter et exporter, mais l'ajout, le suivi, les questions et les rappels s'arrêteront.",
     "trialOverTitle": "Votre mois gratuit est terminé",
     "endedTitle": "Votre abonnement Companion Premium est terminé",

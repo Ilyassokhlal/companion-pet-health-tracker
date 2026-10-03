@@ -11,7 +11,10 @@ export function premiumStatus(user: User): string {
     case "trial":
       return i18n.t("premium.status.trial", { days: i18n.t("dashboard.days", { count: user.trial_days_left }) });
     case "premium":
-      return i18n.t("premium.status.active", { date: until });
+      // A plan that won't renew says when it ends instead of looking like it carries on
+      return user.days_until_locked === null
+        ? i18n.t("premium.status.active", { date: until })
+        : i18n.t("premium.status.activeEnding", { date: until });
     case "granted":
       return until ? i18n.t("premium.status.grantedUntil", { date: until }) : i18n.t("premium.status.lifetime");
     case "locked":

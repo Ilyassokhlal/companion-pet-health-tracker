@@ -11,6 +11,7 @@
       "trialOver": "Ihr Gratismonat ist abgelaufen.",
       "ended": "Ihr Companion Premium ist abgelaufen.",
       "active": "Companion Premium ist aktiv, bezahlt bis {{date}}.",
+      "activeEnding": "Companion Premium ist bis {{date}} aktiv und wird nicht verlängert.",
       "lifetime": "Sie haben Companion Premium auf Lebenszeit.",
       "grantedUntil": "Sie haben Companion Premium bis {{date}}."
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "Noch {{days}} in Ihrem Gratismonat",
+    "premiumEndingTitle": "Ihr Companion Premium läuft noch {{days}}",
     "endingBody": "Danach ist Companion schreibgeschützt. Sie können weiterhin alles ansehen und exportieren, aber Hinzufügen, Erfassen, Fragen und Erinnerungen werden eingestellt.",
     "trialOverTitle": "Ihr Gratismonat ist abgelaufen",
     "endedTitle": "Ihr Companion Premium ist abgelaufen",

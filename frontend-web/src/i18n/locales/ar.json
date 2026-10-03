@@ -11,6 +11,7 @@
       "trialOver": "انتهى شهرك المجاني.",
       "ended": "انتهى اشتراكك في Companion Premium.",
       "active": "Companion Premium مفعّل، ومدفوع حتى {{date}}.",
+      "activeEnding": "Companion Premium مفعّل حتى {{date}} ولن يتجدد.",
       "lifetime": "لديك Companion Premium مدى الحياة.",
       "grantedUntil": "لديك Companion Premium حتى {{date}}."
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "ينتهي شهرك المجاني بعد {{days}}",
+    "premiumEndingTitle": "ينتهي اشتراكك في Companion Premium بعد {{days}}",
     "endingBody": "بعد ذلك يصبح Companion للقراءة فقط. ستتمكن من عرض كل شيء وتصديره، لكن الإضافة والتتبع والأسئلة والتذكيرات ستتوقف.",
     "trialOverTitle": "انتهى شهرك المجاني",
     "endedTitle": "انتهى اشتراكك في Companion Premium",

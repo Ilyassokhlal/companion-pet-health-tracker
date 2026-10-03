@@ -11,6 +11,7 @@
       "trialOver": "Ваш бесплатный месяц закончился.",
       "ended": "Ваша подписка Companion Premium закончилась.",
       "active": "Companion Premium активен, оплачен до {{date}}.",
+      "activeEnding": "Companion Premium активен до {{date}} и не будет продлён.",
       "lifetime": "У вас пожизненный Companion Premium.",
       "grantedUntil": "У вас Companion Premium до {{date}}."
     },
@@ -53,6 +54,7 @@
   },
   "premiumBanner": {
     "endingTitle": "Бесплатный месяц закончится через {{days}}",
+    "premiumEndingTitle": "Ваша подписка Companion Premium закончится через {{days}}",
     "endingBody": "После этого Companion будет работать только для чтения. Вы сможете просматривать и экспортировать всё, но добавление, учёт, вопросы и напоминания прекратятся.",
     "trialOverTitle": "Ваш бесплатный месяц закончился",
     "endedTitle": "Ваша подписка Companion Premium закончилась",
