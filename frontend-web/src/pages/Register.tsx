@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
@@ -69,6 +69,15 @@ export default function Register() {
         <Button type="submit" disabled={submitting} className="w-full">
           {submitting ? t("auth.register.submitting") : t("auth.register.submit")}
         </Button>
+        <p className="text-xs text-muted">
+          <Trans
+            i18nKey="auth.register.agree"
+            components={{
+              terms: <Link to="/terms" className="text-primary hover:underline" />,
+              privacy: <Link to="/privacy" className="text-primary hover:underline" />,
+            }}
+          />
+        </p>
         <Link to="/login" className="text-primary hover:underline text-sm block">
           {t("auth.register.loginLink")}
         </Link>

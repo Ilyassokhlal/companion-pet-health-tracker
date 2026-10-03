@@ -5,7 +5,11 @@ import { Link } from "expo-router";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAuth } from "@/auth/AuthContext";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
+import * as WebBrowser from "expo-web-browser";
+
+// The legal pages are hosted by the web app, always in production, since store reviewers fetch them
+const SITE = "https://mycompanion.pet";
 
 export default function Register() {
   const { t } = useTranslation();
@@ -79,6 +83,16 @@ export default function Register() {
           {error ? <Text className="text-sm text-danger">{error}</Text> : null}
 
           <Button label={t("auth.register.submit")} onPress={handleSubmit} loading={submitting} />
+
+          <Text className="text-xs text-muted">
+            <Trans
+              i18nKey="auth.register.agree"
+              components={{
+                terms: <Text className="text-primary" onPress={() => WebBrowser.openBrowserAsync(`${SITE}/terms`)} />,
+                privacy: <Text className="text-primary" onPress={() => WebBrowser.openBrowserAsync(`${SITE}/privacy`)} />,
+              }}
+            />
+          </Text>
 
           <Link href="/login">
             <Text className="text-sm text-primary">{t("auth.register.loginLink")}</Text>

@@ -132,6 +132,7 @@
       "title": "Register",
       "submit": "Register",
       "submitting": "Registering...",
+      "agree": "By creating an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>.",
       "loginLink": "Already have an account? Login here"
     },
     "forgot": {

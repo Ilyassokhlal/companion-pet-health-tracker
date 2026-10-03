@@ -132,6 +132,7 @@
       "title": "Crear una cuenta",
       "submit": "Registrarse",
       "submitting": "Registrando...",
+      "agree": "Al crear una cuenta, aceptas las <terms>Condiciones de uso</terms> y la <privacy>Política de privacidad</privacy>.",
       "loginLink": "¿Ya tienes una cuenta? Inicia sesión aquí"
     },
     "forgot": {

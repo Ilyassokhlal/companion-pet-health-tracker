@@ -132,6 +132,7 @@
       "title": "Konto erstellen",
       "submit": "Registrieren",
       "submitting": "Registrierung läuft...",
+      "agree": "Mit dem Erstellen eines Kontos stimmen Sie den <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
       "loginLink": "Sie haben bereits ein Konto? Jetzt anmelden"
     },
     "forgot": {

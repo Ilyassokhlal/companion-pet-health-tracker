@@ -130,6 +130,7 @@
     "register": {
       "title": "Konto erstellen",
       "submit": "Registrieren",
+      "agree": "Mit dem Erstellen eines Kontos stimmen Sie den <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
       "loginLink": "Sie haben bereits ein Konto? Anmelden"
     },
     "forgot": {

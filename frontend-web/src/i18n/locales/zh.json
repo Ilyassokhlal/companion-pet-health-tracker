@@ -132,6 +132,7 @@
       "title": "创建账户",
       "submit": "注册",
       "submitting": "正在注册...",
+      "agree": "创建账户即表示您同意<terms>使用条款</terms>和<privacy>隐私政策</privacy>。",
       "loginLink": "已有账户？立即登录"
     },
     "forgot": {
