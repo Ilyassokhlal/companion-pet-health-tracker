@@ -51,7 +51,12 @@ def fetch_entitlement(app_user_id: str) -> dict | None:
     subscriber = fetch_subscriber(app_user_id)
     if subscriber is None:
         return None
-    return subscriber["entitlements"].get(settings.REVENUECAT_ENTITLEMENT, {})
+    entitlement = subscriber["entitlements"].get(settings.REVENUECAT_ENTITLEMENT, {})
+    if entitlement:
+        # The entitlement doesn't say whether it renews. The subscription behind it does.
+        subscription = subscriber.get("subscriptions", {}).get(entitlement.get("product_identifier"), {})
+        entitlement = {**entitlement, "unsubscribe_detected_at": subscription.get("unsubscribe_detected_at")}
+    return entitlement
 
 
 def apply_entitlement(user: User, entitlement: dict) -> None:
@@ -69,8 +74,13 @@ def apply_entitlement(user: User, entitlement: dict) -> None:
         if user.premium_source == "purchased":
             user.premium_expires_at = datetime.now()
         return
+    renews = not entitlement.get("unsubscribe_detected_at")
+    # A purchase, a renewal or a plan switched back on starts a new period, so its warnings can go out again
+    if renews or ends != user.premium_expires_at:
+        user.lock_warning_sent = None
     user.premium_source = "purchased"
     user.premium_expires_at = ends
+    user.premium_renews = renews
 
 
 def sync_premium(db: Session, user: User) -> bool:

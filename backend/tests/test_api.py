@@ -603,6 +603,112 @@ def test_the_account_reports_its_premium_status(client, auth, db):
     assert me["has_web_subscription"] is True
 
 
+def _six_utc_today() -> tuple[datetime, datetime]:
+    """6 AM UTC today, the pinned reminder hour for a UTC user, and the same moment as naive server time."""
+    six = datetime.now(timezone.utc).replace(hour=6, minute=0, second=0, microsecond=0)
+    return six, six.astimezone().replace(tzinfo=None)
+
+
+def test_lock_warnings_go_out_7_3_and_1_days_before_the_trial_ends(client, auth, db, no_email, no_push):
+    """Account notices: once per stage, at the owner's reminder hour, whatever the reminder settings say. Email needs a verified address, push doesn't."""
+    from models.models import DeviceToken
+    from utils.reminders import send_lock_warnings
+
+    auth()
+    user = db.query(User).one()
+    user.timezone = "UTC"
+    user.reminders_enabled = False
+    user.push_enabled = False
+    db.add(DeviceToken(user_id=user.id, token="ExponentPushToken[test]", platform="android"))
+    six, now = _six_utc_today()
+    user.trial_ends_at = now + timedelta(days=6, hours=12)
+    db.commit()
+    no_email.clear()
+
+    assert send_lock_warnings(db, six) == 1
+    assert no_email == []
+    assert no_push[-1]["title"] == "Your free month is ending"
+    assert user.trial_ends_at.astimezone(timezone.utc).date().isoformat() in no_push[-1]["body"]
+    assert send_lock_warnings(db, six) == 0
+
+    user.email_verified = True
+    user.trial_ends_at = now + timedelta(days=2, hours=12)
+    db.commit()
+    assert send_lock_warnings(db, six + timedelta(hours=1)) == 0
+    assert send_lock_warnings(db, six) == 1
+    assert no_email[-1]["subject"].startswith("Your free month of Companion ends on")
+    assert "/premium" in no_email[-1]["html"]
+
+    user.trial_ends_at = now + timedelta(hours=12)
+    db.commit()
+    assert send_lock_warnings(db, six) == 1
+    db.refresh(user)
+    assert user.lock_warning_sent == 1
+    assert len(no_push) == 3
+
+
+def test_only_a_premium_that_wont_renew_is_warned(client, auth, db, no_email):
+    """A renewing purchase and a lifetime grant never lock, so they get no warning. A cancelled plan does."""
+    from utils.reminders import send_lock_warnings
+
+    headers = auth()
+    user = db.query(User).one()
+    user.timezone = "UTC"
+    user.email_verified = True
+    six, now = _six_utc_today()
+    user.trial_ends_at = now - timedelta(days=20)
+    user.premium_source = "purchased"
+    user.premium_expires_at = now + timedelta(days=2, hours=12)
+    user.premium_renews = True
+    db.commit()
+    no_email.clear()
+
+    assert send_lock_warnings(db, six) == 0
+    user.premium_renews = False
+    db.commit()
+    assert send_lock_warnings(db, six) == 1
+    assert no_email[-1]["subject"].startswith("Your Companion Premium ends on")
+
+    user.premium_expires_at = datetime.now() + timedelta(days=2, hours=12)
+    db.commit()
+    assert client.get("/auth/me", headers=headers).json()["days_until_locked"] == 3
+    user.premium_renews = True
+    db.commit()
+    assert client.get("/auth/me", headers=headers).json()["days_until_locked"] is None
+
+    user.premium_source = "granted"
+    user.premium_expires_at = None
+    user.lock_warning_sent = None
+    db.commit()
+    assert send_lock_warnings(db, six) == 0
+    assert client.get("/auth/me", headers=headers).json()["days_until_locked"] is None
+
+
+def test_renewal_comes_from_revenuecat_and_a_new_period_resets_the_warnings(monkeypatch):
+    """Whether a purchase renews is read from the subscription behind the entitlement. Switching it back on clears the warnings sent."""
+    from types import SimpleNamespace
+
+    from utils.billing import apply_entitlement, fetch_entitlement
+
+    subscriber = {
+        "entitlements": {settings.REVENUECAT_ENTITLEMENT: {"expires_date": "2030-01-01T00:00:00Z", "product_identifier": "monthly"}},
+        "subscriptions": {"monthly": {"unsubscribe_detected_at": "2029-12-01T00:00:00Z"}},
+    }
+    monkeypatch.setattr("utils.billing.fetch_subscriber", lambda app_user_id: subscriber)
+    entitlement = fetch_entitlement("1")
+    assert entitlement["unsubscribe_detected_at"] == "2029-12-01T00:00:00Z"
+
+    user = SimpleNamespace(trial_ends_at=datetime.now() - timedelta(days=60), premium_source=None, premium_expires_at=None, lock_warning_sent=None)
+    apply_entitlement(user, entitlement)
+    assert user.premium_renews is False
+    user.lock_warning_sent = 3
+    apply_entitlement(user, entitlement)
+    assert user.lock_warning_sent == 3
+    apply_entitlement(user, {**entitlement, "unsubscribe_detected_at": None})
+    assert user.premium_renews is True
+    assert user.lock_warning_sent is None
+
+
 def test_deleting_a_paying_account_stops_its_web_and_google_renewals(client, auth, db, monkeypatch):
     """Paid periods run out without renewing and an unpaid web invoice ends now. If a payment service can't be reached, nothing is deleted."""
     from types import SimpleNamespace

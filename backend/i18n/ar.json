@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "إذا كنت أنت من قام بذلك، فلا حاجة لأي إجراء.",
   "email.passwordChanged.line3": "وإذا لم تكن أنت، فاطلب إعادة التعيين فورًا — سيؤدي ذلك إلى إبطال كلمة المرور الحالية.",
 
+  "email.lockWarning.trialSubject": "ينتهي شهرك المجاني في Companion بتاريخ {date}",
+  "email.lockWarning.premiumSubject": "ينتهي اشتراكك في Companion Premium بتاريخ {date}",
+  "email.lockWarning.trialLine1": "ينتهي شهرك المجاني في Companion بتاريخ {date}.",
+  "email.lockWarning.premiumLine1": "ينتهي اشتراكك في Companion Premium بتاريخ {date} ولن يتجدد.",
+  "email.lockWarning.line2": "بعد ذلك يصبح Companion للقراءة فقط. ستتمكن من عرض كل شيء وتصديره وحذفه، لكن الإضافة والتتبع والأسئلة للمساعد والتذكيرات ستتوقف جميعها.",
+  "email.lockWarning.trialLine3": "اشترك ليستمر كل شيء في العمل.",
+  "email.lockWarning.premiumLine3": "جدّد خطتك ليستمر كل شيء في العمل.",
+  "email.lockWarning.button": "عرض الخطط",
+
   "reminder.item": "{title} لـ {pet} — الموعد {date}",
   "reminder.itemWithType": "{title} لـ {pet} ({type}) — الموعد {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "لديك {count} أمور مستحقة اليوم.",
   "push.feeding.title": "موعد الوجبة",
   "push.feeding.body": "حان موعد إطعام {pet}.",
+  "push.lockWarning.trialTitle": "شهرك المجاني على وشك الانتهاء",
+  "push.lockWarning.premiumTitle": "اشتراك Premium على وشك الانتهاء",
+  "push.lockWarning.body": "في {date} يصبح Companion للقراءة فقط وتتوقف التذكيرات.",
   "ask.noAnswer": "لا تتوفر لديّ معلومات عن ذلك في مراجع رعاية الحيوانات الأليفة.",
 
   "recordType.Vaccination": "التطعيم",

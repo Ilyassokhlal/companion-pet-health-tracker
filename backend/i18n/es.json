@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "Si fuiste tú, no necesitas hacer nada.",
   "email.passwordChanged.line3": "Si no fuiste tú, solicita un restablecimiento de inmediato: eso invalidará la contraseña actual.",
 
+  "email.lockWarning.trialSubject": "Tu mes gratis de Companion termina el {date}",
+  "email.lockWarning.premiumSubject": "Tu Companion Premium termina el {date}",
+  "email.lockWarning.trialLine1": "Tu mes gratis de Companion termina el {date}.",
+  "email.lockWarning.premiumLine1": "Tu Companion Premium termina el {date} y no se renovará.",
+  "email.lockWarning.line2": "Después, Companion quedará en modo solo lectura. Podrás seguir viendo, exportando y eliminando todo, pero añadir, hacer seguimiento, preguntar al asistente y los recordatorios se detendrán.",
+  "email.lockWarning.trialLine3": "Suscríbete para que todo siga funcionando.",
+  "email.lockWarning.premiumLine3": "Renueva tu plan para que todo siga funcionando.",
+  "email.lockWarning.button": "Ver planes",
+
   "reminder.item": "{title} de {pet} — vence el {date}",
   "reminder.itemWithType": "{title} de {pet} ({type}) — vence el {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "Hay {count} cosas pendientes hoy.",
   "push.feeding.title": "Hora de comer",
   "push.feeding.body": "Es hora de dar de comer a {pet}.",
+  "push.lockWarning.trialTitle": "Tu mes gratis está terminando",
+  "push.lockWarning.premiumTitle": "Tu Premium está terminando",
+  "push.lockWarning.body": "El {date} Companion pasará a modo solo lectura y los recordatorios se detendrán.",
   "ask.noAnswer": "No tengo información sobre eso en mis referencias de cuidado de mascotas.",
 
   "recordType.Vaccination": "Vacunación",

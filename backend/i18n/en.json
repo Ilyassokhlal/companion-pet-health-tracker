@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "If this was you, no action is needed.",
   "email.passwordChanged.line3": "If it wasn't, request a reset immediately — that will invalidate the current password.",
 
+  "email.lockWarning.trialSubject": "Your free month of Companion ends on {date}",
+  "email.lockWarning.premiumSubject": "Your Companion Premium ends on {date}",
+  "email.lockWarning.trialLine1": "Your free month of Companion ends on {date}.",
+  "email.lockWarning.premiumLine1": "Your Companion Premium ends on {date} and won't renew.",
+  "email.lockWarning.line2": "After that, Companion becomes read only. You can still view, export and delete everything, but adding, tracking, questions to the assistant and reminders all stop.",
+  "email.lockWarning.trialLine3": "Subscribe to keep everything running.",
+  "email.lockWarning.premiumLine3": "Renew your plan to keep everything running.",
+  "email.lockWarning.button": "See plans",
+
   "reminder.item": "{title} for {pet} — due {date}",
   "reminder.itemWithType": "{title} for {pet} ({type}) — due {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "{count} things are due today.",
   "push.feeding.title": "Feeding due",
   "push.feeding.body": "{pet} is due to be fed.",
+  "push.lockWarning.trialTitle": "Your free month is ending",
+  "push.lockWarning.premiumTitle": "Your Premium is ending",
+  "push.lockWarning.body": "On {date} Companion becomes read only and reminders stop.",
   "ask.noAnswer": "I don't have information on that in my pet care references.",
 
   "recordType.Vaccination": "Vaccination",

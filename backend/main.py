@@ -17,7 +17,7 @@ from slowapi.errors import RateLimitExceeded
 from utils.billing import resync_purchased
 from utils.exceptions import AppException
 from utils.limiter import limiter
-from utils.reminders import send_due_reminders, send_feeding_reminders
+from utils.reminders import send_due_reminders, send_feeding_reminders, send_lock_warnings
 from utils.trial_fingerprints import purge_expired_fingerprints
 
 
@@ -39,6 +39,11 @@ def _run_reminders():
 def _run_feeding_reminders():
     with SessionLocal() as db:
         send_feeding_reminders(db)
+
+# Scheduler entry point for the warnings before an account locks, sent at each owner's reminder hour
+def _run_lock_warnings():
+    with SessionLocal() as db:
+        send_lock_warnings(db)
 
 # Scheduler entry point for the daily premium re-check, the safety net for a lost payment webhook
 def _run_premium_resync():
@@ -63,6 +68,7 @@ async def lifespan(app: FastAPI):
     scheduler = BackgroundScheduler(timezone=settings.TIMEZONE)
     scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
     scheduler.add_job(_run_feeding_reminders, "cron", minute="0,15,30,45", id="feeding_reminders")
+    scheduler.add_job(_run_lock_warnings, "cron", minute=0, id="lock_warnings")
     scheduler.add_job(_run_premium_resync, "cron", hour=4, minute=30, id="premium_resync")
     scheduler.add_job(_run_fingerprint_purge, "cron", hour=4, minute=45, id="fingerprint_purge")
     scheduler.start()

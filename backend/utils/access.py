@@ -18,6 +18,9 @@ LOCKED = "locked"
 # Questions a trial account can ask per day, counted from midnight in its own timezone. Premium has no limit.
 TRIAL_QUESTIONS_PER_DAY = 30
 
+# Days before an account locks when its owner is warned, by email, push and the in-app banner
+LOCK_WARNING_DAYS = (7, 3, 1)
+
 # Reading and deleting never need premium: a locked account keeps its own data and can always remove it.
 _OPEN_METHODS = {"GET", "HEAD", "OPTIONS", "DELETE"}
 
@@ -45,6 +48,28 @@ def trial_days_left(user: User, now: datetime | None = None) -> int:
     """Return the whole days of trial left, rounded up so the last day counts as one. Zero once the trial has ended."""
     now = now or datetime.now()
     return max(0, math.ceil((user.trial_ends_at - now).total_seconds() / 86400))
+
+
+def access_ends_at(user: User, now: datetime | None = None) -> datetime | None:
+    """When the account locks if nothing changes: the later of the trial end and the end of a premium that won't renew.
+
+    None when it isn't going to lock: a lifetime grant, a purchase that renews, or an account that is already locked."""
+    now = now or datetime.now()
+    if access_state(user, now) == LOCKED:
+        return None
+    if user.premium_source == "granted" and user.premium_expires_at is None:
+        return None
+    # A purchase whose renewal is unknown counts as renewing, so nobody is warned by mistake
+    if user.premium_source == "purchased" and user.premium_renews is not False and user.premium_expires_at and user.premium_expires_at > now:
+        return None
+    return max(d for d in (user.trial_ends_at, user.premium_expires_at) if d)
+
+
+def days_until_locked(user: User, now: datetime | None = None) -> int | None:
+    """Whole days until the account locks, rounded up like trial_days_left. None when it isn't going to."""
+    now = now or datetime.now()
+    ends = access_ends_at(user, now)
+    return None if ends is None else max(0, math.ceil((ends - now).total_seconds() / 86400))
 
 
 def require_access_to_write(request: Request, current_user: User = Depends(get_current_user)) -> None:

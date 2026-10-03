@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "Si c'était vous, aucune action n'est nécessaire.",
   "email.passwordChanged.line3": "Si ce n'était pas vous, demandez immédiatement une réinitialisation — cela invalidera le mot de passe actuel.",
 
+  "email.lockWarning.trialSubject": "Votre mois gratuit de Companion se termine le {date}",
+  "email.lockWarning.premiumSubject": "Votre abonnement Companion Premium se termine le {date}",
+  "email.lockWarning.trialLine1": "Votre mois gratuit de Companion se termine le {date}.",
+  "email.lockWarning.premiumLine1": "Votre abonnement Companion Premium se termine le {date} et ne sera pas renouvelé.",
+  "email.lockWarning.line2": "Ensuite, Companion passe en lecture seule. Vous pourrez toujours tout consulter, exporter et supprimer, mais l'ajout, le suivi, les questions à l'assistant et les rappels s'arrêteront.",
+  "email.lockWarning.trialLine3": "Abonnez-vous pour que tout continue de fonctionner.",
+  "email.lockWarning.premiumLine3": "Renouvelez votre formule pour que tout continue de fonctionner.",
+  "email.lockWarning.button": "Voir les formules",
+
   "reminder.item": "{title} pour {pet} — échéance {date}",
   "reminder.itemWithType": "{title} pour {pet} ({type}) — échéance {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "{count} choses sont à faire aujourd'hui.",
   "push.feeding.title": "Repas à donner",
   "push.feeding.body": "C'est l'heure du repas de {pet}.",
+  "push.lockWarning.trialTitle": "Votre mois gratuit se termine",
+  "push.lockWarning.premiumTitle": "Votre Premium se termine",
+  "push.lockWarning.body": "Le {date}, Companion passe en lecture seule et les rappels s'arrêtent.",
   "ask.noAnswer": "Je n'ai pas d'information à ce sujet dans mes références de soins animaliers.",
 
   "recordType.Vaccination": "Vaccination",

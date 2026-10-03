@@ -3,7 +3,7 @@ from typing import Literal
 
 from models.models import User
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
-from utils.access import access_state, trial_days_left
+from utils.access import access_state, days_until_locked, trial_days_left
 
 
 # Schemas for the user endpoints
@@ -60,6 +60,8 @@ class UserResponse(BaseModel):
     premium_expires_at: datetime | None = None
     # True once the account has paid on the web, so the apps can offer Stripe's billing portal
     has_web_subscription: bool = False
+    # Days until the account locks if nothing changes: the trial, a premium that won't renew, or a timed grant. Empty when it won't lock.
+    days_until_locked: int | None = None
 
     @model_validator(mode="wrap")
     @classmethod
@@ -70,6 +72,7 @@ class UserResponse(BaseModel):
             response.access = access_state(data)
             response.trial_days_left = trial_days_left(data)
             response.has_web_subscription = data.stripe_customer_id is not None
+            response.days_until_locked = days_until_locked(data)
         return response
 
     model_config = ConfigDict(
@@ -97,7 +100,8 @@ class UserResponse(BaseModel):
                 "trial_ends_at": "2024-07-01T12:00:00",
                 "trial_days_left": 30,
                 "premium_expires_at": None,
-                "has_web_subscription": False
+                "has_web_subscription": False,
+                "days_until_locked": 30
             }
         }
     )

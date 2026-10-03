@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "Wenn Sie das waren, ist nichts zu tun.",
   "email.passwordChanged.line3": "Falls nicht, fordern Sie sofort ein Zurücksetzen an — dadurch wird das aktuelle Passwort ungültig.",
 
+  "email.lockWarning.trialSubject": "Ihr Gratismonat bei Companion endet am {date}",
+  "email.lockWarning.premiumSubject": "Ihr Companion Premium endet am {date}",
+  "email.lockWarning.trialLine1": "Ihr Gratismonat bei Companion endet am {date}.",
+  "email.lockWarning.premiumLine1": "Ihr Companion Premium endet am {date} und wird nicht verlängert.",
+  "email.lockWarning.line2": "Danach ist Companion schreibgeschützt. Sie können weiterhin alles ansehen, exportieren und löschen, aber Hinzufügen, Erfassen, Fragen an den Assistenten und Erinnerungen werden eingestellt.",
+  "email.lockWarning.trialLine3": "Schließen Sie ein Abo ab, damit alles weiterläuft.",
+  "email.lockWarning.premiumLine3": "Verlängern Sie Ihr Abo, damit alles weiterläuft.",
+  "email.lockWarning.button": "Tarife ansehen",
+
   "reminder.item": "{title} für {pet} — fällig am {date}",
   "reminder.itemWithType": "{title} für {pet} ({type}) — fällig am {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "Heute sind {count} Dinge fällig.",
   "push.feeding.title": "Fütterung fällig",
   "push.feeding.body": "{pet} muss gefüttert werden.",
+  "push.lockWarning.trialTitle": "Ihr Gratismonat endet bald",
+  "push.lockWarning.premiumTitle": "Ihr Premium endet bald",
+  "push.lockWarning.body": "Am {date} wird Companion schreibgeschützt und Erinnerungen werden eingestellt.",
   "ask.noAnswer": "Dazu habe ich in meinen Tierpflege-Referenzen keine Informationen.",
 
   "recordType.Vaccination": "Impfung",

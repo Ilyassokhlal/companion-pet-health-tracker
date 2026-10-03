@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "如果是您本人所为，则无需执行任何操作。",
   "email.passwordChanged.line3": "如果不是您本人，请立即请求重置——这将使当前密码失效。",
 
+  "email.lockWarning.trialSubject": "您的 Companion 免费月将于 {date} 结束",
+  "email.lockWarning.premiumSubject": "您的 Companion Premium 将于 {date} 结束",
+  "email.lockWarning.trialLine1": "您的 Companion 免费月将于 {date} 结束。",
+  "email.lockWarning.premiumLine1": "您的 Companion Premium 将于 {date} 结束，且不会续订。",
+  "email.lockWarning.line2": "之后 Companion 将变为只读模式。您仍可查看、导出和删除所有内容，但添加、记录、向助手提问和提醒都会停止。",
+  "email.lockWarning.trialLine3": "订阅即可让一切照常运行。",
+  "email.lockWarning.premiumLine3": "续订您的方案即可让一切照常运行。",
+  "email.lockWarning.button": "查看方案",
+
   "reminder.item": "{pet}的{title} — 到期 {date}",
   "reminder.itemWithType": "{pet}的{title}（{type}） — 到期 {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "今天有 {count} 项待办。",
   "push.feeding.title": "该喂食了",
   "push.feeding.body": "该给{pet}喂食了。",
+  "push.lockWarning.trialTitle": "您的免费月即将结束",
+  "push.lockWarning.premiumTitle": "您的 Premium 即将结束",
+  "push.lockWarning.body": "从 {date} 起，Companion 将变为只读模式，提醒也会停止。",
   "ask.noAnswer": "我的宠物护理资料中没有相关信息。",
 
   "recordType.Vaccination": "疫苗接种",

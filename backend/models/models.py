@@ -49,8 +49,10 @@ class User(Base):
     premium_source: Mapped[str | None] = mapped_column(String(20), nullable=True)
     # When premium ends. Empty with premium_source "granted" means lifetime.
     premium_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    # The last trial end warning sent (7, 3 or 1 days before), so each one goes out once.
-    trial_warning_sent: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # False once the store reports that a purchase won't renew, so the owner is warned before premium runs out. Kept in step with RevenueCat.
+    premium_renews: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    # The last lock warning sent (7, 3 or 1 days before the trial or a premium that won't renew ends), so each goes out once. Cleared when premium is renewed or bought.
+    lock_warning_sent: Mapped[int | None] = mapped_column(Integer, nullable=True)
     # Set by the first web checkout. Opens Stripe's billing portal, and lets account deletion cancel a web subscription.
     stripe_customer_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
 

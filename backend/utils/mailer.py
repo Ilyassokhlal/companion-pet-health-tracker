@@ -140,6 +140,18 @@ def send_reminder_email(to: str, username: str, items: list[str], lang: str | No
     """
     return send_email(to, subject, _layout(subject, body, lang))
 
+def send_lock_warning_email(to: str, username: str, kind: str, date: str, lang: str | None = None) -> bool:
+    """Warn that the free month, or a premium that won't renew, ends on the given date, and say plainly what stops. kind is "trial" or "premium"."""
+    subject = t(f"email.lockWarning.{kind}Subject", lang, date=date)
+    body = f"""
+    <p style="margin:0 0 14px 0;">{t("email.reminder.greeting", lang, name=escape(username))}</p>
+    <p style="margin:0 0 14px 0;">{t(f"email.lockWarning.{kind}Line1", lang, date=date)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.lockWarning.line2", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t(f"email.lockWarning.{kind}Line3", lang)}</p>
+    {_button(t("email.lockWarning.button", lang), f'{settings.FRONTEND_URL}/premium')}
+    """
+    return send_email(to, subject, _layout(subject, body, lang))
+
 def send_email_changed_email(to: str, new_email: str, lang: str | None = None) -> bool:
     """Warn the PREVIOUS address that the account's email was changed.
 

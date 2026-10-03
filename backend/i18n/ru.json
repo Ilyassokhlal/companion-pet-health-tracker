@@ -32,6 +32,15 @@
   "email.passwordChanged.line2": "Если это были вы, ничего делать не нужно.",
   "email.passwordChanged.line3": "Если это были не вы, немедленно запросите сброс — текущий пароль станет недействительным.",
 
+  "email.lockWarning.trialSubject": "Ваш бесплатный месяц в Companion заканчивается {date}",
+  "email.lockWarning.premiumSubject": "Ваша подписка Companion Premium заканчивается {date}",
+  "email.lockWarning.trialLine1": "Ваш бесплатный месяц в Companion заканчивается {date}.",
+  "email.lockWarning.premiumLine1": "Ваша подписка Companion Premium заканчивается {date} и не будет продлена.",
+  "email.lockWarning.line2": "После этого Companion будет работать только для чтения. Вы сможете просматривать, экспортировать и удалять всё, но добавление, учёт, вопросы ассистенту и напоминания прекратятся.",
+  "email.lockWarning.trialLine3": "Оформите подписку, чтобы всё продолжало работать.",
+  "email.lockWarning.premiumLine3": "Продлите подписку, чтобы всё продолжало работать.",
+  "email.lockWarning.button": "Посмотреть тарифы",
+
   "reminder.item": "{title} для {pet} — срок {date}",
   "reminder.itemWithType": "{title} для {pet} ({type}) — срок {date}",
 
@@ -39,6 +48,9 @@
   "push.due.many": "Сегодня запланировано дел: {count}.",
   "push.feeding.title": "Пора кормить",
   "push.feeding.body": "{pet} пора кормить.",
+  "push.lockWarning.trialTitle": "Бесплатный месяц заканчивается",
+  "push.lockWarning.premiumTitle": "Premium заканчивается",
+  "push.lockWarning.body": "С {date} Companion будет работать только для чтения, а напоминания прекратятся.",
   "ask.noAnswer": "У меня нет сведений об этом в справочниках по уходу за питомцами.",
 
   "recordType.Vaccination": "Вакцинация",

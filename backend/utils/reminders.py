@@ -3,11 +3,12 @@ from zoneinfo import ZoneInfo
 
 from config import settings
 from models.models import FeedingTime, Pet, ScheduledEvent, User
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
-from utils.access import has_full_access
+from utils.access import LOCK_WARNING_DAYS, access_ends_at, days_until_locked, has_full_access
 from utils.feeding import pet_slots, satisfied_slots, to_minutes
 from utils.i18n import t
-from utils.mailer import send_email, send_reminder_email
+from utils.mailer import send_email, send_lock_warning_email, send_reminder_email
 from utils.push import prune_tokens, send_push
 
 # datetime.weekday() counts Monday as 0, so Sunday is 6.
@@ -134,3 +135,54 @@ def send_feeding_reminders(db: Session, instant: datetime | None = None) -> int:
         sent += 1
 
     return sent
+
+
+def _local_zone(user: User) -> ZoneInfo:
+    """The user's timezone, or the server's when theirs is unknown."""
+    try:
+        return ZoneInfo(user.timezone)
+    except Exception:
+        return ZoneInfo(settings.TIMEZONE)
+
+
+def send_lock_warnings(db: Session, instant: datetime | None = None) -> int:
+    """Warn every account that locks within 7, 3 or 1 days, once per stage, at its owner's reminder hour.
+
+    These are account notices, so they go out whatever the reminder and push settings say. Email only goes to a
+    verified address, like every other notice. Returns how many accounts were warned.
+    """
+    moment = instant or datetime.now(timezone.utc)
+    # Stored timestamps are naive server time
+    now = moment.astimezone().replace(tzinfo=None)
+    soon = now + timedelta(days=max(LOCK_WARNING_DAYS) + 1)
+    users = db.query(User).filter(
+        or_(User.trial_ends_at.between(now, soon), User.premium_expires_at.between(now, soon))
+    ).all()
+
+    warned = 0
+    dead_tokens: list[str] = []
+    for user in users:
+        days = days_until_locked(user, now)
+        # The last stage these days fall in: 7 for the whole last week, then 3, then 1
+        stage = min((s for s in LOCK_WARNING_DAYS if days is not None and days <= s), default=None)
+        if stage is None or (user.lock_warning_sent is not None and stage >= user.lock_warning_sent):
+            continue
+        tz = _local_zone(user)
+        if moment.astimezone(tz).hour != settings.REMINDER_HOUR:
+            continue
+
+        ends = access_ends_at(user, now)
+        kind = "trial" if ends == user.trial_ends_at else "premium"
+        date = ends.astimezone(tz).date().isoformat()
+        if user.email_verified:
+            send_lock_warning_email(user.email, user.username, kind, date, user.language)
+        tokens = [device.token for device in user.device_tokens]
+        if tokens:
+            title = t(f"push.lockWarning.{kind}Title", user.language)
+            dead_tokens.extend(send_push(tokens, title, t("push.lockWarning.body", user.language, date=date)))
+        user.lock_warning_sent = stage
+        warned += 1
+
+    db.commit()
+    prune_tokens(db, dead_tokens)
+    return warned
