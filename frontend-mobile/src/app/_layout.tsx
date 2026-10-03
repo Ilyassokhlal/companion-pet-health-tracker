@@ -12,6 +12,7 @@ import { ThemeProvider as AppThemeProvider, useTheme as useAppTheme } from '@/th
 import DialogProvider from '@/components/ui/DialogProvider';
 import { SUBSCRIPTION_REQUIRED } from '@/api/client';
 import { PREMIUM_ROUTE } from '@/premium';
+import { identifyPurchaser } from '@/purchases';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,6 +42,14 @@ function RootNavigator() {
       router.navigate(PREMIUM_ROUTE);
     }
   }, [user, returningTrialDays, router]);
+
+  // Ties Google Play purchases to whoever is signed in
+  const userId = user?.id;
+  useEffect(() => {
+    if (userId !== undefined) {
+      identifyPurchaser(userId).catch(() => {});
+    }
+  }, [userId]);
 
   if (loading || themeLoading) {
     return null;

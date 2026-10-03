@@ -757,6 +757,18 @@ def test_deleting_a_paying_account_stops_its_web_and_google_renewals(client, aut
     assert posted == [f"https://api.revenuecat.com/v1/subscribers/{user_id}/subscriptions/GPA.1/cancel"]
 
 
+def test_sync_brings_a_store_purchase_onto_the_account_at_once(client, auth, monkeypatch):
+    """Straight after buying on the phone, the app asks the server to re-read RevenueCat instead of waiting for the webhook."""
+    headers = auth()
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: {"expires_date": "2030-01-01T00:00:00Z"})
+    r = client.post("/billing/sync", headers=headers)
+    assert r.status_code == 200
+    assert r.json()["access"] == "premium"
+
+    monkeypatch.setattr("utils.billing.fetch_entitlement", lambda app_user_id: None)
+    assert client.post("/billing/sync", headers=headers).json()["code"] == "billing_unavailable"
+
+
 def test_restore_moves_a_running_web_subscription_onto_a_returning_account(client, auth, db, monkeypatch):
     """Only a verified email can claim the subscription paid with it, and never one that another account still holds."""
     from types import SimpleNamespace

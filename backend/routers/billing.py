@@ -6,6 +6,7 @@ from database import get_db
 from fastapi import APIRouter, Depends, Header, Request
 from models.models import User
 from schemas.billing import CheckoutRequest
+from schemas.user import UserResponse
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
 from utils.access import PREMIUM, access_state
@@ -100,6 +101,17 @@ def restore_purchase(request: Request, db: Session = Depends(get_db), current_us
     current_user.stripe_customer_id = customer_id
     db.commit()
     sync_premium(db, current_user)
+
+
+# The app calls this straight after a store purchase or restore, so premium shows at once instead of when the webhook arrives.
+@router.post("/sync", response_model=UserResponse)
+@limiter.limit("10/minute")
+def sync_purchases(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Re-read this account from RevenueCat and return it."""
+    if not sync_premium(db, current_user):
+        raise ServiceUnavailableException("RevenueCat could not be reached.", code="billing_unavailable")
+    db.refresh(current_user)
+    return current_user
 
 
 def _record_checkout(db: Session, checkout) -> None:
