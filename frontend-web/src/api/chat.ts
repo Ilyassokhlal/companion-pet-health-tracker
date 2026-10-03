@@ -1,4 +1,4 @@
-import { apiFetch, getToken } from "./client";
+import { apiFetch, failure, getToken } from "./client";
 import type { ChatMessage, Citation } from "../types";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -20,8 +20,7 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
     body: JSON.stringify({ pet_id: petId, question }),
   });
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.detail);
+    throw await failure(response);
   }
   const contentType = response.headers.get("Content-Type");
     if (contentType && contentType.includes("application/json")) {

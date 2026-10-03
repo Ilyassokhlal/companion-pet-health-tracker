@@ -10,7 +10,7 @@ import Input from "./ui/Input";
 // DeleteAccountForm component allows the user to delete their account. It requires the user to confirm their action by entering their current password. Upon successful submission, it deletes the user's account and logs them out.
 export default function DeleteAccountForm() {
   const { t } = useTranslation();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [confirming, setConfirming] = useState(false);
   const [password, setPassword] = useState("");
@@ -42,6 +42,7 @@ export default function DeleteAccountForm() {
                     <p className="mb-4 text-muted">
                         {t("account.delete.warning")}
                     </p>
+                    {user?.access === "premium" && <p className="mb-4 text-muted">{t("premium.deleteNote")}</p>}
                     <Button variant="danger" onClick={() => setConfirming(true)}>
                         {t("account.delete.start")}
                     </Button>

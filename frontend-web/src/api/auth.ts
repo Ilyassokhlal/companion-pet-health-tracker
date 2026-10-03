@@ -1,5 +1,5 @@
 import { apiFetch, setToken } from "./client";
-import type { TokenResponse, User } from "../types";
+import type { RegisterResponse, TokenResponse, User } from "../types";
 
 
 // Sets the device's preferred language in localStorage. This will be used as the primary language for the application unless overridden by the user's account settings.
@@ -20,8 +20,8 @@ export function detectLanguage(): string {
 }
 
 // Registers a new user by sending their username, email, and password to the API. If successful, it stores the returned token in localStorage.
-export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
-  const data = await apiFetch<TokenResponse>("/auth/register", {
+export async function register(username: string, email: string, password: string): Promise<RegisterResponse> {
+  const data = await apiFetch<RegisterResponse>("/auth/register", {
     method: "POST",
     body: JSON.stringify({
       username,

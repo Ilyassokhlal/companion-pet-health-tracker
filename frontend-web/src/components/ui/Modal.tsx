@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../auth/AuthContext";
 
 interface Props {
   open: boolean;
@@ -14,9 +16,21 @@ interface Props {
 // with its own scroll once that content outgrows the viewport.
 export default function Modal({ open, title, onClose, children }: Props) {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  // Every add and edit form in the app opens in this modal, so a locked account goes straight to the
+  // subscribe screen instead of filling in a form it can't save. Deleting uses ConfirmDialog and stays open.
+  const locked = user?.access === "locked";
 
   useEffect(() => {
-    if (!open) return;
+    if (open && locked) {
+      onClose();
+      navigate("/premium");
+    }
+  }, [open, locked, onClose, navigate]);
+
+  useEffect(() => {
+    if (!open || locked) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
@@ -26,9 +40,9 @@ export default function Modal({ open, title, onClose, children }: Props) {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [open, onClose]);
+  }, [open, locked, onClose]);
 
-  if (!open) return null;
+  if (!open || locked) return null;
 
   return (
     <div

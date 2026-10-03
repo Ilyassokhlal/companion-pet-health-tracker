@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useCallback, useContext, useState, useEffect } from "react";
 import i18n from "../i18n";
 import { detectLanguage } from "../api/auth";
 import type { ReactNode } from "react";
@@ -12,7 +12,8 @@ interface AuthState {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  // Resolves to the trial days a returning email starts with, or null for a new email
+  register: (username: string, email: string, password: string) => Promise<number | null>;
   logout: () => void;
   refreshUser: () => Promise<void>;
 }
@@ -49,8 +50,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     async function register(username: string, email: string, password: string) {
-        await apiRegister(username, email, password);
+        const data = await apiRegister(username, email, password);
         setUser(await me());
+        return data.returning_trial_days;
     }
 
     function logout() {
@@ -58,9 +60,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     }
 
-    async function refreshUser() {
+    // Stable across renders, so effects that re-read the account don't restart every time it changes
+    const refreshUser = useCallback(async () => {
         setUser(await me());
-    }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser }}>

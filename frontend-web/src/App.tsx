@@ -19,6 +19,7 @@ import Tracking from "./pages/Tracking";
 import WeightTracking from "./pages/WeightTracking";
 import Feeding from "./pages/Feeding";
 import Budget from "./pages/Budget";
+import Premium from "./pages/Premium";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/tracking/budget" element={<Budget />} />
           <Route path="/chat" element={<ChatHistory />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/premium" element={<Premium />} />
         </Route>
       </Route>
 

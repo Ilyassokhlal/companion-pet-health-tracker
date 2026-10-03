@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
 import ChangeEmailForm from "../components/ChangeEmailForm";
@@ -15,6 +16,7 @@ import PreferencesSettings from "../components/PreferencesSettings";
 import Button from "../components/ui/Button";
 import { Pencil, X } from "lucide-react";
 import { dateLocale } from "../dates";
+import { premiumStatus } from "../premium";
 
 type Panel = "username" | "email" | "password";
 
@@ -31,6 +33,16 @@ export default function Settings() {
   return (
     <div className="p-4 sm:p-8 max-w-2xl lg:max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">{t("settingsPage.title")}</h1>
+
+      <section className="p-6 bg-surface border border-border rounded-xl shadow-soft mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-lg font-semibold">{t("premium.settingsTitle")}</h2>
+          <p className={`text-sm ${user.access === "locked" ? "text-danger" : "text-muted"}`}>{premiumStatus(user)}</p>
+        </div>
+        <Link to="/premium" className="shrink-0 self-start rounded-lg bg-primary px-4 py-2 font-medium text-on-primary transition-all duration-150 hover:bg-primary-hover active:scale-[0.98] sm:self-auto">
+          {t("premium.settingsLink")}
+        </Link>
+      </section>
 
       {/* Two fixed stacks on wide screens, so a panel that grows only pushes down the panels under it in its own column.
           Below lg the stacks dissolve (contents) and the order classes restore the single-column sequence. */}

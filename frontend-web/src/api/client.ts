@@ -1,5 +1,8 @@
 export const BASE_URL = import.meta.env.VITE_API_URL;
 
+// Fired on window when the server refuses a change because the account is locked, so the app can open the subscribe screen.
+export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
+
 // A function to get the token from localStorage. Returns null if no token is found.
 export function getToken(): string | null {
   return localStorage.getItem("token") || null;
@@ -30,6 +33,27 @@ export class ApiError extends Error {
   }
 }
 
+// Turns a failed response into an ApiError. Shared by apiFetch and the streaming chat, so both report errors the same way.
+export async function failure(response: Response): Promise<ApiError> {
+  const errorData = await response.json().catch(() => null);
+  const detail = errorData?.detail;
+  const message = Array.isArray(detail)
+    ? detail.map((d: { msg: string }) => d.msg).join(", ")
+    : detail ||
+      (response.status === 429
+        ? "Too many attempts. Wait a while and try again."
+        : `Request failed (${response.status})`);
+  // A 422 comes from Pydantic and a 429 from slowapi — neither carries one of our codes, so they get
+  // synthetic ones and the UI always has something to look up.
+  const code =
+    errorData?.code ||
+    (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
+  if (code === "subscription_required") {
+    window.dispatchEvent(new Event(SUBSCRIPTION_REQUIRED));
+  }
+  return new ApiError(message, code, errorData?.params ?? {}, response.status);
+}
+
 // A function that wraps the fetch API to include the Authorization header if a token is present, and handles 401 responses by clearing the token.
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers: Record<string, string> = {};
@@ -48,20 +72,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     setToken(null);
   }
   if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    const detail = errorData?.detail;
-    const message = Array.isArray(detail)
-      ? detail.map((d: { msg: string }) => d.msg).join(", ")
-      : detail ||
-        (response.status === 429
-          ? "Too many attempts. Wait a while and try again."
-          : `Request failed (${response.status})`);
-    // A 422 comes from Pydantic and a 429 from slowapi — neither carries one of our codes, so they get
-    // synthetic ones and the UI always has something to look up.
-    const code =
-      errorData?.code ||
-      (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
-    throw new ApiError(message, code, errorData?.params ?? {}, response.status);
+    throw await failure(response);
   }
   if (response.status === 204) {
     return undefined as T;

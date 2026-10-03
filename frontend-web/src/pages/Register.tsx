@@ -23,8 +23,13 @@ export default function Register() {
       setError(null);
       setSubmitting(true);
       try {
-        await register(username, email, password);
-        navigate("/dashboard", { replace: true });
+        const returningTrialDays = await register(username, email, password);
+        // An email that already had its free month is told so on the subscribe screen
+        if (returningTrialDays === null) {
+          navigate("/dashboard", { replace: true });
+        } else {
+          navigate("/premium", { replace: true, state: { returningTrialDays } });
+        }
       } catch (err) {
         setError((err as Error).message);
       } finally {

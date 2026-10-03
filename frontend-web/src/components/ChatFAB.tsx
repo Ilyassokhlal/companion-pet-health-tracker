@@ -7,6 +7,9 @@ import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { MessageCircle, X, Send, Maximize2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+import { errorMessage } from "../errors";
 
 interface Turn {
   role: "user" | "assistant";
@@ -26,6 +29,8 @@ const SIZES = [
 export default function ChatFAB() {
   const { t } = useTranslation();
   const { currentPet } = usePets();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState(1);
   const [turns, setTurns] = useState<Turn[]>([]);
@@ -117,7 +122,7 @@ export default function ChatFAB() {
       setTurns(prevTurns => {
         const newTurns = [...prevTurns];
         const last = newTurns.length - 1;
-        newTurns[last] = { ...newTurns[last], content: newTurns[last].content + `\n\nError: ${(err as Error).message}` };
+        newTurns[last] = { ...newTurns[last], content: newTurns[last].content + `\n\n${errorMessage(err)}` };
         return newTurns;
       });
     } finally {
@@ -129,9 +134,10 @@ export default function ChatFAB() {
 
   return (
     <>
+      {/* Asking needs premium once the trial is over, so a locked account goes to the subscribe screen */}
       {!open && (
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => (user?.access === "locked" ? navigate("/premium") : setOpen(true))}
           className="fixed bottom-6 end-6 w-14 h-14 rounded-full bg-primary hover:bg-primary-hover text-on-primary text-2xl shadow-glow transition-transform hover:scale-105 active:scale-95"
         >
           <MessageCircle size={24} className="mx-auto" />

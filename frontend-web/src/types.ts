@@ -61,12 +61,26 @@ export interface User {
   currency: string;
   photo_filename: string | null;
   created_at: string;
+  // Premium status, worked out by the server on every request
+  access: Access;
+  trial_ends_at: string;
+  trial_days_left: number;
+  premium_expires_at: string | null;
+  has_web_subscription: boolean;
 }
+
+// What an account can do right now. Locked means read only: viewing, exporting and deleting still work.
+export type Access = 'trial' | 'premium' | 'granted' | 'locked';
 
 // Token response returned by the API upon successful authentication.
 export interface TokenResponse {
   access_token: string;
   token_type: string;
+}
+
+// Signup response. Set when the email already had its free month: the trial days the new account starts with, which can be 0.
+export interface RegisterResponse extends TokenResponse {
+  returning_trial_days: number | null;
 }
 
 // Pet information returned by the API.
