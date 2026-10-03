@@ -1,5 +1,52 @@
 {
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Todo lo que hace Companion, para cada mascota, sin límites.",
+    "status": {
+      "trial": "Tiempo restante de tu mes gratis: {{days}}.",
+      "trialOver": "Tu mes gratis ha terminado.",
+      "ended": "Tu Companion Premium ha terminado.",
+      "active": "Companion Premium está activo, pagado hasta el {{date}}.",
+      "activeEnding": "Companion Premium está activo hasta el {{date}} y no se renovará.",
+      "lifetime": "Tienes Companion Premium de por vida.",
+      "grantedUntil": "Tienes Companion Premium hasta el {{date}}."
+    },
+    "readOnly": "Sin Premium, Companion queda en modo solo lectura. Puedes seguir viendo, exportando y eliminando tus datos, pero no se puede añadir ni cambiar nada, el asistente deja de responder y los recordatorios se detienen.",
+    "includesTitle": "Premium incluye",
+    "includes": {
+      "records": "Añadir y actualizar mascotas, historiales de salud y fotos",
+      "tracking": "Seguimiento de peso, paseos, comidas y presupuesto",
+      "questions": "Preguntas ilimitadas al asistente",
+      "reminders": "Recordatorios por correo electrónico y notificaciones"
+    },
+    "managePlay": "Tu suscripción se compró en el teléfono, así que se cambia o se cancela en Google Play.",
+    "openPlay": "Abrir Google Play",
+    "manageWeb": "Tu suscripción se compró en la web, así que se cambia o se cancela allí.",
+    "returningNone": "Este correo ya tuvo su mes gratis, así que esta cuenta empieza sin él.",
+    "returningSome": "Este correo ya tuvo su mes gratis. Esta cuenta recupera lo que quedaba: {{days}}.",
+    "settingsTitle": "Suscripción",
+    "deleteNote": "Eliminar tu cuenta también detiene la renovación de tu suscripción. El tiempo ya pagado no se reembolsa.",
+    "terms": "Términos",
+    "privacy": "Privacidad"
+  },
+  "premiumBanner": {
+    "endingTitle": "Tu mes gratis termina en {{days}}",
+    "premiumEndingTitle": "Tu Companion Premium termina en {{days}}",
+    "endingBody": "Después, Companion quedará en modo solo lectura. Podrás seguir viendo y exportando todo, pero añadir, hacer seguimiento, preguntar y los recordatorios se detendrán.",
+    "trialOverTitle": "Tu mes gratis ha terminado",
+    "endedTitle": "Tu Companion Premium ha terminado",
+    "lockedBody": "Companion está ahora en modo solo lectura. Puedes ver, exportar y eliminar tus datos, pero añadir, hacer seguimiento, preguntar y los recordatorios están en pausa.",
+    "action": "Ver planes"
+  },
   "errors": {
+    "subscription_required": "Eso requiere Companion Premium. Tus datos siguen disponibles para ver y exportar.",
+    "trial_question_limit": "Has usado las {{limit}} preguntas gratis de hoy. El contador se reinicia a medianoche.",
+    "renewal_not_stopped": "Ahora mismo no se pudo detener tu suscripción, así que no se eliminó nada. Inténtalo de nuevo en unos minutos.",
+    "email_not_verified": "Primero verifica tu correo electrónico y vuelve a intentarlo.",
+    "nothing_to_restore": "No se encontró ninguna suscripción web para este correo.",
+    "billing_unavailable": "Los pagos no están disponibles ahora mismo. Inténtalo de nuevo en unos minutos.",
+    "already_premium": "Esta cuenta ya tiene Companion Premium.",
+    "no_web_subscription": "Esta cuenta no tiene ninguna suscripción web que gestionar.",
     "generic": "Se produjo un error. Inténtalo de nuevo.",
     "validation": "Comprueba la información introducida.",
     "too_many_attempts": "Demasiados intentos. Espera un momento y vuelve a intentarlo.",
@@ -337,6 +384,7 @@
     "confirmDeleteBody": "\"{{title}}\" se eliminará permanentemente."
   },
   "chat": {
+    "locked": "Hacer preguntas requiere Companion Premium. Tus respuestas anteriores siguen aquí para leerlas.",
     "title": "Hacer una pregunta sobre {{name}}",
     "clear": "Borrar",
     "empty": "Haz cualquier pregunta sobre {{name}} — vacunas, síntomas, medicamentos.",

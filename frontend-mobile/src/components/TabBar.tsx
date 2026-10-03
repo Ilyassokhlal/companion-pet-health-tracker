@@ -5,6 +5,7 @@ import type { BottomTabBarProps } from "expo-router/build/react-navigation/botto
 
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import PremiumBanner from "@/components/PremiumBanner";
 
 // Mapping of route names to Ionicons glyphs for the tab bar. Each route has an "on" and "off" icon.
 const ICONS: Record<string, { on: keyof typeof Ionicons.glyphMap; off: keyof typeof Ionicons.glyphMap }> = {
@@ -24,54 +25,58 @@ export default function TabBar({ state, navigation, insets }: BottomTabBarProps)
   const colors = themeColors(theme, accent);
 
   return (
-    <View
-      // Container for the tab bar. Positioned with margins and bottom inset to avoid overlapping content.
-      style={{
-        marginHorizontal: 14,
-        marginBottom: insets.bottom + 8,
-        // Apply a semi-transparent background color using an 8-digit hex code.
-        backgroundColor: `${colors.surface}E6`,
-        borderColor: colors.border,
-      }}
-      className="flex-row items-center rounded-3xl border px-2 py-2"
-    >
-      {state.routes.map((route, index) => {
-        const focused = state.index === index;
-        const icon = ICONS[route.name] ?? ICONS.index;
-        const label = t(`nav.${NAV_KEY[route.name] ?? route.name}`);
+    <View>
+      {/* The premium banner rides on top of the tab bar, so it shows on every tab */}
+      <PremiumBanner />
+      <View
+        // Container for the tab bar. Positioned with margins and bottom inset to avoid overlapping content.
+        style={{
+          marginHorizontal: 14,
+          marginBottom: insets.bottom + 8,
+          // Apply a semi-transparent background color using an 8-digit hex code.
+          backgroundColor: `${colors.surface}E6`,
+          borderColor: colors.border,
+        }}
+        className="flex-row items-center rounded-3xl border px-2 py-2"
+      >
+        {state.routes.map((route, index) => {
+          const focused = state.index === index;
+          const icon = ICONS[route.name] ?? ICONS.index;
+          const label = t(`nav.${NAV_KEY[route.name] ?? route.name}`);
 
-        return (
-          <Pressable
-            key={route.key}
-            accessibilityRole="button"
-            accessibilityState={focused ? { selected: true } : {}}
-            accessibilityLabel={label}
-            onPress={() => {
-              const event = navigation.emit({
-                type: "tabPress",
-                target: route.key,
-                canPreventDefault: true,
-              });
-              if (!focused && !event.defaultPrevented) {
-                navigation.navigate(route.name);
-              }
-            }}
-            style={focused ? { backgroundColor: `${colors.primary}26` } : undefined}
-            className="flex-1 items-center justify-center rounded-2xl py-2 active:opacity-60"
-          >
-            <Ionicons
-              name={focused ? icon.on : icon.off}
-              size={22}
-              color={focused ? colors.primary : colors.muted}
-            />
-            {focused ? (
-              <Text numberOfLines={1} style={{ color: colors.primary }} className="mt-0.5 text-[10px] font-semibold">
-                {label}
-              </Text>
-            ) : null}
-          </Pressable>
-        );
-      })}
+          return (
+            <Pressable
+              key={route.key}
+              accessibilityRole="button"
+              accessibilityState={focused ? { selected: true } : {}}
+              accessibilityLabel={label}
+              onPress={() => {
+                const event = navigation.emit({
+                  type: "tabPress",
+                  target: route.key,
+                  canPreventDefault: true,
+                });
+                if (!focused && !event.defaultPrevented) {
+                  navigation.navigate(route.name);
+                }
+              }}
+              style={focused ? { backgroundColor: `${colors.primary}26` } : undefined}
+              className="flex-1 items-center justify-center rounded-2xl py-2 active:opacity-60"
+            >
+              <Ionicons
+                name={focused ? icon.on : icon.off}
+                size={22}
+                color={focused ? colors.primary : colors.muted}
+              />
+              {focused ? (
+                <Text numberOfLines={1} style={{ color: colors.primary }} className="mt-0.5 text-[10px] font-semibold">
+                  {label}
+                </Text>
+              ) : null}
+            </Pressable>
+          );
+        })}
+      </View>
     </View>
   );
 }

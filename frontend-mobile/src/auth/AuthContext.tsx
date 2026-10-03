@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
 import i18n, { detectLanguage } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
@@ -16,6 +16,9 @@ interface AuthState {
   register: (username: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  // Set by signup when the email already had its free month: the trial days the new account starts with, which can be 0. The subscribe screen shows it once, then clears it.
+  returningTrialDays: number | null;
+  clearReturningTrialDays: () => void;
 }
 
 // Creates a React context for authentication state and actions. The context is initialized with undefined, and will be provided by the AuthProvider component.
@@ -25,6 +28,7 @@ const AuthContext = createContext<AuthState | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [returningTrialDays, setReturningTrialDays] = useState<number | null>(null);
         const pushToken = useRef<string | null>(null);
 
     // Push is best-effort. It shouldn't block authentication or surface as an error.
@@ -71,7 +75,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     async function register(username: string, email: string, password: string) {
-        await apiRegister(username, email, password);
+        const data = await apiRegister(username, email, password);
+        // Set before the user, so the signup redirect sees both together
+        setReturningTrialDays(data.returning_trial_days);
         setUser(await me());
         await syncPush();
     }
@@ -87,15 +93,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         await apiLogout();
         await clearCache();
+        setReturningTrialDays(null);
         setUser(null);
     }
 
-    async function refreshUser() {
+    // Stable across renders, so effects that re-read the account don't restart every time it changes
+    const refreshUser = useCallback(async () => {
         setUser(await me());
-    }
+    }, []);
+
+    const clearReturningTrialDays = useCallback(() => setReturningTrialDays(null), []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser, returningTrialDays, clearReturningTrialDays }}>
             {children}
         </AuthContext.Provider>
     );

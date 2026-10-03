@@ -1,5 +1,52 @@
 {
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Tout ce que fait Companion, pour chaque animal, sans limite.",
+    "status": {
+      "trial": "Mois gratuit : il reste {{days}}.",
+      "trialOver": "Votre mois gratuit est terminé.",
+      "ended": "Votre abonnement Companion Premium est terminé.",
+      "active": "Companion Premium est actif, payé jusqu'au {{date}}.",
+      "activeEnding": "Companion Premium est actif jusqu'au {{date}} et ne sera pas renouvelé.",
+      "lifetime": "Vous avez Companion Premium à vie.",
+      "grantedUntil": "Vous avez Companion Premium jusqu'au {{date}}."
+    },
+    "readOnly": "Sans Premium, Companion passe en lecture seule. Vous pouvez toujours consulter, exporter et supprimer vos données, mais plus rien ne peut être ajouté ni modifié, l'assistant ne répond plus et les rappels s'arrêtent.",
+    "includesTitle": "Premium comprend",
+    "includes": {
+      "records": "L'ajout et la mise à jour des animaux, des dossiers de santé et des photos",
+      "tracking": "Le suivi du poids, des promenades, des repas et du budget",
+      "questions": "Des questions illimitées à l'assistant",
+      "reminders": "Les rappels par e-mail et par notification"
+    },
+    "managePlay": "Votre abonnement a été souscrit sur votre téléphone, il se modifie ou s'annule donc dans Google Play.",
+    "openPlay": "Ouvrir Google Play",
+    "manageWeb": "Votre abonnement a été souscrit sur le site web, il se modifie ou s'annule donc là-bas.",
+    "returningNone": "Cet e-mail a déjà profité de son mois gratuit, ce compte commence donc sans.",
+    "returningSome": "Cet e-mail a déjà profité de son mois gratuit. Ce compte récupère ce qu'il en restait : {{days}}.",
+    "settingsTitle": "Abonnement",
+    "deleteNote": "Supprimer votre compte arrête aussi le renouvellement de votre abonnement. La période déjà payée n'est pas remboursée.",
+    "terms": "Conditions",
+    "privacy": "Confidentialité"
+  },
+  "premiumBanner": {
+    "endingTitle": "Votre mois gratuit se termine dans {{days}}",
+    "premiumEndingTitle": "Votre abonnement Companion Premium se termine dans {{days}}",
+    "endingBody": "Ensuite, Companion passe en lecture seule. Vous pourrez toujours tout consulter et exporter, mais l'ajout, le suivi, les questions et les rappels s'arrêteront.",
+    "trialOverTitle": "Votre mois gratuit est terminé",
+    "endedTitle": "Votre abonnement Companion Premium est terminé",
+    "lockedBody": "Companion est maintenant en lecture seule. Vous pouvez consulter, exporter et supprimer vos données, mais l'ajout, le suivi, les questions et les rappels sont suspendus.",
+    "action": "Voir les formules"
+  },
   "errors": {
+    "subscription_required": "Cette action nécessite Companion Premium. Vos données restent consultables et exportables.",
+    "trial_question_limit": "Vous avez utilisé les {{limit}} questions gratuites du jour. Le compteur repart à minuit.",
+    "renewal_not_stopped": "Votre abonnement n'a pas pu être arrêté pour le moment, rien n'a donc été supprimé. Réessayez dans quelques minutes.",
+    "email_not_verified": "Vérifiez d'abord votre adresse e-mail, puis réessayez.",
+    "nothing_to_restore": "Aucun abonnement web n'a été trouvé pour cet e-mail.",
+    "billing_unavailable": "Les paiements sont indisponibles pour le moment. Réessayez dans quelques minutes.",
+    "already_premium": "Ce compte a déjà Companion Premium.",
+    "no_web_subscription": "Ce compte n'a pas d'abonnement web à gérer.",
     "generic": "Une erreur s'est produite. Veuillez réessayer.",
     "validation": "Veuillez vérifier les informations saisies.",
     "too_many_attempts": "Trop de tentatives. Attendez un moment, puis réessayez.",
@@ -337,6 +384,7 @@
     "confirmDeleteBody": "« {{title}} » sera définitivement supprimé."
   },
   "chat": {
+    "locked": "Poser des questions nécessite Companion Premium. Vos réponses précédentes restent consultables ici.",
     "title": "Poser une question sur {{name}}",
     "clear": "Effacer",
     "empty": "Posez n'importe quelle question sur {{name}} — vaccins, symptômes, médicaments.",

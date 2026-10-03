@@ -1,8 +1,12 @@
 import * as SecureStore from "expo-secure-store";
+import { DeviceEventEmitter } from "react-native";
 
 export const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const TOKEN_KEY = "token";
+
+// Emitted when the server refuses a change because the account is locked, so the app can open the subscribe screen.
+export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
 
 // Reads the auth token from secure device storage. Returns null if none is stored.
 export async function getToken(): Promise<string | null> {
@@ -34,6 +38,26 @@ export class ApiError extends Error {
   }
 }
 
+// Turns a failed response into an ApiError. Shared by apiFetch and the streaming chat, so both report errors the same way.
+export async function failure(response: { status: number; json: () => Promise<unknown> }): Promise<ApiError> {
+  const errorData = (await response.json().catch(() => null)) as { detail?: unknown; code?: string; params?: Record<string, unknown> } | null;
+  const detail = errorData?.detail;
+  const message = Array.isArray(detail)
+    ? detail.map((d: { msg: string }) => d.msg).join(", ")
+    : (detail as string | undefined) ||
+      (response.status === 429
+        ? "Too many attempts. Wait a while and try again."
+        : `Request failed (${response.status})`);
+  // Determine the machine-readable error code to use. If the server provides one, use it. Otherwise, generate a synthetic one based on the response status and detail. This ensures the UI always has something to look up.
+  const code =
+    errorData?.code ||
+    (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
+  if (code === "subscription_required") {
+    DeviceEventEmitter.emit(SUBSCRIPTION_REQUIRED);
+  }
+  return new ApiError(message, code, errorData?.params ?? {}, response.status);
+}
+
 // A function that wraps the fetch API to include the Authorization header if a token is present, and handles 401 responses by clearing the token.
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers: Record<string, string> = {};
@@ -52,19 +76,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     setToken(null);
   }
   if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    const detail = errorData?.detail;
-    const message = Array.isArray(detail)
-      ? detail.map((d: { msg: string }) => d.msg).join(", ")
-      : detail ||
-        (response.status === 429
-          ? "Too many attempts. Wait a while and try again."
-          : `Request failed (${response.status})`);
-    // Determine the machine-readable error code to use. If the server provides one, use it. Otherwise, generate a synthetic one based on the response status and detail. This ensures the UI always has something to look up.
-    const code =
-      errorData?.code ||
-      (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
-    throw new ApiError(message, code, errorData?.params ?? {}, response.status);
+    throw await failure(response);
   }
   if (response.status === 204) {
     return undefined as T;

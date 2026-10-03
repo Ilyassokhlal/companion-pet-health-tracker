@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import { useAuth } from "@/auth/AuthContext";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
+import { PREMIUM_ROUTE, premiumStatus } from "@/premium";
 
 // Seventeen-odd controls in one scrolling column stopped working on a phone. Each group is its own pushed screen; this is just the index.
 // The label and hint live in en.json under settingsPage.groups; a const evaluated at import cannot call t().
@@ -21,7 +22,7 @@ const GROUPS = [
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
   const colors = themeColors(theme, accent);
@@ -32,6 +33,19 @@ export default function Settings() {
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}
     >
       <Text className="mb-6 text-2xl font-bold text-fg">{t("settingsPage.title")}</Text>
+
+      <Pressable
+        onPress={() => router.navigate(PREMIUM_ROUTE)}
+        className="mb-6 flex-row items-center justify-between gap-3 rounded-xl border border-border bg-surface p-5 active:opacity-70"
+      >
+        <View className="min-w-0 flex-1">
+          <Text className="text-fg">{t("premium.settingsTitle")}</Text>
+          {user ? (
+            <Text className={`mt-0.5 text-sm ${user.access === "locked" ? "text-danger" : "text-muted"}`}>{premiumStatus(user)}</Text>
+          ) : null}
+        </View>
+        <Ionicons name="chevron-forward" size={18} color={colors.muted} />
+      </Pressable>
 
       <View className="mb-6 overflow-hidden rounded-xl border border-border bg-surface">
         {GROUPS.map((group, index) => (

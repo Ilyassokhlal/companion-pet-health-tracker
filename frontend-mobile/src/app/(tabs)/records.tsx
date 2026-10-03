@@ -18,6 +18,7 @@ import { useAuth } from "@/auth/AuthContext";
 import { formatWeight } from "@/units";
 import { errorMessage } from "@/errors";
 import EmptyState from "@/components/EmptyState";
+import { useLockedRedirect } from "@/premium";
 
 
 // Records screen for managing pet health records, including listing, filtering, adding, editing, and deleting records.
@@ -32,6 +33,9 @@ export default function Records() {
   const [filter, setFilter] = useState<RecordType | "All">("All");
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<HealthRecord | "new" | null>(null);
+  // A locked account is sent to the subscribe screen instead of the record form
+  const closeEditor = useCallback(() => setEditing(null), []);
+  const showEditor = useLockedRedirect(editing !== null, closeEditor);
   const [offlineSince, setOfflineSince] = useState<string | null>(null);
 
   const load = useCallback(() => {
@@ -196,7 +200,7 @@ export default function Records() {
       ))}
 
       <Modal
-        visible={editing !== null}
+        visible={showEditor}
         animationType="slide"
         onRequestClose={() => setEditing(null)}
       >

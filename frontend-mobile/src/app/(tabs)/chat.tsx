@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
 import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 import Input from "@/components/ui/Input";
 import { usePets } from "@/context/PetContext";
@@ -16,6 +16,9 @@ import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { errorMessage } from "@/errors";
 import EmptyState from "@/components/EmptyState";
+import Button from "@/components/ui/Button";
+import { useAuth } from "@/auth/AuthContext";
+import { PREMIUM_ROUTE } from "@/premium";
 
 type Palette = ReturnType<typeof themeColors>;
 
@@ -43,6 +46,7 @@ export default function Chat() {
   const { t } = useTranslation();
   const { confirm } = useDialog();
   const { currentPet } = usePets();
+  const { user } = useAuth();
   const insets = useSafeAreaInsets();
   const { theme, accent } = useTheme();
   const markdownStyles = makeMarkdownStyles(themeColors(theme, accent));
@@ -274,24 +278,32 @@ export default function Chat() {
         ))}
       </ScrollView>
 
-      <View className="flex-row gap-2 border-t border-border p-4">
-        <Input
-          value={question}
-          onChangeText={setQuestion}
-          placeholder={t("chat.placeholder")}
-          className="flex-1 rounded-lg border border-border bg-ink px-4 py-3 text-fg"
-          onSubmitEditing={handleAsk}
-          returnKeyType="send"
-          editable={!streaming}
-        />
-        <Pressable
-          onPress={handleAsk}
-          disabled={streaming}
-          className={`justify-center rounded-lg px-5 ${streaming ? "bg-surface" : "bg-primary"}`}
-        >
-          <Text className={`font-semibold ${streaming ? "text-fg" : "text-on-primary"}`}>{t("chat.send")}</Text>
-        </Pressable>
-      </View>
+      {user?.access === "locked" ? (
+        // Asking needs premium once the trial is over. Past answers stay readable above.
+        <View className="gap-3 border-t border-border p-4">
+          <Text className="text-sm text-muted">{t("chat.locked")}</Text>
+          <Button label={t("premiumBanner.action")} onPress={() => router.navigate(PREMIUM_ROUTE)} />
+        </View>
+      ) : (
+        <View className="flex-row gap-2 border-t border-border p-4">
+          <Input
+            value={question}
+            onChangeText={setQuestion}
+            placeholder={t("chat.placeholder")}
+            className="flex-1 rounded-lg border border-border bg-ink px-4 py-3 text-fg"
+            onSubmitEditing={handleAsk}
+            returnKeyType="send"
+            editable={!streaming}
+          />
+          <Pressable
+            onPress={handleAsk}
+            disabled={streaming}
+            className={`justify-center rounded-lg px-5 ${streaming ? "bg-surface" : "bg-primary"}`}
+          >
+            <Text className={`font-semibold ${streaming ? "text-fg" : "text-on-primary"}`}>{t("chat.send")}</Text>
+          </Pressable>
+        </View>
+      )}
     </KeyboardAvoidingView>
     </SwipeTabs>
   );

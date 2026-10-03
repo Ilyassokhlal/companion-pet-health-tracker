@@ -1,5 +1,52 @@
 {
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Companion 的全部功能，适用于每只宠物，没有限制。",
+    "status": {
+      "trial": "免费月：还剩 {{days}}。",
+      "trialOver": "您的免费月已结束。",
+      "ended": "您的 Companion Premium 已到期。",
+      "active": "Companion Premium 已启用，已付费至 {{date}}。",
+      "activeEnding": "Companion Premium 有效期至 {{date}}，且不会续订。",
+      "lifetime": "您拥有终身 Companion Premium。",
+      "grantedUntil": "您的 Companion Premium 有效期至 {{date}}。"
+    },
+    "readOnly": "没有 Premium 时，Companion 为只读模式。您仍可查看、导出和删除您的数据，但无法添加或修改内容，助手将停止回答，提醒也会停止。",
+    "includesTitle": "Premium 包含",
+    "includes": {
+      "records": "添加和更新宠物、健康记录和照片",
+      "tracking": "体重、散步、喂食和预算记录",
+      "questions": "无限次向助手提问",
+      "reminders": "电子邮件和推送提醒"
+    },
+    "managePlay": "您的订阅是在手机上购买的，因此需要在 Google Play 中更改或取消。",
+    "openPlay": "打开 Google Play",
+    "manageWeb": "您的订阅是在网站上购买的，因此需要在网站上更改或取消。",
+    "returningNone": "此邮箱已使用过免费月，因此此账户没有免费月。",
+    "returningSome": "此邮箱已使用过免费月。此账户将获得之前剩余的 {{days}}。",
+    "settingsTitle": "订阅",
+    "deleteNote": "删除账户也会停止订阅续订。已付费的时间不予退款。",
+    "terms": "条款",
+    "privacy": "隐私"
+  },
+  "premiumBanner": {
+    "endingTitle": "您的免费月将在 {{days}}后结束",
+    "premiumEndingTitle": "您的 Companion Premium 将在 {{days}}后结束",
+    "endingBody": "之后 Companion 将变为只读模式。您仍可查看和导出所有内容，但添加、记录、提问和提醒都会停止。",
+    "trialOverTitle": "您的免费月已结束",
+    "endedTitle": "您的 Companion Premium 已到期",
+    "lockedBody": "Companion 现在为只读模式。您可以查看、导出和删除您的数据，但添加、记录、提问和提醒已暂停。",
+    "action": "查看方案"
+  },
   "errors": {
+    "subscription_required": "此操作需要 Companion Premium。您的数据仍可查看和导出。",
+    "trial_question_limit": "您已用完今天的 {{limit}} 个免费提问。次数将在午夜重置。",
+    "renewal_not_stopped": "目前无法停止您的订阅，因此没有删除任何内容。请几分钟后再试。",
+    "email_not_verified": "请先验证您的电子邮件地址，然后再试一次。",
+    "nothing_to_restore": "未找到此邮箱的网页订阅。",
+    "billing_unavailable": "付款功能暂时不可用。请几分钟后再试。",
+    "already_premium": "此账户已拥有 Companion Premium。",
+    "no_web_subscription": "此账户没有可管理的网页订阅。",
     "generic": "发生错误。请重试。",
     "validation": "请检查您输入的信息。",
     "too_many_attempts": "尝试次数过多。请稍等片刻后再试。",
@@ -337,6 +384,7 @@
     "confirmDeleteBody": "\"{{title}}\" 将被永久删除。"
   },
   "chat": {
+    "locked": "提问需要 Companion Premium。您之前的回答仍可在此查看。",
     "title": "询问有关 {{name}} 的问题",
     "clear": "清除",
     "empty": "可以询问任何有关 {{name}} 的问题 — 疫苗、症状、药物。",

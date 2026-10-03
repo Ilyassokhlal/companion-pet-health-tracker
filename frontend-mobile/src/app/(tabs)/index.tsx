@@ -26,6 +26,7 @@ import { getExpenseSummary } from "@/api/expenses";
 import DashboardHeader from "@/components/DashboardHeader";
 import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
+import { useLockedRedirect } from "@/premium";
 import { SpendPanel, WeightPanel, ExercisePanel, FeedingPanel, PhotoPanel, PetBadges } from "@/components/DashboardPanels";
 
 // Formats a pet's age: days under one month, months under one year, then years.
@@ -106,9 +107,11 @@ function FormSheet({
   children: ReactNode;
 }) {
   const insets = useSafeAreaInsets();
+  // A locked account is sent to the subscribe screen instead of a form it can't save
+  const show = useLockedRedirect(visible, onClose);
 
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
+    <Modal visible={show} animationType="slide" onRequestClose={onClose}>
       <KeyboardAvoidingView behavior="padding" className="flex-1">
         <ScrollView
           className="flex-1 bg-ink"

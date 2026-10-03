@@ -1,5 +1,52 @@
 {
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Alles, was Companion kann, für jedes Haustier, ohne Grenzen.",
+    "status": {
+      "trial": "Gratismonat: noch {{days}}.",
+      "trialOver": "Ihr Gratismonat ist abgelaufen.",
+      "ended": "Ihr Companion Premium ist abgelaufen.",
+      "active": "Companion Premium ist aktiv, bezahlt bis {{date}}.",
+      "activeEnding": "Companion Premium ist bis {{date}} aktiv und wird nicht verlängert.",
+      "lifetime": "Sie haben Companion Premium auf Lebenszeit.",
+      "grantedUntil": "Sie haben Companion Premium bis {{date}}."
+    },
+    "readOnly": "Ohne Premium ist Companion schreibgeschützt. Sie können Ihre Daten weiterhin ansehen, exportieren und löschen, aber nichts Neues hinzufügen oder ändern, der Assistent antwortet nicht mehr und Erinnerungen werden eingestellt.",
+    "includesTitle": "Premium umfasst",
+    "includes": {
+      "records": "Haustiere, Gesundheitsakten und Fotos hinzufügen und aktualisieren",
+      "tracking": "Gewicht, Spaziergänge, Fütterung und Budget erfassen",
+      "questions": "Unbegrenzte Fragen an den Assistenten",
+      "reminders": "Erinnerungen per E-Mail und Push"
+    },
+    "managePlay": "Ihr Abo wurde auf dem Smartphone abgeschlossen und wird daher in Google Play geändert oder gekündigt.",
+    "openPlay": "Google Play öffnen",
+    "manageWeb": "Ihr Abo wurde auf der Website abgeschlossen und wird daher dort geändert oder gekündigt.",
+    "returningNone": "Diese E-Mail-Adresse hatte ihren Gratismonat bereits, daher startet dieses Konto ohne.",
+    "returningSome": "Diese E-Mail-Adresse hatte ihren Gratismonat bereits. Dieses Konto erhält den Rest zurück: {{days}}.",
+    "settingsTitle": "Abo",
+    "deleteNote": "Das Löschen Ihres Kontos beendet auch die Verlängerung Ihres Abos. Bereits bezahlte Zeit wird nicht erstattet.",
+    "terms": "Bedingungen",
+    "privacy": "Datenschutz"
+  },
+  "premiumBanner": {
+    "endingTitle": "Noch {{days}} in Ihrem Gratismonat",
+    "premiumEndingTitle": "Ihr Companion Premium läuft noch {{days}}",
+    "endingBody": "Danach ist Companion schreibgeschützt. Sie können weiterhin alles ansehen und exportieren, aber Hinzufügen, Erfassen, Fragen und Erinnerungen werden eingestellt.",
+    "trialOverTitle": "Ihr Gratismonat ist abgelaufen",
+    "endedTitle": "Ihr Companion Premium ist abgelaufen",
+    "lockedBody": "Companion ist jetzt schreibgeschützt. Sie können Ihre Daten ansehen, exportieren und löschen, aber Hinzufügen, Erfassen, Fragen und Erinnerungen sind pausiert.",
+    "action": "Tarife ansehen"
+  },
   "errors": {
+    "subscription_required": "Dafür ist Companion Premium nötig. Ihre Daten bleiben lesbar und exportierbar.",
+    "trial_question_limit": "Sie haben alle {{limit}} kostenlosen Fragen für heute genutzt. Der Zähler wird um Mitternacht zurückgesetzt.",
+    "renewal_not_stopped": "Ihr Abo konnte gerade nicht beendet werden, daher wurde nichts gelöscht. Bitte versuchen Sie es in ein paar Minuten erneut.",
+    "email_not_verified": "Bestätigen Sie zuerst Ihre E-Mail-Adresse und versuchen Sie es dann erneut.",
+    "nothing_to_restore": "Für diese E-Mail-Adresse wurde kein Web-Abo gefunden.",
+    "billing_unavailable": "Zahlungen sind gerade nicht möglich. Bitte versuchen Sie es in ein paar Minuten erneut.",
+    "already_premium": "Dieses Konto hat bereits Companion Premium.",
+    "no_web_subscription": "Dieses Konto hat kein Web-Abo, das verwaltet werden kann.",
     "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "validation": "Bitte überprüfen Sie Ihre Eingaben.",
     "too_many_attempts": "Zu viele Versuche. Warten Sie einen Moment und versuchen Sie es erneut.",
@@ -337,6 +384,7 @@
     "confirmDeleteBody": "\"{{title}}\" wird dauerhaft gelöscht."
   },
   "chat": {
+    "locked": "Fragen stellen erfordert Companion Premium. Ihre bisherigen Antworten bleiben hier lesbar.",
     "title": "Eine Frage zu {{name}} stellen",
     "clear": "Leeren",
     "empty": "Stellen Sie eine beliebige Frage zu {{name}} — Impfungen, Symptome, Medikamente.",

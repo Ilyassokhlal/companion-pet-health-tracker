@@ -1,6 +1,6 @@
 import { fetch as streamingFetch } from "expo/fetch";
 
-import { apiFetch, getToken } from "./client";
+import { apiFetch, failure, getToken } from "./client";
 import type { ChatMessage, Citation } from "@/types";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
@@ -24,8 +24,7 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.detail);
+    throw await failure(response);
   }
 
   const contentType = response.headers.get("Content-Type");

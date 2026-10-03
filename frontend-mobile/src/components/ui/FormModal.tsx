@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { KeyboardAvoidingView, Modal, Pressable, ScrollView, View } from "react-native";
 
+import { useLockedRedirect } from "@/premium";
+
 // A modal form component that centers its content and handles keyboard avoidance. The backdrop closes the modal when pressed, while the inner panel swallows taps to prevent accidental closure.
 export default function FormModal({
   visible,
@@ -11,8 +13,11 @@ export default function FormModal({
   onClose: () => void;
   children: ReactNode;
 }) {
+  // A locked account is sent to the subscribe screen instead of a form it can't save
+  const show = useLockedRedirect(visible, onClose);
+
   return (
-    <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
+    <Modal visible={show} animationType="fade" transparent onRequestClose={onClose}>
       <KeyboardAvoidingView behavior="padding" className="flex-1">
         <Pressable onPress={onClose} className="flex-1 justify-center bg-black/70 p-4">
           <Pressable onPress={() => {}}>

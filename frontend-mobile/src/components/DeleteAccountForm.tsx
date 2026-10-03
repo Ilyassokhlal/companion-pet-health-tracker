@@ -15,7 +15,7 @@ import { errorMessage } from "@/errors";
 export default function DeleteAccountForm() {
   const { t } = useTranslation();
   const { confirm: ask } = useDialog();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -56,6 +56,7 @@ export default function DeleteAccountForm() {
         {t("account.delete.title")}
       </Text>
       <Text className="mb-4 text-sm text-muted">{t("account.delete.warning")}</Text>
+      {user?.access === "premium" ? <Text className="mb-4 text-sm text-muted">{t("premium.deleteNote")}</Text> : null}
 
       {open ? (
         <>

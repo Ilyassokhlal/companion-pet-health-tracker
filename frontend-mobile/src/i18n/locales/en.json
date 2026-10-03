@@ -1,5 +1,52 @@
 {
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Everything Companion does, for every pet, with no limits.",
+    "status": {
+      "trial": "Free month: {{days}} left.",
+      "trialOver": "Your free month has ended.",
+      "ended": "Your Companion Premium has ended.",
+      "active": "Companion Premium is active, paid up to {{date}}.",
+      "activeEnding": "Companion Premium is active until {{date}} and won't renew.",
+      "lifetime": "You have Companion Premium for life.",
+      "grantedUntil": "You have Companion Premium until {{date}}."
+    },
+    "readOnly": "Without Premium, Companion is read only. You can still view, export and delete your data, but nothing new can be added or changed, the assistant stops answering, and reminders stop.",
+    "includesTitle": "Premium includes",
+    "includes": {
+      "records": "Adding and updating pets, health records and photos",
+      "tracking": "Weight, walk, feeding and budget tracking",
+      "questions": "Unlimited questions to the assistant",
+      "reminders": "Email and push reminders"
+    },
+    "managePlay": "Your subscription was bought on your phone, so it is changed or cancelled in Google Play.",
+    "openPlay": "Open Google Play",
+    "manageWeb": "Your subscription was bought on the website, so it is changed or cancelled there.",
+    "returningNone": "This email already had its free month, so this account starts without one.",
+    "returningSome": "This email already had its free month. This account gets back what was left of it: {{days}}.",
+    "settingsTitle": "Subscription",
+    "deleteNote": "Deleting your account also stops your subscription from renewing. Time already paid for is not refunded.",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "premiumBanner": {
+    "endingTitle": "Your free month ends in {{days}}",
+    "premiumEndingTitle": "Your Companion Premium ends in {{days}}",
+    "endingBody": "After that Companion becomes read only. You can still view and export everything, but adding, tracking, questions and reminders stop.",
+    "trialOverTitle": "Your free month has ended",
+    "endedTitle": "Your Companion Premium has ended",
+    "lockedBody": "Companion is now read only. You can view, export and delete your data, but adding, tracking, questions and reminders are paused.",
+    "action": "See plans"
+  },
   "errors": {
+    "subscription_required": "That needs Companion Premium. Your data stays readable and exportable.",
+    "trial_question_limit": "You've used all {{limit}} of today's free questions. The count resets at midnight.",
+    "renewal_not_stopped": "Your subscription couldn't be stopped right now, so nothing was deleted. Try again in a few minutes.",
+    "email_not_verified": "Verify your email address first, then try again.",
+    "nothing_to_restore": "No web subscription was found for this email.",
+    "billing_unavailable": "Payments are unavailable right now. Try again in a few minutes.",
+    "already_premium": "This account already has Companion Premium.",
+    "no_web_subscription": "This account has no web subscription to manage.",
     "generic": "Something went wrong. Please try again.",
     "validation": "Please check the details you entered.",
     "too_many_attempts": "Too many attempts. Wait a while and try again.",
@@ -337,6 +384,7 @@
     "confirmDeleteBody": "\"{{title}}\" will be permanently removed."
   },
   "chat": {
+    "locked": "Asking questions needs Companion Premium. Your past answers stay here to read.",
     "title": "Ask about {{name}}",
     "clear": "Clear",
     "empty": "Ask anything about {{name}} — vaccinations, symptoms, medications.",
