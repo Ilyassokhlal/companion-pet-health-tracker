@@ -141,5 +141,6 @@ async def stripe_webhook(request: Request, stripe_signature: str | None = Header
     except (ValueError, stripe.SignatureVerificationError) as e:
         raise BadRequestException("Invalid Stripe signature.", code="invalid_webhook") from e
     if event["type"] == "checkout.session.completed":
-        await run_in_threadpool(_record_checkout, db, event["data"]["object"])
+        # Stripe objects stopped being dicts in stripe-python 13, so hand over a plain dict
+        await run_in_threadpool(_record_checkout, db, event["data"]["object"].to_dict())
     return {"received": True}

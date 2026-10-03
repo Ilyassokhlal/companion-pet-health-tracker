@@ -555,7 +555,11 @@ def test_stripe_webhook_hands_the_purchase_to_revenuecat(client, auth, db, monke
 
     auth()
     user = db.query(User).one()
-    event = {"type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(user.id), "customer": "cus_test", "subscription": "sub_test"}}}
+    # A real Stripe object, as construct_event returns it. Since stripe-python 13 these are not dicts, so .get() on them fails.
+    event = stripe.Event.construct_from(
+        {"type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(user.id), "customer": "cus_test", "subscription": "sub_test"}}},
+        "sk_test_unused",
+    )
 
     def construct_event(payload, signature, secret):
         if signature != "good":
