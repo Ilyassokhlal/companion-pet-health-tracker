@@ -1,7 +1,9 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from models.models import User
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
+from utils.access import access_state, trial_days_left
 
 
 # Schemas for the user endpoints
@@ -50,6 +52,25 @@ class UserResponse(BaseModel):
     walk_tracking_enabled: bool
     photo_filename: str | None = None
     created_at: datetime
+    # Premium status, so the apps can show the trial countdown, the locked banner and the subscription screen
+    access: Literal["trial", "premium", "granted", "locked"] = "trial"
+    trial_ends_at: datetime
+    trial_days_left: int = 0
+    # When purchased premium ends or renews, and when a timed grant ends. Empty for a lifetime grant.
+    premium_expires_at: datetime | None = None
+    # True once the account has paid on the web, so the apps can offer Stripe's billing portal
+    has_web_subscription: bool = False
+
+    @model_validator(mode="wrap")
+    @classmethod
+    def _add_access(cls, data, handler):
+        """Work the access fields out from the account itself, since they are never stored."""
+        response = handler(data)
+        if isinstance(data, User):
+            response.access = access_state(data)
+            response.trial_days_left = trial_days_left(data)
+            response.has_web_subscription = data.stripe_customer_id is not None
+        return response
 
     model_config = ConfigDict(
         from_attributes = True,
@@ -71,7 +92,12 @@ class UserResponse(BaseModel):
                 "feeding_push_enabled": True,
                 "walk_tracking_enabled": False,
                 "photo_filename": None,
-                "created_at": "2024-06-01T12:00:00"
+                "created_at": "2024-06-01T12:00:00",
+                "access": "trial",
+                "trial_ends_at": "2024-07-01T12:00:00",
+                "trial_days_left": 30,
+                "premium_expires_at": None,
+                "has_web_subscription": False
             }
         }
     )

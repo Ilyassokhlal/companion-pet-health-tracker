@@ -578,6 +578,31 @@ def test_stripe_webhook_hands_the_purchase_to_revenuecat(client, auth, db, monke
     monkeypatch.setattr("routers.billing.report_stripe_purchase", lambda app_user_id, subscription_id: False)
     assert client.post("/billing/stripe", content=b"{}", headers={"Stripe-Signature": "good"}).status_code == 503
 
+def test_the_account_reports_its_premium_status(client, auth, db):
+    """The apps read the trial countdown, the locked state and the web subscription from the account itself."""
+    headers = auth()
+    me = client.get("/auth/me", headers=headers).json()
+    assert me["access"] == "trial"
+    assert me["trial_days_left"] == 30
+    assert me["premium_expires_at"] is None
+    assert me["has_web_subscription"] is False
+
+    user = db.query(User).one()
+    user.trial_ends_at = datetime.now() - timedelta(days=1)
+    db.commit()
+    me = client.get("/auth/me", headers=headers).json()
+    assert me["access"] == "locked"
+    assert me["trial_days_left"] == 0
+
+    user.premium_source = "purchased"
+    user.premium_expires_at = datetime.now() + timedelta(days=30)
+    user.stripe_customer_id = "cus_test"
+    db.commit()
+    me = client.get("/auth/me", headers=headers).json()
+    assert me["access"] == "premium"
+    assert me["has_web_subscription"] is True
+
+
 def test_deleting_a_paying_account_stops_its_web_and_google_renewals(client, auth, db, monkeypatch):
     """Paid periods run out without renewing and an unpaid web invoice ends now. If a payment service can't be reached, nothing is deleted."""
     from types import SimpleNamespace
