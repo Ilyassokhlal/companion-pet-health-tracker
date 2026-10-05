@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
+import { AppState } from "react-native";
 import i18n, { detectLanguage } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
@@ -101,6 +102,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const refreshUser = useCallback(async () => {
         setUser(await me());
     }, []);
+
+    // Coming back to the app re-reads the account, so a plan changed in Google Play, a renewal or the end of the free month shows without a restart
+    const signedIn = user !== null;
+    useEffect(() => {
+        if (!signedIn) return;
+        const subscription = AppState.addEventListener("change", (state) => {
+            if (state === "active") refreshUser().catch(() => {});
+        });
+        return () => subscription.remove();
+    }, [signedIn, refreshUser]);
 
     const clearReturningTrialDays = useCallback(() => setReturningTrialDays(null), []);
 
