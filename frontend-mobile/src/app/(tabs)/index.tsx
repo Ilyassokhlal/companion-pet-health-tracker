@@ -161,6 +161,9 @@ export default function Dashboard() {
     setShowForm(null);
   }
 
+  // The first pet's form shows on the page rather than in a FormSheet, so it needs its own locked check
+  const showFirstPetForm = useLockedRedirect(!currentPet && addPetOpen, closeForm);
+
   const load = useCallback(() => {
     if (!currentPet) {
       setEvents([]);
@@ -229,19 +232,24 @@ export default function Dashboard() {
 
   if (!currentPet) {
     return (
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16 }}
-      >
-        {addPetOpen ? (
-          <PetForm onDone={() => setAddPetOpen(false)} />
-        ) : (
-          <>
-            <Text className="mb-4 text-center text-muted">{t("dashboard.noPetYet")}</Text>
-            <Button label={t("petForm.add")} onPress={() => setAddPetOpen(true)} />
-          </>
-        )}
-      </ScrollView>
+      <View className="flex-1">
+        {/* The header is the only way to Settings, so it shows before the first pet too. A locked account with no pet
+          still needs Log out and Delete account. */}
+        <DashboardHeader />
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 16 }}
+        >
+          {showFirstPetForm ? (
+            <PetForm onDone={() => setAddPetOpen(false)} />
+          ) : (
+            <>
+              <Text className="mb-4 text-center text-muted">{t("dashboard.noPetYet")}</Text>
+              <Button label={t("petForm.add")} onPress={() => setAddPetOpen(true)} />
+            </>
+          )}
+        </ScrollView>
+      </View>
     );
   }
 
