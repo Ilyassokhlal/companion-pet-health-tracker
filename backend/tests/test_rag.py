@@ -1,6 +1,12 @@
-"""Indexing the corpus and linking to its sources."""
+"""Indexing the corpus, linking to its sources, and preparing a question for the search."""
+
+import json
+from types import SimpleNamespace
 
 import rag
+
+# Bound at import, before the autouse no_translation fixture swaps rag.translate_question out
+translate_question = rag.translate_question
 
 
 def test_a_paragraph_can_cite_its_own_source(tmp_path):
@@ -45,3 +51,32 @@ def test_only_wikipedia_links_get_a_section_anchor():
     assert wiki.link == "https://en.wikipedia.org/wiki/Cat#Hunting_and_feeding"
     assert other.link == "https://www.cdc.gov/healthy-pets/about/dogs.html"
     assert rag.SourceChunk(text="", source="none.txt", distance=0.1).link == ""
+
+
+def _claude_says(monkeypatch, language):
+    """Answer the translation call with the given language and record what was sent."""
+    sent = []
+
+    def create(**kwargs):
+        sent.append(kwargs["messages"][0]["content"])
+        reply = {"language": language, "pet_name_as_written": None, "english": "Why is my dog coughing?"}
+        return SimpleNamespace(content=[SimpleNamespace(type="text", text=json.dumps(reply))])
+
+    monkeypatch.setattr(rag.claude.messages, "create", create)
+    return sent
+
+
+def test_a_traditional_chinese_question_is_answered_in_traditional(monkeypatch):
+    """The answer follows the script the owner typed, and a Chinese app setting is passed on for questions that read the same in both."""
+    sent = _claude_says(monkeypatch, "zh-Hant")
+    english, lang, _ = translate_question("我的狗為什麼一直咳嗽", "zh", "Rex", "dog")
+    assert (english, lang) == ("Why is my dog coughing?", "zh-Hant")
+    assert "APP LANGUAGE: zh\n" in sent[0]
+
+
+def test_the_app_language_is_only_sent_for_chinese(monkeypatch):
+    """Only the two Chinese scripts need the app setting to settle a question, so other languages are sent as before."""
+    sent = _claude_says(monkeypatch, "fr")
+    _, lang, _ = translate_question("Pourquoi mon chien tousse-t-il ?", "fr", "Rex", "dog")
+    assert lang == "fr"
+    assert "APP LANGUAGE" not in sent[0]

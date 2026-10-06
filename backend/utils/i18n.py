@@ -4,7 +4,7 @@ from pathlib import Path
 # Internationalization utility for loading and retrieving translated strings. The translations are stored in JSON files under the i18n directory.
 _DIR = Path(__file__).resolve().parent.parent / "i18n"
 
-SUPPORTED = ("en", "fr", "es", "de", "ar", "ru", "zh")
+SUPPORTED = ("en", "fr", "es", "de", "ar", "ru", "zh", "zh-Hant")
 DEFAULT = "en"
 
 

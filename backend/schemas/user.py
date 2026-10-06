@@ -173,7 +173,7 @@ class UserUpdateRequest(BaseModel):
     feeding_push_enabled: bool | None = None
     walk_tracking_enabled: bool | None = None
     timezone: str | None = None
-    language: Literal["en", "fr", "es", "de", "ar", "ru", "zh"] | None = None
+    language: Literal["en", "fr", "es", "de", "ar", "ru", "zh", "zh-Hant"] | None = None
     unit_system: Literal["metric", "imperial"] | None = None
     currency: str | None = Field(default=None, pattern="^[A-Z]{3}$")
     onboarding_hidden: bool | None = None

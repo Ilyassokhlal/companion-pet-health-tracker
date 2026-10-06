@@ -104,3 +104,14 @@ def test_change_password_invalidates_the_old_token(client, auth):
 
     r = client.post("/auth/change-password", headers=new_headers, json={"current_password": "wrongpassword", "new_password": "anothernewpassword"})
     assert r.status_code == 401
+
+
+def test_language_can_be_set_to_traditional_chinese(client, auth):
+    """Traditional Chinese is its own setting next to Simplified, and an unknown code is still refused."""
+    headers = auth()
+
+    r = client.patch("/auth/me", headers=headers, json={"language": "zh-Hant"})
+    assert r.status_code == 200
+    assert r.json()["language"] == "zh-Hant"
+
+    assert client.patch("/auth/me", headers=headers, json={"language": "zh-TW"}).status_code == 422

@@ -63,7 +63,11 @@ LANGUAGE_NAMES = {
     "ar": "Arabic",
     "ru": "Russian",
     "zh": "Chinese (Simplified)",
+    "zh-Hant": "Traditional Chinese as written in Taiwan",
 }
+
+# The two Chinese codes differ only in script, so a question whose characters are the same in both needs the app's setting to decide
+CHINESE = ("zh", "zh-Hant")
 
 
 def _system_prompt(lang: str | None) -> str:
@@ -101,7 +105,7 @@ TRANSLATION_SCHEMA = {
 
 TRANSLATION_INSTRUCTIONS = """You prepare a pet owner's question for a search over English veterinary reference articles.
 The message gives the owner's pet (its species and the name stored in the app) and the question. Return:
-- language: the language the question is written in, as one of the listed codes, or "other". If an earlier question is repeated before the new one, use the language of the last one.
+- language: the language the question is written in, as one of the listed codes, or "other". If an earlier question is repeated before the new one, use the language of the last one. "zh" is Chinese written in Simplified characters and "zh-Hant" is Chinese written in Traditional characters. If every Chinese character in the question is written the same way in both, use the APP LANGUAGE line when the message has one, otherwise "zh".
 - pet_name_as_written: if the question refers to the pet by its name, copy that word exactly as it appears in the question, in whatever spelling, script or grammatical form it takes (a transliteration such as a Cyrillic spelling, or a declined form). Otherwise null. A word that only resembles the name but is used with its ordinary meaning is not the name.
 - english: the question in English. Translate faithfully: keep every animal the question mentions as it is written (a question about a cat stays about a cat even when the pet is a dog), and never add the pet's name or anything else the question does not say. Where the question uses the pet's name, copy the stored name exactly, in the same spelling and script, even when the rest of the question is translated, and never translate it as an ordinary word. Write any short or informal name of an illness or a procedure in full, for example parvo as canine parvovirus, bloat as gastric dilatation volvulus, pyo as pyometra, Lyme as Lyme disease and getting a pet fixed as getting it spayed or neutered. Write a medicine's brand name in its usual English spelling, for example Бравекто as Bravecto. Apart from that, leave a question that is already in English unchanged."""
 
@@ -186,6 +190,7 @@ def translate_question(question: str, fallback: str | None, pet_name: str, speci
     Returns the question unchanged, in the app language, on any failure, a translation outage should degrade retrieval, not take /ask down with it.
     """
     default = fallback if fallback in LANGUAGE_NAMES else "en"
+    app_language = f"APP LANGUAGE: {default}\n\n" if default in CHINESE else ""
     try:
         message = claude.messages.create(
             model=settings.MODEL_NAME,
@@ -194,7 +199,7 @@ def translate_question(question: str, fallback: str | None, pet_name: str, speci
             system=TRANSLATION_INSTRUCTIONS,
             messages=[{
                 "role": "user",
-                "content": f"PET: a {species} whose name is stored as {pet_name}\n\nQUESTION:\n{question}",
+                "content": f"PET: a {species} whose name is stored as {pet_name}\n\n{app_language}QUESTION:\n{question}",
             }],
             output_config={"format": {"type": "json_schema", "schema": TRANSLATION_SCHEMA}},
         )

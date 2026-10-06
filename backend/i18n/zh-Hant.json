@@ -1,0 +1,63 @@
+{
+  "email.signature": "Companion 團隊敬上",
+  "email.footer": "您會收到這封郵件，是因為您擁有 Companion 帳戶。",
+
+  "email.verify.subject": "驗證您的電子郵件",
+  "email.verify.line1": "歡迎使用 Companion。",
+  "email.verify.line2": "請確認您的電子郵件地址，以完成帳戶設定。",
+  "email.verify.button": "驗證電子郵件",
+  "email.verify.note": "此連結將在 24 小時後失效。如果您沒有建立 Companion 帳戶，可以忽略這封郵件。",
+
+  "email.reset.subject": "重設您的密碼",
+  "email.reset.line1": "我們收到了重設您 Companion 密碼的要求。",
+  "email.reset.button": "重設密碼",
+  "email.reset.note": "此連結將在 15 分鐘後失效。如果您沒有要求重設，則無需採取任何行動，您的密碼並未變更。",
+
+  "email.reminder.subject": "即將到期的寵物照護",
+  "email.reminder.greeting": "{name} 您好：",
+  "email.reminder.intro": "以下健康事項即將到期：",
+  "email.reminder.outro": "請儘早處理這些事項。",
+  "email.reminder.button": "開啟 Companion",
+  "email.reminder.manage": "您可以在{link}中管理提醒。",
+  "email.reminder.manageLink": "設定",
+
+  "email.emailChanged.subject": "有人要求變更您的 Companion 電子郵件",
+  "email.emailChanged.line1": "有人要求將您 Companion 帳戶的電子郵件地址變更為 {email}。在該地址通過驗證之前，變更不會生效。",
+  "email.emailChanged.line2": "如果是您本人操作，則無需採取任何行動，此通知僅供您留存。",
+  "email.emailChanged.line3": "如果不是您本人，可能有其他人能存取您的帳戶。請立即重設密碼，重新保護您的帳戶。",
+  "email.emailChanged.button": "重設您的密碼",
+
+  "email.passwordChanged.subject": "您的 Companion 密碼已變更",
+  "email.passwordChanged.line1": "您的 Companion 密碼剛剛已變更。",
+  "email.passwordChanged.line2": "如果是您本人操作，則無需採取任何行動。",
+  "email.passwordChanged.line3": "如果不是您本人，請立即要求重設密碼，這會讓目前的密碼失效。",
+
+  "email.lockWarning.trialSubject": "您的 Companion 免費月將於 {date} 結束",
+  "email.lockWarning.premiumSubject": "您的 Companion Premium 將於 {date} 結束",
+  "email.lockWarning.trialLine1": "您的 Companion 免費月將於 {date} 結束。",
+  "email.lockWarning.premiumLine1": "您的 Companion Premium 將於 {date} 結束，且不會續訂。",
+  "email.lockWarning.line2": "之後 Companion 將變為唯讀模式。您仍可檢視、匯出及刪除所有內容，但新增、追蹤、向助理提問和提醒都會停止。",
+  "email.lockWarning.trialLine3": "訂閱即可讓一切照常運作。",
+  "email.lockWarning.premiumLine3": "續訂您的方案即可讓一切照常運作。",
+  "email.lockWarning.button": "查看方案",
+
+  "reminder.item": "{pet}的{title}，{date} 到期",
+  "reminder.itemWithType": "{pet}的{title}（{type}），{date} 到期",
+
+  "push.due.title": "今日到期",
+  "push.due.many": "今天有 {count} 個事項到期。",
+  "push.feeding.title": "該餵食了",
+  "push.feeding.body": "該餵{pet}吃飯了。",
+  "push.lockWarning.trialTitle": "您的免費月即將結束",
+  "push.lockWarning.premiumTitle": "您的 Premium 即將結束",
+  "push.lockWarning.body": "從 {date} 起，Companion 將變為唯讀模式，提醒也會停止。",
+  "ask.noAnswer": "我的寵物照護參考資料中沒有這方面的資訊。",
+
+  "recordType.Vaccination": "疫苗接種",
+  "recordType.Vet Visit": "看獸醫",
+  "recordType.Medication": "用藥",
+  "recordType.Weight": "體重",
+  "recordType.Symptom": "症狀",
+  "recordType.Grooming": "美容",
+  "recordType.Training": "訓練"
+}
