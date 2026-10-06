@@ -91,7 +91,7 @@ export default function ChatHistory() {
     return <div className="p-8">{t("common.loading")}</div>;
   }
   if (messages.length === 0) {
-    return <EmptyState icon={MessageSquare} text={t("chatHistory.empty")} />;
+    return <EmptyState icon={MessageSquare} text={t("chatHistory.empty")} hint={t("chatHistory.emptyHint")} />;
   }
   return (
     <div className="p-4 sm:p-8">

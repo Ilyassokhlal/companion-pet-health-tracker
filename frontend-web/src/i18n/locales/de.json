@@ -291,7 +291,9 @@
     "sources": "Quellen:",
     "placeholder": "Stellen Sie eine Frage...",
     "send": "Senden",
-    "error": "Fehler: {{message}}"
+    "error": "Fehler: {{message}}",
+    "empty": "Stellen Sie eine beliebige Frage zu {{name}}: Impfungen, Symptome, Medikamente.",
+    "emptyHint": "Die Antworten stützen sich auf die Aufzeichnungen von {{name}} und eine Bibliothek mit Dokumenten zur Tiergesundheit und nennen ihre Quellen."
   },
   "tagInput": {
     "add": "Hinzufügen",
@@ -350,6 +352,7 @@
   "chatHistory": {
     "title": "Chatverlauf",
     "empty": "Noch keine Unterhaltungen.",
+    "emptyHint": "Jede Frage, die Sie zu Ihrem Haustier stellen, wird hier gespeichert, mit den Quellen jeder Antwort.",
     "clearAll": "Alle löschen",
     "assistant": "Companion",
     "you": "Sie",
@@ -362,6 +365,7 @@
   },
   "weightTracking": {
     "empty": "Noch keine Wiegevorgänge. Fügen Sie eine Gesundheitsaufzeichnung vom Typ „Gewicht“ hinzu.",
+    "emptyHint": "Regelmäßiges Wiegen zeigt im Dashboard einen Verlauf und hilft, langsame Gewichtsveränderungen früh zu erkennen.",
     "add": "Wiegevorgang hinzufügen"
   },
   "records": {
@@ -370,6 +374,7 @@
     "exportData": "Daten",
     "exportPdf": "PDF",
     "empty": "Noch keine Aufzeichnungen.",
+    "emptyHint": "Impfungen, Tierarztbesuche, Medikamente und mehr an einem Ort. Companion beantwortet Ihre Fragen anhand dieser Aufzeichnungen.",
     "nextDue": "Nächster Termin {{date}}",
     "deleteTitle": "Aufzeichnung löschen",
     "deleteBody": "„{{title}}“ wird dauerhaft gelöscht."
@@ -387,6 +392,7 @@
     "logButton": "Erfassen",
     "history": "Verlauf",
     "empty": "Noch keine Fütterungen erfasst.",
+    "emptyHint": "Erfasste Mahlzeiten markieren jede Fütterungszeit im Dashboard als erledigt, so fällt eine vergessene Mahlzeit auf.",
     "noDetails": "Keine Details",
     "deleteEntry": "Fütterung löschen",
     "status": {
@@ -443,6 +449,7 @@
   "photos": {
     "noPet": "Fügen Sie zuerst ein Haustier hinzu.",
     "empty": "Noch keine Fotos. Fügen Sie beim Erstellen einer Gesundheitsaufzeichnung Fotos hinzu.",
+    "emptyHint": "Mit Fotos an einer Aufzeichnung können Sie einen Ausschlag, eine Wunde oder einen Knoten über die Zeit vergleichen und Ihrem Tierarzt zeigen, wie er sich verändert hat.",
     "noMatch": "Keine Fotos entsprechen diesen Filtern.",
     "filter": "Filtern",
     "clearFilters": "Filter löschen",
@@ -479,6 +486,7 @@
     "log": "Spaziergang erfassen",
     "edit": "Spaziergang bearbeiten",
     "empty": "Keine Spaziergänge erfasst.",
+    "emptyHint": "Jeder erfasste Spaziergang zählt für die Woche im Dashboard, so sehen Sie, wie aktiv Ihr Haustier war.",
     "confirmDelete": "Diesen Spaziergang löschen?",
     "date": "Datum",
     "duration": "Dauer (Minuten)",
@@ -491,6 +499,7 @@
     "log": "Ausgabe hinzufügen",
     "edit": "Ausgabe bearbeiten",
     "empty": "Für diesen Monat sind keine Ausgaben erfasst.",
+    "emptyHint": "Wenn Sie erfassen, was Ihr Haustier kostet, zeigt das Dashboard die Summe des Monats. Legen Sie ein Monatslimit fest, um zu sehen, wann Sie es überschreiten.",
     "confirmDelete": "Diese Ausgabe löschen?",
     "month": "Monat",
     "date": "Datum",
@@ -514,5 +523,44 @@
     "exceeded": "Monatslimit überschritten",
     "editLimit": "Monatslimit ({{currency}})",
     "clearLimit": "Limit entfernen"
+  },
+  "onboarding": {
+    "title": "Erste Schritte mit Companion",
+    "hide": "Ausblenden",
+    "progress": "{{done}} von {{total}} erledigt",
+    "steps": {
+      "pet": "Haustier hinzufügen",
+      "record": "Gesundheitsaufzeichnung hinzufügen",
+      "photo": "Foto zu einer Aufzeichnung hinzufügen",
+      "question": "Companion eine Frage stellen",
+      "appointment": "Termin planen",
+      "tracking": "Die Verfolgung kennenlernen"
+    },
+    "actions": {
+      "record": "Hinzufügen",
+      "photo": "Hinzufügen",
+      "question": "Fragen",
+      "appointment": "Planen",
+      "tracking": "Öffnen"
+    },
+    "welcomeTitle": "Willkommen bei Companion",
+    "welcome": {
+      "records": "Impfungen, Tierarztbesuche, Medikamente und Wiegevorgänge an einem Ort.",
+      "reminders": "Erhalten Sie eine Erinnerung per E-Mail oder auf dem Handy, bevor etwas fällig ist.",
+      "ask": "Stellen Sie Fragen zu Ihrem Haustier und erhalten Sie Antworten, die auf seinen eigenen Aufzeichnungen beruhen."
+    },
+    "trackersTitle": "Die Verfolgung kennenlernen",
+    "trackersIntro": "Unter Verfolgung finden Sie vier optionale Werkzeuge. Nutzen Sie die, die Ihnen helfen, und lassen Sie den Rest weg.",
+    "trackers": {
+      "weight": "Sehen Sie den Gewichtsverlauf Ihres Haustiers im Dashboard. Schalten Sie die Gewichtsverfolgung in den Einstellungen ein, dann plant Companion jedes Wiegen und erinnert Sie, wenn es fällig ist.",
+      "walks": "Erfassen Sie Spaziergänge, um zu sehen, wie aktiv Ihr Haustier diese Woche war. Schalten Sie dazu die Spaziergangverfolgung in den Einstellungen ein.",
+      "feeding": "Legen Sie die Fütterungszeiten Ihres Haustiers fest, um im Dashboard zu sehen, ob jede Mahlzeit gegeben wurde. Fütterungserinnerungen lassen sich in den Einstellungen einschalten.",
+      "budget": "Erfassen Sie, was Ihr Haustier kostet, vom Futter bis zur Tierarztrechnung, und sehen Sie die Summe jedes Monats. Legen Sie ein Monatslimit fest, um zu sehen, wann Sie es überschreiten."
+    },
+    "gotIt": "Verstanden",
+    "allSetTitle": "Alles erledigt",
+    "allSetBody": "Alle Schritte sind abgeschlossen.",
+    "settingLabel": "Karte „Erste Schritte“ anzeigen",
+    "settingHint": "Die Checkliste oben im Dashboard, um sich in Companion zurechtzufinden."
   }
 }

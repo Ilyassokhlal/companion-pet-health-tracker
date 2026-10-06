@@ -69,6 +69,18 @@ export interface User {
   has_web_subscription: boolean;
   // Days until the account locks if nothing changes: the trial, a premium that won't renew, or a timed grant. Null when it won't lock.
   days_until_locked: number | null;
+  // Whether the owner hid the dashboard's Get started card, from the card or from Settings
+  onboarding_hidden: boolean;
+}
+
+// The Get started steps the account has done, on any pet and from any device. A step stays done once it is.
+export interface GettingStarted {
+  pet: boolean;
+  record: boolean;
+  photo: boolean;
+  question: boolean;
+  appointment: boolean;
+  tracking: boolean;
 }
 
 // What an account can do right now. Locked means read only: viewing, exporting and deleting still work.

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthContext";
+import { updateMe } from "../api/auth";
 import ChangeEmailForm from "../components/ChangeEmailForm";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import ReminderSettings from "../components/ReminderSettings";
@@ -22,13 +23,27 @@ type Panel = "username" | "email" | "password";
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   // One panel at a time — opening either closes the other.
   const [editing, setEditing] = useState<Panel | null>(null);
+  const [savingCard, setSavingCard] = useState(false);
 
   if (!user) return null;
 
   const toggle = (panel: Panel) => setEditing(editing === panel ? null : panel);
+
+  async function toggleCard() {
+    if (!user) return;
+    setSavingCard(true);
+    try {
+      await updateMe({ onboarding_hidden: !user.onboarding_hidden });
+      await refreshUser();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSavingCard(false);
+    }
+  }
 
   return (
     <div className="p-4 sm:p-8 max-w-2xl lg:max-w-5xl mx-auto">
@@ -118,6 +133,21 @@ export default function Settings() {
                   <ChangePasswordForm />
                 </div>
               )}
+
+              {/* Brings back the dashboard's Get started card after Hide, or hides it from here */}
+              <label className="mt-6 pt-6 border-t border-border flex items-start gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={!user.onboarding_hidden}
+                  disabled={savingCard}
+                  onChange={toggleCard}
+                  className="accent-primary mt-0.5"
+                />
+                <span>
+                  <span className="block">{t("onboarding.settingLabel")}</span>
+                  <span className="block text-muted">{t("onboarding.settingHint")}</span>
+                </span>
+              </label>
             </section>
           </div>
           <div className="order-3 lg:order-none">

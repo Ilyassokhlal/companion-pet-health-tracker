@@ -158,7 +158,7 @@ export default function Photos() {
         return <p className="text-muted">{t("common.loading")}</p>;
     }
     if (Object.values(counts).every((count) => !count)) {
-        return <EmptyState icon={Images} text={t("photos.empty")} />;
+        return <EmptyState icon={Images} text={t("photos.empty")} hint={t("photos.emptyHint")} />;
     }
     return (
       <div className="p-4 sm:p-8">

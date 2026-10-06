@@ -106,7 +106,7 @@ export default function Walks() {
 
       {error && <p className="mb-4 text-sm text-danger">{error}</p>}
       {loading && <p className="text-muted">{t("common.loading")}</p>}
-      {!loading && walks.length === 0 && <EmptyState icon={Footprints} text={t("walks.empty")} />}
+      {!loading && walks.length === 0 && <EmptyState icon={Footprints} text={t("walks.empty")} hint={t("walks.emptyHint")} />}
 
       <div className="flex flex-col gap-3">
         {walks.map((walk) => (

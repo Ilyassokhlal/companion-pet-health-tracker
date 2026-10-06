@@ -94,7 +94,7 @@ export default function TrackingWeight() {
       {loading && <p className="text-muted">{t("common.loading")}</p>}
 
       {!loading && records.length === 0 ? (
-        <EmptyState icon={Scale} text={t("weightTracking.empty")} />
+        <EmptyState icon={Scale} text={t("weightTracking.empty")} hint={t("weightTracking.emptyHint")} />
       ) : (
         records.map((record, index) => {
           // Calculate the change in weight compared to the previous record.

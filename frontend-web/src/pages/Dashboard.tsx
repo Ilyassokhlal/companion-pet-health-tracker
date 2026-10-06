@@ -12,7 +12,7 @@ import RecordForm from "../components/RecordForm";
 import EventForm from "../components/EventForm";
 import Modal from "../components/ui/Modal";
 import { deletePet } from "../api/pets";
-import { Pencil, Trash2, Check, CalendarPlus, Mars, Venus, Accessibility, Utensils } from "lucide-react";
+import { Pencil, Trash2, Check, CalendarPlus, Mars, Venus, Accessibility, Utensils, Bell, FileText, MessageCircle } from "lucide-react";
 import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
@@ -22,6 +22,14 @@ import type { Walk } from "../types";
 import { getExpenseSummary } from "../api/expenses";
 import type { ExpenseSummary } from "../types";
 import { SpendPanel, WeightPanel, ExercisePanel, PhotoPanel } from "../components/DashboardPanels";
+import GetStarted from "../components/GetStarted";
+
+// What the welcome before the first pet says Companion does
+const WELCOME = [
+  { key: "records", Icon: FileText },
+  { key: "reminders", Icon: Bell },
+  { key: "ask", Icon: MessageCircle },
+];
 
 // Formats a pet's age: returns "Unknown" if birth date is not provided, days if under one month, months if under one year, and years otherwise.
 // Takes t as an argument because a module-level function cannot call the hook, and the plural forms come from i18next rather than a ternary.
@@ -164,13 +172,27 @@ export default function Dashboard() {
   if (loading) {
     return <div className="p-8">{t("common.loading")}</div>;
   }
+  // A new account lands here first, so it says what Companion is for before asking for the pet
   if (!currentPet) {
     return (
     <div className="p-4 sm:p-8">
-        <p className="text-muted">{t("dashboard.noPetYet")}</p>
-        <Button onClick={() => setAddPetOpen(true)} className="mt-4">
-          {t("dashboard.addPet")}
-        </Button>
+        <div className="mx-auto max-w-xl rounded-xl border border-border bg-surface p-6 shadow-soft sm:p-8">
+          <h1 className="text-2xl font-bold">{t("onboarding.welcomeTitle")}</h1>
+          <ul className="mt-6 space-y-4">
+            {WELCOME.map(({ key, Icon }) => (
+              <li key={key} className="flex items-start gap-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Icon size={20} />
+                </span>
+                <p className="pt-2">{t(`onboarding.welcome.${key}`)}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-muted">{t("dashboard.noPetYet")}</p>
+          <Button onClick={() => setAddPetOpen(true)} className="mt-4 w-full">
+            {t("dashboard.addPet")}
+          </Button>
+        </div>
         <Modal open={addPetOpen} title={t("dashboard.addPetTitle")} onClose={() => setAddPetOpen(false)}>
           <PetForm onDone={() => setAddPetOpen(false)} />
         </Modal>
@@ -196,6 +218,9 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-8">
+      {/* First thing a new account sees. A record or an appointment added from it shows up in the panels below at once. */}
+      <GetStarted petId={currentPet.id} onSaved={() => { loadEvents(); loadRecords(); }} />
+
       {/* The identity card. Sex, disabilities and diet are badges beside the name rather than a
           separate section, which is what fills the empty space to the right of the photo. */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-soft">

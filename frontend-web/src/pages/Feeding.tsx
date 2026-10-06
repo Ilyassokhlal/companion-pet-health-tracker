@@ -188,7 +188,7 @@ export default function Feeding() {
 
       <h2 className="mb-3 text-lg font-semibold">{t("feeding.history")}</h2>
       {log.length === 0 ? (
-        <EmptyState icon={Utensils} text={t("feeding.empty")} />
+        <EmptyState icon={Utensils} text={t("feeding.empty")} hint={t("feeding.emptyHint")} />
       ) : (
         log.map((entry) => (
           <div key={entry.id} className="mb-3 flex items-start justify-between rounded-xl border border-border bg-surface p-4">

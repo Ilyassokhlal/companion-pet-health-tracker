@@ -291,7 +291,9 @@
     "sources": "Sources :",
     "placeholder": "Posez une question...",
     "send": "Envoyer",
-    "error": "Erreur : {{message}}"
+    "error": "Erreur : {{message}}",
+    "empty": "Posez n'importe quelle question sur {{name}} : vaccins, symptômes, médicaments.",
+    "emptyHint": "Les réponses s'appuient sur le dossier de {{name}} et sur une bibliothèque de documents de santé animale, et citent leurs sources."
   },
   "tagInput": {
     "add": "Ajouter",
@@ -350,6 +352,7 @@
   "chatHistory": {
     "title": "Historique des conversations",
     "empty": "Aucune conversation pour le moment.",
+    "emptyHint": "Chaque question posée sur votre animal est conservée ici, avec les sources de chaque réponse.",
     "clearAll": "Tout effacer",
     "assistant": "Companion",
     "you": "Vous",
@@ -362,6 +365,7 @@
   },
   "weightTracking": {
     "empty": "Aucune pesée pour le moment. Ajoutez un dossier de santé de type Poids.",
+    "emptyHint": "Des pesées régulières dessinent une courbe sur le tableau de bord et aident à repérer tôt un changement de poids lent.",
     "add": "Ajouter une pesée"
   },
   "records": {
@@ -370,6 +374,7 @@
     "exportData": "Données",
     "exportPdf": "PDF",
     "empty": "Aucun dossier pour le moment.",
+    "emptyHint": "Vaccins, visites vétérinaires, médicaments et plus encore, au même endroit. Companion s'appuie sur ces dossiers pour répondre à vos questions.",
     "nextDue": "Prochaine échéance {{date}}",
     "deleteTitle": "Supprimer le dossier",
     "deleteBody": "« {{title}} » sera définitivement supprimé."
@@ -387,6 +392,7 @@
     "logButton": "Enregistrer",
     "history": "Historique",
     "empty": "Rien d'enregistré pour le moment.",
+    "emptyHint": "Enregistrer les repas marque chaque heure de repas comme donnée sur le tableau de bord, pour qu'un repas manqué se remarque.",
     "noDetails": "Aucun détail",
     "deleteEntry": "Supprimer le repas",
     "status": {
@@ -443,6 +449,7 @@
   "photos": {
     "noPet": "Ajoutez d'abord un animal.",
     "empty": "Aucune photo pour le moment. Ajoutez des photos lorsque vous créez un dossier de santé.",
+    "emptyHint": "Les photos d'un dossier permettent de comparer une rougeur, une plaie ou une grosseur dans le temps, et de montrer son évolution à votre vétérinaire.",
     "noMatch": "Aucune photo ne correspond à ces filtres.",
     "filter": "Filtrer",
     "clearFilters": "Effacer",
@@ -479,6 +486,7 @@
     "log": "Enregistrer une promenade",
     "edit": "Modifier la promenade",
     "empty": "Aucune promenade enregistrée.",
+    "emptyHint": "Chaque promenade enregistrée compte pour la semaine sur le tableau de bord, pour voir à quel point votre animal a été actif.",
     "confirmDelete": "Supprimer cette promenade ?",
     "date": "Date",
     "duration": "Durée (minutes)",
@@ -491,6 +499,7 @@
     "log": "Ajouter une dépense",
     "edit": "Modifier la dépense",
     "empty": "Rien d'enregistré pour ce mois-ci.",
+    "emptyHint": "Noter ce que coûte votre animal affiche le total du mois sur le tableau de bord. Fixez une limite mensuelle pour savoir quand vous la dépassez.",
     "confirmDelete": "Supprimer cette dépense ?",
     "month": "Mois",
     "date": "Date",
@@ -514,5 +523,44 @@
     "exceeded": "Limite mensuelle dépassée",
     "editLimit": "Limite mensuelle ({{currency}})",
     "clearLimit": "Supprimer la limite"
+  },
+  "onboarding": {
+    "title": "Bien démarrer avec Companion",
+    "hide": "Masquer",
+    "progress": "{{done}} sur {{total}} terminées",
+    "steps": {
+      "pet": "Ajouter votre animal",
+      "record": "Ajouter un dossier de santé",
+      "photo": "Joindre une photo à un dossier",
+      "question": "Poser une question à Companion",
+      "appointment": "Planifier un rendez-vous",
+      "tracking": "Découvrir le suivi"
+    },
+    "actions": {
+      "record": "Ajouter",
+      "photo": "Ajouter",
+      "question": "Demander",
+      "appointment": "Planifier",
+      "tracking": "Ouvrir"
+    },
+    "welcomeTitle": "Bienvenue sur Companion",
+    "welcome": {
+      "records": "Gardez vaccins, visites vétérinaires, médicaments et pesées au même endroit.",
+      "reminders": "Recevez un rappel par e-mail ou sur votre téléphone avant chaque échéance.",
+      "ask": "Posez vos questions sur votre animal et obtenez des réponses fondées sur son propre dossier."
+    },
+    "trackersTitle": "Découvrir le suivi",
+    "trackersIntro": "L'onglet Suivi propose quatre outils facultatifs. Utilisez ceux qui vous servent et ignorez les autres.",
+    "trackers": {
+      "weight": "Suivez l'évolution du poids de votre animal sur le tableau de bord. Activez le suivi du poids dans les Paramètres et Companion planifie chaque pesée et vous la rappelle à l'échéance.",
+      "walks": "Enregistrez les promenades pour voir l'activité de votre animal cette semaine. Activez le suivi des promenades dans les Paramètres pour commencer.",
+      "feeding": "Ajoutez les heures de repas de votre animal pour voir sur le tableau de bord si chaque repas a été donné. Les rappels de repas s'activent dans les Paramètres.",
+      "budget": "Notez ce que coûte votre animal, de la nourriture aux frais vétérinaires, et voyez le total de chaque mois. Fixez une limite mensuelle pour savoir quand vous la dépassez."
+    },
+    "gotIt": "Compris",
+    "allSetTitle": "Tout est prêt",
+    "allSetBody": "Toutes les étapes sont faites.",
+    "settingLabel": "Afficher la carte Bien démarrer",
+    "settingHint": "La liste en haut du tableau de bord pour prendre Companion en main."
   }
 }

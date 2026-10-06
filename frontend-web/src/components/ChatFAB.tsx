@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { errorMessage } from "../errors";
+import { announceAsked, onOpenChat } from "../chatEvents";
 
 interface Turn {
   role: "user" | "assistant";
@@ -73,6 +74,12 @@ export default function ChatFAB() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // The Get started card opens the panel too. A locked account goes to the subscribe screen, as from the button.
+  useEffect(
+    () => onOpenChat(() => (user?.access === "locked" ? navigate("/premium") : setOpen(true))),
+    [user?.access, navigate],
+  );
+
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (window.innerWidth < 640) return;
     if ((e.target as HTMLElement).closest("button")) return;
@@ -127,6 +134,7 @@ export default function ChatFAB() {
       });
     } finally {
       setStreaming(false);
+      announceAsked();
     }
 }
 
@@ -206,6 +214,12 @@ export default function ChatFAB() {
                 </div>
               </div>
             ))}
+            {turns.length === 0 && (
+              <div className="flex h-full flex-col items-center justify-center gap-2 px-2 text-center">
+                <p className="font-medium text-fg">{t("chat.empty", { name: currentPet.name })}</p>
+                <p className="text-sm text-muted">{t("chat.emptyHint", { name: currentPet.name })}</p>
+              </div>
+            )}
           </div>
 
           <form onSubmit={handleAsk} className="flex p-4 border-t border-border">

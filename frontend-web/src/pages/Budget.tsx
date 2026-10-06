@@ -251,7 +251,7 @@ export default function Budget() {
 
       {error && <p className="mb-4 text-sm text-danger">{error}</p>}
       {loading && <p className="text-muted">{t("common.loading")}</p>}
-      {!loading && expenses.length === 0 && <EmptyState icon={Wallet} text={t("budget.empty")} />}
+      {!loading && expenses.length === 0 && <EmptyState icon={Wallet} text={t("budget.empty")} hint={t("budget.emptyHint")} />}
 
       <div className="flex flex-col gap-3">
         {expenses.map((expense) => (

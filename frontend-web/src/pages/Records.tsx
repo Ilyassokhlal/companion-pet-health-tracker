@@ -122,7 +122,7 @@ export default function Records() {
       </Modal>
       {loading && <p className="text-muted">{t("common.loading")}</p>}
       {!loading && records.length === 0 && (
-        <EmptyState icon={FileText} text={t("records.empty")} />
+        <EmptyState icon={FileText} text={t("records.empty")} hint={t("records.emptyHint")} />
       )}
       {/* The server sends them newest first, so they are shown in the order they arrive */}
       {records.map(r => (
