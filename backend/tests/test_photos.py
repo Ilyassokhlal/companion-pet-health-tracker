@@ -144,3 +144,31 @@ def test_photo_zip_caps_the_selection(client, pet):
     r = client.get(f"/pets/{p['id']}/photos/download", params={"ids": list(range(1, 12))}, headers=headers)
     assert r.status_code == 400
     assert "too_many_photos" in r.text
+
+
+def test_the_gallery_comes_in_pages_and_filters_on_the_server(client, pet, jpeg):
+    """Photos arrive a page at a time, newest record first, and the type and date filters reach photos that have not been loaded yet."""
+    headers, pet_data = pet
+    pet_id = pet_data["id"]
+    uploads = {}
+    for record_type, day, count in (("Vaccination", "2026-01-10", 1), ("Symptom", "2026-02-10", 2), ("Vet Visit", "2026-03-10", 1)):
+        record_id = client.post(f"/pets/{pet_id}/records", json={"title": record_type, "record_type": record_type, "date": day}, headers=headers).json()["id"]
+        files = [("files", (f"{i}.jpg", jpeg(), "image/jpeg")) for i in range(count)]
+        uploads[record_type] = [photo["id"] for photo in client.post(f"/records/{record_id}/photos", files=files, headers=headers).json()]
+
+    def gallery(**params):
+        return client.get(f"/pets/{pet_id}/photos", params=params, headers=headers).json()
+
+    first, second, third = gallery(limit=2), gallery(limit=2, offset=2), gallery(limit=2, offset=4)
+    assert [p["record_type"] for p in first + second] == ["Vet Visit", "Symptom", "Symptom", "Vaccination"]
+    assert third == []
+    # Two photos uploaded together: the one stored last comes first
+    assert [first[1]["id"], second[0]["id"]] == uploads["Symptom"][::-1]
+
+    assert {p["id"] for p in gallery(record_type="Symptom")} == set(uploads["Symptom"])
+    assert len(gallery(record_type=["Symptom", "Vet Visit"])) == 3
+    assert len(gallery(since="2026-02-01")) == 3
+    assert len(gallery(since="2026-02-01", until="2026-02-28")) == 2
+    assert len(gallery()) == 4
+
+    assert client.get(f"/pets/{pet_id}/photo-counts", headers=headers).json() == {"Vaccination": 1, "Symptom": 2, "Vet Visit": 1}

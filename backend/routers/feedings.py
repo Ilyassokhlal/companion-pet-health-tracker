@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 from utils.access import require_access_to_write
 from utils.exceptions import DuplicateException, NotFoundException
 from utils.feeding import pet_slots, satisfied_slots, slot_status, to_minutes
+from utils.pagination import Page
 from utils.security import get_current_user
 
 router = APIRouter(tags=["Feeding"], dependencies=[Depends(require_access_to_write)])
@@ -91,15 +92,17 @@ def delete_feeding_time(
 def list_feedings(
     pet_id: int,
     on: date_type | None = None,
+    page: Page = Depends(),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """List a pet's feeding records, newest first. Optionally filter by a specific day."""
+    """List a pet's feeding records, newest first, a page at a time when a limit is given. Optionally filter by a specific day."""
     pet = _get_owned_pet(pet_id, db, current_user)
     query = db.query(Feeding).filter(Feeding.pet_id == pet.id)
     if on is not None:
         query = query.filter(Feeding.date == on)
-    return query.order_by(Feeding.date.desc(), Feeding.time.desc()).all()
+    # The id last, so two meals logged at the same minute still page in a fixed order
+    return page.apply(query.order_by(Feeding.date.desc(), Feeding.time.desc(), Feeding.id.desc())).all()
 
 
 @router.post("/pets/{pet_id}/feedings", response_model=FeedingResponse, status_code=201)

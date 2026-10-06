@@ -18,6 +18,20 @@ def test_logging_a_walk_returns_it_and_lists_newest_first(client, pet):
     assert walks[0]["distance_km"] == 3.2
 
 
+def test_walks_come_in_pages_and_from_a_date(client, pet):
+    """The walk list loads a page at a time, and the dashboard asks only for the last few days."""
+    headers, pet_data = pet
+    pet_id = pet_data["id"]
+    for day in range(1, 6):
+        client.post(f"/pets/{pet_id}/walks", json={"date": f"2026-08-0{day}", "duration_minutes": 10 * day}, headers=headers).raise_for_status()
+
+    page = client.get(f"/pets/{pet_id}/walks", params={"limit": 2, "offset": 2}, headers=headers).json()
+    assert [w["date"] for w in page] == ["2026-08-03", "2026-08-02"]
+
+    recent = client.get(f"/pets/{pet_id}/walks", params={"since": "2026-08-04"}, headers=headers).json()
+    assert [w["date"] for w in recent] == ["2026-08-05", "2026-08-04"]
+
+
 def test_a_zero_minute_walk_is_refused(client, pet):
     """A walk with zero duration is invalid and should be refused."""
     headers, pet_data = pet

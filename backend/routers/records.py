@@ -1,16 +1,19 @@
 import io
 import os
 import zipfile
+from datetime import date as date_type
 from typing import Annotated
 
 from database import get_db
 from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
-from models.models import Expense, Feeding, FeedingTime, HealthRecord, Pet, RecordPhoto, User, Walk
+from models.models import Expense, Feeding, FeedingTime, HealthRecord, Pet, RecordPhoto, RecordType, User, Walk
 from schemas.record import GalleryPhoto, RecordCreate, RecordPhotoResponse, RecordResponse, RecordUpdate
+from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.export import export_zip, records_to_pdf
+from utils.pagination import Page
 from utils.photos import delete_photo_file, read_photo, read_upload, store_photo
 from utils.scheduling import sync_followup_event
 from utils.security import get_current_user
@@ -28,17 +31,28 @@ def _get_owned_pet(pet_id: int, db: Session, current_user: User) -> Pet:
 
 # Health record endpoints
 @router.get("/pets/{pet_id}/records", response_model=list[RecordResponse])
-def list_records(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """List all health records for a specific pet."""
+def list_records(
+    pet_id: int,
+    record_type: Annotated[list[RecordType] | None, Query()] = None,
+    page: Page = Depends(),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List a pet's health records, newest first, optionally only some types, a page at a time when a limit is given."""
     pet = _get_owned_pet(pet_id, db, current_user)
-    # Return the health records for the pet, sorted by date (newest first) and creation time (newest first).
-    return (
-        db.query(HealthRecord)
-        .options(selectinload(HealthRecord.photos))
-        .filter(HealthRecord.pet_id == pet.id)
-        .order_by(HealthRecord.date.desc(), HealthRecord.created_at.desc())
-        .all()
-    )
+    query = db.query(HealthRecord).options(selectinload(HealthRecord.photos)).filter(HealthRecord.pet_id == pet.id)
+    if record_type:
+        query = query.filter(HealthRecord.record_type.in_(record_type))
+    # Sorted by date (newest first) and creation time (newest first), with the id last so every page starts exactly where the one before ended.
+    return page.apply(query.order_by(HealthRecord.date.desc(), HealthRecord.created_at.desc(), HealthRecord.id.desc())).all()
+
+
+@router.get("/pets/{pet_id}/record-counts", response_model=dict[RecordType, int])
+def count_records(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """How many records the pet has of each type it has any of, for the filter buttons, since a list that loads in pages can't count what it hasn't loaded yet."""
+    pet = _get_owned_pet(pet_id, db, current_user)
+    rows = db.query(HealthRecord.record_type, func.count()).filter(HealthRecord.pet_id == pet.id).group_by(HealthRecord.record_type).all()
+    return dict(rows)
 
 
 @router.post("/pets/{pet_id}/records", response_model=RecordResponse, status_code=201)
@@ -160,16 +174,27 @@ def delete_record_photo(photo_id: int, db: Session = Depends(get_db), current_us
 
 
 @router.get("/pets/{pet_id}/photos", response_model=list[GalleryPhoto])
-def list_pet_photos(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Every photo for a pet, newest first, with the record it belongs to."""
+def list_pet_photos(
+    pet_id: int,
+    record_type: Annotated[list[RecordType] | None, Query()] = None,
+    since: date_type | None = None,
+    until: date_type | None = None,
+    page: Page = Depends(),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """A pet's photos, newest first, with the record each belongs to, a page at a time when a limit is given.
+
+    The gallery's filters run here, so they reach photos not loaded yet: the record's type, and its date from `since` to `until`, both days included."""
     pet = _get_owned_pet(pet_id, db, current_user)
-    query = (
-        db.query(RecordPhoto, HealthRecord)
-        .join(HealthRecord)
-        .filter(HealthRecord.pet_id == pet.id)
-        .order_by(HealthRecord.date.desc(), RecordPhoto.created_at.desc())
-    )
-    rows = query.all()
+    query = db.query(RecordPhoto, HealthRecord).join(HealthRecord).filter(HealthRecord.pet_id == pet.id)
+    if record_type:
+        query = query.filter(HealthRecord.record_type.in_(record_type))
+    if since is not None:
+        query = query.filter(HealthRecord.date >= since)
+    if until is not None:
+        query = query.filter(HealthRecord.date <= until)
+    rows = page.apply(query.order_by(HealthRecord.date.desc(), RecordPhoto.created_at.desc(), RecordPhoto.id.desc())).all()
     return [
         GalleryPhoto(
             id=p.id,
@@ -181,6 +206,20 @@ def list_pet_photos(pet_id: int, db: Session = Depends(get_db), current_user: Us
         )
         for p, r in rows
     ]
+
+
+@router.get("/pets/{pet_id}/photo-counts", response_model=dict[RecordType, int])
+def count_photos(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """How many photos the pet has under each record type, for the gallery's filter."""
+    pet = _get_owned_pet(pet_id, db, current_user)
+    rows = (
+        db.query(HealthRecord.record_type, func.count(RecordPhoto.id))
+        .join(RecordPhoto, RecordPhoto.record_id == HealthRecord.id)
+        .filter(HealthRecord.pet_id == pet.id)
+        .group_by(HealthRecord.record_type)
+        .all()
+    )
+    return dict(rows)
 
 
 # Maximum number of photos that can be downloaded at once.

@@ -1,3 +1,5 @@
+from datetime import date as date_type
+
 from database import get_db
 from fastapi import APIRouter, Depends, Response
 from models.models import Pet, User, Walk
@@ -5,6 +7,7 @@ from schemas.walk import WalkCreate, WalkResponse, WalkUpdate
 from sqlalchemy.orm import Session
 from utils.access import require_access_to_write
 from utils.exceptions import NotFoundException
+from utils.pagination import Page
 from utils.security import get_current_user
 
 router = APIRouter(tags=["Walks"], dependencies=[Depends(require_access_to_write)])
@@ -26,18 +29,22 @@ def _get_owned_walk(walk_id: int, db: Session, current_user: User) -> Walk:
 
 
 @router.get("/pets/{pet_id}/walks", response_model=list[WalkResponse])
-def list_walks(pet_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """List all walks for a given pet.
+def list_walks(
+    pet_id: int,
+    since: date_type | None = None,
+    page: Page = Depends(),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List the walks for a given pet, optionally only those on or after `since`, a page at a time when a limit is given.
 
-    Returns a list of walks, ordered by date and creation time in descending order.
+    Returns a list of walks, ordered by date and creation time in descending order, with the id last so pages never overlap.
     """
     pet = _get_owned_pet(pet_id, db, current_user)
-    return (
-        db.query(Walk)
-        .filter(Walk.pet_id == pet.id)
-        .order_by(Walk.date.desc(), Walk.created_at.desc())
-        .all()
-    )
+    query = db.query(Walk).filter(Walk.pet_id == pet.id)
+    if since is not None:
+        query = query.filter(Walk.date >= since)
+    return page.apply(query.order_by(Walk.date.desc(), Walk.created_at.desc(), Walk.id.desc())).all()
 
 
 @router.post("/pets/{pet_id}/walks", response_model=WalkResponse, status_code=201)
