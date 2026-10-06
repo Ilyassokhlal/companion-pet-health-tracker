@@ -360,8 +360,7 @@
     "deleteMessage": "Supprimer le message",
     "deleteMessageBody": "Ce message sera définitivement retiré de la conversation.",
     "clearTitle": "Effacer la conversation",
-    "clearBody": "Tous les messages concernant {{name}} seront définitivement supprimés.",
-    "loadOlder": "Charger les messages plus anciens"
+    "clearBody": "Tous les messages concernant {{name}} seront définitivement supprimés."
   },
   "weightTracking": {
     "empty": "Aucune pesée pour le moment. Ajoutez un dossier de santé de type Poids.",

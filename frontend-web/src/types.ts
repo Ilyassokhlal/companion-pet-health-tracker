@@ -39,7 +39,8 @@ export const LANGUAGES = [
   { code: 'de', name: 'Deutsch' },
   { code: 'ar', name: 'العربية' },
   { code: 'ru', name: 'Русский' },
-  { code: 'zh', name: '中文' },
+  { code: 'zh', name: '简体中文' },
+  { code: 'zh-Hant', name: '繁體中文' },
 ] as const;
 
 // User information returned by the API.

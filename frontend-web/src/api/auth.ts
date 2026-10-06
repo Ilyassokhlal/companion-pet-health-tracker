@@ -7,13 +7,18 @@ export function setDeviceLanguage(code: string): void {
   localStorage.setItem("language", code);
 }
 
-// navigator.language gives things like "fr-CA" or "zh-Hans-CN"; the backend only accepts the seven base codes in its Literal, so we match on the primary subtag and fall back to English if no match is found.
+// navigator.language gives things like "fr-CA" or "zh-Hans-CN"; the backend only accepts the codes in its Literal, so we match on the primary subtag and fall back to English if no match is found.
+// Chinese also reads the script, then the region: Traditional for Hant, Taiwan, Hong Kong and Macau, Simplified for everything else.
 export function detectLanguage(): string {
-  const supported = ["en", "fr", "es", "de", "ar", "ru", "zh"];
+  const supported = ["en", "fr", "es", "de", "ar", "ru", "zh", "zh-Hant"];
   const chosen = localStorage.getItem("language");
   if (chosen && supported.includes(chosen)) return chosen;
   for (const tag of navigator.languages ?? [navigator.language]) {
-    const base = tag.split("-")[0].toLowerCase();
+    const [base, ...rest] = tag.toLowerCase().split("-");
+    if (base === "zh") {
+      if (rest.includes("hans")) return "zh";
+      return rest.some((part) => ["hant", "tw", "hk", "mo"].includes(part)) ? "zh-Hant" : "zh";
+    }
     if (supported.includes(base)) return base;
   }
   return "en";

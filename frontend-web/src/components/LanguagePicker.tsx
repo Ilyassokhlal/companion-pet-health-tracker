@@ -9,7 +9,7 @@ export default function LanguagePicker() {
 
   return (
     <select
-      value={i18n.language.split("-")[0]}
+      value={i18n.language}
       aria-label={t("settings.preferences.language")}
       onChange={(e) => {
         setDeviceLanguage(e.target.value);
