@@ -1,0 +1,573 @@
+{
+  "premium": {
+    "title": "Companion Premium",
+    "subtitle": "Companion 的所有功能，適用於每隻寵物，沒有任何限制。",
+    "status": {
+      "trial": "免費月：還剩 {{days}}。",
+      "trialOver": "您的免費月已結束。",
+      "ended": "您的 Companion Premium 已結束。",
+      "active": "Companion Premium 已啟用，費用已付至 {{date}}。",
+      "activeEnding": "Companion Premium 有效至 {{date}}，且不會續訂。",
+      "lifetime": "您已擁有終身 Companion Premium。",
+      "grantedUntil": "您的 Companion Premium 有效至 {{date}}。"
+    },
+    "readOnly": "沒有 Premium 時，Companion 為唯讀模式。您仍可檢視、匯出及刪除您的資料，但無法新增或變更任何內容，助理會停止回答，提醒也會停止。",
+    "includesTitle": "Premium 包含",
+    "includes": {
+      "records": "新增及更新寵物、健康紀錄和照片",
+      "tracking": "體重、散步、餵食和預算追蹤",
+      "questions": "無限次向助理提問",
+      "reminders": "電子郵件和推播提醒"
+    },
+    "managePlay": "您的訂閱是在手機上購買的，因此需要在 Google Play 中變更或取消。",
+    "openPlay": "開啟 Google Play",
+    "manageWeb": "您的訂閱是在網站上購買的，因此需要在網站上變更或取消。",
+    "returningNone": "這個電子郵件已使用過免費月，因此此帳戶不含免費月。",
+    "returningSome": "這個電子郵件已使用過免費月。此帳戶可取回剩餘的天數：{{days}}。",
+    "settingsTitle": "訂閱",
+    "deleteNote": "刪除帳戶也會停止訂閱續訂。已付費的期間不予退款。",
+    "terms": "條款",
+    "monthly": "月繳",
+    "yearly": "年繳",
+    "perMonth": "每月 {{price}}",
+    "perYear": "每年 {{price}}",
+    "subscribe": "訂閱",
+    "billingNow": "在免費月期間訂閱，今天就會開始計費，剩餘的免費天數不會保留。",
+    "restoreTitle": "已經付款了嗎？",
+    "restore": "還原購買項目",
+    "restored": "您的購買項目已還原。歡迎回來！",
+    "welcome": "歡迎使用 Companion Premium，感謝您的支持！",
+    "savePercent": "省下 {{percent}}%",
+    "smallPrintPlay": "價格已含稅，並以您的幣別顯示。您的方案會自動續訂，直到您在 Google Play 中取消為止，您隨時都可以取消。",
+    "restoreBodyPlay": "曾用這支手機的帳號在 Google Play 購買 Premium，例如在刪除舊的 Companion 帳戶之前？請在這裡還原。",
+    "nothingRestored": "找不到這支手機帳號的有效 Google Play 訂閱。",
+    "purchaseFailed": "購買未完成，請稍後再試。",
+    "purchasePending": "謝謝您！購買已完成，Premium 將在幾分鐘內啟用。",
+    "storeUnavailable": "這台裝置目前還無法購買 Premium。",
+    "plansUnavailable": "無法載入方案，請檢查網路連線後再試一次。",
+    "privacy": "隱私權"
+  },
+  "premiumBanner": {
+    "endingTitle": "您的免費月將在 {{days}}後結束",
+    "premiumEndingTitle": "您的 Companion Premium 將在 {{days}}後結束",
+    "endingBody": "之後 Companion 將變為唯讀模式。您仍可檢視及匯出所有內容，但新增、追蹤、提問和提醒都會停止。",
+    "trialOverTitle": "您的免費月已結束",
+    "endedTitle": "您的 Companion Premium 已結束",
+    "lockedBody": "Companion 目前為唯讀模式。您可以檢視、匯出及刪除您的資料，但新增、追蹤、提問和提醒都已暫停。",
+    "action": "查看方案"
+  },
+  "errors": {
+    "subscription_required": "此功能需要 Companion Premium。您的資料仍可檢視及匯出。",
+    "trial_question_limit": "您已用完今天的 {{limit}} 個免費提問，次數會在午夜重設。",
+    "renewal_not_stopped": "目前無法停止您的訂閱，因此沒有刪除任何內容。請幾分鐘後再試一次。",
+    "email_not_verified": "請先驗證您的電子郵件地址，然後再試一次。",
+    "nothing_to_restore": "找不到這個電子郵件的網頁訂閱。",
+    "billing_unavailable": "目前無法付款。請幾分鐘後再試一次。",
+    "already_premium": "此帳戶已擁有 Companion Premium。",
+    "no_web_subscription": "此帳戶沒有可管理的網頁訂閱。",
+    "generic": "發生錯誤，請再試一次。",
+    "validation": "請檢查您輸入的資料。",
+    "too_many_attempts": "嘗試次數過多，請稍候再試。",
+    "error": "發生錯誤，請再試一次。",
+    "not_found": "找不到該項目。",
+    "duplicate": "該項目已存在。",
+    "bad_request": "無法完成此要求。",
+    "forbidden": "您沒有執行此操作的權限。",
+    "unauthorized": "請重新登入。",
+    "service_unavailable": "該服務暫時無法使用，請稍後再試。",
+    "internal_error": "我們這邊發生錯誤，請稍後再試。",
+    "ai_unavailable": "助理目前無法使用，請稍後再試。",
+    "bad_month": "該月份無效。",
+    "email_already_verified": "該電子郵件地址已通過驗證。",
+    "email_unchanged": "這已經是您的電子郵件地址。",
+    "empty_question": "請先輸入問題。",
+    "event_already_completed": "該項目已標示為完成。",
+    "image_too_large": "檔案過大（超過 {{max}} MB）：{{name}}",
+    "incorrect_password": "密碼不正確。",
+    "invalid_credentials": "電子郵件或密碼不正確。",
+    "invalid_link": "此連結無效。",
+    "invalid_token": "此連結無效或已過期。",
+    "link_already_used": "此連結已使用過。",
+    "no_pet_photo": "這隻寵物沒有照片。",
+    "no_photos_selected": "未選取任何照片。",
+    "no_user_photo": "您沒有照片。",
+    "password_unchanged": "這已經是您的密碼。",
+    "session_expired": "您的登入階段已過期，請重新登入。",
+    "too_many_photos": "您選取的照片太多了。",
+    "unsupported_export_format": "不支援該匯出格式。",
+    "unsupported_image_type": "不支援的圖片格式（僅限 JPEG、PNG 或 WebP）：{{name}}"
+  },
+  "common": {
+    "username": "使用者名稱",
+    "email": "電子郵件",
+    "password": "密碼",
+    "save": "儲存",
+    "cancel": "取消",
+    "delete": "刪除",
+    "close": "關閉",
+    "notSet": "未設定",
+    "clear": "清除",
+    "offline": "離線中，顯示 {{date}} 儲存的紀錄",
+    "title": "標題",
+    "date": "日期",
+    "weight": "體重（{{unit}}）",
+    "optional": "選填",
+    "noPet": "請先新增寵物。",
+    "saving": "儲存中…",
+    "all": "全部",
+    "edit": "編輯",
+    "loading": "載入中…",
+    "disclaimer": "本應用程式中的回答不構成專業獸醫建議。如果您對寵物的健康有任何疑慮，請諮詢獸醫。"
+  },
+  "auth": {
+    "welcome": "歡迎使用 Companion",
+    "login": {
+      "title": "登入",
+      "submit": "登入",
+      "registerLink": "還沒有帳戶？在這裡註冊",
+      "forgotLink": "忘記密碼了嗎？"
+    },
+    "register": {
+      "title": "建立帳戶",
+      "submit": "註冊",
+      "agree": "建立帳戶即表示您同意<terms>服務條款</terms>和<privacy>隱私權政策</privacy>。",
+      "loginLink": "已經有帳戶了嗎？在這裡登入"
+    },
+    "forgot": {
+      "title": "忘記密碼",
+      "sent": "如果該地址已註冊，我們已寄出重設密碼的連結。",
+      "submit": "寄送重設連結",
+      "backLink": "返回登入"
+    },
+    "reset": {
+      "title": "重設密碼",
+      "missingToken": "此連結不完整，缺少必要的驗證資訊。",
+      "requestNewLink": "申請新的重設連結",
+      "newPassword": "新密碼",
+      "confirmPassword": "確認密碼",
+      "mismatch": "兩次輸入的密碼不一致。",
+      "submit": "重設密碼"
+    },
+    "verify": {
+      "title": "驗證電子郵件",
+      "continue": "繼續",
+      "verifying": "驗證中…",
+      "missingToken": "此連結不完整，缺少必要的驗證資訊。",
+      "success": "電子郵件已成功驗證。"
+    }
+  },
+  "account": {
+    "username": {
+      "label": "使用者名稱",
+      "submit": "變更使用者名稱"
+    },
+    "email": {
+      "label": "新的電子郵件",
+      "currentPassword": "目前的密碼",
+      "submit": "變更電子郵件",
+      "sent": "請到「新的」電子郵件信箱確認變更。"
+    },
+    "password": {
+      "current": "目前的密碼",
+      "new": "新密碼",
+      "confirm": "確認新密碼",
+      "submit": "變更密碼"
+    },
+    "delete": {
+      "title": "刪除帳戶",
+      "warning": "此操作是永久性的，無法復原。",
+      "currentPassword": "目前的密碼",
+      "confirmBody": "這會永久刪除您的寵物、紀錄和照片。"
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "外觀",
+      "darkMode": "深色模式",
+      "accent": "強調色",
+      "pattern": "背景圖案",
+      "patterns": {
+        "none": "無",
+        "paws": "腳印",
+        "bones": "骨頭",
+        "fish": "魚",
+        "mixed": "混合"
+      }
+    },
+    "preferences": {
+      "title": "單位與語言",
+      "measurements": "度量單位",
+      "metric": "公制（kg、km）",
+      "imperial": "英制（lb、mi）",
+      "metricHint": "公制：體重以公斤計，距離以公里計",
+      "imperialHint": "英制：體重以磅計，距離以英里計",
+      "currency": "幣別",
+      "language": "語言",
+      "restartTitle": "需要重新啟動",
+      "restartBody": "阿拉伯文會改變版面方向，Companion 需要重新啟動才能套用。",
+      "restartNow": "重新啟動",
+      "note": "所有資料都以公制儲存，此設定只會改變顯示和輸入的方式。",
+      "chooseCurrency": "選擇幣別",
+      "chooseLanguage": "選擇語言"
+    },
+    "reminders": {
+      "title": "提醒",
+      "email": "以電子郵件通知我到期事項",
+      "howOften": "頻率",
+      "weekly": "每週日",
+      "daily": "每天",
+      "push": "每天推播通知到我的手機",
+      "timezone": "時區",
+      "arrival": "所有通知都會在此時區的早上 6 點送達。",
+      "verifyFirst": "請先驗證您的電子郵件，才能啟用提醒。",
+      "chooseTimezone": "選擇時區",
+      "search": "搜尋"
+    }
+  },
+  "trackingSettings": {
+    "weight": {
+      "title": "體重追蹤",
+      "account": "追蹤我的寵物體重",
+      "off": "開啟此選項，即可為個別寵物安排量體重。",
+      "noPets": "新增寵物即可開始追蹤。",
+      "weekly": "每週",
+      "biweekly": "每兩週",
+      "monthly": "每月"
+    },
+    "walks": {
+      "title": "散步追蹤",
+      "account": "追蹤我的寵物散步",
+      "off": "開啟此選項即可記錄散步，並查看今天哪些寵物出門過。",
+      "noPets": "新增寵物即可開始追蹤。"
+    },
+    "feeding": {
+      "title": "餵食提醒",
+      "note": "若到了餵食時間還沒有任何紀錄，就會通知您。與每日提醒分開設定。",
+      "push": "推播通知",
+      "email": "電子郵件"
+    }
+  },
+  "settingsPage": {
+    "title": "設定",
+    "logout": "登出",
+    "groups": {
+      "account": {
+        "label": "帳戶",
+        "hint": "照片、使用者名稱、電子郵件、密碼、刪除帳戶"
+      },
+      "appearance": {
+        "label": "外觀",
+        "hint": "主題和強調色"
+      },
+      "notifications": {
+        "label": "通知與追蹤",
+        "hint": "提醒、推播和量體重"
+      },
+      "units": {
+        "label": "單位與語言",
+        "hint": "度量單位、幣別和語言"
+      },
+      "privacy": {
+        "label": "資料與隱私權",
+        "hint": "隱私權政策和服務條款"
+      }
+    },
+    "memberSince": "加入日期",
+    "update": "更新",
+    "notVerified": "電子郵件尚未驗證",
+    "legal": "法律資訊",
+    "privacyPolicy": "隱私權政策",
+    "terms": "服務條款"
+  },
+  "tagInput": {
+    "add": "新增"
+  },
+  "photoMenu": {
+    "petTitle": "{{name}} 的照片",
+    "userTitle": "個人照片",
+    "choose": "選擇照片",
+    "remove": "移除",
+    "change": "更換照片",
+    "uploadFailed": "上傳失敗",
+    "removeFailed": "移除失敗"
+  },
+  "recordTypes": {
+    "Vaccination": "疫苗接種",
+    "Vet Visit": "看獸醫",
+    "Medication": "用藥",
+    "Weight": "體重",
+    "Symptom": "症狀",
+    "Grooming": "美容",
+    "Training": "訓練"
+  },
+  "recordForm": {
+    "recordType": "紀錄類型",
+    "description": "說明（選填）",
+    "nextDue": "下次到期日（選填）",
+    "photos": "照片（選填）",
+    "takePhoto": "拍照",
+    "choose": "選擇",
+    "removeFile": "移除",
+    "attached": "已附加的照片",
+    "photoLimit": "每張照片最大 {{max}} MB。",
+    "keep": "保留",
+    "add": "新增紀錄",
+    "cameraDenied": "需要相機權限才能拍照。"
+  },
+  "petForm": {
+    "name": "名字",
+    "species": "物種",
+    "speciesOptions": {
+      "Dog": "狗",
+      "Cat": "貓"
+    },
+    "breed": "品種",
+    "birthDate": "出生日期",
+    "budget": "每月預算（{{currency}}）",
+    "noLimit": "無上限",
+    "trackWeight": "追蹤這隻寵物的體重",
+    "checkIn": "量體重頻率",
+    "hasDietary": "有飲食限制或過敏",
+    "dietary": "飲食限制與過敏",
+    "dietaryPlaceholder": "例如：雞肉",
+    "hasDisabilities": "有身體障礙",
+    "disabilities": "身體障礙",
+    "disabilitiesPlaceholder": "例如：左耳失聰",
+    "add": "新增寵物",
+    "sex": "性別",
+    "sexUnset": "未設定",
+    "male": "公",
+    "female": "母",
+    "neutered": "已結紮",
+    "spayed": "已結紮",
+    "neuteredOrSpayed": "已結紮"
+  },
+  "eventForm": {
+    "submit": "安排"
+  },
+  "nav": {
+    "dashboard": "儀表板",
+    "records": "紀錄",
+    "tracking": "追蹤",
+    "photos": "照片",
+    "chat": "聊天"
+  },
+  "weightTracking": {
+    "current": "目前",
+    "empty": "目前還沒有體重紀錄。",
+    "emptyHint": "定期量體重，儀表板就會顯示趨勢，幫助您及早發現緩慢的體重變化。",
+    "add": "新增體重紀錄"
+  },
+  "walks": {
+    "log": "記錄散步",
+    "edit": "編輯散步紀錄",
+    "empty": "目前還沒有散步紀錄。",
+    "emptyHint": "您記錄的每次散步都會計入儀表板上的本週運動量，讓您了解寵物的活動量。",
+    "duration": "時長（分鐘）",
+    "distance": "距離（{{unit}}，選填）",
+    "notes": "備註（選填）",
+    "durationRequired": "請輸入散步的時長（分鐘）。",
+    "distanceInvalid": "距離必須是數字。",
+    "confirmDeleteTitle": "刪除散步紀錄",
+    "confirmDeleteBody": "這筆散步紀錄將被永久刪除。"
+  },
+  "feeding": {
+    "schedule": "時間表",
+    "noTimes": "尚未設定餵食時間。新增時間後，儀表板會顯示餵食狀態，也能發送提醒。",
+    "addTime": "新增時間",
+    "addAt": "新增 {{time}}",
+    "logTitle": "記錄餵食",
+    "food": "食物",
+    "amount": "份量",
+    "notes": "備註",
+    "logNow": "立即記錄",
+    "history": "歷史紀錄",
+    "empty": "目前還沒有任何紀錄。",
+    "emptyHint": "記錄每一餐後，儀表板會將對應的餵食時間標示為已餵食，漏掉的餐次就一目了然。",
+    "noDetails": "沒有詳細資料",
+    "confirmDeleteTitle": "刪除餵食紀錄",
+    "confirmDeleteBody": "這筆紀錄將被永久刪除。",
+    "status": {
+      "met": "已餵食",
+      "due": "現在該餵了",
+      "missed": "已錯過",
+      "upcoming": "今天稍後"
+    },
+    "time": "時間",
+    "unit": "單位"
+  },
+  "records": {
+    "exportData": "匯出資料",
+    "exportPdf": "匯出 PDF",
+    "exportFailed": "匯出失敗",
+    "empty": "目前還沒有紀錄。",
+    "emptyHint": "疫苗、看診、用藥等資訊，全都集中在一個地方。Companion 會根據這些紀錄回答您的問題。",
+    "nextDue": "下次到期：{{date}}",
+    "confirmDeleteTitle": "刪除紀錄",
+    "confirmDeleteBody": "「{{title}}」將被永久刪除。"
+  },
+  "chat": {
+    "locked": "提問需要 Companion Premium。您過去的回答仍會保留在這裡供您閱讀。",
+    "title": "關於 {{name}} 的提問",
+    "clear": "清除",
+    "empty": "任何關於 {{name}} 的問題都可以問：疫苗接種、症狀、用藥。",
+    "emptyHint": "回答會參考 {{name}} 的紀錄和寵物健康文件庫，並附上資料來源。",
+    "thinking": "思考中…",
+    "sources": "資料來源：",
+    "placeholder": "輸入您的問題…",
+    "send": "傳送",
+    "error": "錯誤：{{message}}",
+    "confirmDeleteTitle": "刪除訊息",
+    "confirmDeleteBody": "這則訊息將被永久刪除。",
+    "confirmClearTitle": "清除對話",
+    "confirmClearBody": "這隻寵物的所有訊息都將被永久刪除。",
+    "loadOlder": "載入較早的訊息"
+  },
+  "dashboard": {
+    "ageUnknown": "不詳",
+    "days_one": "{{count}} 天",
+    "days_other": "{{count}} 天",
+    "months_one": "{{count}} 個月",
+    "months_other": "{{count}} 個月",
+    "years_one": "{{count}} 歲",
+    "years_other": "{{count}} 歲",
+    "species": "物種",
+    "breed": "品種",
+    "age": "年齡",
+    "feeding": "餵食",
+    "missed_one": "錯過 {{count}} 次",
+    "missed_other": "錯過 {{count}} 次",
+    "onTrack": "進度正常",
+    "weight": "體重",
+    "spentThisMonth": "本月支出",
+    "noPetYet": "您還沒有新增寵物。",
+    "addChip": "+ 新增",
+    "due": "到期",
+    "dismiss": "略過",
+    "nothingDue": "沒有到期事項。",
+    "scheduled": "已排定",
+    "schedule": "安排",
+    "nothingScheduled": "沒有已排定的事項。",
+    "overdue": "已逾期：",
+    "done": "完成",
+    "deleteTitle": "要刪除 {{name}} 嗎？",
+    "deleteBody": "牠的健康紀錄、照片和對話紀錄也會一併刪除，且無法復原。",
+    "weightTrend": "體重趨勢",
+    "needTwoWeights": "記錄兩次體重即可查看趨勢",
+    "exercise": "本週運動量",
+    "noWalksWeek": "本週沒有任何紀錄",
+    "noPhotos": "目前還沒有照片"
+  },
+  "verifyBanner": {
+    "title": "請驗證您的電子郵件地址",
+    "body": "完成驗證之前，提醒和推播通知都會保持關閉。",
+    "resend": "重新寄送郵件",
+    "sending": "傳送中…",
+    "sent": "已寄出，請查看您的收件匣。"
+  },
+  "photos": {
+    "title": "照片",
+    "noPet": "請先新增寵物。",
+    "empty": "目前還沒有照片。新增健康紀錄時可以附加照片。",
+    "emptyHint": "紀錄上的照片能讓您比較疹子、傷口或腫塊隨時間的變化，也能讓獸醫看到變化的過程。",
+    "noMatch": "沒有符合篩選條件的照片。",
+    "filter": "篩選",
+    "clearFilters": "清除",
+    "type": "類型",
+    "from": "從",
+    "to": "到",
+    "selectedCount": "已選取 {{count}} 張",
+    "download": "下載",
+    "confirmDeleteOne": "要刪除這張照片嗎？",
+    "confirmDelete": "要刪除 {{count}} 張照片嗎？",
+    "limitReached": "最多可以選取 {{max}} 張照片。",
+    "savedToLibrary": "已儲存到您的相簿。"
+  },
+  "tracking": {
+    "title": "追蹤",
+    "weight": "體重",
+    "weightHint": "體重紀錄及其變化",
+    "walks": "散步",
+    "walksHint": "已記錄的散步，最新的在前",
+    "feeding": "餵食",
+    "feedingHint": "餵食時間和今天的紀錄",
+    "budget": "預算",
+    "budgetHint": "這隻寵物每月的花費",
+    "noData": "尚無資料",
+    "walkedToday": "今天已散步",
+    "lastWalk": "上次散步：{{date}}",
+    "nextFeeding": "下次餵食：{{time}}",
+    "spentThisMonth": "本月 {{amount}}"
+  },
+  "budget": {
+    "noPet": "請先新增寵物。",
+    "title": "預算",
+    "log": "新增支出",
+    "edit": "編輯支出",
+    "empty": "本月還沒有任何支出紀錄。",
+    "emptyHint": "記錄寵物的花費後，儀表板會顯示當月總額。設定每月上限，就能知道何時超支。",
+    "confirmDeleteTitle": "刪除支出",
+    "confirmDeleteBody": "這筆支出將被永久刪除。",
+    "date": "日期",
+    "amount": "金額（{{currency}}）",
+    "category": "類別",
+    "record": "附加到健康紀錄",
+    "noRecord": "未附加",
+    "notes": "備註（選填）",
+    "of": "/ {{limit}}",
+    "noLimit": "未設定每月上限",
+    "invalidAmount": "請輸入花費金額。",
+    "mixedCurrencies": "本月混用了多種幣別（{{codes}}），總額只是直接相加，並未換算匯率。",
+    "categories": {
+      "food": "食物",
+      "vet": "獸醫",
+      "medication": "用藥",
+      "grooming": "美容",
+      "supplies": "用品",
+      "insurance": "保險",
+      "other": "其他"
+    },
+    "exceeded": "已超過每月上限",
+    "editLimit": "每月上限（{{currency}}）",
+    "clearLimit": "移除上限"
+  },
+  "onboarding": {
+    "title": "開始使用 Companion",
+    "hide": "隱藏",
+    "progress": "已完成 {{done}}/{{total}}",
+    "steps": {
+      "pet": "新增您的寵物",
+      "record": "新增健康紀錄",
+      "photo": "為紀錄附加照片",
+      "question": "向 Companion 提問",
+      "appointment": "安排預約",
+      "tracking": "認識追蹤功能"
+    },
+    "actions": {
+      "record": "新增",
+      "photo": "新增",
+      "question": "提問",
+      "appointment": "安排",
+      "tracking": "開啟"
+    },
+    "welcomeTitle": "歡迎使用 Companion",
+    "welcome": {
+      "records": "將疫苗、看診、用藥和體重紀錄集中在一個地方。",
+      "reminders": "事項到期前，透過電子郵件或手機收到提醒。",
+      "ask": "詢問關於寵物的問題，獲得根據牠自己的紀錄所提供的解答。"
+    },
+    "trackersTitle": "認識追蹤功能",
+    "trackersIntro": "「追蹤」提供四項選用的追蹤功能。使用對您有幫助的，其餘的可以略過。",
+    "trackers": {
+      "weight": "在儀表板上查看寵物的體重趨勢。在設定中開啟體重追蹤後，Companion 會安排每次量體重，並在到期時提醒您。",
+      "walks": "記錄散步，查看寵物本週的活動量。在設定中開啟散步追蹤即可開始。",
+      "feeding": "新增寵物的餵食時間，就能在儀表板上查看每一餐是否已餵。餵食提醒可以在設定中開啟。",
+      "budget": "記錄寵物的各項花費，從食物到獸醫費用，並查看每月總額。設定每月上限，就能知道何時超支。"
+    },
+    "gotIt": "知道了",
+    "allSetTitle": "一切就緒",
+    "allSetBody": "所有步驟都已完成。",
+    "settingLabel": "顯示「開始使用」卡片",
+    "settingHint": "儀表板頂端的檢查清單，幫助您熟悉 Companion。"
+  }
+}
