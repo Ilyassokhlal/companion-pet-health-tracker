@@ -1,8 +1,10 @@
+import io
 import os
 import tempfile
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 # these must be set BEFORE importing main/database/rag — config.py reads env at import
 # time, and rag.py opens ChromaDB at import time
@@ -38,6 +40,7 @@ os.environ["FRONTEND_URL"] = "http://localhost:5173"
 
 
 import main  # noqa: E402
+from config import settings  # noqa: E402
 from database import Base, SessionLocal, engine  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 from utils.limiter import limiter  # noqa: E402
@@ -117,3 +120,22 @@ def no_translation(monkeypatch):
         "rag.translate_question",
         lambda question, fallback, pet_name, species: (question, fallback or "en", None),
     )
+
+# Fixture to pin the reminder hour
+@pytest.fixture(autouse=True)
+def pinned_reminder_hour(monkeypatch):
+    """The .env sets REMINDER_HOUR, but these tests pin it to 6 AM."""
+    monkeypatch.setattr(settings, "REMINDER_HOUR", 6)
+
+# Fixture for test photos
+@pytest.fixture
+def jpeg():
+    """Factory: a real JPEG, optionally carrying an EXIF rotation flag the way phone cameras write one."""
+    def _jpeg(width: int = 4, height: int = 3, orientation: int | None = None) -> bytes:
+        buffer = io.BytesIO()
+        exif = Image.Exif()
+        if orientation:
+            exif[0x0112] = orientation
+        Image.new("RGB", (width, height), "orange").save(buffer, "JPEG", exif=exif)
+        return buffer.getvalue()
+    return _jpeg
