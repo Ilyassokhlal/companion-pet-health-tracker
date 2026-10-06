@@ -7,6 +7,7 @@ from schemas.pet import PetCreate, PetResponse, PetUpdate
 from sqlalchemy.orm import Session
 from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
+from utils.onboarding import mark_step
 from utils.photos import delete_photo_file, save_photo
 from utils.security import get_current_user
 from utils.weight import sync_checkin
@@ -29,6 +30,7 @@ def create_pet(request: PetCreate, db: Session = Depends(get_db), current_user: 
     pet = Pet(**request.model_dump(), user_id=current_user.id)
     db.add(pet)
     db.flush()
+    mark_step(db, current_user.id, "pet")
     if pet.weight_tracking_enabled and not current_user.weight_tracking_enabled:
         current_user.weight_tracking_enabled = True
     if pet.walk_tracking_enabled and not current_user.walk_tracking_enabled:

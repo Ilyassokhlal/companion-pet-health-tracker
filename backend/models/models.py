@@ -3,7 +3,20 @@ from datetime import date, datetime, timedelta
 from datetime import time as time_type
 
 from database import Base
-from sqlalchemy import ARRAY, Boolean, Date, DateTime, Enum, Float, ForeignKey, Integer, String, Text, Time
+from sqlalchemy import (
+    ARRAY,
+    Boolean,
+    Date,
+    DateTime,
+    Enum,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    Time,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
@@ -55,6 +68,8 @@ class User(Base):
     lock_warning_sent: Mapped[int | None] = mapped_column(Integer, nullable=True)
     # Set by the first web checkout. Opens Stripe's billing portal, and lets account deletion cancel a web subscription.
     stripe_customer_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # The dashboard's Get started card shows until the owner hides it, from the card or from Settings, which can also bring it back. Kept here, so it is the same on every device. Accounts from before the card existed start hidden.
+    onboarding_hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
@@ -300,3 +315,15 @@ class QuestionUsage(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+
+
+# A Get started step an account has done, and when. Written the moment it happens and never removed, so deleting what did it leaves the step ticked. The admin dashboard can read how far new accounts get.
+class OnboardingStep(Base):
+    __tablename__ = "onboarding_steps"
+    __table_args__ = (UniqueConstraint("user_id", "step"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    # One of utils.onboarding.STEPS
+    step: Mapped[str] = mapped_column(String(20), nullable=False)
+    done_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)

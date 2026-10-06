@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session, selectinload
 from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.export import export_zip, records_to_pdf
+from utils.onboarding import mark_step
 from utils.pagination import Page
 from utils.photos import delete_photo_file, read_photo, read_upload, store_photo
 from utils.scheduling import sync_followup_event
@@ -63,6 +64,10 @@ def create_record(pet_id: int, request: RecordCreate, db: Session = Depends(get_
     db.add(record)
     db.flush()
     sync_followup_event(db, record)
+    mark_step(db, current_user.id, "record")
+    # A next due date schedules a follow up, which counts as scheduling
+    if record.next_due_date:
+        mark_step(db, current_user.id, "appointment")
     sync_pet_weight(db, record)
     db.commit()
     db.refresh(record)
@@ -83,6 +88,9 @@ def update_record(record_id: int, request: RecordUpdate, db: Session = Depends(g
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(record, key, value)
     sync_followup_event(db, record)
+    # A next due date added while editing schedules a follow up, which counts as scheduling
+    if record.next_due_date:
+        mark_step(db, current_user.id, "appointment")
     sync_pet_weight(db, record)
     db.commit()
     db.refresh(record)
@@ -148,6 +156,7 @@ def upload_record_photos(record_id: int, files: list[UploadFile] = File(...), db
 
     photos = [RecordPhoto(record_id=record.id, filename=filename) for filename in stored]
     db.add_all(photos)
+    mark_step(db, current_user.id, "photo")
     db.commit()
     for photo in photos:
         db.refresh(photo)

@@ -62,6 +62,8 @@ class UserResponse(BaseModel):
     has_web_subscription: bool = False
     # Days until the account locks if nothing changes: the trial, a premium that won't renew, or a timed grant. Empty when it won't lock.
     days_until_locked: int | None = None
+    # Whether the owner hid the dashboard's Get started card
+    onboarding_hidden: bool = False
 
     @model_validator(mode="wrap")
     @classmethod
@@ -101,7 +103,8 @@ class UserResponse(BaseModel):
                 "trial_days_left": 30,
                 "premium_expires_at": None,
                 "has_web_subscription": False,
-                "days_until_locked": 30
+                "days_until_locked": 30,
+                "onboarding_hidden": False
             }
         }
     )
@@ -173,6 +176,17 @@ class UserUpdateRequest(BaseModel):
     language: Literal["en", "fr", "es", "de", "ar", "ru", "zh"] | None = None
     unit_system: Literal["metric", "imperial"] | None = None
     currency: str | None = Field(default=None, pattern="^[A-Z]{3}$")
+    onboarding_hidden: bool | None = None
+
+class GettingStartedResponse(BaseModel):
+    """The Get started steps the account has done, on any pet and from any device. A step stays done once it is."""
+    pet: bool
+    record: bool
+    photo: bool
+    question: bool
+    # An appointment or a record's follow up. Weight check-ins don't count, since the app schedules those by itself.
+    appointment: bool
+    tracking: bool
 
 class DeviceTokenRequest(BaseModel):
     """Schema for registering a device's Expo push token."""

@@ -16,6 +16,7 @@ from utils.exceptions import BadRequestException
 from utils.i18n import t
 from utils.limiter import limiter
 from utils.messages import save_message
+from utils.onboarding import mark_step
 from utils.security import get_current_user
 
 router = APIRouter(tags=["Ask"], dependencies=[Depends(require_access_to_write)])
@@ -220,6 +221,7 @@ def ask(
     # A trial account has a daily allowance. Every question counts, answered or refused, and the tally is kept apart from the chat so deleting messages can't reset it.
     check_question_allowance(db, current_user)
     db.add(QuestionUsage(user_id=current_user.id))
+    mark_step(db, current_user.id, "question")
     db.commit()
     history = _recent_turns(pet.id, db)
     save_message(pet.id, "user", question)

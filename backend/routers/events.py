@@ -8,6 +8,7 @@ from schemas.record import RecordResponse
 from sqlalchemy.orm import Session, joinedload
 from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
+from utils.onboarding import mark_step
 from utils.security import get_current_user
 from utils.weight import is_tracked, next_checkin_date
 
@@ -54,6 +55,9 @@ def create_event(request: EventCreateRequest, db: Session = Depends(get_db), cur
         kind=request.kind,
     )
     db.add(event)
+    # Weight check-ins are scheduled by the app itself, so only what the owner schedules counts
+    if event.kind != EventKind.WEIGHT_CHECKIN:
+        mark_step(db, current_user.id, "appointment")
     db.commit()
     db.refresh(event)
     return event
@@ -105,6 +109,8 @@ def complete_event(event_id: int, db: Session = Depends(get_db), current_user: U
     event.completed_at = datetime.now()
     db.flush()
     event.result_record_id = record.id
+    # Done on a due item creates a record, which counts as adding one
+    mark_step(db, current_user.id, "record")
     if event.kind == EventKind.WEIGHT_CHECKIN and is_tracked(event.pet):
         db.add(ScheduledEvent(
             pet_id=event.pet_id,

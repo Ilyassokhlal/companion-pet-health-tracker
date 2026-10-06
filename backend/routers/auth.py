@@ -4,12 +4,13 @@ from zoneinfo import available_timezones
 from config import settings
 from database import get_db
 from fastapi import APIRouter, BackgroundTasks, Depends, File, Request, UploadFile, status
-from models.models import User
+from models.models import OnboardingStep, User
 from schemas.user import (
     ChangeEmailRequest,
     ChangePasswordRequest,
     DeleteAccountRequest,
     ForgotPasswordRequest,
+    GettingStartedResponse,
     LoginRequest,
     RegisterRequest,
     RegisterResponse,
@@ -37,6 +38,7 @@ from utils.mailer import (
     send_reset_email,
     send_verification_email,
 )
+from utils.onboarding import STEPS, mark_step
 from utils.photos import delete_photo_file, save_photo
 from utils.security import (
     create_access_token,
@@ -180,6 +182,18 @@ def resend_verification(request: Request, background_tasks: BackgroundTasks, cur
 def me(current_user: User = Depends(get_current_user)):
     """Return the signed-in user."""
     return current_user
+
+@router.get("/me/getting-started", response_model=GettingStartedResponse)
+def getting_started(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Which Get started steps the account has done, on any pet and from any device."""
+    done = {step for (step,) in db.query(OnboardingStep.step).filter(OnboardingStep.user_id == current_user.id)}
+    return GettingStartedResponse(**{step: step in done for step in STEPS})
+
+@router.post("/me/getting-started/tracking", status_code=204)
+def read_tracking_intro(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Tick Meet the trackers, the one step with nothing to add: the owner closed its introduction or opened a tracker from it."""
+    mark_step(db, current_user.id, "tracking")
+    db.commit()
 
 @router.post("/forgot-password", status_code=204)
 @limiter.limit("3/hour")
