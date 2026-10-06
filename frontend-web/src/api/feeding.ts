@@ -1,4 +1,4 @@
-import { apiFetch } from "./client";
+import { apiFetch, withQuery } from "./client";
 import type { Feeding, FeedingTime, SlotStatus } from "../types";
 
 // Types and functions for managing pet feedings via the API.
@@ -29,9 +29,9 @@ export async function deleteFeedingTime(id: number): Promise<void> {
   return apiFetch<void>(`/feeding-times/${id}`, { method: "DELETE" });
 }
 
-// List all feedings for a pet. The `on` parameter narrows to a single day; omit it for the whole log, newest first.
-export async function listFeedings(petId: number, on?: string): Promise<Feeding[]> {
-  return apiFetch<Feeding[]>(`/pets/${petId}/feedings${on ? `?on=${on}` : ""}`);
+// List the feedings for a pet, newest first. `on` narrows to a single day, and a limit fetches a page at a time.
+export async function listFeedings(petId: number, options: { on?: string; limit?: number; offset?: number } = {}): Promise<Feeding[]> {
+  return apiFetch<Feeding[]>(withQuery(`/pets/${petId}/feedings`, options));
 }
 
 // Create a new feeding record for a pet.

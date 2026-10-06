@@ -1,14 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Plus, Trash2, Utensils } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import LoadMore from "../components/LoadMore";
 import { usePets } from "../context/PetContext";
+import { usePaged } from "../paging";
 import {
   listFeedingTimes, createFeedingTime, deleteFeedingTime,
   listFeedings, createFeeding, deleteFeeding, feedingStatus,
 } from "../api/feeding";
 import { AMOUNT_UNITS } from "../types";
-import type { Feeding as FeedingLog, FeedingTime, SlotStatus } from "../types";
+import type { FeedingTime, SlotStatus } from "../types";
 import { formatDate } from "../dates";
 import { errorMessage } from "../errors";
 import Button from "../components/ui/Button";
@@ -23,6 +25,9 @@ const STATUS_STYLE: Record<SlotStatus["status"], string> = {
 
 const FIELD = "w-full rounded-lg bg-ink border border-border px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none";
 
+// Logged meals loaded per page as the history scrolls
+const PAGE = 30;
+
 // Component for managing feeding times and feeding logs for the current pet.
 // Allows adding, deleting, and viewing feeding times and logs, and shows the status of each feeding slot.
 // Both actions go through a button that opens a form, matching Budget and Walks — the inline rows of
@@ -32,7 +37,6 @@ export default function Feeding() {
   const { currentPet } = usePets();
   const [times, setTimes] = useState<FeedingTime[]>([]);
   const [statuses, setStatuses] = useState<SlotStatus[]>([]);
-  const [log, setLog] = useState<FeedingLog[]>([]);
   const [newTime, setNewTime] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -47,17 +51,13 @@ export default function Feeding() {
   const [unit, setUnit] = useState<string>("g");
   const [notes, setNotes] = useState("");
 
+  // The schedule and today's status for each time. The history below loads on its own, a page at a time.
   const load = useCallback(async () => {
     if (!currentPet) return;
     try {
-      const [t, s, l] = await Promise.all([
-        listFeedingTimes(currentPet.id),
-        feedingStatus(currentPet.id),
-        listFeedings(currentPet.id),
-      ]);
+      const [t, s] = await Promise.all([listFeedingTimes(currentPet.id), feedingStatus(currentPet.id)]);
       setTimes(t);
       setStatuses(s);
-      setLog(l);
     } catch (err) {
       console.error(err);
     }
@@ -66,6 +66,18 @@ export default function Feeding() {
   useEffect(() => {
     load();
   }, [load]);
+
+  const fetchPage = useMemo(
+    () => (currentPet ? (offset: number, limit: number) => listFeedings(currentPet.id, { limit, offset }) : null),
+    [currentPet],
+  );
+  const { items: log, loadingMore, hasMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
+
+  // A meal logged or deleted changes both today's status and the history
+  function mealsChanged() {
+    load();
+    refresh();
+  }
 
   function openTime() {
     setNewTime("");
@@ -116,7 +128,7 @@ export default function Feeding() {
         notes: notes.trim() || null,
       });
       setLogOpen(false);
-      load();
+      mealsChanged();
     } catch (err) {
       setError(errorMessage(err));
     }
@@ -192,7 +204,7 @@ export default function Feeding() {
               {entry.notes && <p className="mt-1 text-sm text-fg">{entry.notes}</p>}
             </div>
             <button
-              onClick={() => deleteFeeding(entry.id).then(load)}
+              onClick={() => deleteFeeding(entry.id).then(mealsChanged)}
               className="text-danger hover:brightness-125"
               aria-label={t("feeding.deleteEntry")}
             >
@@ -201,6 +213,7 @@ export default function Feeding() {
           </div>
         ))
       )}
+      <LoadMore hasMore={hasMore} loading={loadingMore} onLoad={loadMore} />
 
       <Modal open={timeOpen} title={t("feeding.addTime")} onClose={() => setTimeOpen(false)}>
         <form onSubmit={addTime} className="flex flex-col gap-4">

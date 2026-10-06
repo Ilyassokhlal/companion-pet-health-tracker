@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { usePets } from "../context/PetContext";
@@ -7,10 +7,11 @@ import type { ChatMessage } from "../types";
 import Button from "../components/ui/Button";
 import { Trash2, MessageSquare } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import LoadMore from "../components/LoadMore";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 
 // This is a reading page, not the conversation, so it runs newest first: the top of the page is the
-// most recent exchange and older ones arrive below as you read down. Nothing here needs to preserve
+// most recent exchange and older ones arrive below as you scroll down, like every other list. Nothing here needs to preserve
 // scroll position, because appending grows the page downward and leaves the reader where they are.
 const INITIAL = 10;
 const PAGE = 20;
@@ -24,6 +25,8 @@ export default function ChatHistory() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [hasMore, setHasMore] = useState(false);
   const [loadingOlder, setLoadingOlder] = useState(false);
+  // Set while older messages are on their way, so a second scroll can't ask for the same ones twice
+  const fetchingOlder = useRef(false);
   const [pendingDelete, setPendingDelete] = useState<number | null>(null);
   const [confirmingClear, setConfirmingClear] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,7 +52,8 @@ export default function ChatHistory() {
   }, [load]);
 
   async function loadOlder() {
-    if (!currentPet || messages.length === 0) return;
+    if (!currentPet || messages.length === 0 || fetchingOlder.current) return;
+    fetchingOlder.current = true;
     setLoadingOlder(true);
     try {
       // Newest first means the oldest message loaded is the LAST one, and that is what pages back.
@@ -58,6 +62,7 @@ export default function ChatHistory() {
       setMessages((prev) => [...prev, ...[...older].reverse()]);
       setHasMore(older.length === PAGE);
     } finally {
+      fetchingOlder.current = false;
       setLoadingOlder(false);
     }
   }
@@ -138,13 +143,7 @@ export default function ChatHistory() {
           </div>
         ))}
       </div>
-      {hasMore && (
-        <div className="mt-4 flex justify-center">
-          <Button variant="secondary" onClick={loadOlder} disabled={loadingOlder}>
-            {loadingOlder ? t("common.loading") : t("chatHistory.loadOlder")}
-          </Button>
-        </div>
-      )}
+      <LoadMore hasMore={hasMore} loading={loadingOlder} onLoad={loadOlder} />
       <ConfirmDialog
         open={pendingDelete !== null}
         title={t("chatHistory.deleteMessage")}

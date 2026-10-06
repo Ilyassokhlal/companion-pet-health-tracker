@@ -2,24 +2,30 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
-import { listPetPhotos, deleteRecordPhoto, downloadPhoto, downloadPhotos } from "../api/records";
+import { listPetPhotos, deleteRecordPhoto, downloadPhoto, downloadPhotos, photoCounts } from "../api/records";
+import type { TypeCounts } from "../api/records";
 import { RECORD_TYPES } from "../types";
 import type { GalleryPhoto, RecordType } from "../types";
 import { X, Trash2, SlidersHorizontal, Download, Check, Images, ImageOff } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import LoadMore from "../components/LoadMore";
 import PhotoThumb from "../components/PhotoThumb";
 import { formatDateLong, dateLocale } from "../dates";
+import { usePaged } from "../paging";
 
 // The server refuses more than ten ids, so the UI must not let you pick an eleventh.
 const MAX_SELECTION = 10;
 
-// The Photos component displays a gallery of photos associated with the current pet. It fetches the photos from the API, allows users to view individual photos in a modal, and provides functionality to delete photos. The component handles loading states and displays appropriate messages when there are no pets or no photos available.
+// Photos loaded per page as the gallery scrolls. A multiple of 2, 3 and 4, so every grid width ends on a full row.
+const PAGE = 48;
+
+// The Photos component displays a gallery of photos associated with the current pet. It fetches the photos a page at a time as the gallery scrolls, with the filters applied by the server so they reach photos not loaded yet, allows users to view individual photos in a modal, and provides functionality to delete photos. The component handles loading states and displays appropriate messages when there are no pets or no photos available.
 export default function Photos() {
 
   const { t } = useTranslation();
   const { currentPet } = usePets();
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const [loading, setLoading] = useState(false);
+  // How many photos the pet has of each type. Null until it arrives, which is when the page knows whether there are any photos at all.
+  const [counts, setCounts] = useState<TypeCounts | null>(null);
   const [selected, setSelected] = useState<GalleryPhoto | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [types, setTypes] = useState<RecordType[]>([]);
@@ -31,37 +37,43 @@ export default function Photos() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
+  // A change of filter or pet makes a new fetcher, which starts the gallery again from its first page
+  const fetchPage = useMemo(
+    () =>
+      currentPet
+        ? (offset: number, limit: number) =>
+            listPetPhotos(currentPet.id, { types, since: from || undefined, until: to || undefined, limit, offset })
+        : null,
+    [currentPet, types, from, to],
+  );
+  const { items: photos, loading, loadingMore, hasMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
+
+  const loadCounts = useCallback(() => {
     if (!currentPet) return;
-    setLoading(true);
-    try {
-      const data = await listPetPhotos(currentPet.id);
-      setPhotos(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    photoCounts(currentPet.id).then(setCounts).catch(console.error);
   }, [currentPet]);
 
   useEffect(() => {
-    load();
-  }, [load]);   // above any early return
+    loadCounts();
+  }, [loadCounts]);   // above any early return
 
-  // Group photos by month after applying the active filters. This memoized computation creates a map where the keys are year-month strings and the values are arrays of photos that match the current filters.
+  // After a delete, the counts change as well as the gallery
+  function changed() {
+    refresh();
+    loadCounts();
+  }
+
+  // Group the loaded photos by month. The server has already applied the filters. This memoized computation creates a map where the keys are year-month strings and the values are arrays of photos.
   const months = useMemo(() => {
     const byMonth = new Map<string, GalleryPhoto[]>();
     for (const p of photos) {
-      if (types.length > 0 && !types.includes(p.record_type)) continue;
-      if (from && p.record_date < from) continue;
-      if (to && p.record_date > to) continue;
       const key = p.record_date.slice(0, 7);
       const bucket = byMonth.get(key);
       if (bucket) bucket.push(p);
       else byMonth.set(key, [p]);
     }
     return [...byMonth];
-  }, [photos, types, from, to]);
+  }, [photos]);
 
   const activeFilters = types.length + (from ? 1 : 0) + (to ? 1 : 0);
   const atLimit = chosen.length >= MAX_SELECTION;
@@ -124,7 +136,7 @@ export default function Photos() {
       setConfirming(false);
     } finally {
       setBusy(false);
-      load();
+      changed();
     }
   }
 
@@ -133,7 +145,7 @@ export default function Photos() {
       try {
         await deleteRecordPhoto(selected.id);
         setSelected(null);
-        load();
+        changed();
       } catch (err) {
         console.error(err);
       }
@@ -142,10 +154,10 @@ export default function Photos() {
     if (!currentPet) {
         return <p className="text-muted">{t("photos.noPet")}</p>;
     }
-    if (loading) {
+    if (counts === null) {
         return <p className="text-muted">{t("common.loading")}</p>;
     }
-    if (photos.length === 0) {
+    if (Object.values(counts).every((count) => !count)) {
         return <EmptyState icon={Images} text={t("photos.empty")} />;
     }
     return (
@@ -233,7 +245,7 @@ export default function Photos() {
                   className={`px-3 py-1.5 rounded-lg text-sm transition ${types.includes(type) ? "bg-primary text-on-primary" : "bg-ink border border-border text-muted hover:text-fg"}`}
                   onClick={() => toggleType(type)}
                 >
-                  {t(`recordTypes.${type}`)} ({photos.filter((p) => p.record_type === type).length})
+                  {t(`recordTypes.${type}`)} ({counts[type] ?? 0})
                 </button>
               ))}
             </div>
@@ -266,7 +278,9 @@ export default function Photos() {
           </div>
         )}
 
-        {months.length === 0 ? (
+        {loading ? (
+          <p className="text-muted">{t("common.loading")}</p>
+        ) : months.length === 0 ? (
           <EmptyState icon={ImageOff} text={t("photos.noMatch")} />
         ) : (
           months.map(([key, items]) => (
@@ -301,6 +315,7 @@ export default function Photos() {
             </section>
           ))
         )}
+        <LoadMore hasMore={hasMore} loading={loadingMore} onLoad={loadMore} />
     {selected && (
       <div
         className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"

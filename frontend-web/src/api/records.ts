@@ -1,5 +1,8 @@
-import { apiFetch, BASE_URL, getToken } from "./client";
-import type { GalleryPhoto, HealthRecord, RecordPhoto } from "../types";
+import { apiFetch, BASE_URL, getToken, withQuery } from "./client";
+import type { GalleryPhoto, HealthRecord, RecordPhoto, RecordType } from "../types";
+
+// How many records or photos the pet has of each type. Types it has none of are left out.
+export type TypeCounts = Partial<Record<RecordType, number>>;
 
 // Type definitions for creating and updating health records. RecordCreate omits the id, pet_id, and created_at fields from HealthRecord, while RecordUpdate allows partial updates of RecordCreate.
 export type RecordCreate = Omit<HealthRecord, "id" | "pet_id" | "created_at" | "photos">;
@@ -8,9 +11,19 @@ export type RecordCreate = Omit<HealthRecord, "id" | "pet_id" | "created_at" | "
 export const MAX_PHOTO_MB = 20;
 export type RecordUpdate = Partial<RecordCreate>;
 
-// Fetch all health records for a specific pet. This function sends a GET request to the API endpoint for the specified pet and returns an array of HealthRecord objects.
-export async function listRecords(petId: number): Promise<HealthRecord[]> {
-  return apiFetch<HealthRecord[]>(`/pets/${petId}/records`);
+// Fetch a pet's health records, newest first: all of them, only some types, or a page at a time when a limit is given.
+export async function listRecords(
+  petId: number,
+  options: { types?: RecordType[]; limit?: number; offset?: number } = {},
+): Promise<HealthRecord[]> {
+  return apiFetch<HealthRecord[]>(
+    withQuery(`/pets/${petId}/records`, { record_type: options.types, limit: options.limit, offset: options.offset }),
+  );
+}
+
+// How many records the pet has of each type, for the filter buttons above a list that has not loaded them all.
+export async function recordCounts(petId: number): Promise<TypeCounts> {
+  return apiFetch<TypeCounts>(`/pets/${petId}/record-counts`);
 }
 
 // Create a new health record for a specific pet. This function sends a POST request to the API endpoint for the specified pet with the provided data.
@@ -102,7 +115,16 @@ export async function deleteRecordPhoto(photoId: number): Promise<void> {
   return apiFetch<void>(`/record-photos/${photoId}`, { method: "DELETE" });
 }
 
-// List all photos associated with a specific pet.
-export async function listPetPhotos(petId: number): Promise<GalleryPhoto[]> {
-  return apiFetch<GalleryPhoto[]>(`/pets/${petId}/photos`);
+// List a pet's photos, newest first, filtered by record type and by the record's date from `since` to `until`, a page at a time when a limit is given.
+export async function listPetPhotos(
+  petId: number,
+  options: { types?: RecordType[]; since?: string; until?: string; limit?: number; offset?: number } = {},
+): Promise<GalleryPhoto[]> {
+  const { types, ...rest } = options;
+  return apiFetch<GalleryPhoto[]>(withQuery(`/pets/${petId}/photos`, { record_type: types, ...rest }));
+}
+
+// How many photos the pet has under each record type, for the gallery's filter.
+export async function photoCounts(petId: number): Promise<TypeCounts> {
+  return apiFetch<TypeCounts>(`/pets/${petId}/photo-counts`);
 }

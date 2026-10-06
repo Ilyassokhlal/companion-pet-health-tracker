@@ -79,3 +79,15 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
   }
   return response.json() as Promise<T>;
 }
+
+// Adds the options that are set to a path as its query string. A list repeats its key, which is how the server reads a list.
+export function withQuery(path: string, params: Record<string, string | number | string[] | undefined>): string {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value === undefined) continue;
+    if (Array.isArray(value)) value.forEach((item) => query.append(key, item));
+    else query.set(key, String(value));
+  }
+  const text = query.toString();
+  return text ? `${path}?${text}` : path;
+}

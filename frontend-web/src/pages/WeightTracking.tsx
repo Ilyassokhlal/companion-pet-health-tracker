@@ -31,7 +31,8 @@ export default function TrackingWeight() {
     if (!currentPet) return;
     setLoading(true);
     try {
-      const all = await listRecords(currentPet.id);
+      // Every weigh-in, and only those. A pet is weighed far less often than it gets other records, so the list stays short.
+      const all = await listRecords(currentPet.id, { types: ["Weight"] });
       setRecords(
         all
           .filter((r) => r.record_type === "Weight" && r.weight_kg !== null)

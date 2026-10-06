@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Plus, Pencil, Trash2, Footprints } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import LoadMore from "../components/LoadMore";
 import { usePets } from "../context/PetContext";
+import { usePaged } from "../paging";
 import { useAuth } from "../auth/AuthContext";
 import { listWalks, createWalk, updateWalk, deleteWalk } from "../api/walks";
 import type { WalkCreate } from "../api/walks";
@@ -14,15 +16,21 @@ import Modal from "../components/ui/Modal";
 
 const FIELD = "w-full rounded-lg bg-ink border border-border px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none";
 
-// Logged walks are displayed in a list and can be created, edited, or deleted.
+// Walks loaded per page as the list scrolls
+const PAGE = 30;
+
+// Logged walks are displayed in a list that loads more as it scrolls, and can be created, edited, or deleted.
 export default function Walks() {
   const { t } = useTranslation();
   const { currentPet } = usePets();
   const { user } = useAuth();
   const unitSystem = user?.unit_system ?? "metric";
 
-  const [walks, setWalks] = useState<Walk[]>([]);
-  const [loading, setLoading] = useState(false);
+  const fetchPage = useMemo(
+    () => (currentPet ? (offset: number, limit: number) => listWalks(currentPet.id, { limit, offset }) : null),
+    [currentPet],
+  );
+  const { items: walks, loading, loadingMore, hasMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Walk | null>(null);
   const [confirming, setConfirming] = useState<number | null>(null);
@@ -32,22 +40,6 @@ export default function Walks() {
   const [duration, setDuration] = useState("");
   const [distance, setDistance] = useState("");
   const [notes, setNotes] = useState("");
-
-  const load = useCallback(async () => {
-    if (!currentPet) return;
-    setLoading(true);
-    try {
-      setWalks(await listWalks(currentPet.id));
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPet]);
-
-  useEffect(() => {
-    load();
-  }, [load]);
 
   function openCreate() {
     setEditing(null);
@@ -83,7 +75,7 @@ export default function Walks() {
       if (editing) await updateWalk(editing.id, payload);
       else await createWalk(currentPet.id, payload);
       setFormOpen(false);
-      load();
+      refresh();
     } catch (err) {
       setError((err as Error).message);
     }
@@ -93,7 +85,7 @@ export default function Walks() {
     try {
       await deleteWalk(id);
       setConfirming(null);
-      load();
+      refresh();
     } catch (err) {
       setError((err as Error).message);
     }
@@ -166,6 +158,7 @@ export default function Walks() {
           </div>
         ))}
       </div>
+      <LoadMore hasMore={hasMore} loading={loadingMore} onLoad={loadMore} />
 
       <Modal open={formOpen} title={editing ? t("walks.edit") : t("walks.log")} onClose={() => setFormOpen(false)}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

@@ -99,13 +99,13 @@ export default function Dashboard() {
 
   useEffect(loadEvents, [loadEvents]);
 
-  // The pet's records, needed for the weight arrow and the trend chart.
+  // The pet's latest weigh-ins, needed for the weight arrow and the trend chart, which shows the last 12.
   const loadRecords = useCallback(() => {
     if (!currentPet) {
       setRecords([]);
       return;
     }
-    listRecords(currentPet.id).then(setRecords).catch(console.error);
+    listRecords(currentPet.id, { types: ["Weight"], limit: 12 }).then(setRecords).catch(console.error);
   }, [currentPet]);
 
   useEffect(loadRecords, [loadRecords]);
@@ -117,7 +117,10 @@ export default function Dashboard() {
       setWalks([]);
       return;
     }
-    listWalks(currentPet.id).then(setWalks).catch(console.error);
+    // The exercise panel shows today and the six days before it
+    const since = new Date();
+    since.setDate(since.getDate() - 6);
+    listWalks(currentPet.id, { since: since.toLocaleDateString("en-CA") }).then(setWalks).catch(console.error);
   }, [currentPet, user?.walk_tracking_enabled]);
 
   useEffect(loadWalks, [loadWalks]);
