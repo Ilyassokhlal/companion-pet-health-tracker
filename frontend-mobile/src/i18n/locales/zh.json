@@ -355,12 +355,14 @@
   "weightTracking": {
     "current": "当前",
     "empty": "目前没有称重记录。",
+    "emptyHint": "定期称重会在仪表板上显示趋势，帮助您及早发现缓慢的体重变化。",
     "add": "添加称重记录"
   },
   "walks": {
     "log": "记录散步",
     "edit": "编辑散步",
     "empty": "目前没有散步记录。",
+    "emptyHint": "每次记录的散步都会计入仪表板上的本周数据，让您了解宠物的活动量。",
     "duration": "时长（分钟）",
     "distance": "距离（{{unit}}，可选）",
     "notes": "备注（可选）",
@@ -381,6 +383,7 @@
     "logNow": "立即记录",
     "history": "历史记录",
     "empty": "目前没有喂食记录。",
+    "emptyHint": "记录喂食后，仪表板会把对应的喂食时间标为已喂，漏喂的一餐一眼就能看出。",
     "noDetails": "无详细信息",
     "confirmDeleteTitle": "删除喂食记录",
     "confirmDeleteBody": "此记录将被永久删除。",
@@ -398,6 +401,7 @@
     "exportPdf": "导出为 PDF",
     "exportFailed": "导出失败",
     "empty": "目前没有记录。",
+    "emptyHint": "疫苗、兽医就诊、用药等记录集中在一处。Companion 会根据这些记录回答您的问题。",
     "nextDue": "下次日期 {{date}}",
     "confirmDeleteTitle": "删除记录",
     "confirmDeleteBody": "\"{{title}}\" 将被永久删除。"
@@ -406,7 +410,8 @@
     "locked": "提问需要 Companion Premium。您之前的回答仍可在此查看。",
     "title": "询问有关 {{name}} 的问题",
     "clear": "清除",
-    "empty": "可以询问任何有关 {{name}} 的问题 — 疫苗、症状、药物。",
+    "empty": "可以询问任何有关 {{name}} 的问题：疫苗、症状、药物。",
+    "emptyHint": "回答会参考 {{name}} 的记录和一个宠物健康资料库，并列出来源。",
     "thinking": "思考中…",
     "sources": "来源：",
     "placeholder": "提出问题…",
@@ -464,6 +469,7 @@
     "title": "照片",
     "noPet": "请先添加宠物。",
     "empty": "目前没有照片。创建健康记录时可以添加照片。",
+    "emptyHint": "记录中的照片可以让您对比皮疹、伤口或肿块随时间的变化，并向兽医展示其变化。",
     "noMatch": "没有照片符合这些筛选条件。",
     "filter": "筛选",
     "clearFilters": "清除",
@@ -499,6 +505,7 @@
     "log": "添加支出",
     "edit": "编辑支出",
     "empty": "本月还没有记录任何支出。",
+    "emptyHint": "记录宠物的花费后，仪表板会显示本月总额。设置每月上限，超出时一目了然。",
     "confirmDeleteTitle": "删除支出",
     "confirmDeleteBody": "此支出将被永久删除。",
     "date": "日期",
@@ -523,5 +530,44 @@
     "exceeded": "已超出每月上限",
     "editLimit": "每月上限（{{currency}}）",
     "clearLimit": "移除上限"
+  },
+  "onboarding": {
+    "title": "开始使用 Companion",
+    "hide": "隐藏",
+    "progress": "已完成 {{done}}/{{total}}",
+    "steps": {
+      "pet": "添加您的宠物",
+      "record": "添加一条健康记录",
+      "photo": "为记录附上照片",
+      "question": "向 Companion 提一个问题",
+      "appointment": "安排一次预约",
+      "tracking": "了解追踪功能"
+    },
+    "actions": {
+      "record": "添加",
+      "photo": "添加",
+      "question": "提问",
+      "appointment": "安排",
+      "tracking": "打开"
+    },
+    "welcomeTitle": "欢迎使用 Companion",
+    "welcome": {
+      "records": "把疫苗、兽医就诊、用药和称重记录集中在一处。",
+      "reminders": "在事项到期前通过邮件或手机收到提醒。",
+      "ask": "询问有关宠物的问题，获得基于其自身记录的回答。"
+    },
+    "trackersTitle": "了解追踪功能",
+    "trackersIntro": "追踪页面有四项可选功能。用得上的就用，其余的可以跳过。",
+    "trackers": {
+      "weight": "在仪表板上查看宠物的体重变化趋势。在设置中开启体重追踪后，Companion 会安排每次称重并在到期时提醒您。",
+      "walks": "记录散步，查看宠物本周的活动量。在设置中开启散步追踪即可开始。",
+      "feeding": "添加宠物的喂食时间，即可在仪表板上看到每餐是否已喂。喂食提醒可在设置中开启。",
+      "budget": "记录宠物的各项花费，从食物到兽医账单，并查看每月总额。设置每月上限，超出时一目了然。"
+    },
+    "gotIt": "知道了",
+    "allSetTitle": "一切就绪",
+    "allSetBody": "所有步骤都已完成。",
+    "settingLabel": "显示“开始使用”卡片",
+    "settingHint": "仪表板顶部的清单，帮助您熟悉 Companion。"
   }
 }

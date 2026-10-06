@@ -227,7 +227,7 @@ export default function Feeding() {
 
         <Text className="mb-3 text-lg font-semibold text-fg">{t("feeding.history")}</Text>
         {log.length === 0 ? (
-          <EmptyState icon="restaurant-outline" text={t("feeding.empty")} />
+          <EmptyState icon="restaurant-outline" text={t("feeding.empty")} hint={t("feeding.emptyHint")} />
         ) : (
           log.map((entry) => (
             <Pressable

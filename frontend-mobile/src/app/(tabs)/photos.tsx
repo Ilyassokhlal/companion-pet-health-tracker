@@ -283,7 +283,7 @@ export default function Photos() {
         {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
         {/* With a filter on, nothing found means nothing matches it. Without one, the pet has no photos yet. */}
         {!loading && photos.length === 0 && activeFilters === 0 ? (
-          <EmptyState icon="images-outline" text={t("photos.empty")} />
+          <EmptyState icon="images-outline" text={t("photos.empty")} hint={t("photos.emptyHint")} />
         ) : null}
         {!loading && photos.length === 0 && activeFilters > 0 ? (
           <EmptyState icon="funnel-outline" text={t("photos.noMatch")} />

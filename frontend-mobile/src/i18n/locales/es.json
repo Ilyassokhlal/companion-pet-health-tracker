@@ -355,12 +355,14 @@
   "weightTracking": {
     "current": "Actual",
     "empty": "Aún no hay pesajes.",
+    "emptyHint": "Pesar a tu mascota con regularidad muestra una tendencia en el panel y ayuda a detectar pronto los cambios lentos de peso.",
     "add": "Añadir un pesaje"
   },
   "walks": {
     "log": "Registrar un paseo",
     "edit": "Editar paseo",
     "empty": "Aún no hay paseos registrados.",
+    "emptyHint": "Cada paseo que registras cuenta para la semana en el panel, así ves lo activa que ha estado tu mascota.",
     "duration": "Duración (minutos)",
     "distance": "Distancia ({{unit}}, opcional)",
     "notes": "Notas (opcional)",
@@ -381,6 +383,7 @@
     "logNow": "Registrar ahora",
     "history": "Historial",
     "empty": "Aún no hay comidas registradas.",
+    "emptyHint": "Registrar las comidas marca cada horario como dado en el panel, así una comida olvidada salta a la vista.",
     "noDetails": "Sin detalles",
     "confirmDeleteTitle": "Eliminar comida",
     "confirmDeleteBody": "Esta entrada se eliminará permanentemente.",
@@ -398,6 +401,7 @@
     "exportPdf": "Exportar a PDF",
     "exportFailed": "Error al exportar",
     "empty": "Aún no hay registros.",
+    "emptyHint": "Vacunas, visitas al veterinario, medicamentos y más, en un solo lugar. Companion usa estos registros para responder tus preguntas.",
     "nextDue": "Próxima fecha {{date}}",
     "confirmDeleteTitle": "Eliminar registro",
     "confirmDeleteBody": "\"{{title}}\" se eliminará permanentemente."
@@ -406,7 +410,8 @@
     "locked": "Hacer preguntas requiere Companion Premium. Tus respuestas anteriores siguen aquí para leerlas.",
     "title": "Hacer una pregunta sobre {{name}}",
     "clear": "Borrar",
-    "empty": "Haz cualquier pregunta sobre {{name}} — vacunas, síntomas, medicamentos.",
+    "empty": "Haz cualquier pregunta sobre {{name}}: vacunas, síntomas, medicamentos.",
+    "emptyHint": "Las respuestas se basan en los registros de {{name}} y en una biblioteca de documentos sobre salud animal, y citan sus fuentes.",
     "thinking": "Pensando…",
     "sources": "Fuentes: ",
     "placeholder": "Haz una pregunta…",
@@ -464,6 +469,7 @@
     "title": "Fotos",
     "noPet": "Añade primero un animal.",
     "empty": "Aún no hay fotos. Añade fotos cuando crees un registro de salud.",
+    "emptyHint": "Las fotos de un registro te permiten comparar una rojez, una herida o un bulto con el tiempo, y mostrarle a tu veterinario cómo ha cambiado.",
     "noMatch": "Ninguna foto coincide con estos filtros.",
     "filter": "Filtrar",
     "clearFilters": "Borrar",
@@ -499,6 +505,7 @@
     "log": "Añadir gasto",
     "edit": "Editar gasto",
     "empty": "No hay gastos registrados este mes.",
+    "emptyHint": "Anotar lo que cuesta tu mascota muestra el total del mes en el panel. Fija un límite mensual para saber cuándo lo superas.",
     "confirmDeleteTitle": "Eliminar gasto",
     "confirmDeleteBody": "Este gasto se eliminará permanentemente.",
     "date": "Fecha",
@@ -523,5 +530,44 @@
     "exceeded": "Límite mensual superado",
     "editLimit": "Límite mensual ({{currency}})",
     "clearLimit": "Quitar el límite"
+  },
+  "onboarding": {
+    "title": "Primeros pasos con Companion",
+    "hide": "Ocultar",
+    "progress": "{{done}} de {{total}} completados",
+    "steps": {
+      "pet": "Añade tu mascota",
+      "record": "Añade un registro de salud",
+      "photo": "Adjunta una foto a un registro",
+      "question": "Haz una pregunta a Companion",
+      "appointment": "Programa una cita",
+      "tracking": "Conoce el seguimiento"
+    },
+    "actions": {
+      "record": "Añadir",
+      "photo": "Añadir",
+      "question": "Preguntar",
+      "appointment": "Programar",
+      "tracking": "Abrir"
+    },
+    "welcomeTitle": "Bienvenido a Companion",
+    "welcome": {
+      "records": "Guarda vacunas, visitas al veterinario, medicamentos y pesajes en un solo lugar.",
+      "reminders": "Recibe un recordatorio por correo o en tu teléfono antes de cada vencimiento.",
+      "ask": "Pregunta sobre tu mascota y obtén respuestas basadas en sus propios registros."
+    },
+    "trackersTitle": "Conoce el seguimiento",
+    "trackersIntro": "Seguimiento tiene cuatro herramientas opcionales. Usa las que te sirvan y omite el resto.",
+    "trackers": {
+      "weight": "Mira la evolución del peso de tu mascota en el panel. Activa el seguimiento del peso en Configuración y Companion programará cada pesaje y te lo recordará cuando toque.",
+      "walks": "Registra los paseos para ver lo activa que ha estado tu mascota esta semana. Activa el seguimiento de paseos en Configuración para empezar.",
+      "feeding": "Añade los horarios de comida de tu mascota para ver en el panel si se dio cada comida. Los recordatorios de alimentación se activan en Configuración.",
+      "budget": "Anota lo que cuesta tu mascota, desde la comida hasta el veterinario, y ve el total de cada mes. Fija un límite mensual para saber cuándo lo superas."
+    },
+    "gotIt": "Entendido",
+    "allSetTitle": "¡Todo listo!",
+    "allSetBody": "Has completado todos los pasos.",
+    "settingLabel": "Mostrar la tarjeta Primeros pasos",
+    "settingHint": "La lista al principio del panel para aprender a usar Companion."
   }
 }

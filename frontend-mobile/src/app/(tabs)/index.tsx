@@ -28,6 +28,17 @@ import PetPhoto from "@/components/PetPhoto";
 import VerifyBanner from "@/components/VerifyBanner";
 import { useLockedRedirect } from "@/premium";
 import { SpendPanel, WeightPanel, ExercisePanel, FeedingPanel, PhotoPanel, PetBadges } from "@/components/DashboardPanels";
+import GetStarted from "@/components/GetStarted";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@/theme/ThemeContext";
+import { themeColors } from "@/theme/palette";
+
+// What the welcome before the first pet says Companion does
+const WELCOME = [
+  { key: "records", icon: "document-text-outline" },
+  { key: "reminders", icon: "notifications-outline" },
+  { key: "ask", icon: "chatbubbles-outline" },
+] as const;
 
 // Formats a pet's age: days under one month, months under one year, then years.
 // t is passed in because a module-level function cannot call the hook, and the plural forms come from i18next.
@@ -145,6 +156,11 @@ export default function Dashboard() {
   const [scheduledDismissed, setScheduledDismissed] = useState(false);
   const [slots, setSlots] = useState<SlotStatus[]>([]);
   const [walks, setWalks] = useState<Walk[]>([]);
+  // A new record started from the Get started card, and a count raised after each save so the card loads its steps again
+  const [addingRecord, setAddingRecord] = useState(false);
+  const [stepsVersion, setStepsVersion] = useState(0);
+  const { theme, accent } = useTheme();
+  const colors = themeColors(theme, accent);
 
   function openAdd() {
     setShowForm(null);
@@ -208,9 +224,15 @@ export default function Dashboard() {
     }
   }
 
+  // A record or an appointment saved here can tick a Get started step, so the card loads its steps again too
+  function changed() {
+    load();
+    setStepsVersion((version) => version + 1);
+  }
+
   function closeRecordForm() {
     setEditingRecord(null);
-    load();
+    changed();
   }
 
   async function confirmDelete() {
@@ -247,10 +269,25 @@ export default function Dashboard() {
           {showFirstPetForm ? (
             <PetForm onDone={() => setAddPetOpen(false)} />
           ) : (
-            <>
-              <Text className="mb-4 text-center text-muted">{t("dashboard.noPetYet")}</Text>
+            // A new account lands here first, so it says what Companion is for before asking for the pet
+            <View className="rounded-xl border border-border bg-surface p-5">
+              <Text className="text-2xl font-bold text-fg">{t("onboarding.welcomeTitle")}</Text>
+              <View className="mt-5 gap-4">
+                {WELCOME.map(({ key, icon }) => (
+                  <View key={key} className="flex-row items-start gap-3">
+                    <View
+                      style={{ backgroundColor: `${colors.primary}1A` }}
+                      className="h-10 w-10 items-center justify-center rounded-lg"
+                    >
+                      <Ionicons name={icon} size={20} color={colors.primary} />
+                    </View>
+                    <Text className="flex-1 pt-2 text-fg">{t(`onboarding.welcome.${key}`)}</Text>
+                  </View>
+                ))}
+              </View>
+              <Text className="mb-4 mt-6 text-muted">{t("dashboard.noPetYet")}</Text>
               <Button label={t("petForm.add")} onPress={() => setAddPetOpen(true)} />
-            </>
+            </View>
           )}
         </ScrollView>
       </View>
@@ -313,6 +350,9 @@ export default function Dashboard() {
           <Text className="font-medium text-on-primary">{t("dashboard.addChip")}</Text>
         </Pressable>
       </View>
+
+      {/* Under the pet chips, which pick the pet the dashboard shows, and above everything else */}
+      <GetStarted refreshKey={stepsVersion} onAddRecord={() => setAddingRecord(true)} onSchedule={() => setScheduleOpen(true)} />
 
       {/* The identity card, matching web: photo, name and actions, with the pet's data beneath them.
         Boxing it stops the fields floating loose on the background above a column of cards.
@@ -433,9 +473,22 @@ export default function Dashboard() {
           petId={currentPet.id}
           onDone={(saved) => {
             setScheduleOpen(false);
-            if (saved) load();
+            if (saved) changed();
           }}
         />
+      </FormSheet>
+
+      <FormSheet visible={addingRecord} onClose={() => setAddingRecord(false)}>
+        {addingRecord ? (
+          <RecordForm
+            key="new"
+            petId={currentPet.id}
+            onDone={(saved) => {
+              setAddingRecord(false);
+              if (saved) changed();
+            }}
+          />
+        ) : null}
       </FormSheet>
     </ScrollView>
     </View>

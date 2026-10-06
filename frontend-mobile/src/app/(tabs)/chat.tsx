@@ -242,7 +242,11 @@ export default function Chat() {
         ) : null}
 
         {turns.length === 0 ? (
-          <EmptyState icon="chatbubbles-outline" text={t("chat.empty", { name: currentPet.name })} />
+          <EmptyState
+            icon="chatbubbles-outline"
+            text={t("chat.empty", { name: currentPet.name })}
+            hint={t("chat.emptyHint", { name: currentPet.name })}
+          />
         ) : null}
 
         {turns.map((turn, idx) => (

@@ -1,5 +1,5 @@
 import { apiFetch, setToken } from "./client";
-import type { RegisterResponse, TokenResponse, User } from "../types";
+import type { GettingStarted, RegisterResponse, TokenResponse, User } from "../types";
 import { detectLanguage } from "../i18n";
 import { withCache } from "@/cache";
 import type { PhotoUpload } from "./records";
@@ -35,6 +35,16 @@ export async function login(email: string, password: string): Promise<TokenRespo
 // Fetches the current user's information from the API. If the token is invalid or expired, it will clear the token from secure device storage.
 export async function me(): Promise<User> {
   return apiFetch<User>("/auth/me");
+}
+
+// Which Get started steps the signed-in account has done, across all its pets.
+export async function gettingStarted(): Promise<GettingStarted> {
+  return apiFetch<GettingStarted>("/auth/me/getting-started");
+}
+
+// Ticks Meet the trackers, the one step with nothing to add.
+export async function readTrackers(): Promise<void> {
+  return apiFetch<void>("/auth/me/getting-started/tracking", { method: "POST" });
 }
 
 // Logs out the user by clearing the token from secure device storage.
@@ -88,7 +98,7 @@ export async function deleteAccount(password: string): Promise<void> {
 }
 
 // Updates the user's account settings, such as email preferences, by sending the updated data to the API. If successful, it returns the updated user information.
-export async function updateMe(data: { reminders_enabled?: boolean; reminder_frequency?: User["reminder_frequency"]; push_enabled?: boolean; weight_tracking_enabled?: boolean; walk_tracking_enabled?: boolean; feeding_email_enabled?: boolean; feeding_push_enabled?: boolean; timezone?: string; language?: string; unit_system?: string; currency?: string; username?: string }): Promise<User> {
+export async function updateMe(data: { reminders_enabled?: boolean; reminder_frequency?: User["reminder_frequency"]; push_enabled?: boolean; weight_tracking_enabled?: boolean; walk_tracking_enabled?: boolean; feeding_email_enabled?: boolean; feeding_push_enabled?: boolean; timezone?: string; language?: string; unit_system?: string; currency?: string; username?: string; onboarding_hidden?: boolean }): Promise<User> {
   return apiFetch<User>("/auth/me", {
     method: "PATCH",
     body: JSON.stringify(data),

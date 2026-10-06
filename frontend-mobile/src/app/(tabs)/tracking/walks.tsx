@@ -128,7 +128,7 @@ export default function Walks() {
         </Pressable>
 
         {walks.length === 0 ? (
-          <EmptyState icon="walk-outline" text={t("walks.empty")} />
+          <EmptyState icon="walk-outline" text={t("walks.empty")} hint={t("walks.emptyHint")} />
         ) : (
           walks.map((walk) => (
             <Pressable

@@ -289,7 +289,7 @@ export default function Budget() {
         </Pressable>
 
         {expenses.length === 0 ? (
-          <EmptyState icon="wallet-outline" text={t("budget.empty")} />
+          <EmptyState icon="wallet-outline" text={t("budget.empty")} hint={t("budget.emptyHint")} />
         ) : (
           expenses.map((expense) => (
             <Pressable

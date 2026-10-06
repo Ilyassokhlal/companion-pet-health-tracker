@@ -115,7 +115,7 @@ export default function Weight() {
         </View>
 
         {weighed.length === 0 ? (
-          <EmptyState icon="scale-outline" text={t("weightTracking.empty")} />
+          <EmptyState icon="scale-outline" text={t("weightTracking.empty")} hint={t("weightTracking.emptyHint")} />
         ) : (
           [...weighed].reverse().map((r, index, list) => {
             // list is newest first, so the previous weigh-in is the NEXT item along.

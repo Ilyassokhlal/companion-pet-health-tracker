@@ -166,7 +166,7 @@ export default function Records() {
       {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
 
       {!loading && records.length === 0 ? (
-        <EmptyState icon="document-text-outline" text={t("records.empty")} />
+        <EmptyState icon="document-text-outline" text={t("records.empty")} hint={t("records.emptyHint")} />
       ) : null}
 
       {/* The server sends them newest first, so they are shown in the order they arrive */}

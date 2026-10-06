@@ -355,12 +355,14 @@
   "weightTracking": {
     "current": "Current",
     "empty": "No weigh-ins yet.",
+    "emptyHint": "Regular weighing shows a trend on the dashboard and helps you spot slow weight changes early.",
     "add": "Add a weigh-in"
   },
   "walks": {
     "log": "Log a walk",
     "edit": "Edit walk",
     "empty": "No walks logged yet.",
+    "emptyHint": "Each walk you log counts toward the week on the dashboard, so you can see how active your pet has been.",
     "duration": "Duration (minutes)",
     "distance": "Distance ({{unit}}, optional)",
     "notes": "Notes (optional)",
@@ -381,6 +383,7 @@
     "logNow": "Log now",
     "history": "History",
     "empty": "Nothing logged yet.",
+    "emptyHint": "Logging meals marks each feeding time as fed on the dashboard, so a missed meal stands out.",
     "noDetails": "No details",
     "confirmDeleteTitle": "Delete feeding",
     "confirmDeleteBody": "This entry will be permanently removed.",
@@ -398,6 +401,7 @@
     "exportPdf": "Export PDF",
     "exportFailed": "Export failed",
     "empty": "No records yet.",
+    "emptyHint": "Vaccines, vet visits, medications and more, all in one place. Companion uses these records to answer your questions.",
     "nextDue": "Next due {{date}}",
     "confirmDeleteTitle": "Delete record",
     "confirmDeleteBody": "\"{{title}}\" will be permanently removed."
@@ -406,7 +410,8 @@
     "locked": "Asking questions needs Companion Premium. Your past answers stay here to read.",
     "title": "Ask about {{name}}",
     "clear": "Clear",
-    "empty": "Ask anything about {{name}} — vaccinations, symptoms, medications.",
+    "empty": "Ask anything about {{name}}: vaccinations, symptoms, medications.",
+    "emptyHint": "Answers draw on {{name}}'s records and a library of pet health documents, and show their sources.",
     "thinking": "Thinking…",
     "sources": "Sources: ",
     "placeholder": "Ask a question…",
@@ -464,6 +469,7 @@
     "title": "Photos",
     "noPet": "Add a pet first.",
     "empty": "No photos yet. Attach photos when you add a health record.",
+    "emptyHint": "Photos on a record let you compare a rash, a wound or a lump over time, and show your vet how it changed.",
     "noMatch": "No photos match these filters.",
     "filter": "Filter",
     "clearFilters": "Clear",
@@ -499,6 +505,7 @@
     "log": "Add an expense",
     "edit": "Edit expense",
     "empty": "Nothing logged for this month.",
+    "emptyHint": "Logging what your pet costs shows the month's total on the dashboard. Set a monthly limit to see when you go over.",
     "confirmDeleteTitle": "Delete expense",
     "confirmDeleteBody": "This expense will be permanently removed.",
     "date": "Date",
@@ -523,5 +530,44 @@
     "exceeded": "Monthly limit exceeded",
     "editLimit": "Monthly limit ({{currency}})",
     "clearLimit": "Remove limit"
+  },
+  "onboarding": {
+    "title": "Get started with Companion",
+    "hide": "Hide",
+    "progress": "{{done}} of {{total}} done",
+    "steps": {
+      "pet": "Add your pet",
+      "record": "Add a health record",
+      "photo": "Attach a photo to a record",
+      "question": "Ask Companion a question",
+      "appointment": "Schedule an appointment",
+      "tracking": "Meet the trackers"
+    },
+    "actions": {
+      "record": "Add",
+      "photo": "Add",
+      "question": "Ask",
+      "appointment": "Schedule",
+      "tracking": "Open"
+    },
+    "welcomeTitle": "Welcome to Companion",
+    "welcome": {
+      "records": "Keep vaccines, vet visits, medications and weighings in one place.",
+      "reminders": "Get a reminder by email or on your phone before something is due.",
+      "ask": "Ask about your pet and get answers that draw on its own records."
+    },
+    "trackersTitle": "Meet the trackers",
+    "trackersIntro": "Tracking has four optional trackers. Use the ones that help and skip the rest.",
+    "trackers": {
+      "weight": "See your pet's weight trend on the dashboard. Turn on weight tracking in Settings and Companion schedules each weighing and reminds you when it is due.",
+      "walks": "Log walks to see how active your pet was this week. Turn on walk tracking in Settings to start.",
+      "feeding": "Add your pet's feeding times to see on the dashboard whether each meal was given. Feeding reminders can be turned on in Settings.",
+      "budget": "Log what your pet costs, from food to vet bills, and see each month's total. Set a monthly limit to see when you go over."
+    },
+    "gotIt": "Got it",
+    "allSetTitle": "You're all set",
+    "allSetBody": "Every step is done.",
+    "settingLabel": "Show the Get started card",
+    "settingHint": "The checklist at the top of the dashboard for finding your way around Companion."
   }
 }

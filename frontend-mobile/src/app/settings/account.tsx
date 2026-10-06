@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Switch, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAuth } from "@/auth/AuthContext";
+import { updateMe } from "@/api/auth";
 import UserPhoto from "@/components/UserPhoto";
 import ChangeUsernameForm from "@/components/ChangeUsernameForm";
 import ChangeEmailForm from "@/components/ChangeEmailForm";
@@ -53,13 +54,26 @@ function Row({
 
 export default function Account() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const insets = useSafeAreaInsets();
   const [editing, setEditing] = useState<Panel | null>(null);
+  const [savingCard, setSavingCard] = useState(false);
 
   if (!user) return null;
 
   const toggle = (panel: Panel) => setEditing(editing === panel ? null : panel);
+
+  async function toggleCard(show: boolean) {
+    setSavingCard(true);
+    try {
+      await updateMe({ onboarding_hidden: !show });
+      await refreshUser();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSavingCard(false);
+    }
+  }
 
   return (
     <ScrollView
@@ -89,6 +103,15 @@ export default function Account() {
         {editing === "username" ? <ChangeUsernameForm onDone={() => setEditing(null)} /> : null}
         {editing === "email" ? <ChangeEmailForm /> : null}
         {editing === "password" ? <ChangePasswordForm onDone={() => setEditing(null)} /> : null}
+
+        {/* Brings back the dashboard's Get started card after Hide, or hides it from here */}
+        <View className="mt-4 flex-row items-center justify-between gap-3 border-t border-border pt-4">
+          <View className="min-w-0 flex-1">
+            <Text className="text-fg">{t("onboarding.settingLabel")}</Text>
+            <Text className="text-sm text-muted">{t("onboarding.settingHint")}</Text>
+          </View>
+          <Switch value={!user.onboarding_hidden} disabled={savingCard} onValueChange={toggleCard} />
+        </View>
       </View>
 
       <DeleteAccountForm />
