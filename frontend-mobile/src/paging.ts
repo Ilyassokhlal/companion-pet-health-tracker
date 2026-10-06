@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { useFocusEffect } from "expo-router";
 
 // The longest page the server sends
 const MAX_PAGE = 100;
+
+// How close to the end of a list, in points, the next page starts loading
+const NEAR_END = 600;
 
 // What a list asks the server for: `limit` items, skipping the `offset` already shown.
 export type PageFetcher<T> = (offset: number, limit: number) => Promise<T[]>;
@@ -88,4 +93,41 @@ export function usePaged<T extends { id: number }>(fetchPage: PageFetcher<T> | n
   }, [fetchPage, items.length, pageSize]);
 
   return { items, loading, loadingMore, hasMore, loadMore, refresh };
+}
+
+// Coming back to a screen fetches again what it shows, so a change made on another screen appears without losing the reader's place.
+// The first focus is skipped, since the list is already loading then.
+export function useRefreshOnFocus(refresh: () => void) {
+  const latest = useRef(refresh);
+  const focusedBefore = useRef(false);
+
+  useEffect(() => {
+    latest.current = refresh;
+  });
+
+  useFocusEffect(
+    useCallback(() => {
+      if (focusedBefore.current) latest.current();
+      focusedBefore.current = true;
+    }, []),
+  );
+}
+
+// Props for the ScrollView holding a list that loads in pages: the next page loads as the reader nears the end,
+// and straight away when a page is too short to scroll.
+export function useLoadOnScroll(loadMore: () => void) {
+  const viewport = useRef(0);
+  return {
+    scrollEventThrottle: 200,
+    onLayout: (event: LayoutChangeEvent) => {
+      viewport.current = event.nativeEvent.layout.height;
+    },
+    onContentSizeChange: (_width: number, height: number) => {
+      if (viewport.current > 0 && height < viewport.current + NEAR_END) loadMore();
+    },
+    onScroll: ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+      if (layoutMeasurement.height + contentOffset.y >= contentSize.height - NEAR_END) loadMore();
+    },
+  };
 }

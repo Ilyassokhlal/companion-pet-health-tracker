@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import Svg, { Polygon, Polyline } from "react-native-svg";
 
 import { BASE_URL } from "@/api/client";
-import { listPetPhotos } from "@/api/records";
+import { listPetPhotos, photoCounts } from "@/api/records";
 import type { ExpenseSummary, GalleryPhoto, HealthRecord, Pet, SlotStatus, Walk } from "@/types";
 import { formatMoney, formatWeight, formatDistance, formatDuration } from "@/units";
 import { useTheme } from "@/theme/ThemeContext";
@@ -179,14 +179,21 @@ export function ExercisePanel({ walks, unitSystem }: { walks: Walk[]; unitSystem
   );
 }
 
+// The slideshow cycles through the latest photos only. The count beside the title still covers every photo.
+const SLIDES = 12;
+
 export function PhotoPanel({ petId }: { petId: number }) {
   const { t } = useTranslation();
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIndex(0);
-    listPetPhotos(petId).then(setPhotos).catch(() => setPhotos([]));
+    listPetPhotos(petId, { limit: SLIDES }).then(setPhotos).catch(() => setPhotos([]));
+    photoCounts(petId)
+      .then((counts) => setTotal(Object.values(counts).reduce((sum, count) => sum + (count ?? 0), 0)))
+      .catch(() => setTotal(0));
   }, [petId]);
 
   useEffect(() => {
@@ -199,7 +206,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
     <Pressable onPress={() => router.navigate("/photos")} className={`mt-4 ${CARD}`}>
       <View className="flex-row flex-wrap items-baseline justify-between gap-2">
         <Text className="text-sm text-muted">{t("nav.photos")}</Text>
-        {photos.length > 0 ? <Text className="text-sm text-muted">{photos.length}</Text> : null}
+        {total > 0 ? <Text className="text-sm text-muted">{total}</Text> : null}
       </View>
 
       {photos.length === 0 ? (

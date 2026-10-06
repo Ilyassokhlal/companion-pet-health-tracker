@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useDialog } from "@/components/ui/DialogProvider";
@@ -8,6 +8,7 @@ import { useFocusEffect } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 import { usePets } from "@/context/PetContext";
+import { useLoadOnScroll, usePaged, useRefreshOnFocus } from "@/paging";
 import {
   listFeedingTimes, createFeedingTime, deleteFeedingTime,
   listFeedings, createFeeding, deleteFeeding, feedingStatus,
@@ -35,6 +36,9 @@ const MINUTES = [0, 15, 30, 45];
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
+// Logged meals loaded per page as the history scrolls
+const PAGE = 30;
+
 // Both actions go through a button that opens a form, matching the budget screen. Logging also takes
 // a date and a time now — it used to stamp the current moment with no way to correct it.
 export default function Feeding() {
@@ -47,7 +51,6 @@ export default function Feeding() {
 
   const [times, setTimes] = useState<FeedingTime[]>([]);
   const [statuses, setStatuses] = useState<SlotStatus[]>([]);
-  const [log, setLog] = useState<FeedingLog[]>([]);
   const [busy, setBusy] = useState(false);
 
   const [timeOpen, setTimeOpen] = useState(false);
@@ -63,17 +66,13 @@ export default function Feeding() {
   const [unit, setUnit] = useState<string>("g");
   const [notes, setNotes] = useState("");
 
+  // The schedule and today's status for each time. The history below loads on its own, a page at a time.
   const load = useCallback(async () => {
     if (!currentPet) return;
     try {
-      const [t, s, l] = await Promise.all([
-        listFeedingTimes(currentPet.id),
-        feedingStatus(currentPet.id),
-        listFeedings(currentPet.id),
-      ]);
+      const [t, s] = await Promise.all([listFeedingTimes(currentPet.id), feedingStatus(currentPet.id)]);
       setTimes(t);
       setStatuses(s);
-      setLog(l);
     } catch (err) {
       console.error(err);
     }
@@ -84,6 +83,20 @@ export default function Feeding() {
       load();
     }, [load]),
   );
+
+  const fetchPage = useMemo(
+    () => (currentPet ? (offset: number, limit: number) => listFeedings(currentPet.id, { limit, offset }) : null),
+    [currentPet],
+  );
+  const { items: log, loadingMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
+  const scrollProps = useLoadOnScroll(loadMore);
+  useRefreshOnFocus(refresh);
+
+  // A meal logged or deleted changes both today's status and the history
+  function mealsChanged() {
+    load();
+    refresh();
+  }
 
   function openTime() {
     setPickHour(8);
@@ -133,7 +146,7 @@ export default function Feeding() {
         notes: notes.trim() || null,
       });
       setLogOpen(false);
-      load();
+      mealsChanged();
     } catch (err) {
       notice(errorMessage(err));
     } finally {
@@ -150,7 +163,7 @@ export default function Feeding() {
     });
     if (!ok) return;
     await deleteFeeding(entry.id);
-    load();
+    mealsChanged();
   }
 
   if (!currentPet) {
@@ -166,7 +179,7 @@ export default function Feeding() {
 
   return (
     <View className="flex-1">
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}>
+      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }} {...scrollProps}>
         <Text className="mb-1 text-2xl font-bold text-fg">{t("tracking.feeding")}</Text>
         <Text className="mb-6 text-sm text-muted">{currentPet.name}</Text>
 
@@ -234,6 +247,7 @@ export default function Feeding() {
             </Pressable>
           ))
         )}
+        {loadingMore ? <Text className="py-4 text-center text-sm text-muted">{t("common.loading")}</Text> : null}
       </ScrollView>
 
       <FormModal visible={timeOpen} onClose={() => setTimeOpen(false)}>

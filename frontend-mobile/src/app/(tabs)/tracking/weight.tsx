@@ -38,7 +38,8 @@ export default function Weight() {
       setRecords([]);
       return;
     }
-    listRecordsCached(currentPet.id)
+    // Every weigh-in, and only those, kept on the phone for offline. A pet is weighed far less often than it gets other records, so the list stays short.
+    listRecordsCached(currentPet.id, { types: ["Weight"] })
       .then(({ data }) => setRecords(data))
       .catch(console.error);
   }, [currentPet]);

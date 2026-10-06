@@ -1,4 +1,4 @@
-import { apiFetch } from "./client";
+import { apiFetch, withQuery } from "./client";
 import type { Walk } from "../types";
 
 // The shape of the data required to create a new walk. This includes the date, duration, optional distance, and optional notes.
@@ -11,9 +11,9 @@ export type WalkCreate = {
 
 export type WalkUpdate = Partial<WalkCreate>;
 
-// Fetch the list of walks for a given pet. Returns an array of walks in newest-first order.
-export async function listWalks(petId: number): Promise<Walk[]> {
-  return apiFetch<Walk[]>(`/pets/${petId}/walks`);
+// Fetch the walks for a given pet, newest first: all of them, those on or after `since`, or a page at a time when a limit is given.
+export async function listWalks(petId: number, options: { since?: string; limit?: number; offset?: number } = {}): Promise<Walk[]> {
+  return apiFetch<Walk[]>(withQuery(`/pets/${petId}/walks`, options));
 }
 
 // Create a new walk for a given pet. Returns the created walk.

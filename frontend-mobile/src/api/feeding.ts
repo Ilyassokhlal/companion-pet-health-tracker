@@ -1,4 +1,4 @@
-import { apiFetch } from "./client";
+import { apiFetch, withQuery } from "./client";
 import type { Feeding, FeedingTime, SlotStatus } from "../types";
 
 export type FeedingCreate = {
@@ -28,9 +28,9 @@ export async function deleteFeedingTime(id: number): Promise<void> {
   return apiFetch<void>(`/feeding-times/${id}`, { method: "DELETE" });
 }
 
-// Lists all feeding entries for a pet. The optional `on` parameter filters feedings to a specific date.
-export async function listFeedings(petId: number, on?: string): Promise<Feeding[]> {
-  return apiFetch<Feeding[]>(`/pets/${petId}/feedings${on ? `?on=${on}` : ""}`);
+// Lists the feeding entries for a pet, newest first. `on` narrows to a specific date, and a limit fetches a page at a time.
+export async function listFeedings(petId: number, options: { on?: string; limit?: number; offset?: number } = {}): Promise<Feeding[]> {
+  return apiFetch<Feeding[]>(withQuery(`/pets/${petId}/feedings`, options));
 }
 
 // Creates a new feeding entry for a pet. The `feeding` object contains the details of the feeding.

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { listPetPhotos } from "../api/records";
+import { listPetPhotos, photoCounts } from "../api/records";
 import type { ExpenseSummary, GalleryPhoto, HealthRecord, Walk } from "../types";
 import { formatMoney, formatWeight, formatDistance, formatDuration } from "../units";
 
@@ -160,14 +160,21 @@ export function ExercisePanel({ walks, unitSystem }: { walks: Walk[]; unitSystem
   );
 }
 
+// The slideshow cycles through the latest photos only, since every frame stays mounted. The count beside the title still covers every photo.
+const SLIDES = 12;
+
 export function PhotoPanel({ petId }: { petId: number }) {
   const { t } = useTranslation();
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIndex(0);
-    listPetPhotos(petId).then(setPhotos).catch(() => setPhotos([]));
+    listPetPhotos(petId, { limit: SLIDES }).then(setPhotos).catch(() => setPhotos([]));
+    photoCounts(petId)
+      .then((counts) => setTotal(Object.values(counts).reduce((sum, count) => sum + (count ?? 0), 0)))
+      .catch(() => setTotal(0));
   }, [petId]);
 
   useEffect(() => {
@@ -180,7 +187,7 @@ export function PhotoPanel({ petId }: { petId: number }) {
     <Link to="/photos" className={CARD}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <p className="text-sm text-muted">{t("nav.photos")}</p>
-        {photos.length > 0 && <p className="text-sm text-muted">{photos.length}</p>}
+        {total > 0 && <p className="text-sm text-muted">{total}</p>}
       </div>
 
       {photos.length === 0 ? (

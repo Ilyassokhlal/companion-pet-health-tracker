@@ -174,9 +174,13 @@ export default function Dashboard() {
       return;
     }
     listEvents(currentPet.id).then(setEvents).catch(console.error);
-    listRecords(currentPet.id).then(setRecords).catch(console.error);
+    // The latest weigh-ins, for the weight arrow and the trend chart, which shows the last 12
+    listRecords(currentPet.id, { types: ["Weight"], limit: 12 }).then(setRecords).catch(console.error);
     if (user?.walk_tracking_enabled && currentPet.walk_tracking_enabled) {
-      listWalks(currentPet.id).then(setWalks).catch(console.error);
+      // The exercise panel shows today and the six days before it
+      const since = new Date();
+      since.setDate(since.getDate() - 6);
+      listWalks(currentPet.id, { since: since.toLocaleDateString("en-CA") }).then(setWalks).catch(console.error);
     } else {
       setWalks([]);
     }

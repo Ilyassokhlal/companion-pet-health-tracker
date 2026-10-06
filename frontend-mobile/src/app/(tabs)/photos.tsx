@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { router, useFocusEffect } from "expo-router";
+import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 
@@ -18,11 +18,15 @@ import SwipeTabs from "@/components/SwipeTabs";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import EmptyState from "@/components/EmptyState";
 import PhotoThumb from "@/components/PhotoThumb";
+import { useLoadOnScroll, usePaged, useRefreshOnFocus } from "@/paging";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL;
 
 // The server refuses more than ten ids, so the UI must not let you pick an eleventh.
 const MAX_SELECTION = 10;
+
+// Photos loaded per page as the gallery scrolls. A multiple of 3, so every page ends on a full row.
+const PAGE = 48;
 
 export default function Photos() {
   const { t } = useTranslation();
@@ -30,8 +34,6 @@ export default function Photos() {
   const { currentPet } = usePets();
   const { theme, accent } = useTheme();
   const insets = useSafeAreaInsets();
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<GalleryPhoto | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [types, setTypes] = useState<RecordType[]>([]);
@@ -41,43 +43,33 @@ export default function Photos() {
   const [chosen, setChosen] = useState<number[]>([]);
   const [busy, setBusy] = useState(false);
 
-  const load = useCallback(async () => {
-    if (!currentPet) {
-      setPhotos([]);
-      return;
-    }
-    setLoading(true);
-    try {
-      setPhotos(await listPetPhotos(currentPet.id));
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPet]);
-
-  useFocusEffect(
-    useCallback(() => {
-      load();
-    }, [load]),
+  // A change of filter or pet makes a new fetcher, which starts the gallery again from its first page.
+  // The filters run on the server, so they reach photos not loaded yet.
+  const fetchPage = useMemo(
+    () =>
+      currentPet
+        ? (offset: number, limit: number) =>
+            listPetPhotos(currentPet.id, { types, since: from || undefined, until: to || undefined, limit, offset })
+        : null,
+    [currentPet, types, from, to],
   );
+  const { items: photos, loading, loadingMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
+  const scrollProps = useLoadOnScroll(loadMore);
+  useRefreshOnFocus(refresh);
 
-  // Group the photos by month, applying the current filters for type and date range.
+  // Group the loaded photos by month. The server has already applied the filters.
   const months = useMemo(() => {
     const byMonth = new Map<string, GalleryPhoto[]>();
     for (const p of photos) {
-      if (types.length > 0 && !types.includes(p.record_type)) continue;
-      if (from && p.record_date < from) continue;
-      if (to && p.record_date > to) continue;
       const key = p.record_date.slice(0, 7);
       const bucket = byMonth.get(key);
       if (bucket) bucket.push(p);
       else byMonth.set(key, [p]);
     }
     return [...byMonth];
-  }, [photos, types, from, to]);
+  }, [photos]);
 
-  // Flatten the month-bucketed photos into a single array for display, preserving the current filters.
+  // Flatten the month-bucketed photos into a single array, in display order, for swiping in the lightbox.
   const visible = useMemo(() => months.flatMap(([, items]) => items), [months]);
 
   const activeFilters = types.length + (from ? 1 : 0) + (to ? 1 : 0);
@@ -161,7 +153,7 @@ export default function Photos() {
       notice((err as Error).message);
     } finally {
       setBusy(false);
-      load();
+      refresh();
     }
   }
 
@@ -174,7 +166,7 @@ export default function Photos() {
     if (!ok) return;
     await deleteRecordPhoto(photo.id);
     setSelected(null);
-    load();
+    refresh();
   }
 
   if (!currentPet) {
@@ -209,6 +201,7 @@ export default function Photos() {
       className="flex-1"
       contentContainerStyle={{ paddingTop: insets.top + 16, paddingBottom: 16 }}
       stickyHeaderIndices={stickyIndices}
+      {...scrollProps}
     >
       <View className="flex-row items-center justify-between gap-2 px-4 pb-4">
         {selecting ? (
@@ -288,10 +281,11 @@ export default function Photos() {
 
       <View className="px-4">
         {loading ? <Text className="text-muted">{t("common.loading")}</Text> : null}
-        {!loading && photos.length === 0 ? (
+        {/* With a filter on, nothing found means nothing matches it. Without one, the pet has no photos yet. */}
+        {!loading && photos.length === 0 && activeFilters === 0 ? (
           <EmptyState icon="images-outline" text={t("photos.empty")} />
         ) : null}
-        {!loading && photos.length > 0 && months.length === 0 ? (
+        {!loading && photos.length === 0 && activeFilters > 0 ? (
           <EmptyState icon="funnel-outline" text={t("photos.noMatch")} />
         ) : null}
       </View>
@@ -332,6 +326,8 @@ export default function Photos() {
           })}
         </View>,
       ])}
+
+      {loadingMore ? <Text className="py-4 text-center text-sm text-muted">{t("common.loading")}</Text> : null}
 
       <Modal
         visible={selected !== null}

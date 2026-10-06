@@ -1,11 +1,11 @@
-import { useCallback, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useDialog } from "@/components/ui/DialogProvider";
 import FormModal from "@/components/ui/FormModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useFocusEffect } from "expo-router";
 
+import { useLoadOnScroll, usePaged, useRefreshOnFocus } from "@/paging";
 import { useAuth } from "@/auth/AuthContext";
 import { usePets } from "@/context/PetContext";
 import { listWalks, createWalk, updateWalk, deleteWalk } from "@/api/walks";
@@ -17,6 +17,9 @@ import DateField from "@/components/ui/DateField";
 import Button from "@/components/ui/Button";
 import EmptyState from "@/components/EmptyState";
 
+// Walks loaded per page as the list scrolls
+const PAGE = 30;
+
 export default function Walks() {
   const { t } = useTranslation();
   const { confirm } = useDialog();
@@ -25,7 +28,13 @@ export default function Walks() {
   const { currentPet } = usePets();
   const unitSystem = user?.unit_system ?? "metric";
 
-  const [walks, setWalks] = useState<Walk[]>([]);
+  const fetchPage = useMemo(
+    () => (currentPet ? (offset: number, limit: number) => listWalks(currentPet.id, { limit, offset }) : null),
+    [currentPet],
+  );
+  const { items: walks, loadingMore, loadMore, refresh } = usePaged(fetchPage, PAGE);
+  const scrollProps = useLoadOnScroll(loadMore);
+  useRefreshOnFocus(refresh);
   const [editing, setEditing] = useState<Walk | "new" | null>(null);
   const [date, setDate] = useState("");
   const [duration, setDuration] = useState("");
@@ -33,20 +42,6 @@ export default function Walks() {
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const load = useCallback(() => {
-    if (!currentPet) {
-      setWalks([]);
-      return;
-    }
-    listWalks(currentPet.id).then(setWalks).catch(console.error);
-  }, [currentPet]);
-
-  useFocusEffect(
-    useCallback(() => {
-      load();
-    }, [load]),
-  );
 
   // Distance is stored in kilometres, so the form converts on the way in and on the way out.
   function open(walk: Walk | "new") {
@@ -90,7 +85,7 @@ export default function Walks() {
       if (editing === "new") await createWalk(currentPet.id, payload);
       else await updateWalk(editing.id, payload);
       setEditing(null);
-      load();
+      refresh();
     } catch (err) {
       setError(errorMessage(err));
     } finally {
@@ -108,7 +103,7 @@ export default function Walks() {
     if (!ok) return;
     await deleteWalk(walk.id);
     setEditing(null);
-    load();
+    refresh();
   }
 
   if (!currentPet) {
@@ -121,7 +116,7 @@ export default function Walks() {
 
   return (
     <View className="flex-1">
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }}>
+      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16 }} {...scrollProps}>
         <Text className="mb-1 text-2xl font-bold text-fg">{t("tracking.walks")}</Text>
         <Text className="mb-6 text-sm text-muted">{currentPet.name}</Text>
 
@@ -154,6 +149,7 @@ export default function Walks() {
             </Pressable>
           ))
         )}
+        {loadingMore ? <Text className="py-4 text-center text-sm text-muted">{t("common.loading")}</Text> : null}
       </ScrollView>
 
       <FormModal visible={editing !== null} onClose={() => setEditing(null)}>

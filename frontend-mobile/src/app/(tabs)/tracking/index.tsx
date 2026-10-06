@@ -39,16 +39,15 @@ export default function Tracking() {
 
     // Four independent fetches rather than a Promise.all: one tracker failing must not blank the
     // other three cards.
-    listRecords(currentPet.id)
-      .then((all) => {
-        const weighed = all
-          .filter((r) => r.record_type === "Weight" && r.weight_kg != null)
-          .sort((a, b) => b.date.localeCompare(a.date));
-        setWeight(weighed.length === 0 ? null : formatWeight(weighed[0].weight_kg!, unitSystem));
+    // The latest few weigh-ins, newest first. A check-in completed but not filled in yet has no weight, so the newest with one wins.
+    listRecords(currentPet.id, { types: ["Weight"], limit: 12 })
+      .then((latest) => {
+        const weighed = latest.find((r) => r.weight_kg != null);
+        setWeight(weighed ? formatWeight(weighed.weight_kg!, unitSystem) : null);
       })
       .catch(() => setWeight(null));
 
-    listWalks(currentPet.id)
+    listWalks(currentPet.id, { limit: 1 })
       .then((rows) => {
         // The API returns newest first, so rows[0] is the most recent walk.
         if (rows.length === 0) {
