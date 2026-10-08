@@ -1,4 +1,4 @@
-import { apiFetch, BASE_URL, getToken, withQuery } from "./client";
+import { apiFetch, BASE_URL, CLIENT_HEADER, getToken, withQuery } from "./client";
 import type { GalleryPhoto, HealthRecord, RecordPhoto, RecordType } from "../types";
 
 // How many records or photos the pet has of each type. Types it has none of are left out.
@@ -54,6 +54,7 @@ export async function downloadExport(petId: number, format: "zip" | "pdf"): Prom
   const res = await fetch(`${BASE_URL}/pets/${petId}/export?format=${format}`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
+      ...CLIENT_HEADER,
     },
   });
   if (!res.ok) throw new Error("Failed to download export");
@@ -95,6 +96,7 @@ export async function downloadPhotos(petId: number, ids: number[]): Promise<void
   const res = await fetch(`${BASE_URL}/pets/${petId}/photos/download?${query}`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
+      ...CLIENT_HEADER,
     },
   });
   if (!res.ok) throw new Error("Failed to download photos");

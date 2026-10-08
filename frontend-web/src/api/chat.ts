@@ -1,4 +1,4 @@
-import { apiFetch, failure, getToken } from "./client";
+import { apiFetch, CLIENT_HEADER, failure, getToken } from "./client";
 import type { ChatMessage, Citation } from "../types";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -16,6 +16,7 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${getToken()}`,
+      ...CLIENT_HEADER,
     },
     body: JSON.stringify({ pet_id: petId, question }),
   });

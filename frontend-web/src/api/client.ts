@@ -6,6 +6,9 @@ export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
 // Fired on window when the server says the account is suspended, so a live session signs out at once and the login screen can say why.
 export const ACCOUNT_SUSPENDED = "companion:account-suspended";
 
+// Names this app on every signed-in request, so the admin dashboard can count each day's actives by app
+export const CLIENT_HEADER = { "X-Client": "web" };
+
 // A function to get the token from localStorage. Returns null if no token is found.
 export function getToken(): string | null {
   return localStorage.getItem("token") || null;
@@ -64,7 +67,7 @@ export async function failure(response: Response): Promise<ApiError> {
 
 // A function that wraps the fetch API to include the Authorization header if a token is present, and handles 401 responses by clearing the token.
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = { ...CLIENT_HEADER };
   if (!(options.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
