@@ -1,0 +1,20 @@
+# The one data source: the app's database, read as grafana_reader, a read only role that can only see the stats views.
+# The backend creates that role, and keeps its password in step with GRAFANA_DB_PASSWORD, every time it starts.
+apiVersion: 1
+
+datasources:
+  - name: Companion
+    uid: companion
+    type: grafana-postgresql-datasource
+    access: proxy
+    url: db:5432
+    user: grafana_reader
+    isDefault: true
+    editable: false
+    jsonData:
+      database: ${POSTGRES_DB}
+      sslmode: disable
+      postgresVersion: 1700
+      timescaledb: false
+    secureJsonData:
+      password: ${GRAFANA_DB_PASSWORD}

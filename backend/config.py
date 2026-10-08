@@ -45,6 +45,8 @@ class Settings:
     STATS_TIMEZONE: str = os.environ.get("STATS_TIMEZONE") or os.environ.get("TIMEZONE", "UTC")
     # DB-IP's free country database, baked into the backend image at build time. Without it no country is recorded.
     COUNTRY_DB: str = os.environ.get("COUNTRY_DB", "/opt/dbip/country.mmdb")
+    # The admin dashboard's read only database role signs in with this. Empty, the role isn't set up and Grafana can't read.
+    GRAFANA_DB_PASSWORD: str = os.environ.get("GRAFANA_DB_PASSWORD", "")
 
     # Photo storage settings
     PHOTO_DIR: str = os.environ.get("PHOTO_DIR", "/data/photos")

@@ -6,6 +6,20 @@
 		reverse_proxy backend:8000
 	}
 
+	# The admin dashboard (Grafana), on a secret path set in the server's .env and behind its own password prompt.
+	# Without those settings the path is a placeholder behind a password nobody has, and Grafana isn't running anyway.
+	redir {$STATS_PATH:/stats-off} {$STATS_PATH:/stats-off}/
+	handle {$STATS_PATH:/stats-off}/* {
+		header X-Robots-Tag "noindex, nofollow"
+		basic_auth {
+			{$STATS_USER:owner} {$STATS_PASSWORD_HASH:$2a$14$ZxHbqWX2VotwnrJawF8ieuRxVqBCG3gUspmlSPOCkLDOMd5HME4XS}
+		}
+		# The prompt's credentials stop here, so Grafana uses its own login instead of trying them
+		reverse_proxy grafana:3000 {
+			header_up -Authorization
+		}
+	}
+
 	handle {
 		root * /srv
 		try_files {path} /index.html

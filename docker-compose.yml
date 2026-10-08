@@ -41,6 +41,11 @@ services:
       - "443:443"
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      # The admin dashboard's secret path and password prompt. Empty or unset, Caddy gets the placeholders: a path
+      # behind a password nobody has. Keep the hash in single quotes in .env, since it contains $ signs.
+      STATS_PATH: ${STATS_PATH:-/stats-off}
+      STATS_USER: ${STATS_USER:-owner}
+      STATS_PASSWORD_HASH: ${STATS_PASSWORD_HASH:-$$2a$$14$$ZxHbqWX2VotwnrJawF8ieuRxVqBCG3gUspmlSPOCkLDOMd5HME4XS}
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -48,8 +53,47 @@ services:
       - backend
     restart: unless-stopped
 
+  # The admin dashboard. Off until .env switches it on with COMPOSE_PROFILES=stats, and it refuses to start without
+  # its two passwords, so it never runs with Grafana's default login. It reads the database as a read only role that
+  # can only see the stats views (no pets, records or chats), and Caddy serves it on the secret path.
+  grafana:
+    image: grafana/grafana-oss:13.0.2
+    profiles: ["stats"]
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        if [ -z "$$GF_SECURITY_ADMIN_PASSWORD" ] || [ -z "$$GRAFANA_DB_PASSWORD" ];
+        then echo "Grafana is off: set GRAFANA_ADMIN_PASSWORD and GRAFANA_DB_PASSWORD in .env"; exit 1; fi;
+        exec /run.sh
+    environment:
+      GF_SECURITY_ADMIN_USER: owner
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-}
+      GRAFANA_DB_PASSWORD: ${GRAFANA_DB_PASSWORD:-}
+      POSTGRES_DB: ${POSTGRES_DB:-}
+      GF_SERVER_ROOT_URL: ${GRAFANA_ROOT_URL:-http://localhost:3000/}
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_SECURITY_COOKIE_SAMESITE: strict
+      GF_SECURITY_DISABLE_GRAVATAR: "true"
+      GF_SNAPSHOTS_EXTERNAL_ENABLED: "false"
+      # Nothing about the dashboards or their users leaves the server
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      GF_PLUGINS_PREINSTALL_DISABLED: "true"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   app_data:
   db_data:
   caddy_data:
   caddy_config:
+  grafana_data:

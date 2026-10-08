@@ -5,7 +5,7 @@ from datetime import date
 import rag
 from apscheduler.schedulers.background import BackgroundScheduler
 from config import settings
-from database import SessionLocal
+from database import SessionLocal, engine
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
@@ -19,6 +19,7 @@ from utils.billing import resync_purchased
 from utils.exceptions import AppException
 from utils.limiter import limiter
 from utils.reminders import send_due_reminders, send_feeding_reminders, send_lock_warnings
+from utils.stats_access import sync_reader_role
 from utils.trial_fingerprints import purge_expired_fingerprints
 
 
@@ -71,6 +72,11 @@ async def lifespan(app: FastAPI):
             print(f"Ingested {result['chunks']} chunks from {result['documents']} documents.")
     except Exception as e:
         print(f"Startup ingest error: {e}")
+    # The admin dashboard's read only role, kept in step with GRAFANA_DB_PASSWORD. A failure here never stops the app.
+    try:
+        sync_reader_role(engine)
+    except Exception as e:
+        print(f"Startup dashboard role error: {e}")
     scheduler = BackgroundScheduler(timezone=settings.TIMEZONE)
     scheduler.add_job(_run_reminders, "cron", minute=0, id="hourly_reminders")
     scheduler.add_job(_run_feeding_reminders, "cron", minute="0,15,30,45", id="feeding_reminders")
