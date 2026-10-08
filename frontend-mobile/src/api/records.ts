@@ -1,7 +1,7 @@
 import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
-import { apiFetch, BASE_URL, getToken, withQuery } from "./client";
+import { apiFetch, BASE_URL, CLIENT_HEADER, getToken, withQuery } from "./client";
 import { withCache } from "../cache";
 import type { GalleryPhoto, HealthRecord, RecordPhoto, RecordType } from "../types";
 
@@ -109,7 +109,7 @@ export async function exportRecords(petId: number, format: "zip" | "pdf"): Promi
   const task = File.createDownloadTask(
     `${BASE_URL}/pets/${petId}/export?format=${format}`,
     destination,
-    { headers: { Authorization: `Bearer ${token}` } },
+    { headers: { Authorization: `Bearer ${token}`, ...CLIENT_HEADER } },
   );
   const downloaded = await task.downloadAsync();
   if (!downloaded) {
@@ -185,7 +185,7 @@ export async function downloadPhotos(petId: number, ids: number[]): Promise<void
   const task = File.createDownloadTask(
     `${BASE_URL}/pets/${petId}/photos/download?${query}`,
     destination,
-    { headers: { Authorization: `Bearer ${token}` } },
+    { headers: { Authorization: `Bearer ${token}`, ...CLIENT_HEADER } },
   );
   const downloaded = await task.downloadAsync();
   if (!downloaded) {

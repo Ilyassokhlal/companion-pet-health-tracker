@@ -1,5 +1,5 @@
 import * as SecureStore from "expo-secure-store";
-import { DeviceEventEmitter } from "react-native";
+import { DeviceEventEmitter, Platform } from "react-native";
 
 export const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -10,6 +10,9 @@ export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
 
 // Emitted when the server says the account is suspended, so a live session signs out at once and the login screen can say why.
 export const ACCOUNT_SUSPENDED = "companion:account-suspended";
+
+// Names this app (android or ios) on every signed-in request, so the admin dashboard can count each day's actives by app
+export const CLIENT_HEADER = { "X-Client": Platform.OS };
 
 // Reads the auth token from secure device storage. Returns null if none is stored.
 export async function getToken(): Promise<string | null> {
@@ -69,7 +72,7 @@ export async function failure(response: { status: number; json: () => Promise<un
 
 // A function that wraps the fetch API to include the Authorization header if a token is present, and handles 401 responses by clearing the token.
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = { ...CLIENT_HEADER };
   if (!(options.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
