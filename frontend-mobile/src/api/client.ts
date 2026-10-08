@@ -8,6 +8,9 @@ const TOKEN_KEY = "token";
 // Emitted when the server refuses a change because the account is locked, so the app can open the subscribe screen.
 export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
 
+// Emitted when the server says the account is suspended, so a live session signs out at once and the login screen can say why.
+export const ACCOUNT_SUSPENDED = "companion:account-suspended";
+
 // Reads the auth token from secure device storage. Returns null if none is stored.
 export async function getToken(): Promise<string | null> {
   return SecureStore.getItemAsync(TOKEN_KEY);
@@ -54,6 +57,12 @@ export async function failure(response: { status: number; json: () => Promise<un
     (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
   if (code === "subscription_required") {
     DeviceEventEmitter.emit(SUBSCRIPTION_REQUIRED);
+  }
+  // Only a signed-in session is signed out. A refused login or signup just shows the message where it happened.
+  // The token goes first, so the sign out that follows can't be refused for the same reason again.
+  if (code === "account_suspended" && (await getToken())) {
+    await setToken(null);
+    DeviceEventEmitter.emit(ACCOUNT_SUSPENDED);
   }
   return new ApiError(message, code, errorData?.params ?? {}, response.status);
 }

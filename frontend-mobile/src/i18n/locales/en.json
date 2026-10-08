@@ -58,6 +58,7 @@
   },
   "errors": {
     "subscription_required": "That needs Companion Premium. Your data stays readable and exportable.",
+    "account_suspended": "This account has been suspended. Contact support@mycompanion.pet if you think this is a mistake.",
     "trial_question_limit": "You've used all {{limit}} of today's free questions. The count resets at midnight.",
     "renewal_not_stopped": "Your subscription couldn't be stopped right now, so nothing was deleted. Try again in a few minutes.",
     "email_not_verified": "Verify your email address first, then try again.",

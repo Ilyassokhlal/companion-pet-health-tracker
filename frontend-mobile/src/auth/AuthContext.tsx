@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
-import { AppState } from "react-native";
+import { AppState, DeviceEventEmitter } from "react-native";
 import i18n, { detectLanguage } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, meCached, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
-import { getToken } from "../api/client";
+import { ACCOUNT_SUSPENDED, getToken } from "../api/client";
 import { registerForPush, unregisterForPush } from "../notifications";
 import { clearCache } from "@/cache";
 
@@ -20,6 +20,8 @@ interface AuthState {
   // Set by signup when the email already had its free month: the trial days the new account starts with, which can be 0. The subscribe screen shows it once, then clears it.
   returningTrialDays: number | null;
   clearReturningTrialDays: () => void;
+  // True once a session was signed out because the account is suspended, so the login screen says why
+  suspended: boolean;
 }
 
 // Creates a React context for authentication state and actions. The context is initialized with undefined, and will be provided by the AuthProvider component.
@@ -30,6 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [returningTrialDays, setReturningTrialDays] = useState<number | null>(null);
+    const [suspended, setSuspended] = useState(false);
         const pushToken = useRef<string | null>(null);
 
     // Push is best-effort. It shouldn't block authentication or surface as an error.
@@ -72,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function login(email: string, password: string) {
         await apiLogin(email, password);
         setUser(await me());
+        setSuspended(false);
         await syncPush();
     }
 
@@ -115,8 +119,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const clearReturningTrialDays = useCallback(() => setReturningTrialDays(null), []);
 
+    // A ban signs the session out on the first refused request, offline cache included, and the login screen says why
+    useEffect(() => {
+        const subscription = DeviceEventEmitter.addListener(ACCOUNT_SUSPENDED, () => {
+            setSuspended(true);
+            logout().catch(() => {});
+        });
+        return () => subscription.remove();
+    });
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser, returningTrialDays, clearReturningTrialDays }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser, returningTrialDays, clearReturningTrialDays, suspended }}>
             {children}
         </AuthContext.Provider>
     );

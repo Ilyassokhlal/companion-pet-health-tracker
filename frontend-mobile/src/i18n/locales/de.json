@@ -58,6 +58,7 @@
   },
   "errors": {
     "subscription_required": "Dafür ist Companion Premium nötig. Ihre Daten bleiben lesbar und exportierbar.",
+    "account_suspended": "Dieses Konto wurde gesperrt. Wenden Sie sich an support@mycompanion.pet, wenn Sie glauben, dass es sich um einen Fehler handelt.",
     "trial_question_limit": "Sie haben alle {{limit}} kostenlosen Fragen für heute genutzt. Der Zähler wird um Mitternacht zurückgesetzt.",
     "renewal_not_stopped": "Ihr Abo konnte gerade nicht beendet werden, daher wurde nichts gelöscht. Bitte versuchen Sie es in ein paar Minuten erneut.",
     "email_not_verified": "Bestätigen Sie zuerst Ihre E-Mail-Adresse und versuchen Sie es dann erneut.",

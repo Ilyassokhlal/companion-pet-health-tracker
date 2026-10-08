@@ -6,14 +6,16 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAuth } from "@/auth/AuthContext";
 import { useTranslation } from "react-i18next";
+import { errorMessage } from "@/errors";
 
 export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const { login, suspended } = useAuth();
+  // Sent here by a ban, the screen opens saying why
+  const [error, setError] = useState<string | null>(suspended ? t("errors.account_suspended") : null);
   const [submitting, setSubmitting] = useState(false);
-  const { login } = useAuth();
 
   async function handleSubmit() {
     setError(null);
@@ -21,7 +23,7 @@ export default function Login() {
     try {
       await login(email, password);
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }

@@ -58,6 +58,7 @@
   },
   "errors": {
     "subscription_required": "此功能需要 Companion Premium。您的資料仍可檢視及匯出。",
+    "account_suspended": "此帳戶已被停用。如果您認為這是誤會，請聯絡 support@mycompanion.pet。",
     "trial_question_limit": "您已用完今天的 {{limit}} 個免費提問，次數會在午夜重設。",
     "renewal_not_stopped": "目前無法停止您的訂閱，因此沒有刪除任何內容。請幾分鐘後再試一次。",
     "email_not_verified": "請先驗證您的電子郵件地址，然後再試一次。",

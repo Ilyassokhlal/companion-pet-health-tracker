@@ -7,6 +7,7 @@ import Input from "@/components/ui/Input";
 import { useAuth } from "@/auth/AuthContext";
 import { Trans, useTranslation } from "react-i18next";
 import * as WebBrowser from "expo-web-browser";
+import { errorMessage } from "@/errors";
 
 // The legal pages are hosted by the web app, always in production, since store reviewers fetch them
 const SITE = "https://mycompanion.pet";
@@ -26,7 +27,7 @@ export default function Register() {
     try {
       await register(username, email, password);
     } catch (err) {
-      setError((err as Error).message);
+      setError(errorMessage(err));
     } finally {
       setSubmitting(false);
     }
