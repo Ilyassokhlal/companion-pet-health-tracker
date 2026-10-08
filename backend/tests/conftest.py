@@ -118,7 +118,7 @@ def no_translation(monkeypatch):
     """Never call Claude during tests: the question is taken as English, in the app language, with no name found."""
     monkeypatch.setattr(
         "rag.translate_question",
-        lambda question, fallback, pet_name, species: (question, fallback or "en", None),
+        lambda question, fallback, pet_name, species, usage=None: (question, fallback or "en", None),
     )
 
 # Fixture to pin the reminder hour

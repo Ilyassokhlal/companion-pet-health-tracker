@@ -32,6 +32,7 @@ from utils.exceptions import (
     ServiceUnavailableException,
     UnauthorizedException,
 )
+from utils.geo import request_country
 from utils.limiter import limiter
 from utils.mailer import (
     send_email_changed_email,
@@ -86,6 +87,8 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
         hashed_password=hash_password(payload.password),
         timezone=payload.timezone or settings.TIMEZONE,
         language=payload.language or "en",
+        # Only the country is kept, for the admin dashboard's map
+        country=request_country(request),
     )
     # An email that already had its free month gets no new one. Deleted during the trial, it gets back the days that were left.
     returning_trial_days = claim_trial(db, payload.email)
@@ -138,6 +141,11 @@ def login(request: Request, credentials: LoginRequest, db: Session = Depends(get
     # Checked after the password, so only the owner of the account learns it is suspended
     if user.banned_at is not None:
         raise suspended()
+    # The latest login's country, for the admin dashboard's map. A private or unknown address keeps the last one.
+    country = request_country(request)
+    if country and country != user.country:
+        user.country = country
+        db.commit()
 
     token = create_access_token(data={"sub": str(user.id), "fp": password_fingerprint(user.hashed_password)})
 

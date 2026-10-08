@@ -72,6 +72,8 @@ class User(Base):
     onboarding_hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
     # Set by the ban command. A suspended account can't sign in or use a live session, gets no reminders, and keeps its data until the delete command.
     banned_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    # Two letter country code from the signup and the latest login address, for the admin dashboard's map. Only the country is kept, never the address.
+    country: Mapped[str | None] = mapped_column(String(2), nullable=True)
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
@@ -317,6 +319,12 @@ class QuestionUsage(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+    # False when the question was refused as out of scope, before any answer was written
+    answered: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
+    # Claude tokens for the question, its translation and its answer together, so the dashboard shows the real cost
+    input_tokens: Mapped[int] = mapped_column(Integer, nullable=False, server_default="0")
+    output_tokens: Mapped[int] = mapped_column(Integer, nullable=False, server_default="0")
+    model: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
 
 # A Get started step an account has done, and when. Written the moment it happens and never removed, so deleting what did it leaves the step ticked. The admin dashboard can read how far new accounts get.
@@ -353,3 +361,42 @@ class EmailBan(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     email_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# One row per account, day and app it was used on, written on the first request of that day. The dashboard's daily, weekly and monthly actives and retention come from it. Kept 13 months.
+class ActivityDay(Base):
+    __tablename__ = "activity_days"
+    __table_args__ = (UniqueConstraint("user_id", "day", "platform"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    # The day in the owner's timezone (STATS_TIMEZONE)
+    day: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    # web, android, ios, or unknown for an app build from before the apps named themselves
+    platform: Mapped[str] = mapped_column(String(10), nullable=False)
+    first_seen: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# Every purchase event RevenueCat reports (purchases, renewals, refunds, cancellations), from Google Play, Stripe and later the App Store, for the dashboard's revenue. Kept for good, and holds no name or email.
+class BillingEvent(Base):
+    __tablename__ = "billing_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    # RevenueCat's own id, so an event delivered twice is kept once
+    event_id: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    type: Mapped[str] = mapped_column(String(40), nullable=False)
+    store: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # PRODUCTION or SANDBOX. Test purchases stay out of the revenue figures.
+    environment: Mapped[str | None] = mapped_column(String(12), nullable=True)
+    product_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    user_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
+    # What the customer paid, in USD and in their own currency. Negative for a refund.
+    price_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    price_local: Mapped[float | None] = mapped_column(Float, nullable=True)
+    currency: Mapped[str | None] = mapped_column(String(3), nullable=True)
+    # RevenueCat's estimates of the tax and store commission shares, for the take home figure
+    tax_percentage: Mapped[float | None] = mapped_column(Float, nullable=True)
+    commission_percentage: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cancel_reason: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    occurred_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)
+    received_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)

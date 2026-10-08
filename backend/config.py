@@ -41,6 +41,10 @@ class Settings:
     # Reminder scheduling settings
     REMINDER_HOUR: int = int(os.environ.get("REMINDER_HOUR", "6"))
     TIMEZONE: str = os.environ.get("TIMEZONE", "UTC")
+    # The owner's own timezone, where each day of the admin dashboard's activity counts starts and ends. Falls back to TIMEZONE.
+    STATS_TIMEZONE: str = os.environ.get("STATS_TIMEZONE") or os.environ.get("TIMEZONE", "UTC")
+    # DB-IP's free country database, baked into the backend image at build time. Without it no country is recorded.
+    COUNTRY_DB: str = os.environ.get("COUNTRY_DB", "/opt/dbip/country.mmdb")
 
     # Photo storage settings
     PHOTO_DIR: str = os.environ.get("PHOTO_DIR", "/data/photos")

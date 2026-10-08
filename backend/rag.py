@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from dataclasses import dataclass
 
 import anthropic
 import chromadb
@@ -109,6 +110,19 @@ The message gives the owner's pet (its species and the name stored in the app) a
 - pet_name_as_written: if the question refers to the pet by its name, copy that word exactly as it appears in the question, in whatever spelling, script or grammatical form it takes (a transliteration such as a Cyrillic spelling, or a declined form). Otherwise null. A word that only resembles the name but is used with its ordinary meaning is not the name.
 - english: the question in English. Translate faithfully: keep every animal the question mentions as it is written (a question about a cat stays about a cat even when the pet is a dog), and never add the pet's name or anything else the question does not say. Where the question uses the pet's name, copy the stored name exactly, in the same spelling and script, even when the rest of the question is translated, and never translate it as an ordinary word. Write any short or informal name of an illness or a procedure in full, for example parvo as canine parvovirus, bloat as gastric dilatation volvulus, pyo as pyometra, Lyme as Lyme disease and getting a pet fixed as getting it spayed or neutered. Write a medicine's brand name in its usual English spelling, for example Бравекто as Bravecto. Apart from that, leave a question that is already in English unchanged."""
 
+@dataclass
+class Usage:
+    """Claude tokens spent on one question, added up across its translation and its answer."""
+
+    input_tokens: int = 0
+    output_tokens: int = 0
+
+    def add(self, usage) -> None:
+        """Add one call's usage. A reply without usage, such as a test double, adds nothing."""
+        self.input_tokens += getattr(usage, "input_tokens", 0) or 0
+        self.output_tokens += getattr(usage, "output_tokens", 0) or 0
+
+
 # Functions for RAG operations
 def chunk_document(text: str) -> list[str]:
     """Split a document into paragraph chunks and dropping stubs."""
@@ -182,7 +196,7 @@ def ingest(docs_dir: str | None = None) -> dict:
     return {"documents": len({m["source"] for m in metadatas}), "chunks": len(documents)}
 
 
-def translate_question(question: str, fallback: str | None, pet_name: str, species: str) -> tuple[str, str, str | None]:
+def translate_question(question: str, fallback: str | None, pet_name: str, species: str, usage: Usage | None = None) -> tuple[str, str, str | None]:
     """Return the question in English, the language it was written in, and the pet's name as written in it.
 
     The app language is only a default, since someone can run the app in Russian and type in English. The name matters because swapping it for the species is plain string matching, which cannot see "Флэш" or "Флэша" for a pet stored as Flash. A reported name is only trusted if it really occurs in the question.
@@ -203,6 +217,8 @@ def translate_question(question: str, fallback: str | None, pet_name: str, speci
             }],
             output_config={"format": {"type": "json_schema", "schema": TRANSLATION_SCHEMA}},
         )
+        if usage is not None:
+            usage.add(getattr(message, "usage", None))
         reply = json.loads(next(block.text for block in message.content if block.type == "text"))
     except Exception:
         return question, default, None
@@ -247,8 +263,8 @@ def get_confidence(chunks):
         return "none"
     return "high" if chunks[0].distance < 0.7 else "medium"
 
-def generate(messages, lang: str | None = None):
-    """Stream the answer from Claude token by token, in the owner's language."""
+def generate(messages, lang: str | None = None, usage: Usage | None = None):
+    """Stream the answer from Claude token by token, in the owner's language. The tokens it used are added to usage once the answer is complete."""
     try:
         with claude.messages.stream(
             model=settings.MODEL_NAME,
@@ -259,6 +275,8 @@ def generate(messages, lang: str | None = None):
         ) as stream:
             for token in stream.text_stream:
                 yield token
+            if usage is not None:
+                usage.add(stream.get_final_message().usage)
     except anthropic.APIConnectionError as e:
         raise ServiceUnavailableException("Could not reach the Claude API.", code="ai_unavailable") from e
     except anthropic.APIStatusError as e:

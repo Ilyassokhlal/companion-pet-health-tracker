@@ -15,7 +15,7 @@ from utils.access import check_question_allowance, require_access_to_write
 from utils.exceptions import BadRequestException
 from utils.i18n import t
 from utils.limiter import limiter
-from utils.messages import save_message
+from utils.messages import save_message, save_question_usage
 from utils.onboarding import mark_step
 from utils.security import get_current_user
 
@@ -220,9 +220,13 @@ def ask(
     pet = _get_owned_pet(payload.pet_id, db, current_user)
     # A trial account has a daily allowance. Every question counts, answered or refused, and the tally is kept apart from the chat so deleting messages can't reset it.
     check_question_allowance(db, current_user)
-    db.add(QuestionUsage(user_id=current_user.id))
+    tally = QuestionUsage(user_id=current_user.id, model=settings.MODEL_NAME)
+    db.add(tally)
     mark_step(db, current_user.id, "question")
     db.commit()
+    tally_id = tally.id
+    # The tokens of both Claude calls, translation and answer, add up here for the admin dashboard's cost
+    usage = rag.Usage()
     history = _recent_turns(pet.id, db)
     save_message(pet.id, "user", question)
     records = db.query(HealthRecord).filter(HealthRecord.pet_id == pet.id).all()
@@ -238,7 +242,7 @@ def ask(
     # The corpus is English, so the question is matched in English and answered in the language it was written in. The
     # translation also reports the pet's name as written, which catches spellings the swap above cannot see.
     # The prompt below still receives the question exactly as the user typed it.
-    english, lang, written_name = rag.translate_question(retrieval_question, current_user.language, pet.name, pet.species)
+    english, lang, written_name = rag.translate_question(retrieval_question, current_user.language, pet.name, pet.species, usage=usage)
     english = _with_ingredients(english)
     aliases = (written_name,) if written_name else ()
     in_scope = rag.retrieve(_gate_query(english, pet, aliases), 1, settings.CONFIDENCE_THRESHOLD)
@@ -247,6 +251,7 @@ def ask(
     if not chunks:
         answer = t("ask.noAnswer", lang)
         save_message(pet.id, "assistant", answer, [])
+        save_question_usage(tally_id, False, usage.input_tokens, usage.output_tokens)
         return JSONResponse(
             status_code=200,
             content={"answer": answer, "sources": [], "confidence": "none"},
@@ -267,7 +272,7 @@ def ask(
             seen.add(key)
             sources.append({"title": chunk.title, "section": chunk.section, "url": chunk.link})
         try:
-            for token in rag.generate(messages, lang):
+            for token in rag.generate(messages, lang, usage=usage):
                 parts.append(token)
                 yield json.dumps({"token": token}) + "\n"
             yield json.dumps({"meta": {
@@ -278,5 +283,6 @@ def ask(
         finally:
             if parts:
                 save_message(pet.id, "assistant", "".join(parts), sources)
+            save_question_usage(tally_id, True, usage.input_tokens, usage.output_tokens)
 
     return StreamingResponse(stream_response(), media_type="application/x-ndjson")

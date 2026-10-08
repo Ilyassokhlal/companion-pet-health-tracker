@@ -5,7 +5,8 @@ from datetime import datetime
 import httpx
 import stripe
 from config import settings
-from models.models import User
+from models.models import BillingEvent, User
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 from stripe import StripeClient
 
@@ -178,3 +179,33 @@ def running_stripe_subscriptions(email: str) -> Iterator[tuple[str, str]]:
         for sub in client.v1.subscriptions.list(params={"customer": customer.id}).auto_paging_iter():
             if sub.status in (*_STRIPE_PAID, "past_due"):
                 yield customer.id, sub.id
+
+
+def record_billing_event(db: Session, event: dict) -> None:
+    """Keep a RevenueCat event for the admin dashboard's revenue, once even when it is delivered again. Only the account number, store, product, prices and dates are kept."""
+    if not event.get("id") or not event.get("type"):
+        return
+    # Ours are the numeric account id. A transfer names its accounts elsewhere and is kept without one.
+    named = [str(i) for i in (event.get("app_user_id"), event.get("original_app_user_id")) if i]
+    user_id = next((int(i) for i in named if i.isdigit() and db.get(User, int(i))), None)
+    timestamp = event.get("event_timestamp_ms")
+    db.execute(
+        insert(BillingEvent)
+        .values(
+            event_id=str(event["id"])[:64],
+            type=str(event["type"])[:40],
+            store=event.get("store"),
+            environment=event.get("environment"),
+            product_id=event.get("product_id"),
+            user_id=user_id,
+            price_usd=event.get("price"),
+            price_local=event.get("price_in_purchased_currency"),
+            currency=event.get("currency"),
+            tax_percentage=event.get("tax_percentage"),
+            commission_percentage=event.get("commission_percentage"),
+            cancel_reason=event.get("cancel_reason"),
+            occurred_at=datetime.fromtimestamp(timestamp / 1000) if isinstance(timestamp, (int, float)) else None,
+        )
+        .on_conflict_do_nothing(index_elements=["event_id"])
+    )
+    db.commit()

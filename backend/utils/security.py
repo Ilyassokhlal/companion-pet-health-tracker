@@ -3,12 +3,13 @@ from datetime import datetime, timedelta, timezone
 
 from config import settings
 from database import get_db
-from fastapi import Depends
+from fastapi import Depends, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from models.models import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
+from utils.activity import record_activity
 from utils.exceptions import BadRequestException, ForbiddenException, UnauthorizedException
 
 # Security utility functions for authentication and password management
@@ -42,7 +43,7 @@ def create_access_token(data: dict) -> str:
     return encoded_jwt
 
 # Current user retrieval function
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
+def get_current_user(request: Request, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     """Retrieve the current user based on the JWT token."""
     credentials_exception = UnauthorizedException("Could not validate credentials", code="invalid_token")
     try:
@@ -63,6 +64,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     # A ban ends every live session at once, without waiting for the token to expire
     if user.banned_at is not None:
         raise suspended()
+    # The first request of each day marks the account active, for the admin dashboard
+    record_activity(db, user, request.headers.get("X-Client"))
     return user
 
 def suspended() -> ForbiddenException:

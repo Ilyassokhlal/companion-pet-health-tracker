@@ -14,6 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from routers import ask, auth, billing, devices, events, expenses, feedings, messages, pets, records, walks
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from utils.activity import purge_old_activity
 from utils.billing import resync_purchased
 from utils.exceptions import AppException
 from utils.limiter import limiter
@@ -55,6 +56,11 @@ def _run_fingerprint_purge():
     with SessionLocal() as db:
         purge_expired_fingerprints(db)
 
+# Scheduler entry point for deleting activity days once they are 13 months old
+def _run_activity_purge():
+    with SessionLocal() as db:
+        purge_old_activity(db)
+
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -71,6 +77,7 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(_run_lock_warnings, "cron", minute=0, id="lock_warnings")
     scheduler.add_job(_run_premium_resync, "cron", hour=4, minute=30, id="premium_resync")
     scheduler.add_job(_run_fingerprint_purge, "cron", hour=4, minute=45, id="fingerprint_purge")
+    scheduler.add_job(_run_activity_purge, "cron", hour=4, minute=50, id="activity_purge")
     scheduler.start()
     yield
     scheduler.shutdown()

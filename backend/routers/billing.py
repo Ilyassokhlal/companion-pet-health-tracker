@@ -10,7 +10,13 @@ from schemas.user import UserResponse
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
 from utils.access import PREMIUM, access_state
-from utils.billing import report_stripe_purchase, running_stripe_subscriptions, stripe_client, sync_premium
+from utils.billing import (
+    record_billing_event,
+    report_stripe_purchase,
+    running_stripe_subscriptions,
+    stripe_client,
+    sync_premium,
+)
 from utils.exceptions import BadRequestException, ForbiddenException, ServiceUnavailableException, UnauthorizedException
 from utils.limiter import limiter
 from utils.security import get_current_user
@@ -28,6 +34,8 @@ def revenuecat_webhook(payload: dict, authorization: str | None = Header(default
         raise UnauthorizedException("Invalid webhook authorization.", code="invalid_webhook")
 
     event = payload.get("event", {})
+    # Kept before the accounts are re-read, so a retried delivery still has it once
+    record_billing_event(db, event)
     # A transfer, such as a purchase restored onto a new account, names its accounts only in transferred_from and transferred_to.
     named = {event.get("app_user_id"), event.get("original_app_user_id"), *event.get("aliases", []), *event.get("transferred_from", []), *event.get("transferred_to", [])}
     # Anonymous RevenueCat IDs never match an account. Ours are the numeric user id.
