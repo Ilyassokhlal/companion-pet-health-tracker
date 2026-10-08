@@ -41,6 +41,15 @@
   "email.lockWarning.premiumLine3": "Renew your plan to keep everything running.",
   "email.lockWarning.button": "See plans",
 
+  "email.suspended.subject": "Your Companion account has been suspended",
+  "email.suspended.line1": "Your Companion account has been suspended, so you can no longer sign in.",
+  "email.suspended.line2": "Contact support@mycompanion.pet if you think this is a mistake.",
+
+  "email.granted.subject": "You have Companion Premium",
+  "email.granted.lifetime": "You have been given Companion Premium for life.",
+  "email.granted.until": "You have been given Companion Premium until {date}.",
+  "email.granted.line2": "Everything Companion does is unlocked, for every pet, with no limits.",
+
   "reminder.item": "{title} for {pet} — due {date}",
   "reminder.itemWithType": "{title} for {pet} ({type}) — due {date}",
 

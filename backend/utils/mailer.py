@@ -179,3 +179,26 @@ def send_password_changed_email(to: str, lang: str | None = None) -> bool:
     {_button(t("email.emailChanged.button", lang), f'{settings.FRONTEND_URL}/forgot')}
     """
     return send_email(to, subject, _layout(subject, body, lang))
+
+
+def send_ban_email(to: str, lang: str | None = None) -> bool:
+    """Tell the owner of a suspended account, with the same fixed message the app shows. The owner's reason is never sent."""
+    subject = t("email.suspended.subject", lang)
+    body = f"""
+    <p style="margin:0 0 14px 0;">{t("email.suspended.line1", lang)}</p>
+    <p style="margin:0 0 14px 0;">{t("email.suspended.line2", lang)}</p>
+    """
+    return send_email(to, subject, _layout(subject, body, lang))
+
+
+def send_grant_email(to: str, username: str, until: str | None, lang: str | None = None) -> bool:
+    """Tell the account holder they were given Premium, for life when until is None, otherwise through that date."""
+    subject = t("email.granted.subject", lang)
+    line1 = t("email.granted.lifetime", lang) if until is None else t("email.granted.until", lang, date=until)
+    body = f"""
+    <p style="margin:0 0 14px 0;">{t("email.reminder.greeting", lang, name=escape(username))}</p>
+    <p style="margin:0 0 14px 0;">{line1}</p>
+    <p style="margin:0 0 14px 0;">{t("email.granted.line2", lang)}</p>
+    {_button(t("email.reminder.button", lang), settings.FRONTEND_URL)}
+    """
+    return send_email(to, subject, _layout(subject, body, lang))

@@ -23,7 +23,8 @@ from schemas.user import (
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from utils.access import require_access_to_write
-from utils.billing import cancel_renewals
+from utils.accounts import delete_user
+from utils.admin import is_email_banned
 from utils.exceptions import (
     BadRequestException,
     DuplicateException,
@@ -47,9 +48,10 @@ from utils.security import (
     get_current_user,
     hash_password,
     password_fingerprint,
+    suspended,
     verify_password,
 )
-from utils.trial_fingerprints import claim_trial, days_to_give_back, remember_trial
+from utils.trial_fingerprints import claim_trial, remember_trial
 from utils.weight import sync_checkin
 
 # Router for authentication-related endpoints
@@ -73,6 +75,10 @@ def register(request: Request, payload: RegisterRequest, background_tasks: Backg
     - The password is hashed before storing in the database.
     - Returns a JWT access token upon successful registration.
     """
+
+    # A banned email can't come back as a new account, even after the banned one is deleted
+    if is_email_banned(db, payload.email):
+        raise suspended()
 
     user = User(
         username=payload.username,
@@ -129,7 +135,10 @@ def login(request: Request, credentials: LoginRequest, db: Session = Depends(get
 
     if not user or not verify_password(credentials.password, user.hashed_password):
         raise UnauthorizedException("Invalid email or password", code="invalid_credentials")
-    
+    # Checked after the password, so only the owner of the account learns it is suspended
+    if user.banned_at is not None:
+        raise suspended()
+
     token = create_access_token(data={"sub": str(user.id), "fp": password_fingerprint(user.hashed_password)})
 
     return {
@@ -265,20 +274,11 @@ def delete_account(request: Request, payload: DeleteAccountRequest, db: Session 
     if not verify_password(payload.password, current_user.hashed_password):
         raise UnauthorizedException("Incorrect password.", code="incorrect_password")
     # Deleting must never leave a subscription charging, so the account stays until every renewal is stopped.
-    if not cancel_renewals(current_user):
+    if not delete_user(db, current_user):
         raise ServiceUnavailableException(
             "Your subscription could not be stopped right now, so nothing was deleted. Try again in a few minutes.",
             code="renewal_not_stopped",
         )
-    remember_trial(db, current_user.email, days_to_give_back(current_user), "deleted")
-    db.delete(current_user)
-    delete_photo_file(current_user.photo_filename)
-    for pet in current_user.pets:
-        delete_photo_file(pet.photo_filename)
-        for record in pet.records:
-            for photo in record.photos:
-                delete_photo_file(photo.filename)
-    db.commit()
     return
 
 @router.patch("/me", response_model=UserResponse)

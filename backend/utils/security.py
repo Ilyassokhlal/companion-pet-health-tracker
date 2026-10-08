@@ -9,7 +9,7 @@ from jose import JWTError, jwt
 from models.models import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from utils.exceptions import BadRequestException, UnauthorizedException
+from utils.exceptions import BadRequestException, ForbiddenException, UnauthorizedException
 
 # Security utility functions for authentication and password management
 SECRET_KEY = settings.SECRET_KEY
@@ -60,7 +60,17 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     # Check if the password fingerprint in the token matches the current password hash
     if payload.get("fp") != password_fingerprint(user.hashed_password):
         raise UnauthorizedException("Session expired, please log in again.", code="session_expired")
+    # A ban ends every live session at once, without waiting for the token to expire
+    if user.banned_at is not None:
+        raise suspended()
     return user
+
+def suspended() -> ForbiddenException:
+    """The error a suspended account gets, at sign in, at signup and on every request with an existing session."""
+    return ForbiddenException(
+        "This account has been suspended. Contact support@mycompanion.pet if you think this is a mistake.",
+        code="account_suspended",
+    )
 
 def create_purpose_token(user_id: int, purpose: str, expires: timedelta, extra: dict | None = None) -> str:
     """Sign a short-lived token for a one-off action, e.g. verifying an email."""

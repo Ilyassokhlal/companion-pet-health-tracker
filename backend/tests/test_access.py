@@ -22,7 +22,7 @@ def test_access_follows_the_trial_grants_and_purchases():
     ended = now - timedelta(days=40)
 
     def account(**fields):
-        return SimpleNamespace(**{"trial_ends_at": now + timedelta(days=1), "premium_source": None, "premium_expires_at": None} | fields)
+        return SimpleNamespace(**{"trial_ends_at": now + timedelta(days=1), "premium_source": None, "premium_expires_at": None, "banned_at": None} | fields)
 
     # The trial is open until the moment it ends, then the account locks
     assert access_state(account(), now) == TRIAL

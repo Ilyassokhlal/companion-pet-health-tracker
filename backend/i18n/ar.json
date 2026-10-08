@@ -41,6 +41,15 @@
   "email.lockWarning.premiumLine3": "جدّد خطتك ليستمر كل شيء في العمل.",
   "email.lockWarning.button": "عرض الخطط",
 
+  "email.suspended.subject": "تم تعليق حسابك في Companion",
+  "email.suspended.line1": "تم تعليق حسابك في Companion، لذا لم يعد بإمكانك تسجيل الدخول.",
+  "email.suspended.line2": "تواصل مع support@mycompanion.pet إذا كنت تعتقد أن هذا خطأ.",
+
+  "email.granted.subject": "لديك Companion Premium",
+  "email.granted.lifetime": "لقد حصلت على Companion Premium مدى الحياة.",
+  "email.granted.until": "لقد حصلت على Companion Premium حتى {date}.",
+  "email.granted.line2": "كل ميزات Companion مفتوحة لك، لكل حيوان أليف، ودون أي حدود.",
+
   "reminder.item": "{title} لـ {pet} — الموعد {date}",
   "reminder.itemWithType": "{title} لـ {pet} ({type}) — الموعد {date}",
 

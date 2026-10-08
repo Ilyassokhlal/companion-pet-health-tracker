@@ -155,8 +155,10 @@ def send_lock_warnings(db: Session, instant: datetime | None = None) -> int:
     # Stored timestamps are naive server time
     now = moment.astimezone().replace(tzinfo=None)
     soon = now + timedelta(days=max(LOCK_WARNING_DAYS) + 1)
+    # A suspended account is never told it is about to lock
     users = db.query(User).filter(
-        or_(User.trial_ends_at.between(now, soon), User.premium_expires_at.between(now, soon))
+        or_(User.trial_ends_at.between(now, soon), User.premium_expires_at.between(now, soon)),
+        User.banned_at.is_(None),
     ).all()
 
     warned = 0

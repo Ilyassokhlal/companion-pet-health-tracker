@@ -41,6 +41,15 @@
   "email.lockWarning.premiumLine3": "Verlängern Sie Ihr Abo, damit alles weiterläuft.",
   "email.lockWarning.button": "Tarife ansehen",
 
+  "email.suspended.subject": "Ihr Konto bei Companion wurde gesperrt",
+  "email.suspended.line1": "Ihr Konto bei Companion wurde gesperrt, daher können Sie sich nicht mehr anmelden.",
+  "email.suspended.line2": "Wenden Sie sich an support@mycompanion.pet, wenn Sie glauben, dass es sich um einen Fehler handelt.",
+
+  "email.granted.subject": "Sie haben Companion Premium",
+  "email.granted.lifetime": "Sie haben Companion Premium auf Lebenszeit erhalten.",
+  "email.granted.until": "Sie haben Companion Premium bis zum {date} erhalten.",
+  "email.granted.line2": "Alles, was Companion kann, ist freigeschaltet, für jedes Haustier und ohne Grenzen.",
+
   "reminder.item": "{title} für {pet} — fällig am {date}",
   "reminder.itemWithType": "{title} für {pet} ({type}) — fällig am {date}",
 

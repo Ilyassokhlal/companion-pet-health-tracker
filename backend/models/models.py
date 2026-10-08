@@ -70,6 +70,8 @@ class User(Base):
     stripe_customer_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
     # The dashboard's Get started card shows until the owner hides it, from the card or from Settings, which can also bring it back. Kept here, so it is the same on every device. Accounts from before the card existed start hidden.
     onboarding_hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    # Set by the ban command. A suspended account can't sign in or use a live session, gets no reminders, and keeps its data until the delete command.
+    banned_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     # Foreign key relationship to pets
     pets: Mapped[list["Pet"]] = relationship(
@@ -327,3 +329,27 @@ class OnboardingStep(Base):
     # One of utils.onboarding.STEPS
     step: Mapped[str] = mapped_column(String(20), nullable=False)
     done_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# Every change made with the admin command line: what was done to which account, when, and the owner's reason. The email is a copy, so the entry still reads the same after the account is deleted.
+class AdminAction(Base):
+    __tablename__ = "admin_actions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+    # ban, unban, grant, revoke or delete
+    action: Mapped[str] = mapped_column(String(20), nullable=False)
+    user_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
+    email: Mapped[str] = mapped_column(String(100), nullable=False)
+    reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # What else happened, such as a grant's end date or a renewal that could not be stopped
+    detail: Mapped[str | None] = mapped_column(String(255), nullable=True)
+
+
+# A banned email, kept as a keyed hash like the trial fingerprints. Blocks signing up again with it while the ban lasts, even after the delete command removes the account. Unban removes it.
+class EmailBan(Base):
+    __tablename__ = "email_bans"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    email_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)

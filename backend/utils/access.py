@@ -40,8 +40,8 @@ def access_state(user: User, now: datetime | None = None) -> str:
 
 
 def has_full_access(user: User, now: datetime | None = None) -> bool:
-    """Return True unless the account is locked."""
-    return access_state(user, now) != LOCKED
+    """Return True unless the account is locked or suspended. The reminder jobs use it too, so neither gets reminders."""
+    return user.banned_at is None and access_state(user, now) != LOCKED
 
 
 def trial_days_left(user: User, now: datetime | None = None) -> int:

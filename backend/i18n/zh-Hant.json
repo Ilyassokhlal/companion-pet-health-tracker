@@ -41,6 +41,15 @@
   "email.lockWarning.premiumLine3": "續訂您的方案即可讓一切照常運作。",
   "email.lockWarning.button": "查看方案",
 
+  "email.suspended.subject": "您的 Companion 帳戶已被停用",
+  "email.suspended.line1": "您的 Companion 帳戶已被停用，因此您無法再登入。",
+  "email.suspended.line2": "如果您認為這是誤會，請聯絡 support@mycompanion.pet。",
+
+  "email.granted.subject": "您已獲得 Companion Premium",
+  "email.granted.lifetime": "您已獲得終身 Companion Premium。",
+  "email.granted.until": "您已獲得 Companion Premium，有效期至 {date}。",
+  "email.granted.line2": "Companion 的所有功能都已解鎖，適用於每隻寵物，沒有任何限制。",
+
   "reminder.item": "{pet}的{title}，{date} 到期",
   "reminder.itemWithType": "{pet}的{title}（{type}），{date} 到期",
 
