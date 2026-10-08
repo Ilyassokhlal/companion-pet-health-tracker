@@ -5,14 +5,16 @@ import { useAuth } from "../auth/AuthContext";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import LanguagePicker from "../components/LanguagePicker";
+import { errorMessage } from "../errors";
 
 export default function Login() {
     const { t } = useTranslation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null);
+    const { login, suspended } = useAuth();
+    // Sent here by a ban, the screen opens saying why
+    const [error, setError] = useState<string | null>(suspended ? t("errors.account_suspended") : null);
     const [submitting, setSubmitting] = useState(false);
-    const { login } = useAuth();
     const navigate = useNavigate();
 
     async function handleSubmit(e: React.FormEvent) {
@@ -23,7 +25,7 @@ export default function Login() {
         await login(email, password);
       navigate("/dashboard", { replace: true });
       } catch (err) {
-        setError((err as Error).message);
+        setError(errorMessage(err));
       } finally {
         setSubmitting(false);
       }

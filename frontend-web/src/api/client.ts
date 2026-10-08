@@ -3,6 +3,9 @@ export const BASE_URL = import.meta.env.VITE_API_URL;
 // Fired on window when the server refuses a change because the account is locked, so the app can open the subscribe screen.
 export const SUBSCRIPTION_REQUIRED = "companion:subscription-required";
 
+// Fired on window when the server says the account is suspended, so a live session signs out at once and the login screen can say why.
+export const ACCOUNT_SUSPENDED = "companion:account-suspended";
+
 // A function to get the token from localStorage. Returns null if no token is found.
 export function getToken(): string | null {
   return localStorage.getItem("token") || null;
@@ -50,6 +53,11 @@ export async function failure(response: Response): Promise<ApiError> {
     (response.status === 429 ? "too_many_attempts" : Array.isArray(detail) ? "validation" : "generic");
   if (code === "subscription_required") {
     window.dispatchEvent(new Event(SUBSCRIPTION_REQUIRED));
+  }
+  // Only a signed-in session is signed out. A refused login or signup just shows the message where it happened.
+  if (code === "account_suspended" && getToken()) {
+    setToken(null);
+    window.dispatchEvent(new Event(ACCOUNT_SUSPENDED));
   }
   return new ApiError(message, code, errorData?.params ?? {}, response.status);
 }

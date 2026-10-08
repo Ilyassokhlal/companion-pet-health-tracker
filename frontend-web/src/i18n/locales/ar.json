@@ -63,6 +63,7 @@
   },
   "errors": {
     "subscription_required": "يتطلب ذلك Companion Premium. تبقى بياناتك متاحة للعرض والتصدير.",
+    "account_suspended": "تم تعليق هذا الحساب. تواصل مع support@mycompanion.pet إذا كنت تعتقد أن هذا خطأ.",
     "trial_question_limit": "لقد استخدمت كل الأسئلة المجانية لهذا اليوم ({{limit}}). يُعاد العد عند منتصف الليل.",
     "renewal_not_stopped": "تعذر إيقاف اشتراكك الآن، لذلك لم يُحذف أي شيء. حاول مرة أخرى بعد بضع دقائق.",
     "email_not_verified": "تحقق من بريدك الإلكتروني أولًا، ثم حاول مرة أخرى.",

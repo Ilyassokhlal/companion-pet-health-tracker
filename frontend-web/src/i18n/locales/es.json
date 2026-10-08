@@ -63,6 +63,7 @@
   },
   "errors": {
     "subscription_required": "Eso requiere Companion Premium. Tus datos siguen disponibles para ver y exportar.",
+    "account_suspended": "Esta cuenta ha sido suspendida. Escribe a support@mycompanion.pet si crees que se trata de un error.",
     "trial_question_limit": "Has usado las {{limit}} preguntas gratis de hoy. El contador se reinicia a medianoche.",
     "renewal_not_stopped": "Ahora mismo no se pudo detener tu suscripción, así que no se eliminó nada. Inténtalo de nuevo en unos minutos.",
     "email_not_verified": "Primero verifica tu correo electrónico y vuelve a intentarlo.",

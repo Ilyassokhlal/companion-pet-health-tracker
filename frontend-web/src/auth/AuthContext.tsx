@@ -4,7 +4,7 @@ import { detectLanguage } from "../api/auth";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
-import { getToken, setToken } from "../api/client";
+import { ACCOUNT_SUSPENDED, getToken, setToken } from "../api/client";
 
 
 // Defines the shape of the authentication state and actions provided by the AuthContext.
@@ -16,6 +16,8 @@ interface AuthState {
   register: (username: string, email: string, password: string) => Promise<number | null>;
   logout: () => void;
   refreshUser: () => Promise<void>;
+  // True once a session was signed out because the account is suspended, so the login screen says why
+  suspended: boolean;
 }
 
 // Creates a React context for authentication state and actions. The context is initialized with undefined, and will be provided by the AuthProvider component.
@@ -25,6 +27,17 @@ const AuthContext = createContext<AuthState | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [suspended, setSuspended] = useState(false);
+
+    // A ban signs the session out on the first refused request, on this device and every other
+    useEffect(() => {
+        function onSuspended() {
+            setUser(null);
+            setSuspended(true);
+        }
+        window.addEventListener(ACCOUNT_SUSPENDED, onSuspended);
+        return () => window.removeEventListener(ACCOUNT_SUSPENDED, onSuspended);
+    }, []);
 
     useEffect(() => {
         const token = getToken();
@@ -47,6 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async function login(email: string, password: string) {
         await apiLogin(email, password);
         setUser(await me());
+        setSuspended(false);
     }
 
     async function register(username: string, email: string, password: string) {
@@ -66,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser, suspended }}>
             {children}
         </AuthContext.Provider>
     );
