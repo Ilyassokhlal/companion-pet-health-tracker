@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from routers import ask, auth, billing, devices, events, expenses, feedings, messages, pets, records, walks
+from routers import ask, auth, billing, costs, devices, events, expenses, feedings, messages, pets, records, walks
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from utils.activity import purge_old_activity
@@ -20,6 +20,7 @@ from utils.exceptions import AppException
 from utils.limiter import limiter
 from utils.reminders import send_due_reminders, send_feeding_reminders, send_lock_warnings
 from utils.stats_access import sync_reader_role
+from utils.stripe_fees import sync_stripe_fees
 from utils.trial_fingerprints import purge_expired_fingerprints
 
 
@@ -62,6 +63,11 @@ def _run_activity_purge():
     with SessionLocal() as db:
         purge_old_activity(db)
 
+# Scheduler entry point for reading the day's Stripe fees, for the admin dashboard's costs
+def _run_stripe_fee_sync():
+    with SessionLocal() as db:
+        sync_stripe_fees(db)
+
 # lifespan context manager to handle startup tasks
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -84,6 +90,7 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(_run_premium_resync, "cron", hour=4, minute=30, id="premium_resync")
     scheduler.add_job(_run_fingerprint_purge, "cron", hour=4, minute=45, id="fingerprint_purge")
     scheduler.add_job(_run_activity_purge, "cron", hour=4, minute=50, id="activity_purge")
+    scheduler.add_job(_run_stripe_fee_sync, "cron", hour=4, minute=55, id="stripe_fee_sync")
     scheduler.start()
     yield
     scheduler.shutdown()
@@ -133,6 +140,7 @@ app.include_router(walks.router)
 app.include_router(feedings.router)
 app.include_router(expenses.router)
 app.include_router(billing.router)
+app.include_router(costs.router)
 
 # Root endpoint for introduction and redirection to documentation
 @app.get("/", include_in_schema=False)

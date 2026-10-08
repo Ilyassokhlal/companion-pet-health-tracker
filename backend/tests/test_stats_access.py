@@ -5,6 +5,7 @@ from pathlib import Path
 
 import psycopg
 import pytest
+from config import settings
 from database import engine
 from sqlalchemy import text
 from sqlalchemy.engine import make_url
@@ -68,3 +69,16 @@ def test_a_new_password_replaces_the_old_one(client, stats_schema):
         _connect_as("first-test-password").close()
     with _connect_as("second-test-password") as reader:
         assert reader.execute("SELECT count(*) FROM stats.users").fetchone() == (0,)
+
+
+def test_the_reader_counts_days_in_the_owners_timezone(client, stats_schema, monkeypatch):
+    """Its today is the owner's day, from STATS_TIMEZONE. A name Postgres wouldn't know falls back to UTC."""
+    monkeypatch.setattr(settings, "STATS_TIMEZONE", "America/Los_Angeles")
+    assert sync_reader_role(engine, ROLE, "tz-test-password")
+    with _connect_as("tz-test-password") as reader:
+        assert reader.execute("SHOW timezone").fetchone() == ("America/Los_Angeles",)
+
+    monkeypatch.setattr(settings, "STATS_TIMEZONE", "Not/AZone")
+    assert sync_reader_role(engine, ROLE, "tz-test-password")
+    with _connect_as("tz-test-password") as reader:
+        assert reader.execute("SHOW timezone").fetchone() == ("UTC",)

@@ -3,7 +3,10 @@
 	redir @www https://mycompanion.pet{uri} permanent
 
 	handle_path /api/* {
-		reverse_proxy backend:8000
+		# The gate header only ever comes from the secret path below, never from a visitor
+		reverse_proxy backend:8000 {
+			header_up -X-Stats-Gate
+		}
 	}
 
 	# The admin dashboard (Grafana), on a secret path set in the server's .env and behind its own password prompt.
@@ -14,9 +17,19 @@
 		basic_auth {
 			{$STATS_USER:owner} {$STATS_PASSWORD_HASH:$2a$14$ZxHbqWX2VotwnrJawF8ieuRxVqBCG3gUspmlSPOCkLDOMd5HME4XS}
 		}
-		# The prompt's credentials stop here, so Grafana uses its own login instead of trying them
-		reverse_proxy grafana:3000 {
-			header_up -Authorization
+		# The fixed costs form's buttons in Grafana. The backend only accepts them with the gate secret Caddy adds here.
+		handle_path {$STATS_PATH:/stats-off}/costs-api/* {
+			rewrite * /stats-gate/costs{path}
+			reverse_proxy backend:8000 {
+				header_up -Authorization
+				header_up X-Stats-Gate {$STATS_GATE_SECRET:off}
+			}
+		}
+		handle {
+			# The prompt's credentials stop here, so Grafana uses its own login instead of trying them
+			reverse_proxy grafana:3000 {
+				header_up -Authorization
+			}
 		}
 	}
 

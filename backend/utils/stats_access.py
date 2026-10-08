@@ -1,6 +1,7 @@
 """The read only database role the admin dashboard (Grafana) signs in with. It can read the stats views and nothing else."""
 
 import logging
+from zoneinfo import ZoneInfo
 
 from config import settings
 from psycopg import sql
@@ -21,6 +22,11 @@ def sync_reader_role(engine: Engine, role: str = READER, password: str | None = 
         logger.info("GRAFANA_DB_PASSWORD is not set, so the dashboard's read only role is left alone")
         return False
     name = sql.Identifier(role)
+    # Its "today" is the owner's day (STATS_TIMEZONE). A setting Postgres wouldn't know falls back to UTC.
+    try:
+        zone = str(ZoneInfo(settings.STATS_TIMEZONE))
+    except Exception:
+        zone = "UTC"
     statements = [
         sql.SQL(
             "DO $$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = {}) THEN CREATE ROLE {} LOGIN; END IF; END $$"
@@ -29,6 +35,7 @@ def sync_reader_role(engine: Engine, role: str = READER, password: str | None = 
         # Read only even if a grant slips through, and no query can hold the database for long
         sql.SQL("ALTER ROLE {} SET default_transaction_read_only = on").format(name),
         sql.SQL("ALTER ROLE {} SET statement_timeout = '30s'").format(name),
+        sql.SQL("ALTER ROLE {} SET timezone = {}").format(name, sql.Literal(zone)),
         sql.SQL("GRANT USAGE ON SCHEMA stats TO {}").format(name),
         sql.SQL("GRANT SELECT ON ALL TABLES IN SCHEMA stats TO {}").format(name),
         sql.SQL("ALTER DEFAULT PRIVILEGES IN SCHEMA stats GRANT SELECT ON TABLES TO {}").format(name),

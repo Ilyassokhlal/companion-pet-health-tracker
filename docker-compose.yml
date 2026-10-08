@@ -45,6 +45,8 @@ services:
       # behind a password nobody has. Keep the hash in single quotes in .env, since it contains $ signs.
       STATS_PATH: ${STATS_PATH:-/stats-off}
       STATS_USER: ${STATS_USER:-owner}
+      # Added to the cost form's requests on the secret path, so the backend knows they came through the prompt
+      STATS_GATE_SECRET: ${STATS_GATE_SECRET:-off}
       STATS_PASSWORD_HASH: ${STATS_PASSWORD_HASH:-$$2a$$14$$ZxHbqWX2VotwnrJawF8ieuRxVqBCG3gUspmlSPOCkLDOMd5HME4XS}
     volumes:
       - caddy_data:/data
@@ -83,6 +85,8 @@ services:
       GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
       GF_NEWS_NEWS_FEED_ENABLED: "false"
       GF_PLUGINS_PREINSTALL_DISABLED: "true"
+      # The secret path opens on the Overview dashboard
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/companion/overview.json
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro

@@ -47,6 +47,8 @@ class Settings:
     COUNTRY_DB: str = os.environ.get("COUNTRY_DB", "/opt/dbip/country.mmdb")
     # The admin dashboard's read only database role signs in with this. Empty, the role isn't set up and Grafana can't read.
     GRAFANA_DB_PASSWORD: str = os.environ.get("GRAFANA_DB_PASSWORD", "")
+    # Caddy adds this to the cost form's requests on the secret path. Empty, the cost endpoints never answer.
+    STATS_GATE_SECRET: str = os.environ.get("STATS_GATE_SECRET", "")
 
     # Photo storage settings
     PHOTO_DIR: str = os.environ.get("PHOTO_DIR", "/data/photos")

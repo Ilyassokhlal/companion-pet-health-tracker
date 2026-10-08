@@ -400,3 +400,39 @@ class BillingEvent(Base):
     cancel_reason: Mapped[str | None] = mapped_column(String(40), nullable=True)
     occurred_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)
     received_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# A running cost the owner types into the admin dashboard's form: hosting, email, domains, app store accounts, tools.
+# A change of amount ends the old row and starts a new one, so past months keep what was really paid.
+class Cost(Base):
+    __tablename__ = "costs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    # One of schemas.costs.CATEGORIES
+    category: Mapped[str] = mapped_column(String(20), nullable=False)
+    amount_usd: Mapped[float] = mapped_column(Float, nullable=False)
+    # monthly, yearly (spread over its 12 months) or once (counted in the month it was paid)
+    period: Mapped[str] = mapped_column(String(10), nullable=False)
+    starts_on: Mapped[date] = mapped_column(Date, nullable=False)
+    # The last day it counts. Empty while it is still running.
+    ends_on: Mapped[date | None] = mapped_column(Date, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+# What Stripe kept from the web payments, read from the account's balance transactions every day: the fee on each
+# payment and refund, plus Stripe's own charges for Billing, Tax, currency conversion and the tax on its fees.
+class StripeFee(Base):
+    __tablename__ = "stripe_fees"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    # Stripe's balance transaction id, so a day read twice is kept once
+    transaction_id: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    type: Mapped[str] = mapped_column(String(40), nullable=False)
+    # PRODUCTION or SANDBOX, from the kind of key that read it
+    environment: Mapped[str] = mapped_column(String(12), nullable=False)
+    # What it cost, in the account's currency. Negative when Stripe gave a fee back.
+    fee: Mapped[float] = mapped_column(Float, nullable=False)
+    currency: Mapped[str] = mapped_column(String(3), nullable=False)
+    description: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, index=True)

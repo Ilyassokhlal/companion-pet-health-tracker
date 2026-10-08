@@ -1,0 +1,1424 @@
+{
+  "uid": "companion-money",
+  "title": "Money",
+  "description": "What came in, what went out, and the fixed costs form.",
+  "tags": [
+    "companion"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "refresh": "",
+  "schemaVersion": 41,
+  "version": 1,
+  "fiscalYearStartMonth": 0,
+  "liveNow": false,
+  "timepicker": {},
+  "annotations": {
+    "list": []
+  },
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "companion"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "Dashboards",
+      "icon": "external link",
+      "targetBlank": false
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Customers paid",
+      "description": "What customers paid in the time range, tax included, minus refunds. Real purchases only.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH revenue AS (\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date AS day, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS store, price_usd AS paid,\n         price_usd * coalesce(tax_percentage, 0) AS tax,\n         price_usd * (1 - coalesce(tax_percentage, 0) - coalesce(commission_percentage, 0)) AS take_home\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND price_usd IS NOT NULL AND $__timeFilter(occurred_at)\n) SELECT coalesce(sum(paid), 0) AS \"Customers paid\" FROM revenue"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 1,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Take home",
+      "description": "RevenueCat's estimate of what is left after tax and the store's commission. Stripe's fee is not taken off here.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH revenue AS (\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date AS day, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS store, price_usd AS paid,\n         price_usd * coalesce(tax_percentage, 0) AS tax,\n         price_usd * (1 - coalesce(tax_percentage, 0) - coalesce(commission_percentage, 0)) AS take_home\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND price_usd IS NOT NULL AND $__timeFilter(occurred_at)\n) SELECT coalesce(sum(take_home), 0) AS \"Take home\" FROM revenue"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 2,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Costs",
+      "description": "Every cost in the time range: your fixed costs, Claude, the stores' commission and Stripe's fees.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH days AS (\n  SELECT d::date AS day FROM generate_series(($__timeFrom()::timestamptz)::date, ($__timeTo()::timestamptz)::date, interval '1 day') AS d\n),\ncosts AS (\n  SELECT d.day, CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS category,\n         CASE c.period\n           WHEN 'once' THEN c.amount_usd\n           WHEN 'yearly' THEN c.amount_usd / 12 / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n           ELSE c.amount_usd / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n         END AS usd\n  FROM days d\n  JOIN stats.costs c ON d.day >= c.starts_on AND d.day <= coalesce(c.ends_on, d.day) AND (c.period <> 'once' OR d.day = c.starts_on)\n  UNION ALL\n  SELECT (created_at AT TIME ZONE 'UTC')::date, 'Claude', cost_usd\n  FROM stats.question_costs WHERE $__timeFilter(created_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END, price_usd * coalesce(commission_percentage, 0)\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND coalesce(store, '') <> 'STRIPE' AND $__timeFilter(occurred_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, 'Stripe', fee\n  FROM stats.stripe_fees WHERE environment = 'PRODUCTION' AND $__timeFilter(occurred_at)\n) SELECT coalesce(sum(usd), 0) AS \"Costs\" FROM costs"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Profit",
+      "description": "What customers paid, minus tax, minus every cost.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH revenue AS (\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date AS day, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS store, price_usd AS paid,\n         price_usd * coalesce(tax_percentage, 0) AS tax,\n         price_usd * (1 - coalesce(tax_percentage, 0) - coalesce(commission_percentage, 0)) AS take_home\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND price_usd IS NOT NULL AND $__timeFilter(occurred_at)\n), days AS (\n  SELECT d::date AS day FROM generate_series(($__timeFrom()::timestamptz)::date, ($__timeTo()::timestamptz)::date, interval '1 day') AS d\n),\ncosts AS (\n  SELECT d.day, CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS category,\n         CASE c.period\n           WHEN 'once' THEN c.amount_usd\n           WHEN 'yearly' THEN c.amount_usd / 12 / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n           ELSE c.amount_usd / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n         END AS usd\n  FROM days d\n  JOIN stats.costs c ON d.day >= c.starts_on AND d.day <= coalesce(c.ends_on, d.day) AND (c.period <> 'once' OR d.day = c.starts_on)\n  UNION ALL\n  SELECT (created_at AT TIME ZONE 'UTC')::date, 'Claude', cost_usd\n  FROM stats.question_costs WHERE $__timeFilter(created_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END, price_usd * coalesce(commission_percentage, 0)\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND coalesce(store, '') <> 'STRIPE' AND $__timeFilter(occurred_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, 'Stripe', fee\n  FROM stats.stripe_fees WHERE environment = 'PRODUCTION' AND $__timeFilter(occurred_at)\n)\nSELECT (SELECT coalesce(sum(paid - tax), 0) FROM revenue) - (SELECT coalesce(sum(usd), 0) FROM costs) AS \"Profit\""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 4,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Cost per active user",
+      "description": "Every cost in the time range divided by the accounts that used the app in it.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH days AS (\n  SELECT d::date AS day FROM generate_series(($__timeFrom()::timestamptz)::date, ($__timeTo()::timestamptz)::date, interval '1 day') AS d\n),\ncosts AS (\n  SELECT d.day, CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS category,\n         CASE c.period\n           WHEN 'once' THEN c.amount_usd\n           WHEN 'yearly' THEN c.amount_usd / 12 / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n           ELSE c.amount_usd / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n         END AS usd\n  FROM days d\n  JOIN stats.costs c ON d.day >= c.starts_on AND d.day <= coalesce(c.ends_on, d.day) AND (c.period <> 'once' OR d.day = c.starts_on)\n  UNION ALL\n  SELECT (created_at AT TIME ZONE 'UTC')::date, 'Claude', cost_usd\n  FROM stats.question_costs WHERE $__timeFilter(created_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END, price_usd * coalesce(commission_percentage, 0)\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND coalesce(store, '') <> 'STRIPE' AND $__timeFilter(occurred_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, 'Stripe', fee\n  FROM stats.stripe_fees WHERE environment = 'PRODUCTION' AND $__timeFilter(occurred_at)\n)\nSELECT (SELECT sum(usd) FROM costs)\n       / NULLIF((SELECT count(DISTINCT user_id) FROM stats.activity_days WHERE day BETWEEN ($__timeFrom()::timestamptz)::date AND ($__timeTo()::timestamptz)::date), 0) AS \"Cost per active user\""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "noValue": "None",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 5,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Paying now",
+      "description": "Accounts with a bought premium that hasn't run out.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Paying now\" FROM stats.users WHERE plan = 'premium'"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 6,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Trial to paid",
+      "description": "Of the trials that ended in the time range, the share that bought premium.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT round(100.0 * count(*) FILTER (WHERE EXISTS (\n         SELECT 1 FROM stats.billing_events b\n         WHERE b.user_id = u.id AND b.environment = 'PRODUCTION' AND b.type IN ('INITIAL_PURCHASE', 'NON_RENEWING_PURCHASE')))\n       / NULLIF(count(*), 0), 1) AS \"Trial to paid\"\nFROM stats.users u\nWHERE $__timeFilter(u.trial_ends_at) AND u.trial_ends_at <= (now() AT TIME ZONE 'UTC')"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "None",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 7,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Cancellations",
+      "description": "Subscriptions turned off in the time range. They keep premium until the end of what they paid for.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Cancellations\" FROM stats.billing_events\nWHERE environment = 'PRODUCTION' AND type = 'CANCELLATION' AND coalesce(price_usd, 0) >= 0 AND $__timeFilter(occurred_at)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 8,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Refunds",
+      "description": "Refunds in the time range, and how much went back.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Refunds\", coalesce(-sum(price_usd), 0) AS \"Refunded\" FROM stats.billing_events\nWHERE environment = 'PRODUCTION' AND type = 'CANCELLATION' AND price_usd < 0 AND $__timeFilter(occurred_at)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Refunded"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 9,
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 8,
+        "y": 4
+      }
+    },
+    {
+      "type": "barchart",
+      "title": "Per month",
+      "description": "Each month in the time range. A month cut by the time range only counts its days inside it.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH revenue AS (\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date AS day, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS store, price_usd AS paid,\n         price_usd * coalesce(tax_percentage, 0) AS tax,\n         price_usd * (1 - coalesce(tax_percentage, 0) - coalesce(commission_percentage, 0)) AS take_home\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND price_usd IS NOT NULL AND $__timeFilter(occurred_at)\n), days AS (\n  SELECT d::date AS day FROM generate_series(($__timeFrom()::timestamptz)::date, ($__timeTo()::timestamptz)::date, interval '1 day') AS d\n),\ncosts AS (\n  SELECT d.day, CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS category,\n         CASE c.period\n           WHEN 'once' THEN c.amount_usd\n           WHEN 'yearly' THEN c.amount_usd / 12 / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n           ELSE c.amount_usd / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n         END AS usd\n  FROM days d\n  JOIN stats.costs c ON d.day >= c.starts_on AND d.day <= coalesce(c.ends_on, d.day) AND (c.period <> 'once' OR d.day = c.starts_on)\n  UNION ALL\n  SELECT (created_at AT TIME ZONE 'UTC')::date, 'Claude', cost_usd\n  FROM stats.question_costs WHERE $__timeFilter(created_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END, price_usd * coalesce(commission_percentage, 0)\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND coalesce(store, '') <> 'STRIPE' AND $__timeFilter(occurred_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, 'Stripe', fee\n  FROM stats.stripe_fees WHERE environment = 'PRODUCTION' AND $__timeFilter(occurred_at)\n),\nmonths AS (SELECT DISTINCT date_trunc('month', day)::date AS month FROM days)\nSELECT to_char(m.month, 'Mon YYYY') AS \"Month\",\n       coalesce((SELECT sum(paid) FROM revenue r WHERE date_trunc('month', r.day)::date = m.month), 0) AS \"Customers paid\",\n       coalesce((SELECT sum(usd) FROM costs c WHERE date_trunc('month', c.day)::date = m.month), 0) AS \"Costs\",\n       coalesce((SELECT sum(paid - tax) FROM revenue r WHERE date_trunc('month', r.day)::date = m.month), 0)\n         - coalesce((SELECT sum(usd) FROM costs c WHERE date_trunc('month', c.day)::date = m.month), 0) AS \"Profit\"\nFROM months m ORDER BY m.month"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 1
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Month",
+        "orientation": "vertical",
+        "stacking": "none",
+        "groupWidth": 0.7,
+        "barWidth": 0.9,
+        "showValue": "never",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 10,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      }
+    },
+    {
+      "type": "barchart",
+      "title": "Costs per month by category",
+      "description": "Fixed costs by the category you gave them, plus Claude, the stores' commission and Stripe's fees.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH days AS (\n  SELECT d::date AS day FROM generate_series(($__timeFrom()::timestamptz)::date, ($__timeTo()::timestamptz)::date, interval '1 day') AS d\n),\ncosts AS (\n  SELECT d.day, CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS category,\n         CASE c.period\n           WHEN 'once' THEN c.amount_usd\n           WHEN 'yearly' THEN c.amount_usd / 12 / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n           ELSE c.amount_usd / extract(day FROM date_trunc('month', d.day) + interval '1 month' - interval '1 day')\n         END AS usd\n  FROM days d\n  JOIN stats.costs c ON d.day >= c.starts_on AND d.day <= coalesce(c.ends_on, d.day) AND (c.period <> 'once' OR d.day = c.starts_on)\n  UNION ALL\n  SELECT (created_at AT TIME ZONE 'UTC')::date, 'Claude', cost_usd\n  FROM stats.question_costs WHERE $__timeFilter(created_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END, price_usd * coalesce(commission_percentage, 0)\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND coalesce(store, '') <> 'STRIPE' AND $__timeFilter(occurred_at)\n  UNION ALL\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date, 'Stripe', fee\n  FROM stats.stripe_fees WHERE environment = 'PRODUCTION' AND $__timeFilter(occurred_at)\n)\nSELECT to_char(date_trunc('month', day), 'Mon YYYY') AS \"Month\", category, sum(usd) AS usd\nFROM costs GROUP BY date_trunc('month', day), category ORDER BY date_trunc('month', day), category"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "category",
+            "rowField": "Month",
+            "valueField": "usd",
+            "emptyValue": "zero"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "renameByName": {
+              "Month\\category": "Month"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 1
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Month",
+        "orientation": "vertical",
+        "stacking": "normal",
+        "groupWidth": 0.7,
+        "barWidth": 0.9,
+        "showValue": "never",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 11,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      }
+    },
+    {
+      "type": "barchart",
+      "title": "Customers paid per month, by store",
+      "description": "What customers paid each month through each store, minus refunds.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH revenue AS (\n  SELECT (occurred_at AT TIME ZONE 'UTC')::date AS day, CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS store, price_usd AS paid,\n         price_usd * coalesce(tax_percentage, 0) AS tax,\n         price_usd * (1 - coalesce(tax_percentage, 0) - coalesce(commission_percentage, 0)) AS take_home\n  FROM stats.billing_events\n  WHERE environment = 'PRODUCTION' AND (type IN ('INITIAL_PURCHASE', 'RENEWAL', 'NON_RENEWING_PURCHASE') OR (type = 'CANCELLATION' AND price_usd < 0)) AND price_usd IS NOT NULL AND $__timeFilter(occurred_at)\n)\nSELECT to_char(date_trunc('month', day), 'Mon YYYY') AS \"Month\", store, sum(paid) AS paid\nFROM revenue GROUP BY date_trunc('month', day), store ORDER BY date_trunc('month', day), store"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "store",
+            "rowField": "Month",
+            "valueField": "paid",
+            "emptyValue": "zero"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "renameByName": {
+              "Month\\store": "Month"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 1
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Month",
+        "orientation": "vertical",
+        "stacking": "normal",
+        "groupWidth": 0.7,
+        "barWidth": 0.9,
+        "showValue": "never",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 12,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      }
+    },
+    {
+      "type": "table",
+      "title": "Top 10 accounts by Claude cost",
+      "description": "What each account's questions cost in Claude in the time range. Click an email for its detail in Users.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT u.id, u.email AS \"Email\", count(*) AS \"Questions\", sum(q.cost_usd) AS \"Claude cost\"\nFROM stats.question_costs q JOIN stats.users u ON u.id = q.user_id\nWHERE $__timeFilter(q.created_at)\nGROUP BY u.id, u.email ORDER BY 4 DESC NULLS LAST LIMIT 10"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Show this account",
+                    "url": "/d/companion-users/users?var-user=${__data.fields.id}&${search:queryparam}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Claude cost"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 13,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      }
+    },
+    {
+      "type": "table",
+      "title": "Fixed costs",
+      "description": "Click a cost's name to change its amount, end it or remove it. Refresh the dashboard after a change to see it.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT c.id, c.name AS \"Name\", CASE c.category WHEN 'app_stores' THEN 'App stores' ELSE initcap(c.category) END AS \"Category\", c.amount_usd AS \"Amount\", initcap(c.period) AS \"Every\",\n       c.starts_on::timestamptz AS \"Starts\", c.ends_on::timestamptz AS \"Ends\",\n       CASE WHEN c.period = 'once' THEN 'Paid once'\n            WHEN c.ends_on < current_date THEN 'Ended'\n            WHEN c.ends_on IS NOT NULL THEN 'Ending'\n            ELSE 'Running' END AS \"Status\",\n       CASE c.period WHEN 'monthly' THEN c.amount_usd WHEN 'yearly' THEN c.amount_usd / 12 END AS \"Per month\"\nFROM stats.costs c\nORDER BY (c.period <> 'once' AND (c.ends_on IS NULL OR c.ends_on >= current_date)) DESC, c.starts_on DESC"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Category"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Every"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Amount"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Per month"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Starts"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY"
+              },
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ends"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY"
+              },
+              {
+                "id": "noValue",
+                "value": ""
+              },
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "actions",
+                "value": [
+                  {
+                    "type": "fetch",
+                    "title": "Change amount",
+                    "confirmation": "Change the amount of ${__data.fields.Name}? Months before the date keep the old amount.",
+                    "oneClick": false,
+                    "fetch": {
+                      "method": "POST",
+                      "url": "/costs-api/${__data.fields.id}/change",
+                      "body": "",
+                      "headers": [
+                        [
+                          "X-Requested-By",
+                          "grafana"
+                        ]
+                      ],
+                      "queryParams": [
+                        [
+                          "amount_usd",
+                          "$amount"
+                        ],
+                        [
+                          "from_date",
+                          "$from"
+                        ]
+                      ]
+                    },
+                    "variables": [
+                      {
+                        "key": "amount",
+                        "name": "New amount in USD",
+                        "type": "string"
+                      },
+                      {
+                        "key": "from",
+                        "name": "From (a date like 2026-10-01)",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "fetch",
+                    "title": "End",
+                    "confirmation": "End ${__data.fields.Name}? It stops counting after that day.",
+                    "oneClick": false,
+                    "fetch": {
+                      "method": "POST",
+                      "url": "/costs-api/${__data.fields.id}/end",
+                      "body": "",
+                      "headers": [
+                        [
+                          "X-Requested-By",
+                          "grafana"
+                        ]
+                      ],
+                      "queryParams": [
+                        [
+                          "ends_on",
+                          "$last"
+                        ]
+                      ]
+                    },
+                    "variables": [
+                      {
+                        "key": "last",
+                        "name": "Last day it counts (a date like 2026-10-01)",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "fetch",
+                    "title": "Remove",
+                    "confirmation": "Remove ${__data.fields.Name} for good? Only for an entry made by mistake. To stop a cost, end it instead.",
+                    "oneClick": false,
+                    "fetch": {
+                      "method": "POST",
+                      "url": "/costs-api/${__data.fields.id}/remove",
+                      "body": "",
+                      "headers": [
+                        [
+                          "X-Requested-By",
+                          "grafana"
+                        ]
+                      ],
+                      "queryParams": []
+                    },
+                    "variables": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 14,
+      "gridPos": {
+        "h": 9,
+        "w": 18,
+        "x": 0,
+        "y": 28
+      }
+    },
+    {
+      "type": "table",
+      "title": "Add a cost",
+      "description": "Opens a form for a new cost. Refresh the dashboard after adding to see it.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT 'Click here to add a cost' AS \"New cost\""
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null,
+          "actions": [
+            {
+              "type": "fetch",
+              "title": "Add a cost",
+              "confirmation": "Add this cost?",
+              "oneClick": false,
+              "fetch": {
+                "method": "POST",
+                "url": "/costs-api/add",
+                "body": "",
+                "headers": [
+                  [
+                    "X-Requested-By",
+                    "grafana"
+                  ]
+                ],
+                "queryParams": [
+                  [
+                    "name",
+                    "$name"
+                  ],
+                  [
+                    "category",
+                    "$category"
+                  ],
+                  [
+                    "amount_usd",
+                    "$amount"
+                  ],
+                  [
+                    "period",
+                    "$period"
+                  ],
+                  [
+                    "starts_on",
+                    "$starts"
+                  ]
+                ]
+              },
+              "variables": [
+                {
+                  "key": "name",
+                  "name": "Name",
+                  "type": "string"
+                },
+                {
+                  "key": "category",
+                  "name": "Category: hosting, email, domains, app stores, tools or other",
+                  "type": "string"
+                },
+                {
+                  "key": "amount",
+                  "name": "Amount in USD",
+                  "type": "string"
+                },
+                {
+                  "key": "period",
+                  "name": "Every: monthly, yearly or once",
+                  "type": "string"
+                },
+                {
+                  "key": "starts",
+                  "name": "Starts on (a date like 2026-10-01)",
+                  "type": "string"
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "lg",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 15,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 28
+      }
+    },
+    {
+      "type": "table",
+      "title": "Latest billing events",
+      "description": "Real purchases, renewals, cancellations and refunds in the time range, newest first, up to 100.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT b.occurred_at AT TIME ZONE 'UTC' AS \"When\", initcap(replace(b.type, '_', ' ')) AS \"Event\", CASE b.store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(b.store) END AS \"Store\",\n       b.product_id AS \"Product\", b.price_usd AS \"Paid\", initcap(replace(b.cancel_reason, '_', ' ')) AS \"Reason\",\n       u.email AS \"Email\", b.user_id AS id\nFROM stats.billing_events b LEFT JOIN stats.users u ON u.id = b.user_id\nWHERE b.environment = 'PRODUCTION' AND $__timeFilter(b.occurred_at)\nORDER BY b.occurred_at DESC LIMIT 100"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "When"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Paid"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Show this account",
+                    "url": "/d/companion-users/users?var-user=${__data.fields.id}&${search:queryparam}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 16,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      }
+    }
+  ]
+}

@@ -1,0 +1,1126 @@
+{
+  "uid": "companion-overview",
+  "title": "Overview",
+  "description": "Accounts, activity and where people come from.",
+  "tags": [
+    "companion"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "refresh": "",
+  "schemaVersion": 41,
+  "version": 1,
+  "fiscalYearStartMonth": 0,
+  "liveNow": false,
+  "timepicker": {},
+  "annotations": {
+    "list": []
+  },
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "companion"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "Dashboards",
+      "icon": "external link",
+      "targetBlank": false
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Users",
+      "description": "Every account, banned ones included.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Users\" FROM stats.users"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 1,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Active today",
+      "description": "Accounts that used the app today, in your timezone.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(DISTINCT user_id) AS \"Active today\" FROM stats.activity_days WHERE day = current_date"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 2,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Active, last 7 days",
+      "description": "Accounts that used the app at least once in the last 7 days, today included.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(DISTINCT user_id) AS \"Active, last 7 days\" FROM stats.activity_days WHERE day > current_date - 7"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Active, last 30 days",
+      "description": "Accounts that used the app at least once in the last 30 days, today included.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(DISTINCT user_id) AS \"Active, last 30 days\" FROM stats.activity_days WHERE day > current_date - 30"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 4,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "New accounts",
+      "description": "Signups in the last 7 days, and how that compares with the 7 days before. Empty when nobody signed up the week before.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) FILTER (WHERE created_at >= (now() AT TIME ZONE 'UTC') - interval '7 days') AS \"Last 7 days\",\n       round(100.0 * (count(*) FILTER (WHERE created_at >= (now() AT TIME ZONE 'UTC') - interval '7 days')\n                      - count(*) FILTER (WHERE created_at >= (now() AT TIME ZONE 'UTC') - interval '14 days' AND created_at < (now() AT TIME ZONE 'UTC') - interval '7 days'))\n             / NULLIF(count(*) FILTER (WHERE created_at >= (now() AT TIME ZONE 'UTC') - interval '14 days' AND created_at < (now() AT TIME ZONE 'UTC') - interval '7 days'), 0)) AS \"Change from the week before\"\nFROM stats.users"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change from the week before"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "noValue",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 5,
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Signups per day",
+      "description": "New accounts per day in your timezone.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT date_trunc('day', created_at AT TIME ZONE 'UTC') AS time, count(*) AS \"Signups\"\nFROM stats.users WHERE $__timeFilter(created_at)\nGROUP BY 1 ORDER BY 1"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "lineWidth": 1,
+            "showPoints": "never",
+            "pointSize": 4,
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "barAlignment": 0
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 6,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Active users per day",
+      "description": "Accounts that used the app each day, on any app.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT day::timestamptz AS time, count(DISTINCT user_id) AS \"Active users\"\nFROM stats.activity_days WHERE day BETWEEN ($__timeFrom()::timestamptz)::date AND ($__timeTo()::timestamptz)::date\nGROUP BY 1 ORDER BY 1"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 2,
+            "showPoints": "auto",
+            "pointSize": 4,
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "barAlignment": 0
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      }
+    },
+    {
+      "type": "geomap",
+      "title": "Users by country",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "description": "Where accounts signed up or last logged in from, read from the IP address. Hover a circle for the count.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT country AS \"Country\", count(*) AS \"Users\" FROM stats.users WHERE country IS NOT NULL GROUP BY country ORDER BY 2 DESC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "view": {
+          "id": "zero",
+          "lat": 25,
+          "lon": 10,
+          "zoom": 1.4,
+          "allLayers": true
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": false,
+          "showAttribution": false
+        },
+        "basemap": {
+          "type": "geojson",
+          "name": "Countries",
+          "config": {
+            "src": "public/maps/countries.geojson",
+            "rules": [],
+            "style": {
+              "color": {
+                "fixed": "#8e8e8e"
+              },
+              "opacity": 0.35,
+              "lineWidth": 1
+            }
+          }
+        },
+        "layers": [
+          {
+            "type": "markers",
+            "name": "Users",
+            "tooltip": true,
+            "location": {
+              "mode": "lookup",
+              "lookup": "Country",
+              "gazetteer": "public/gazetteer/countries.json"
+            },
+            "config": {
+              "showLegend": false,
+              "style": {
+                "size": {
+                  "field": "Users",
+                  "min": 6,
+                  "max": 28,
+                  "fixed": 6
+                },
+                "color": {
+                  "field": "Users",
+                  "fixed": "blue"
+                },
+                "opacity": 0.75,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "Users",
+                  "fixed": ""
+                },
+                "textConfig": {
+                  "fontSize": 10,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                }
+              }
+            }
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        }
+      },
+      "id": 8,
+      "gridPos": {
+        "h": 13,
+        "w": 16,
+        "x": 0,
+        "y": 12
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Country unknown",
+      "description": "Accounts with no country yet: no login since countries started being kept, or a private address. The map plus this number is every account.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Country unknown\" FROM stats.users WHERE country IS NULL"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 9,
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 12
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Languages",
+      "description": "The language each account uses the app in.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CASE language WHEN 'en' THEN 'English' WHEN 'fr' THEN 'French' WHEN 'es' THEN 'Spanish' WHEN 'de' THEN 'German' WHEN 'ar' THEN 'Arabic' WHEN 'ru' THEN 'Russian' WHEN 'zh' THEN 'Chinese (Simplified)' WHEN 'zh-Hant' THEN 'Chinese (Traditional)' ELSE language END AS \"Language\", count(*) AS \"Users\"\nFROM stats.users GROUP BY 1 ORDER BY 2 DESC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "valueMode": "text",
+        "showUnfilled": true,
+        "namePlacement": "left",
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "maxVizHeight": 24,
+        "text": {
+          "titleSize": 13,
+          "valueSize": 15
+        }
+      },
+      "id": 10,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Plans",
+      "description": "Where every account stands right now. Locked means the trial ended without premium.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT plan AS \"Plan\", users AS \"Users\" FROM (VALUES\n  (1, 'Trial', (SELECT count(*) FROM stats.users WHERE plan = 'trial')),\n  (2, 'Premium', (SELECT count(*) FROM stats.users WHERE plan = 'premium')),\n  (3, 'Granted', (SELECT count(*) FROM stats.users WHERE plan = 'granted')),\n  (4, 'Locked', (SELECT count(*) FROM stats.users WHERE plan = 'locked')),\n  (5, 'Banned', (SELECT count(*) FROM stats.users WHERE plan = 'banned'))\n) AS plans (pos, plan, users) ORDER BY pos"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "valueMode": "text",
+        "showUnfilled": true,
+        "namePlacement": "left",
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "maxVizHeight": 24,
+        "text": {
+          "titleSize": 13,
+          "valueSize": 15
+        }
+      },
+      "id": 11,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Apps used",
+      "description": "Accounts that used each app in the time range. One account can use several. Unknown is a phone app from before the apps started naming themselves.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CASE platform WHEN 'web' THEN 'Web' WHEN 'android' THEN 'Android' WHEN 'ios' THEN 'iPhone' ELSE 'Unknown' END AS \"App\",\n       count(DISTINCT user_id) AS \"Users\"\nFROM stats.activity_days WHERE day BETWEEN ($__timeFrom()::timestamptz)::date AND ($__timeTo()::timestamptz)::date\nGROUP BY 1 ORDER BY 2 DESC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "valueMode": "text",
+        "showUnfilled": true,
+        "namePlacement": "left",
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "maxVizHeight": 24,
+        "text": {
+          "titleSize": 13,
+          "valueSize": 15
+        }
+      },
+      "id": 12,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Signups in this time range",
+      "description": "New accounts in the time range picked at the top. The Get started table beside it follows these accounts.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Signups\" FROM stats.users WHERE $__timeFilter(created_at)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 13,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 0,
+        "y": 32
+      }
+    },
+    {
+      "type": "table",
+      "title": "Get started, for the signups in this time range",
+      "description": "How far new accounts get through the Get started card. Typical time is the median from signup to doing the step.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH signups AS (\n  SELECT id, created_at FROM stats.users WHERE $__timeFilter(created_at)\n), done AS (\n  SELECT o.step, o.done_at - s.created_at AS took\n  FROM stats.onboarding_steps o JOIN signups s ON s.id = o.user_id\n)\nSELECT steps.label AS \"Step\",\n       count(done.step) AS \"Done\",\n       round(100.0 * count(done.step) / NULLIF((SELECT count(*) FROM signups), 0)) AS \"Share of signups\",\n       round(100.0 * count(done.step) FILTER (WHERE done.took < interval '7 days') / NULLIF((SELECT count(*) FROM signups), 0)) AS \"Within 7 days\",\n       percentile_cont(0.5) WITHIN GROUP (ORDER BY extract(epoch FROM done.took)) AS \"Typical time to do it\"\nFROM (VALUES (1, 'pet', 'Add your pet'), (2, 'record', 'Add a health record'), (3, 'photo', 'Attach a photo to a record'), (4, 'question', 'Ask Companion a question'), (5, 'appointment', 'Schedule an appointment'), (6, 'tracking', 'Meet the trackers')) AS steps (pos, step, label)\nLEFT JOIN done ON done.step = steps.step\nGROUP BY steps.pos, steps.label ORDER BY steps.pos"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Share of signups"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "gauge",
+                  "mode": "basic",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "blue"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Within 7 days"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Typical time to do it"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dtdurations"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Step"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 260
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 14,
+      "gridPos": {
+        "h": 9,
+        "w": 18,
+        "x": 6,
+        "y": 32
+      }
+    },
+    {
+      "type": "table",
+      "title": "Came back, by signup week (last 12 weeks)",
+      "description": "Accounts grouped by the week they signed up. Week 1 is the share that used the app again 7 to 13 days after signing up, Week 2 from day 14 to 20, and so on. Empty until the accounts are old enough. This table always covers the last 12 weeks, whatever the time range.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH cohort AS (\n  SELECT id, (created_at AT TIME ZONE 'UTC')::date AS signed_up\n  FROM stats.users WHERE created_at AT TIME ZONE 'UTC' >= date_trunc('week', now()) - interval '11 weeks'\n), grid AS (\n  SELECT date_trunc('week', c.signed_up)::date AS week, n.n,\n         count(*) FILTER (WHERE current_date - c.signed_up >= 7 * n.n) AS reached,\n         count(*) FILTER (WHERE current_date - c.signed_up >= 7 * n.n AND EXISTS (\n           SELECT 1 FROM stats.activity_days a\n           WHERE a.user_id = c.id AND a.day >= c.signed_up + 7 * n.n AND a.day < c.signed_up + 7 * (n.n + 1))) AS came_back\n  FROM cohort c CROSS JOIN generate_series(1, 8) AS n (n)\n  GROUP BY 1, 2\n)\nSELECT to_char(week, 'DD Mon YYYY') AS \"Week of\",\n       (SELECT count(*) FROM cohort c WHERE date_trunc('week', c.signed_up)::date = g.week) AS \"Signups\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 1) / NULLIF(sum(reached) FILTER (WHERE n = 1), 0)) AS \"Week 1\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 2) / NULLIF(sum(reached) FILTER (WHERE n = 2), 0)) AS \"Week 2\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 3) / NULLIF(sum(reached) FILTER (WHERE n = 3), 0)) AS \"Week 3\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 4) / NULLIF(sum(reached) FILTER (WHERE n = 4), 0)) AS \"Week 4\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 5) / NULLIF(sum(reached) FILTER (WHERE n = 5), 0)) AS \"Week 5\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 6) / NULLIF(sum(reached) FILTER (WHERE n = 6), 0)) AS \"Week 6\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 7) / NULLIF(sum(reached) FILTER (WHERE n = 7), 0)) AS \"Week 7\",\n       round(100.0 * sum(came_back) FILTER (WHERE n = 8) / NULLIF(sum(reached) FILTER (WHERE n = 8), 0)) AS \"Week 8\"\nFROM grid g GROUP BY week ORDER BY week DESC"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^Week [0-9]$"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "special",
+                    "options": {
+                      "match": "null",
+                      "result": {
+                        "text": "",
+                        "color": "transparent"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 15,
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      }
+    }
+  ]
+}

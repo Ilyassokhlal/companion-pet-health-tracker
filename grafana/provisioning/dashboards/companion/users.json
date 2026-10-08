@@ -1,0 +1,733 @@
+{
+  "uid": "companion-users",
+  "title": "Users",
+  "description": "Find an account and see what it did.",
+  "tags": [
+    "companion"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "refresh": "",
+  "schemaVersion": 41,
+  "version": 1,
+  "fiscalYearStartMonth": 0,
+  "liveNow": false,
+  "timepicker": {},
+  "annotations": {
+    "list": []
+  },
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "companion"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "Dashboards",
+      "icon": "external link",
+      "targetBlank": false
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "textbox",
+        "name": "search",
+        "label": "Search",
+        "description": "Part of an email or username",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "options": [],
+        "hide": 0
+      },
+      {
+        "type": "textbox",
+        "name": "user",
+        "label": "Picked account",
+        "description": "The id of the account shown at the top. Click an email in the Users table to change it.",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "options": [],
+        "hide": 0
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "row",
+      "title": "Picked account",
+      "collapsed": false,
+      "panels": [],
+      "id": 1,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "table",
+      "title": "Account",
+      "description": "The account picked in the Users table. Its id is in the Picked account box at the top.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH u AS (SELECT * FROM stats.users WHERE id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int))\nSELECT k AS \"Account\", v AS \"Value\" FROM (\n  SELECT t.* FROM u, LATERAL (VALUES\n    (1, 'Email', u.email),\n    (2, 'Username', u.username),\n    (3, 'Plan', initcap(u.plan)),\n    (4, 'Signed up', to_char(u.created_at AT TIME ZONE 'UTC', 'DD Mon YYYY HH24:MI')),\n    (5, 'Last active', (SELECT to_char(max(day), 'DD Mon YYYY') FROM stats.activity_days WHERE user_id = u.id)),\n    (6, 'Country', coalesce(u.country, 'Unknown')),\n    (7, 'Language', CASE u.language WHEN 'en' THEN 'English' WHEN 'fr' THEN 'French' WHEN 'es' THEN 'Spanish' WHEN 'de' THEN 'German' WHEN 'ar' THEN 'Arabic' WHEN 'ru' THEN 'Russian' WHEN 'zh' THEN 'Chinese (Simplified)' WHEN 'zh-Hant' THEN 'Chinese (Traditional)' ELSE u.language END),\n    (8, 'Trial ends', to_char(u.trial_ends_at AT TIME ZONE 'UTC', 'DD Mon YYYY')),\n    (9, 'Premium', CASE u.premium_source\n                     WHEN 'granted' THEN 'Granted' || coalesce(' until ' || to_char(u.premium_expires_at AT TIME ZONE 'UTC', 'DD Mon YYYY'), ' for good')\n                     WHEN 'purchased' THEN 'Bought, ' || CASE WHEN u.premium_renews THEN 'renews ' ELSE 'ends ' END\n                                           || to_char(u.premium_expires_at AT TIME ZONE 'UTC', 'DD Mon YYYY')\n                   END),\n    (10, 'Banned', to_char(u.banned_at AT TIME ZONE 'UTC', 'DD Mon YYYY HH24:MI'))\n  ) AS t (pos, k, v)\n  UNION ALL\n  SELECT 0, 'No account picked', 'Click an email in the Users table below' WHERE NOT EXISTS (SELECT 1 FROM u)\n) AS rows\nWHERE v IS NOT NULL ORDER BY pos"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Account"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 130
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 2,
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      }
+    },
+    {
+      "type": "stat",
+      "title": "In this time range",
+      "description": "What the picked account did in the time range at the top. Refused questions were out of scope.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT (SELECT count(*) FROM stats.activity_days WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND day BETWEEN ($__timeFrom()::timestamptz)::date AND ($__timeTo()::timestamptz)::date) AS \"Active days\",\n       (SELECT count(*) FROM stats.questions WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND $__timeFilter(created_at)) AS \"Questions\",\n       (SELECT count(*) FROM stats.questions WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND NOT answered AND $__timeFilter(created_at)) AS \"Refused\",\n       (SELECT coalesce(sum(cost_usd), 0) FROM stats.question_costs WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND $__timeFilter(created_at)) AS \"Claude cost\",\n       (SELECT count(*) FROM stats.records WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND $__timeFilter(created_at)) AS \"Records added\"\nWHERE (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) IS NOT NULL"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "Pick an account below",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Claude cost"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 5,
+        "w": 16,
+        "x": 8,
+        "y": 1
+      }
+    },
+    {
+      "type": "stat",
+      "title": "All time",
+      "description": "Everything the picked account has now, whatever the time range.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT (SELECT count(*) FROM stats.pets WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)) AS \"Pets\",\n       (SELECT count(*) FROM stats.records WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)) AS \"Records\",\n       (SELECT count(*) FROM stats.photos WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)) AS \"Photos\",\n       (SELECT count(*) FROM stats.walks WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)) AS \"Walks\",\n       (SELECT count(*) FROM stats.feedings WHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)) AS \"Feedings\"\nWHERE (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) IS NOT NULL"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "Pick an account below",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 4,
+      "gridPos": {
+        "h": 5,
+        "w": 16,
+        "x": 8,
+        "y": 6
+      }
+    },
+    {
+      "type": "table",
+      "title": "Get started",
+      "description": "The picked account's Get started steps, and when each was done.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT steps.label AS \"Step\", o.done_at AT TIME ZONE 'UTC' AS \"Done\"\nFROM (VALUES (1, 'pet', 'Add your pet'), (2, 'record', 'Add a health record'), (3, 'photo', 'Attach a photo to a record'), (4, 'question', 'Ask Companion a question'), (5, 'appointment', 'Schedule an appointment'), (6, 'tracking', 'Meet the trackers')) AS steps (pos, step, label)\nLEFT JOIN stats.onboarding_steps o ON o.step = steps.step AND o.user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int)\nWHERE (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) IS NOT NULL ORDER BY steps.pos"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Done"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              },
+              {
+                "id": "noValue",
+                "value": "Not yet"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 5,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 11
+      }
+    },
+    {
+      "type": "table",
+      "title": "Billing events",
+      "description": "The picked account's real purchases, renewals, cancellations and refunds, newest first.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT occurred_at AT TIME ZONE 'UTC' AS \"When\", initcap(replace(type, '_', ' ')) AS \"Event\", CASE store WHEN 'PLAY_STORE' THEN 'Google Play' WHEN 'APP_STORE' THEN 'App Store' WHEN 'STRIPE' THEN 'Stripe' ELSE initcap(store) END AS \"Store\",\n       product_id AS \"Product\", price_usd AS \"Paid\", initcap(replace(cancel_reason, '_', ' ')) AS \"Reason\"\nFROM stats.billing_events\nWHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) AND environment = 'PRODUCTION'\nORDER BY occurred_at DESC"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "When"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Paid"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 6,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 11
+      }
+    },
+    {
+      "type": "table",
+      "title": "Admin actions",
+      "description": "What was done to the picked account from the server's command line, newest first.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT created_at AT TIME ZONE 'UTC' AS \"When\", initcap(action) AS \"Action\", reason AS \"Reason\", detail AS \"Detail\"\nFROM stats.admin_actions\nWHERE user_id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int) OR email = (SELECT email FROM stats.users WHERE id = (NULLIF(left(regexp_replace(${user:sqlstring}, '[^0-9]', '', 'g'), 9), '')::int))\nORDER BY created_at DESC"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "When"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 11
+      }
+    },
+    {
+      "type": "row",
+      "title": "All accounts",
+      "collapsed": false,
+      "panels": [],
+      "id": 8,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      }
+    },
+    {
+      "type": "table",
+      "title": "Users",
+      "description": "Newest first, up to 500. Type in the Search box at the top to find an account by email or username, and click an email to see that account above. Active days and Questions count the time range at the top.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT u.id, u.email AS \"Email\", u.username AS \"Username\", initcap(u.plan) AS \"Plan\", coalesce(u.country, '') AS \"Country\",\n       CASE u.language WHEN 'en' THEN 'English' WHEN 'fr' THEN 'French' WHEN 'es' THEN 'Spanish' WHEN 'de' THEN 'German' WHEN 'ar' THEN 'Arabic' WHEN 'ru' THEN 'Russian' WHEN 'zh' THEN 'Chinese (Simplified)' WHEN 'zh-Hant' THEN 'Chinese (Traditional)' ELSE u.language END AS \"Language\", u.created_at AT TIME ZONE 'UTC' AS \"Signed up\",\n       (SELECT max(day) FROM stats.activity_days a WHERE a.user_id = u.id)::timestamptz AS \"Last active\",\n       (SELECT count(*) FROM stats.activity_days a WHERE a.user_id = u.id AND a.day BETWEEN ($__timeFrom()::timestamptz)::date AND ($__timeTo()::timestamptz)::date) AS \"Active days\",\n       (SELECT count(*) FROM stats.questions q WHERE q.user_id = u.id AND $__timeFilter(q.created_at)) AS \"Questions\",\n       (SELECT count(*) FROM stats.pets p WHERE p.user_id = u.id) AS \"Pets\"\nFROM stats.users u\nWHERE ${search:sqlstring} = ''\n   OR u.email ILIKE '%' || ${search:sqlstring} || '%'\n   OR u.username ILIKE '%' || ${search:sqlstring} || '%'\nORDER BY u.created_at DESC\nLIMIT 500"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Show this account",
+                    "url": "/d/companion-users/users?var-user=${__data.fields.id}&${search:queryparam}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Signed up"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last active"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 9,
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      }
+    },
+    {
+      "type": "table",
+      "title": "Admin actions, every account",
+      "description": "Every ban, unban, grant, revoke and delete made from the server's command line, newest first, up to 200. A deleted account keeps its entries, with the email it had.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT a.created_at AT TIME ZONE 'UTC' AS \"When\", initcap(a.action) AS \"Action\", a.email AS \"Email\",\n       a.reason AS \"Reason\", a.detail AS \"Detail\", a.user_id AS id\nFROM stats.admin_actions a\nORDER BY a.created_at DESC\nLIMIT 200"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "When"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Show this account",
+                    "url": "/d/companion-users/users?var-user=${__data.fields.id}&${search:queryparam}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        }
+      },
+      "id": 10,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 34
+      }
+    }
+  ]
+}
