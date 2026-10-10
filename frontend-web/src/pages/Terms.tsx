@@ -7,7 +7,7 @@ export default function Terms() {
       <div className="mx-auto max-w-3xl px-6 py-12">
         <Link to="/" className="text-primary hover:underline">← Back</Link>
         <h1 className="mt-6 text-3xl font-bold">Terms of Service</h1>
-        <p className="mt-2 text-sm text-muted">Last updated: 3 October 2026</p>
+        <p className="mt-2 text-sm text-muted">Last updated: 9 October 2026</p>
 
         <section className="mt-6">
           <h2 className="text-xl font-bold">1. Acceptance of these terms</h2>

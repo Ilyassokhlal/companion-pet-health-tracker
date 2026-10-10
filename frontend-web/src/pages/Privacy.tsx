@@ -7,7 +7,7 @@ export default function Privacy() {
       <div className="mx-auto max-w-3xl px-6 py-12">
         <Link to="/" className="text-primary hover:underline">← Back</Link>
         <h1 className="mt-6 text-3xl font-bold">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-muted">Last updated: 8 October 2026</p>
+        <p className="mt-2 text-sm text-muted">Last updated: 9 October 2026</p>
 
         <p className="mt-4 text-sm text-muted">
           This Privacy Policy explains what Companion collects, why, who receives it and how long it is kept, on mycompanion.pet and in the Companion apps.
