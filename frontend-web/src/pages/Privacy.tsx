@@ -16,6 +16,7 @@ export default function Privacy() {
         <ul className="mt-2 list-disc space-y-1 ps-5 text-sm text-muted">
           <li>Your account: username, email address, password (stored only as a bcrypt hash), language, timezone and settings.</li>
           <li>What you add: your pets, health records, photos, scheduled events, walks, feeding, expenses, and the questions you ask with their answers.</li>
+          <li>Answers you report: the reason you pick, your note if you add one, and a copy of your question and the answer.</li>
           <li>Your devices: a push notification token for each phone you sign in on.</li>
           <li>Your subscription: when your free month ends, whether you have Companion Premium and until when, whether it renews, and whether you paid on the web or through Google Play. For web payments we keep Stripe's reference for you as a customer, never your card details.</li>
           <li>For each question you ask: when you asked it, whether it was answered, and how much of the AI service it used. This applies the free month's daily limit and tells us what the service costs to run.</li>
@@ -33,7 +34,7 @@ export default function Privacy() {
           To run Companion for you: keep your pets' records, send the reminders you ask for, answer your questions, and manage your free month and subscription. We also send account notices, such as email verification, password changes and the warnings before your free month or subscription ends. Those are sent even when reminders are turned off.
         </p>
         <p className="mt-2 text-sm text-muted">
-          We also use the usage and payment details above to see how Companion is used and what it costs, on a private dashboard on our own server that only we can open.
+          We also use the usage and payment details above, and the answers you report, to see how Companion is used, what it costs and where its answers go wrong, on a private dashboard on our own server that only we can open.
         </p>
         <h2 className="mt-6 text-2xl font-bold">3. Who Receives It</h2>
         <p className="mt-2 text-sm text-muted">Each of these receives only what its part of the service needs:</p>
@@ -52,6 +53,7 @@ export default function Privacy() {
         <h2 className="mt-6 text-2xl font-bold">5. Retention and Deletion</h2>
         <ul className="mt-2 list-disc space-y-1 ps-5 text-sm text-muted">
           <li>You can delete your account through Settings → Delete account. Your account, pets, records, photos and messages are erased straight away.</li>
+          <li>A report on an answer keeps its copy of the question and the answer when you delete the chat. If you delete your account, the report stays but is no longer linked to you.</li>
           <li>Deleting a paying account also stops your subscription from renewing, on the web and on Google Play.</li>
           <li>So that one email address gets one free month, we keep a fingerprint of your email for one year after you delete your account or change your email address. It is a keyed one way hash: your email cannot be read back from it. It is erased automatically after the year.</li>
           <li>Stripe, Google and RevenueCat keep records of past payments as the law requires them to, under their own policies.</li>

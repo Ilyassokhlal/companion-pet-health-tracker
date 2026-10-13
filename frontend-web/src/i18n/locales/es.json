@@ -562,5 +562,20 @@
     "allSetBody": "Has completado todos los pasos.",
     "settingLabel": "Mostrar la tarjeta Primeros pasos",
     "settingHint": "La lista al principio del panel para aprender a usar Companion."
+  },
+  "report": {
+    "flag": "Reportar esta respuesta",
+    "title": "Reportar esta respuesta",
+    "intro": "¿Qué tiene de malo? Tu reporte nos ayuda a mejorar las respuestas de Companion.",
+    "reasons": {
+      "wrong_or_unsafe": "Consejo incorrecto o peligroso",
+      "offensive": "Ofensiva o inapropiada",
+      "off_topic": "Fuera de tema",
+      "other": "Otra cosa"
+    },
+    "note": "Añade una nota (opcional)",
+    "notice": "Guardamos una copia de tu pregunta y de esta respuesta con el reporte, aunque borres la conversación, para poder mejorar continuamente la calidad de este servicio.",
+    "send": "Enviar reporte",
+    "reported": "Reportada"
   }
 }

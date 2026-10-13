@@ -562,5 +562,20 @@
     "allSetBody": "Toutes les étapes sont faites.",
     "settingLabel": "Afficher la carte Bien démarrer",
     "settingHint": "La liste en haut du tableau de bord pour prendre Companion en main."
+  },
+  "report": {
+    "flag": "Signaler cette réponse",
+    "title": "Signaler cette réponse",
+    "intro": "Quel est le problème ? Votre signalement nous aide à améliorer les réponses de Companion.",
+    "reasons": {
+      "wrong_or_unsafe": "Conseil faux ou dangereux",
+      "offensive": "Offensant ou inapproprié",
+      "off_topic": "Hors sujet",
+      "other": "Autre chose"
+    },
+    "note": "Ajouter une remarque (facultatif)",
+    "notice": "Une copie de votre question et de cette réponse est conservée avec le signalement, même si vous supprimez la conversation, afin que nous puissions améliorer en continu la qualité de ce service.",
+    "send": "Envoyer le signalement",
+    "reported": "Signalée"
   }
 }

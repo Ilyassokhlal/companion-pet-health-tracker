@@ -9,6 +9,7 @@ import { Trash2, MessageSquare } from "lucide-react";
 import EmptyState from "../components/EmptyState";
 import LoadMore from "../components/LoadMore";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
+import ReportAnswer from "../components/ReportAnswer";
 
 // This is a reading page, not the conversation, so it runs newest first: the top of the page is the
 // most recent exchange and older ones arrive below as you scroll down, like every other list. Nothing here needs to preserve
@@ -139,6 +140,13 @@ export default function ChatHistory() {
                   ))}
                 </ul>
               </div>
+            )}
+            {m.role === "assistant" && (
+              <ReportAnswer
+                messageId={m.id}
+                reported={m.reported}
+                onReported={() => setMessages((prev) => prev.map((other) => (other.id === m.id ? { ...other, reported: true } : other)))}
+              />
             )}
           </div>
         ))}

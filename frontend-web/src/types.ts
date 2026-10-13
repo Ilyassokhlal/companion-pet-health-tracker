@@ -196,6 +196,8 @@ export interface ChatMessage {
   content: string;
   sources: Citation[];
   created_at: string;
+  // True once the user has reported this answer
+  reported: boolean;
 }
 
 // Photo information returned by the API.

@@ -562,5 +562,20 @@
     "allSetBody": "所有步骤都已完成。",
     "settingLabel": "显示“开始使用”卡片",
     "settingHint": "仪表板顶部的清单，帮助您熟悉 Companion。"
+  },
+  "report": {
+    "flag": "举报此回答",
+    "title": "举报此回答",
+    "intro": "这个回答有什么问题？您的举报能帮助我们改进 Companion 的回答。",
+    "reasons": {
+      "wrong_or_unsafe": "错误或不安全的建议",
+      "offensive": "冒犯或不当",
+      "off_topic": "离题",
+      "other": "其他"
+    },
+    "note": "添加备注（可选）",
+    "notice": "即使您删除对话，您的问题和此回答的副本也会随举报一起保存，以便我们持续提升这项服务的质量。",
+    "send": "提交举报",
+    "reported": "已举报"
   }
 }

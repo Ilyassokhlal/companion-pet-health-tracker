@@ -11,11 +11,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { errorMessage } from "../errors";
 import { announceAsked, onOpenChat } from "../chatEvents";
+import ReportAnswer from "./ReportAnswer";
 
 interface Turn {
   role: "user" | "assistant";
   content: string;
   sources?: Citation[];
+  // The saved answer's id, which arrives with the sources once the answer is complete
+  id?: number;
+  reported?: boolean;
 }
 
 // Desktop panel presets, cycled from the header. Mobile ignores these — the panel is full-screen below sm.
@@ -120,7 +124,7 @@ export default function ChatFAB() {
           setTurns(prevTurns => {
             const newTurns = [...prevTurns];
             const last = newTurns.length - 1;
-            newTurns[last] = { ...newTurns[last], sources: event.sources };
+            newTurns[last] = { ...newTurns[last], sources: event.sources, id: event.messageId ?? undefined };
             return newTurns;
           });
         }
@@ -208,6 +212,15 @@ export default function ChatFAB() {
                             </span>
                           ))}
                         </div>
+                      )}
+                      {turn.id !== undefined && (
+                        <ReportAnswer
+                          messageId={turn.id}
+                          reported={!!turn.reported}
+                          onReported={() =>
+                            setTurns((prev) => prev.map((other, i) => (i === idx ? { ...other, reported: true } : other)))
+                          }
+                        />
                       )}
                     </>
                   )}
