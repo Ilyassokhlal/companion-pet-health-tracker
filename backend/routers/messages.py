@@ -2,18 +2,19 @@ import json
 
 from database import get_db
 from fastapi import APIRouter, Depends, Response, status
-from models.models import ChatMessage, Pet, User
+from models.models import AiReport, ChatMessage, Pet, User
 from routers.records import _get_owned_pet
-from schemas.message import MessageResponse
+from schemas.message import MessageResponse, ReportRequest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
-from utils.exceptions import NotFoundException
+from utils.exceptions import BadRequestException, NotFoundException
 from utils.security import get_current_user
 
 # Router for chat message endpoints
 router = APIRouter(tags=["Chat History"])
 
 # Functions to convert between database models and response schemas
-def _to_response(message: ChatMessage) -> MessageResponse:
+def _to_response(message: ChatMessage, reported: bool = False) -> MessageResponse:
     """Decode the stored JSON sources into a real list."""
     return MessageResponse(
         id=message.id,
@@ -22,7 +23,21 @@ def _to_response(message: ChatMessage) -> MessageResponse:
         content=message.content,
         sources=json.loads(message.sources) if message.sources else [],
         created_at=message.created_at,
+        reported=reported,
     )
+
+
+def _get_owned_message(message_id: int, db: Session, current_user: User) -> ChatMessage:
+    """One message from the current user's own chats, or 404."""
+    message = (
+        db.query(ChatMessage)
+        .join(Pet)
+        .filter(ChatMessage.id == message_id, Pet.user_id == current_user.id)
+        .first()
+    )
+    if not message:
+        raise NotFoundException("Message", message_id)
+    return message
 
 
 @router.get("/pets/{pet_id}/messages", response_model=list[MessageResponse])
@@ -47,20 +62,50 @@ def list_messages(
         messages = query.order_by(ChatMessage.id).all()
     else:
         messages = list(reversed(query.order_by(ChatMessage.id.desc()).limit(limit).all()))
-    return [_to_response(m) for m in messages]
+    # Which of these answers the user has reported, so the clients show them as reported
+    ids = [m.id for m in messages]
+    reported = {row.message_id for row in db.query(AiReport.message_id).filter(AiReport.message_id.in_(ids))} if ids else set()
+    return [_to_response(m, m.id in reported) for m in messages]
+
+
+@router.post("/messages/{message_id}/report", status_code=status.HTTP_204_NO_CONTENT)
+def report_message(message_id: int, body: ReportRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Report an AI answer as wrong or unsafe, offensive, off topic or something else. Open to locked accounts too, like reading.
+
+    The report keeps a copy of the question and the answer, so it stays readable after the chat is cleared.
+    Reporting the same answer again changes nothing.
+    """
+    message = _get_owned_message(message_id, db, current_user)
+    if message.role != "assistant":
+        raise BadRequestException("Only an answer can be reported")
+    if db.query(AiReport).filter(AiReport.message_id == message.id).first() is None:
+        # The message just before the answer is its question, unless the user deleted that one
+        previous = (
+            db.query(ChatMessage)
+            .filter(ChatMessage.pet_id == message.pet_id, ChatMessage.id < message.id)
+            .order_by(ChatMessage.id.desc())
+            .first()
+        )
+        db.add(AiReport(
+            user_id=current_user.id,
+            message_id=message.id,
+            reason=body.reason,
+            note=(body.note or "").strip() or None,
+            question=previous.content if previous and previous.role == "user" else None,
+            answer=message.content,
+        ))
+        try:
+            db.commit()
+        except IntegrityError:
+            # The same answer reported twice at once: the first one stands
+            db.rollback()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete("/messages/{message_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_message(message_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Delete a single message."""
-    message = (
-        db.query(ChatMessage)
-        .join(Pet)
-        .filter(ChatMessage.id == message_id, Pet.user_id == current_user.id)
-        .first()
-    )
-    if not message:
-        raise NotFoundException("Message", message_id)
+    message = _get_owned_message(message_id, db, current_user)
     db.delete(message)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

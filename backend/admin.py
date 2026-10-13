@@ -6,8 +6,9 @@
     docker compose exec backend python -m admin revoke someone@example.com
     docker compose exec backend python -m admin delete someone@example.com
     docker compose exec backend python -m admin log someone@example.com
+    docker compose exec backend python -m admin reports
 
-grant without --until is for life. Every command but log takes --reason, kept in the action log and never shown to the user.
+grant without --until is for life. Every command but log and reports takes --reason, kept in the action log and never shown to the user.
 None of this is reachable from the web: changing an account needs a shell on the server.
 """
 
@@ -26,6 +27,13 @@ COMMANDS = {
     "delete": "permanently delete a banned account and everything it owns",
 }
 
+REASONS = {
+    "wrong_or_unsafe": "Wrong or unsafe advice",
+    "offensive": "Offensive or inappropriate",
+    "off_topic": "Off topic",
+    "other": "Something else",
+}
+
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="python -m admin", description="Companion admin commands. Every change is written to the action log.")
@@ -39,12 +47,24 @@ def _parser() -> argparse.ArgumentParser:
     log = commands.add_parser("log", help="show the latest actions, for one email or for everyone")
     log.add_argument("email", nargs="?")
     log.add_argument("--limit", type=int, default=50)
+    reports = commands.add_parser("reports", help="show the latest reported AI answers, for one email or for everyone")
+    reports.add_argument("email", nargs="?")
+    reports.add_argument("--limit", type=int, default=20)
     return parser
 
 
 def _print_log(entries) -> None:
     for entry in entries:
         print("  ".join(part for part in (entry.created_at.strftime("%Y-%m-%d %H:%M"), entry.action, entry.email, entry.detail, entry.reason) if part))
+
+
+def _print_reports(rows) -> None:
+    for report, email in rows:
+        print(f"{report.created_at.strftime('%Y-%m-%d %H:%M')}  {email or 'deleted account'}  {REASONS.get(report.reason, report.reason)}")
+        for label, value in (("Note", report.note), ("Question", report.question), ("Answer", report.answer)):
+            if value:
+                print(f"  {label}: {value}")
+        print()
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -55,6 +75,9 @@ def main(argv: list[str] | None = None) -> int:
         warnings: list[str] = []
         if args.command == "log":
             _print_log(actions.recent_actions(db, args.email, args.limit))
+            return 0
+        if args.command == "reports":
+            _print_reports(actions.recent_reports(db, args.email, args.limit))
             return 0
         if args.command == "ban":
             warnings = actions.ban(db, args.email, args.reason)

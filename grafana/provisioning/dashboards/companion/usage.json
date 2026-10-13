@@ -597,6 +597,237 @@
         "x": 0,
         "y": 13
       }
+    },
+    {
+      "type": "stat",
+      "title": "Reported answers",
+      "description": "AI answers people reported in the time range, with the flag under each answer.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(*) AS \"Reported answers\" FROM stats.ai_reports WHERE $__timeFilter(created_at)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "noValue": "0",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 10,
+      "gridPos": {
+        "h": 12,
+        "w": 4,
+        "x": 0,
+        "y": 24
+      }
+    },
+    {
+      "type": "table",
+      "title": "Reported answers, newest first",
+      "description": "Each report in the time range with what was asked and answered, newest first, up to 100. A report keeps its copy after the chat or the account is deleted. Click the eye in a long cell to read all of it.",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "companion"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "companion"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT r.created_at AT TIME ZONE 'UTC' AS \"When\", r.user_id AS id, coalesce(u.email, 'Deleted account') AS \"Email\",\n       CASE r.reason WHEN 'wrong_or_unsafe' THEN 'Wrong or unsafe advice' WHEN 'offensive' THEN 'Offensive or inappropriate'\n                     WHEN 'off_topic' THEN 'Off topic' ELSE 'Something else' END AS \"Reason\",\n       coalesce(r.note, '') AS \"Note\", coalesce(r.question, '') AS \"Question\", r.answer AS \"Answer\"\nFROM stats.ai_reports r\nLEFT JOIN stats.users u ON u.id = r.user_id\nWHERE $__timeFilter(r.created_at)\nORDER BY r.created_at DESC\nLIMIT 100"
+        }
+      ],
+      "transformations": [],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "filterable": false
+          },
+          "decimals": null
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "When"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:D MMM YYYY HH:mm"
+              },
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Show this account",
+                    "url": "/d/companion-users/users?var-user=${__data.fields.id}&${search:queryparam}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Reason"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 190
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Note"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 200
+              },
+              {
+                "id": "custom.wrapText",
+                "value": true
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Question"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 260
+              },
+              {
+                "id": "custom.wrapText",
+                "value": true
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Answer"
+            },
+            "properties": [
+              {
+                "id": "custom.wrapText",
+                "value": true
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
+        },
+        "maxRowHeight": 120
+      },
+      "id": 11,
+      "gridPos": {
+        "h": 12,
+        "w": 20,
+        "x": 4,
+        "y": 24
+      }
     }
   ]
 }

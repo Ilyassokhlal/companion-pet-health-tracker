@@ -250,11 +250,11 @@ def ask(
 
     if not chunks:
         answer = t("ask.noAnswer", lang)
-        save_message(pet.id, "assistant", answer, [])
+        message_id = save_message(pet.id, "assistant", answer, [])
         save_question_usage(tally_id, False, usage.input_tokens, usage.output_tokens)
         return JSONResponse(
             status_code=200,
-            content={"answer": answer, "sources": [], "confidence": "none"},
+            content={"answer": answer, "sources": [], "confidence": "none", "message_id": message_id},
         )
 
     # Build the messages for the LLM
@@ -271,17 +271,23 @@ def ask(
                 continue
             seen.add(key)
             sources.append({"title": chunk.title, "section": chunk.section, "url": chunk.link})
+        saved = False
         try:
             for token in rag.generate(messages, lang, usage=usage):
                 parts.append(token)
                 yield json.dumps({"token": token}) + "\n"
+            # Saved before the sources go out, so the answer arrives with its id and can be reported straight away
+            message_id = save_message(pet.id, "assistant", "".join(parts), sources) if parts else None
+            saved = True
             yield json.dumps({"meta": {
                 "sources": sources,
                 "confidence": rag.get_confidence(chunks),
                 "distances": [chunk.distance for chunk in chunks],
+                "message_id": message_id,
             }}) + "\n"
         finally:
-            if parts:
+            # Leaving mid answer still keeps the part written so far
+            if parts and not saved:
                 save_message(pet.id, "assistant", "".join(parts), sources)
             save_question_usage(tally_id, True, usage.input_tokens, usage.output_tokens)
 

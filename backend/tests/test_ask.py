@@ -78,6 +78,8 @@ def test_ask_returns_answer_with_sources(client, pet, monkeypatch, tmp_path):
         data = [json.loads(line) for line in lines]
         assert any("token" in item for item in data)
         assert "meta" in data[-1] and data[-1]["meta"]["sources"]
+        # The answer arrives with its saved id, so it can be reported straight away
+        assert data[-1]["meta"]["message_id"] == client.get(f"/pets/{pet_id}/messages", headers=headers).json()[-1]["id"]
     finally:
         # The collection is shared by the whole run, and the tests above need it empty, so leave it as it was found
         rag.collection.delete(ids=list(set(rag.collection.get()["ids"]) - before))

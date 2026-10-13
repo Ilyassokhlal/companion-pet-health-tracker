@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -17,6 +18,7 @@ class MessageResponse(BaseModel):
     content: str
     sources: list[Citation] = Field(default_factory=list)
     created_at: datetime
+    reported: bool = Field(default=False, description="True once the user has reported this answer.")
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -34,6 +36,12 @@ class MessageResponse(BaseModel):
                     }
                 ],
                 "created_at": "2026-07-28T12:00:00",
+                "reported": False,
             }
         },
     )
+
+class ReportRequest(BaseModel):
+    """Schema for reporting an AI answer"""
+    reason: Literal["wrong_or_unsafe", "offensive", "off_topic", "other"]
+    note: str | None = Field(default=None, max_length=1000, description="Optional, in the user's own words.")

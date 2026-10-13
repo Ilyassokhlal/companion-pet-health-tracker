@@ -176,6 +176,24 @@ class ChatMessage(Base):
     pet: Mapped["Pet"] = relationship(back_populates="messages")
 
 
+# A user's report of an AI answer, which Google Play requires the app to offer. It keeps its own copy of the question
+# and the answer, so it stays readable after the chat is cleared, and outlives a deleted account without the link to it.
+class AiReport(Base):
+    __tablename__ = "ai_reports"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+    user_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
+    # Unique, so an answer is reported once. Emptied when the chat is cleared, while the copy below stays.
+    message_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("chat_messages.id", ondelete="SET NULL"), nullable=True, unique=True)
+    # wrong_or_unsafe, offensive, off_topic or other (schemas.message.ReportRequest)
+    reason: Mapped[str] = mapped_column(String(20), nullable=False)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # The question this answered. Empty when the question was deleted before the report.
+    question: Mapped[str | None] = mapped_column(Text, nullable=True)
+    answer: Mapped[str] = mapped_column(Text, nullable=False)
+
+
 # Device token model — one row per app install that has accepted push notifications.
 class DeviceToken(Base):
     __tablename__ = "device_tokens"

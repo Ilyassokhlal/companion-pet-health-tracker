@@ -5,7 +5,7 @@ import hmac
 from datetime import date, datetime, time, timedelta
 
 from config import settings
-from models.models import AdminAction, EmailBan, User
+from models.models import AdminAction, AiReport, EmailBan, User
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from utils.accounts import delete_user
@@ -151,3 +151,11 @@ def recent_actions(db: Session, email: str | None = None, limit: int = 50) -> li
     if email:
         query = query.filter(func.lower(AdminAction.email) == email.strip().lower())
     return query.order_by(AdminAction.created_at.desc(), AdminAction.id.desc()).limit(limit).all()
+
+
+def recent_reports(db: Session, email: str | None = None, limit: int = 20) -> list[tuple[AiReport, str | None]]:
+    """The latest reported AI answers, newest first, each with its account's email (None once the account is deleted)."""
+    query = db.query(AiReport, User.email).outerjoin(User, User.id == AiReport.user_id)
+    if email:
+        query = query.filter(func.lower(User.email) == email.strip().lower())
+    return [(report, address) for report, address in query.order_by(AiReport.created_at.desc(), AiReport.id.desc()).limit(limit)]
