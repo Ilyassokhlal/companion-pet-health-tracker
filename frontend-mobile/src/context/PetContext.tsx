@@ -10,6 +10,12 @@ const CURRENT_PET_KEY = "currentPetId";
 // Shared by every signed out render, so its identity never changes
 const NO_PETS: Pet[] = [];
 
+// The value already shown when the server sent the same data again. Every screen loads its lists for the current pet object,
+// so a new object for an unchanged pet would load them all again, and the dashboard, which refreshes the pets, in a loop.
+function unlessChanged<T>(before: T, after: T): T {
+  return JSON.stringify(before) === JSON.stringify(after) ? before : after;
+}
+
 interface PetState {
   pets: Pet[];
   currentPet: Pet | null;
@@ -36,11 +42,11 @@ export function PetProvider({ children }: { children: ReactNode }) {
     if (!silent) setLoading(true);
     try {
       const { data, savedAt } = await listPetsCached();
-      setPets(data);
+      setPets((before) => unlessChanged(before, data));
       setOfflineSince(savedAt);
       const savedId = Number(await SecureStore.getItemAsync(CURRENT_PET_KEY));
       const saved = data.find((pet) => pet.id === savedId);
-      setCurrentPet(saved ?? data[0] ?? null);
+      setCurrentPet((before) => unlessChanged(before, saved ?? data[0] ?? null));
     } catch (error) {
       console.error(error);
     } finally {
@@ -66,8 +72,8 @@ export function PetProvider({ children }: { children: ReactNode }) {
 
   return (
     <PetContext.Provider
-      // Signing out clears the token first. Screens still mounted run their effects before the one above, so they must
-      // already see no pet then, or they load the old pet's lists without a token.
+      // Screens still mounted run their effects before the one above, so they must already see no pet when the account goes,
+      // or they load the old pet's lists while the token is being removed.
       value={{
         pets: user ? pets : NO_PETS,
         currentPet: user ? currentPet : null,

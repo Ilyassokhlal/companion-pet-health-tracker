@@ -111,10 +111,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
             pushToken.current = null;
         }
-        await apiLogout();
-        await clearCache();
+        // The account goes before the token, so every screen sees no pet first and nothing is sent without a token
         setReturningTrialDays(null);
         setUser(null);
+        await apiLogout();
+        await clearCache();
     }
 
     // Stable across renders, so effects that re-read the account don't restart every time it changes

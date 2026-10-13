@@ -65,6 +65,9 @@ export default function Chat() {
   const [loadingOlder, setLoadingOlder] = useState(false);
   // True while older messages are being prepended, so onContentSizeChange leaves the view alone.
   const prepending = useRef(false);
+  // The end of the conversation the view last scrolled down to: how many messages, the last one's id and its length.
+  // The view follows a new message, another pet's chat and an answer streaming in, and nothing else.
+  const followed = useRef("");
 
   const load = useCallback(async () => {
     if (!currentPet) {
@@ -226,11 +229,17 @@ export default function Chat() {
         // Anchors on the second child — index 0 is the Load older button — so prepending older messages does not shift what the reader is looking at.
         maintainVisibleContentPosition={{ minIndexForVisible: 1 }}
         onContentSizeChange={() => {
+          const last = turns[turns.length - 1];
+          const end = `${turns.length}:${last?.id ?? ""}:${last?.content.length ?? 0}`;
           // Skip while older messages are being prepended, or this would yank the reader back to the newest message every time they page backwards.
           if (prepending.current) {
             prepending.current = false;
+            followed.current = end;
             return;
           }
+          // A change inside an older message, such as its Reported label, keeps the reader where they are
+          if (end === followed.current) return;
+          followed.current = end;
           scrollRef.current?.scrollToEnd({ animated: true });
         }}
       >

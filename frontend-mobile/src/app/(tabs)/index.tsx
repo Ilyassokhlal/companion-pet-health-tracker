@@ -181,8 +181,13 @@ export default function Dashboard() {
   // The first pet's form shows on the page rather than in a FormSheet, so it needs its own locked check
   const showFirstPetForm = useLockedRedirect(!currentPet && addPetOpen, closeForm);
 
+  // What the panels below are loaded for. The pet's id rather than the pet: the focus effect refreshes the pet, and a new
+  // object for the same pet must not count as a reason to load again, or each refresh starts the next one.
+  const petId = currentPet?.id;
+  const petWalks = currentPet?.walk_tracking_enabled;
+
   const load = useCallback(() => {
-    if (!currentPet) {
+    if (petId === undefined) {
       setEvents([]);
       setRecords([]);
       setSlots([]);
@@ -190,22 +195,22 @@ export default function Dashboard() {
       setSummary(null);
       return;
     }
-    listEvents(currentPet.id).then(setEvents).catch(console.error);
+    listEvents(petId).then(setEvents).catch(console.error);
     // The latest weigh-ins, for the weight arrow and the trend chart, which shows the last 12
-    listRecords(currentPet.id, { types: ["Weight"], limit: 12 }).then(setRecords).catch(console.error);
-    if (user?.walk_tracking_enabled && currentPet.walk_tracking_enabled) {
+    listRecords(petId, { types: ["Weight"], limit: 12 }).then(setRecords).catch(console.error);
+    if (user?.walk_tracking_enabled && petWalks) {
       // The exercise panel shows today and the six days before it
       const since = new Date();
       since.setDate(since.getDate() - 6);
-      listWalks(currentPet.id, { since: since.toLocaleDateString("en-CA") }).then(setWalks).catch(console.error);
+      listWalks(petId, { since: since.toLocaleDateString("en-CA") }).then(setWalks).catch(console.error);
     } else {
       setWalks([]);
     }
     // No gate — a pet with no feeding times simply returns an empty list.
-    feedingStatus(currentPet.id).then(setSlots).catch(console.error);
+    feedingStatus(petId).then(setSlots).catch(console.error);
     // No month argument — the server defaults to today's month in the owner's timezone.
-    getExpenseSummary(currentPet.id).then(setSummary).catch(console.error);
-  }, [currentPet, user?.walk_tracking_enabled]);
+    getExpenseSummary(petId).then(setSummary).catch(console.error);
+  }, [petId, petWalks, user?.walk_tracking_enabled]);
 
   useFocusEffect(
     useCallback(() => {
