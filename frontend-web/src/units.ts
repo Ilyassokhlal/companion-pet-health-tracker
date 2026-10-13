@@ -1,10 +1,12 @@
+import i18n from "./i18n";
+
 // Weight is stored in kilograms everywhere. Imperial is applied only at the edges — at the input on the way in, at the label on the way out — so a stored value never depends on which unit the user happened to have selected when they typed it.
 
 const KG_PER_LB = 0.45359237;
 
-// The unit label for the user's setting.
+// The unit label for the user's setting, in the app's language (кг, 公斤). Read when called, so it follows a language change.
 export function weightUnit(unitSystem: string): string {
-  return unitSystem === "imperial" ? "lb" : "kg";
+  return i18n.t(unitSystem === "imperial" ? "unitSymbols.lb" : "unitSymbols.kg");
 }
 
 // A stored kilogram value as the number the user should see, rounded to one decimal.
@@ -27,7 +29,7 @@ const KM_PER_MILE = 1.609344;
 
 // The unit label for the user's distance setting.
 export function distanceUnit(unitSystem: string): string {
-  return unitSystem === "imperial" ? "mi" : "km";
+  return i18n.t(unitSystem === "imperial" ? "unitSymbols.mi" : "unitSymbols.km");
 }
 
 // A stored kilometre value as the number the user should see, rounded to one decimal.
@@ -48,10 +50,12 @@ export function formatDistance(km: number, unitSystem: string): string {
 
 // Format a duration in minutes as a human-readable string. Examples: "45 min", "1 h 15 min".
 export function formatDuration(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
+  const min = i18n.t("unitSymbols.min");
+  const h = i18n.t("unitSymbols.h");
+  if (minutes < 60) return `${minutes} ${min}`;
   const hours = Math.floor(minutes / 60);
   const rest = minutes % 60;
-  return rest ? `${hours} h ${rest} min` : `${hours} h`;
+  return rest ? `${hours} ${h} ${rest} ${min}` : `${hours} ${h}`;
 }
 
 // Currency symbols for the codes offered in Settings. Written out rather than reached for through Intl.NumberFormat, because Hermes' Intl surface differs from the browser's and a wrong-looking price is exactly the kind of thing that only shows up once it is on the phone.

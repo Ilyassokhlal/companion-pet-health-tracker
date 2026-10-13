@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePets } from "../context/PetContext";
+import { speciesLabel } from "../species";
 import { Check, ChevronDown, Plus } from "lucide-react";
 import type { Pet } from "../types";
 
@@ -97,7 +98,7 @@ export default function PetSelector() {
               <Avatar pet={pet} size={32} />
               <div className="flex min-w-0 flex-1 flex-col text-center">
                 <span className="truncate" title={pet.name}>{pet.name}</span>
-                <span className="text-xs text-muted">{pet.species}</span>
+                <span className="text-xs text-muted">{speciesLabel(pet.species, t)}</span>
               </div>
               <span className="w-8 shrink-0">{pet.id === currentPet?.id && <Check size={16} />}</span>
             </button>

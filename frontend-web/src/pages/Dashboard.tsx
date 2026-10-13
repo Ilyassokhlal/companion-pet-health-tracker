@@ -17,6 +17,7 @@ import PetPhoto from "../components/PetPhoto";
 import Button from "../components/ui/Button";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
 import { formatDate } from "../dates";
+import { speciesLabel } from "../species";
 import { listWalks } from "../api/walks";
 import type { Walk } from "../types";
 import { getExpenseSummary } from "../api/expenses";
@@ -68,7 +69,8 @@ function EventRow({ event, todayStr, onDone }: { event: ScheduledEvent; todayStr
     <div className="flex flex-wrap items-center justify-between gap-2 py-1.5">
       <p className={dueClass(event.due_date, todayStr)}>
         {event.due_date < todayStr && t("dashboard.overdue")}
-        {event.title}
+        {/* The app creates weight check-ins with an English title, so they are named in the reader's language instead */}
+        {event.kind === "Weight Check-in" ? t("dashboard.weightCheckin") : event.title}
         {event.record_type && <span className="text-muted"> · {t(`recordTypes.${event.record_type}`)}</span>}
         {" — "}
         {formatDate(event.due_date)}
@@ -263,7 +265,7 @@ export default function Dashboard() {
           </div>
         </div>
         <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{currentPet.species}</dd></div>
+          <div><dt className="text-sm text-muted">{t("dashboard.species")}</dt><dd>{speciesLabel(currentPet.species, t)}</dd></div>
           <div><dt className="text-sm text-muted">{t("dashboard.breed")}</dt><dd>{currentPet.breed ?? t("dashboard.notSet")}</dd></div>
           <div><dt className="text-sm text-muted">{t("dashboard.age")}</dt><dd>{formatAge(currentPet.birth_date, t)}</dd></div>
           <div>

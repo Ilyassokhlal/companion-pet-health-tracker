@@ -58,7 +58,7 @@ export default function PreferencesSettings() {
         >
           {CURRENCIES.map((currency) => (
             <option key={currency.code} value={currency.code}>
-              {currency.code} — {currency.name}
+              {currency.code} — {t(`currencyNames.${currency.code}`, { defaultValue: currency.name })}
             </option>
           ))}
         </select>

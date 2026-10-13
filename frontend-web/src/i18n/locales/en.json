@@ -405,6 +405,7 @@
     "unit": "Unit"
   },
   "dashboard": {
+    "weightCheckin": "Weight check-in",
     "noPetYet": "You haven't added a pet yet.",
     "addPet": "Add Pet",
     "addPetTitle": "Add pet",
@@ -577,5 +578,29 @@
     "notice": "A copy of your question and this answer is kept with the report, even if you delete the chat, so we can continuously improve the quality of this service.",
     "send": "Send report",
     "reported": "Reported"
+  },
+  "unitSymbols": {
+    "kg": "kg",
+    "lb": "lb",
+    "km": "km",
+    "mi": "mi",
+    "min": "min",
+    "h": "h"
+  },
+  "currencyNames": {
+    "USD": "US Dollar",
+    "EUR": "Euro",
+    "GBP": "British Pound",
+    "CAD": "Canadian Dollar",
+    "AUD": "Australian Dollar",
+    "CHF": "Swiss Franc",
+    "JPY": "Japanese Yen",
+    "CNY": "Chinese Yuan",
+    "INR": "Indian Rupee",
+    "BRL": "Brazilian Real",
+    "MXN": "Mexican Peso",
+    "ZAR": "South African Rand",
+    "MAD": "Moroccan Dirham",
+    "RUB": "Russian Ruble"
   }
 }

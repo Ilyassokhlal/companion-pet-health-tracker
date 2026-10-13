@@ -20,6 +20,8 @@ const navItems = [
 // Header component that displays the navigation bar with brand, navigation links, user information, and logout button.
 // The desktop nav appears at lg, not md: at 768px the longest translations had nowhere to go, and letting the strip
 // scroll sideways was worse than simply using the menu in that band.
+// Its labels wait until 1840px. Below that they ran under the centered pet picker (Russian needs about 1820px), so the
+// links show their icons, with the label as a tooltip.
 export default function Header() {
     const { t } = useTranslation();
     const { user, logout } = useAuth();
@@ -37,8 +39,13 @@ export default function Header() {
                             to={item.to}
                             end={item.to === "/"}
                             className={({ isActive }) => `shrink-0 ${isActive ? "text-fg font-semibold" : "text-muted hover:text-fg transition"}`}
+                            title={t(`nav.${item.key}`)}
+                            aria-label={t(`nav.${item.key}`)}
                         >
-                            <span className="flex items-center gap-1.5 whitespace-nowrap"><item.icon size={16} />{t(`nav.${item.key}`)}</span>
+                            <span className="flex items-center gap-1.5 whitespace-nowrap">
+                                <item.icon size={16} />
+                                <span className="hidden min-[1840px]:inline">{t(`nav.${item.key}`)}</span>
+                            </span>
                         </NavLink>
                     ))}
                 </nav>

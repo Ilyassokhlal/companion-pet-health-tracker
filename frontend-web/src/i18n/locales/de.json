@@ -405,6 +405,7 @@
     "unit": "Einheit"
   },
   "dashboard": {
+    "weightCheckin": "Wiegetermin",
     "noPetYet": "Sie haben noch kein Haustier hinzugefügt.",
     "addPet": "Haustier hinzufügen",
     "addPetTitle": "Haustier hinzufügen",
@@ -577,5 +578,29 @@
     "notice": "Eine Kopie Ihrer Frage und dieser Antwort wird mit der Meldung gespeichert, auch wenn Sie die Unterhaltung löschen, damit wir die Qualität dieses Dienstes laufend verbessern können.",
     "send": "Meldung senden",
     "reported": "Gemeldet"
+  },
+  "unitSymbols": {
+    "kg": "kg",
+    "lb": "lb",
+    "km": "km",
+    "mi": "mi",
+    "min": "min",
+    "h": "h"
+  },
+  "currencyNames": {
+    "USD": "Amerikanischer Dollar",
+    "EUR": "Euro",
+    "GBP": "Britisches Pfund",
+    "CAD": "Kanadischer Dollar",
+    "AUD": "Australischer Dollar",
+    "CHF": "Schweizer Franken",
+    "JPY": "Japanischer Yen",
+    "CNY": "Chinesischer Yuan",
+    "INR": "Indische Rupie",
+    "BRL": "Brasilianischer Real",
+    "MXN": "Mexikanischer Peso",
+    "ZAR": "Südafrikanischer Rand",
+    "MAD": "Marokkanischer Dirham",
+    "RUB": "Russischer Rubel"
   }
 }
