@@ -18,7 +18,7 @@ SplashScreen.preventAutoHideAsync();
 
 function RootNavigator() {
   const { user, loading, refreshUser, returningTrialDays } = useAuth();
-  const { loading: themeLoading } = useAppTheme();
+  const { loading: themeLoading, theme } = useAppTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -56,7 +56,8 @@ function RootNavigator() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    // Without a style, every screen that mounts resets the status bar to light icons, which vanish on the light theme
+    <Stack screenOptions={{ headerShown: false, statusBarStyle: theme === 'dark' ? 'light' : 'dark' }}>
       <Stack.Protected guard={!!user}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="settings" />

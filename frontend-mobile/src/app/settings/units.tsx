@@ -14,6 +14,7 @@ import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import { errorMessage } from "@/errors";
 import * as Updates from "expo-updates";
+import { setLayoutDirection } from "@/i18n";
 
 type Picker = "currency" | "language";
 
@@ -53,7 +54,7 @@ export default function Units() {
       confirmLabel: t("settings.preferences.restartNow"),
     });
     if (!ok) return;
-    I18nManager.forceRTL(nextRTL);
+    setLayoutDirection(nextRTL);
     try {
       await Updates.reloadAsync();
     } catch {
@@ -71,7 +72,9 @@ export default function Units() {
 
   if (!user) return null;
 
-  const currencyName = CURRENCIES.find((c) => c.code === user.currency)?.name;
+  const currencyName = t(`currencyNames.${user.currency}`, {
+    defaultValue: CURRENCIES.find((c) => c.code === user.currency)?.name ?? "",
+  });
   const languageName = LANGUAGES.find((l) => l.code === user.language)?.name;
   const options: ReadonlyArray<{ code: string; name: string }> = picking === "currency" ? CURRENCIES : LANGUAGES;
   const selected = picking === "currency" ? user.currency : user.language;
@@ -155,7 +158,7 @@ export default function Units() {
                 className="border-b border-border py-3 active:opacity-70"
               >
                 <Text className={item.code === selected ? "text-primary" : "text-fg"}>
-                  {picking === "currency" ? `${item.code} — ${item.name}` : item.name}
+                  {picking === "currency" ? `${item.code} — ${t(`currencyNames.${item.code}`, { defaultValue: item.name })}` : item.name}
                 </Text>
               </Pressable>
             )}

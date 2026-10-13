@@ -10,7 +10,7 @@ import { usePets } from "@/context/PetContext";
 import { listPetPhotos, deleteRecordPhoto, savePhotoToLibrary, downloadPhotos } from "@/api/records";
 import { RECORD_TYPES } from "@/types";
 import type { GalleryPhoto, RecordType } from "@/types";
-import { formatDateLong } from "@/dates";
+import { dateLocale, formatDateLong } from "@/dates";
 import { useTheme } from "@/theme/ThemeContext";
 import { themeColors } from "@/theme/palette";
 import DateField from "@/components/ui/DateField";
@@ -295,7 +295,7 @@ export default function Photos() {
           key={`h-${key}`}
           className="bg-ink px-4 py-2 text-sm font-semibold text-muted"
         >
-          {new Date(`${key}-01T00:00:00`).toLocaleDateString(undefined, {
+          {new Date(`${key}-01T00:00:00`).toLocaleDateString(dateLocale(), {
             month: "long",
             year: "numeric",
           })}

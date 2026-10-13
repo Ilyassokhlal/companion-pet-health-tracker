@@ -1,12 +1,14 @@
+import i18n from "@/i18n";
+
 // Weight is stored in kilograms everywhere. Imperial is applied only at the edges.
 // At the input on the way in, at the label on the way out.
 // A stored value never depends on which unit the user happened to have selected when they typed it.
 
 const KG_PER_LB = 0.45359237;
 
-// The unit label for the user's setting.
+// The unit label for the user's setting, in the app's language (кг, 公斤). Read when called, so it follows a language change.
 export function weightUnit(unitSystem: string): string {
-  return unitSystem === "imperial" ? "lb" : "kg";
+  return i18n.t(unitSystem === "imperial" ? "unitSymbols.lb" : "unitSymbols.kg");
 }
 
 // A stored kilogram value as the number the user should see, rounded to one decimal.
@@ -29,7 +31,7 @@ const KM_PER_MILE = 1.609344;
 
 // The unit label for the user's distance setting.
 export function distanceUnit(unitSystem: string): string {
-  return unitSystem === "imperial" ? "mi" : "km";
+  return i18n.t(unitSystem === "imperial" ? "unitSymbols.mi" : "unitSymbols.km");
 }
 
 // Convert a stored kilometre value to the number the user should see, rounded to one decimal.
@@ -50,10 +52,12 @@ export function formatDistance(km: number, unitSystem: string): string {
 
 // Format a duration in minutes as a human-readable string, e.g., "45 min" or "1 h 15 min".
 export function formatDuration(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
+  const min = i18n.t("unitSymbols.min");
+  const h = i18n.t("unitSymbols.h");
+  if (minutes < 60) return `${minutes} ${min}`;
   const hours = Math.floor(minutes / 60);
   const rest = minutes % 60;
-  return rest ? `${hours} h ${rest} min` : `${hours} h`;
+  return rest ? `${hours} ${h} ${rest} ${min}` : `${hours} ${h}`;
 }
 
 // A mapping from currency codes to their respective symbols.

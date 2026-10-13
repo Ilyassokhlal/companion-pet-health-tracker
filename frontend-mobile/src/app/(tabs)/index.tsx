@@ -92,7 +92,8 @@ function EventRow({
     <View className="flex-row items-center justify-between gap-3 py-1.5">
       <Text className={`flex-1 ${dueClass(event.due_date, todayStr)}`}>
         {event.due_date < todayStr ? t("dashboard.overdue") : ""}
-        {event.title}
+        {/* The app creates weight check-ins with an English title, so they are named in the reader's language instead */}
+        {event.kind === "Weight Check-in" ? t("dashboard.weightCheckin") : event.title}
         {event.record_type ? ` · ${t(`recordTypes.${event.record_type}`)}` : ""}
         {" — "}
         {formatDate(event.due_date)}
@@ -380,7 +381,10 @@ export default function Dashboard() {
         </View>
 
         <View className="-mb-4 mt-6 flex-row flex-wrap">
-          <Field label={t("dashboard.species")} value={currentPet.species} />
+          <Field
+            label={t("dashboard.species")}
+            value={t(`petForm.speciesOptions.${currentPet.species}`, { defaultValue: currentPet.species })}
+          />
           <Field label={t("dashboard.breed")} value={currentPet.breed ?? t("common.notSet")} />
           <Field label={t("dashboard.age")} value={formatAge(currentPet.birth_date, t)} />
           <Field

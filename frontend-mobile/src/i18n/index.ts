@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getLocales } from "expo-localization";
+import { I18nManager } from "react-native";
 
 import en from "./locales/en.json";
 import fr from "./locales/fr.json";
@@ -40,6 +41,13 @@ const resources = {
   zh: { translation: zh },
   "zh-Hant": { translation: zhHant },
 };
+
+// Android keeps the layout direction across launches and applies a change on the next start. Allowing right to left is
+// set too, because a phone set to Arabic would otherwise keep the app right to left whatever is forced.
+export function setLayoutDirection(rtl: boolean) {
+  I18nManager.allowRTL(rtl);
+  I18nManager.forceRTL(rtl);
+}
 
 // Initialize i18n with the detected language and the defined resources.
 i18n.use(initReactI18next).init({

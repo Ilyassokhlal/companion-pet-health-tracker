@@ -198,8 +198,8 @@
     "preferences": {
       "title": "單位與語言",
       "measurements": "度量單位",
-      "metric": "公制（kg、km）",
-      "imperial": "英制（lb、mi）",
+      "metric": "公制（公斤、公里）",
+      "imperial": "英制（磅、英里）",
       "metricHint": "公制：體重以公斤計，距離以公里計",
       "imperialHint": "英制：體重以磅計，距離以英里計",
       "currency": "幣別",
@@ -425,6 +425,7 @@
     "loadOlder": "載入較早的訊息"
   },
   "dashboard": {
+    "weightCheckin": "量體重",
     "ageUnknown": "不詳",
     "days_one": "{{count}} 天",
     "days_other": "{{count}} 天",
@@ -585,5 +586,29 @@
     "notice": "即使您清除對話，您的問題和此回答的副本也會隨檢舉一併保存，讓我們能持續提升這項服務的品質。",
     "send": "送出檢舉",
     "reported": "已檢舉"
+  },
+  "unitSymbols": {
+    "kg": "公斤",
+    "lb": "磅",
+    "km": "公里",
+    "mi": "英里",
+    "min": "分鐘",
+    "h": "小時"
+  },
+  "currencyNames": {
+    "USD": "美元",
+    "EUR": "歐元",
+    "GBP": "英鎊",
+    "CAD": "加拿大幣",
+    "AUD": "澳幣",
+    "CHF": "瑞士法郎",
+    "JPY": "日圓",
+    "CNY": "人民幣",
+    "INR": "印度盧比",
+    "BRL": "巴西雷亞爾",
+    "MXN": "墨西哥披索",
+    "ZAR": "南非蘭特",
+    "MAD": "摩洛哥迪拉姆",
+    "RUB": "俄羅斯盧布"
   }
 }

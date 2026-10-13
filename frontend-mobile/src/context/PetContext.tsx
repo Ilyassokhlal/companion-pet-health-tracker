@@ -7,6 +7,8 @@ import { listPetsCached } from "@/api/pets";
 import { useAuth } from "@/auth/AuthContext";
 
 const CURRENT_PET_KEY = "currentPetId";
+// Shared by every signed out render, so its identity never changes
+const NO_PETS: Pet[] = [];
 
 interface PetState {
   pets: Pet[];
@@ -64,7 +66,18 @@ export function PetProvider({ children }: { children: ReactNode }) {
 
   return (
     <PetContext.Provider
-      value={{ pets, currentPet, setCurrentPet: selectPet, refresh, loading, addPetOpen, setAddPetOpen, offlineSince }}
+      // Signing out clears the token first. Screens still mounted run their effects before the one above, so they must
+      // already see no pet then, or they load the old pet's lists without a token.
+      value={{
+        pets: user ? pets : NO_PETS,
+        currentPet: user ? currentPet : null,
+        setCurrentPet: selectPet,
+        refresh,
+        loading,
+        addPetOpen,
+        setAddPetOpen,
+        offlineSince,
+      }}
     >
       {children}
     </PetContext.Provider>

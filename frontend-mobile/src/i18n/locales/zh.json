@@ -198,8 +198,8 @@
     "preferences": {
       "title": "单位和语言",
       "measurements": "测量单位",
-      "metric": "公制（kg、km）",
-      "imperial": "英制（lb、mi）",
+      "metric": "公制（公斤、公里）",
+      "imperial": "英制（磅、英里）",
       "metricHint": "公制 — 体重以千克为单位，距离以千米为单位",
       "imperialHint": "英制 — 体重以磅为单位，距离以英里为单位",
       "currency": "货币",
@@ -425,6 +425,7 @@
     "loadOlder": "加载更早的消息"
   },
   "dashboard": {
+    "weightCheckin": "称重",
     "ageUnknown": "未知",
     "days_one": "{{count}} 天",
     "days_other": "{{count}} 天",
@@ -585,5 +586,29 @@
     "notice": "即使您清除聊天，您的问题和此回答的副本也会随举报一起保存，以便我们持续提升这项服务的质量。",
     "send": "提交举报",
     "reported": "已举报"
+  },
+  "unitSymbols": {
+    "kg": "公斤",
+    "lb": "磅",
+    "km": "公里",
+    "mi": "英里",
+    "min": "分钟",
+    "h": "小时"
+  },
+  "currencyNames": {
+    "USD": "美元",
+    "EUR": "欧元",
+    "GBP": "英镑",
+    "CAD": "加拿大元",
+    "AUD": "澳大利亚元",
+    "CHF": "瑞士法郎",
+    "JPY": "日元",
+    "CNY": "人民币",
+    "INR": "印度卢比",
+    "BRL": "巴西雷亚尔",
+    "MXN": "墨西哥比索",
+    "ZAR": "南非兰特",
+    "MAD": "摩洛哥迪拉姆",
+    "RUB": "俄罗斯卢布"
   }
 }

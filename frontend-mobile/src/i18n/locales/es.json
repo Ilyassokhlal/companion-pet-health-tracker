@@ -425,6 +425,7 @@
     "loadOlder": "Cargar mensajes anteriores"
   },
   "dashboard": {
+    "weightCheckin": "Pesaje",
     "ageUnknown": "Desconocido",
     "days_one": "{{count}} día",
     "days_other": "{{count}} días",
@@ -585,5 +586,29 @@
     "notice": "Guardamos una copia de tu pregunta y de esta respuesta con el reporte, aunque borres el chat, para poder mejorar continuamente la calidad de este servicio.",
     "send": "Enviar reporte",
     "reported": "Reportada"
+  },
+  "unitSymbols": {
+    "kg": "kg",
+    "lb": "lb",
+    "km": "km",
+    "mi": "mi",
+    "min": "min",
+    "h": "h"
+  },
+  "currencyNames": {
+    "USD": "Dólar estadounidense",
+    "EUR": "Euro",
+    "GBP": "Libra esterlina",
+    "CAD": "Dólar canadiense",
+    "AUD": "Dólar australiano",
+    "CHF": "Franco suizo",
+    "JPY": "Yen japonés",
+    "CNY": "Yuan chino",
+    "INR": "Rupia india",
+    "BRL": "Real brasileño",
+    "MXN": "Peso mexicano",
+    "ZAR": "Rand sudafricano",
+    "MAD": "Dírham marroquí",
+    "RUB": "Rublo ruso"
   }
 }

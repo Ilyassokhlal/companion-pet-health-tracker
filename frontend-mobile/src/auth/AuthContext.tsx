@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
-import { AppState, DeviceEventEmitter } from "react-native";
-import i18n, { detectLanguage } from "../i18n";
+import { AppState, DeviceEventEmitter, I18nManager } from "react-native";
+import * as Updates from "expo-updates";
+import i18n, { detectLanguage, setLayoutDirection } from "../i18n";
 import type { ReactNode } from "react";
 import type { User } from "../types";
 import { me, meCached, login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
@@ -34,6 +35,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [returningTrialDays, setReturningTrialDays] = useState<number | null>(null);
     const [suspended, setSuspended] = useState(false);
         const pushToken = useRef<string | null>(null);
+    // The account the layout direction was last matched to. Undefined until the first check after start.
+    const directionFor = useRef<number | null | undefined>(undefined);
 
     // Push is best-effort. It shouldn't block authentication or surface as an error.
     async function syncPush() {
@@ -70,7 +73,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const lang = user?.language ?? detectLanguage();
         if (i18n.language !== lang) i18n.changeLanguage(lang);
-    }, [user]);
+
+        // Arabic reads right to left, and Android only applies a new direction on a restart. So starting the app, signing in
+        // or signing out into a language that reads the other way reloads it once, without asking. A language picked in
+        // Settings keeps its own prompt, which is why this only looks again when the account itself changes.
+        const account = user?.id ?? null;
+        if (loading || directionFor.current === account) return;
+        directionFor.current = account;
+        const rtl = lang === "ar";
+        if (rtl !== I18nManager.isRTL) {
+            setLayoutDirection(rtl);
+            Updates.reloadAsync().catch(() => {});
+        }
+    }, [user, loading]);
 
     async function login(email: string, password: string) {
         await apiLogin(email, password);

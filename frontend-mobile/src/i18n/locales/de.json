@@ -207,7 +207,7 @@
       "restartTitle": "Neustart erforderlich",
       "restartBody": "Arabisch ändert die Layoutrichtung. Companion muss neu starten, um sie anzuwenden.",
       "restartNow": "Neu starten",
-      "note": "E-Mails und Erinnerungen werden weiterhin auf Englisch versendet.",
+      "note": "Alle Daten werden metrisch gespeichert. Diese Einstellung ändert nur ihre Anzeige und Eingabe.",
       "chooseCurrency": "Währung auswählen",
       "chooseLanguage": "Sprache auswählen"
     },
@@ -425,6 +425,7 @@
     "loadOlder": "Ältere Nachrichten laden"
   },
   "dashboard": {
+    "weightCheckin": "Wiegetermin",
     "ageUnknown": "Unbekannt",
     "days_one": "{{count}} Tag",
     "days_other": "{{count}} Tage",
@@ -585,5 +586,29 @@
     "notice": "Eine Kopie Ihrer Frage und dieser Antwort wird mit der Meldung gespeichert, auch wenn Sie den Chat leeren, damit wir die Qualität dieses Dienstes laufend verbessern können.",
     "send": "Meldung senden",
     "reported": "Gemeldet"
+  },
+  "unitSymbols": {
+    "kg": "kg",
+    "lb": "lb",
+    "km": "km",
+    "mi": "mi",
+    "min": "min",
+    "h": "h"
+  },
+  "currencyNames": {
+    "USD": "Amerikanischer Dollar",
+    "EUR": "Euro",
+    "GBP": "Britisches Pfund",
+    "CAD": "Kanadischer Dollar",
+    "AUD": "Australischer Dollar",
+    "CHF": "Schweizer Franken",
+    "JPY": "Japanischer Yen",
+    "CNY": "Chinesischer Yuan",
+    "INR": "Indische Rupie",
+    "BRL": "Brasilianischer Real",
+    "MXN": "Mexikanischer Peso",
+    "ZAR": "Südafrikanischer Rand",
+    "MAD": "Marokkanischer Dirham",
+    "RUB": "Russischer Rubel"
   }
 }
