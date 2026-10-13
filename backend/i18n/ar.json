@@ -52,6 +52,7 @@
 
   "reminder.item": "{title} لـ {pet} — الموعد {date}",
   "reminder.itemWithType": "{title} لـ {pet} ({type}) — الموعد {date}",
+  "event.weightCheckin": "موعد الوزن",
 
   "push.due.title": "مستحق اليوم",
   "push.due.many": "لديك {count} أمور مستحقة اليوم.",

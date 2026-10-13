@@ -52,6 +52,7 @@
 
   "reminder.item": "{title} de {pet} — vence el {date}",
   "reminder.itemWithType": "{title} de {pet} ({type}) — vence el {date}",
+  "event.weightCheckin": "Pesaje",
 
   "push.due.title": "Pendiente hoy",
   "push.due.many": "Hay {count} cosas pendientes hoy.",

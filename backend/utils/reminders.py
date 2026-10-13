@@ -10,6 +10,7 @@ from utils.feeding import pet_slots, satisfied_slots, to_minutes
 from utils.i18n import t
 from utils.mailer import send_email, send_lock_warning_email, send_reminder_email
 from utils.push import prune_tokens, send_push
+from utils.scheduling import event_title
 
 # datetime.weekday() counts Monday as 0, so Sunday is 6.
 _SUNDAY = 6
@@ -20,11 +21,11 @@ def _describe(event: ScheduledEvent, pet: Pet, lang: str | None = None) -> str:
     if event.record_type:
         return t(
             "reminder.itemWithType", lang,
-            title=event.title, pet=pet.name,
+            title=event_title(event, lang), pet=pet.name,
             type=t(f"recordType.{event.record_type.value}", lang),
             date=event.due_date,
         )
-    return t("reminder.item", lang, title=event.title, pet=pet.name, date=event.due_date)
+    return t("reminder.item", lang, title=event_title(event, lang), pet=pet.name, date=event.due_date)
 
 
 def send_due_reminders(db: Session, today: date, instant: datetime | None = None) -> int:

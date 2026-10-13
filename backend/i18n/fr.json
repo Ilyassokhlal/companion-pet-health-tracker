@@ -52,6 +52,7 @@
 
   "reminder.item": "{title} pour {pet} — échéance {date}",
   "reminder.itemWithType": "{title} pour {pet} ({type}) — échéance {date}",
+  "event.weightCheckin": "Pesée",
 
   "push.due.title": "À faire aujourd'hui",
   "push.due.many": "{count} choses sont à faire aujourd'hui.",

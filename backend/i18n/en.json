@@ -52,6 +52,7 @@
 
   "reminder.item": "{title} for {pet} — due {date}",
   "reminder.itemWithType": "{title} for {pet} ({type}) — due {date}",
+  "event.weightCheckin": "Weight check-in",
 
   "push.due.title": "Due today",
   "push.due.many": "{count} things are due today.",

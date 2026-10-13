@@ -2,6 +2,8 @@
 
 from datetime import date, timedelta
 
+from models.models import ScheduledEvent
+from utils.reminders import _describe
 from utils.weight import next_checkin_date
 
 
@@ -149,3 +151,17 @@ def test_an_unrelated_preference_change_leaves_tracking_alone(client, pet):
 
     assert client.get(f"/pets/{pet_id}", headers=headers).json()["weight_tracking_enabled"] is True
     assert len(_checkins(client, headers, pet_id)) == 1
+
+
+def test_a_checkin_is_named_in_the_owners_language(client, pet, db):
+    """The reminder line and the record a check-in makes use the owner's language, not the stored English title."""
+    headers, pet_data = pet
+    pet_id = pet_data["id"]
+    client.patch("/auth/me", json={"language": "fr"}, headers=headers).raise_for_status()
+    _enable_tracking(client, headers, pet_id)
+    checkin = _checkins(client, headers, pet_id)[0]
+
+    event = db.get(ScheduledEvent, checkin["id"])
+    assert _describe(event, event.pet, "fr").startswith("Pesée pour Fluffy")
+    r = client.post(f"/events/{checkin['id']}/complete", headers=headers)
+    assert r.json()["title"] == "Pesée"

@@ -1,5 +1,6 @@
 from models.models import EventKind, HealthRecord, ScheduledEvent
 from sqlalchemy.orm import Session
+from utils.i18n import t
 
 
 def sync_followup_event(db: Session, record: HealthRecord) -> None:
@@ -28,3 +29,10 @@ def sync_followup_event(db: Session, record: HealthRecord) -> None:
         source_record_id=record.id,
     ))
 
+
+def event_title(event: ScheduledEvent, lang: str | None = None) -> str:
+    """What to call an event in the given language. A weight check-in is created by the app, so its stored English title is
+    swapped for the translated one. Every other title was typed by the user and stays as written."""
+    if event.kind == EventKind.WEIGHT_CHECKIN:
+        return t("event.weightCheckin", lang)
+    return event.title

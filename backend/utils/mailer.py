@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 
 # An email is read off-network, so the logo needs a publicly reachable URL.
 # FRONTEND_URL is localhost in dev, which no mail client can fetch.
-LOGO_URL = os.environ.get("EMAIL_LOGO_URL", f"{settings.FRONTEND_URL}/icon.png")
+# An empty EMAIL_LOGO_URL= line, as in .env.example, falls back too instead of sending emails without a logo.
+LOGO_URL = os.environ.get("EMAIL_LOGO_URL") or f"{settings.FRONTEND_URL}/icon.png"
 
 # Brand palette, mirrored from frontend-web/src/index.css @theme.
 INK = "#0b0a0f"

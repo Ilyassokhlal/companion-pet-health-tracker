@@ -52,6 +52,7 @@
 
   "reminder.item": "{title} für {pet} — fällig am {date}",
   "reminder.itemWithType": "{title} für {pet} ({type}) — fällig am {date}",
+  "event.weightCheckin": "Wiegetermin",
 
   "push.due.title": "Heute fällig",
   "push.due.many": "Heute sind {count} Dinge fällig.",

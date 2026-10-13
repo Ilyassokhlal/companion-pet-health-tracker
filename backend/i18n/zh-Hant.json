@@ -52,6 +52,7 @@
 
   "reminder.item": "{pet}的{title}，{date} 到期",
   "reminder.itemWithType": "{pet}的{title}（{type}），{date} 到期",
+  "event.weightCheckin": "量體重",
 
   "push.due.title": "今日到期",
   "push.due.many": "今天有 {count} 個事項到期。",

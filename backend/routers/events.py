@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session, joinedload
 from utils.access import require_access_to_write
 from utils.exceptions import BadRequestException, NotFoundException
 from utils.onboarding import mark_step
+from utils.scheduling import event_title
 from utils.security import get_current_user
 from utils.weight import is_tracked, next_checkin_date
 
@@ -102,7 +103,8 @@ def complete_event(event_id: int, db: Session = Depends(get_db), current_user: U
     record = HealthRecord(
         pet_id=event.pet_id,
         record_type=record_type,
-        title=event.title,
+        # In the owner's language, since the record is theirs to keep and edit
+        title=event_title(event, current_user.language),
         date=date.today()
     )
     db.add(record)
