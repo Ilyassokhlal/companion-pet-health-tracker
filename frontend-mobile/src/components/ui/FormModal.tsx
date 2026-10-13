@@ -8,13 +8,17 @@ export default function FormModal({
   visible,
   onClose,
   children,
+  openWhenLocked = false,
 }: {
   visible: boolean;
   onClose: () => void;
   children: ReactNode;
+  // For what a locked account can still do, such as reporting an answer
+  openWhenLocked?: boolean;
 }) {
   // A locked account is sent to the subscribe screen instead of a form it can't save
-  const show = useLockedRedirect(visible, onClose);
+  const redirected = useLockedRedirect(visible && !openWhenLocked, onClose);
+  const show = openWhenLocked ? visible : redirected;
 
   return (
     <Modal visible={show} animationType="fade" transparent onRequestClose={onClose}>

@@ -9,7 +9,7 @@ const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 // metadata carrying sources and confidence.
 export type AskEvent =
   | { type: "token"; value: string }
-  | { type: "meta"; sources: Citation[]; confidence: string };
+  | { type: "meta"; sources: Citation[]; confidence: string; messageId: number | null };
 
 export async function* askStream(petId: number, question: string): AsyncGenerator<AskEvent> {
   const token = await getToken();
@@ -32,7 +32,7 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
   if (contentType && contentType.includes("application/json")) {
     const data = await response.json();
     yield { type: "token", value: data.answer };
-    yield { type: "meta", sources: data.sources, confidence: data.confidence };
+    yield { type: "meta", sources: data.sources, confidence: data.confidence, messageId: data.message_id ?? null };
     return;
   }
 
@@ -57,7 +57,7 @@ export async function* askStream(petId: number, question: string): AsyncGenerato
       if (data.token !== undefined) {
         yield { type: "token", value: data.token };
       } else if (data.meta) {
-        yield { type: "meta", sources: data.meta.sources, confidence: data.meta.confidence };
+        yield { type: "meta", sources: data.meta.sources, confidence: data.meta.confidence, messageId: data.meta.message_id ?? null };
       }
     }
 
@@ -75,6 +75,18 @@ export async function listMessages(
   if (options.before !== undefined) query.set("before", String(options.before));
   const suffix = query.toString() ? `?${query}` : "";
   return apiFetch<ChatMessage[]>(`/pets/${petId}/messages${suffix}`);
+}
+
+// The reasons a user can give when reporting an answer, in the order the report form lists them.
+export const REPORT_REASONS = ["wrong_or_unsafe", "offensive", "off_topic", "other"] as const;
+export type ReportReason = (typeof REPORT_REASONS)[number];
+
+// Report an AI answer, with an optional note. Reporting the same answer again changes nothing.
+export async function reportMessage(messageId: number, reason: ReportReason, note: string): Promise<void> {
+  return apiFetch<void>(`/messages/${messageId}/report`, {
+    method: "POST",
+    body: JSON.stringify({ reason, note: note.trim() || null }),
+  });
 }
 
 // Delete a specific chat message by its ID.

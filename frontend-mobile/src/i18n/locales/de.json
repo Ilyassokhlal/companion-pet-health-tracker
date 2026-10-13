@@ -570,5 +570,20 @@
     "allSetBody": "Alle Schritte sind abgeschlossen.",
     "settingLabel": "Karte „Erste Schritte“ anzeigen",
     "settingHint": "Die Checkliste oben im Dashboard, um sich in Companion zurechtzufinden."
+  },
+  "report": {
+    "flag": "Diese Antwort melden",
+    "title": "Diese Antwort melden",
+    "intro": "Was stimmt damit nicht? Ihre Meldung hilft uns, die Antworten von Companion zu verbessern.",
+    "reasons": {
+      "wrong_or_unsafe": "Falscher oder gefährlicher Rat",
+      "offensive": "Beleidigend oder unangemessen",
+      "off_topic": "Am Thema vorbei",
+      "other": "Etwas anderes"
+    },
+    "note": "Notiz hinzufügen (optional)",
+    "notice": "Eine Kopie Ihrer Frage und dieser Antwort wird mit der Meldung gespeichert, auch wenn Sie den Chat leeren, damit wir die Qualität dieses Dienstes laufend verbessern können.",
+    "send": "Meldung senden",
+    "reported": "Gemeldet"
   }
 }

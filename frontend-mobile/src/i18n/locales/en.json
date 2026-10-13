@@ -570,5 +570,20 @@
     "allSetBody": "Every step is done.",
     "settingLabel": "Show the Get started card",
     "settingHint": "The checklist at the top of the dashboard for finding your way around Companion."
+  },
+  "report": {
+    "flag": "Report this answer",
+    "title": "Report this answer",
+    "intro": "What's wrong with it? Your report helps us improve Companion's answers.",
+    "reasons": {
+      "wrong_or_unsafe": "Wrong or unsafe advice",
+      "offensive": "Offensive or inappropriate",
+      "off_topic": "Off topic",
+      "other": "Something else"
+    },
+    "note": "Add a note (optional)",
+    "notice": "A copy of your question and this answer is kept with the report, even if you delete the chat, so we can continuously improve the quality of this service.",
+    "send": "Send report",
+    "reported": "Reported"
   }
 }

@@ -19,6 +19,7 @@ import EmptyState from "@/components/EmptyState";
 import Button from "@/components/ui/Button";
 import { useAuth } from "@/auth/AuthContext";
 import { PREMIUM_ROUTE } from "@/premium";
+import ReportAnswer from "@/components/ReportAnswer";
 
 type Palette = ReturnType<typeof themeColors>;
 
@@ -40,6 +41,7 @@ interface Turn {
   role: "user" | "assistant";
   content: string;
   sources?: Citation[];
+  reported?: boolean;
 }
 
 export default function Chat() {
@@ -78,6 +80,7 @@ export default function Chat() {
           role: m.role,
           content: m.content,
           sources: m.sources ?? undefined,
+          reported: m.reported,
         })),
       );
       setHasMore(messages.length === INITIAL);
@@ -99,6 +102,7 @@ export default function Chat() {
           role: m.role,
           content: m.content,
           sources: m.sources ?? undefined,
+          reported: m.reported,
         })),
         ...prev,
       ]);
@@ -142,7 +146,8 @@ export default function Chat() {
         if (event.type === "token") {
           updateLast((turn) => ({ ...turn, content: turn.content + event.value }));
         } else if (event.type === "meta") {
-          updateLast((turn) => ({ ...turn, sources: event.sources }));
+          // The saved answer's id comes with the sources, so the new answer can be reported straight away
+          updateLast((turn) => ({ ...turn, sources: event.sources, id: event.messageId ?? undefined }));
         }
       }
     } catch (err) {
@@ -277,6 +282,14 @@ export default function Chat() {
                   </Pressable>
                 ))}
               </View>
+            ) : null}
+
+            {turn.role === "assistant" && turn.id !== undefined ? (
+              <ReportAnswer
+                messageId={turn.id}
+                reported={!!turn.reported}
+                onReported={() => setTurns((prev) => prev.map((other) => (other.id === turn.id ? { ...other, reported: true } : other)))}
+              />
             ) : null}
           </Pressable>
         ))}

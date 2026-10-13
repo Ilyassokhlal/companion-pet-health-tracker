@@ -570,5 +570,20 @@
     "allSetBody": "所有步驟都已完成。",
     "settingLabel": "顯示「開始使用」卡片",
     "settingHint": "儀表板頂端的檢查清單，幫助您熟悉 Companion。"
+  },
+  "report": {
+    "flag": "檢舉此回答",
+    "title": "檢舉此回答",
+    "intro": "這個回答有什麼問題？您的檢舉能幫助我們改善 Companion 的回答。",
+    "reasons": {
+      "wrong_or_unsafe": "錯誤或不安全的建議",
+      "offensive": "冒犯或不當",
+      "off_topic": "離題",
+      "other": "其他"
+    },
+    "note": "新增備註（選填）",
+    "notice": "即使您清除對話，您的問題和此回答的副本也會隨檢舉一併保存，讓我們能持續提升這項服務的品質。",
+    "send": "送出檢舉",
+    "reported": "已檢舉"
   }
 }
