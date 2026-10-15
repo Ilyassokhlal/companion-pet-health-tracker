@@ -601,6 +601,8 @@
     "MXN": "Mexican Peso",
     "ZAR": "South African Rand",
     "MAD": "Moroccan Dirham",
-    "RUB": "Russian Ruble"
+    "RUB": "Russian Ruble",
+    "AED": "UAE Dirham",
+    "TWD": "New Taiwan Dollar"
   }
 }

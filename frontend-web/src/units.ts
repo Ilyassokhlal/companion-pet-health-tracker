@@ -62,6 +62,7 @@ export function formatDuration(minutes: number): string {
 const CURRENCY_SYMBOLS: Record<string, string> = {
   USD: "$", EUR: "€", GBP: "£", CAD: "CA$", AUD: "A$", CHF: "CHF", JPY: "¥",
   CNY: "CN¥", INR: "₹", BRL: "R$", MXN: "MX$", ZAR: "R", MAD: "MAD", RUB: "₽",
+  AED: "AED", TWD: "NT$",
 };
 
 // Currencies that are conventionally written without minor units (e.g., JPY has no cents).

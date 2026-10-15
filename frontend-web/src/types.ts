@@ -28,6 +28,8 @@ export const CURRENCIES = [
   { code: 'ZAR', name: 'South African Rand' },
   { code: 'MAD', name: 'Moroccan Dirham' },
   { code: 'RUB', name: 'Russian Ruble' },
+  { code: 'AED', name: 'UAE Dirham' },
+  { code: 'TWD', name: 'New Taiwan Dollar' },
 ] as const;
 
 // UI languages, labelled in their own script so someone can find their language whatever the
