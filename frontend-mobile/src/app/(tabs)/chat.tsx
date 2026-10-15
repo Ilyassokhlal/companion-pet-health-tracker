@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
+import type { NativeScrollEvent } from "react-native";
 import { useDialog } from "@/components/ui/DialogProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router, useFocusEffect } from "expo-router";
@@ -36,6 +37,11 @@ const makeMarkdownStyles = (c: Palette) => ({
   code_inline: { backgroundColor: c.ink, color: c.fg },
 });
 
+// Whether a scroll position shows the newest message, give or take a little
+function atEnd({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent): boolean {
+  return layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
+}
+
 interface Turn {
   id?: number;
   role: "user" | "assistant";
@@ -66,8 +72,10 @@ export default function Chat() {
   // True while older messages are being prepended, so onContentSizeChange leaves the view alone.
   const prepending = useRef(false);
   // The end of the conversation the view last scrolled down to: how many messages, the last one's id and its length.
-  // The view follows a new message, another pet's chat and an answer streaming in, and nothing else.
+  // A different end means a new message, another pet's chat or an answer streaming in.
   const followed = useRef("");
+  // Whether the view keeps to the newest message. Off once the reader scrolls up, on again back at the end.
+  const following = useRef(true);
 
   const load = useCallback(async () => {
     if (!currentPet) {
@@ -228,6 +236,13 @@ export default function Chat() {
         contentContainerStyle={{ padding: 16, gap: 12 }}
         // Anchors on the second child — index 0 is the Load older button — so prepending older messages does not shift what the reader is looking at.
         maintainVisibleContentPosition={{ minIndexForVisible: 1 }}
+        onScrollBeginDrag={() => {
+          following.current = false;
+        }}
+        // Where the reader lets go decides: back at the newest message, the view follows the conversation again
+        onScrollEndDrag={({ nativeEvent }) => {
+          following.current = atEnd(nativeEvent);
+        }}
         onContentSizeChange={() => {
           const last = turns[turns.length - 1];
           const end = `${turns.length}:${last?.id ?? ""}:${last?.content.length ?? 0}`;
@@ -237,10 +252,16 @@ export default function Chat() {
             followed.current = end;
             return;
           }
-          // A change inside an older message, such as its Reported label, keeps the reader where they are
-          if (end === followed.current) return;
-          followed.current = end;
-          scrollRef.current?.scrollToEnd({ animated: true });
+          // A new message, another pet's chat or an answer streaming in always brings the view down
+          if (end !== followed.current) {
+            followed.current = end;
+            following.current = true;
+          }
+          // Anything else follows only while the reader has not scrolled up: the answers settling into place keep the
+          // view at the newest message, and a Reported label further up leaves the reader where they are.
+          // The scroll waits a frame: the new height reaches the native view just after this event, and scrolling at
+          // once could stop at the old end, short of the newest answer.
+          if (following.current) requestAnimationFrame(() => scrollRef.current?.scrollToEnd({ animated: true }));
         }}
       >
         {hasMore ? (
@@ -280,17 +301,18 @@ export default function Chat() {
             )}
 
             {turn.sources && turn.sources.length > 0 ? (
-              <View className="mt-2 flex-row flex-wrap items-baseline">
-                <Text className="text-xs text-muted">{t("chat.sources")}</Text>
-                {turn.sources.map((s, i, all) => (
-                  <Pressable key={i} onPress={() => WebBrowser.openBrowserAsync(s.url)}>
-                    <Text className="text-xs text-primary">
+              // One line of text, as on the web, so right to left keeps each comma between its two sources
+              <Text className="mt-2 text-xs text-muted">
+                {t("chat.sources")}
+                {turn.sources.map((s, i) => (
+                  <Text key={i}>
+                    {i > 0 ? ", " : ""}
+                    <Text className="text-primary" onPress={() => WebBrowser.openBrowserAsync(s.url)}>
                       {s.section ? `${s.title} — ${s.section}` : s.title}
-                      {i < all.length - 1 ? ", " : ""}
                     </Text>
-                  </Pressable>
+                  </Text>
                 ))}
-              </View>
+              </Text>
             ) : null}
 
             {turn.role === "assistant" && turn.id !== undefined ? (
